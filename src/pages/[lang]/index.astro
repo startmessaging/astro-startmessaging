@@ -1,0 +1,40 @@
+---
+import { getEntry } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import ComponentRenderer from '@/components/ComponentRenderer.astro';
+import { ALL_LOCALES, DEFAULT_LOCALE, isValidLocale } from '@/i18n/locales';
+
+export async function getStaticPaths() {
+  const page = await getEntry('pages', 'home');
+  if (!page) return [];
+
+  const pageLocales = (page.data.locales ?? ALL_LOCALES) as string[];
+
+  // This route handles all non-default locales (English is at /index.astro)
+  return pageLocales
+    .filter((locale) => locale !== DEFAULT_LOCALE)
+    .map((locale) => ({
+      params: { lang: locale },
+      props: { page, lang: locale },
+    }));
+}
+
+const { page, lang } = Astro.props;
+const pageLocales = (page.data.locales ?? ALL_LOCALES) as string[];
+---
+
+<MarketingLayout
+  seo={page.data.seo}
+  lang={lang}
+  pageLocales={pageLocales}
+  slug=""
+>
+  {page.data.sections.map((section: any) => (
+    <ComponentRenderer
+      type={section.type}
+      props={section.props}
+      lang={lang}
+      locales={section.locales}
+    />
+  ))}
+</MarketingLayout>

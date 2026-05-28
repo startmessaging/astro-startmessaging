@@ -1,0 +1,118 @@
+---
+import MarketingLayout from './MarketingLayout.astro';
+
+interface TocEntry {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    publishedAt: Date | string;
+    author?: string;
+    tags?: string[];
+    ogImage?: string;
+  };
+  lang: string;
+  slug: string;
+  /** locales that have a version of this post (for hreflang) */
+  postLocales: string[];
+  headings?: TocEntry[];
+}
+
+const { frontmatter, lang, slug, postLocales, headings = [] } = Astro.props;
+
+const dateStr = new Date(frontmatter.publishedAt).toLocaleDateString(
+  lang === 'pt-br' ? 'pt-BR' : 'en-US',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
+
+const tocItems = headings.filter((h) => h.depth <= 3);
+---
+
+<MarketingLayout
+  seo={{
+    title:       frontmatter.title,
+    description: frontmatter.description,
+    ogImage:     frontmatter.ogImage,
+  }}
+  lang={lang}
+  pageLocales={postLocales}
+  slug={`blog/${slug}`}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-12 xl:gap-16 items-start">
+
+      <!-- Main article -->
+      <article>
+
+        <!-- Header -->
+        <header class="mb-10">
+          {frontmatter.tags?.length && (
+            <div class="flex flex-wrap gap-2 mb-4">
+              {frontmatter.tags.map((tag) => (
+                <span class="inline-flex items-center rounded-full bg-primary-disabled text-primary text-xs font-medium px-3 py-1">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <h1 class="text-display-md font-bold text-ink leading-tight mb-4">
+            {frontmatter.title}
+          </h1>
+
+          <p class="text-display-sm text-muted mb-6">
+            {frontmatter.description}
+          </p>
+
+          <div class="flex items-center gap-3 text-sm text-muted border-b border-hairline pb-6">
+            {frontmatter.author && (
+              <>
+                <span class="font-medium text-body">{frontmatter.author}</span>
+                <span aria-hidden="true">·</span>
+              </>
+            )}
+            <time datetime={new Date(frontmatter.publishedAt).toISOString()}>{dateStr}</time>
+          </div>
+        </header>
+
+        <!-- Body -->
+        <div class="prose prose-blog max-w-none">
+          <slot />
+        </div>
+
+      </article>
+
+      <!-- TOC sidebar (hidden on mobile) -->
+      {tocItems.length > 0 && (
+        <aside class="hidden lg:block">
+          <nav
+            aria-label={lang === 'pt-br' ? 'Nesta página' : 'On this page'}
+            class="sticky top-24 rounded-md border border-hairline bg-surface-soft p-5"
+          >
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted mb-4">
+              {lang === 'pt-br' ? 'Nesta página' : 'On this page'}
+            </p>
+            <ul class="space-y-2">
+              {tocItems.map((item) => (
+                <li style={`padding-left: ${(item.depth - 2) * 12}px`}>
+                  <a
+                    href={`#${item.slug}`}
+                    class="text-sm text-muted hover:text-body transition-colors line-clamp-2"
+                  >
+                    {item.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+      )}
+
+    </div>
+  </div>
+</MarketingLayout>

@@ -1,0 +1,100 @@
+{
+  "locales": ["en", "pt-br"],
+
+  "seo": {
+    "title": {
+      "en":    "StartMessaging — WhatsApp Business API for Growing Teams",
+      "pt-br": "StartMessaging — API WhatsApp Business para Equipes em Crescimento"
+    },
+    "description": {
+      "en":    "Send WhatsApp messages at scale. Broadcasts, chatbots, and automation for businesses reaching customers worldwide.",
+      "pt-br": "Envie mensagens WhatsApp em escala. Transmissões, chatbots e automação para empresas que alcançam clientes no mundo todo."
+    },
+    "ogImage": "/og/home.png"
+  },
+
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge":    { "en": "WhatsApp Business API", "pt-br": "API WhatsApp Business" },
+        "title":    { "en": "Reach customers on WhatsApp at scale", "pt-br": "Alcance clientes no WhatsApp em escala" },
+        "subtitle": {
+          "en":    "Send broadcasts, run chatbots, and automate conversations — all through the official WhatsApp Business API.",
+          "pt-br": "Envie transmissões, execute chatbots e automatize conversas — tudo pela API oficial do WhatsApp Business."
+        },
+        "primaryCta":  { "en": "Start Free", "pt-br": "Começar Grátis" },
+        "primaryHref": "/signup",
+        "secondaryCta":  { "en": "See how it works", "pt-br": "Veja como funciona" },
+        "secondaryHref": "/whatsapp",
+        "image": "/images/hero-dashboard.png",
+        "imageAlt": { "en": "StartMessaging dashboard", "pt-br": "Painel StartMessaging" }
+      }
+    },
+    {
+      "type": "statsBar",
+      "props": {
+        "stats": [
+          { "value": "10M+",  "label": { "en": "Messages sent daily",  "pt-br": "Mensagens por dia" } },
+          { "value": "99.9%", "label": { "en": "Delivery rate",        "pt-br": "Taxa de entrega" } },
+          { "value": "150+",  "label": { "en": "Countries supported",  "pt-br": "Países atendidos" } },
+          { "value": "< 2s",  "label": { "en": "Average delivery",     "pt-br": "Entrega média" } }
+        ]
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge":    { "en": "Features", "pt-br": "Funcionalidades" },
+        "heading":  { "en": "Everything you need to message at scale", "pt-br": "Tudo que você precisa para mensagens em escala" },
+        "subheading": {
+          "en":    "From single API calls to full campaign management — we cover every WhatsApp use case.",
+          "pt-br": "De chamadas de API simples ao gerenciamento completo de campanhas — cobrimos todos os casos de uso do WhatsApp."
+        },
+        "items": [
+          {
+            "icon": "broadcast",
+            "title":       { "en": "Bulk Broadcasts",    "pt-br": "Transmissões em Massa" },
+            "description": { "en": "Send templated messages to thousands of opted-in contacts in minutes.", "pt-br": "Envie mensagens padronizadas para milhares de contatos em minutos." }
+          },
+          {
+            "icon": "bot",
+            "title":       { "en": "Chatbots",           "pt-br": "Chatbots" },
+            "description": { "en": "Build no-code conversation flows that handle support, sales, and bookings 24/7.", "pt-br": "Crie fluxos de conversa sem código que gerenciam suporte, vendas e agendamentos 24/7." }
+          },
+          {
+            "icon": "api",
+            "title":       { "en": "REST API",           "pt-br": "API REST" },
+            "description": { "en": "Simple HTTP endpoints to send messages, manage contacts, and receive webhooks.", "pt-br": "Endpoints HTTP simples para enviar mensagens, gerenciar contatos e receber webhooks." }
+          },
+          {
+            "icon": "analytics",
+            "title":       { "en": "Analytics",          "pt-br": "Análises" },
+            "description": { "en": "Real-time delivery receipts, open rates, and reply tracking in one dashboard.", "pt-br": "Confirmações de entrega em tempo real, taxas de abertura e rastreamento de respostas." }
+          },
+          {
+            "icon": "template",
+            "title":       { "en": "Message Templates",  "pt-br": "Modelos de Mensagem" },
+            "description": { "en": "Pre-approved templates for transactional messages, OTPs, and marketing campaigns.", "pt-br": "Modelos pré-aprovados para mensagens transacionais, OTPs e campanhas de marketing." }
+          },
+          {
+            "icon": "shield",
+            "title":       { "en": "Compliance Ready",   "pt-br": "Conformidade Garantida" },
+            "description": { "en": "GDPR-compliant opt-in flows, data residency options, and 99.9% SLA uptime.", "pt-br": "Fluxos de opt-in conformes com a LGPD, opções de residência de dados e SLA de 99,9%." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading":  { "en": "Ready to start messaging?",       "pt-br": "Pronto para começar a enviar mensagens?" },
+        "subtext":  { "en": "Free plan available. No credit card required.", "pt-br": "Plano gratuito disponível. Sem necessidade de cartão de crédito." },
+        "primaryCta":    { "en": "Get Started Free", "pt-br": "Começar Grátis" },
+        "primaryHref":   "/signup",
+        "secondaryCta":  { "en": "Talk to Sales",   "pt-br": "Falar com Vendas" },
+        "secondaryHref": "/contact"
+      }
+    }
+  ]
+}

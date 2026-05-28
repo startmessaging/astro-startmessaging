@@ -1,0 +1,72 @@
+---
+/**
+ * FeaturesGrid — icon + title + description card grid.
+ *
+ * Example JSON:
+ * {
+ *   "type": "featuresGrid",
+ *   "props": {
+ *     "badge":      { "en": "Features" },
+ *     "heading":    { "en": "Everything you need" },
+ *     "subheading": { "en": "..." },
+ *     "columns": 3,
+ *     "items": [
+ *       { "icon": "broadcast", "title": { "en": "Broadcasts" }, "description": { "en": "..." } }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, items = [], columns = 3, lang } = Astro.props;
+
+const icons: Record<string, string> = {
+  broadcast: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+  bot:       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M12 11V7"/><circle cx="12" cy="5" r="2"/><path d="M8 15h.01M16 15h.01"/></svg>`,
+  api:       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>`,
+  analytics: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  template:  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+  shield:    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+};
+
+const gridCols = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
+}[columns as 2 | 3 | 4] ?? 'sm:grid-cols-2 lg:grid-cols-3';
+---
+
+<Section>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-12 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, lang)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, lang)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, lang)}</Text>}
+      </div>
+    )}
+
+    <ul class={`grid grid-cols-1 gap-8 ${gridCols}`}>
+      {items.map((item: any) => (
+        <li class="flex flex-col gap-4 p-6 rounded-md border border-hairline bg-canvas hover:shadow-card transition-shadow">
+          {item.icon && icons[item.icon] && (
+            <div class="w-10 h-10 text-primary" set:html={icons[item.icon]} />
+          )}
+          <div>
+            <Heading as="h3" size="title-md" class="mb-2">
+              {r(item.title, lang)}
+            </Heading>
+            <Text size="body-sm" tone="body">
+              {r(item.description, lang)}
+            </Text>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>

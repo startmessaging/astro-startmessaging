@@ -1,0 +1,88 @@
+---
+title: "O Guia Completo da API WhatsApp Business"
+description: "Tudo o que você precisa saber para começar a enviar mensagens WhatsApp programaticamente — da configuração ao primeiro envio em massa."
+publishedAt: 2026-05-01
+author: "Equipe StartMessaging"
+tags: ["whatsapp", "api", "guia"]
+ogImage: "/og/blog-whatsapp-api-guide.png"
+lang: "pt-br"
+---
+
+## O que é a API WhatsApp Business?
+
+A API WhatsApp Business é o canal oficial para médias e grandes empresas se comunicarem com clientes em escala no WhatsApp. Ao contrário do aplicativo WhatsApp Business (projetado para pequenas empresas usando um celular), a API permite:
+
+- Enviar mensagens programaticamente a partir dos seus próprios sistemas
+- Integrar com seu CRM, plataforma de e-commerce ou ferramentas de suporte
+- Lidar com grandes volumes de mensagens — milhares por minuto
+- Automatizar conversas com chatbots e fluxos de trabalho
+
+O acesso é concedido por Provedores de Soluções de Negócios (BSPs) oficiais como a StartMessaging, que gerenciam a integração com a infraestrutura da Meta.
+
+## Como a API funciona
+
+No núcleo, a API WhatsApp Business é uma API REST HTTP. Você envia uma requisição `POST` para enviar uma mensagem, e a Meta a entrega para o aplicativo WhatsApp do destinatário.
+
+```json
+POST https://graph.facebook.com/v19.0/{phone-number-id}/messages
+Authorization: Bearer {access-token}
+
+{
+  "messaging_product": "whatsapp",
+  "to": "5511999990000",
+  "type": "template",
+  "template": {
+    "name": "confirmacao_pedido",
+    "language": { "code": "pt_BR" }
+  }
+}
+```
+
+As respostas chegam via **webhooks** — a Meta envia um `POST` ao seu servidor quando uma mensagem é entregue, lida ou respondida.
+
+## Modelos de mensagem
+
+A maioria das mensagens enviadas por iniciativa da empresa deve usar **modelos de mensagem** pré-aprovados. Os modelos são revisados pela Meta antes do uso e devem seguir diretrizes rígidas de conteúdo.
+
+Existem três categorias:
+
+| Categoria | Caso de uso | Preço |
+|---|---|---|
+| Utilidade | Atualizações de pedido, OTPs, notificações de envio | Mais baixo |
+| Autenticação | Apenas senhas de uso único | Mais baixo |
+| Marketing | Promoções, reengajamento, anúncios | Mais alto |
+
+Depois que um cliente responde ao seu modelo, uma **janela de sessão de 24 horas** é aberta, durante a qual você pode trocar mensagens de texto livre.
+
+## Configurando com a StartMessaging
+
+1. **Crie uma conta** em [startmessaging.com](https://startmessaging.com)
+2. **Conecte sua conta WhatsApp Business** — guiamos você pelo processo de verificação da Meta
+3. **Obtenha suas credenciais de API** — ID do número de telefone e token de acesso no seu painel
+4. **Envie sua primeira mensagem** usando nossa API REST ou um dos SDKs oficiais
+
+Todo o processo leva menos de 30 minutos para a maioria das empresas.
+
+## Enviando um broadcast
+
+O envio em massa permite que você envie uma mensagem de modelo para uma lista de contatos que deram opt-in em uma única chamada de API:
+
+```json
+POST /v1/broadcasts
+{
+  "template": "confirmacao_pedido",
+  "contacts": ["+5511999990000", "+5511888880000"],
+  "parameters": {
+    "order_id": "PED-12345",
+    "amount": "R$299,90"
+  }
+}
+```
+
+Nossa plataforma enfileira, limita e tenta novamente a entrega automaticamente, e fornece confirmações de entrega por mensagem em tempo real.
+
+## Próximos passos
+
+- [Configurando webhooks](/docs/whatsapp/webhooks)
+- [Diretrizes de modelos de mensagem](/docs/whatsapp/message-templates)
+- [Chatbots no WhatsApp](/whatsapp/chatbots)

@@ -1,0 +1,57 @@
+---
+/**
+ * CtaBlock — full-width CTA banner on ink background.
+ *
+ * Example JSON:
+ * {
+ *   "type": "ctaBlock",
+ *   "props": {
+ *     "heading":       { "en": "Ready to start messaging?" },
+ *     "subtext":       { "en": "Free plan available. No credit card required." },
+ *     "primaryCta":    { "en": "Get Started Free" },
+ *     "primaryHref":   "/signup",
+ *     "secondaryCta":  { "en": "Talk to Sales" },
+ *     "secondaryHref": "/contact"
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Button from '@/components/ui/Button.astro';
+import { r } from '@/i18n/r';
+
+const { heading, subtext, primaryCta, primaryHref, secondaryCta, secondaryHref, lang } = Astro.props;
+---
+
+<Section variant="ink">
+  <Container>
+    <div class="flex flex-col items-center text-center gap-6">
+
+      <Heading as="h2" class="!text-canvas">
+        {r(heading, lang)}
+      </Heading>
+
+      {subtext && (
+        <Text size="body-md" tone="muted-soft" class="max-w-md">
+          {r(subtext, lang)}
+        </Text>
+      )}
+
+      <div class="flex flex-wrap gap-3 justify-center">
+        {primaryCta && primaryHref && (
+          <Button href={primaryHref} variant="primary" size="md">
+            {r(primaryCta, lang)}
+          </Button>
+        )}
+        {secondaryCta && secondaryHref && (
+          <Button href={secondaryHref} variant="secondary" size="md" class="!border-canvas !text-canvas hover:!bg-white/10">
+            {r(secondaryCta, lang)}
+          </Button>
+        )}
+      </div>
+
+    </div>
+  </Container>
+</Section>

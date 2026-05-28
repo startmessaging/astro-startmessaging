@@ -1,0 +1,31 @@
+---
+/**
+ * Semantic heading with design-system size variants.
+ * Always maps to the correct HTML element for SEO/a11y.
+ */
+type HeadingSize = 'display-xl' | 'display-lg' | 'display-md' | 'display-sm' | 'title-md' | 'title-sm';
+
+interface Props {
+  as: 'h1' | 'h2' | 'h3' | 'h4';
+  size?: HeadingSize;
+  class?: string;
+}
+const { as: Tag, size, class: cls = '' } = Astro.props as Props;
+
+const defaultSize: Record<'h1' | 'h2' | 'h3' | 'h4', HeadingSize> = {
+  h1: 'display-xl', h2: 'display-md', h3: 'display-sm', h4: 'title-md',
+};
+const resolved: HeadingSize = size ?? defaultSize[Tag];
+
+const sizeClass: Record<HeadingSize, string> = {
+  'display-xl': 'text-display-xl font-bold    leading-tight',
+  'display-lg': 'text-display-lg font-medium  leading-snug',
+  'display-md': 'text-display-md font-bold    leading-snug',
+  'display-sm': 'text-display-sm font-semibold leading-snug',
+  'title-md':   'text-title-md   font-semibold leading-normal',
+  'title-sm':   'text-title-sm   font-medium   leading-normal',
+};
+---
+<Tag class:list={[sizeClass[resolved], 'text-ink', cls]}>
+  <slot />
+</Tag>

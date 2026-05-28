@@ -1,0 +1,90 @@
+---
+// Non-English blog listing: /pt-br/blog
+import { getCollection } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import { DEFAULT_LOCALE } from '@/i18n/locales';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  const localesWithPosts = new Set(
+    posts
+      .filter((p) => !p.id.startsWith(`${DEFAULT_LOCALE}/`))
+      .map((p) => p.id.split('/')[0])
+  );
+
+  return [...localesWithPosts].map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const posts = await getCollection('blog');
+
+const localePosts = posts
+  .filter((p) => p.id.startsWith(`${lang}/`))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const labels: Record<string, { heading: string; tagline: string }> = {
+  'pt-br': {
+    heading: 'Blog',
+    tagline: 'Guias, dicas e atualizações sobre a API WhatsApp Business.',
+  },
+};
+const label = labels[lang] ?? { heading: 'Blog', tagline: '' };
+---
+
+<MarketingLayout
+  seo={{
+    title: `Blog — StartMessaging`,
+    description: label.tagline,
+  }}
+  lang={lang}
+  pageLocales={[lang]}
+  slug="blog"
+>
+  <Container>
+    <div class="py-16">
+      <h1 class="text-display-md font-bold text-ink mb-4">{label.heading}</h1>
+      <p class="text-display-sm text-muted mb-12">{label.tagline}</p>
+
+      <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {localePosts.map((post) => {
+          const slug = post.id.split('/').slice(1).join('/');
+          const locale = lang === 'pt-br' ? 'pt-BR' : 'en-US';
+          const dateStr = post.data.publishedAt.toLocaleDateString(locale, {
+            year: 'numeric', month: 'long', day: 'numeric',
+          });
+          return (
+            <li>
+              <a
+                href={`/${lang}/blog/${slug}`}
+                class="group block rounded-md border border-hairline bg-surface-soft overflow-hidden hover:shadow-card transition-shadow"
+              >
+                <div class="p-6">
+                  {post.data.tags?.length && (
+                    <div class="flex flex-wrap gap-2 mb-3">
+                      {post.data.tags.slice(0, 2).map((tag) => (
+                        <span class="text-xs font-medium text-primary bg-primary-disabled px-2.5 py-0.5 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <h2 class="text-title-md font-semibold text-ink group-hover:text-primary transition-colors mb-2 line-clamp-2">
+                    {post.data.title}
+                  </h2>
+                  <p class="text-sm text-muted line-clamp-3 mb-4">
+                    {post.data.description}
+                  </p>
+                  <time class="text-xs text-muted" datetime={post.data.publishedAt.toISOString()}>
+                    {dateStr}
+                  </time>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </Container>
+</MarketingLayout>

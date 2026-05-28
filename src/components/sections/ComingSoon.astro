@@ -1,0 +1,53 @@
+---
+/**
+ * ComingSoon — placeholder for pages not yet built.
+ *
+ * Example JSON:
+ * { "type": "comingSoon", "props": { "title": { "en": "Pricing" } } }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Button from '@/components/ui/Button.astro';
+import { r } from '@/i18n/r';
+import { t } from '@/i18n/t';
+
+const { title, lang } = Astro.props;
+---
+
+<Section>
+  <Container>
+    <div class="flex flex-col items-center justify-center text-center py-24 gap-6 min-h-[60vh]">
+
+      <!-- Icon -->
+      <div class="w-16 h-16 rounded-full bg-primary-disabled flex items-center justify-center text-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+
+      {title && (
+        <Text size="caption" tone="muted" class="uppercase tracking-widest">
+          {r(title, lang)}
+        </Text>
+      )}
+
+      <Heading as="h1" size="display-lg">
+        {lang === 'pt-br' ? 'Em breve' : 'Coming Soon'}
+      </Heading>
+
+      <Text tone="muted" class="max-w-sm">
+        {lang === 'pt-br'
+          ? 'Estamos trabalhando nesta página. Volte em breve.'
+          : "We're building this page. Check back soon."}
+      </Text>
+
+      <Button href={lang === 'pt-br' ? '/pt-br/' : '/'} variant="secondary" size="sm">
+        {t('nav.home', lang)}
+      </Button>
+
+    </div>
+  </Container>
+</Section>

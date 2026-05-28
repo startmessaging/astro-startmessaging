@@ -1,0 +1,163 @@
+---
+/**
+ * MarketingLayout — wraps all marketing pages with nav + footer.
+ *
+ * Nav and footer items are locale-driven: only items defined in nav.ts
+ * for the current locale are rendered. Add items there when a new page
+ * goes live in a given language.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import Button from '@/components/ui/Button.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { ALL_LOCALES, LOCALE_LABEL, type Locale } from '@/i18n/locales';
+import {
+  NAV_ITEMS,
+  NAV_CTA,
+  FOOTER_COLUMNS,
+  FOOTER_BRAND_TAGLINE,
+  FOOTER_LEGAL,
+} from '@/i18n/nav';
+
+interface Props {
+  seo: {
+    title: any;
+    description: any;
+    ogImage?: string;
+    jsonLd?: Record<string, unknown>;
+  };
+  lang: string;
+  pageLocales?: string[];
+  slug?: string;
+}
+
+const { seo, lang, pageLocales, slug } = Astro.props;
+const locale = lang as Locale;
+
+const navItems  = NAV_ITEMS[locale]  ?? NAV_ITEMS['en'];
+const navCta    = NAV_CTA[locale]    ?? NAV_CTA['en'];
+const footerCols = FOOTER_COLUMNS[locale] ?? FOOTER_COLUMNS['en'];
+const footerTagline = FOOTER_BRAND_TAGLINE[locale] ?? FOOTER_BRAND_TAGLINE['en'];
+const legal = FOOTER_LEGAL[locale]   ?? FOOTER_LEGAL['en'];
+---
+
+<BaseLayout {seo} {lang} {pageLocales} {slug}>
+
+  <!-- ─── Navigation ──────────────────────────────────────────────────── -->
+  <header class="sticky top-0 z-50 bg-canvas border-b border-hairline h-20">
+    <Container class="h-full flex items-center justify-between gap-6">
+
+      <!-- Logo -->
+      <a href={getRelativeLocaleUrl(lang, '/')} class="font-bold text-display-sm text-ink shrink-0">
+        StartMessaging
+      </a>
+
+      <!-- Nav links (desktop) -->
+      <nav class="hidden md:flex items-center gap-6" aria-label="Main navigation">
+        {navItems.map((item) => (
+          <a
+            href={getRelativeLocaleUrl(lang, item.href)}
+            class="text-body-md text-muted hover:text-ink transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-3 shrink-0">
+
+        <!-- Language switcher -->
+        {ALL_LOCALES.length > 1 && (
+          <div class="hidden sm:flex items-center gap-1 text-body-sm">
+            {ALL_LOCALES.map((loc: Locale) => (
+              <a
+                href={getRelativeLocaleUrl(loc, slug || '/')}
+                class:list={[
+                  'px-2 py-0.5 rounded hover:text-ink transition-colors',
+                  loc === locale ? 'font-semibold text-ink' : 'text-muted',
+                ]}
+                hreflang={loc}
+                title={LOCALE_LABEL[loc]}
+              >
+                {loc.toUpperCase()}
+              </a>
+            ))}
+          </div>
+        )}
+
+        <a href="/login" class="hidden sm:inline text-body-sm text-muted hover:text-ink transition-colors">
+          {navCta.login}
+        </a>
+
+        <Button href="/signup" variant="primary" size="sm">
+          {navCta.cta}
+        </Button>
+      </div>
+
+    </Container>
+  </header>
+
+  <!-- ─── Page content ─────────────────────────────────────────────────── -->
+  <main>
+    <slot />
+  </main>
+
+  <!-- ─── Footer ───────────────────────────────────────────────────────── -->
+  <footer class="border-t border-hairline bg-canvas pt-[var(--spacing-xxl)] pb-[var(--spacing-section)]">
+    <Container>
+
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-4 mb-12">
+
+        <!-- Brand column -->
+        <div class="col-span-2 sm:col-span-3 lg:col-span-1">
+          <a href={getRelativeLocaleUrl(lang, '/')} class="font-bold text-title-md text-ink">
+            StartMessaging
+          </a>
+          <p class="mt-3 text-body-sm text-muted max-w-xs">
+            {footerTagline}
+          </p>
+        </div>
+
+        <!-- Locale-specific link columns -->
+        {footerCols.map((col) => (
+          <div>
+            <h3 class="text-title-sm font-medium text-ink mb-3">
+              {col.heading}
+            </h3>
+            <ul class="flex flex-col gap-2">
+              {col.links.map((link) => (
+                <li>
+                  <a
+                    href={getRelativeLocaleUrl(lang, link.href)}
+                    class="text-body-sm text-muted hover:text-ink transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+      </div>
+
+      <!-- Legal band -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-hairline">
+        <p class="text-caption-sm text-muted">
+          {legal.copyright}
+        </p>
+        <div class="flex gap-4">
+          <a href={getRelativeLocaleUrl(lang, 'privacy')} class="text-caption-sm text-muted hover:text-ink transition-colors">
+            {legal.privacy}
+          </a>
+          <a href={getRelativeLocaleUrl(lang, 'terms')} class="text-caption-sm text-muted hover:text-ink transition-colors">
+            {legal.terms}
+          </a>
+        </div>
+      </div>
+
+    </Container>
+  </footer>
+
+</BaseLayout>

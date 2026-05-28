@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────────
+   Single source of truth for the StartMessaging design system.
+   To rebrand: change values here only. Components reference these tokens.
+   See DESIGN_SYSTEM.md for the full token reference.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Colors — Brand */
+  --color-primary:          #ff385c;   /* brand CTA — swap here to rebrand */
+  --color-primary-active:   #e00b41;
+  --color-primary-disabled: #ffd1da;
+  --color-on-primary:       #ffffff;
+
+  /* Colors — Canvas & Surfaces */
+  --color-canvas:           #ffffff;
+  --color-surface-soft:     #f7f7f7;
+  --color-surface-strong:   #f2f2f2;
+
+  /* Colors — Text hierarchy */
+  --color-ink:              #222222;   /* headlines, primary nav */
+  --color-body:             #3f3f3f;   /* long-form body copy */
+  --color-muted:            #6a6a6a;   /* sub-titles, meta, inactive */
+  --color-muted-soft:       #929292;   /* disabled text */
+
+  /* Colors — Borders */
+  --color-hairline:         #dddddd;   /* default 1px dividers */
+  --color-hairline-soft:    #ebebeb;   /* lighter separators */
+  --color-border-strong:    #c1c1c1;   /* focused input outlines */
+
+  /* Colors — Semantic */
+  --color-error:            #c13515;
+  --color-error-hover:      #b32505;
+  --color-scrim:            rgba(0, 0, 0, 0.5);
+
+  /* Typography — Font family */
+  --font-sans: 'Inter', -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  /* Typography — Scale (matches the described system) */
+  --text-display-xl:  1.75rem;   /* 28px / 700 — hero headline */
+  --text-display-lg:  1.375rem;  /* 22px / 500 — page h1 */
+  --text-display-md:  1.3125rem; /* 21px / 700 — section heads */
+  --text-display-sm:  1.25rem;   /* 20px / 600 — sub-section titles */
+  --text-title-md:    1rem;      /* 16px / 600 — card titles */
+  --text-title-sm:    1rem;      /* 16px / 500 — footer column heads */
+  --text-body-md:     1rem;      /* 16px / 400 — default body */
+  --text-body-sm:     0.875rem;  /* 14px / 400 — card meta */
+  --text-caption:     0.875rem;  /* 14px / 500 — labels */
+  --text-caption-sm:  0.8125rem; /* 13px / 400 — legal line */
+  --text-badge:       0.6875rem; /* 11px / 600 — floating badge */
+  --text-micro:       0.75rem;   /* 12px / 700 — micro-labels */
+  --text-button-md:   1rem;      /* 16px / 500 — CTA labels */
+  --text-button-sm:   0.875rem;  /* 14px / 500 — pill button labels */
+
+  /* Spacing — 4px base system */
+  --spacing-xxs:     0.125rem;   /* 2px  */
+  --spacing-xs:      0.25rem;    /* 4px  */
+  --spacing-sm:      0.5rem;     /* 8px  */
+  --spacing-md:      0.75rem;    /* 12px */
+  --spacing-base:    1rem;       /* 16px */
+  --spacing-lg:      1.5rem;     /* 24px */
+  --spacing-xl:      2rem;       /* 32px */
+  --spacing-xxl:     3rem;       /* 48px */
+  --spacing-section: 4rem;       /* 64px — major section vertical padding */
+
+  /* Border radius */
+  --radius-sm:   0.5rem;         /* 8px  — buttons, inputs */
+  --radius-md:   0.875rem;       /* 14px — cards */
+  --radius-xl:   2rem;           /* 32px — category strips */
+  --radius-full: 9999px;         /* pills, orbs, circles */
+
+  /* Elevation — single tier */
+  --shadow-card: rgba(0,0,0,0.02) 0 0 0 1px,
+                 rgba(0,0,0,0.04) 0 2px 6px 0,
+                 rgba(0,0,0,0.10) 0 4px 8px 0;
+
+  /* Container */
+  --container-max:   80rem;      /* 1280px */
+  --container-px:    1rem;       /* 16px mobile gutter */
+}
+
+/* ─── Base styles ─────────────────────────────────────────────────────────── */
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--color-ink);
+    background-color: var(--color-canvas);
+  }
+
+  body {
+    margin: 0;
+    line-height: 1.5;
+    color: var(--color-ink);
+    background-color: var(--color-canvas);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    line-height: 1.2;
+    color: var(--color-ink);
+  }
+
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+}
+
+/* ─── Prose styles (blog / docs content) ──────────────────────────────────── */
+
+.prose h2 { font-size: var(--text-display-md); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; scroll-margin-top: 6rem; }
+.prose h3 { font-size: var(--text-display-sm); font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; }
+.prose h4 { font-size: var(--text-title-md);   font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.prose p  { font-size: var(--text-body-md); line-height: 1.75; color: var(--color-body); margin-bottom: 1rem; }
+.prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; color: var(--color-body); }
+.prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; color: var(--color-body); }
+.prose li { line-height: 1.75; margin-bottom: 0.25rem; }
+.prose a  { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+.prose a:hover { color: var(--color-primary-active); }
+.prose strong  { font-weight: 600; color: var(--color-ink); }
+.prose blockquote { border-left: 3px solid var(--color-primary); padding-left: 1rem; color: var(--color-muted); font-style: italic; margin: 1.5rem 0; }
+.prose pre  { background: var(--color-surface-soft); border: 1px solid var(--color-hairline); border-radius: var(--radius-sm); padding: 1rem; overflow-x: auto; margin-bottom: 1rem; }
+.prose code { font-family: var(--font-mono); font-size: 0.875em; background: var(--color-surface-soft); border-radius: 3px; padding: 0.125em 0.375em; }
+.prose pre code { background: transparent; padding: 0; font-size: var(--text-body-sm); }
+.prose hr { border: none; border-top: 1px solid var(--color-hairline); margin: 2rem 0; }
+.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: var(--text-body-sm); }
+.prose th { background: var(--color-surface-soft); font-weight: 600; text-align: left; padding: 0.5rem 0.75rem; border: 1px solid var(--color-hairline); }
+.prose td { padding: 0.5rem 0.75rem; border: 1px solid var(--color-hairline); color: var(--color-body); }

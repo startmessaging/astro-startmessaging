@@ -1,0 +1,31 @@
+---
+type As   = 'p' | 'span' | 'div' | 'li' | 'dt' | 'dd';
+type Size = 'body-md' | 'body-sm' | 'caption' | 'caption-sm';
+type Tone = 'default' | 'body' | 'muted' | 'muted-soft' | 'on-primary';
+
+interface Props {
+  as?:    As;
+  size?:  Size;
+  tone?:  Tone;
+  class?: string;
+}
+const { as: Tag = 'p', size = 'body-md', tone = 'body', class: cls = '' } = Astro.props;
+
+const sizeClass: Record<Size, string> = {
+  'body-md':    'text-body-md    leading-relaxed',
+  'body-sm':    'text-body-sm    leading-normal',
+  'caption':    'text-caption    font-medium',
+  'caption-sm': 'text-caption-sm leading-tight',
+};
+
+const toneClass: Record<Tone, string> = {
+  'default':    'text-ink',
+  'body':       'text-body',
+  'muted':      'text-muted',
+  'muted-soft': 'text-muted-soft',
+  'on-primary': 'text-on-primary',
+};
+---
+<Tag class:list={[sizeClass[size], toneClass[tone], cls]}>
+  <slot />
+</Tag>

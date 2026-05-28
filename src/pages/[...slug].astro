@@ -1,0 +1,47 @@
+---
+// English marketing pages: /pricing  /whatsapp  /whatsapp/bulk-messaging  etc.
+import { getCollection } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import ComponentRenderer from '@/components/ComponentRenderer.astro';
+import { ALL_LOCALES, DEFAULT_LOCALE } from '@/i18n/locales';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+
+  return pages
+    .filter((page) => {
+      // Skip home — handled by index.astro
+      // Skip pages not available in English
+      const locales = (page.data.locales ?? ALL_LOCALES) as string[];
+      return page.id !== 'home' && locales.includes(DEFAULT_LOCALE);
+    })
+    .map((page) => {
+      // "whatsapp/index" → "whatsapp"  |  "pricing" → "pricing"
+      const slug = page.id.replace(/\/index$/, '');
+      const locales = (page.data.locales ?? ALL_LOCALES) as string[];
+      return {
+        params: { slug },
+        props: { page, lang: DEFAULT_LOCALE, pageLocales: locales },
+      };
+    });
+}
+
+const { page, lang, pageLocales } = Astro.props;
+const slug = Astro.params.slug ?? '';
+---
+
+<MarketingLayout
+  seo={page.data.seo}
+  lang={lang}
+  pageLocales={pageLocales}
+  slug={slug}
+>
+  {page.data.sections.map((section: any) => (
+    <ComponentRenderer
+      type={section.type}
+      props={section.props}
+      lang={lang}
+      locales={section.locales}
+    />
+  ))}
+</MarketingLayout>

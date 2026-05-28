@@ -1,0 +1,38 @@
+---
+/**
+ * StatsBar — a horizontal strip of key numbers on a soft background.
+ *
+ * Example JSON:
+ * {
+ *   "type": "statsBar",
+ *   "props": {
+ *     "stats": [
+ *       { "value": "10M+", "label": { "en": "Messages sent daily" } }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Text from '@/components/ui/Text.astro';
+import { r } from '@/i18n/r';
+
+const { stats = [], lang } = Astro.props;
+---
+
+<Section variant="soft">
+  <Container>
+    <dl class="grid grid-cols-2 gap-8 sm:grid-cols-4">
+      {stats.map((stat: any) => (
+        <div class="flex flex-col items-center text-center gap-1">
+          <Text as="dt" size="body-md" tone="default" class="text-display-md font-bold text-primary">
+            {stat.value}
+          </Text>
+          <Text as="dd" size="body-sm" tone="muted">
+            {r(stat.label, lang)}
+          </Text>
+        </div>
+      ))}
+    </dl>
+  </Container>
+</Section>

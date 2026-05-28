@@ -1,0 +1,39 @@
+---
+/**
+ * Button / link-as-button.
+ * Always renders an <a> when href is provided, <button> otherwise.
+ */
+type Variant = 'primary' | 'secondary' | 'ghost';
+type Size = 'md' | 'sm';
+
+interface Props {
+  variant?: Variant;
+  size?: Size;
+  href?: string;
+  class?: string;
+  disabled?: boolean;
+}
+const { variant = 'primary', size = 'md', href, class: cls = '', disabled = false } = Astro.props as Props;
+const Tag = href ? 'a' : 'button';
+
+const base = 'inline-flex items-center justify-center font-medium transition-colors rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
+
+const sizeClass: Record<Size, string> = {
+  md: 'h-12 px-6 text-button-md',
+  sm: 'h-9  px-4 text-button-sm',
+};
+
+const variantClass: Record<Variant, string> = {
+  primary:   'bg-primary text-on-primary hover:bg-primary-active disabled:bg-primary-disabled',
+  secondary: 'bg-transparent text-ink border border-ink hover:bg-surface-soft',
+  ghost:     'bg-transparent text-ink hover:bg-surface-soft',
+};
+---
+<Tag
+  href={href}
+  class:list={[base, sizeClass[size], variantClass[variant], cls]}
+  disabled={Tag === 'button' ? disabled : undefined}
+  aria-disabled={disabled || undefined}
+>
+  <slot />
+</Tag>

@@ -1,0 +1,22 @@
+---
+type Tone = 'primary' | 'muted' | 'success';
+
+interface Props {
+  tone?: Tone;
+  class?: string;
+}
+const { tone = 'muted', class: cls = '' } = Astro.props;
+
+const toneClass: Record<Tone, string> = {
+  primary: 'bg-primary-disabled text-primary',
+  muted:   'bg-surface-strong   text-muted',
+  success: 'bg-[#dcfce7]        text-[#166534]',
+};
+---
+<span class:list={[
+  'inline-flex items-center rounded-full px-3 py-1',
+  'text-badge font-semibold tracking-wide uppercase',
+  toneClass[tone], cls
+]}>
+  <slot />
+</span>

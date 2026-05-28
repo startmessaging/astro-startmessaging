@@ -1,0 +1,31 @@
+---
+/**
+ * Outer <section> wrapper with optional background variant.
+ * variant:
+ *   default  — white canvas
+ *   soft     — surface-soft (#f7f7f7)
+ *   strong   — surface-strong (#f2f2f2)
+ *   ink      — dark ink background (for CTA sections)
+ */
+type Variant = 'default' | 'soft' | 'strong' | 'ink';
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+  id?: string;
+}
+const { variant = 'default', class: cls = '', id } = Astro.props;
+
+const bg: Record<Variant, string> = {
+  default: 'bg-canvas',
+  soft:    'bg-surface-soft',
+  strong:  'bg-surface-strong',
+  ink:     'bg-ink text-canvas',
+};
+---
+<section
+  id={id}
+  class:list={['py-(--spacing-section)', bg[variant], cls]}
+>
+  <slot />
+</section>

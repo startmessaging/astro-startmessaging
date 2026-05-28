@@ -1,0 +1,88 @@
+---
+title: "The Complete Guide to WhatsApp Business API"
+description: "Everything you need to know to start sending WhatsApp messages programmatically — from setup to your first broadcast."
+publishedAt: 2026-05-01
+author: "StartMessaging Team"
+tags: ["whatsapp", "api", "guide"]
+ogImage: "/og/blog-whatsapp-api-guide.png"
+lang: "en"
+---
+
+## What is the WhatsApp Business API?
+
+The WhatsApp Business API is the official channel for medium and large businesses to communicate with customers at scale on WhatsApp. Unlike the WhatsApp Business App (which is designed for small businesses using a phone), the API lets you:
+
+- Send messages programmatically from your own systems
+- Integrate with your CRM, e-commerce platform, or support tooling
+- Handle high message volumes — thousands per minute
+- Automate conversations with chatbots and workflows
+
+Access is granted through official Business Solution Providers (BSPs) like StartMessaging, who handle the integration with Meta's infrastructure.
+
+## How the API works
+
+At its core, the WhatsApp Business API is an HTTP REST API. You send a `POST` request to send a message, and Meta delivers it to the recipient's WhatsApp app.
+
+```json
+POST https://graph.facebook.com/v19.0/{phone-number-id}/messages
+Authorization: Bearer {access-token}
+
+{
+  "messaging_product": "whatsapp",
+  "to": "5511999990000",
+  "type": "template",
+  "template": {
+    "name": "order_confirmation",
+    "language": { "code": "en_US" }
+  }
+}
+```
+
+Responses come back via **webhooks** — Meta sends a `POST` to your server when a message is delivered, read, or replied to.
+
+## Message templates
+
+Most outbound messages (messages you initiate) must use pre-approved **message templates**. Templates are reviewed by Meta before use and must follow strict content guidelines.
+
+There are three categories:
+
+| Category | Use case | Pricing |
+|---|---|---|
+| Utility | Order updates, OTPs, shipping notifications | Lowest |
+| Authentication | One-time passwords only | Lowest |
+| Marketing | Promotions, re-engagement, announcements | Higher |
+
+Once a customer replies to your template, a **24-hour session window** opens during which you can exchange free-form messages.
+
+## Setting up with StartMessaging
+
+1. **Create an account** at [startmessaging.com](https://startmessaging.com)
+2. **Connect your WhatsApp Business Account** — we guide you through the Meta verification process
+3. **Get your API credentials** — phone number ID and access token from your dashboard
+4. **Send your first message** using our REST API or one of the official SDKs
+
+The entire process takes under 30 minutes for most businesses.
+
+## Sending a broadcast
+
+Broadcasting lets you send a template message to a list of opted-in contacts in one API call:
+
+```json
+POST /v1/broadcasts
+{
+  "template": "order_confirmation",
+  "contacts": ["+5511999990000", "+5511888880000"],
+  "parameters": {
+    "order_id": "ORD-12345",
+    "amount": "R$299,90"
+  }
+}
+```
+
+Our platform queues, throttles, and retries delivery automatically, and provides per-message delivery receipts in real time.
+
+## What's next?
+
+- [Setting up webhooks](/docs/whatsapp/webhooks)
+- [Message template guidelines](/docs/whatsapp/message-templates)
+- [WhatsApp chatbots](/whatsapp/chatbots)

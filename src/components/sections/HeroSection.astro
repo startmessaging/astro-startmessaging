@@ -1,0 +1,83 @@
+---
+/**
+ * HeroSection — full-width hero with headline, subtitle, dual CTAs, and optional image.
+ *
+ * Example JSON:
+ * {
+ *   "type": "hero",
+ *   "props": {
+ *     "badge":         { "en": "WhatsApp Business API" },
+ *     "title":         { "en": "Reach customers at scale" },
+ *     "subtitle":      { "en": "..." },
+ *     "primaryCta":    { "en": "Start Free" },
+ *     "primaryHref":   "/signup",
+ *     "secondaryCta":  { "en": "See how it works" },
+ *     "secondaryHref": "/whatsapp",
+ *     "image":         "/images/hero.png",
+ *     "imageAlt":      { "en": "Dashboard screenshot" }
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Button from '@/components/ui/Button.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, title, subtitle, primaryCta, primaryHref, secondaryCta, secondaryHref, image, imageAlt, lang } = Astro.props;
+---
+
+<Section>
+  <Container>
+    <div class="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
+
+      <!-- Text column -->
+      <div class="flex flex-col items-center text-center lg:items-start lg:text-left lg:max-w-[52%]">
+        {badge && (
+          <Badge tone="primary" class="mb-5">
+            {r(badge, lang)}
+          </Badge>
+        )}
+
+        <Heading as="h1" class="mb-5">
+          {r(title, lang)}
+        </Heading>
+
+        {subtitle && (
+          <Text tone="body" class="mb-8 max-w-xl">
+            {r(subtitle, lang)}
+          </Text>
+        )}
+
+        <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+          {primaryCta && primaryHref && (
+            <Button href={primaryHref} variant="primary" size="md">
+              {r(primaryCta, lang)}
+            </Button>
+          )}
+          {secondaryCta && secondaryHref && (
+            <Button href={secondaryHref} variant="secondary" size="md">
+              {r(secondaryCta, lang)}
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <!-- Image column -->
+      {image && (
+        <div class="flex-1 w-full max-w-xl lg:max-w-none">
+          <img
+            src={image}
+            alt={r(imageAlt, lang)}
+            class="w-full rounded-md shadow-card"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )}
+
+    </div>
+  </Container>
+</Section>

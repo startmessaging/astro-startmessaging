@@ -1,0 +1,72 @@
+---
+title: "5 Tips to Get Your WhatsApp Message Templates Approved Faster"
+description: "Meta rejects a surprising number of message template submissions. Learn the five most common pitfalls and how to avoid them."
+publishedAt: 2026-05-15
+author: "StartMessaging Team"
+tags: ["whatsapp", "templates", "tips"]
+ogImage: "/og/blog-template-tips.png"
+lang: "en"
+---
+
+WhatsApp message templates are the gateway to reaching your customers proactively on WhatsApp. But Meta's review process can feel like a black box — submissions get rejected without much explanation, and revisions take time.
+
+After helping hundreds of businesses go live on the WhatsApp Business API, we've identified the five patterns that most reliably get templates approved quickly.
+
+## 1. Match category to content — precisely
+
+Template categories are not suggestions. Meta checks whether your template text actually matches the category you chose.
+
+- **Utility** = transactional updates about something the customer already did (order shipped, appointment reminder, payment received)
+- **Authentication** = OTP only, no marketing language whatsoever
+- **Marketing** = anything promotional, offer-based, or re-engagement focused
+
+If your "utility" template says "your order shipped — and check out our new collection!", Meta will reject it as marketing. Pick the right category upfront.
+
+## 2. Keep variable usage minimal and meaningful
+
+Every `{{1}}` placeholder is a point of scrutiny. Templates with more than 3–4 variables often fail the review because Meta can't verify how they'll be used.
+
+Best practice:
+
+```
+Hello {{1}}, your appointment with {{2}} is confirmed for {{3}}.
+```
+
+Avoid vague placeholders like `{{1}}` that could contain anything — Meta wants to infer context from the surrounding text.
+
+## 3. Avoid restricted phrases
+
+Meta maintains a (mostly unpublished) list of phrases and patterns that trigger automatic rejection:
+
+- "Click here" or "Tap here" in CTAs — prefer a clear action like "Track your order"
+- Urgency language in utility templates: "Act now", "Limited time"
+- Price claims in authentication templates
+- ALL CAPS text beyond brand names
+
+When in doubt, read the template aloud. If it sounds like a spam SMS from 2010, revise it.
+
+## 4. Use a clear call-to-action for button templates
+
+If your template includes buttons (URL or quick reply), the button label must clearly describe what happens when tapped:
+
+| Avoid | Prefer |
+|---|---|
+| "Click" | "Track my order" |
+| "Learn more" | "View appointment details" |
+| "OK" | "Confirm booking" |
+
+Ambiguous button labels are one of the most common rejection reasons.
+
+## 5. Submit in the right language with correct locale code
+
+Always match your template's language to the locale code you select in the API. Submitting Portuguese content under `pt_BR` but writing Brazilian slang that looks like European Portuguese will cause review delays.
+
+For Brazil, use `pt_BR`. For Portugal, use `pt_PT`.
+
+Also: do **not** mix languages in a single template. If your audience is bilingual, create two separate templates — one per language.
+
+---
+
+Following these five guidelines won't guarantee approval, but in our experience they reduce first-attempt rejection rates by around 60%.
+
+If a template is rejected, Meta provides a rejection reason. [Contact our support team](/contact) and we can help you revise it for resubmission.

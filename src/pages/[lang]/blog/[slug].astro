@@ -1,0 +1,40 @@
+---
+// Non-English blog posts: /pt-br/blog/whatsapp-business-api-guide
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
+import { DEFAULT_LOCALE } from '@/i18n/locales';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const nonEnPosts = posts.filter((p) => !p.id.startsWith(`${DEFAULT_LOCALE}/`));
+
+  return nonEnPosts.map((post) => {
+    const [lang, ...slugParts] = post.id.split('/');
+    const slug = slugParts.join('/');
+
+    // Find which locales have this same slug
+    const postLocales = posts
+      .filter((p) => p.id.endsWith(`/${slug}`))
+      .map((p) => p.id.split('/')[0]);
+
+    return {
+      params: { lang, slug },
+      props: { post, lang, postLocales },
+    };
+  });
+}
+
+const { post, lang, postLocales } = Astro.props;
+const { Content, headings } = await render(post);
+const slug = Astro.params.slug;
+---
+
+<BlogLayout
+  frontmatter={post.data}
+  lang={lang}
+  slug={slug}
+  postLocales={postLocales}
+  headings={headings}
+>
+  <Content />
+</BlogLayout>
