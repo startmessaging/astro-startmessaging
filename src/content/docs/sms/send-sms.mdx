@@ -1,0 +1,315 @@
+---
+title: "SMS & OTP API Reference"
+description: "Complete REST API reference for sending OTPs, checking status, and verifying codes. Code examples in cURL, Node.js, Python, PHP, Java, and Go."
+product: sms
+order: 2
+countries: ["in"]
+---
+
+import Accordion from '../../../components/ui/Accordion.astro';
+import AccordionItem from '../../../components/ui/AccordionItem.astro';
+
+A simple REST API to send OTPs via SMS, check delivery status, and verify codes. Works with any language or framework.
+
+---
+
+## Authentication & Base URL
+
+### Base URL
+All requests must be sent to the following base URL:
+```
+https://api.startmessaging.com
+```
+
+### Authentication
+All API requests require an API key in the `X-API-Key` header. You can create API keys from your dashboard.
+```
+X-API-Key: sm_live_your_api_key_here
+```
+
+---
+
+## API Endpoints
+
+### 1. Send OTP (`POST /otp/send`)
+
+Send a one-time password to a phone number.
+
+#### Request Body Schema
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `phoneNumber` | string | ✅ | Recipient phone number in E.164 format (e.g. `+919876543210`) |
+| `templateId` | string | ❌ | DLT template ID (required for DLT routes in India) |
+| `variables` | object | ✅ | Must contain `"otp"` (a 4-6 digit code you generate, plus optional custom placeholders like `"appName"`) |
+
+#### Response Schema (201 Created)
+```json
+{
+  "success": true,
+  "statusCode": 201,
+  "requestId": "req_abc123",
+  "timestamp": "2026-02-15T10:30:00.000Z",
+  "data": {
+    "otpRequestId": "uuid-of-otp-request",
+    "messageId": "uuid-of-message",
+    "status": "queued"
+  }
+}
+```
+
+---
+
+### 2. Verify OTP (`POST /otp/verify`)
+
+Verify the OTP code entered by your user.
+
+#### Request Body Schema
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `requestId` | string | ✅ | The `otpRequestId` returned by the `/otp/send` request |
+| `otpCode` | string | ✅ | The OTP code entered by the user to be verified |
+
+#### Response Schema (200 OK)
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "requestId": "req_xyz789",
+  "timestamp": "2026-02-15T10:31:00.000Z",
+  "data": {
+    "verified": true
+  }
+}
+```
+
+---
+
+### 3. Check Delivery Status (`GET /messages/:id`)
+
+Fetch the real-time delivery status of an OTP request.
+
+#### Path Parameters
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | ✅ | The `messageId` returned from the `/otp/send` request |
+
+#### Response Schema (200 OK)
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "messageId": "uuid-of-message",
+    "status": "delivered",
+    "deliveredAt": "2026-02-15T10:30:05.000Z",
+    "error": null
+  }
+}
+```
+
+#### Status Values
+- `initiated`: Request received and processing.
+- `queued`: Queued for dispatch to operators.
+- `sent`: Submitted to telecom operator.
+- `delivered`: Delivered successfully to handset.
+- `failed`: Delivery failed (e.g. invalid number, network issue).
+
+---
+
+## API Limits & Usage Policies
+
+To ensure platform stability and prevent fraudulent activities like SMS pumping, we enforce the following rate limits:
+
+### Global Throughput
+Each account is allowed up to **20 requests per second** (1,200 requests per minute) globally. This is designed to support high-growth applications and bulk verification workflows.
+
+### Security Protection
+To prevent malicious actors from spamming a single mobile number, we limit the number of OTPs that can be sent to a specific number to **3 attempts every 5 minutes**.
+
+### Best Practices
+- Handle `429 Too Many Requests` errors gracefully in your client-side code.
+- Implement your own client-side delays for the "Resend OTP" button (e.g., 30s or 60s).
+- Ensure you use the `idempotencyKey` to avoid double-charging on network retry.
+
+---
+
+## Code Examples
+
+### cURL
+```bash
+curl -X POST https://api.startmessaging.com/otp/send \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: sm_live_your_api_key_here" \
+  -d '{
+    "phoneNumber": "+919876543210",
+    "templateId": "YOUR_TEMPLATE_ID",
+    "variables": {
+      "otp": "123456",
+      "appName": "YourApp"
+    }
+  }'
+```
+
+### Node.js
+```javascript
+const response = await fetch("https://api.startmessaging.com/otp/send", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "X-API-Key": "sm_live_your_api_key_here",
+  },
+  body: JSON.stringify({
+    phoneNumber: "+919876543210",
+    templateId: "YOUR_TEMPLATE_ID",
+    variables: {
+      otp: "123456",
+      appName: "YourApp",
+    },
+  }),
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+### Python
+```python
+import requests
+
+response = requests.post(
+    "https://api.startmessaging.com/otp/send",
+    headers={
+        "Content-Type": "application/json",
+        "X-API-Key": "sm_live_your_api_key_here",
+    },
+    json={
+        "phoneNumber": "+919876543210",
+        "templateId": "YOUR_TEMPLATE_ID",
+        "variables": {
+            "otp": "123456",
+            "appName": "YourApp"
+        },
+    },
+)
+
+data = response.json()
+print(data)
+```
+
+### PHP
+```php
+$ch = curl_init("https://api.startmessaging.com/otp/send");
+
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_HTTPHEADER => [
+        "Content-Type: application/json",
+        "X-API-Key: sm_live_your_api_key_here",
+    ],
+    CURLOPT_POSTFIELDS => json_encode([
+        "phoneNumber" => "+919876543210",
+        "templateId" => "YOUR_TEMPLATE_ID",
+        "variables" => [
+            "otp" => "123456",
+            "appName" => "YourApp"
+        ]
+    ]),
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+$data = json_decode($response, true);
+```
+
+### Java
+```java
+import java.net.http.*;
+import java.net.URI;
+
+HttpClient client = HttpClient.newHttpClient();
+
+String body = """
+    {
+      "phoneNumber": "+919876543210",
+      "templateId": "YOUR_TEMPLATE_ID",
+      "variables": {
+        "otp": "123456",
+        "appName": "YourApp"
+      }
+    }
+    """;
+
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.startmessaging.com/otp/send"))
+    .header("Content-Type", "application/json")
+    .header("X-API-Key", "sm_live_your_api_key_here")
+    .POST(HttpRequest.BodyPublishers.ofString(body))
+    .build();
+
+HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body());
+```
+
+### Go
+```go
+package main
+
+import (
+  "bytes"
+  "encoding/json"
+  "fmt"
+  "net/http"
+  "io"
+)
+
+func main() {
+  payload, _ := json.Marshal(map[string]interface{}{
+    "phoneNumber": "+919876543210",
+    "templateId":  "YOUR_TEMPLATE_ID",
+    "variables": map[string]string{
+      "otp":     "123456",
+      "appName": "YourApp",
+    },
+  })
+
+  req, _ := http.NewRequest("POST", "https://api.startmessaging.com/otp/send", bytes.NewBuffer(payload))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("X-API-Key", "sm_live_your_api_key_here")
+
+  resp, _ := http.DefaultClient.Do(req)
+  defer resp.Body.Close()
+
+  body, _ := io.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+```
+
+---
+
+## FAQ
+
+<Accordion>
+  <AccordionItem title="What authentication does the API use?" open={true}>
+    All requests require an API key passed in the `X-API-Key` header. API keys start with `sm_live_` and can be created from the dashboard.
+  </AccordionItem>
+  <AccordionItem title="What format should phone numbers be in?">
+    Phone numbers must be in E.164 format: `+{country code}{number}`. For Indian numbers: `+919876543210`.
+  </AccordionItem>
+  <AccordionItem title="What is the rate limit?">
+    We support a high throughput of 20 OTPs per second globally per account. Additionally, there is a security limit of 3 OTPs per 5 minutes per mobile number to prevent abuse.
+  </AccordionItem>
+  <AccordionItem title="Do you support webhooks for delivery status?">
+    Delivery status is available via the messages API endpoint. You can poll for status updates using the message ID returned from the send endpoint.
+  </AccordionItem>
+  <AccordionItem title="Is there a rate limit for bulk sending?">
+    The API supports high throughput for production use. If you need very high volume (100,000+ OTPs/month), contact us for optimized rate limits and volume pricing.
+  </AccordionItem>
+  <AccordionItem title="Can I send OTPs to multiple numbers in one API call?">
+    Each API call sends one OTP to one phone number. For bulk sending, make parallel API calls with unique idempotency keys for each request.
+  </AccordionItem>
+  <AccordionItem title="How do I handle failures in bulk sends?">
+    Each request returns a unique `otpRequestId` and `messageId`. Track delivery status per message. Failed sends can be safely retried using the same idempotency key.
+  </AccordionItem>
+</Accordion>

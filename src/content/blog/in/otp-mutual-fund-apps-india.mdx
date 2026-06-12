@@ -1,0 +1,99 @@
+﻿---
+title: "OTP for Mutual Fund Apps in India"
+description: "How mutual-fund apps in India use OTP across KYC, SIP enrolment, switch / redemption and folio management — with AMFI / SEBI compliance pointers and reference flow."
+publishedAt: "2026-05-01"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "mutual fund otp india"
+  - "sip enrolment otp"
+  - "mf redemption otp"
+  - "amfi compliance otp"
+  - "folio otp"
+  - "mutual fund kyc otp"
+relatedSlugs:
+  - "otp-stock-broking-apps-india"
+  - "otp-fintech-india"
+  - "otp-nbfc-loan-apps-india"
+  - "otp-data-privacy-india"
+featured: false
+---
+
+
+Mutual-fund apps in India operate under AMFI norms and SEBI scrutiny.
+        OTP plays a structural role in onboarding, recurring contributions
+        (SIPs), and audit-friendly redemption flows.
+
+
+## Why MF Apps Need OTP
+
+
+- KYC — Aadhaar OTP for identity proof.
+- e-NACH / e-Mandate for SIP — bank OTP.
+- App-side login 2FA.
+- Redemption / switch / nominee change — fresh app OTP.
+
+
+
+## OTP Flows Across the MF Lifecycle
+
+
+- Onboarding phone OTP.
+- UIDAI Aadhaar OTP for KYC.
+- e-NACH OTP for SIP registration.
+- Login 2FA OTP per session.
+- Redemption step-up OTP.
+- Folio-modification OTP (nominee, bank account).
+- Confirmation SMS — folio statement, dividend, redemption proceeds.
+
+
+
+## SIP Enrolment via e-Mandate
+
+SIP relies on NPCI's e-NACH. The OTP is issued by the
+        investor's bank, not your MF platform. Your job is presentation
+        + audit trail:
+
+
+
+- Display amount, frequency and AMC clearly on consent screen.
+- Capture consent timestamp and IP.
+- Send transactional confirmation SMS once mandate is active.
+
+
+
+## Redemption Step-Up
+
+Default pattern:
+
+
+
+- < Rs 50,000 — login 2FA suffices.
+- > Rs 50,000 — fresh OTP step-up.
+- > Rs 5,00,000 — step-up + bank-account verification cooling period.
+
+
+
+## Folio-Management OTPs
+
+Nominee change, bank account update, and address change all require
+        fresh app OTP plus a transactional confirmation SMS. Two-channel
+        confirmation reduces fraud window.
+
+
+## AMFI / SEBI Compliance Pointers
+
+
+- Audit trail retained 8+ years.
+- OTP records admissible in dispute resolution.
+- DPDP Act applies to investor PII.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) handles
+        application-side OTPs and confirmation SMS at scale, decoupled from
+        the bank-issued e-NACH OTP path.
+

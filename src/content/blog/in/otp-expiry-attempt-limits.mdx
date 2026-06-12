@@ -1,0 +1,563 @@
+﻿---
+title: "OTP Expiry and Attempt Limits: Design Guide"
+description: "Best practices for OTP time windows, max verification attempts, lockout strategies, resend cooldowns, and the UX tradeoffs developers need to consider."
+publishedAt: "2026-02-03"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "OTP expiry time"
+  - "OTP attempt limit"
+  - "OTP lockout strategy"
+  - "OTP resend cooldown"
+  - "OTP TTL best practice"
+  - "OTP verification attempts"
+  - "OTP timeout"
+  - "OTP design guide"
+relatedSlugs:
+  - "otp-security-best-practices"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+Two parameters define how secure and usable an OTP system feels: the expiry window (how
+        long a code remains valid) and the attempt limit (how many times a user can try to enter
+        it). Set them too tight and you frustrate legitimate users. Set them too loose and you
+        invite brute-force attacks.
+
+
+This guide covers the design decisions behind both parameters, including the lockout
+        strategies, resend cooldowns, and UX patterns that tie everything together into a coherent
+        verification experience.
+
+
+## Why Expiry and Limits Matter
+
+An OTP code is essentially a temporary password. The shorter its lifespan and the fewer
+        guesses an attacker gets, the harder it is to compromise. Consider the math:
+
+
+
+- A 6-digit OTP has 1,000,000 possible values.
+- With unlimited attempts, an attacker can try all of them in seconds via an automated script.
+- With 3 attempts, the probability of a random guess succeeding is 3 in 1,000,000 (0.0003%).
+- With a 5-minute expiry, even if the attacker somehow obtains the code (e.g., by reading the SMS off a screen), they have a narrow window to use it.
+
+
+
+Together, expiry and attempt limits reduce the attack surface to near zero for standard OTP
+        implementations. But the specific values you choose affect your user experience significantly.
+
+
+## Choosing the Right Expiry Window
+
+The expiry window defines how long after generation an OTP code can be successfully
+        verified. Here is how different windows map to use cases:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Expiry Window</th>
+              <th>Best For</th>
+              <th>Tradeoff</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2 minutes</td>
+              <td>High-security financial transactions</td>
+              <td>Some users on slow networks may not receive SMS in time</td>
+            </tr>
+            <tr>
+              <td>5 minutes</td>
+              <td>Login, registration, standard verification</td>
+              <td>Best balance of security and usability for most apps</td>
+            </tr>
+            <tr>
+              <td>10 minutes</td>
+              <td>Email-based OTP, low-urgency verification</td>
+              <td>Wider attack window but accommodates slower channels</td>
+            </tr>
+            <tr>
+              <td>15 minutes</td>
+              <td>Cross-device flows (start on mobile, verify on desktop)</td>
+              <td>Borderline too long; consider alternatives for this scenario</td>
+            </tr>
+            <tr>
+              <td>30+ minutes</td>
+              <td>Not recommended for any use case</td>
+              <td>Unnecessarily wide attack window</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+**The 5-minute window is the industry standard for SMS OTP.** It accounts for
+        the typical SMS delivery time in India (3-10 seconds under normal conditions, up to 30
+        seconds during peak hours) plus ample time for the user to read and enter the code.
+
+
+Key implementation details:
+
+
+
+- Store the expiry as an absolute timestamp (`expiresAt`), not a relative duration. This avoids clock drift issues between services.
+- Check expiry *before* comparing the hash. Do not waste compute on bcrypt comparison if the OTP has already expired.
+- Use server time, not client time, for all expiry calculations. Client clocks can be manipulated.
+
+
+      
+```typescript
+// Creating an OTP with expiry
+const OTP_EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
+
+async function createOtp(phoneNumber: string) {
+  const code = generateSecureOtp();
+  const hash = await bcrypt.hash(code, 10);
+
+  const otpRequest = await db.otpRequests.create({
+    phoneNumber,
+    otpHash: hash,
+    expiresAt: new Date(Date.now() + OTP_EXPIRY_MS),
+    attemptsLeft: 3,
+    resendCount: 0,
+    createdAt: new Date(),
+  });
+
+  await sendSms(phoneNumber, code);
+  return { requestId: otpRequest.id, expiresAt: otpRequest.expiresAt };
+}
+
+// Verifying with expiry check first
+async function verifyOtp(requestId: string, code: string) {
+  const request = await db.otpRequests.findOne(requestId);
+
+  // Check expiry BEFORE hash comparison
+  if (!request || request.expiresAt < new Date()) {
+    throw new Error('OTP has expired. Please request a new one.');
+  }
+
+  if (request.attemptsLeft <= 0) {
+    throw new Error('Too many attempts. Please request a new OTP.');
+  }
+
+  // Now compare the hash
+  const isValid = await bcrypt.compare(code, request.otpHash);
+  // ... handle result
+}
+```
+
+
+## Max Verification Attempts
+
+The attempt limit caps how many times a user (or attacker) can try to verify a specific OTP
+        before it is invalidated. The standard range is 3 to 5 attempts.
+
+
+### Why 3 Attempts is the Sweet Spot
+
+Three attempts provides enough room for legitimate user errors (misreading a digit, typo on
+        a small phone keyboard) while keeping the brute-force probability negligible:
+
+
+
+- **3 attempts out of 1,000,000:** 0.0003% chance of a random guess succeeding.
+- **5 attempts out of 1,000,000:** 0.0005% chance. Marginally less secure but still extremely safe.
+- **10 attempts out of 1,000,000:** 0.001% chance. Starting to provide unnecessary room for attackers with no real UX benefit.
+
+
+
+In practice, legitimate users almost always enter the correct code on the first or second
+        attempt. If they fail three times, the most likely explanation is that they are entering an
+        OTP from a different request or that the SMS was delivered to the wrong device. A new OTP
+        solves both cases.
+
+
+### 4-Digit vs 6-Digit OTPs
+
+If you use 4-digit OTP codes (10,000 possible values), attempt limits become even more
+        critical:
+
+
+
+- 3 attempts out of 10,000: 0.03% chance of random success.
+- 5 attempts out of 10,000: 0.05% chance.
+- 10 attempts out of 10,000: 0.1% or 1 in 1,000 chance. This is uncomfortably high for security-sensitive applications.
+
+
+
+For this reason, 6-digit OTPs are strongly recommended for any application handling
+        financial data, personal information, or account access. Use 4-digit codes only for
+        low-risk scenarios like newsletter signup confirmation.
+
+
+## Lockout Strategies
+
+When a user exhausts their verification attempts, you need a lockout strategy. The goal is
+        to prevent rapid retry abuse while allowing the legitimate user to recover.
+
+
+### Progressive Lockout
+
+The most user-friendly approach is progressive lockout, where each consecutive exhausted OTP
+        increases the cooldown before a new one can be requested:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Failed OTP Count</th>
+              <th>Cooldown Before Next OTP</th>
+              <th>Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1st exhausted OTP</td>
+              <td>30 seconds</td>
+              <td>Likely a typo; let them retry quickly</td>
+            </tr>
+            <tr>
+              <td>2nd exhausted OTP</td>
+              <td>60 seconds</td>
+              <td>Possibly entering wrong code; slight pause helps</td>
+            </tr>
+            <tr>
+              <td>3rd exhausted OTP</td>
+              <td>5 minutes</td>
+              <td>Suspicious; slow them down significantly</td>
+            </tr>
+            <tr>
+              <td>4th exhausted OTP</td>
+              <td>15 minutes</td>
+              <td>Likely automated; long cooldown needed</td>
+            </tr>
+            <tr>
+              <td>5th+ exhausted OTP</td>
+              <td>1 hour</td>
+              <td>Almost certainly abuse; near-lockout</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+```typescript
+// Progressive lockout calculation
+function getLockoutDurationMs(consecutiveFailures: number): number {
+  const durations = [
+    0,        // 0 failures: no lockout
+    30_000,   // 1 failure: 30 seconds
+    60_000,   // 2 failures: 1 minute
+    300_000,  // 3 failures: 5 minutes
+    900_000,  // 4 failures: 15 minutes
+    3600_000, // 5+ failures: 1 hour
+  ];
+  const index = Math.min(consecutiveFailures, durations.length - 1);
+  return durations[index];
+}
+
+async function canRequestNewOtp(phoneNumber: string): Promise<{
+  allowed: boolean;
+  waitMs: number;
+}> {
+  const recentFailures = await db.otpRequests.count({
+    where: {
+      phoneNumber,
+      attemptsLeft: 0,
+      verifiedAt: IsNull(), // Not successfully verified
+      createdAt: MoreThan(new Date(Date.now() - 3600_000)), // Last hour
+    },
+  });
+
+  const lockoutMs = getLockoutDurationMs(recentFailures);
+  const lastRequest = await db.otpRequests.findOne({
+    where: { phoneNumber },
+    order: { createdAt: 'DESC' },
+  });
+
+  if (!lastRequest) return { allowed: true, waitMs: 0 };
+
+  const elapsed = Date.now() - lastRequest.createdAt.getTime();
+  if (elapsed < lockoutMs) {
+    return { allowed: false, waitMs: lockoutMs - elapsed };
+  }
+
+  return { allowed: true, waitMs: 0 };
+}
+```
+
+
+### Hard Lockout
+
+For high-security applications (banking, payment authorisation), consider a hard lockout
+        after 3-5 consecutive exhausted OTPs. The user must contact support or use an alternative
+        verification method (email, security questions) to regain access.
+
+
+Hard lockouts reduce abuse risk to near zero but create support burden. Use them only when
+        the security requirement justifies the operational cost.
+
+
+## Resend Cooldowns
+
+Resend cooldowns govern how frequently a user can request a new OTP code. They serve a dual
+        purpose: preventing SMS cost abuse and giving the current OTP time to be delivered.
+
+
+The recommended resend cooldown is **30 seconds** for the first resend, with
+        progressive increases for subsequent resends within the same session.
+
+
+### Why 30 Seconds?
+
+
+- SMS delivery in India typically takes 3-10 seconds. By the time 30 seconds have passed, the original message has almost certainly been delivered or it has permanently failed.
+- Users who tap "Resend" immediately often do so because they are impatient, not because the SMS actually failed. A 30-second cooldown reduces unnecessary resends by 60-70%.
+- From a cost perspective, preventing even one unnecessary resend per 100 OTP flows saves Rs 0.25 per 100 flows (at StartMessaging rates), which adds up at scale.
+
+
+
+### Progressive Resend Schedule
+      
+```typescript
+// Resend cooldown schedule
+const RESEND_COOLDOWNS_MS = [
+  30_000,   // 1st resend: 30 seconds
+  60_000,   // 2nd resend: 1 minute
+  120_000,  // 3rd resend: 2 minutes
+  300_000,  // 4th resend: 5 minutes
+];
+
+function getResendCooldown(resendCount: number): number {
+  if (resendCount >= RESEND_COOLDOWNS_MS.length) {
+    return RESEND_COOLDOWNS_MS[RESEND_COOLDOWNS_MS.length - 1];
+  }
+  return RESEND_COOLDOWNS_MS[resendCount];
+}
+```
+
+
+When a resend is triggered, invalidate the previous OTP. Only one OTP should be active for
+        a given phone number and purpose at any time. This prevents confusion (user has two valid
+        codes and enters the wrong one) and eliminates the attack surface of having multiple valid
+        codes simultaneously.
+
+
+## Invalidation Rules
+
+An OTP should be invalidated (made permanently unusable) under any of these conditions:
+
+
+
+- **Successful verification:** The user entered the correct code. Mark it as used immediately. Never allow a verified code to be used again.
+- **Expiry:** The `expiresAt` timestamp has passed. Reject the code even if it is correct.
+- **Attempts exhausted:** The user used all allowed verification attempts without success.
+- **New OTP generated:** When the user requests a resend, invalidate the previous OTP for the same phone number and purpose.
+- **Session ended:** If the user navigates away from the verification flow or their session expires, consider invalidating any pending OTPs.
+
+
+      
+```typescript
+// Invalidate previous OTPs when a new one is created
+async function invalidatePreviousOtps(
+  phoneNumber: string,
+  purpose: string
+) {
+  await db.otpRequests.update(
+    {
+      phoneNumber,
+      purpose,
+      verifiedAt: IsNull(),
+      expiresAt: MoreThan(new Date()), // Only active (non-expired) ones
+    },
+    {
+      expiresAt: new Date(), // Set expiry to now
+      attemptsLeft: 0,       // Zero out attempts
+    }
+  );
+}
+```
+
+
+## UX Considerations
+
+Security parameters directly affect user experience. Here are the UX patterns that make
+        expiry and attempt limits feel natural rather than frustrating:
+
+
+### Show a Countdown Timer
+
+Display a visible countdown showing how much time remains before the OTP expires. This sets
+        clear expectations and reduces anxiety. When the timer reaches zero, show a prompt to
+        request a new code.
+
+
+### Show Remaining Attempts
+
+After a failed verification, tell the user how many attempts they have left: "Incorrect
+        code. 2 attempts remaining." This prevents the surprise of a sudden lockout.
+
+
+### Resend Button with Cooldown
+
+Show the resend button with a countdown: "Resend code in 28s". When the cooldown
+        expires, enable the button. Never hide the resend option entirely; users need to know it
+        exists even when it is temporarily unavailable.
+
+
+### Clear Error Messages
+
+Use specific, actionable error messages:
+
+
+
+- "Incorrect code. 2 attempts remaining." (not just "Invalid OTP")
+- "This code has expired. We have sent a new one." (auto-resend on expiry)
+- "Too many attempts. You can request a new code in 4 minutes."
+- "Code sent! Check your SMS inbox." (confirmation after resend)
+
+
+
+### Auto-Resend on Expiry (Optional)
+
+Some applications automatically send a new OTP when the previous one expires, if the user
+        is still on the verification screen. This reduces friction but increases SMS costs. Use it
+        selectively for high-value conversion flows (e.g., checkout verification) where drop-off is
+        costly.
+
+
+## Implementation Patterns
+
+Here is a complete OTP request record structure that supports all the patterns discussed:
+
+      
+```typescript
+// OTP Request entity
+interface OtpRequest {
+  id: string;
+  phoneNumber: string;
+  purpose: 'login' | 'registration' | 'payment' | 'password-reset';
+  otpHash: string;           // bcrypt hash of the OTP code
+  expiresAt: Date;           // Absolute expiry timestamp
+  attemptsLeft: number;      // Starts at 3, decremented on failure
+  resendCount: number;       // How many times this flow has been resent
+  verifiedAt: Date | null;   // Set on successful verification
+  createdAt: Date;
+  idempotencyKey: string;    // Prevents duplicate sends on retry
+}
+
+// Configuration constants
+const OTP_CONFIG = {
+  codeLength: 6,
+  expiryMs: 5 * 60 * 1000,        // 5 minutes
+  maxAttempts: 3,
+  maxResendsPerSession: 4,
+  resendCooldownsMs: [30_000, 60_000, 120_000, 300_000],
+  lockoutDurationsMs: [0, 30_000, 60_000, 300_000, 900_000, 3600_000],
+};
+```
+
+
+## Security Tradeoffs
+
+Every configuration choice involves a tradeoff. Here is a summary to guide your decisions:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>More Restrictive</th>
+              <th>More Permissive</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Expiry window</td>
+              <td>2 min: Higher security, more expired-OTP frustration</td>
+              <td>10 min: Lower security, fewer delivery-time issues</td>
+            </tr>
+            <tr>
+              <td>Max attempts</td>
+              <td>2: Near-zero brute force risk, more lockouts from typos</td>
+              <td>5: Slightly higher risk, accommodates more user errors</td>
+            </tr>
+            <tr>
+              <td>Resend cooldown</td>
+              <td>60s: Lower SMS cost, some users feel stuck waiting</td>
+              <td>15s: Higher SMS cost, faster recovery from delivery failures</td>
+            </tr>
+            <tr>
+              <td>Lockout duration</td>
+              <td>1 hour: Stops brute force cold, frustrates legitimate users</td>
+              <td>1 min: Minimal friction, allows persistent attackers to continue</td>
+            </tr>
+            <tr>
+              <td>OTP length</td>
+              <td>8 digits: Very secure, harder to enter on mobile keyboards</td>
+              <td>4 digits: Easy to enter, vulnerable with loose attempt limits</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+For most Indian SaaS applications, 
+        **5-minute expiry + 3 attempts + 6-digit codes + 30-second resend cooldown** 
+        is the recommended baseline. Adjust based on your specific security requirements and user
+        feedback.
+
+
+## How StartMessaging Handles This
+
+[StartMessaging](/features) implements all of these design patterns in the
+        managed OTP API:
+
+
+
+- **Default 5-minute expiry** with configurable override per request (via the  `expiry` parameter on  `https://api.startmessaging.com/otp/send`).
+- **3 verification attempts** per OTP. After exhaustion, the user must request a new code.
+- **Automatic invalidation** of previous OTPs when a resend is triggered for the same phone number.
+- **bcrypt hashing** of all OTP codes. Even our own database does not contain recoverable codes.
+- **Idempotency key support** on the send endpoint, preventing duplicate sends from network retries.
+- **Built-in rate limiting** that functions as a resend cooldown at the platform level.
+
+
+      
+```typescript
+// StartMessaging OTP with custom expiry
+const response = await fetch('https://api.startmessaging.com/otp/send', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': 'sm_live_your_api_key_here',
+    'Idempotency-Key': crypto.randomUUID(),
+  },
+  body: JSON.stringify({
+    phoneNumber: '+919876543210',
+    expiry: 300, // 5 minutes in seconds
+  }),
+});
+
+// Verify within the expiry window (max 3 attempts)
+const verifyResponse = await fetch('https://api.startmessaging.com/otp/verify', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': 'sm_live_your_api_key_here',
+  },
+  body: JSON.stringify({
+    phoneNumber: '+919876543210',
+    otpCode: '483921',
+  }),
+});
+```
+
+
+At [Rs 0.25 per OTP](/pricing), you get these security configurations
+        without building the expiry, attempt tracking, and invalidation logic yourself. For the
+        broader security picture, see our 
+        [OTP security best practices guide](/blog/otp-security-best-practices) and 
+        [rate limiting guide](/blog/otp-rate-limiting-guide).
+

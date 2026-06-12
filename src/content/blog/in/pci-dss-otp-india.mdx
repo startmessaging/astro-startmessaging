@@ -1,0 +1,71 @@
+﻿---
+title: "PCI-DSS and OTP: What Indian Payment Apps Need to Know"
+description: "How PCI-DSS applies to OTP and SMS workflows in Indian payment apps: scope, segregation, audit-trail expectations, and where OTP fits relative to RBI AFA."
+publishedAt: "2026-05-06"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "pci dss otp"
+  - "pci dss india"
+  - "payment app otp compliance"
+  - "pci dss sms"
+  - "card otp compliance"
+relatedSlugs:
+  - "rbi-afa-guidelines-otp-2026"
+  - "rbi-2fa-2026-mandate"
+  - "otp-fintech-india"
+  - "dpdp-act-otp-compliance-india"
+featured: false
+---
+
+
+PCI-DSS focuses on cardholder data. OTP is rarely in scope unless
+        you actively put card data into SMS. This guide explains where OTP
+        sits and how to keep your SMS provider out of scope.
+
+
+## Overview
+
+
+- PCI-DSS scope is cardholder data.
+- OTPs themselves are not cardholder data.
+- Keep SMS bodies free of PAN.
+
+
+
+## PCI-DSS Scope and OTP
+
+OTP is part of authentication; cardholder data is the PAN. Send the
+        OTP via SMS, send the payment-result SMS via the same provider —
+        nothing PAN-bearing leaves the PCI environment.
+
+
+## Cardholder Data Segregation
+
+
+- Cardholder data lives only in PCI-DSS-scoped systems.
+- SMS provider never sees PAN.
+- Authorisation responses stay inside the scope.
+
+
+
+## Audit Trail
+
+Retain (transactionId, OTPrequestId, status, timestamp). 12+ months
+        for PCI-DSS, longer for RBI-side requirements.
+
+
+## PCI-DSS + RBI AFA
+
+PCI-DSS is global; RBI AFA is India-specific. Both align on OTP as
+        the second factor. Read our 
+        [RBI AFA guide](/blog/rbi-afa-guidelines-otp-2026).
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) stays out of your
+        PCI-DSS scope by design — we never see PAN, only the OTP request
+        ID and result.
+

@@ -1,0 +1,360 @@
+﻿---
+title: "How to Prevent OTP Fraud and SMS Pumping"
+description: "Learn what SMS pumping and OTP fraud are, how artificial inflation attacks work, detection signals, prevention techniques, and how to protect your SMS budget."
+publishedAt: "2026-02-01"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "SMS pumping"
+  - "OTP fraud"
+  - "SMS fraud prevention"
+  - "artificial inflation attack"
+  - "SMS toll fraud"
+  - "OTP abuse prevention"
+  - "SMS pumping India"
+  - "prevent OTP spam"
+relatedSlugs:
+  - "otp-rate-limiting-guide"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+SMS pumping is one of the most financially damaging attacks targeting OTP systems. Unlike
+        traditional hacking attempts that aim to steal data, SMS pumping exploits your OTP
+        infrastructure to generate profit for the attacker at your expense. If your OTP system lacks
+        proper protections, a single attack can cost thousands of rupees in minutes.
+
+
+This guide explains how SMS pumping works, how to detect it, and the layered prevention
+        techniques that protect your application and budget.
+
+
+## What is SMS Pumping?
+
+SMS pumping (also called Artificially Inflated Traffic or AIT) is a fraud scheme where an
+        attacker triggers large volumes of SMS messages from your application to phone numbers they
+        control or have revenue-sharing agreements with. The attacker profits from the traffic while
+        you pay the SMS delivery costs.
+
+
+The attack specifically targets OTP and verification endpoints because these are designed to
+        send SMS to any phone number provided, with minimal validation. An attacker does not need to
+        compromise your system; they simply use your OTP endpoint as designed, but with fraudulent
+        phone numbers.
+
+
+SMS pumping has become increasingly prevalent globally, with businesses losing an estimated
+        $2-3 billion annually to this type of fraud. In India, the relatively low cost of SMS makes
+        individual attacks smaller, but the volume can still be significant.
+
+
+## How the Attack Works
+
+The anatomy of an SMS pumping attack follows a consistent pattern:
+
+
+
+- **Target identification:** The attacker finds a website or API endpoint that sends SMS OTPs. They test it to confirm there are no rate limits or verification requirements before the SMS is sent.
+- **Number acquisition:** The attacker obtains a set of phone numbers. These might be premium-rate numbers where the attacker receives a per-message payment, numbers from complicit telecom operators who share revenue, or simply random numbers used to inflate traffic volumes that benefit a middleman in the SMS delivery chain.
+- **Automated triggering:** Using scripts or bots, the attacker sends hundreds or thousands of OTP requests to your endpoint, each with a different phone number from their list.
+- **Revenue collection:** The attacker or their telecom partner receives a portion of the SMS delivery fee for each message sent to their numbers.
+- **You pay the bill:** Your SMS provider charges you for every message delivered, regardless of whether the recipient was a legitimate user.
+
+
+
+The attack is especially insidious because each individual request looks legitimate: a single
+        OTP sent to a single phone number. Only the pattern across many requests reveals the fraud.
+
+
+## The Real Cost of SMS Pumping
+
+The financial impact goes beyond the direct SMS charges:
+
+
+
+- **SMS costs:** At Rs 0.25-0.35 per SMS, 10,000 fraudulent messages cost Rs 2,500-3,500. Larger attacks can reach 100,000+ messages.
+- **Provider penalties:** SMS providers may suspend your account if they detect abnormal traffic patterns, blocking OTP delivery to your real users.
+- **Delivery degradation:** High-volume abuse can trigger spam filters at the telecom operator level, reducing delivery rates for your legitimate OTPs.
+- **Reputation damage:** If your sender ID is flagged for spam, rebuilding trust with telecom operators takes weeks or months.
+- **Engineering time:** Investigating the attack, implementing fixes, and coordinating with your SMS provider consumes valuable engineering resources.
+
+
+
+## Detection Signals
+
+Detecting SMS pumping requires monitoring patterns rather than individual requests. Watch for
+        these signals:
+
+
+### Volume Anomalies
+
+
+- **Sudden traffic spikes:** OTP send volume jumps 5-10x above your baseline within minutes.
+- **Off-peak surges:** High OTP volume during hours when your user base is typically inactive (e.g., 2-5 AM IST for a consumer app).
+- **Steady high-rate traffic:** Unusually consistent request rates (e.g., exactly 10 requests per second for 30 minutes), which indicate bot behaviour rather than organic human traffic.
+
+
+
+### Number Patterns
+
+
+- **Sequential numbers:** OTP requests for +91-9000000001, +91-9000000002, +91-9000000003 in rapid succession.
+- **Same number prefix:** Many requests targeting numbers that share the same first 7-8 digits, suggesting a block of numbers owned by the same entity.
+- **International numbers:** A sudden increase in OTP requests for non-Indian numbers when your user base is primarily Indian.
+- **Premium-rate number ranges:** Numbers belonging to known premium-rate ranges or country codes associated with SMS fraud.
+
+
+
+### Conversion Anomalies
+
+
+- **Zero verification rate:** OTPs are sent but never verified. A normal verification rate is 60-80%. During an attack, it drops to near 0%.
+- **No preceding user activity:** OTP requests arrive without corresponding page views, app opens, or registration attempts.
+- **Single IP, multiple numbers:** Hundreds of OTP requests from the same IP address for different phone numbers.
+
+
+
+## Prevention Techniques
+
+Effective SMS pumping prevention requires multiple layers. No single technique is sufficient,
+        because attackers adapt to each individual defence.
+
+
+## Rate Limiting as First Defence
+
+Rate limiting is your most impactful protection. Apply limits at every level:
+
+      
+```typescript
+// Multi-layer rate limiting for OTP sends
+const rateLimits = {
+  // Per phone number: prevents flooding a single number
+  perPhone: { window: '10m', max: 3 },
+
+  // Per IP address: catches single-source attacks
+  perIp: { window: '10m', max: 20 },
+
+  // Per API key: caps total sends for your application
+  perApiKey: { window: '1h', max: 500 },
+
+  // Global: circuit breaker for your entire system
+  global: { window: '1m', max: 100 },
+};
+
+async function checkAllRateLimits(
+  phoneNumber: string,
+  ip: string,
+  apiKey: string
+): Promise<{ allowed: boolean; reason?: string }> {
+  const checks = await Promise.all([
+    checkLimit(\`phone:\${phoneNumber}\`, rateLimits.perPhone),
+    checkLimit(\`ip:\${ip}\`, rateLimits.perIp),
+    checkLimit(\`apikey:\${apiKey}\`, rateLimits.perApiKey),
+    checkLimit('global', rateLimits.global),
+  ]);
+
+  const blocked = checks.find(c => !c.allowed);
+  return blocked || { allowed: true };
+}
+```
+
+
+For a detailed guide on implementing each layer, see our 
+        [OTP rate limiting guide](/blog/otp-rate-limiting-guide).
+
+
+## Phone Number Intelligence
+
+Before sending an OTP, validate the phone number for signs of fraud:
+
+
+
+- **Format validation:** Reject numbers that do not match a valid E.164 format for the expected country.
+- **Country filtering:** If your application serves Indian users, restrict OTP sends to +91 numbers. Block or require additional verification for international numbers.
+- **Number type lookup:** Use a phone number intelligence API to determine whether the number is a mobile, landline, VoIP, or premium-rate number. Block OTPs to non-mobile numbers.
+- **Disposable number detection:** Maintain or subscribe to a list of known disposable/virtual number ranges and block OTPs to these.
+
+
+      
+```typescript
+// Phone number validation before OTP send
+function validatePhoneNumber(phoneNumber: string): {
+  valid: boolean;
+  reason?: string;
+} {
+  // Must be E.164 format
+  if (!/^\\+\\d{10,15}$/.test(phoneNumber)) {
+    return { valid: false, reason: 'Invalid phone number format' };
+  }
+
+  // Restrict to Indian numbers if applicable
+  if (!phoneNumber.startsWith('+91')) {
+    return { valid: false, reason: 'Only Indian numbers are supported' };
+  }
+
+  // Indian mobile numbers: +91 followed by 6-9 and 9 more digits
+  if (!/^\\+91[6-9]\\d{9}$/.test(phoneNumber)) {
+    return { valid: false, reason: 'Invalid Indian mobile number' };
+  }
+
+  // Block known disposable number ranges (example)
+  const disposableRanges = ['+919000000', '+919999999'];
+  if (disposableRanges.some(range => phoneNumber.startsWith(range))) {
+    return { valid: false, reason: 'Number range not allowed' };
+  }
+
+  return { valid: true };
+}
+```
+
+
+## CAPTCHA and Proof of Work
+
+Adding a CAPTCHA before the OTP send step dramatically reduces automated attacks. The
+        attacker's script cannot solve CAPTCHAs at scale without significant cost, making the
+        attack unprofitable.
+
+
+Options in order of user experience impact (lowest friction first):
+
+
+
+- **Invisible reCAPTCHA or hCaptcha:** Runs in the background with no user interaction in most cases. Only shows a challenge for suspicious traffic.
+- **Turnstile (Cloudflare):** Non-interactive challenge that validates browser behaviour. No visual puzzle for the user.
+- **Interactive CAPTCHA:** Image selection or text challenges. Higher friction but most effective against sophisticated bots.
+- **Client-side proof of work:** Require the browser to solve a computational puzzle before the OTP request is accepted. This adds a small delay (1-3 seconds) for legitimate users but makes bulk requests extremely slow for attackers.
+
+
+
+For API-only integrations (where there is no browser), require authenticated sessions
+        (JWT or API key) before allowing OTP sends. This ensures that only your application can
+        trigger OTPs, not an attacker hitting your endpoint directly.
+
+
+## Geographic Restrictions
+
+If your user base is primarily in India, restrict OTP delivery to Indian phone numbers. This
+        eliminates an entire class of SMS pumping attacks that target international premium-rate
+        numbers.
+
+
+
+- Block all OTP sends to numbers outside your supported countries.
+- If you must support international numbers, require additional verification (email confirmation, CAPTCHA) before sending an international OTP.
+- Apply stricter rate limits to international numbers (e.g., 1 per hour instead of 3 per 10 minutes).
+- Monitor the country distribution of OTP sends. A sudden spike in any country you do not actively serve is a strong fraud signal.
+
+
+
+## Monitoring and Alerting
+
+Detection is as important as prevention. Set up the following monitors:
+
+
+### Real-Time Alerts
+
+
+- **Volume threshold:** Alert when OTP sends exceed 2x your normal peak within any 5-minute window.
+- **Verification rate drop:** Alert when the send-to-verify ratio drops below 30% over a 15-minute window (normal is 60-80%).
+- **New country detected:** Alert when OTPs are sent to a country code that has not appeared in the last 30 days.
+- **Cost threshold:** Alert when daily SMS spend exceeds a configurable limit.
+
+
+
+### Daily Reports
+
+
+- Top 10 phone numbers by OTP volume (identify persistent abuse)
+- Top 10 IP addresses by OTP volume (identify bot sources)
+- OTP send volume by hour (spot off-peak anomalies)
+- Verification success rate by hour (correlate with potential attacks)
+- Country distribution of OTP sends (catch geographic anomalies)
+
+
+      
+```typescript
+// Monitoring query: detect potential SMS pumping
+// Run every 5 minutes
+async function detectSmsPumping() {
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+
+  // Check volume spike
+  const recentSends = await db.otpRequests.count({
+    where: { createdAt: MoreThan(fiveMinutesAgo) },
+  });
+
+  const baselinePerFiveMin = await getBaselineOtpVolume(); // Your normal rate
+  if (recentSends > baselinePerFiveMin * 2) {
+    await alertTeam('OTP volume spike detected', {
+      current: recentSends,
+      baseline: baselinePerFiveMin,
+      multiplier: (recentSends / baselinePerFiveMin).toFixed(1),
+    });
+  }
+
+  // Check verification rate
+  const recentVerified = await db.otpRequests.count({
+    where: {
+      createdAt: MoreThan(fiveMinutesAgo),
+      verifiedAt: Not(IsNull()),
+    },
+  });
+
+  const verifyRate = recentSends > 0 ? recentVerified / recentSends : 1;
+  if (verifyRate < 0.3 && recentSends > 20) {
+    await alertTeam('Low OTP verification rate — possible SMS pumping', {
+      sends: recentSends,
+      verified: recentVerified,
+      rate: (verifyRate * 100).toFixed(1) + '%',
+    });
+  }
+}
+```
+
+
+## How StartMessaging Protects You
+
+[StartMessaging](/features) implements multiple layers of SMS pumping
+        protection automatically:
+
+
+
+- **Built-in rate limiting:** Per-phone, per-IP, and per-API-key rate limits are applied on every OTP send request, with thresholds tuned for the Indian market.
+- **Pattern detection:** Our system monitors for sequential number patterns, abnormal volume spikes, and low-verification-rate traffic in real time.
+- **Country restrictions:** Configure allowed destination countries per API key. By default, only Indian numbers (+91) are enabled.
+- **Spend alerts:** Set daily and monthly budget thresholds. StartMessaging alerts you and can optionally pause sends when thresholds are reached.
+- **Idempotency protection:** Duplicate OTP requests with the same idempotency key do not generate additional SMS sends or charges.
+- **Smart fallback:** Our SMS provider system only retries on service errors (5xx, timeouts), not on validation errors, preventing fraudulent requests from being amplified across multiple providers.
+
+
+
+At [Rs 0.25 per OTP](/pricing), every prevented fraudulent message
+        directly saves you money. Combined with 
+        [comprehensive OTP security practices](/blog/otp-security-best-practices),
+        StartMessaging gives you a production-ready anti-fraud layer from day one.
+
+
+## Incident Response Plan
+
+If you detect an active SMS pumping attack, follow this response sequence:
+
+
+
+- **Immediate:** Enable emergency rate limiting. Drop your global OTP send limit to 50% of normal peak capacity.
+- **Within 5 minutes:** Identify the top attacking IPs and phone number ranges from your logs. Block them at the application level.
+- **Within 15 minutes:** Enable CAPTCHA on all OTP send forms if not already active. This stops the automated scripts immediately.
+- **Within 1 hour:** Review your SMS provider dashboard for cost impact. Contact your provider to flag the traffic as fraudulent (some providers offer credits for confirmed fraud).
+- **Post-incident:** Analyse the attack pattern to strengthen your defences. Update rate limits, add the attacking number ranges to your blocklist, and review your monitoring thresholds.
+
+
+
+Document each incident. Over time, your blocklists and detection rules will become
+        increasingly effective at catching attacks early.
+
+
+For more on building robust OTP systems, read our guides on 
+        [OTP rate limiting](/blog/otp-rate-limiting-guide) and 
+        [OTP security best practices](/blog/otp-security-best-practices).
+

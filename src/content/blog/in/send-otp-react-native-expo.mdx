@@ -1,0 +1,117 @@
+﻿---
+title: "How to Send OTP in React Native (Expo) — 2026"
+description: "React Native OTP tutorial using Expo and StartMessaging. Includes secure storage, auto-fill (Android SMS Retriever / iOS keychain), and a Node backend pattern."
+publishedAt: "2026-05-12"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "react native otp expo"
+  - "expo sms otp"
+  - "react native otp india"
+  - "react native auth otp"
+relatedSlugs:
+  - "send-otp-flutter-firebase"
+  - "mobile-app-otp-backend-react-native-flutter"
+  - "otp-autofill-android-ios-sms-retriever"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+Expo + React Native is a popular stack for Indian consumer apps.
+        This tutorial wires 
+        [StartMessaging](/otp-api) via a small Node
+        backend, with auto-fill and secure session storage.
+
+
+## Overview
+
+
+- Backend: Express + StartMessaging.
+- App: phone screen → OTP screen.
+- Android SMS Retriever for auto-fill.
+- Expo SecureStore for the JWT token.
+
+
+
+## Setup
+      
+```bash
+npx create-expo-app otp-rn
+cd otp-rn
+npx expo install expo-secure-store expo-otp-input
+npm install zustand
+```
+
+
+## Login Screens
+      
+```typescript
+// App.tsx
+import { useState } from 'react';
+import { TextInput, Button, View } from 'react-native';
+import { otp } from './src/otpService';
+
+export default function App() {
+  const [phone, setPhone] = useState('');
+  const [code, setCode]   = useState('');
+  const [requestId, setRequestId] = useState<string|null>(null);
+
+  return requestId === null ? (
+    <View><TextInput value={phone} onChangeText={setPhone} placeholder="+919876543210" />
+      <Button title="Send OTP" onPress={async () => setRequestId((await otp.send(phone)).requestId)} />
+    </View>
+  ) : (
+    <View><TextInput value={code} onChangeText={setCode} keyboardType="number-pad" />
+      <Button title="Verify" onPress={() => otp.verify(requestId, code)} />
+    </View>
+  );
+}
+```
+
+
+## OTP Service
+      
+```typescript
+// src/otpService.ts
+const BASE = 'https://your-backend.example.com';
+
+export const otp = {
+  async send(phoneNumber: string) {
+    const r = await fetch(\`\${BASE}/auth/send-otp\`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber }),
+    });
+    return r.json();
+  },
+  async verify(requestId: string, otpCode: string) {
+    const r = await fetch(\`\${BASE}/auth/verify-otp\`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ requestId, otpCode }),
+    });
+    return r.json();
+  },
+};
+```
+
+
+## OTP Auto-Fill
+
+See [our auto-fill guide](/blog/otp-autofill-android-ios-sms-retriever) for the SMS Retriever API setup. The SMS body
+        must end with a Google-defined hash so the OS can attribute it.
+
+
+## Secure Token Storage
+      
+```typescript
+import * as SecureStore from 'expo-secure-store';
+await SecureStore.setItemAsync('session', token);
+```
+
+
+## FAQ
+
+Flutter equivalent in 
+        [our Flutter guide](/blog/send-otp-flutter-firebase).
+

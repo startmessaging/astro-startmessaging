@@ -1,0 +1,160 @@
+{
+  "countries": ["in"],
+  "theme": "sms",
+  "seo": {
+    "title": { "en": "How to Send OTP Without DLT Registration - Step by Step Guide" },
+    "description": {
+      "en": "Complete guide to sending OTPs in India without DLT registration. Step-by-step tutorial with code examples in Node.js, Python, PHP, Java, and Go."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge": { "en": "Step-by-Step Guide" },
+        "title": { "en": "How to Send OTP Without DLT Registration" },
+        "subtitle": {
+          "en": "A step-by-step guide to sending OTPs in India without any DLT setup. From account creation to your first API call in 5 minutes."
+        },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "Integration Steps" },
+        "heading": { "en": "Step-by-Step Guide" },
+        "steps": [
+          {
+            "title": { "en": "Create Your Account" },
+            "description": {
+              "en": "Sign up at app.startmessaging.com with your email. No company documents or KYC required to get started."
+            }
+          },
+          {
+            "title": { "en": "Generate an API Key" },
+            "description": {
+              "en": "Go to the API Keys page in your dashboard and click 'Create API Key'. Copy the key — it is shown only once. The key starts with the sm_live_ prefix."
+            }
+          },
+          {
+            "title": { "en": "Top Up Your Wallet" },
+            "description": {
+              "en": "Add funds to your wallet via Razorpay (UPI, cards, netbanking). Each OTP costs Rs 0.25."
+            }
+          },
+          {
+            "title": { "en": "Send Your First OTP" },
+            "description": {
+              "en": "Make a POST request to /otp/send with the phone number. We generate and deliver the OTP via SMS in under 2 seconds. See the code examples below."
+            }
+          },
+          {
+            "title": { "en": "Verify the OTP" },
+            "description": {
+              "en": "When your user enters the OTP, call POST /v1/otp/verify with the OTP request ID and the code. We handle validation, expiry, and attempt limits."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Send an OTP in One API Call" },
+        "heading": { "en": "Works with every language. Just a single POST request." },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/otp/send \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"phoneNumber\": \"+919876543210\",\n    \"templateId\": \"YOUR_TEMPLATE_ID\",\n    \"variables\": {\n      \"otp\": \"123456\",\n      \"appName\": \"YourApp\"\n    }\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const response = await fetch(\"https://api.startmessaging.com/otp/send\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\",\n  },\n  body: JSON.stringify({\n    phoneNumber: \"+919876543210\",\n    templateId: \"YOUR_TEMPLATE_ID\",\n    variables: {\n      otp: \"123456\",\n      appName: \"YourApp\",\n    },\n  }),\n});\n\nconst data = await response.json();\nconsole.log(data);"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nresponse = requests.post(\n    \"https://api.startmessaging.com/otp/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\",\n    },\n    json={\n        \"phoneNumber\": \"+919876543210\",\n        \"templateId\": \"YOUR_TEMPLATE_ID\",\n        \"variables\": {\n            \"otp\": \"123456\",\n            \"appName\": \"YourApp\"\n        },\n    },\n)\n\ndata = response.json()\nprint(data)"
+          },
+          {
+            "lang": "PHP",
+            "code": "$ch = curl_init(\"https://api.startmessaging.com/otp/send\");\n\ncurl_setopt_array($ch, [\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_POST => true,\n    CURLOPT_HTTPHEADER => [\n        \"Content-Type: application/json\",\n        \"X-API-Key: sm_live_your_api_key_here\",\n    ],\n    CURLOPT_POSTFIELDS => json_encode([\n        \"phoneNumber\" => \"+919876543210\",\n        \"templateId\" => \"YOUR_TEMPLATE_ID\",\n        \"variables\" => [\n            \"otp\" => \"123456\",\n            \"appName\" => \"YourApp\"\n        ]\n    ]),\n]);\n\n$response = curl_exec($ch);\ncurl_close($ch);\n\n$data = json_decode($response, true);"
+          },
+          {
+            "lang": "Java",
+            "code": "import java.net.http.*;\nimport java.net.URI;\n\nHttpClient client = HttpClient.newHttpClient();\n\nString body = \"\"\"\n    {\n      \"phoneNumber\": \"+919876543210\",\n      \"templateId\": \"YOUR_TEMPLATE_ID\",\n      \"variables\": {\n        \"otp\": \"123456\",\n        \"appName\": \"YourApp\"\n      }\n    }\n    \"\"\";\n\nHttpRequest request = HttpRequest.newBuilder()\n    .uri(URI.create(\"https://api.startmessaging.com/otp/send\"))\n    .header(\"Content-Type\", \"application/json\")\n    .header(\"X-API-Key\", \"sm_live_your_api_key_here\")\n    .POST(HttpRequest.BodyPublishers.ofString(body))\n    .build();\n\nHttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());\nSystem.out.println(response.body());"
+          },
+          {
+            "lang": "Go",
+            "code": "package main\n\nimport (\n  \"bytes\"\n  \"encoding/json\"\n  \"fmt\"\n  \"net/http\"\n  \"io\"\n)\n\nfunc main() {\n  payload, _ := json.Marshal(map[string]interface{}{\n    \"phoneNumber\": \"+919876543210\",\n    \"templateId\":  \"YOUR_TEMPLATE_ID\",\n    \"variables\": map[string]string{\n      \"otp\":     \"123456\",\n      \"appName\": \"YourApp\",\n    },\n  })\n\n  req, _ := http.NewRequest(\"POST\", \"https://api.startmessaging.com/otp/send\", bytes.NewBuffer(payload))\n  req.Header.Set(\"Content-Type\", \"application/json\")\n  req.Header.Set(\"X-API-Key\", \"sm_live_your_api_key_here\")\n\n  resp, _ := http.DefaultClient.Do(req)\n  defer resp.Body.Close()\n\n  body, _ := io.ReadAll(resp.Body)\n  fmt.Println(string(body))\n}"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQ" },
+        "heading": { "en": "Send OTP Without DLT FAQ" },
+        "items": [
+          {
+            "question": { "en": "Do I need any documents to sign up?" },
+            "answer": {
+              "en": "No. You can sign up with just an email address. No company registration, PAN card, GST certificate, or any other documents are required."
+            }
+          },
+          {
+            "question": { "en": "What phone number format should I use?" },
+            "answer": {
+              "en": "Use E.164 format: country code + number. For India, that is +91 followed by the 10-digit mobile number. Example: +919876543210."
+            }
+          },
+          {
+            "question": { "en": "How many OTPs can I send per second?" },
+            "answer": {
+              "en": "We support up to 20 OTPs per second globally per account. This ensures high throughput for production applications during peak times."
+            }
+          },
+          {
+            "question": { "en": "How long does an OTP remain valid?" },
+            "answer": {
+              "en": "OTPs expire after a configurable time window. The default expiry ensures security while giving users enough time to receive and enter the code."
+            }
+          },
+          {
+            "question": { "en": "What happens if SMS delivery fails?" },
+            "answer": {
+              "en": "StartMessaging automatically retries with a backup SMS provider. We only retry on service errors (5xx or timeout), not on validation errors like invalid phone numbers."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          {
+            "label": { "en": "DLT Free OTP" },
+            "href": "/dlt-free-otp"
+          },
+          {
+            "label": { "en": "OTP API Docs" },
+            "href": "/otp-api"
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Ready to Send Your First OTP?" },
+        "subtext": { "en": "Follow the steps above and go live in under 5 minutes. No DLT registration needed." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+---
+title: "Message Templates"
+description: "Create, manage, and send WhatsApp message templates. Template categories, approval process, and dynamic parameters."
+product: whatsapp
+order: 4
+---
+
+## What Are Message Templates?
+
+Message templates are pre-approved message formats that allow you to send outbound notifications to customers outside the 24-hour conversation window. Every outbound message that initiates a new conversation must use an approved template.
+
+## Template Categories
+
+WhatsApp classifies templates into three categories, each with different pricing:
+
+| Category | Use Case | Examples |
+|----------|----------|---------|
+| **Utility** | Transaction-related | Order confirmations, shipping updates, payment receipts |
+| **Authentication** | OTP/verification | Login codes, password resets, 2FA |
+| **Marketing** | Promotions | Offers, product launches, re-engagement |
+
+## Creating a Template
+
+### Via Dashboard
+
+1. Go to **Templates → Create Template**
+2. Select the category (Utility, Authentication, or Marketing)
+3. Choose the language(s)
+4. Build the template structure:
+   - **Header** (optional): text, image, video, or document
+   - **Body** (required): the message text with optional parameters `{{1}}`, `{{2}}`...
+   - **Footer** (optional): small text below the body
+   - **Buttons** (optional): quick reply or call-to-action buttons
+5. Submit for approval
+
+### Via API
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/templates \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "order_shipped",
+    "language": "en",
+    "category": "utility",
+    "components": [
+      {
+        "type": "header",
+        "format": "text",
+        "text": "Order Shipped! 🚚"
+      },
+      {
+        "type": "body",
+        "text": "Hi {{1}}, your order {{2}} has been shipped and will arrive by {{3}}. Track it here: {{4}}"
+      },
+      {
+        "type": "footer",
+        "text": "StartMessaging"
+      },
+      {
+        "type": "buttons",
+        "buttons": [
+          { "type": "url", "text": "Track Order", "url": "https://track.example.com/{{1}}" }
+        ]
+      }
+    ]
+  }'
+```
+
+## Template Approval
+
+- **Utility & Authentication**: Usually approved within 1 hour
+- **Marketing**: May take up to 24 hours; subject to stricter review
+- **Rejection reasons**: Misleading content, missing opt-out, promotional content in utility category
+
+Check template status:
+
+```bash
+curl https://api.startmessaging.com/v1/templates?status=pending \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Using Parameters
+
+Parameters are placeholders (`{{1}}`, `{{2}}`, etc.) that get replaced with dynamic content when sending:
+
+```json
+{
+  "to": "5511999999999",
+  "type": "template",
+  "template": {
+    "name": "order_shipped",
+    "language": { "code": "en" },
+    "components": [
+      {
+        "type": "body",
+        "parameters": [
+          { "type": "text", "text": "Maria" },
+          { "type": "text", "text": "#ORD-1234" },
+          { "type": "text", "text": "January 20, 2026" },
+          { "type": "text", "text": "https://track.example.com/ORD-1234" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## Template Best Practices
+
+1. **Keep it concise** — shorter templates have higher read rates
+2. **Use the correct category** — miscategorized templates get rejected
+3. **Include a clear CTA** — tell the user what to do next
+4. **Add personalization** — use parameters for names and order details
+5. **Test in sandbox** before going live
+
+## FAQ
+
+**How many templates can I create?**
+There's no limit on the number of templates. However, only approved templates can be used for sending messages.
+
+**Can I edit an approved template?**
+No — you must create a new template and submit it for approval. You can delete the old one after the new one is approved.
+
+**What happens if my template is rejected?**
+You'll receive a rejection notification with the reason. Fix the issue and resubmit.

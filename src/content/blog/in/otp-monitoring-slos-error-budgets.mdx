@@ -1,0 +1,76 @@
+﻿---
+title: "Monitoring OTP Health: SLOs, Error Budgets, and Alerts"
+description: "Define SLOs for OTP send and verify paths and monitor TRAI-compliant transactional SMS health—not just API uptime—for Indian peak traffic."
+publishedAt: "2026-04-18"
+category: business
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "OTP API monitoring"
+  - "SMS OTP SLO"
+  - "error budget OTP"
+  - "on-call OTP alerts"
+  - "verification success rate"
+  - "OTP metrics dashboard"
+  - "TRAI SMS OTP reliability"
+  - "DLT SMS delivery monitoring"
+  - "transactional SMS SLA India"
+  - "bulk SMS OTP observability"
+  - "SMS gateway uptime OTP"
+relatedSlugs:
+  - "phone-verification-at-scale-best-practices"
+  - "otp-delivery-status-polling-vs-webhooks"
+  - "otp-delivery-rates-india"
+featured: false
+---
+
+
+[Phone verification at scale](/blog/phone-verification-at-scale-best-practices) 
+        discussed architecture. This post focuses on **operational
+        metrics**: what to measure, how to alert, and how to tie OTP
+        reliability to product decisions—without repeating the same
+        paragraphs as our 
+        [deliverability checklist](/blog/otp-sms-deliverability-checklist)
+        , which is about message content and templates.
+
+
+## Beyond Generic API Uptime
+
+Your API gateway can return 200 while users still fail login because SMS
+        never arrived or verification timed out. Track *end-to-end* 
+        outcomes: request OTP → user submits code → verify succeeds, segmented
+        by region and client version.
+
+
+## Golden Signals for OTP
+
+Useful starting points: send acceptance rate from your provider,
+        latency from send click to SMS received (sampled with user consent or
+        instrumentation), verify success rate, and cost per successful
+        verification. If you poll status, include 
+        [delivery state](/blog/otp-delivery-status-polling-vs-webhooks) 
+        in analytics.
+
+
+## Error Budgets and Product Tradeoffs
+
+If verify success drops below SLO for a week, freeze new auth features
+        and invest in carrier diagnostics or UX copy. Error budgets turn
+        reliability into a shared product decision, not only an on-call
+        problem.
+
+
+## How This Extends Scale Guidance
+
+Indian peak hours and festivals can spike OTP volume— 
+        [delivery benchmarks](/blog/otp-delivery-rates-india) 
+        help set realistic targets. Pair monitoring with 
+        [cost visibility](/pricing) 
+        so engineering and finance agree when to optimize code versus when to
+        negotiate volume.
+
+
+## FAQ
+
+See FAQ above.
+

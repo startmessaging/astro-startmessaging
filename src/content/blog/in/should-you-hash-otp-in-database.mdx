@@ -1,0 +1,62 @@
+﻿---
+title: "Should You Hash OTPs in Your Database?"
+description: "Yes, always — and bcrypt or scrypt, not SHA-256. Why hashing OTPs matters even though they're short-lived, and concrete code patterns."
+publishedAt: "2026-05-19"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "hash otp"
+  - "bcrypt otp"
+  - "should i hash otp"
+  - "otp hashing best practice"
+  - "sha256 otp"
+relatedSlugs:
+  - "otp-database-schema-best-practices"
+  - "otp-redis-vs-sql-storage"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+Even ephemeral codes deserve hashing. A database leak with hashed
+        OTPs gives you breathing room; with plaintext OTPs every active
+        session is at immediate risk.
+
+
+## Why Hash an Ephemeral Code?
+
+
+- Database leak protection during the validity window.
+- DPDP / PCI-DSS "reasonable security" obligations.
+- Defence-in-depth.
+
+
+
+## Which Algorithm
+
+
+- Bcrypt cost 10–12.
+- Scrypt or Argon2 if you have Argon2 native bindings.
+- Never SHA-256 / MD5 / SHA-1.
+
+
+
+## Cost Factor
+
+Bcrypt cost 10 is ~70ms on modern hardware. The user can't
+        feel it; the attacker really can.
+
+
+## If You Use a Managed Provider
+
+StartMessaging hashes the OTP server-side with bcrypt cost 12 by
+        default. You never see plaintext on your servers; nothing to hash
+        on your side.
+
+
+## FAQ
+
+Even with managed provider, hash any locally-stored OTP-adjacent
+        data (PINs, recovery codes, etc.).
+

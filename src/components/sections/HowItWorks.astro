@@ -1,0 +1,103 @@
+---
+/**
+ * HowItWorks — Numbered step-by-step process section.
+ *
+ * Example JSON:
+ * {
+ *   "type": "howItWorks",
+ *   "props": {
+ *     "badge":    { "en": "How It Works" },
+ *     "heading":  { "en": "Get started in minutes" },
+ *     "subheading": { "en": "Four simple steps..." },
+ *     "steps": [
+ *       { "number": "01", "title": { "en": "Sign Up" }, "description": { "en": "..." }, "icon": "user" }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, steps = [], country, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+const circleHoverClass = isWhatsapp ? 'group-hover:border-accent-wa group-hover:shadow-glow-wa' : 'group-hover:border-primary group-hover:shadow-glow-primary';
+const textPrimaryClass = isWhatsapp ? 'text-accent-wa' : 'text-primary';
+
+const stepCount = steps.length;
+const flexClass = ({
+  1: 'max-w-sm mx-auto',
+  2: 'md:flex-row max-w-2xl mx-auto',
+  3: 'md:flex-row max-w-4xl mx-auto',
+  4: 'md:flex-row lg:flex-row max-w-6xl mx-auto',
+} as Record<number, string>)[stepCount] || 'md:flex-row lg:flex-row max-w-6xl mx-auto';
+
+const lineStyles = ({
+  2: 'left-[25%] right-[25%]',
+  3: 'md:left-[16.6%] md:right-[16.6%]',
+  4: 'lg:left-[12.5%] lg:right-[12.5%]',
+} as Record<number, string>)[stepCount] || 'lg:left-[12.5%] lg:right-[12.5%]';
+
+const lineDisplayClass = ({
+  2: 'hidden md:block',
+  3: 'hidden md:block',
+  4: 'hidden lg:block',
+} as Record<number, string>)[stepCount] || 'hidden lg:block';
+
+const lineBgClass = isWhatsapp
+  ? 'from-transparent via-accent-wa/20 to-transparent'
+  : 'from-transparent via-hairline to-transparent';
+
+const stepIcons: Record<string, string> = {
+  user:    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  key:     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78zM15.5 7.5l1 1L22 3"/></svg>`,
+  send:    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`,
+  rocket:  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+  code:    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/></svg>`,
+  zap:     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+};
+---
+
+<Section theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-16 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <div class:list={["relative flex flex-col justify-center items-start gap-8 md:gap-12 w-full mx-auto", flexClass]}>
+      {/* Connecting line */}
+      <div class:list={["absolute top-12 h-px bg-gradient-to-r", lineDisplayClass, lineStyles, lineBgClass]} aria-hidden="true"></div>
+
+      {steps.map((step: any, idx: number) => (
+        <div class="relative flex flex-col items-center text-center gap-4 group flex-1 w-full max-w-xs mx-auto">
+          {/* Step number circle */}
+          <div class:list={["relative z-10 flex items-center justify-center w-24 h-24 rounded-full bg-surface-card border-2 border-hairline transition-all duration-300", circleHoverClass]}>
+            {step.icon && stepIcons[step.icon] ? (
+              <div class:list={["w-10 h-10", textPrimaryClass]} set:html={stepIcons[step.icon]} />
+            ) : (
+              <span class:list={["text-display-sm font-bold", textPrimaryClass]}>{step.number || `0${idx + 1}`}</span>
+            )}
+          </div>
+
+          {/* Step content */}
+          <div class="mt-2">
+            <Heading as="h3" size="title-md" class="mb-2">
+              {r(step.title, country)}
+            </Heading>
+            <Text size="body-sm" tone="muted" class="max-w-xs mx-auto">
+              {r(step.description, country)}
+            </Text>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</Section>

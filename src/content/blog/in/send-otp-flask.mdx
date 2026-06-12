@@ -1,0 +1,157 @@
+﻿---
+title: "How to Send OTP in Flask (Python) — 2026 Tutorial"
+description: "Send and verify SMS OTPs from a Flask application using the StartMessaging API. Includes app factory, blueprint routes, sessions, and error handling."
+publishedAt: "2026-04-20"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp flask"
+  - "flask sms otp api"
+  - "flask phone verification"
+  - "python flask otp tutorial"
+  - "flask requests otp india"
+  - "startmessaging flask"
+  - "flask blueprint otp"
+  - "flask otp without dlt"
+  - "flask otp login"
+  - "sms otp api india python"
+relatedSlugs:
+  - "send-otp-django"
+  - "send-otp-python"
+  - "idempotency-keys-otp"
+featured: false
+---
+
+
+Flask is the go-to micro-framework for small Python services. This
+        guide shows how to drop a phone-OTP login on top of Flask using the 
+        [StartMessaging OTP API](/otp-api) in fewer than 80
+        lines of code.
+
+
+## Prerequisites
+
+
+- Python 3.10+ and Flask 3.x.
+- A free  [StartMessaging account](https://app.startmessaging.com/register)  and an API key.
+
+
+      
+```bash
+pip install Flask requests python-dotenv Flask-Limiter
+```
+
+
+## App Factory Setup
+      
+```python
+# app/__init__.py
+import os
+from flask import Flask
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+limiter = Limiter(get_remote_address, default_limits=["60 per minute"])
+
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = os.environ["FLASK_SECRET"]
+    limiter.init_app(app)
+
+    from .auth import bp as auth_bp
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    return app
+```
+
+
+## OTP Service
+      
+```python
+# app/services/otp.py
+import os, uuid, requests
+
+BASE = "https://api.startmessaging.com"
+HEAD = {
+    "Content-Type": "application/json",
+    "X-API-Key": os.environ["STARTMESSAGING_API_KEY"],
+}
+
+def send_otp(phone):
+    res = requests.post(
+        f"{BASE}/otp/send",
+        json={"phoneNumber": phone, "idempotencyKey": str(uuid.uuid4())},
+        headers=HEAD, timeout=10,
+    )
+    res.raise_for_status()
+    return res.json()["data"]
+
+def verify_otp(request_id, code):
+    res = requests.post(
+        f"{BASE}/otp/verify",
+        json={"requestId": request_id, "otpCode": code},
+        headers=HEAD, timeout=10,
+    )
+    return res.ok and res.json()["data"]["verified"]
+```
+
+
+## Auth Blueprint
+      
+```python
+# app/auth.py
+from flask import Blueprint, request, session, jsonify
+from .services.otp import send_otp, verify_otp
+from . import limiter
+
+bp = Blueprint("auth", __name__)
+
+@bp.post("/send-otp")
+@limiter.limit("5 per hour", key_func=lambda: request.json.get("phone", ""))
+def send():
+    phone = request.json.get("phone", "")
+    try:
+        data = send_otp(phone)
+    except Exception as e:
+        return jsonify(error=str(e)), 502
+    session["otp_request_id"] = data["requestId"]
+    return jsonify(expires_at=data["expiresAt"])
+
+@bp.post("/verify-otp")
+def verify():
+    code = request.json.get("code", "")
+    rid = session.pop("otp_request_id", None)
+    if not rid:
+        return jsonify(error="session expired"), 400
+    if not verify_otp(rid, code):
+        return jsonify(verified=False), 401
+    session["user_phone"] = request.json.get("phone")
+    return jsonify(verified=True)
+```
+
+
+## Sessions and Cookies
+
+Flask's built-in cookie session is signed but not encrypted, so
+        only store opaque values like the requestId — never the OTP
+        itself. For higher-security apps, use server-side sessions via
+        Flask-Session backed by Redis.
+
+
+## Best Practices
+
+
+- Use Flask-Limiter on the send endpoint, keyed by phone.
+- Always set an HTTP timeout on the requests call.
+- Never log `request.json` on the verify endpoint.
+- For background sends, queue them via Celery or RQ so the request returns instantly.
+
+
+
+## FAQ
+
+See the equivalent 
+        [Django guide](/blog/send-otp-django) if you prefer
+        DRF, or check our 
+        [OTP flow design article](/blog/otp-verification-flow).
+

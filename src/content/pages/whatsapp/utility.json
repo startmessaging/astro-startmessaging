@@ -1,0 +1,291 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
+  "seo": {
+    "title": {
+      "en": "WhatsApp Utility Messages — Transactional Updates — StartMessaging",
+      "pt": "Mensagens Utilitárias WhatsApp — Atualizações Transacionais — StartMessaging",
+      "es": "Mensajes Utilitarios WhatsApp — Actualizaciones Transaccionales — StartMessaging",
+      "id": "Pesan Utilitas WhatsApp — Pembaruan Transaksional — StartMessaging",
+      "ar": "رسائل خدمات واتساب — الإشعارات المعاملاتية — StartMessaging",
+      "tr": "WhatsApp Yardımcı Program Mesajları — İşlemsel Güncellemeler — StartMessaging",
+      "ng": "WhatsApp Utility Messages — Transactional Updates — StartMessaging"
+    },
+    "description": {
+      "en": "Send order updates, shipping alerts, appointment reminders, and transactional notifications via WhatsApp with real-time delivery tracking.",
+      "pt": "Envie atualizações de pedido, alertas de envio, lembretes de compromisso e notificações transacionais via WhatsApp.",
+      "es": "Envíe actualizaciones de pedidos, alertas de envío, recordatorios de citas y notificaciones transaccionales vía WhatsApp.",
+      "id": "Kirim pembaruan pesanan, peringatan pengiriman, pengingat janji, dan notifikasi transaksional via WhatsApp.",
+      "ar": "أرسل تحديثات الطلبات وتنبيهات الشحن وتذكيرات المواعيد والإشعارات المعاملاتية عبر واتساب.",
+      "tr": "Sipariş güncellemeleri, kargo uyarıları, randevu hatırlatmaları ve işlemsel bildirimler gönderin."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Utility Messages",
+          "pt": "Mensagens Utilitárias",
+          "es": "Mensajes Utilitarios",
+          "id": "Pesan Utilitas",
+          "ar": "رسائل الخدمات",
+          "tr": "Yardımcı Mesajlar"
+        },
+        "title": {
+          "en": "Transactional Updates via WhatsApp",
+          "pt": "Atualizações Transacionais via WhatsApp",
+          "es": "Actualizaciones Transaccionales vía WhatsApp",
+          "id": "Pembaruan Transaksional via WhatsApp",
+          "ar": "التحديثات المعاملاتية عبر واتساب",
+          "tr": "WhatsApp ile İşlemsel Güncellemeler"
+        },
+        "subtitle": {
+          "en": "Order confirmations, shipping tracking, appointment reminders, and payment receipts — delivered instantly through WhatsApp with 98% open rates.",
+          "pt": "Confirmações de pedido, rastreamento, lembretes de compromisso e recibos de pagamento — entregues instantaneamente pelo WhatsApp com 98% de abertura.",
+          "es": "Confirmaciones de pedido, seguimiento de envío, recordatorios y recibos — entregados instantáneamente por WhatsApp con 98% de apertura.",
+          "id": "Konfirmasi pesanan, pelacakan pengiriman, pengingat janji, dan tanda terima pembayaran — dikirim secara instan melalui WhatsApp dengan 98% tingkat buka.",
+          "ar": "تأكيدات الطلبات وتتبع الشحن وتذكيرات المواعيد وإيصالات الدفع — تُسلَّم فوراً عبر واتساب بمعدل فتح 98%.",
+          "tr": "Sipariş onayları, kargo takibi, randevu hatırlatmaları ve ödeme makbuzları — %98 açılma oranıyla WhatsApp aracılığıyla anında iletilir."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "High-Priority Transactional Delivery",
+          "pt": "Entrega Transacional de Alta Prioridade",
+          "es": "Entrega Transaccional de Alta Prioridad",
+          "id": "Pengiriman Transaksional Prioritas Tinggi",
+          "ar": "توصيل المعاملات عالية الأولوية",
+          "tr": "Yüksek Öncelikli İşlemsel Teslimat"
+        },
+        "body": {
+          "en": "Ensure your customers receive critical updates exactly when they need them. From real-time order tracking notifications to secure digital receipts and appointment reminders, our utility delivery engine prioritizes transactional packets over standard messages, bypassing network queues for immediate delivery.",
+          "pt": "Garanta que seus clientes recebam atualizações críticas exatamente quando precisam. De notificações de rastreamento de pedidos em tempo real a recibos digitais seguros e lembretes de compromisso.",
+          "es": "Asegúrese de que sus clientes reciban actualizaciones críticas exactamente cuando las necesitan. Desde notificaciones de seguimiento de pedidos en tiempo real hasta recibos digitales seguros.",
+          "id": "Pastikan pelanggan Anda menerima pembaruan penting tepat saat mereka membutuhkannya. Mulai dari notifikasi pelacakan pesanan real-time hingga tanda terima digital yang aman.",
+          "ar": "اضمن تلقي عملائك للتحديثات المهمة في الوقت المناسب تماماً. من إشعارات تتبع الطلبات في الوقت الفعلي إلى إيصالات الدفع الرقمية الآمنة.",
+          "tr": "Müşterilerinizin kritik güncellemeleri tam ihtiyaç duydukları anda almasını sağlayın. Gerçek zamanlı sipariş takibi bildirimlerinden güvenli dijital makbuzlara kadar."
+        },
+        "bullets": [
+          {
+            "en": "Instant delivery tracking with read-receipt receipts",
+            "pt": "Rastreamento de entrega instantâneo com recibos de leitura",
+            "es": "Seguimiento de entrega instantáneo con confirmaciones de lectura",
+            "id": "Pelacakan pengiriman instan dengan laporan dibaca",
+            "ar": "تتبع فوري للتسليم مع مؤشرات القراءة",
+            "tr": "Okundu bilgisi ile anında teslimat takibi"
+          },
+          {
+            "en": "Rich media attachments including PDFs and interactive buttons",
+            "pt": "Anexos de mídia rica incluindo PDFs e botões interativos",
+            "es": "Archivos adjuntos enriquecidos incluyendo PDFs y botones interactivos",
+            "id": "Lampiran media kaya termasuk PDF dan tombol interaktif",
+            "ar": "مرفقات وسائط غنية تشمل ملفات PDF وأزرار تفاعلية",
+            "tr": "PDF'ler ve etkileşimli düğmeler dahil zengin medya ekleri"
+          },
+          {
+            "en": "High-priority routing directly via official Meta pipelines",
+            "pt": "Roteamento de alta prioridade diretamente pelos canais oficiais da Meta",
+            "es": "Enrutamiento de alta prioridad directamente a través de canales oficiales de Meta",
+            "id": "Perutean prioritas tinggi langsung melalui pipa resmi Meta",
+            "ar": "توجيه عالي الأولوية مباشرة عبر خوادم Meta الرسمية",
+            "tr": "Doğrudan resmi Meta altyapısı üzerinden yüksek öncelikli yönlendirme"
+          }
+        ],
+        "image": "/images/utility-preview.webp",
+        "imageAlt": {
+          "en": "WhatsApp Transactional Message Preview",
+          "pt": "Pré-visualização de Mensagem Transacional WhatsApp",
+          "es": "Vista Previa de Mensaje Transaccional de WhatsApp",
+          "id": "Pratinjau Pesan Transaksional WhatsApp",
+          "ar": "معاينة رسالة معاملات واتساب",
+          "tr": "WhatsApp İşlemsel Mesaj Önizlemesi"
+        },
+        "imageWidth": 640,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-xl",
+        "reversed": false
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": {
+          "en": "Use Cases",
+          "pt": "Casos de Uso",
+          "es": "Casos de Uso",
+          "id": "Kasus Penggunaan",
+          "ar": "حالات الاستخدام",
+          "tr": "Kullanım Örnekleri"
+        },
+        "heading": {
+          "en": "Keep Your Customers Informed",
+          "pt": "Mantenha Seus Clientes Informados",
+          "es": "Mantenga a Sus Clientes Informados",
+          "id": "Jaga Pelanggan Anda Tetap Terinformasi",
+          "ar": "أبقِ عملاءك على اطلاع",
+          "tr": "Müşterilerinizi Bilgilendirin"
+        },
+        "items": [
+          {
+            "icon": "broadcast",
+            "title": { "en": "Order Updates" },
+            "description": { "en": "Send order confirmations, processing status, and delivery notifications automatically." }
+          },
+          {
+            "icon": "template",
+            "title": { "en": "Shipping Alerts" },
+            "description": { "en": "Real-time shipping tracking updates with live location links and estimated delivery times." }
+          },
+          {
+            "icon": "analytics",
+            "title": { "en": "Appointment Reminders" },
+            "description": { "en": "Reduce no-shows with automated appointment reminders including confirm/reschedule buttons." }
+          },
+          {
+            "icon": "shield",
+            "title": { "en": "Payment Receipts" },
+            "description": { "en": "Send instant payment confirmations and digital receipts with transaction details." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Transactional Comparison" },
+        "heading": { "en": "WhatsApp Utility vs. SMS Transactions vs. Email Updates" },
+        "subheading": { "en": "Compare the delivery success and formatting capabilities for critical transactional messages." },
+        "columns": [
+          { "label": { "en": "Capability" } },
+          { "label": { "en": "WhatsApp Utility" }, "highlight": true },
+          { "label": { "en": "SMS Transactions" } },
+          { "label": { "en": "Email Updates" } }
+        ],
+        "rows": [
+          [
+            { "en": "Delivery Guarantee" },
+            { "en": "99%+ (Meta BSP high priority)" },
+            { "en": "85% - 90% (Carrier spam filters)" },
+            { "en": "70% - 80% (Promotional sorting)" }
+          ],
+          [
+            { "en": "Document Attachments" },
+            { "en": "✓ (PDF invoices, QR code tickets)" },
+            { "en": "✗ (Text links only)" },
+            { "en": "✓ (File attachments)" }
+          ],
+          [
+            { "en": "Interactive Buttons" },
+            { "en": "✓ (Quick-reply / Track order)" },
+            { "en": "✗ (Static copy)" },
+            { "en": "✓ (HTML layout tags)" }
+          ],
+          [
+            { "en": "Cost Per Conversation" },
+            { "en": "Meta fixed utility rate" },
+            { "en": "Charged per SMS segment" },
+            { "en": "Varies by database size" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Utility API" },
+        "heading": { "en": "Dispatch Transactional Alerts Programmatically" },
+        "overlayText": { "en": "Utility API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/messages \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"to\": \"+919876543210\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"shipping_update\",\n      \"language\": { \"code\": \"en\" },\n      \"components\": [\n        {\n          \"type\": \"body\",\n          \"parameters\": [\n            { \"type\": \"text\", \"text\": \"Rahul\" },\n            { \"type\": \"text\", \"text\": \"#5521\" },\n            { \"type\": \"text\", \"text\": \"FedEx\" }\n          ]\n        }\n      ]\n    }\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/v1/messages\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    to: \"+919876543210\",\n    type: \"template\",\n    template: {\n      name: \"shipping_update\",\n      language: { code: \"en\" },\n      components: [\n        { type: \"body\", parameters: [{ type: \"text\", text: \"Rahul\" }, { type: \"text\", text: \"#5521\" }, { type: \"text\", text: \"FedEx\" }] }\n      ]\n    }\n  })\n});"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": {
+          "en": "Utility Messages — FAQ",
+          "pt": "Mensagens Utilitárias — FAQ",
+          "es": "Mensajes Utilitarios — FAQ",
+          "id": "Pesan Utilitas — FAQ",
+          "ar": "رسائل الخدمات — الأسئلة الشائعة",
+          "tr": "Yardımcı Mesajlar — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "What qualifies as a utility message on WhatsApp?"
+            },
+            "answer": {
+              "en": "Utility messages are transactional notifications directly related to an existing customer action or request. Examples include order confirmations, shipping updates, appointment reminders, payment receipts, account alerts, and booking confirmations. These messages must be sent using pre-approved templates. Utility messages are priced lower than marketing messages."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Auto-Trigger Engine" }, "href": "/whatsapp/auto-trigger" },
+          { "label": { "en": "SMS API Overview" }, "href": "/sms" },
+          { "label": { "en": "Help Desk Support" }, "href": "/contact" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Automate Your Transactional Updates",
+          "pt": "Automatize Suas Atualizações Transacionais",
+          "es": "Automatice Sus Actualizaciones Transaccionales",
+          "id": "Otomatisasi Pembaruan Transaksional Anda",
+          "ar": "أتمت تحديثاتك المعاملاتية",
+          "tr": "İşlemsel Güncellemelerinizi Otomatikleştirin"
+        },
+        "subtext": {
+          "en": "Free plan. No credit card required.",
+          "pt": "Plano grátis. Sem cartão.",
+          "es": "Plan gratis. Sin tarjeta.",
+          "id": "Paket gratis. Tanpa kartu.",
+          "ar": "خطة مجانية. بدون بطاقة.",
+          "tr": "Ücretsiz plan. Kredi kartı yok."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

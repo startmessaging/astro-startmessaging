@@ -1,0 +1,105 @@
+﻿---
+title: "OTP for Stock Broking Apps in India (SEBI 2FA Rules)"
+description: "How stock-broking apps in India implement SEBI-mandated 2FA OTP, KYC OTP, order-placement step-up, and post-trade confirmation SMS — with audit-trail patterns."
+publishedAt: "2026-05-01"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "stock broking otp"
+  - "sebi 2fa otp"
+  - "demat otp"
+  - "order placement otp"
+  - "broker login otp"
+  - "sebi compliance sms"
+relatedSlugs:
+  - "otp-mutual-fund-apps-india"
+  - "rbi-2fa-2026-mandate"
+  - "otp-fintech-india"
+  - "otp-nbfc-loan-apps-india"
+featured: false
+---
+
+
+Indian stock-broking apps live under one of the strictest 2FA
+        regimes in financial services. SEBI mandates two-factor login for
+        every session, and brokers layer on order-placement step-up,
+        F&O-margin OTPs, and post-trade confirmation SMS — all of which
+        must reach customers in seconds, every time.
+
+
+## Why Broker Apps Need Strict OTP
+
+
+- SEBI 2FA mandate on every login.
+- High-frequency trader users — latency matters.
+- Order-takeover fraud is a constant threat.
+- Audit trail for every order is mandatory.
+
+
+
+## SEBI 2FA Rules Snapshot
+
+
+- Two-factor authentication on every login.
+- Mandatory cool-down between failed attempts.
+- Audit log of authentication events.
+- OTP delivery failure must trigger fall-back without bypassing 2FA.
+
+
+
+See our broader guide to 
+        [India 2FA mandates](/blog/rbi-2fa-2026-mandate).
+
+
+## OTP Flows in a Broker App
+
+
+- Login OTP — every session.
+- Funds-add OTP from bank.
+- Pledge / unpledge OTP.
+- F&O margin call OTP.
+- High-value order OTP step-up.
+- Withdrawal OTP.
+- Post-trade confirmation SMS.
+
+
+
+## Order-Placement Step-Up
+
+Broker-specific patterns:
+
+
+
+- Threshold-based — orders > Rs 5L trigger fresh OTP.
+- Off-hours — orders during pre-market or after hours require step-up.
+- New segment — first F&O order requires step-up + risk disclosure consent.
+
+
+
+## Audit Trail Expectations
+
+
+- OTP requestId per login and per high-value order.
+- IP address, deviceId, user-agent at OTP issue time.
+- Verification status with attempts used.
+- Retain 8+ years.
+
+
+
+## Production Patterns
+
+
+- Multi-provider failover SMS — a missed login OTP is a lost session.
+- Voice OTP fallback for users with SMS issues.
+- Strict per-phone rate limit to defeat OTP-pumping during F&O margin calls.
+- Real-time DLR webhook so support can see exactly where an OTP failed.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) ships
+        sub-second-latency SMS via multi-provider routes — well-suited to
+        SEBI 2FA workloads where every missed login is a customer escalation.
+

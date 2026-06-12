@@ -1,0 +1,160 @@
+---
+/**
+ * PricingTabs — Pricing section with plan cards.
+ * For WhatsApp: links to external pricing PDF/Excel.
+ * For SMS (India): shows ₹0.25/transactional SMS.
+ * Plans: Free (Pay-as-you-go), Premium, Enterprise.
+ *
+ * Example JSON:
+ * {
+ *   "type": "pricingTabs",
+ *   "props": {
+ *     "badge":    { "en": "Plans" },
+ *     "heading":  { "en": "Choose Your Plan" },
+ *     "pricingLink": "/pricing-sheet.pdf",
+ *     "pricingLinkLabel": { "en": "View full WhatsApp pricing by country" },
+ *     "showSms": "$hasSms",
+ *     "currency": "$currency",
+ *     "plans": [...]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Button from '@/components/ui/Button.astro';
+import { r } from '@/i18n/r';
+
+const {
+  badge,
+  heading,
+  subheading,
+  pricingLink,
+  pricingLinkLabel,
+  plans = [],
+  showSms = false,
+  currency,
+  smsNote,
+  country,
+} = Astro.props;
+
+// Determine theme dynamically based on country and url pathname / page content
+let theme = Astro.props.theme || 'sms';
+if (country !== 'in') {
+  theme = 'whatsapp';
+} else {
+  const path = Astro.url.pathname;
+  const isWhatsappPath = path.includes('/whatsapp');
+  theme = (theme === 'whatsapp' || isWhatsappPath) ? 'whatsapp' : 'sms';
+}
+
+const isWhatsapp = theme === 'whatsapp';
+const popularCardClass = isWhatsapp
+  ? 'bg-accent-wa/[0.03] border-accent-wa shadow-glow-wa scale-[1.02] hover:scale-[1.03] hover:-translate-y-0.5 hover:shadow-lg'
+  : 'bg-primary/[0.03] border-primary shadow-glow-primary scale-[1.02] hover:scale-[1.03] hover:-translate-y-0.5 hover:shadow-lg';
+const regularCardClass = isWhatsapp
+  ? 'bg-white/60 border border-accent-wa/10 shadow-sm hover:border-accent-wa/30 hover:shadow-card-hover hover:-translate-y-0.5'
+  : 'bg-surface-card border border-hairline shadow-sm hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-0.5';
+const badgeClass = isWhatsapp ? '!bg-accent-wa/10 !text-accent-wa' : '';
+const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-wa' : '';
+---
+
+<Section theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-12 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    {/* Plan cards */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
+      {plans.map((plan: any) => {
+        const isPopular = plan.popular;
+        return (
+          <div class:list={[
+            'relative flex flex-col p-8 rounded-lg border transition-all duration-300',
+            isPopular ? popularCardClass : regularCardClass,
+          ]}>
+            {isPopular && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                <Badge tone="primary" class={badgeClass}>{r(plan.badge || { en: 'Most Popular' }, country)}</Badge>
+              </div>
+            )}
+
+            <Heading as="h3" size="title-md" class="mb-2">
+              {r(plan.name, country)}
+            </Heading>
+
+            <div class="mb-4">
+              {plan.price && (
+                <span class="text-display-sm font-bold text-ink">{r(plan.price, country)}</span>
+              )}
+              {plan.period && (
+                <span class="text-body-sm text-muted ml-1">{r(plan.period, country)}</span>
+              )}
+            </div>
+
+            <Text size="body-sm" tone="muted" class="mb-6">
+              {r(plan.description, country)}
+            </Text>
+
+            {plan.features && plan.features.length > 0 && (
+              <ul class="flex flex-col gap-3 mb-8 flex-1">
+                {plan.features.map((feat: any) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 mt-0.5 shrink-0 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <Text as="span" size="body-sm" tone="body">{r(feat, country)}</Text>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <div class="mt-auto">
+              <Button
+                href={plan.ctaHref || 'https://app.startmessaging.com/signup'}
+                variant={isPopular ? 'primary' : 'secondary'}
+                size="md"
+                class:list={[
+                  "w-full justify-center",
+                  isWhatsapp && (isPopular
+                    ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa"
+                    : "hover:!bg-accent-wa/[0.06] !border-accent-wa/30 !text-accent-wa")
+                ]}
+              >
+                {r(plan.ctaLabel || { en: 'Get Started' }, country)}
+              </Button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    {/* SMS pricing note (India only) */}
+    {showSms && smsNote && (
+      <div class:list={[
+        "text-center mb-6 p-4 rounded-lg max-w-2xl mx-auto",
+        isWhatsapp ? "bg-white/60 border border-accent-wa/10" : "bg-surface-soft border border-hairline"
+      ]}>
+        <Text size="body-md" tone="body" class="font-medium">
+          {r(smsNote, country)}
+        </Text>
+      </div>
+    )}
+
+    {/* WhatsApp pricing link */}
+    {pricingLink && pricingLinkLabel && (
+      <div class="text-center">
+        <Button href={pricingLink} variant="ghost" size="md" class={pricingLinkClass}>
+          📄 {r(pricingLinkLabel, country)} →
+        </Button>
+      </div>
+    )}
+  </Container>
+</Section>

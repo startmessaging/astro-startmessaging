@@ -1,0 +1,137 @@
+---
+title: "Media Messages"
+description: "Send images, videos, documents, audio, and stickers via the WhatsApp Business API. Supported formats, size limits, and examples."
+product: whatsapp
+order: 5
+---
+
+## Supported Media Types
+
+| Type | Formats | Max Size |
+|------|---------|----------|
+| **Image** | JPEG, PNG | 5 MB |
+| **Video** | MP4 (H.264, AAC) | 16 MB |
+| **Audio** | AAC, MP3, OGG (Opus) | 16 MB |
+| **Document** | PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT | 100 MB |
+| **Sticker** | WebP (static or animated) | 500 KB (static), 100 KB (animated) |
+
+## Send an Image
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "image",
+    "image": {
+      "link": "https://example.com/product-photo.jpg",
+      "caption": "Check out our new product! 🎉"
+    }
+  }'
+```
+
+## Send a Video
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "video",
+    "video": {
+      "link": "https://example.com/demo-video.mp4",
+      "caption": "Watch our 60-second product demo"
+    }
+  }'
+```
+
+## Send a Document
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "document",
+    "document": {
+      "link": "https://example.com/invoice-1234.pdf",
+      "caption": "Your invoice for January 2026",
+      "filename": "invoice-1234.pdf"
+    }
+  }'
+```
+
+## Upload Media (for reuse)
+
+Instead of providing a URL each time, you can upload media to StartMessaging and reuse the `media_id`:
+
+```bash
+# Upload
+curl -X POST https://api.startmessaging.com/v1/media \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "file=@product-photo.jpg" \
+  -F "type=image/jpeg"
+
+# Response
+{
+  "media_id": "media_abc123"
+}
+
+# Send using media_id
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "image",
+    "image": {
+      "id": "media_abc123",
+      "caption": "Our latest product"
+    }
+  }'
+```
+
+## Media in Templates
+
+To use media in template headers:
+
+```json
+{
+  "to": "5511999999999",
+  "type": "template",
+  "template": {
+    "name": "welcome_with_image",
+    "language": { "code": "en" },
+    "components": [
+      {
+        "type": "header",
+        "parameters": [
+          { "type": "image", "image": { "link": "https://example.com/welcome.jpg" } }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## Best Practices
+
+1. **Optimize file sizes** — compress images and videos to reduce sending time
+2. **Use HTTPS URLs** — HTTP links may be rejected
+3. **Cache media IDs** — upload once, send many times with the `media_id`
+4. **Include captions** — they increase engagement by 30%+
+5. **Test all formats** — verify in sandbox before production
+
+## FAQ
+
+**Can I send animated GIFs?**
+WhatsApp doesn't natively support GIF. Convert GIFs to MP4 videos (under 16 MB) or use animated WebP stickers (under 100 KB).
+
+**How long are uploaded media files stored?**
+Uploaded media is stored for 30 days. After that, you'll need to re-upload.
+
+**Can I download media sent by users?**
+Yes — use the `GET /v1/media/{media_id}` endpoint to download media from incoming messages. Media is available for 30 days.

@@ -1,0 +1,73 @@
+---
+/**
+ * RelatedPages — A section containing card-style links to related pages.
+ * Supports dynamic branding (SMS vs WhatsApp themes).
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import { r } from '@/i18n/r';
+import type { Country } from '@/config/countries';
+
+interface Props {
+  heading?: Record<string, string>;
+  links: Array<{
+    label: Record<string, string>;
+    href: string;
+  }>;
+  country: Country;
+  theme?: 'sms' | 'whatsapp';
+}
+
+const { heading = { en: "Related Pages" }, links = [], country, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+
+// Card visual styles aligning to the CtaBlock and ServiceCards primitives
+const cardBgClass = isWhatsapp
+  ? 'bg-white/60 border border-accent-wa/10 shadow-sm'
+  : 'bg-surface-card border border-hairline shadow-sm';
+
+const borderHoverClass = isWhatsapp
+  ? 'hover:border-accent-wa/30 hover:shadow-glow-wa hover:-translate-y-0.5'
+  : 'hover:border-primary/30 hover:shadow-glow-primary hover:-translate-y-0.5';
+
+const textAccentClass = isWhatsapp ? 'text-accent-wa' : 'text-primary';
+---
+
+<Section variant="default" theme={theme} class="!py-12 border-t border-hairline-soft">
+  <Container>
+    <div class="flex flex-col gap-6">
+      <Heading as="h3" class="text-xl font-bold text-ink">
+        {r(heading, country)}
+      </Heading>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "relative flex items-center justify-between p-5 rounded-lg transition-all duration-300 font-semibold text-title-md text-ink group",
+              cardBgClass,
+              borderHoverClass
+            ]}
+          >
+            <span>{r(link.label, country)}</span>
+            <svg
+              class:list={["w-5 h-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1", textAccentClass]}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </Container>
+</Section>

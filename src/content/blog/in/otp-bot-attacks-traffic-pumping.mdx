@@ -1,0 +1,107 @@
+﻿---
+title: "OTP Bot Attacks & SMS Traffic Pumping: Detection and Defense"
+description: "How attackers exploit OTP send endpoints with bots and SMS traffic pumping schemes — and the rate limits, fingerprinting, and routing controls that stop them."
+publishedAt: "2026-04-30"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp bot attack"
+  - "sms traffic pumping"
+  - "sms toll fraud"
+  - "otp api abuse"
+  - "sms pumping prevention"
+  - "phone verification bot defense"
+  - "twilio toll fraud"
+  - "sms traffic pumping india"
+  - "rate limit otp send"
+  - "imsi pumping fraud"
+relatedSlugs:
+  - "prevent-otp-fraud"
+  - "otp-rate-limiting-guide"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+SMS traffic pumping (also called toll fraud or IMSI pumping) is one of
+        the fastest-growing attack types against verification APIs in 2026.
+        Bots hammer your `/send-otp` endpoint with phone numbers in
+        ranges where the attacker collects a kickback from the terminating
+        carrier. Even when no kickback exists, OTP bot attacks burn your
+        wallet, slow legitimate delivery, and make your fraud team look bad.
+
+
+## What is SMS Traffic Pumping
+
+SMS pumping happens when an attacker controls (or has revenue-share
+        with) a small mobile operator. They generate fake signups on your app
+        with phone numbers in that operator's range. Every SMS you send
+        terminates on the operator's network and they pocket part of
+        the termination fee. You pay; they earn.
+
+
+## How OTP Bot Attacks Work
+
+
+- Attacker scripts a bot to hit your public signup or login page.
+- Bot fills in random phone numbers in target ranges (often premium number plans in less-developed mobile markets).
+- Bot triggers `/send-otp` hundreds or thousands of times per minute.
+- Bot never enters the OTP — the goal is the SMS bill, not the login.
+
+
+
+## Detection Signals
+
+
+- **Send-to-verify ratio drops.** A healthy app verifies ~80–95% of sends. Pumping attacks push that toward 0%.
+- **Phone-number diversity spikes.** Suddenly thousands of unique numbers from a country where you have ~zero real users.
+- **IP concentration.** A handful of IPs (or a single ASN) generating most sends.
+- **Time-of-day pattern breaks.** Real users follow time-of-day curves; bots hit flat 24/7 RPS.
+
+
+
+## Layered Rate Limiting
+
+One rate limit is not enough. Combine three:
+
+
+
+- **Per phone number:** max 3 sends per 10 minutes per E.164 number. See our  [OTP rate limiting guide](/blog/otp-rate-limiting-guide) .
+- **Per IP address:** max 5 sends per minute per IP, with stricter limits for unauthenticated traffic.
+- **Per device fingerprint:** max 10 sends per day per fingerprint regardless of phone or IP.
+
+
+
+## Device & Behavior Fingerprinting
+
+Use a lightweight fingerprint library on your signup form to bind a
+        browser to a stable ID. Combine it with bot-detection signals like
+        mouse-move entropy, time-on-form, and challenge tokens (Turnstile,
+        hCaptcha). Real users dwell, scroll, and tab; bots POST and leave.
+
+
+## Routing-Level Controls
+
+At StartMessaging we apply edge filters to drop sends to high-risk
+        number ranges before they hit a carrier. You should also restrict your
+        own app to only the country codes you serve — if you only have
+        Indian users, refuse +44 / +1 / +234 phone numbers at the API gate.
+
+
+## The Indian Context
+
+Indian carrier termination fees are low, so direct pumping kickbacks
+        are rare for +91 numbers. The bigger threat for Indian apps is bot
+        abuse that blows the wallet and chokes legitimate delivery. Combine
+        the controls above with 
+        [our broader OTP fraud guide](/blog/prevent-otp-fraud) 
+        for full coverage.
+
+
+## FAQ
+
+Want a deeper read? See our 
+        [OTP security best practices](/blog/otp-security-best-practices) 
+        article.
+

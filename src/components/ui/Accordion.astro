@@ -1,0 +1,13 @@
+---
+/**
+ * Accordion — Container for accordion items.
+ * Pure HTML/CSS with zero JS footprint.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+<div class:list={["max-w-3xl mx-auto flex flex-col gap-3", className]}>
+  <slot />
+</div>

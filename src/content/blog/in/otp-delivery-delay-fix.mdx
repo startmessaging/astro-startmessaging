@@ -1,0 +1,79 @@
+﻿---
+title: "Why is OTP Delivery Slow? How to Fix Latency"
+description: "OTP delivery delays in India: typical causes, P50/P95 benchmarks, route troubleshooting, provider failover, and concrete fixes that drop latency from minutes to seconds."
+publishedAt: "2026-05-14"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp slow delivery"
+  - "fix otp latency"
+  - "otp delay india"
+  - "sms slow india"
+  - "reduce otp latency"
+relatedSlugs:
+  - "otp-not-received-india"
+  - "otp-monitoring-slos-error-budgets"
+  - "otp-delivery-rates-india"
+  - "otp-sms-deliverability-checklist"
+featured: false
+---
+
+
+OTP latency directly affects login conversion. This guide walks
+        through what healthy latency looks like, how to diagnose slow
+        delivery, and the levers that consistently bring P95 down.
+
+
+## What Healthy OTP Latency Looks Like
+
+
+- P50: 2–6 seconds.
+- P95: 8–15 seconds.
+- P99: under 30 seconds.
+- Anything beyond is a degraded route.
+
+
+
+## Common Causes of Delay
+
+
+- Single-route congestion at a specific operator.
+- Backed-up bulk-SMS queue mixed with OTP traffic.
+- DLT scrubbing reprocessing (retries silently).
+- Wrong category — promotional route is slower than transactional.
+- Carrier outage on Jio / Airtel / Vi.
+
+
+
+## Diagnosis Steps
+
+
+- Pull DLR timestamps for slow OTPs from your provider.
+- Bucket by carrier — is it one carrier or all?
+- Check provider status page.
+- Check Twitter for similar complaints from peer apps.
+
+
+
+## Fixes
+
+
+- Multi-provider failover.
+- Voice OTP fallback after 30s.
+- Dedicated transactional route, not bulk.
+- Pre-load templates so first-OTP-of-day doesn't pay registration latency.
+
+
+
+## Monitoring
+
+See [our SLO guide](/blog/otp-monitoring-slos-error-budgets) 
+        for setting up Datadog or Grafana dashboards.
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) ships sub-6s P50
+        latency on Indian routes via multi-provider failover.
+

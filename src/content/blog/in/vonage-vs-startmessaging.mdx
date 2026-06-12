@@ -1,0 +1,102 @@
+﻿---
+title: "Vonage (Nexmo) vs StartMessaging in India"
+description: "Vonage / Nexmo vs StartMessaging compared for OTP SMS in India: Verify v2 API, INR vs USD billing, DLT compliance, and which provider fits an Indian app."
+publishedAt: "2026-04-29"
+category: comparisons
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "vonage vs startmessaging"
+  - "nexmo vs startmessaging"
+  - "vonage verify v2 india"
+  - "vonage sms pricing india"
+  - "vonage alternative india"
+  - "best otp api india"
+  - "vonage dlt compliance"
+  - "sms otp api comparison india"
+  - "vonage nexmo otp india"
+  - "startmessaging vs vonage"
+relatedSlugs:
+  - "twilio-vs-startmessaging"
+  - "plivo-vs-startmessaging"
+  - "msg91-vs-startmessaging"
+featured: false
+---
+
+
+Vonage (formerly Nexmo) is a global CPaaS competitor to Twilio and
+        Plivo. For Indian OTP traffic specifically, here's how
+        Vonage's Verify v2 API compares to 
+        [StartMessaging](/).
+
+
+## TL;DR
+
+
+- **Vonage** is a strong global verification platform with multi-channel workflows (SMS, voice, WhatsApp, SNA).
+- **StartMessaging** is India-focused, INR-billed, DLT-free, and Rs 0.25 per OTP.
+
+
+
+## Pricing
+
+Vonage Verify v2 charges per successful verification, with India SMS
+        rates landing around $0.05–$0.08 per OTP at low volume (~Rs
+        4–6) before discounts. StartMessaging is flat Rs 0.25 per OTP
+        with no minimum commit and no FX markup.
+
+
+## Vonage Verify v2 vs StartMessaging OTP
+
+Vonage Verify v2 lets you define a workflow that escalates from one
+        channel to another if the first delivery fails — for example,
+        SMS &rarr; voice &rarr; email. That's powerful for global apps
+        with mixed user bases. For an India-only app where SMS is the default
+        and Hindi/regional language coverage is what matters, the multi-channel
+        workflow is rarely needed.
+
+
+StartMessaging's `/otp/send` and 
+        `/otp/verify` are intentionally narrower: one channel, two
+        endpoints, predictable pricing.
+
+
+## DLT and Indian Routes
+
+Vonage requires you to complete 
+        [DLT principal entity registration](/blog/what-is-dlt-registration-india) 
+        and template submission before sending SMS to Indian numbers.
+        StartMessaging is 
+        [DLT-free](/dlt-free-otp) on its standard route.
+
+
+## Support and Docs
+
+Vonage has long-standing developer documentation, a community Slack,
+        and 24/7 enterprise support. StartMessaging has India-timezone email
+        support and a focused docs surface (two API endpoints).
+
+
+## When Vonage Wins
+
+
+- You need multi-channel verification (SMS &rarr; voice &rarr; email).
+- Your user base is global, not India-specific.
+- You already use Vonage for voice or messaging APIs.
+
+
+
+## When StartMessaging Wins
+
+
+- Your traffic is primarily Indian and you want INR billing.
+- You want to skip DLT paperwork entirely.
+- You want flat per-OTP pricing without volume tiers.
+
+
+
+## FAQ
+
+See also our [Plivo comparison](/blog/plivo-vs-startmessaging) 
+        and [Twilio comparison](/blog/twilio-vs-startmessaging).
+

@@ -1,0 +1,136 @@
+﻿---
+title: "How to Send OTP with WordPress (2026)"
+description: "WordPress OTP integration using StartMessaging. Custom plugin with REST API endpoints, options-page for the API key, and a shortcode-based login form. WooCommerce-friendly."
+publishedAt: "2026-05-10"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp wordpress"
+  - "wordpress otp plugin"
+  - "woocommerce otp"
+  - "wp sms login"
+  - "wordpress sms otp"
+relatedSlugs:
+  - "send-otp-php-laravel"
+  - "send-otp-codeigniter"
+  - "send-otp-shopify"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+WordPress is still the dominant CMS in India. This tutorial shows
+        how to wire 
+        [StartMessaging](/otp-api) as a custom plugin with
+        REST endpoints and a shortcode form.
+
+
+## Overview
+
+
+- Plugin file with a settings page for API key.
+- Two REST routes: `/otp/send`, `/otp/verify`.
+- Shortcode for the login form.
+- WooCommerce checkout hook (optional).
+
+
+
+## Plugin Skeleton
+      
+```php
+<?php
+/**
+ * Plugin Name: StartMessaging OTP
+ */
+defined('ABSPATH') || exit;
+
+require_once __DIR__ . '/inc/options.php';
+require_once __DIR__ . '/inc/rest.php';
+require_once __DIR__ . '/inc/shortcode.php';
+```
+
+
+## Options Page
+      
+```php
+<?php
+add_action('admin_menu', function () {
+  add_options_page('StartMessaging', 'StartMessaging', 'manage_options', 'sm', function () {
+    if (isset($_POST['sm_save'])) {
+      update_option('sm_api_key', sanitize_text_field($_POST['sm_api_key']));
+      echo '<div class="updated"><p>Saved.</p></div>';
+    }
+    $key = esc_attr(get_option('sm_api_key', ''));
+    echo "<form method='post'><h1>StartMessaging</h1><input name='sm_api_key' value='$key' size=60 /><button name='sm_save'>Save</button></form>";
+  });
+});
+```
+
+
+## REST API Endpoints
+      
+```php
+<?php
+add_action('rest_api_init', function () {
+  register_rest_route('sm/v1', '/send-otp', [
+    'methods' => 'POST',
+    'permission_callback' => '__return_true',
+    'callback' => function (WP_REST_Request $req) {
+      $phone = $req->get_param('phoneNumber');
+      $r = wp_remote_post('https://api.startmessaging.com/otp/send', [
+        'headers' => ['X-API-Key' => get_option('sm_api_key'), 'Content-Type' => 'application/json'],
+        'body'    => json_encode(['phoneNumber' => $phone, 'idempotencyKey' => wp_generate_uuid4()]),
+        'timeout' => 10,
+      ]);
+      $body = json_decode(wp_remote_retrieve_body($r), true);
+      if (wp_remote_retrieve_response_code($r) !== 200) return new WP_REST_Response($body, 502);
+      $data = $body['data'];
+      setcookie('sm_otp_req', $data['requestId'], time() + 900, '/', '', true, true);
+      return ['expiresAt' => $data['expiresAt']];
+    },
+  ]);
+  register_rest_route('sm/v1', '/verify-otp', [
+    'methods' => 'POST',
+    'permission_callback' => '__return_true',
+    'callback' => function (WP_REST_Request $req) {
+      $code = $req->get_param('otpCode');
+      $rid  = $_COOKIE['sm_otp_req'] ?? null;
+      if (!$rid) return new WP_REST_Response(['error' => 'no otp'], 400);
+      $r = wp_remote_post('https://api.startmessaging.com/otp/verify', [
+        'headers' => ['X-API-Key' => get_option('sm_api_key'), 'Content-Type' => 'application/json'],
+        'body'    => json_encode(['requestId' => $rid, 'otpCode' => $code]),
+      ]);
+      return wp_remote_retrieve_response_code($r) === 200
+        ? ['verified' => true]
+        : new WP_REST_Response(['error' => 'invalid'], 401);
+    },
+  ]);
+});
+```
+
+
+## Login Shortcode
+      
+```php
+<?php
+add_shortcode('sm_login', function () {
+  return '<form id="sm-phone"><input name="phoneNumber" /><button>Send OTP</button></form>
+          <form id="sm-otp" hidden><input name="otpCode" /><button>Verify</button></form>
+          <script>/* fetch /wp-json/sm/v1/send-otp etc */</script>';
+});
+```
+
+
+## WooCommerce Notes
+
+Hook into `woocommerce_checkout_validation` to require a
+        verified phone before order placement. The same REST endpoints
+        plug in.
+
+
+## FAQ
+
+For Shopify equivalent see 
+        [our Shopify guide](/blog/send-otp-shopify).
+

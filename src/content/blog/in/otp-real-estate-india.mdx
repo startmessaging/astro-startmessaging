@@ -1,0 +1,93 @@
+﻿---
+title: "OTP Verification for Real Estate Apps in India"
+description: "Why real estate platforms in India use phone OTP for buyer verification, broker authentication, site visit scheduling, and lead quality. Patterns and pitfalls."
+publishedAt: "2026-05-08"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "real estate app otp"
+  - "broker verification india"
+  - "site visit otp"
+  - "real estate lead verification"
+  - "property app phone otp"
+  - "real estate sms india"
+  - "verified buyer real estate"
+  - "real estate lead quality otp"
+  - "property booking otp"
+  - "real estate app india"
+relatedSlugs:
+  - "otp-verification-flow"
+  - "phone-verification-at-scale-best-practices"
+  - "otp-fintech-india"
+featured: false
+---
+
+
+Real estate marketplaces in India live and die on lead quality. The
+        single highest-leverage signal is a verified phone number — it
+        filters brokers from buyers, prevents fake site-visit bookings, and
+        gives sales teams a callable number. Phone OTP is the cheapest and
+        fastest way to add this layer.
+
+
+## Why OTP for Real Estate
+
+
+- Filters bot signups and broker spam from buyer leads.
+- Confirms intent before site visit slots are reserved.
+- Builds a callable phone book for the inside-sales team.
+- Satisfies RERA disclosure requirements for verified buyers.
+
+
+
+## Lead Quality Improvement
+
+Most property portals lose 60–80% of inbound leads to wrong or
+        garbage phone numbers. Adding a phone OTP step at form submission
+        drops the garbage rate to near zero. The cost (Rs 0.25 per OTP)
+        pays for itself the first time a sales rep doesn't waste 10
+        minutes calling a wrong number.
+
+
+## Site Visit Scheduling
+
+Site visits are expensive: a sales rep, fuel, an hour of time, and a
+        slot in the developer's diary. Require an OTP before
+        confirming the slot, and send a reminder OTP 24 hours before the
+        visit. No-show rates drop sharply.
+
+
+## Broker Verification
+
+Brokers need a stronger check than buyers: phone OTP plus
+        document verification (RERA registration number, PAN). Use OTP as
+        the gate to start the document upload flow, then mark the broker
+        verified after manual review.
+
+
+## Buyer Verification at Booking
+
+For online booking of units (especially in launches and
+        pre-launches), pair OTP with the EMD payment. The OTP confirms the
+        buyer is real; the payment confirms intent. Re-OTP at the
+        sale-agreement step.
+
+
+## Integration Notes
+
+
+- Place the OTP step right after the phone field, not at the end of a long form. Conversion is best when verification feels immediate.
+- Pre-fill the country code (+91) but allow international numbers for NRI buyers.
+- Send a confirmation SMS with the slot details after a successful site-visit booking.
+- Use idempotency keys on send so a flaky network doesn't burn two OTPs.
+
+
+
+## FAQ
+
+See our 
+        [phone verification at scale guide](/blog/phone-verification-at-scale-best-practices) 
+        for the architectural picture, or 
+        [check pricing](/pricing).
+

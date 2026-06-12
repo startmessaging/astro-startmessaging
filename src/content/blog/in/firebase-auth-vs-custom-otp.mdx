@@ -1,0 +1,439 @@
+﻿---
+title: "Firebase Auth vs Custom OTP API: Pros & Cons"
+description: "When should you use Firebase phone auth versus a custom OTP API? Compare vendor lock-in, pricing, customization, India delivery, and data control."
+publishedAt: "2026-02-08"
+category: comparisons
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "firebase auth vs custom otp"
+  - "firebase phone auth india"
+  - "firebase otp pricing"
+  - "custom otp api"
+  - "firebase alternative otp india"
+  - "firebase auth vendor lock-in"
+  - "otp verification api comparison"
+  - "firebase vs startmessaging"
+relatedSlugs:
+  - "best-otp-api-india"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+When you need phone number verification in your app, you have two fundamental approaches:
+        use a managed authentication service like Firebase Phone Auth, or integrate a custom OTP API
+        and build the verification flow yourself. Both approaches work, but they differ significantly
+        in cost, flexibility, data control, and how well they serve the Indian market. This article
+        helps you make an informed choice.
+
+
+## The Choice: Managed Auth vs Custom OTP
+
+Firebase Phone Auth is part of Google's Firebase platform. It handles the entire
+        authentication flow: generating OTPs, sending SMS, verifying codes, and managing user sessions.
+        You get a complete auth system with minimal code.
+
+
+A custom OTP API like [StartMessaging](/otp-api) handles only the OTP part:
+        sending a code to a phone number and verifying that the user entered the correct code. You build
+        the authentication logic, session management, and user database yourself (or integrate it with
+        your existing auth system).
+
+
+The right choice depends on where you are in your product journey and what trade-offs matter
+        most to you.
+
+
+## How Firebase Phone Auth Works
+
+Firebase Phone Auth provides:
+
+
+
+- Client-side SDKs for web, iOS, and Android that manage the entire OTP flow
+- Automatic SMS sending and code generation (you never see the OTP)
+- reCAPTCHA verification to prevent abuse
+- User management (Firebase creates and manages user records)
+- JWT tokens for session management
+- Integration with other Firebase services (Firestore, Cloud Functions, etc.)
+
+
+
+The developer experience is straightforward: add the Firebase SDK, call 
+        `signInWithPhoneNumber()`, and Firebase handles everything else. The trade-off is
+        that Firebase controls the entire flow.
+
+
+## How a Custom OTP API Works
+
+With a custom OTP API like StartMessaging, your backend:
+
+
+
+- Receives a phone number from your frontend
+- Calls the OTP API to send a code to that number
+- Receives the code back from the user
+- Calls the OTP API to verify the code
+- Creates or authenticates the user in your own database
+- Issues your own session token (JWT, cookie, etc.)
+
+
+
+You write more code, but you control every aspect of the flow: the UI, the timing, the retry
+        logic, the user model, and the session management.
+
+
+## Pricing Comparison
+
+Firebase Phone Auth uses a verification-based pricing model with a free tier:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Firebase Phone Auth</th>
+              <th>StartMessaging</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Free tier</td>
+              <td>50 verifications/day (Spark plan)</td>
+              <td>None (pay as you go)</td>
+            </tr>
+            <tr>
+              <td>Paid tier cost</td>
+              <td>$0.01-0.06/verification (Blaze plan)</td>
+              <td>Rs 0.25/OTP (~$0.003)</td>
+            </tr>
+            <tr>
+              <td>10,000 OTPs/month</td>
+              <td>~Rs 5,000-50,000</td>
+              <td>Rs 2,500</td>
+            </tr>
+            <tr>
+              <td>100,000 OTPs/month</td>
+              <td>~Rs 50,000-5,00,000</td>
+              <td>Rs 25,000</td>
+            </tr>
+            <tr>
+              <td>Billing currency</td>
+              <td>USD</td>
+              <td>INR</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+Firebase's free tier (50 verifications/day, approximately 1,500/month) is attractive for
+        very early-stage projects. However, once you exceed the free tier, costs escalate quickly.
+        Firebase charges $0.01 for the first 10,000 verifications in a region, then $0.06 per
+        verification after that. For India at scale, this becomes significantly more expensive than a
+        dedicated OTP API.
+
+
+StartMessaging has no free tier, but at Rs 0.25 per OTP, even 1,500 verifications per month
+        costs only Rs 375. The predictable, flat pricing makes budgeting straightforward. See the full
+        details on our [pricing page](/pricing).
+
+
+## Vendor Lock-in and Portability
+
+This is one of the most important considerations and is often overlooked when choosing Firebase.
+
+
+**Firebase lock-in:** When you use Firebase Phone Auth, your user identities live
+        in Firebase. Your app depends on Firebase SDKs. Your auth tokens are Firebase JWTs. If you
+        decide to migrate away from Firebase (to your own backend, to Supabase, to AWS Cognito, etc.),
+        you need to:
+
+
+
+- Export all user data from Firebase (limited by Firebase export capabilities)
+- Rebuild your auth flow with a new provider
+- Migrate user sessions without forcing everyone to re-authenticate
+- Update all client-side SDK calls
+- Handle the transition period where users might be on old or new auth
+
+
+
+**Custom OTP API portability:** When you use a custom OTP API, your user data lives
+        in your own database. Your auth flow is in your own code. If you want to switch OTP providers
+        (from StartMessaging to MSG91 or vice versa), you change a few API calls in your backend. Your
+        user model, sessions, and frontend remain untouched. The OTP provider is a pluggable service,
+        not a foundation.
+
+
+## Customization and UX Control
+
+**Firebase** provides a pre-built UI flow. While you can customize the appearance
+        somewhat, the fundamental flow is controlled by Firebase:
+
+
+
+- reCAPTCHA is mandatory (visible or invisible) — you cannot remove it
+- OTP length, format, and expiry are controlled by Firebase
+- The SMS message template is fixed ("Your verification code is...")
+- Retry and rate limiting logic is Firebase's, not yours
+- You cannot customise what happens between send and verify
+
+
+
+**Custom OTP API** gives you full control:
+
+
+
+- Design your own verification UI exactly how you want it
+- Control retry logic, cooldown periods, and attempt limits
+- Implement custom rate limiting per user, IP, or device
+- Add your own abuse prevention (no mandatory reCAPTCHA)
+- Build custom flows like OTP + password, OTP + biometric, or OTP as second factor
+- Use idempotency keys to prevent duplicate sends (StartMessaging supports this natively)
+
+
+
+## India-Specific Delivery Performance
+
+Firebase Phone Auth uses Google's own SMS infrastructure, which routes messages through
+        international gateways. For India, this means:
+
+
+
+- Messages may be routed internationally, adding latency
+- DLT compliance is handled by Google but delivery routing may not be optimised for Indian carriers
+- Delivery rates on some carriers (particularly BSNL and Vi) can be inconsistent
+- Users occasionally report delays of 30-60 seconds for OTP delivery
+
+
+
+[StartMessaging](/features) uses domestic Indian SMS providers with
+        carrier-specific optimisations:
+
+
+
+- Messages routed through domestic gateways for lower latency
+- Automatic provider fallback if the primary route fails
+- 97-99% delivery rates across Jio, Airtel, Vi, and BSNL
+- Typical delivery time of 3-8 seconds
+
+
+
+For a detailed breakdown by carrier, see our 
+        [OTP delivery rates in India](/blog/otp-delivery-rates-india) guide.
+
+
+## Data Residency and Privacy
+
+Firebase stores user data on Google Cloud infrastructure. While Google has data centres in India
+        (Mumbai region), Firebase does not guarantee that all user authentication data is stored
+        exclusively in India. For companies with strict data residency requirements (fintech, healthcare,
+        government projects), this can be a compliance concern.
+
+
+With a custom OTP API approach, your user data lives in your own database, hosted wherever you
+        choose. The OTP provider (StartMessaging) only processes the phone number and OTP code
+        transiently — it does not maintain a persistent user identity store. This separation of
+        concerns makes it easier to comply with data localisation requirements.
+
+
+## Code Comparison
+
+### Firebase Phone Auth (React)
+      
+```typescript
+import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
+
+// Setup reCAPTCHA (required)
+const auth = getAuth();
+const recaptcha = new RecaptchaVerifier(auth, 'recaptcha-container', {
+  size: 'invisible',
+});
+
+// Send OTP
+const confirmationResult = await signInWithPhoneNumber(
+  auth,
+  '+919876543210',
+  recaptcha
+);
+
+// Verify OTP (user enters code)
+const result = await confirmationResult.confirm('482916');
+const user = result.user; // Firebase user object
+const token = await user.getIdToken(); // Firebase JWT
+```
+
+
+### Custom OTP with StartMessaging (Node.js backend)
+      
+```typescript
+// Backend: Send OTP
+app.post('/auth/send-otp', async (req, res) => {
+  const { phoneNumber } = req.body;
+
+  const response = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer sm_live_your_api_key',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ phoneNumber }),
+  });
+
+  const { data } = await response.json();
+  res.json({ requestId: data.requestId });
+});
+
+// Backend: Verify OTP
+app.post('/auth/verify-otp', async (req, res) => {
+  const { requestId, otp } = req.body;
+
+  const response = await fetch('https://api.startmessaging.com/otp/verify', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer sm_live_your_api_key',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ requestId, otp }),
+  });
+
+  const { data } = await response.json();
+
+  if (data.verified) {
+    // Create or find user in YOUR database
+    const user = await findOrCreateUser(phoneNumber);
+    // Issue YOUR JWT token
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+    res.json({ token });
+  }
+});
+```
+
+
+
+The Firebase approach is fewer lines of code and runs on the client side. The custom OTP
+        approach requires a backend but gives you complete ownership of the user model and auth tokens.
+
+
+## Comparison Table
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th>Firebase Phone Auth</th>
+              <th>Custom OTP API (StartMessaging)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Setup complexity</td>
+              <td>**Low (SDK only)**</td>
+              <td>Medium (backend required)</td>
+            </tr>
+            <tr>
+              <td>Free tier</td>
+              <td>**50/day (~1,500/month)**</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>Cost at scale (100K/month)</td>
+              <td>Rs 50,000-5,00,000</td>
+              <td>**Rs 25,000**</td>
+            </tr>
+            <tr>
+              <td>Vendor lock-in</td>
+              <td>High</td>
+              <td>**Low (pluggable)**</td>
+            </tr>
+            <tr>
+              <td>UX customisation</td>
+              <td>Limited</td>
+              <td>**Full control**</td>
+            </tr>
+            <tr>
+              <td>reCAPTCHA required</td>
+              <td>Yes</td>
+              <td>**No (your choice)**</td>
+            </tr>
+            <tr>
+              <td>DLT registration</td>
+              <td>Handled by Google</td>
+              <td>**Handled by StartMessaging**</td>
+            </tr>
+            <tr>
+              <td>User data ownership</td>
+              <td>Firebase (Google Cloud)</td>
+              <td>**Your database**</td>
+            </tr>
+            <tr>
+              <td>Data residency control</td>
+              <td>Limited</td>
+              <td>**Full (your infra)**</td>
+            </tr>
+            <tr>
+              <td>India delivery speed</td>
+              <td>Variable (5-60s)</td>
+              <td>**Fast (3-8s)**</td>
+            </tr>
+            <tr>
+              <td>Delivery rate (India)</td>
+              <td>93-97%</td>
+              <td>**97-99%**</td>
+            </tr>
+            <tr>
+              <td>Multi-factor auth built-in</td>
+              <td>**Yes**</td>
+              <td>Build yourself</td>
+            </tr>
+            <tr>
+              <td>Social login integration</td>
+              <td>**Yes (Google, Facebook, etc.)**</td>
+              <td>Build yourself</td>
+            </tr>
+            <tr>
+              <td>Billing currency</td>
+              <td>USD</td>
+              <td>**INR**</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+## When to Use Which
+
+### Use Firebase Phone Auth when:
+
+
+- You are building an MVP or prototype and need auth up and running in hours
+- You are already invested in the Firebase ecosystem (Firestore, Functions, Hosting)
+- Your volume is under 50 verifications per day (free tier)
+- You need social login (Google, Apple, Facebook) alongside phone auth
+- You do not have a backend or do not want to build auth logic
+
+
+
+### Use a custom OTP API (StartMessaging) when:
+
+
+- You are building for the Indian market and need the best delivery rates and speed
+- You want to avoid vendor lock-in and own your user data
+- You are scaling beyond the free tier and want predictable, low costs
+- You need full control over the verification UX and flow
+- You have data residency requirements that need Indian hosting
+- You already have a backend and want OTP as a service, not a full auth system
+- You want INR billing without forex overhead
+
+
+
+> **Hybrid approach:** Some teams use Firebase for social login and account
+> management, but use a custom OTP API for phone verification. This gives you the best of both
+> worlds: Firebase for Google/Apple sign-in, and StartMessaging for reliable, affordable OTP in
+> India.
+
+
+Ready to try the custom OTP approach? Check out the 
+        [StartMessaging API documentation](/otp-api) or see how we compare to other
+        providers in our [best OTP API for India](/blog/best-otp-api-india) guide.
+

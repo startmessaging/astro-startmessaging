@@ -1,0 +1,137 @@
+---
+/**
+ * Non-India country blog listing: /br/blog
+ * Style ported from startmessaging-astro blog index.
+ */
+import { getCollection } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { HREFLANG, type Country } from '@/config/countries';
+
+const CATEGORY_LABELS: Record<string, Record<string, string>> = {
+  tutorials:   { en: 'Tutorials',   pt: 'Tutoriais',     es: 'Tutoriales' },
+  guides:      { en: 'Guides',      pt: 'Guias',         es: 'Guías' },
+  comparisons: { en: 'Comparisons', pt: 'Comparações',   es: 'Comparaciones' },
+  compliance:  { en: 'Compliance',  pt: 'Conformidade',  es: 'Cumplimiento' },
+  'use-cases': { en: 'Use Cases',   pt: 'Casos de Uso',  es: 'Casos de Uso' },
+  business:    { en: 'Business',    pt: 'Negócios',      es: 'Negocios' },
+};
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const countriesWithPosts = new Set(
+    posts
+      .filter((p) => !p.id.startsWith('in/'))
+      .map((p) => p.id.split('/')[0])
+  );
+  return [...countriesWithPosts].map((country) => ({
+    params: { country },
+  }));
+}
+
+const { country } = Astro.params;
+const c = country as Country;
+const lang = (HREFLANG[c] ?? 'en-IN').split('-')[0];
+const posts = await getCollection('blog');
+
+const countryPosts = posts
+  .filter((p) => p.id.startsWith(`${country}/`))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const [featured, ...rest] = countryPosts;
+
+const labels: Record<string, { heading: string; tagline: string }> = {
+  br: {
+    heading: 'Blog',
+    tagline: 'Guias, dicas e atualizações sobre a API WhatsApp Business.',
+  },
+  mx: {
+    heading: 'Blog',
+    tagline: 'Guías, consejos y actualizaciones sobre la API de WhatsApp Business.',
+  },
+};
+
+const label = labels[country!] ?? {
+  heading: 'Blog',
+  tagline: 'Guides, tips, and updates on WhatsApp Business API and messaging.',
+};
+---
+
+<MarketingLayout
+  seo={{
+    title: `Blog — StartMessaging`,
+    description: label.tagline,
+  }}
+  country={country!}
+  pageCountries={[country!]}
+  slug="blog"
+>
+  <article>
+    <!-- Hero header -->
+    <section class="py-12 sm:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <h1 class="text-4xl font-bold tracking-tight text-[var(--color-persian)] sm:text-5xl">{label.heading}</h1>
+          <p class="mt-4 text-lg text-[var(--color-persian)]/70">{label.tagline}</p>
+        </div>
+
+        <!-- Category pills -->
+        <div class="mt-8 flex flex-wrap justify-center gap-2">
+          <a href={`/${country}/blog`} class="rounded-full bg-[var(--color-persian)] px-4 py-2 text-sm font-medium text-white">
+            All
+          </a>
+          {Object.entries(CATEGORY_LABELS).map(([cat, labels]) => (
+            <a
+              href={`/${country}/blog/category/${cat}`}
+              class="rounded-full bg-[var(--color-persian)]/10 px-4 py-2 text-sm font-medium text-[var(--color-persian)] hover:bg-[var(--color-persian)]/20 transition-colors"
+            >
+              {labels[lang] ?? labels.en}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured post -->
+    {featured && (
+      <section class="pb-8 sm:pb-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <a
+            href={`/${country}/blog/${featured.id.split('/').slice(1).join('/')}`}
+            class="block rounded-2xl border border-[var(--color-persian)]/20 p-6 hover:border-[var(--color-persian)]/40 transition-colors sm:p-8 md:p-10"
+          >
+            <div class="grid gap-6 md:grid-cols-5 md:gap-10">
+              <div class="md:col-span-3">
+                <h2 class="text-2xl font-bold tracking-tight text-[var(--color-persian)] sm:text-3xl">
+                  {featured.data.title}
+                </h2>
+                <p class="mt-3 text-[var(--color-persian)]/70 sm:mt-4 sm:text-lg">
+                  {featured.data.description}
+                </p>
+              </div>
+              <div class="flex flex-col justify-end md:col-span-2">
+                <div class="text-sm text-[var(--color-persian)]/50">
+                  <time datetime={featured.data.publishedAt.toISOString()}>
+                    {featured.data.publishedAt.toLocaleDateString(HREFLANG[c] ?? 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </time>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+    )}
+
+    <!-- More articles grid -->
+    {rest.length > 0 && (
+      <section class="pb-12 sm:pb-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {rest.map((post) => <BlogCard post={post} country={country} />)}
+          </div>
+        </div>
+      </section>
+    )}
+  </article>
+</MarketingLayout>

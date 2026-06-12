@@ -1,0 +1,89 @@
+﻿---
+title: "OTP Outage Postmortem Template (2026)"
+description: "A ready-to-use postmortem template for OTP outages: timeline, root cause categories, customer impact metrics, action items, and a worked example."
+publishedAt: "2026-05-21"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp postmortem"
+  - "sms outage postmortem"
+  - "otp incident report"
+  - "incident review template"
+  - "otp downtime analysis"
+relatedSlugs:
+  - "otp-monitoring-slos-error-budgets"
+  - "circuit-breaker-pattern-otp-services"
+  - "otp-delivery-delay-fix"
+featured: false
+---
+
+
+After every meaningful OTP outage, a written postmortem is the
+        cheapest way to harden the system. This template captures the
+        common shape.
+
+
+## The Template
+
+
+- Title — date and severity.
+- TL;DR — 2 sentences.
+- Timeline — every event with timestamp.
+- Root cause — narrative with technical detail.
+- Customer impact — numbers, not adjectives.
+- What went well, what didn't, where we got lucky.
+- Action items with owner + due date.
+
+
+
+## Timeline
+      
+```
+13:42 - First failed OTP send observed.
+13:44 - Pager fires.
+13:45 - On-call ack.
+13:48 - Identified: provider primary route degraded.
+13:50 - Manual failover to secondary.
+13:52 - Recovery confirmed.
+```
+
+
+## Root-Cause Categories
+
+
+- Provider outage.
+- DLT scrubbing change.
+- Sender ID expiry.
+- Internal code bug.
+- Config rollout error.
+- Capacity / cost cap hit.
+
+
+
+## Customer Impact Metrics
+
+
+- OTP success rate before / during / after.
+- Affected user count.
+- Lost sign-up funnel events.
+- Support tickets opened.
+
+
+
+## Action Items
+
+
+- Add automated failover.
+- Add alert on per-carrier DLR drop.
+- Schedule renewal calendar for sender IDs.
+- Run game-day next quarter.
+
+
+
+## FAQ
+
+Combine with the SLO framework in 
+        [our SLO guide](/blog/otp-monitoring-slos-error-budgets) 
+        for an error-budget-aware retro.
+

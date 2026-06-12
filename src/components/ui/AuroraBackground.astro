@@ -1,0 +1,35 @@
+---
+/**
+ * AuroraBackground — Pure CSS animated aurora background component.
+ * Uses CSS variables and classes defined in global.css.
+ * No client-side JS or React hydration required.
+ */
+interface Props {
+  class?: string;
+  showRadialGradient?: boolean;
+  auroraTheme?: 'sms' | 'whatsapp';
+}
+
+const {
+  class: className = '',
+  showRadialGradient = true,
+  auroraTheme = 'sms',
+} = Astro.props;
+---
+
+<div class:list={["aurora-wrap", className]} data-aurora-theme={auroraTheme}>
+  <div class="absolute inset-0 overflow-hidden">
+    <div class:list={[
+      "aurora-layer",
+      !showRadialGradient && "no-radial"
+    ]}></div>
+  </div>
+  <slot />
+</div>
+
+<style>
+  .no-radial {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+</style>

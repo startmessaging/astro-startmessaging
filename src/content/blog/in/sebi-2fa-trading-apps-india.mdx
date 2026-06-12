@@ -1,0 +1,71 @@
+﻿---
+title: "SEBI 2FA Rules for Trading Apps in India"
+description: "SEBI 2FA rules summarised for stock-broking and trading-app developers: every-login enforcement, biometric alternatives, audit retention, and pitfalls to avoid."
+publishedAt: "2026-05-05"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "sebi 2fa"
+  - "trading app 2fa"
+  - "broker 2fa india"
+  - "demat 2fa rules"
+  - "sebi otp"
+relatedSlugs:
+  - "otp-stock-broking-apps-india"
+  - "rbi-2fa-2026-mandate"
+  - "rbi-afa-guidelines-otp-2026"
+  - "otp-mutual-fund-apps-india"
+featured: false
+---
+
+
+SEBI's 2FA framework for stockbrokers is one of the strictest
+        in financial services. Every login requires fresh second factor.
+        Most brokers default to SMS OTP; modern brokers layer biometric on
+        registered devices.
+
+
+## Overview
+
+
+- Every-login 2FA.
+- Order-placement step-up at broker discretion.
+- Mandatory cool-down on failed attempts.
+- Audit log of authentication events.
+
+
+
+## Every-Login Mandate
+
+Trusted-device suppression is not allowed. Persistent sessions are
+        capped per SEBI guidance.
+
+
+## Biometric as Second Factor
+
+Platform-grade biometric on a registered mobile is permitted. The
+        device registration ties biometric proof to the user identity.
+
+
+## Order-Placement Step-Up
+
+
+- High-value orders trigger fresh OTP.
+- F&O margin calls — step-up.
+- Pledge / unpledge — fresh OTP.
+
+
+
+## Audit Retention
+
+Minimum 8 years per stockbroker bookkeeping rules. Retain
+        (requestId, action, status, IP, deviceId, timestamp).
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) ships
+        sub-second-latency SMS OTPs that meet SEBI's every-login bar
+        for production trading apps.
+

@@ -1,0 +1,146 @@
+---
+/**
+ * ServiceCards — Side-by-side service showcase cards (SMS + WhatsApp).
+ *
+ * Example JSON:
+ * {
+ *   "type": "serviceCards",
+ *   "props": {
+ *     "badge":    { "en": "Our Services" },
+ *     "heading":  { "en": "Two Powerful Channels" },
+ *     "cards": [
+ *       {
+ *         "theme": "sms",
+ *         "icon": "sms",
+ *         "title": { "en": "SMS API" },
+ *         "description": { "en": "..." },
+ *         "features": [
+ *           { "en": "DLT-free OTP" },
+ *           { "en": "99.9% delivery" }
+ *         ],
+ *         "ctaLabel": { "en": "Explore SMS" },
+ *         "ctaHref": "/sms"
+ *       }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Button from '@/components/ui/Button.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, cards = [], country, theme = 'sms' } = Astro.props;
+
+const isWhatsappTheme = theme === 'whatsapp';
+const cardBgClass = isWhatsappTheme ? 'bg-white/40 border border-accent-wa/10 shadow-sm' : 'bg-surface-card border border-hairline shadow-sm';
+
+const serviceIcons: Record<string, string> = {
+  sms: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#gradient-sms-icon)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>`,
+  whatsapp: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="url(#gradient-wa-icon)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 0 1-4.243-1.214l-.304-.18-3.154.827.842-3.074-.197-.314A8 8 0 1 1 12 20z"/></svg>`,
+};
+---
+
+<Section variant="soft" theme={theme}>
+  {/* Local SVG Gradient Definitions for Icons */}
+  <svg width="0" height="0" class="absolute pointer-events-none select-none" aria-hidden="true">
+    <defs>
+      <linearGradient id="gradient-sms-icon" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%" stop-color="var(--color-primary)" />
+         <stop offset="50%" stop-color="#6366f1" />
+         <stop offset="100%" stop-color="#818cf8" />
+      </linearGradient>
+      <linearGradient id="gradient-wa-icon" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%" stop-color="var(--color-accent-wa)" />
+         <stop offset="50%" stop-color="#0d9488" />
+         <stop offset="100%" stop-color="#2dd4bf" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-14 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <div class:list={[
+      'grid gap-6',
+      cards.length === 1 ? 'grid-cols-1 max-w-lg mx-auto' : (cards.length > 4 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 lg:grid-cols-2'),
+    ]}>
+      {cards.map((card: any) => {
+        const cardTheme = card.theme || 'sms';
+        const isSms = cardTheme === 'sms';
+        const accentClass = isSms ? 'text-primary' : 'text-accent-wa';
+        const borderHoverClass = isSms
+          ? 'hover:border-primary/30 hover:shadow-glow-primary hover:-translate-y-0.5'
+          : 'hover:border-accent-wa/30 hover:shadow-glow-wa hover:-translate-y-0.5';
+        const gradientClass = isSms ? 'gradient-text-primary' : 'gradient-text-wa';
+
+        return (
+          <div class:list={[
+            'relative flex flex-col p-6 lg:p-7 rounded-lg transition-all duration-300',
+            cardBgClass,
+            borderHoverClass,
+          ]}>
+            {/* Icon */}
+            {card.icon && serviceIcons[card.icon] && (
+              <div class="w-10 h-10 mb-4" set:html={serviceIcons[card.icon]} />
+            )}
+
+            {/* Title */}
+            <h3 class="text-title-lg font-bold mb-2">
+              <span class:list={['inline-block', gradientClass]}>
+                {r(card.title, country)}
+              </span>
+            </h3>
+
+            {/* Description */}
+            <Text size="body-sm" tone="body" class="mb-4">
+              {r(card.description, country)}
+            </Text>
+
+            {/* Feature list */}
+            {card.features && card.features.length > 0 && (
+              <ul class="flex flex-col gap-2 mb-6 flex-1">
+                {card.features.map((feat: any) => (
+                  <li class="flex items-start gap-3">
+                    <svg class:list={['w-4 h-4 mt-0.5 shrink-0', accentClass]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <Text as="span" size="body-sm" tone="body">{r(feat, country)}</Text>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* CTA */}
+            {card.ctaLabel && card.ctaHref && (
+              <div class="mt-auto">
+                <Button
+                  href={card.ctaHref}
+                  variant="secondary"
+                  size="sm"
+                  class:list={[
+                    "w-full justify-center text-button-xs",
+                    isSms 
+                      ? "hover:bg-primary/[0.06] border-primary/30 text-primary"
+                      : "hover:!bg-accent-wa/[0.06] !border-accent-wa/30 !text-accent-wa"
+                  ]}
+                >
+                  {r(card.ctaLabel, country)} →
+                </Button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </Container>
+</Section>

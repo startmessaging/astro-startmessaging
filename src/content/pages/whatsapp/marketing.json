@@ -1,0 +1,247 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
+  "seo": {
+    "title": {
+      "en": "WhatsApp Marketing Messages — High-ROI Promos — StartMessaging",
+      "pt": "Mensagens de Marketing WhatsApp — Campanhas de Alto ROI — StartMessaging",
+      "es": "Mensajes de Marketing WhatsApp — Campañas de Alto ROI — StartMessaging",
+      "id": "Pesan Marketing WhatsApp — Promosi ROI Tinggi — StartMessaging",
+      "ar": "رسائل تسويق واتساب — حملات ترويجية عالية العائد — StartMessaging",
+      "tr": "WhatsApp Pazarlama Mesajları — Yüksek ROI'li Promosyonlar — StartMessaging",
+      "ng": "WhatsApp Marketing Messages — High-ROI Promosya — StartMessaging"
+    },
+    "description": {
+      "en": "Send promotional WhatsApp messages to opted-in contacts. Design launches, discounts, and win-back offers with 98% open rates and interactive CTA buttons.",
+      "pt": "Envie mensagens promocionais WhatsApp para contatos. Lançamentos, vendas e campanhas de reengajamento com 98% de abertura.",
+      "es": "Envíe mensajes promocionales de WhatsApp a contactos. Lanzamientos, ventas y campañas de reenganche con 98% de apertura.",
+      "id": "Kirim pesan promosi WhatsApp ke kontak. Peluncuran, penjualan, dan kampanye re-engagement dengan 98% tingkat buka.",
+      "ar": "أرسل رسائل ترويجية عبر واتساب. إطلاقات وتخفيضات وحملات إعادة تفاعل بمعدل فتح 98%.",
+      "tr": "WhatsApp promosyon mesajları gönderin. Ürün lansmanları, sezonluk indirimler ve %98 açılma oranıyla yeniden etkileşim kampanyaları."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Marketing Messages",
+          "pt": "Mensagens de Marketing",
+          "es": "Mensajes de Marketing",
+          "id": "Pesan Marketing",
+          "ar": "رسائل التسويق",
+          "tr": "Pazarlama Mesajları"
+        },
+        "title": {
+          "en": "98% Open Rate. WhatsApp Marketing That Converts.",
+          "pt": "98% de Abertura. Marketing WhatsApp que Converte.",
+          "es": "98% de Apertura. Marketing WhatsApp que Convierte.",
+          "id": "98% Tingkat Buka. Marketing WhatsApp yang Mengkonversi.",
+          "ar": "98% معدل فتح. تسويق واتساب يحقق النتائج.",
+          "tr": "%98 Açılma Oranı. Dönüşüm Sağlayan WhatsApp Pazarlama."
+        },
+        "subtitle": {
+          "en": "Reach customers where they already spend their time. WhatsApp marketing messages get 98% open rates vs 20% for email. Send promotions, launches, and offers with rich media and interactive buttons.",
+          "pt": "Alcance clientes onde eles já passam o tempo. Mensagens de marketing WhatsApp têm 98% de abertura vs 20% para email. Envie promoções, lançamentos e ofertas com mídia rica e botões interativos.",
+          "es": "Llegue a los clientes donde ya pasan su tiempo. Los mensajes de marketing de WhatsApp obtienen un 98% de apertura vs 20% para email. Envíe promociones, lanzamientos y ofertas con medios enriquecidos y botones interactivos.",
+          "id": "Jangkau pelanggan di tempat mereka menghabiskan waktu. Pesan marketing WhatsApp mendapatkan 98% tingkat buka vs 20% untuk email. Kirim promosi, peluncuran, dan penawaran dengan media kaya dan tombol interaktif.",
+          "ar": "تواصل مع العملاء حيث يقضون وقتهم بالفعل. رسائل تسويق واتساب تحقق 98% معدل فتح مقابل 20% للبريد. أرسل عروضاً ترويجية وإطلاقات وعروضاً مع وسائط غنية وأزرار تفاعلية.",
+          "tr": "Müşterilere zaten vakit geçirdikleri yerde ulaşın. WhatsApp pazarlama mesajları e-postadaki %20'ye karşı %98 açılma oranı alır."
+        },
+        "primaryCta": {
+          "en": "Start Marketing",
+          "pt": "Começar Marketing",
+          "es": "Iniciar Marketing",
+          "id": "Mulai Marketing",
+          "ar": "ابدأ التسويق",
+          "tr": "Pazarlamaya Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "statsBar",
+      "props": {
+        "stats": [
+          { "value": "45%", "label": { "en": "Average Click-Through Rate" } },
+          { "value": "5x+", "label": { "en": "ROI vs. Traditional SMS" } },
+          { "value": "< 2s", "label": { "en": "Instant Dispatch Speed" } },
+          { "value": "10x", "label": { "en": "Customer Engagement Rate" } }
+        ]
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Send Promotions That Get Opened"
+        },
+        "body": {
+          "en": "WhatsApp marketing messages support rich media including images, videos, carousels, documents, and interactive buttons. Personalize every message with dynamic variables for each contact — name, purchase history, preferences, and more."
+        },
+        "bullets": [
+          { "en": "Rich media support: images, product carousels, PDFs" },
+          { "en": "Personalized variables dynamically resolved per customer" },
+          { "en": "Interactive quick-reply and call-to-action buttons" }
+        ],
+        "image": "/images/marketing-analytics.webp",
+        "imageAlt": { "en": "Marketing Analytics Dashboard Preview" },
+        "reversed": false
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "Strategy Flow" },
+        "heading": { "en": "Opt-In to Conversion Pipeline" },
+        "steps": [
+          {
+            "title": { "en": "1. Collect Opt-Ins" },
+            "description": { "en": "Integrate opt-in checkbox triggers inside purchase forms, landing pages, or checkout channels." }
+          },
+          {
+            "title": { "en": "2. Welcome Broadcast" },
+            "description": { "en": "Deliver an immediate automated welcome notification containing onboarding discount parameters." }
+          },
+          {
+            "title": { "en": "3. Campaign Nurture" },
+            "description": { "en": "Automate recurring promotional broadcasts segmented based on past user conversion behaviors." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Channel Comparison" },
+        "heading": { "en": "WhatsApp Marketing vs. SMS Marketing vs. Email Marketing" },
+        "subheading": { "en": "Choose the outreach channel with the highest conversions and customer engagement rates." },
+        "columns": [
+          { "label": { "en": "Metric" } },
+          { "label": { "en": "WhatsApp Marketing" }, "highlight": true },
+          { "label": { "en": "SMS Marketing" } },
+          { "label": { "en": "Email Marketing" } }
+        ],
+        "rows": [
+          [
+            { "en": "Average Open Rate" },
+            { "en": "98% (Extremely high)" },
+            { "en": "90% (Often ignored as spam)" },
+            { "en": "15% - 22% (Spam folders)" }
+          ],
+          [
+            { "en": "Interactive CTAs" },
+            { "en": "✓ (Quick-reply / URL links)" },
+            { "en": "✗ (Raw hyperlinks only)" },
+            { "en": "✓ (Embedded styled buttons)" }
+          ],
+          [
+            { "en": "Rich Media Attachments" },
+            { "en": "✓ (Images, Videos, PDFs)" },
+            { "en": "✗ (Text only / MMS cost-prohibitive)" },
+            { "en": "✓ (HTML layout layout)" }
+          ],
+          [
+            { "en": "Click-Through Rates" },
+            { "en": "35% - 45%" },
+            { "en": "5% - 8%" },
+            { "en": "2% - 3%" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Marketing API" },
+        "heading": { "en": "Dispatch Marketing Campaigns Programmatically" },
+        "overlayText": { "en": "Marketing Templates API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/messages \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"to\": \"+919876543210\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"seasonal_sale\",\n      \"language\": { \"code\": \"en\" },\n      \"components\": [\n        {\n          \"type\": \"header\",\n          \"parameters\": [{ \"type\": \"image\", \"image\": { \"url\": \"https://example.com/promo.jpg\" } }]\n        },\n        {\n          \"type\": \"body\",\n          \"parameters\": [{ \"type\": \"text\", \"text\": \"Rahul\" }, { \"type\": \"text\", \"text\": \"25%\" }]\n        }\n      ]\n    }\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/v1/messages\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    to: \"+919876543210\",\n    type: \"template\",\n    template: {\n      name: \"seasonal_sale\",\n      language: { code: \"en\" },\n      components: [\n        { type: \"header\", parameters: [{ type: \"image\", image: { url: \"https://example.com/promo.jpg\" } }] },\n        { type: \"body\", parameters: [{ type: \"text\", text: \"Rahul\" }, { type: \"text\", text: \"25%\" }] }\n      ]\n    }\n  })\n});"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": {
+          "en": "Marketing Messages — FAQ",
+          "pt": "Mensagens de Marketing — FAQ",
+          "es": "Mensajes de Marketing — FAQ",
+          "id": "Pesan Marketing — FAQ",
+          "ar": "رسائل التسويق — الأسئلة الشائعة",
+          "tr": "Pazarlama Mesajları — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "Do contacts need to opt-in for marketing messages?"
+            },
+            "answer": {
+              "en": "Yes. WhatsApp requires explicit opt-in from contacts before you can send marketing messages. You can collect opt-ins through your website, app, or existing customer touchpoints. We provide opt-in tools and compliance documentation to help you stay compliant with Meta's policies and local regulations like GDPR and LGPD."
+            }
+          },
+          {
+            "question": {
+              "en": "What is the pricing for marketing messages?"
+            },
+            "answer": {
+              "en": "WhatsApp marketing message pricing is set by Meta and varies by country. It is typically higher than utility or authentication messages. View our full country-by-country pricing sheet for exact rates. Our Free plan includes 1,000 free messages of any category."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "Marketing Campaigns" }, "href": "/whatsapp/campaigns" },
+          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Bulk Messaging API" }, "href": "/whatsapp/bulk-messaging" },
+          { "label": { "en": "Pricing Model" }, "href": "/pricing" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Start Your Marketing Campaign Today",
+          "pt": "Comece Sua Campanha de Marketing Hoje",
+          "es": "Comience Su Campaña de Marketing Hoy",
+          "id": "Mulai Kampanye Marketing Anda Hari Ini",
+          "ar": "ابدأ حملتك التسويقية اليوم",
+          "tr": "Bugün Pazarlama Kampanyanıza Başlayın"
+        },
+        "subtext": {
+          "en": "Free plan. No credit card required.",
+          "pt": "Plano grátis. Sem cartão.",
+          "es": "Plan gratis. Sin tarjeta.",
+          "id": "Paket gratis. Tanpa kartu.",
+          "ar": "خطة مجانية. بدون بطاقة.",
+          "tr": "Ücretsiz plan. Kredi kartı yok."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+﻿---
+title: "How to Send OTP with Remix (2026)"
+description: "Remix OTP login tutorial using StartMessaging. Uses action functions, server-only utilities, signed cookies for session, and Zod for validation."
+publishedAt: "2026-05-07"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp remix"
+  - "remix otp tutorial"
+  - "remix authentication otp"
+  - "remix sms otp"
+relatedSlugs:
+  - "send-otp-nextjs-app-router"
+  - "send-otp-sveltekit"
+  - "send-otp-nodejs"
+  - "send-otp-express"
+featured: false
+---
+
+
+Remix actions + server-only utilities are a clean fit for OTP login.
+        This tutorial wires up 
+        [StartMessaging](/otp-api) with Zod validation and
+        a signed-cookie session.
+
+
+## Project Setup
+      
+```bash
+pnpm create remix@latest otp-remix
+cd otp-remix && pnpm install
+pnpm add zod
+```
+
+
+## Environment Variables
+      
+```bash
+# .env
+SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
+SM_BASE_URL=https://api.startmessaging.com
+SESSION_SECRET=replace-me
+```
+
+
+## Server-Only StartMessaging Utility
+      
+```typescript
+// app/lib/sm.server.ts
+import { randomUUID } from 'node:crypto';
+
+export async function smSend(phoneNumber: string) {
+  const res = await fetch(\`\${process.env.SM_BASE_URL}/otp/send\`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': process.env.SM_API_KEY! },
+    body: JSON.stringify({ phoneNumber, idempotencyKey: randomUUID() }),
+  });
+  if (!res.ok) throw new Error((await res.json()).message ?? 'OTP send failed');
+  return (await res.json()).data as { requestId: string; expiresAt: string };
+}
+
+export async function smVerify(requestId: string, otpCode: string) {
+  const res = await fetch(\`\${process.env.SM_BASE_URL}/otp/verify\`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': process.env.SM_API_KEY! },
+    body: JSON.stringify({ requestId, otpCode }),
+  });
+  if (!res.ok) throw new Error('Verification failed');
+  return true;
+}
+```
+
+
+## Action: Send and Verify
+      
+```typescript
+// app/routes/login.tsx
+import { type ActionFunctionArgs, json, redirect } from '@remix-run/node';
+import { z } from 'zod';
+import { smSend, smVerify } from '~/lib/sm.server';
+import { commitSession, getSession } from '~/lib/session.server';
+
+export async function action({ request }: ActionFunctionArgs) {
+  const session = await getSession(request);
+  const form = await request.formData();
+  const intent = form.get('intent');
+
+  if (intent === 'send') {
+    const phone = z.string().regex(/^\\+91\\d{10}$/).parse(form.get('phoneNumber'));
+    const { requestId } = await smSend(phone);
+    session.set('otpReq', requestId);
+    return json({ stage: 'verify' }, { headers: { 'Set-Cookie': await commitSession(session) }});
+  }
+  if (intent === 'verify') {
+    const code = z.string().regex(/^\\d{4,8}$/).parse(form.get('otpCode'));
+    const requestId = session.get('otpReq');
+    if (!requestId) return json({ error: 'No active OTP' });
+    await smVerify(requestId, code);
+    session.unset('otpReq');
+    session.set('userPhone', 'verified');
+    return redirect('/dashboard', { headers: { 'Set-Cookie': await commitSession(session) }});
+  }
+}
+```
+
+
+## Session via Signed Cookie
+      
+```typescript
+// app/lib/session.server.ts
+import { createCookieSessionStorage } from '@remix-run/node';
+
+const { getSession: gs, commitSession, destroySession } =
+  createCookieSessionStorage({
+    cookie: {
+      name: 'session',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      secrets: [process.env.SESSION_SECRET!],
+      maxAge: 30 * 60,
+    },
+  });
+
+export const getSession = (request: Request) =>
+  gs(request.headers.get('Cookie'));
+export { commitSession, destroySession };
+```
+
+
+## The Form Component
+      
+```typescript
+// app/routes/login.tsx (default export)
+import { Form, useActionData } from '@remix-run/react';
+export default function Login() {
+  const data = useActionData<typeof action>();
+  return (
+    <>
+      <Form method="post">
+        <input name="phoneNumber" placeholder="+919876543210" />
+        <button name="intent" value="send">Send OTP</button>
+      </Form>
+      {data?.stage === 'verify' && (
+        <Form method="post">
+          <input name="otpCode" placeholder="482910" />
+          <button name="intent" value="verify">Verify</button>
+        </Form>
+      )}
+  );
+}
+```
+
+
+## FAQ
+
+Same flow in Next.js, SvelteKit and Express? See our 
+        [tutorials library](/blog).
+

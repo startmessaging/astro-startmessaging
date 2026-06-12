@@ -1,0 +1,74 @@
+---
+/**
+ * VideoEmbed — Lazy-loaded YouTube embed with privacy-respecting iframe.
+ *
+ * Example JSON:
+ * {
+ *   "type": "videoEmbed",
+ *   "props": {
+ *     "badge":   { "en": "Video Tutorials" },
+ *     "heading": { "en": "Watch & Learn" },
+ *     "videos": [
+ *       { "videoId": "dQw4w9WgXcQ", "title": { "en": "Getting Started" }, "description": { "en": "..." } }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, videos = [], country, theme } = Astro.props;
+const isWhatsapp = theme === 'whatsapp';
+const cardBgClass = isWhatsapp ? 'bg-white/60 border border-accent-wa/10 shadow-sm' : 'bg-surface-card border border-hairline shadow-sm';
+---
+
+<Section theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-12 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <div class:list={[
+      'grid gap-8',
+      videos.length === 1 ? 'grid-cols-1 max-w-3xl mx-auto' : 'grid-cols-1 md:grid-cols-2',
+    ]}>
+      {videos.map((video: any) => (
+        <div class:list={["rounded-lg overflow-hidden hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300", cardBgClass]}>
+          <div class="relative aspect-video bg-[#000]">
+            {/* TODO: Replace placeholder videoIds with actual YouTube video IDs */}
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}
+              title={r(video.title, country)}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              class="absolute inset-0 w-full h-full"
+            ></iframe>
+          </div>
+          {(video.title || video.description) && (
+            <div class="p-5">
+              {video.title && (
+                <Heading as="h3" size="title-md" class="mb-2">
+                  {r(video.title, country)}
+                </Heading>
+              )}
+              {video.description && (
+                <Text size="body-sm" tone="muted">
+                  {r(video.description, country)}
+                </Text>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,161 @@
+---
+title: "Broadcast API"
+description: "Send WhatsApp messages to thousands of recipients with a single API call. Broadcast lists, scheduling, audience segments, and analytics."
+product: whatsapp
+order: 7
+---
+
+## Overview
+
+The Broadcast API lets you send a single template message to up to **100,000 recipients** in one API call. StartMessaging handles the queueing, rate-limiting (Meta's throughput tiers), and delivery tracking automatically.
+
+## Create a Broadcast
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/broadcasts \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "January Sale Announcement",
+    "template": {
+      "name": "january_sale",
+      "language": { "code": "pt_BR" },
+      "components": [
+        {
+          "type": "body",
+          "parameters": [
+            { "type": "text", "text": "{{contact.first_name}}" }
+          ]
+        }
+      ]
+    },
+    "recipients": {
+      "type": "list",
+      "phones": [
+        "5511999999999",
+        "5511888888888",
+        "5511777777777"
+      ]
+    }
+  }'
+```
+
+### Response
+
+```json
+{
+  "broadcast_id": "bcast_abc123",
+  "status": "queued",
+  "total_recipients": 3,
+  "estimated_completion": "2026-01-15T11:00:00Z"
+}
+```
+
+## Broadcast with Audience Segment
+
+Instead of a phone list, you can target a saved segment:
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/broadcasts \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Premium Users Re-engagement",
+    "template": {
+      "name": "reengagement_offer",
+      "language": { "code": "en" }
+    },
+    "recipients": {
+      "type": "segment",
+      "segment_id": "seg_premium_inactive_30d"
+    }
+  }'
+```
+
+## Schedule a Broadcast
+
+Send at a specific time (useful for timezone-optimized campaigns):
+
+```json
+{
+  "name": "Weekend Flash Sale",
+  "schedule": {
+    "send_at": "2026-01-18T09:00:00-03:00",
+    "timezone": "America/Sao_Paulo"
+  },
+  "template": { "..." },
+  "recipients": { "..." }
+}
+```
+
+## Broadcast Limits by Plan
+
+| Plan | Max Recipients | Broadcasts/Day | Scheduling |
+|------|---------------|-----------------|------------|
+| Free | 100 | 1 | ❌ |
+| Premium | 10,000 | 10 | ✅ |
+| Enterprise | 100,000+ | Unlimited | ✅ (+ API) |
+
+## Check Broadcast Status
+
+```bash
+curl https://api.startmessaging.com/v1/broadcasts/bcast_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```json
+{
+  "broadcast_id": "bcast_abc123",
+  "name": "January Sale Announcement",
+  "status": "in_progress",
+  "total": 3,
+  "sent": 2,
+  "delivered": 1,
+  "read": 0,
+  "failed": 0,
+  "progress_percent": 66.7,
+  "started_at": "2026-01-15T10:30:00Z"
+}
+```
+
+## Broadcast Analytics
+
+Get detailed analytics after a broadcast completes:
+
+```bash
+curl https://api.startmessaging.com/v1/broadcasts/bcast_abc123/analytics \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```json
+{
+  "total_sent": 3,
+  "delivered": 3,
+  "read": 2,
+  "replied": 1,
+  "delivery_rate": 100.0,
+  "read_rate": 66.7,
+  "reply_rate": 33.3,
+  "avg_delivery_time_ms": 2340,
+  "failed_reasons": {}
+}
+```
+
+## Best Practices
+
+1. **Use segments, not raw lists** — segments auto-exclude unsubscribed users
+2. **Schedule for optimal times** — 10 AM local time typically has highest open rates
+3. **Personalize with parameters** — use `{{contact.first_name}}` for higher engagement
+4. **Monitor quality rating** — high complaint rates reduce your messaging tier
+5. **Start small** — test with a small group before broadcasting to your full audience
+
+## FAQ
+
+**What happens if some recipients have blocked my number?**
+Those messages will show as `failed` with reason `RECIPIENT_BLOCKED`. They don't affect your quality rating.
+
+**Can I cancel a scheduled broadcast?**
+Yes — call `DELETE /v1/broadcasts/{broadcast_id}` before the scheduled send time. In-progress broadcasts cannot be cancelled.
+
+**How fast are broadcasts delivered?**
+Delivery speed depends on your Meta messaging tier. Tier 1 accounts can send to ~1,000 unique users/24h; Tier 4 (unlimited) can send thousands per second. StartMessaging automatically manages the throttling.

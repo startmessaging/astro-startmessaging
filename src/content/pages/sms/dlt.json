@@ -1,0 +1,160 @@
+{
+  "countries": ["in"],
+  "theme": "sms",
+  "seo": {
+    "title": {
+      "en": "DLT SMS Registration India — Compliance Guide & Direct Route — StartMessaging"
+    },
+    "description": {
+      "en": "Complete guide to TRAI DLT SMS registration in India. Learn entity, header, and template approval steps, and how StartMessaging lets you send DLT-free transactional SMS instantly."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "sms",
+      "props": {
+        "badge": { "en": "DLT SMS Guide" },
+        "title": { "en": "DLT SMS Compliance & Pre-Registered Routes" },
+        "subtitle": {
+          "en": "DLT registration is mandatory for sending transactional SMS in India under TRAI regulations. StartMessaging simplifies compliance by using pre-registered compliant routes."
+        },
+        "primaryCta": { "en": "Skip DLT Setup — Start Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "What is DLT Registration?" },
+        "body": {
+          "en": "DLT (Distributed Ledger Technology) is a blockchain-based registration system mandated by TRAI. It requires all businesses to register their entity, headers, and templates to send commercial SMS. StartMessaging completely bypasses this manual setup by mapping your messages to pre-registered compliant routes automatically."
+        },
+        "bullets": [
+          { "en": "TRAI regulations compliant" },
+          { "en": "Prevents SMS header spoofing and spam" },
+          { "en": "Entity, header, and template checks" }
+        ],
+        "image": "/images/dlt-flow.webp",
+        "imageAlt": { "en": "DLT Verification Flow Diagram" },
+        "reversed": false
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "The Process" },
+        "heading": { "en": "Traditional DLT vs StartMessaging Setup" },
+        "steps": [
+          {
+            "title": { "en": "1. Traditional: Entity Registration" },
+            "description": {
+              "en": "Register your business on Jio, Airtel, or BSNL DLT portals with identity/business documents. Takes 2-5 days."
+            }
+          },
+          {
+            "title": { "en": "2. Traditional: Header Approval" },
+            "description": {
+              "en": "Submit 6-character sender IDs (headers) like STRMSG for approval. Takes 2-3 days."
+            }
+          },
+          {
+            "title": { "en": "3. Traditional: Template Approval" },
+            "description": {
+              "en": "Submit exact message layouts with variables. Takes 1-3 days per template."
+            }
+          },
+          {
+            "title": { "en": "4. StartMessaging: Instant Delivery" },
+            "description": {
+              "en": "Skip all steps. Sign up, get API keys, and use our pre-registered DLT templates instantly."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "DLT Comparison" },
+        "heading": { "en": "Compare DLT Setup Requirements" },
+        "columns": [
+          { "label": { "en": "Setup Factor" } },
+          { "label": { "en": "StartMessaging" }, "highlight": true },
+          { "label": { "en": "Traditional Operator" } }
+        ],
+        "rows": [
+          [
+            { "en": "Setup Time" },
+            { "en": "Instant (Under 5 mins)" },
+            { "en": "2-4 Weeks" }
+          ],
+          [{ "en": "Entity Proofs & Documents" }, "✓", "✗"],
+          [
+            { "en": "Individual Registration Fees" },
+            { "en": "None (₹0)" },
+            { "en": "₹5,900+ Operator Fees" }
+          ],
+          [
+            { "en": "Header & Template Maintenance" },
+            { "en": "Managed Automatically" },
+            { "en": "Manual approvals required" }
+          ],
+          [{ "en": "Direct API Integration" }, "✓", "✓"]
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "DLT SMS — Frequently Asked Questions" },
+        "items": [
+          {
+            "question": { "en": "Is DLT registration mandatory in India?" },
+            "answer": {
+              "en": "Yes. TRAI mandates DLT registration for all commercial SMS in India. However, with StartMessaging, you use our pre-registered routes for transactional messages, so you don't need to register yourself. For promotional messages, individual DLT registration is required."
+            }
+          },
+          {
+            "question": { "en": "How long does DLT registration take?" },
+            "answer": {
+              "en": "Traditional DLT registration takes 2-4 weeks including entity registration, header approval, and template approval across DLT platforms. With StartMessaging's pre-registered routes, you can start sending transactional SMS in under 5 minutes."
+            }
+          },
+          {
+            "question": {
+              "en": "What's the difference between DLT-registered and non-DLT SMS?"
+            },
+            "answer": {
+              "en": "DLT-registered SMS are sent through officially registered headers and templates on India's DLT blockchain. Non-DLT approaches use pre-registered routes operated by authorized entities (like StartMessaging). Both are TRAI-compliant, but using pre-registered routes is faster and simpler for transactional messages."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "Non-DLT Route" }, "href": "/sms/non-dlt" },
+          { "label": { "en": "SMS API Docs" }, "href": "/sms" },
+          { "label": { "en": "OTP API Docs" }, "href": "/otp-api" },
+          { "label": { "en": "Pricing" }, "href": "/pricing" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Skip DLT Registration — Start Sending SMS Today" },
+        "subtext": {
+          "en": "₹0.25/SMS. No DLT setup required. Free plan available."
+        },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

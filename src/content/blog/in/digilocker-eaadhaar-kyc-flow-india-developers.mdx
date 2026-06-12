@@ -1,0 +1,91 @@
+﻿---
+title: "DigiLocker eAadhaar and KYC: What App Developers Integrate (and What OTP Still Does)"
+description: "How DigiLocker-based eAadhaar XML fits into Indian KYC stacks, where OTP still appears in the citizen consent journey, and common pitfalls for fintech and SaaS engineering teams."
+publishedAt: "2026-05-11"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "DigiLocker API India developers"
+  - "eAadhaar XML KYC"
+  - "DigiLocker integration fintech"
+  - "Aadhaar OTP vs DigiLocker"
+  - "paperless KYC India developers"
+  - "UIDAI KYC OTP flow"
+  - "India Stack KYC developers"
+relatedSlugs:
+  - "uidai-aadhaar-otp-rules"
+  - "dpdp-act-otp-compliance-india"
+  - "otp-nbfc-loan-apps-india"
+  - "otp-fintech-india"
+featured: false
+---
+
+
+Indian KYC conversations often jump between "Aadhaar
+        OTP" and "DigiLocker pull." They solve different
+        layers: **UIDAI OTP** proves control of the Aadhaar
+        number at a point in time, while 
+        **DigiLocker document share** proves the user consents
+        to release a signed XML snapshot to your relying party. Product and
+        backend teams need both mental models.
+
+
+## Roles: DigiLocker, UIDAI, and Your App
+
+DigiLocker acts as a document vault and consent broker. Your mobile or
+        web app deep-links or embeds the DigiLocker experience, receives a
+        token or file, and then validates XML signatures inside your KYC
+        service. You still own fraud rules, deduplication, and 
+        [database design](/blog/otp-database-schema-best-practices) 
+        for applicant records.
+
+
+## Where OTP Still Appears
+
+
+- User login to DigiLocker if they do not use Aadhaar face auth.
+- Fallback when document issuance throttles or session expires.
+- Separate **mobile verification OTP** for your own app account — unrelated to Aadhaar but often confused in support tickets.
+
+
+
+For SMS OTP to your app login, providers such as 
+        [StartMessaging](/dlt-free-otp) stay relevant even
+        when KYC moves to DigiLocker-first onboarding.
+
+
+## eAadhaar XML vs Masked Aadhaar
+
+Teams may receive masked Aadhaar numbers alongside demographic
+        fields. Your matching logic against PAN or bureau data must tolerate
+        masking rules and version changes in issued XML schemas — version pin
+        your XSD validators and monitor for format updates.
+
+
+## Storage, Redaction, and DPDP Minimisation
+
+Pair this implementation with 
+        [DPDP minimisation guidance](/blog/dpdp-act-otp-compliance-india)
+        . Avoid logging raw XML in application logs. Use short-lived pre-signed
+        URLs if analysts must inspect documents, and redact Aadhaar numbers in
+        every UI surface.
+
+
+## Engineering Patterns
+
+
+- Treat DigiLocker callback as an **event** into your state machine (received, verified, rejected).
+- Verify XML signatures before marking KYC complete; do not trust client-side uploads without signature validation.
+- Correlate DigiLocker session id with your user id using a server-side nonce to prevent session fixation across tabs.
+
+
+
+## FAQ
+
+DigiLocker reduces repeated Aadhaar OTP fatigue for users who already
+        trust the vault, but it does not replace your obligation to secure
+        onboarding, device integrity, and downstream 
+        [fintech OTP](/blog/otp-fintech-india) for
+        transactions.
+

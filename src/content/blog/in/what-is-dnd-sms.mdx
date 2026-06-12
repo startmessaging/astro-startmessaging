@@ -1,0 +1,132 @@
+﻿---
+title: "What is DND in SMS? India’s Do-Not-Disturb Register Explained"
+description: "DND in SMS explained for developers: India’s national Do-Not-Disturb register, the categories, how DND interacts with OTP / transactional SMS, and what happens when you send to a DND number."
+publishedAt: "2026-04-25"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is dnd"
+  - "dnd sms"
+  - "dnd india"
+  - "dnd register"
+  - "national do not disturb"
+  - "dnd otp india"
+  - "dnd transactional"
+relatedSlugs:
+  - "transactional-vs-promotional-sms-india"
+  - "what-is-dlt-registration-india"
+  - "trai-message-scrubbing-india"
+  - "what-is-sms-gateway"
+featured: false
+---
+
+
+Anyone who has registered for DND in India knows it as "the
+        thing that makes loan-pitching SMS stop arriving." For
+        developers shipping SMS-driven products, DND is a piece of telecom
+        regulation that interacts in subtle ways with OTP, transactional and
+        promotional SMS — and getting it wrong invites TRAI penalties.
+
+
+This explainer covers **what DND is**, the categories,
+        how it overlaps (or doesn't) with OTP delivery, how to check a
+        number's DND state, and the practical playbook for staying
+        compliant.
+
+
+## DND — Definition
+
+**DND (Do Not Disturb)** in the Indian telecom context
+        refers to the National Customer Preference Register run under TRAI's
+        TCCCPR (Telecom Commercial Communications Customer Preference
+        Regulations) framework. Subscribers can register their phone number to
+        block specific categories of unsolicited commercial communication.
+
+
+DND is enforced at the network level: telcos check the DND state of
+        every recipient before delivering commercial messages. If the message
+        category is blocked for that subscriber, the message is silently
+        dropped (scrubbed).
+
+
+## DND Categories
+
+Subscribers can choose to block messages by category, allowing some
+        types while blocking others. The standard categories:
+
+
+
+- 1. Banking / Insurance / Financial products
+- 2. Real estate
+- 3. Education
+- 4. Health
+- 5. Consumer goods and automobiles
+- 6. Communication / Broadcasting / Entertainment / IT
+- 7. Tourism and leisure
+- 8. Food and beverages
+
+
+
+Subscribers can also choose "Block all promotional" (full DND).
+        Service / transactional categories are governed separately and cannot
+        be blocked unilaterally by subscribers.
+
+
+## How DND Affects OTP vs Promotional SMS
+
+
+- **OTP / transactional SMS** — registered under the DLT framework as service-implicit or transactional, these are  *not* blocked by DND. The user initiated the transaction; the OTP is functional, not promotional.
+- **Service-explicit SMS** — promotional content sent to users who have explicitly opted in. Subject to the granular DND category preferences.
+- **Promotional SMS** — generic marketing. Always subject to full DND.
+
+
+
+See our breakdown of 
+        [transactional vs promotional SMS in India](/blog/transactional-vs-promotional-sms-india) 
+        for the registration details.
+
+
+## Checking DND Status
+
+Apps almost never need to query DND state directly because the
+        operator does the check at delivery time. But if you must:
+
+
+
+- TRAI publishes a national DND check tool at  [nccpregistry.gov.in](https://nccpregistry.gov.in) .
+- Some SMS providers expose a check-DND API for bulk validation.
+- For OTP and transactional volume, just rely on the operator-side enforcement and monitor delivery rates per provider.
+
+
+
+## Penalties for Violating DND
+
+TRAI has published a sliding-scale penalty matrix:
+
+
+
+- First offence: warning + Rs 1,000 fine.
+- Second offence: Rs 5,000.
+- Third offence: Rs 10,000.
+- Repeat / large-scale violations: telecom resource (sender ID, PE-ID) can be deactivated, blacklisting the brand from sending bulk SMS.
+
+
+
+## Best Practices
+
+
+- **Categorise messages correctly.** Wrong category = scrubbing or DND violation. OTPs are service-implicit / transactional; never promotional.
+- **Capture explicit consent.** For service-explicit SMS, store opt-in date, source, and IP address.
+- **Honour opt-out requests promptly.** Process within 7 working days max.
+- **Use a managed provider.** Most modern  [OTP APIs in India](/blog/best-otp-api-india)  handle DND classification automatically. With  [StartMessaging](/dlt-free-otp) you do not have to touch any of it for OTP traffic.
+
+
+
+## FAQ
+
+DND is mostly invisible to OTP-focused products because OTP traffic
+        is exempt. If you also send promotional SMS, build a clean
+        consent-management workflow up front; retrofitting it under
+        regulator pressure is expensive.
+

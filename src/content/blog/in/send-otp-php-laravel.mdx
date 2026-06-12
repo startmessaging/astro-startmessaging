@@ -1,0 +1,533 @@
+﻿---
+title: "OTP SMS Integration in PHP and Laravel"
+description: "Complete PHP tutorial for sending and verifying OTP via SMS using curl and Laravel HTTP client with the StartMessaging API. Includes service class and middleware patterns."
+publishedAt: "2026-01-22"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "php otp sms"
+  - "laravel otp verification"
+  - "send otp php curl"
+  - "laravel sms api"
+  - "startmessaging php"
+  - "php sms verification"
+  - "otp api laravel integration"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "send-otp-python"
+featured: false
+---
+
+
+PHP powers a massive share of web applications in India, from custom
+        frameworks to Laravel-based SaaS products. If you need to add phone
+        number verification or two-factor authentication to your PHP
+        application, this guide shows you how to integrate OTP sending and
+        verification using the 
+        [StartMessaging API](/features).
+
+
+We will cover two approaches: plain PHP with cURL (works anywhere), and
+        a clean Laravel integration with a dedicated service class. Both use the
+        same API endpoints and cost Rs 0.25 per OTP with no 
+        [DLT registration](/dlt-free-otp) required on your
+        end.
+
+
+## Prerequisites
+
+
+- **PHP 7.4+** with the cURL extension enabled (enabled by default in most installations).
+- **For Laravel sections:** Laravel 9 or later.
+- **A StartMessaging account** —  [sign up for free](https://app.startmessaging.com/register)  and top up your wallet.
+- **An API key** from the  [API Keys page](https://app.startmessaging.com/api-keys)  (starts with `sm_live_`).
+
+
+
+## Plain PHP with cURL
+
+This approach works in any PHP environment, whether you are using a
+        framework, a legacy codebase, or a simple script. The 
+        `/otp/send` endpoint accepts a JSON body with the phone
+        number and returns a request ID.
+
+      
+```php
+<?php
+
+$apiKey = getenv('STARTMESSAGING_API_KEY'); // or read from config
+$baseUrl = 'https://api.startmessaging.com';
+
+function sendOtp(string $phoneNumber): array
+{
+    global $apiKey, $baseUrl;
+
+    $ch = curl_init("{$baseUrl}/otp/send");
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json',
+            "X-API-Key: {$apiKey}",
+        ],
+        CURLOPT_POSTFIELDS     => json_encode([
+            'phoneNumber'    => $phoneNumber,
+            'idempotencyKey' => bin2hex(random_bytes(16)),
+        ]),
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    if ($curlError) {
+        throw new RuntimeException("cURL error: {$curlError}");
+    }
+
+    $body = json_decode($response, true);
+
+    if ($httpCode >= 400) {
+        throw new RuntimeException(
+            $body['message'] ?? "HTTP error {$httpCode}"
+        );
+    }
+
+    return $body['data'];
+    // Returns: ['requestId' => '...', 'expiresAt' => '...', 'attemptsLeft' => 3]
+}
+
+// Usage
+$result = sendOtp('+919876543210');
+echo "OTP sent! Request ID: " . $result['requestId'] . "\\n";
+echo "Expires at: " . $result['expiresAt'] . "\\n";
+```
+
+
+Note the inclusion of an `idempotencyKey`. This prevents
+        duplicate OTPs if a network retry occurs. Read more about 
+        [idempotency keys in OTP APIs](/blog/idempotency-keys-otp)
+        .
+
+
+## Verify OTP in Plain PHP
+
+After the user enters the OTP code, verify it by sending the code and
+        request ID to `/otp/verify`:
+
+      
+```typescript
+function verifyOtp(string $requestId, string $otpCode): bool
+{
+    global $apiKey, $baseUrl;
+
+    $ch = curl_init("{$baseUrl}/otp/verify");
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json',
+            "X-API-Key: {$apiKey}",
+        ],
+        CURLOPT_POSTFIELDS     => json_encode([
+            'requestId' => $requestId,
+            'otpCode'   => $otpCode,
+        ]),
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    $body = json_decode($response, true);
+
+    if ($httpCode >= 400) {
+        throw new RuntimeException(
+            $body['message'] ?? "Verification failed (HTTP {$httpCode})"
+        );
+    }
+
+    return $body['data']['verified'] === true;
+}
+
+// Usage
+if (verifyOtp($result['requestId'], '482910')) {
+    echo "Phone number verified!\\n";
+} else {
+    echo "Invalid OTP code.\\n";
+}
+```
+
+
+## Laravel Setup
+
+In a Laravel application, store your API key in the `.env` 
+        file and register it in your config:
+
+      
+```bash
+# .env
+STARTMESSAGING_API_KEY=sm_live_xxxxxxxxxxxxxxxxxxxx
+```
+
+
+Add it to a config file, for example 
+        `config/services.php`:
+
+      
+```typescript
+// config/services.php
+return [
+    // ... other services
+
+    'startmessaging' => [
+        'api_key'  => env('STARTMESSAGING_API_KEY'),
+        'base_url' => env('STARTMESSAGING_BASE_URL', 'https://api.startmessaging.com'),
+    ],
+];
+```
+
+
+## Laravel Service Class
+
+Create a dedicated service class that encapsulates all OTP API
+        interactions. This keeps your controllers clean and makes the
+        integration easy to test.
+
+      
+```php
+<?php
+// app/Services/OtpService.php
+
+namespace App\\Services;
+
+use Illuminate\\Support\\Facades\\Http;
+use Illuminate\\Support\\Str;
+use Illuminate\\Http\\Client\\RequestException;
+
+class OtpService
+{
+    private string $baseUrl;
+    private string $apiKey;
+
+    public function __construct()
+    {
+        $this->baseUrl = config('services.startmessaging.base_url');
+        $this->apiKey = config('services.startmessaging.api_key');
+    }
+
+    /**
+     * Send an OTP to the given phone number.
+     *
+     * @return array{requestId: string, expiresAt: string, attemptsLeft: int}
+     * @throws RequestException
+     */
+    public function send(string $phoneNumber, ?string $idempotencyKey = null): array
+    {
+        $response = Http::withHeaders([
+            'X-API-Key' => $this->apiKey,
+        ])
+        ->timeout(10)
+        ->post("{$this->baseUrl}/otp/send", [
+            'phoneNumber'    => $phoneNumber,
+            'idempotencyKey' => $idempotencyKey ?? Str::uuid()->toString(),
+        ]);
+
+        $response->throw(); // Throws RequestException on 4xx/5xx
+
+        return $response->json('data');
+    }
+
+    /**
+     * Verify an OTP code.
+     *
+     * @throws RequestException
+     */
+    public function verify(string $requestId, string $otpCode): bool
+    {
+        $response = Http::withHeaders([
+            'X-API-Key' => $this->apiKey,
+        ])
+        ->timeout(10)
+        ->post("{$this->baseUrl}/otp/verify", [
+            'requestId' => $requestId,
+            'otpCode'   => $otpCode,
+        ]);
+
+        $response->throw();
+
+        return $response->json('data.verified') === true;
+    }
+}
+```
+
+
+Register the service in `AppServiceProvider` so it can be
+        injected:
+
+      
+```
+// app/Providers/AppServiceProvider.php
+
+use App\\Services\\OtpService;
+
+public function register(): void
+{
+    $this->app->singleton(OtpService::class);
+}
+```
+
+
+## Laravel Controller
+
+Create a controller that uses the `OtpService` via
+        dependency injection:
+
+      
+```php
+<?php
+// app/Http/Controllers/OtpController.php
+
+namespace App\\Http\\Controllers;
+
+use App\\Services\\OtpService;
+use Illuminate\\Http\\JsonResponse;
+use Illuminate\\Http\\Request;
+use Illuminate\\Http\\Client\\RequestException;
+
+class OtpController extends Controller
+{
+    public function __construct(
+        private readonly OtpService $otpService,
+    ) {}
+
+    public function send(Request $request): JsonResponse
+    {
+        $request->validate([
+            'phoneNumber' => ['required', 'string', 'regex:/^\\+[1-9]\\d{6,14}$/'],
+        ]);
+
+        try {
+            $data = $this->otpService->send($request->input('phoneNumber'));
+
+            return response()->json([
+                'requestId' => $data['requestId'],
+                'expiresAt' => $data['expiresAt'],
+            ]);
+        } catch (RequestException $e) {
+            $status = $e->response?->status() ?? 500;
+            $message = $e->response?->json('message') ?? 'Failed to send OTP';
+
+            return response()->json(['error' => $message], $status);
+        }
+    }
+
+    public function verify(Request $request): JsonResponse
+    {
+        $request->validate([
+            'requestId' => ['required', 'string'],
+            'otpCode'   => ['required', 'string', 'digits:6'],
+        ]);
+
+        try {
+            $verified = $this->otpService->verify(
+                $request->input('requestId'),
+                $request->input('otpCode'),
+            );
+
+            return response()->json(['verified' => $verified]);
+        } catch (RequestException $e) {
+            $status = $e->response?->status() ?? 500;
+            $message = $e->response?->json('message') ?? 'Verification failed';
+
+            return response()->json(['error' => $message], $status);
+        }
+    }
+}
+```
+
+
+## Routes and Middleware
+
+Register the routes in `routes/api.php`. You will likely
+        want rate limiting on the send endpoint to prevent abuse:
+
+      
+```
+// routes/api.php
+
+use App\\Http\\Controllers\\OtpController;
+use Illuminate\\Support\\Facades\\Route;
+
+Route::prefix('auth')->group(function () {
+    Route::post('/send-otp', [OtpController::class, 'send'])
+        ->middleware('throttle:5,1'); // 5 requests per minute
+
+    Route::post('/verify-otp', [OtpController::class, 'verify'])
+        ->middleware('throttle:10,1'); // 10 requests per minute
+});
+```
+
+
+The throttle middleware prevents a single client from spamming OTP
+        requests. You can customize the limits based on your use case. For a
+        deeper dive on rate limiting and other security measures, read our guide
+        on 
+        [building a complete OTP verification flow](/blog/otp-verification-flow)
+        .
+
+
+## Error Handling
+
+The StartMessaging API uses standard HTTP status codes. Here is how to
+        interpret them in your PHP application:
+
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Meaning</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>200</td>
+            <td>Success</td>
+            <td>Process the response data normally.</td>
+          </tr>
+          <tr>
+            <td>400</td>
+            <td>Invalid request (bad phone format, missing fields)</td>
+            <td>Return validation error to client. Do not retry.</td>
+          </tr>
+          <tr>
+            <td>401</td>
+            <td>Invalid API key</td>
+            <td>Check your configuration. The key may be revoked.</td>
+          </tr>
+          <tr>
+            <td>402</td>
+            <td>Insufficient wallet balance</td>
+            <td>
+              Top up your wallet and alert your operations team.
+            </td>
+          </tr>
+          <tr>
+            <td>409</td>
+            <td>Duplicate idempotency key</td>
+            <td>Return the original cached response. This is not an error.</td>
+          </tr>
+          <tr>
+            <td>429</td>
+            <td>Rate limited</td>
+            <td>Wait and retry after the indicated period.</td>
+          </tr>
+          <tr>
+            <td>500+</td>
+            <td>Server error</td>
+            <td>Retry with exponential backoff (max 3 attempts).</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+For Laravel, you can add a retry mechanism using the HTTP client's
+        built-in retry method:
+
+      
+```typescript
+$response = Http::withHeaders([
+    'X-API-Key' => $this->apiKey,
+])
+->timeout(10)
+->retry(3, 1000, function ($exception, $request) {
+    // Only retry on server errors, not client errors
+    return $exception instanceof ConnectionException
+        || ($exception instanceof RequestException
+            && $exception->response->status() >= 500);
+})
+->post("{$this->baseUrl}/otp/send", [
+    'phoneNumber'    => $phoneNumber,
+    'idempotencyKey' => $idempotencyKey,
+]);
+```
+
+
+## Testing Your Integration
+
+In Laravel, you can easily mock the HTTP client for tests:
+
+      
+```typescript
+// tests/Feature/OtpTest.php
+
+use Illuminate\\Support\\Facades\\Http;
+
+it('sends OTP successfully', function () {
+    Http::fake([
+        'api.startmessaging.com/otp/send' => Http::response([
+            'success' => true,
+            'data' => [
+                'requestId'    => 'req_test_123',
+                'expiresAt'    => '2026-01-22T12:10:00Z',
+                'attemptsLeft' => 3,
+            ],
+        ]),
+    ]);
+
+    $response = $this->postJson('/api/auth/send-otp', [
+        'phoneNumber' => '+919876543210',
+    ]);
+
+    $response->assertOk()
+        ->assertJsonPath('requestId', 'req_test_123');
+});
+
+it('verifies OTP successfully', function () {
+    Http::fake([
+        'api.startmessaging.com/otp/verify' => Http::response([
+            'success' => true,
+            'data' => ['verified' => true],
+        ]),
+    ]);
+
+    $response = $this->postJson('/api/auth/verify-otp', [
+        'requestId' => 'req_test_123',
+        'otpCode'   => '482910',
+    ]);
+
+    $response->assertOk()
+        ->assertJsonPath('verified', true);
+});
+```
+
+
+## Best Practices
+
+
+- **Use a service class.** Do not put HTTP calls directly in controllers. A dedicated service class is easier to test, reuse, and maintain.
+- **Always include idempotency keys.** Prevent duplicate SMS charges from network retries. Use  `Str::uuid()` in Laravel or  `bin2hex(random_bytes(16))` in plain PHP.
+- **Validate phone numbers before calling the API.** Use Laravel's validation rules or a library like  `giggsey/libphonenumber-for-php` to ensure valid E.164 format.
+- **Rate limit your OTP endpoints.** Use Laravel's throttle middleware or implement your own rate limiting to prevent abuse.
+- **Never log OTP codes.** The codes are bcrypt-hashed on the StartMessaging side. Your application should never store or log them.
+- **Store only the `requestId`.** Your database or session only needs the request ID. All verification logic runs on the StartMessaging servers.
+- **Set timeouts.** Always configure a timeout (10 seconds is recommended) on HTTP calls to prevent your application from hanging.
+
+
+
+## FAQ
+
+
+Start sending OTPs from your PHP or Laravel application today. 
+        [Check our pricing](/pricing) at Rs 0.25 per OTP with
+        no monthly fees, or read the 
+        [full API documentation](/otp-api) for endpoint
+        details. You can also explore our guides for 
+        [Node.js](/blog/send-otp-nodejs) and 
+        [Python](/blog/send-otp-python).
+

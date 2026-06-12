@@ -1,0 +1,237 @@
+﻿---
+title: "How to Send OTP with NestJS (2026 Tutorial)"
+description: "Complete NestJS guide to send and verify SMS OTPs via StartMessaging. Covers a typed service, DTOs, ConfigModule, ThrottlerGuard, exception filters and Jest tests."
+publishedAt: "2026-04-26"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp nestjs"
+  - "nestjs otp api"
+  - "nestjs sms otp"
+  - "nestjs authentication"
+  - "nestjs throttler otp"
+  - "startmessaging nestjs"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "send-otp-express"
+  - "send-otp-nextjs-app-router"
+  - "send-otp-fastapi"
+  - "otp-rate-limiting-guide"
+featured: false
+---
+
+
+NestJS gives you typed dependency injection, declarative controllers,
+        and a healthy testing story out of the box — all good things for an
+        auth flow. This tutorial wires up 
+        [StartMessaging](/otp-api) as a first-class service
+        with DTOs, throttling, exception mapping, and Jest unit tests.
+
+
+## Project Setup
+      
+```
+npx @nestjs/cli new otp-nestjs --package-manager pnpm
+cd otp-nestjs
+pnpm add @nestjs/config @nestjs/throttler class-validator class-transformer
+pnpm add -D @types/node
+```
+
+
+## Configuration Module
+      
+```typescript
+// src/app.module.ts
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './auth/auth.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    ThrottlerModule.forRoot([{ ttl: 3600_000, limit: 5 }]),
+    AuthModule,
+  ],
+})
+export class AppModule {}
+```
+
+
+Add to `.env`:
+
+      
+```
+SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
+SM_BASE_URL=https://api.startmessaging.com
+```
+
+
+## StartMessaging Service
+      
+```typescript
+// src/auth/sm.service.ts
+import { Injectable, HttpException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { randomUUID } from 'node:crypto';
+
+interface SmEnvelope<T> { data: T; }
+interface SendData { requestId: string; expiresAt: string; attemptsLeft: number; }
+interface VerifyData { verified: true; }
+
+@Injectable()
+export class StartMessagingService {
+  constructor(private readonly cfg: ConfigService) {}
+
+  async sendOtp(phoneNumber: string): Promise<SendData> {
+    return this.post<SendData>('/otp/send', {
+      phoneNumber,
+      idempotencyKey: randomUUID(),
+    });
+  }
+
+  async verifyOtp(requestId: string, otpCode: string): Promise<VerifyData> {
+    return this.post<VerifyData>('/otp/verify', { requestId, otpCode });
+  }
+
+  private async post<T>(path: string, body: object): Promise<T> {
+    const url = this.cfg.getOrThrow<string>('SM_BASE_URL') + path;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': this.cfg.getOrThrow<string>('SM_API_KEY'),
+      },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(10_000),
+    });
+    const json: SmEnvelope<T> & { message?: string } = await res
+      .json()
+      .catch(() => ({} as any));
+    if (!res.ok) {
+      throw new HttpException(json.message ?? 'OTP API error', res.status);
+    }
+    return json.data;
+  }
+}
+```
+
+
+## Auth Controller and DTOs
+      
+```typescript
+// src/auth/dto/send-otp.dto.ts
+import { Matches } from 'class-validator';
+
+export class SendOtpDto {
+  @Matches(/^\\+91\\d{10}$/, { message: 'phoneNumber must be E.164 (+91XXXXXXXXXX)' })
+  phoneNumber!: string;
+}
+
+// src/auth/dto/verify-otp.dto.ts
+import { IsString, Length, Matches } from 'class-validator';
+
+export class VerifyOtpDto {
+  @IsString()
+  requestId!: string;
+
+  @Matches(/^\\d{4,8}$/, { message: 'otpCode must be 4–8 digits' })
+  otpCode!: string;
+}
+
+// src/auth/auth.controller.ts
+import { Body, Controller, Post } from '@nestjs/common';
+import { StartMessagingService } from './sm.service';
+import { SendOtpDto } from './dto/send-otp.dto';
+import { VerifyOtpDto } from './dto/verify-otp.dto';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly sm: StartMessagingService) {}
+
+  @Post('send-otp')
+  send(@Body() body: SendOtpDto) {
+    return this.sm.sendOtp(body.phoneNumber);
+  }
+
+  @Post('verify-otp')
+  verify(@Body() body: VerifyOtpDto) {
+    return this.sm.verifyOtp(body.requestId, body.otpCode);
+  }
+}
+```
+
+
+## Throttling per Phone
+
+Use Nest's ThrottlerGuard to cap per-IP, then layer a per-phone
+        check inside the controller using a small Redis-backed map. See our 
+        [rate-limiting guide](/blog/otp-rate-limiting-guide).
+
+
+## Exception Filter
+      
+```typescript
+// src/common/sm-exception.filter.ts
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
+import type { Response } from 'express';
+
+@Catch(HttpException)
+export class SmExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const status = exception.getStatus();
+    const userMessage =
+      status === 402 ? 'Service temporarily unavailable.' :
+      status === 410 ? 'OTP expired. Request a new one.' :
+      exception.message;
+
+    host.switchToHttp().getResponse<Response>()
+      .status(status === 402 ? 503 : status)
+      .json({ error: userMessage });
+  }
+}
+```
+
+
+## Tests with Jest
+      
+```typescript
+// src/auth/sm.service.spec.ts
+import { Test } from '@nestjs/testing';
+import { ConfigModule } from '@nestjs/config';
+import { StartMessagingService } from './sm.service';
+
+beforeEach(() => {
+  global.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({ data: { requestId: 'req_abc', expiresAt: 'X', attemptsLeft: 3 } }),
+    status: 200,
+  } as any);
+});
+
+it('sends an OTP', async () => {
+  const moduleRef = await Test.createTestingModule({
+    imports: [ConfigModule.forRoot({ ignoreEnvFile: true, load: [() => ({
+      SM_API_KEY: 'k', SM_BASE_URL: 'https://api.startmessaging.com',
+    })] })],
+    providers: [StartMessagingService],
+  }).compile();
+
+  const svc = moduleRef.get(StartMessagingService);
+  const data = await svc.sendOtp('+919876543210');
+  expect(data.requestId).toBe('req_abc');
+});
+```
+
+
+## FAQ
+
+For more flavours of the same recipe see 
+        [Node.js](/blog/send-otp-nodejs), 
+        [Express](/blog/send-otp-express), 
+        [Next.js App Router](/blog/send-otp-nextjs-app-router),
+        and the full [tutorial library](/blog). Our 
+        [API reference](/otp-api) has the canonical request /
+        response shapes.
+

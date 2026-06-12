@@ -1,0 +1,153 @@
+﻿---
+title: "Send Phone OTP in Swift / iOS — 2026 Tutorial"
+description: "Verify phone numbers in iOS apps with Swift, calling your backend that proxies the StartMessaging OTP API. Includes URLSession, async/await, and SwiftUI form examples."
+publishedAt: "2026-04-22"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp swift"
+  - "ios phone verification swift"
+  - "swift sms otp api"
+  - "swiftui otp form"
+  - "urlsession otp"
+  - "startmessaging ios"
+  - "swift async await otp"
+  - "ios otp without dlt"
+  - "sms otp ios india"
+  - "swiftui phone login"
+relatedSlugs:
+  - "mobile-app-otp-backend-react-native-flutter"
+  - "otp-autofill-android-ios-sms-retriever"
+  - "send-otp-kotlin-android"
+featured: false
+---
+
+
+Phone OTP is the standard way to verify users on iOS in India,
+        especially for fintech, food delivery, and quick-commerce apps. This
+        guide shows the SwiftUI + async/await pattern that calls your own
+        backend, which in turn proxies the 
+        [StartMessaging OTP API](/otp-api).
+
+
+## Architecture: Backend Proxy
+
+Never call StartMessaging directly from the iOS app. The flow looks
+        like:
+
+      
+```
+iOS app  ──POST /auth/send-otp──▶ Your backend ──▶ StartMessaging API
+iOS app  ──POST /auth/verify-otp─▶ Your backend ──▶ StartMessaging API
+```
+
+
+## Swift API Client
+      
+```typescript
+import Foundation
+
+struct SendOtpRes: Decodable {
+    let requestId: String
+    let expiresAt: String
+}
+
+struct VerifyOtpRes: Decodable { let verified: Bool }
+
+enum OtpError: Error { case server, decoding }
+
+actor AuthClient {
+    let base = URL(string: "https://api.yourapp.com")!
+
+    func sendOtp(phone: String) async throws -> SendOtpRes {
+        var req = URLRequest(url: base.appendingPathComponent("auth/send-otp"))
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try JSONSerialization.data(withJSONObject: ["phoneNumber": phone])
+
+        let (data, res) = try await URLSession.shared.data(for: req)
+        guard let http = res as? HTTPURLResponse, http.statusCode < 400 else { throw OtpError.server }
+        return try JSONDecoder().decode(SendOtpRes.self, from: data)
+    }
+
+    func verifyOtp(requestId: String, code: String) async throws -> Bool {
+        var req = URLRequest(url: base.appendingPathComponent("auth/verify-otp"))
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try JSONSerialization.data(withJSONObject: [
+            "requestId": requestId, "otpCode": code
+        ])
+
+        let (data, _) = try await URLSession.shared.data(for: req)
+        return try JSONDecoder().decode(VerifyOtpRes.self, from: data).verified
+    }
+}
+```
+
+
+## SwiftUI Phone Login Form
+      
+```typescript
+struct PhoneLoginView: View {
+    @State private var phone = ""
+    @State private var requestId: String?
+    @State private var code = ""
+    let client = AuthClient()
+
+    var body: some View {
+        VStack {
+            if requestId == nil {
+                TextField("+91 98765 43210", text: $phone)
+                    .keyboardType(.phonePad)
+                Button("Send OTP") {
+                    Task {
+                        let res = try await client.sendOtp(phone: phone)
+                        requestId = res.requestId
+                    }
+                }
+            } else {
+                TextField("Enter code", text: $code)
+                    .keyboardType(.numberPad)
+                    .textContentType(.oneTimeCode) // iOS autofill from SMS banner
+                Button("Verify") {
+                    Task {
+                        let ok = try await client.verifyOtp(
+                            requestId: requestId!, code: code)
+                        if ok { /* navigate */ }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+
+## iOS One-Time Code Autofill
+
+Setting `.textContentType(.oneTimeCode)` on the field tells
+        iOS to suggest the code from the most recent SMS in QuickType. There is
+        no template requirement on the SMS body — iOS recognises 4–6
+        digit codes automatically. For Android-side parity see 
+        [OTP autofill on Android & iOS](/blog/otp-autofill-android-ios-sms-retriever)
+        .
+
+
+## Best Practices
+
+
+- Use App Transport Security — never plain HTTP.
+- Pin your backend's certificate or public key.
+- Store the requestId only in memory, not in UserDefaults.
+- Disable the Verify button until 4–6 digits are entered.
+- Show a 30-second resend timer to prevent abuse.
+
+
+
+## FAQ
+
+See [pricing](/pricing) or read the React Native /
+        Flutter version 
+        [here](/blog/mobile-app-otp-backend-react-native-flutter).
+

@@ -1,0 +1,93 @@
+﻿---
+title: "OTP for Salon and Spa Booking Apps in India"
+description: "OTP patterns for salon and spa booking apps in India: appointment confirmation, no-show reduction, in-store check-in, and SMS templates that survive DLT scrubbing."
+publishedAt: "2026-04-30"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "salon booking otp"
+  - "spa booking sms"
+  - "appointment otp india"
+  - "no show reduction sms"
+  - "service booking otp"
+relatedSlugs:
+  - "otp-gym-fitness-apps-india"
+  - "otp-event-ticketing-india"
+  - "dlt-template-approval-guide"
+  - "otp-hyperlocal-services-india"
+featured: false
+---
+
+
+Salon and spa apps look simple but have surprising OTP nuance.
+        Bookings are short-fuse, no-shows kill stylist utilisation, and
+        check-in needs to be friction-free for the in-store team. SMS, not
+        push, is the primary reach.
+
+
+## Why Salon Apps Use OTP
+
+
+- Sign-up via phone (most users do not download the app first).
+- Appointment confirmation 2 hours before.
+- Check-in at the chair without a stylist password.
+- Loyalty point look-up at the counter.
+
+
+
+## OTP Flows
+
+
+- Booking sign-up OTP.
+- Appointment confirmation reminder.
+- T-2h confirmation OTP (interactive).
+- In-store check-in OTP.
+- Post-visit feedback link SMS (transactional).
+
+
+
+## No-Show Reduction with Confirmation OTPs
+
+The interactive confirmation OTP is the highest-impact change most
+        salon apps can make. The mechanic:
+
+
+
+- 2 hours before slot, send OTP.
+- Customer must enter to confirm — slot is held.
+- No reply = release the slot to walk-ins.
+
+
+
+## In-Store Check-In OTP
+
+At arrival, the receptionist asks the customer to share the OTP from
+        their phone. This serves three purposes: validates identity for
+        loyalty, marks attendance for stylist payout, and keeps the booking
+        record consistent.
+
+
+## SMS Templates That Survive Scrubbing
+
+India DLT requires registered templates. Examples that pass:
+
+      
+```
+OTP {#var#} for your {#var#} booking at {#var#}. Valid 10 mins. - SALON
+Your appointment at {#var#} on {#var#} is confirmed. Token: {#var#}. - SALON
+Reminder: {#var#} appt today {#var#}. Reply Y to confirm. - SALON
+```
+
+
+See 
+        [DLT template approval guide](/blog/dlt-template-approval-guide)
+        .
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) ships under our
+        DLT registration so your salon app can launch the same day, with
+        confirmation and reminder SMS pre-cleared as transactional.
+

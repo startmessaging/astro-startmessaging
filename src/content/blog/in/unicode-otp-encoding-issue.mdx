@@ -1,0 +1,78 @@
+﻿---
+title: "Unicode OTP Not Sending? Encoding Issue Fix"
+description: "Unicode (Hindi, Tamil, etc.) OTPs failing to send: GSM-7 vs UCS-2 encoding, DLT template language registration, and why a single accented character breaks delivery."
+publishedAt: "2026-05-16"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "unicode otp not working"
+  - "hindi otp sms issue"
+  - "regional sms otp india"
+  - "sms encoding error"
+  - "ucs2 sms india"
+relatedSlugs:
+  - "unicode-regional-language-sms-india"
+  - "otp-160-character-limit-fix"
+  - "dlt-template-approval-guide"
+featured: false
+---
+
+
+A single non-GSM-7 character can break your OTP delivery. This
+        guide explains the encoding rules and the registration step that
+        most teams miss.
+
+
+## Why Unicode OTPs Fail
+
+
+- Template registered as GSM-7 but body has Unicode chars.
+- Operator scrubber rejects on encoding mismatch.
+- Multi-part fragmentation drops on some carriers.
+
+
+
+## GSM-7 vs UCS-2
+
+
+- GSM-7: 160 chars, basic Latin.
+- UCS-2: 70 chars, full Unicode.
+- One Unicode char anywhere = whole SMS becomes UCS-2.
+
+
+
+## DLT Language Registration
+
+Hindi / Tamil / regional templates need a separate DLT registration.
+        See [our regional-language SMS guide](/blog/unicode-regional-language-sms-india).
+
+
+## Invisible Unicode Characters
+
+
+- Curly quotes from copy-paste.
+- Em dashes from auto-correct.
+- Zero-width joiners.
+- Non-breaking spaces.
+
+
+
+Run your template through a GSM-7 validator before submission.
+
+
+## Fixes
+
+
+- Replace curly quotes with straight quotes.
+- Use ASCII-only template body if possible.
+- For Hindi templates, register them explicitly under regional category.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) handles encoding
+        consistency on the template side; your body stays GSM-7 unless you
+        explicitly opt into Unicode.
+

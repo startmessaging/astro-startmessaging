@@ -1,0 +1,103 @@
+---
+/**
+ * Country blog category listing: /br/blog/category/guides
+ * Per ASTRO_COUNTRY_PLAN.md §3.
+ */
+import { getCollection } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import { HREFLANG, type Country } from '@/config/countries';
+
+export async function getStaticPaths() {
+  const CATEGORIES = ['tutorials', 'guides', 'comparisons', 'compliance', 'use-cases', 'business'];
+  const posts = await getCollection('blog');
+
+  // Find which non-India countries have posts
+  const countriesWithPosts = new Set(
+    posts
+      .filter((p) => !p.id.startsWith('in/'))
+      .map((p) => p.id.split('/')[0])
+  );
+
+  const paths: { params: { country: string; cat: string } }[] = [];
+  for (const country of countriesWithPosts) {
+    for (const cat of CATEGORIES) {
+      paths.push({ params: { country, cat } });
+    }
+  }
+  return paths;
+}
+
+const { country, cat } = Astro.params;
+const c = country as Country;
+const posts = await getCollection('blog');
+
+const catPosts = posts
+  .filter((p) => p.id.startsWith(`${country}/`) && p.data.category === cat)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const catLabels: Record<string, Record<string, string>> = {
+  tutorials:   { en: 'Tutorials',   pt: 'Tutoriais',     es: 'Tutoriales',    id: 'Tutorial',     ar: 'دروس',         tr: 'Eğitimler' },
+  guides:      { en: 'Guides',      pt: 'Guias',         es: 'Guías',         id: 'Panduan',      ar: 'أدلة',          tr: 'Rehberler' },
+  comparisons: { en: 'Comparisons', pt: 'Comparações',   es: 'Comparaciones', id: 'Perbandingan', ar: 'مقارنات',       tr: 'Karşılaştırmalar' },
+  compliance:  { en: 'Compliance',  pt: 'Conformidade',  es: 'Cumplimiento',  id: 'Kepatuhan',    ar: 'الامتثال',      tr: 'Uyumluluk' },
+  'use-cases': { en: 'Use Cases',   pt: 'Casos de Uso',  es: 'Casos de Uso',  id: 'Kasus Penggunaan', ar: 'حالات الاستخدام', tr: 'Kullanım Senaryoları' },
+  business:    { en: 'Business',    pt: 'Negócios',      es: 'Negocios',      id: 'Bisnis',       ar: 'الأعمال',       tr: 'İş' },
+};
+
+const lang = (HREFLANG[c] ?? 'en-IN').split('-')[0];
+const catLabel = catLabels[cat!]?.[lang] ?? catLabels[cat!]?.en ?? cat;
+const locale = HREFLANG[c] ?? 'en-US';
+---
+
+<MarketingLayout
+  seo={{
+    title: `${catLabel} — Blog — StartMessaging`,
+    description: `Browse ${catLabel.toLowerCase()} articles on StartMessaging's blog.`,
+  }}
+  country={country!}
+  pageCountries={[country!]}
+  slug={`blog/category/${cat}`}
+>
+  <Container>
+    <div class="py-16">
+      <h1 class="text-display-md font-bold text-ink mb-2">{catLabel}</h1>
+      <p class="text-body-md text-muted mb-12">
+        {catPosts.length} {catPosts.length !== 1 ? 'articles' : 'article'}
+      </p>
+
+      <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {catPosts.map((post) => {
+          const slug = post.id.split('/').slice(1).join('/');
+          const dateStr = post.data.publishedAt.toLocaleDateString(locale, {
+            year: 'numeric', month: 'long', day: 'numeric',
+          });
+          return (
+            <li>
+              <a
+                href={`/${country}/blog/${slug}`}
+                class="group block rounded-md border border-hairline bg-surface-soft overflow-hidden hover:shadow-card transition-shadow"
+              >
+                <div class="p-6">
+                  <h2 class="text-title-md font-semibold text-ink group-hover:text-primary transition-colors mb-2 line-clamp-2">
+                    {post.data.title}
+                  </h2>
+                  <p class="text-sm text-muted line-clamp-3 mb-4">
+                    {post.data.description}
+                  </p>
+                  <time class="text-xs text-muted" datetime={post.data.publishedAt.toISOString()}>
+                    {dateStr}
+                  </time>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+
+      {catPosts.length === 0 && (
+        <p class="text-center text-muted py-16">No articles in this category yet.</p>
+      )}
+    </div>
+  </Container>
+</MarketingLayout>

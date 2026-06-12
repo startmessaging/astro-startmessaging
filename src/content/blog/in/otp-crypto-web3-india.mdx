@@ -1,0 +1,97 @@
+﻿---
+title: "OTP for Crypto Exchanges & Web3 Apps in India"
+description: "How Indian crypto exchanges and Web3 apps use phone OTP for KYC, withdrawals, and wallet recovery — and where SMS OTP must give way to hardware factors."
+publishedAt: "2026-05-10"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "crypto exchange otp india"
+  - "web3 phone verification"
+  - "crypto wallet otp recovery"
+  - "crypto kyc india otp"
+  - "binance wazirx otp"
+  - "crypto withdrawal otp"
+  - "crypto sim swap defense"
+  - "web3 onboarding india"
+  - "crypto exchange sms india"
+  - "crypto fintech otp india"
+relatedSlugs:
+  - "sim-swap-otp-protection-india"
+  - "otp-fintech-india"
+  - "silent-authentication-vs-otp-india"
+featured: false
+---
+
+
+Crypto exchanges and Web3 apps have a different risk profile than
+        regular fintech: a single account compromise can drain a wallet
+        instantly and irreversibly. SMS OTP is still part of the stack for
+        good reasons — but it's not enough on its own.
+
+
+## Why OTP at All for Crypto
+
+
+- Universal: every Indian phone supports SMS, no app install needed.
+- Low friction at signup: lower drop-off than asking for an authenticator app.
+- Anchors a real identity to every account.
+- Cheap: Rs 0.25 per OTP scales to millions of users.
+
+
+
+## Where OTP Fits
+
+
+- Initial signup and email/phone confirmation.
+- Login from a new device (paired with device fingerprint).
+- Re-confirming identity for view-only changes (default address, profile).
+- Account recovery (paired with KYC re-check).
+
+
+
+## Where OTP Fails
+
+For withdrawal authorization, security setting changes, and
+        whitelisting new wallet addresses, SMS OTP is not enough. SIM swap
+        is the dominant attack: 
+        [see our SIM swap defense article](/blog/sim-swap-otp-protection-india)
+        . Treat these flows as "require TOTP or hardware key."
+
+
+## Recommended Auth Stack
+
+
+- **Phone OTP** at signup and on every login from a new device.
+- **TOTP authenticator** mandatory for any user who completes KYC and deposits funds.
+- **Withdrawal whitelist** with 24-hour cooling period and TOTP confirmation when adding addresses.
+- **Hardware key (FIDO2)** optional for power users; some exchanges offer fee discounts for FIDO2 users.
+- **Device binding** across all of the above so a stolen credential alone can't move funds.
+
+
+
+## Indian Regulatory Context
+
+Indian crypto exchanges operate under FIU registration and strict
+        AML / CFT rules. Phone OTP plays a small but important role: it
+        gives auditors a clean trail of which phone confirmed which
+        action. Pair it with PAN and Aadhaar verification for the full KYC
+        picture.
+
+
+## Integration Notes
+
+
+- Lead the SMS body with the action ("Withdraw Rs ...").
+- Never include the destination wallet address in the SMS.
+- Rate-limit OTP send by phone and IP — see our  [rate limiting guide](/blog/otp-rate-limiting-guide).
+- Log every verification with request ID, IP, and device fingerprint for the compliance team.
+
+
+
+## FAQ
+
+See our 
+        [fintech OTP guide](/blog/otp-fintech-india) for
+        the related architecture.
+

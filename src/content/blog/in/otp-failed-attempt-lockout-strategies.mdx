@@ -1,0 +1,60 @@
+﻿---
+title: "OTP Failed Attempt Lockout Strategies"
+description: "How to design lockout after repeated failed OTP entries: per-request, per-account, exponential lockout, and unlock pathways. Balance security with user-experience."
+publishedAt: "2026-05-20"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp lockout"
+  - "failed otp attempts"
+  - "otp brute force protection"
+  - "account lockout otp"
+relatedSlugs:
+  - "otp-expiry-attempt-limits"
+  - "otp-rate-limiting-guide"
+  - "prevent-otp-fraud"
+featured: false
+---
+
+
+Lockouts protect against brute force but kill UX if too aggressive.
+        The right design uses tiers.
+
+
+## Three Lockout Levels
+
+
+- Per-request: 3 failed attempts → invalidate the request.
+- Per-account hour: 10 failed verifications → 1-hour lockout.
+- Per-account day: 30 failed verifications → 24-hour lockout + alert.
+
+
+
+## Per-Request Lockout
+
+OTP API enforces this. After 3 wrong attempts, requestId
+        invalidates and the user must request a new OTP.
+
+
+## Per-Account Lockout
+
+Track per-user (or per-phone-hash) failures across requests.
+        Cross-request brute force is the attack mode.
+
+
+## Unlock Pathways
+
+
+- Time-based auto-unlock.
+- Email link to unlock with secondary verification.
+- Customer support manual unlock for verified KYC.
+
+
+
+## FAQ
+
+Pair lockouts with 
+        [rate-limiting](/blog/otp-rate-limiting-guide) 
+        for layered defence.
+

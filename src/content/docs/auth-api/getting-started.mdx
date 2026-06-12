@@ -1,0 +1,150 @@
+---
+title: "Getting Started with Auth API"
+description: "Integrate OTP verification into your app with StartMessaging's Auth API. Send and verify OTPs via SMS and WhatsApp with a single API call."
+product: auth-api
+order: 1
+countries: ["in"]
+---
+
+## Overview
+
+The Auth API provides a simple two-endpoint flow for OTP verification:
+
+1. **Send OTP** → `POST /v1/auth/send-otp`
+2. **Verify OTP** → `POST /v1/auth/verify-otp`
+
+We handle OTP generation, delivery (SMS or WhatsApp), rate limiting, and expiry automatically. No DLT registration required for OTP via SMS.
+
+## Quick Start
+
+### Send an OTP
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/auth/send-otp \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "+919876543210",
+    "channel": "sms",
+    "otp_length": 6,
+    "expiry_seconds": 300
+  }'
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "request_id": "auth_abc123",
+  "channel": "sms",
+  "expires_at": "2026-01-15T10:35:00Z"
+}
+```
+
+### Verify the OTP
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/auth/verify-otp \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "request_id": "auth_abc123",
+    "otp": "123456"
+  }'
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "verified": true,
+  "phone": "+919876543210"
+}
+```
+
+## Configuration Options
+
+| Parameter | Default | Options |
+|-----------|---------|---------|
+| `channel` | `"sms"` | `"sms"`, `"whatsapp"`, `"auto"` |
+| `otp_length` | 6 | 4, 6, or 8 digits |
+| `expiry_seconds` | 300 | 60 – 600 seconds |
+| `sender_name` | Your app name | Custom sender name |
+
+### Auto Channel
+
+When `channel` is `"auto"`, the system tries WhatsApp first (free), then falls back to SMS:
+
+```json
+{
+  "phone": "+919876543210",
+  "channel": "auto"
+}
+```
+
+## Pricing
+
+| Channel | Cost |
+|---------|------|
+| SMS OTP | ₹0.25 per OTP |
+| WhatsApp OTP | Free (first 1,000/month on Free plan) |
+| Auto (WhatsApp → SMS fallback) | WhatsApp free, SMS ₹0.25 if fallback |
+
+## SDK Examples
+
+### Node.js
+
+```javascript
+const StartMessaging = require('@startmessaging/node');
+const client = new StartMessaging('YOUR_API_KEY');
+
+// Send OTP
+const { request_id } = await client.auth.sendOTP({
+  phone: '+919876543210',
+  channel: 'auto',
+});
+
+// Verify OTP
+const { verified } = await client.auth.verifyOTP({
+  request_id,
+  otp: '123456',
+});
+```
+
+### Python
+
+```python
+from startmessaging import StartMessaging
+
+client = StartMessaging('YOUR_API_KEY')
+
+# Send OTP
+result = client.auth.send_otp(
+    phone='+919876543210',
+    channel='auto'
+)
+
+# Verify OTP
+verification = client.auth.verify_otp(
+    request_id=result.request_id,
+    otp='123456'
+)
+```
+
+## Next Steps
+
+- [Send OTP](/docs/auth-api/send-otp) — Detailed API reference for the send-otp endpoint
+- [Verify OTP](/docs/auth-api/verify-otp) — Detailed API reference for the verify-otp endpoint
+
+## FAQ
+
+**Do I need DLT registration for OTP SMS?**
+No — OTP messages sent via StartMessaging's Auth API use our pre-registered non-DLT route. No DLT registration required.
+
+**What's the OTP delivery speed?**
+Average SMS delivery is under 3 seconds. WhatsApp OTP delivery is under 2 seconds.
+
+**Is there rate limiting on OTP sends?**
+Yes — to prevent abuse, each phone number is limited to 5 OTP requests per 10 minutes. This is configurable for Enterprise plans.

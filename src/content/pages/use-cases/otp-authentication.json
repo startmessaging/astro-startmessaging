@@ -1,0 +1,214 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
+  "seo": {
+    "title": {
+      "en": "OTP Authentication Use Case — StartMessaging",
+      "pt": "Verificação de OTP WhatsApp e SMS — StartMessaging",
+      "es": "Verificación de OTP WhatsApp y SMS — StartMessaging",
+      "id": "Autentikasi OTP WhatsApp & SMS — StartMessaging",
+      "ar": "التحقق باستخدام OTP وحالات الاستخدام — StartMessaging",
+      "tr": "WhatsApp ve SMS OTP Doğrulama Kullanımı — StartMessaging",
+      "ng": "OTP Authentication Use Case — StartMessaging"
+    },
+    "description": {
+      "en": "Implement phone-based OTP verification via WhatsApp and SMS. Secure user signups, signins, 2FA, and high-value payments.",
+      "pt": "Implemente verificação OTP via WhatsApp e SMS. Proteja cadastros, logins, 2FA e transações financeiras.",
+      "es": "Implemente verificación OTP vía WhatsApp y SMS. Proteja registros, inicios de sesión, 2FA y transacciones.",
+      "id": "Implementasikan verifikasi OTP melalui WhatsApp dan SMS. Amankan pendaftaran, login, 2FA, dan transaksi.",
+      "ar": "نفّذ التحقق من OTP بالهاتف عبر واتساب وSMS. أمّن تسجيلات الدخول والتحقق الثنائي والمدفوعات.",
+      "tr": "WhatsApp ve SMS üzerinden OTP doğrulaması uygulayın. Üye kayıtlarını, girişleri, 2FA ve ödeme onaylarını güvenceye alın."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge": {
+          "en": "OTP Authentication",
+          "pt": "Autenticação OTP",
+          "es": "Autenticación OTP",
+          "id": "Autentikasi OTP",
+          "ar": "مصادقة OTP",
+          "tr": "OTP Kimlik Doğrulama"
+        },
+        "title": {
+          "en": "Secure User Verification with OTP",
+          "pt": "Verificação Segura de Usuários com OTP",
+          "es": "Verificación Segura de Usuarios con OTP",
+          "id": "Verifikasi Pengguna Aman dengan OTP",
+          "ar": "التحقق الآمن من المستخدمين باستخدام OTP",
+          "tr": "OTP ile Güvenli Kullanıcı Doğrulama"
+        },
+        "subtitle": {
+          "en": "Add phone-based OTP verification to your app in minutes. Support sign-up verification, two-factor authentication, password resets, and transaction confirmations via WhatsApp or SMS.",
+          "pt": "Adicione verificação OTP por telefone ao seu app em minutos. Suporte para verificação de cadastro, 2FA, redefinição de senha e confirmações de transação via WhatsApp ou SMS.",
+          "es": "Agregue verificación OTP por teléfono a su app en minutos. Soporte para verificação de registro, 2FA, restablecimiento de contraseña y confirmaciones vía WhatsApp o SMS.",
+          "id": "Tambahkan verifikasi OTP berbasis telepon ke aplikasi Anda dalam hitungan menit. Dukungan untuk verifikasi pendaftaran, 2FA, reset password, dan konfirmasi transaksi via WhatsApp atau SMS.",
+          "ar": "أضف التحقق من OTP بالهاتف إلى تطبيقك في دقائق. دعم التحقق من التسجيل والمصادقة الثنائية وإعادة تعيين كلمة المرور وتأكيد المعاملات عبر واتساب أو SMS.",
+          "tr": "Dakikalar içinde uygulamanıza telefon tabanlı OTP doğrulaması ekleyin. Kayıt doğrulaması, 2FA, şifre sıfırlama ve işlem onaylarını WhatsApp veya SMS ile destekleyin."
+        },
+        "primaryCta": { "en": "Add OTP Verification" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "heading": { "en": "OTP Flow in 4 Steps" },
+        "steps": [
+          {
+            "title": { "en": "User enters phone number" },
+            "description": { "en": "Your app collects the user's phone number during sign-up, login, or transaction." }
+          },
+          {
+            "title": { "en": "Your app calls our API" },
+            "description": { "en": "POST /otp/send with the phone number. We generate a random code and deliver it via WhatsApp (preferred) or SMS." }
+          },
+          {
+            "title": { "en": "User enters the code" },
+            "description": { "en": "The user receives the OTP on their phone and enters it in your app's verification screen." }
+          },
+          {
+            "title": { "en": "Your app verifies the code" },
+            "description": { "en": "POST /otp/verify with the request_id and code. We confirm the match and return verified: true/false." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "Fast, High-Delivery OTP Verification" },
+        "body": {
+          "en": "OTP delivery failures directly cause customer drop-offs. By routing authentication codes WhatsApp-first, you bypass network congestion and carrier spam block lists. Supported Android devices enable single-tap verification autofills, boosting conversions."
+        },
+        "bullets": [
+          { "en": "99%+ delivery rate via WhatsApp channels" },
+          { "en": "Auto-fallback to DLT-compliant SMS" },
+          { "en": "Android one-tap auto-fill button support" }
+        ],
+        "image": "/images/otp-verification.webp",
+        "imageAlt": { "en": "OTP Verification Layout Screen Mockup" },
+        "imageWidth": 320,
+        "imageHeight": 640,
+        "imageMaxWidth": "max-w-[320px]",
+        "reversed": true
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "MFA Methods" },
+        "heading": { "en": "WhatsApp OTP Verification vs. Traditional SMS OTP vs. Email Authentication" },
+        "subheading": { "en": "Compare delivery rates, latency speed, user setup complexity, and costs." },
+        "columns": [
+          { "label": { "en": "Comparison Vector" } },
+          { "label": { "en": "WhatsApp OTP" }, "highlight": true },
+          { "label": { "en": "Traditional SMS OTP" } },
+          { "label": { "en": "Email Verification" } }
+        ],
+        "rows": [
+          [
+            { "en": "Delivery Success Ratio" },
+            { "en": "99%+ (Immediate delivery)" },
+            { "en": "82% - 88% (Spam blocks)" },
+            { "en": "70% - 80% (Sorted as spam)" }
+          ],
+          [
+            { "en": "Average Delivery Latency" },
+            { "en": "< 2 seconds" },
+            { "en": "10 - 30+ seconds" },
+            { "en": "Seconds to minutes" }
+          ],
+          [
+            { "en": "One-Tap Autofill" },
+            { "en": "✓ (Android system native)" },
+            { "en": "✓ (Android & iOS native)" },
+            { "en": "✗ (Manual inbox copy)" }
+          ],
+          [
+            { "en": "Security Level (E2E)" },
+            { "en": "✓ (End-to-End Encrypted)" },
+            { "en": "✗ (Vulnerable to interception)" },
+            { "en": "✗ (Plain text server transfer)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Auth API" },
+        "heading": { "en": "Send and Verify One-Time Passwords" },
+        "overlayText": { "en": "OTP Verification API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/otp/send \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"phoneNumber\": \"+919876543210\",\n    \"templateId\": \"YOUR_TEMPLATE_ID\",\n    \"variables\": {\n      \"otp\": \"123456\",\n      \"appName\": \"YourApp\"\n    }\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/otp/send\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    phoneNumber: \"+919876543210\",\n    templateId: \"YOUR_TEMPLATE_ID\",\n    variables: { otp: \"123456\", appName: \"YourApp\" }\n  })\n});"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/otp/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"phoneNumber\": \"+919876543210\",\n        \"templateId\": \"YOUR_TEMPLATE_ID\",\n        \"variables\": {\"otp\": \"123456\", \"appName\": \"YourApp\"}\n    }\n)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "OTP Authentication — FAQ" },
+        "items": [
+          {
+            "question": {
+              "en": "What's the best practice for OTP expiry time?"
+            },
+            "answer": {
+              "en": "We recommend 5 minutes for standard sign-up/login OTPs and 2-3 minutes for high-security transactions (payments, password resets). Our API supports configurable expiry from 30 seconds to 30 minutes. Shorter expiry times are more secure but may cause friction for users on slow connections."
+            }
+          },
+          {
+            "question": {
+              "en": "Are there local technical conditions for sending OTP verification codes?",
+              "in": "What are the DLT registration rules for fallback SMS OTP in India?",
+              "ng": "How reliable is SMS OTP fallback during network outages in Nigeria?",
+              "tr": "KVKK veri işleme kuralları OTP doğrulama logları için nasıl geçerlidir?"
+            },
+            "answer": {
+              "en": "Yes. OTP parameters and fallback routing vary by regional regulatory standards.",
+              "in": "In India, DLT registration requires you to associate your SMS templates with a registered Principal Entity (PE) ID and a Sender ID (Header). StartMessaging maps these variables dynamically so that if a WhatsApp OTP fails to deliver, the fallback SMS matches DLT compliance and delivers immediately.",
+              "ng": "Network fluctuations are common in Nigeria. By routing OTPs WhatsApp-first, we deliver securely over data connections. If WhatsApp is unavailable, our direct integrations with local telcos (MTN, Airtel, Glo, 9mobile) trigger an immediate, high-priority fallback SMS with premium sender routes to ensure delivery.",
+              "tr": "KVKK kapsamında, OTP doğrulama amacıyla toplanan telefon numaraları ve doğrulama logları kişisel veri statüsündedir. Bu veriler yalnızca doğrulama amacı doğrultusunda işlenmeli ve rıza dışı pazarlama faaliyetlerinde kullanılmamalıdır. Sunucularımız KVKK veri güvenliği standartlarıyla tam uyumludur."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "Transactional Alerts" }, "href": "/use-cases/notifications" },
+          { "label": { "en": "SMS DLT Compliance" }, "href": "/sms/dlt" },
+          { "label": { "en": "Auth API Guide" }, "href": "/auth-api" },
+          { "label": { "en": "Pricing Model" }, "href": "/pricing" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Add OTP to Your App Today" },
+        "subtext": { "en": "Free plan. API key in 30 seconds." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

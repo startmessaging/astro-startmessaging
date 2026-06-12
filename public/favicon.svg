@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#ff385c"/>
-  <text x="16" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="white">S</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="sms-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#27187e" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="#f7f7ff"/>
+  <path d="M18 13a2 2 0 0 1-2 2H10l-4 4V8c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" fill="none" stroke="url(#sms-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M22 13h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" fill="none" stroke="url(#sms-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

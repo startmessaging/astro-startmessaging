@@ -1,0 +1,239 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
+  "seo": {
+    "title": {
+      "en": "WhatsApp & SMS Notifications Use Case — StartMessaging",
+      "pt": "WhatsApp e SMS para Notificações Transacionais — StartMessaging",
+      "es": "WhatsApp y SMS para Notificaciones Transaccionales — StartMessaging",
+      "id": "WhatsApp & SMS untuk Notifikasi Transaksional — StartMessaging",
+      "ar": "واتساب وSMS للإشعارات التنبيهية وحالات الاستخدام — StartMessaging",
+      "tr": "WhatsApp ve SMS Bildirimleri Kullanım Örnekleri — StartMessaging",
+      "ng": "WhatsApp & SMS Notifications Use Case — StartMessaging"
+    },
+    "description": {
+      "en": "Send appointment reminders, payment alerts, and account updates via WhatsApp with auto-SMS fallback capabilities.",
+      "pt": "Envie lembretes de consulta, alertas de pagamento e atualizações transacionais por WhatsApp e SMS.",
+      "es": "Envíe recordatorios de citas, alertas de pago y actualizaciones transaccionales por WhatsApp y SMS.",
+      "id": "Kirim pengingat janji, peringatan pembayaran, dan pembaruan transaksional melalui WhatsApp dan SMS.",
+      "ar": "أرسل تذكيرات المواعيد وتنبيهات الدفع والتحديثات المعاملاتية عبر واتساب وSMS.",
+      "tr": "WhatsApp ve SMS üzerinden randevu hatırlatmaları, ödeme uyarıları ve işlemsel bildirimler gönderin."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge": {
+          "en": "Notifications",
+          "pt": "Notificações",
+          "es": "Notificaciones",
+          "id": "Notifikasi",
+          "ar": "الإشعارات",
+          "tr": "Bildirimler"
+        },
+        "title": {
+          "en": "Notifications That Get Read",
+          "pt": "Notificações que São Lidas",
+          "es": "Notificaciones que Se Leen",
+          "id": "Notifikasi yang Dibaca",
+          "ar": "الإشعارات التي تُقرأ",
+          "tr": "Okunan Bildirimler"
+        },
+        "subtitle": {
+          "en": "Stop losing important notifications to spam folders. Send appointment reminders, payment alerts, and account updates via WhatsApp (98% open rate) with SMS fallback.",
+          "pt": "Pare de perder notificações importantes em pastas de spam. Envie lembretes, alertas de pagamento e atualizações via WhatsApp (98% de abertura) com fallback SMS.",
+          "es": "Deje de perder notificaciones importantes en carpetas de spam. Envíe recordatorios, alertas de pago y actualizaciones vía WhatsApp (98% de apertura).",
+          "id": "Berhenti kehilangan notifikasi penting di folder spam. Kirim pengingat, peringatan pembayaran, dan pembaruan via WhatsApp (98% tingkat buka) dengan fallback SMS.",
+          "ar": "توقف عن فقدان الإشعارات المهمة في مجلدات البريد العشوائي. أرسل التذكيرات والتنبيهات والتحديثات عبر واتساب (98% فتح) مع احتياطي SMS.",
+          "tr": "Önemli bildirimleri spam klasörlerinde kaybetmeyi bırakın. Hatırlatmaları, uyarıları ve güncellemeleri WhatsApp (%98 açılma) ile SMS geri dönüşüyle gönderin."
+        },
+        "primaryCta": { "en": "Start Sending" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "heading": { "en": "Notification Types" },
+        "items": [
+          {
+            "icon": "broadcast",
+            "title": { "en": "Appointment Reminders" },
+            "description": { "en": "Reduce no-shows by 40% with automated appointment reminders including confirm/reschedule buttons." }
+          },
+          {
+            "icon": "shield",
+            "title": { "en": "Payment Alerts" },
+            "description": { "en": "Payment confirmations, invoice reminders, subscription renewals, and overdue payment notifications." }
+          },
+          {
+            "icon": "template",
+            "title": { "en": "Account Notifications" },
+            "description": { "en": "Welcome messages, password resets, security alerts, and account activity notifications." }
+          },
+          {
+            "icon": "analytics",
+            "title": { "en": "Service Updates" },
+            "description": { "en": "Maintenance windows, feature releases, policy changes, and system status notifications." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "Smart Multi-Channel Dispatching" },
+        "body": {
+          "en": "Never miss a critical notification update. If a user is not online or active on WhatsApp, our system automatically detects it within a configured threshold and falls back to traditional transactional SMS instantly, ensuring 100% reach."
+        },
+        "bullets": [
+          { "en": "WhatsApp-first routing with SMS fallback support" },
+          { "en": "Real-time delivery status receipts and webhook logs" },
+          { "en": "Support for localized DLT parameters in India" }
+        ],
+        "image": "/images/notifications-alerts.webp",
+        "imageAlt": { "en": "Multi-channel Notification Routing Preview" },
+        "imageWidth": 640,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-xl",
+        "reversed": false
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "Routing Queue" },
+        "heading": { "en": "Notification Delivery Lifecycle" },
+        "steps": [
+          {
+            "title": { "en": "1. Event Triggered" },
+            "description": { "en": "An event on your database (payment, reminder) triggers a POST request to our notifications API endpoint." }
+          },
+          {
+            "title": { "en": "2. WhatsApp Try" },
+            "description": { "en": "Our engine attempts delivery via WhatsApp, monitoring for read or delivery confirmation statuses." }
+          },
+          {
+            "title": { "en": "3. SMS Fallback" },
+            "description": { "en": "If not delivered within 30 seconds, a fallback SMS is triggered to ensure immediate delivery." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Alert Comparisons" },
+        "heading": { "en": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications" },
+        "subheading": { "en": "Compare formatting capabilities, read speeds, and delivery reliability." },
+        "columns": [
+          { "label": { "en": "Outreach Factor" } },
+          { "label": { "en": "WhatsApp Alerts" }, "highlight": true },
+          { "label": { "en": "SMS Alerts" } },
+          { "label": { "en": "Email Notifications" } }
+        ],
+        "rows": [
+          [
+            { "en": "Read Latency" },
+            { "en": "< 5 minutes (90% reads)" },
+            { "en": "< 15 minutes (Basic reads)" },
+            { "en": "Hours to days (Often delayed)" }
+          ],
+          [
+            { "en": "Interactive Buttons" },
+            { "en": "✓ (Clickable CTAs / Quick replies)" },
+            { "en": "✗ (Raw hyperlinks only)" },
+            { "en": "✓ (HTML layout links)" }
+          ],
+          [
+            { "en": "Delivery Priority" },
+            { "en": "High (Direct Meta BSP pipe)" },
+            { "en": "Medium (Subject to network congestion)" },
+            { "en": "Low (Sorted to promo inbox)" }
+          ],
+          [
+            { "en": "Rich PDF Receipts" },
+            { "en": "✓ (Sent as direct file attachment)" },
+            { "en": "✗ (No files support)" },
+            { "en": "✓ (Standard attachments)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Alert API" },
+        "heading": { "en": "Dispatch Transactional Alerts" },
+        "overlayText": { "en": "Transactional Alerts API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/notifications/send \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"to\": \"+919876543210\",\n    \"type\": \"alert\",\n    \"message\": \"Your payment of ₹499.00 has been received successfully.\",\n    \"channels\": [\"whatsapp\", \"sms\"],\n    \"fallback_delay\": 30\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/v1/notifications/send\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    to: \"+919876543210\",\n    type: \"alert\",\n    message: \"Your payment of ₹499.00 has been received successfully.\",\n    channels: [\"whatsapp\", \"sms\"],\n    fallback_delay: 30\n  })\n});"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/notifications/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"to\": \"+919876543210\",\n        \"type\": \"alert\",\n        \"message\": \"Your payment of \u20b9499.00 has been received successfully.\",\n        \"channels\": [\"whatsapp\", \"sms\"],\n        \"fallback_delay\": 30\n    }\n)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "Notifications — FAQ" },
+        "items": [
+          {
+            "question": {
+              "en": "Can I send notifications via both WhatsApp and SMS?"
+            },
+            "answer": {
+              "en": "Yes. Our API supports multi-channel delivery. You can send notifications via WhatsApp-first with automatic SMS fallback, or choose a specific channel per notification type. This ensures maximum delivery regardless of whether the user has WhatsApp."
+            }
+          },
+          {
+            "question": {
+              "en": "Are there local restrictions for sending transactional notifications?",
+              "in": "How do DLT headers and templates map for SMS fallback notifications in India?",
+              "ng": "Does the system comply with CBN guidelines for transactional alert delays in Nigeria?",
+              "tr": "İşlemsel bildirimler Türkiye'de KVKK kurallarına nasıl uyum sağlar?"
+            },
+            "answer": {
+              "en": "Transactional notifications must be directly related to customer actions and do not require promotional opt-ins.",
+              "in": "For Indian transactional SMS fallback, you must register your DLT Header (Sender ID) and Template. Our API maps the variables (such as order IDs or prices) automatically so the fallback SMS matches DLT registers exactly and delivers instantly.",
+              "ng": "Yes. CBN guidelines mandate immediate delivery for transactional alerts. StartMessaging's direct connections with Nigerian telcos (MTN, Airtel) trigger SMS fallback in less than 30 seconds if the data connection is inactive, meeting compliance standards.",
+              "tr": "Türkiye'de işlemlerle ilgili bilgilendirme (sipariş, kargo vb.) bildirimleri KVKK kapsamında rıza dışı sayılır ve doğrudan gönderilebilir. Ancak, bildirim verilerinin işlenmesi veri güvenliği standartlarına uygun olmalı ve sunucularımızda şifrelenmiş olarak saklanmalıdır."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "E-Commerce System" }, "href": "/use-cases/ecommerce" },
+          { "label": { "en": "Customer Support" }, "href": "/use-cases/customer-support" },
+          { "label": { "en": "WhatsApp Utility" }, "href": "/whatsapp/utility" },
+          { "label": { "en": "Technical Limits" }, "href": "/limits" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Upgrade Your Notifications" },
+        "subtext": { "en": "Free plan. No credit card required." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

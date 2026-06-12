@@ -1,0 +1,106 @@
+---
+/**
+ * ComparisonTable — Comparison grid with highlighted "us" column.
+ *
+ * Example JSON:
+ * {
+ *   "type": "comparisonTable",
+ *   "props": {
+ *     "badge":    { "en": "Compare" },
+ *     "heading":  { "en": "Why StartMessaging?" },
+ *     "columns":  [{ "en": "Feature" }, { "en": "StartMessaging", "highlight": true }, { "en": "Others" }],
+ *     "rows": [
+ *       [{ "en": "WhatsApp API" }, "✓", "✓"],
+ *       [{ "en": "DLT-free OTP" }, "✓", "✗"]
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, columns = [], rows = [], country, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+const highlightThClass = isWhatsapp ? 'bg-accent-wa/5 text-accent-wa' : 'bg-primary/5 text-primary';
+const highlightTdClass = isWhatsapp ? 'bg-accent-wa/[0.02] font-medium' : 'bg-primary/[0.02] font-medium';
+
+const tableBorderClass = isWhatsapp ? 'border-accent-wa/10' : 'border-hairline';
+const thBorderClass = isWhatsapp ? 'border-b border-accent-wa/10' : 'border-b border-hairline';
+const tdBorderClass = isWhatsapp ? 'border-b border-accent-wa/10' : 'border-b border-hairline';
+const thBgClass = isWhatsapp ? 'bg-white/60 text-ink' : 'bg-surface-soft text-ink';
+---
+
+<Section variant="soft" theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-12 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <div class:list={["overflow-x-auto rounded-lg border", tableBorderClass]}>
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr>
+            {columns.map((col: any) => {
+              const isHighlight = typeof col === 'object' && col.highlight;
+              return (
+                <th class:list={[
+                  'px-6 py-4 text-title-sm font-semibold',
+                  thBorderClass,
+                  isHighlight
+                    ? highlightThClass
+                    : thBgClass,
+                ]}>
+                  {r(typeof col === 'object' ? (col.label || col) : col, country)}
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row: any[], rowIdx: number) => {
+            const rowBgClass = isWhatsapp
+              ? (rowIdx % 2 === 0 ? 'bg-white/40' : 'bg-transparent')
+              : (rowIdx % 2 === 0 ? 'bg-canvas' : 'bg-surface-soft/50');
+            return (
+              <tr class:list={[rowBgClass]}>
+                {row.map((cell: any, colIdx: number) => {
+                  const isHighlightCol = typeof columns[colIdx] === 'object' && columns[colIdx].highlight;
+                  const cellValue = typeof cell === 'string' ? cell : r(cell, country);
+                  const isCheck = cellValue === '✓' || cellValue === '✔';
+                  const isCross = cellValue === '✗' || cellValue === '✘' || cellValue === '—';
+                  return (
+                    <td class:list={[
+                      'px-6 py-4 text-body-sm',
+                      tdBorderClass,
+                      isHighlightCol && highlightTdClass,
+                    ]}>
+                    {isCheck ? (
+                      <svg class="w-5 h-5 text-success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    ) : isCross ? (
+                      <svg class="w-5 h-5 text-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                      </svg>
+                    ) : (
+                      <span>{cellValue}</span>
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          )})}
+        </tbody>
+      </table>
+    </div>
+  </Container>
+</Section>

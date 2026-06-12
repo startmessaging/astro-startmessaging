@@ -1,0 +1,444 @@
+---
+/**
+ * Navbar — A premium, fully static (HTML/CSS only) dropdown navigation bar.
+ * Mimics Shadcn Blocks Navbar5 layout but with zero client-side framework weight.
+ * Supports country routing (hiding SMS/Auth API for global countries).
+ */
+import { type Country, hasSms, urlPrefix } from '@/config/countries';
+import AppIcon from '@/components/ui/AppIcon.astro';
+import Button from '@/components/ui/Button.astro';
+import { t } from '@/i18n/t';
+
+interface Props {
+  country: string;
+  currentPath: string;
+  theme?: string;
+}
+
+const { country, currentPath, theme = 'sms' } = Astro.props;
+const c = country as Country;
+const prefix = urlPrefix(c);
+const isIndia = country === 'in';
+const showSms = hasSms(c);
+
+const isWhatsapp = theme === 'whatsapp';
+const logoTextClass = isWhatsapp ? 'gradient-text-wa inline-block' : 'gradient-text-primary inline-block';
+const hoverTextClass = isWhatsapp ? 'hover:text-accent-wa-light' : 'hover:text-primary';
+const bgClass = isWhatsapp ? 'bg-surface-wa border-accent-wa/10' : 'glass border-hairline';
+const borderClass = isWhatsapp ? 'border-accent-wa/10' : 'border-hairline';
+const drawerBgClass = isWhatsapp ? 'bg-surface-wa' : 'bg-surface-card';
+
+const dropdownBgClass = isWhatsapp ? 'bg-surface-wa' : 'bg-surface-card';
+const dropdownBorderClass = isWhatsapp ? 'border-accent-wa/20' : 'border-hairline';
+const dropdownHoverClass = isWhatsapp ? 'hover:bg-accent-wa/[0.06]' : 'hover:bg-surface-soft';
+const dropdownDescClass = isWhatsapp ? 'text-body' : 'text-muted';
+const navLinkTextClass = isWhatsapp ? 'text-ink font-medium' : 'text-muted';
+const navLinkHoverClass = isWhatsapp ? 'hover:text-ink hover:bg-accent-wa/[0.06]' : 'hover:text-ink hover:bg-surface-soft/50';
+const chevronColorClass = isWhatsapp ? 'text-ink/60 group-hover:text-ink' : 'text-muted-soft group-hover:text-ink';
+const loginLinkClass = isWhatsapp ? 'text-ink hover:text-ink/80' : 'text-muted hover:text-ink';
+
+const homeHref = prefix || '/';
+
+// WhatsApp Links
+const whatsappFeatures = [
+  { title: "WhatsApp Hub", desc: "Overview of our WhatsApp solutions", href: `${prefix}/whatsapp` },
+  { title: "Broadcast", desc: "Send bulk updates and announcements", href: `${prefix}/whatsapp/broadcast` },
+  { title: "Campaigns", desc: "Schedule and manage messaging templates", href: `${prefix}/whatsapp/campaigns` },
+  { title: "Chatbot & Agents", desc: "Automate support and sales chats", href: `${prefix}/whatsapp/chatbot` },
+  { title: "Marketing", desc: "Engage users and drive conversions", href: `${prefix}/whatsapp/marketing` },
+  { title: "Transactional Utility", desc: "Alerts, order receipts, and shipping updates", href: `${prefix}/whatsapp/utility` },
+  { title: "OTP Authentication", desc: "Secure multi-factor verify messages", href: `${prefix}/whatsapp/authentication` },
+  { title: "Automated Triggers", desc: "API driven event notifications", href: `${prefix}/whatsapp/auto-trigger` },
+  { title: "Bulk Messaging", desc: "Send bulk WhatsApp alerts at scale", href: `${prefix}/whatsapp/bulk-messaging` },
+];
+
+// Combined SMS & Auth API Links (India only)
+const smsAndAuthFeatures = [
+  { title: "SMS Hub", desc: "Comprehensive enterprise SMS API", href: `${prefix}/sms` },
+  { title: "Universal Auth API", desc: "Verify users via WhatsApp + SMS fallback", href: `${prefix}/auth-api` },
+  { title: "DLT Compliance", desc: "DLT template setup and registry help", href: `${prefix}/sms/dlt` },
+  { title: "Non-DLT OTP", desc: "Direct route delivery without DLT blocks", href: `${prefix}/sms/non-dlt` },
+  { title: "DLT-Free OTP", desc: "Bypass complex registration protocols", href: `${prefix}/dlt-free-otp` },
+  { title: "Send OTP Direct", desc: "Quick API deployment without registries", href: `${prefix}/send-otp-without-dlt` },
+  { title: "OTP SMS API", desc: "High priority transaction routes", href: `${prefix}/otp-api` },
+  { title: "Bulk OTP API", desc: "High-volume secure OTP delivery", href: `${prefix}/bulk-otp-api` },
+];
+
+// Use Case Links
+const useCases = [
+  { title: "E-commerce", desc: "Abandoned carts and shipping alerts", href: `${prefix}/use-cases/ecommerce` },
+  { title: "Customer Support", desc: "Shared inbox, routing, and bot handoff", href: `${prefix}/use-cases/customer-support` },
+  { title: "Marketing Campaigns", desc: "Engaging broadcasts with link metrics", href: `${prefix}/use-cases/marketing-campaigns` },
+  { title: "Notifications", desc: "Reminders, alerts, and renewals", href: `${prefix}/use-cases/notifications` },
+];
+
+if (isIndia) {
+  useCases.push({
+    title: "OTP Authentication",
+    desc: "Verify users via WhatsApp + SMS backup",
+    href: `${prefix}/use-cases/otp-authentication`
+  });
+}
+---
+
+<header class:list={["sticky top-0 z-50 border-b w-full", bgClass]} id="main-header">
+  <div class="max-w-[80rem] mx-auto px-4 lg:px-8 h-16 lg:h-20 flex items-center justify-between gap-4">
+    
+    <!-- Logo -->
+    <a href={homeHref} class="flex items-center gap-2 font-bold text-display-sm text-ink shrink-0 hover:opacity-80 transition-opacity" id="header-logo">
+      <AppIcon class="h-6 w-6" theme={theme} />
+      <span>Start<span class:list={[logoTextClass]}>Messaging</span></span>
+    </a>
+
+    <!-- Desktop Navigation Menu -->
+    <nav class="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Main navigation">
+      
+      <!-- WhatsApp Dropdown -->
+      <div class="group relative">
+        <button class:list={["inline-flex items-center gap-1 px-3 py-2 rounded-sm text-body-sm font-medium transition-all cursor-pointer", navLinkHoverClass, navLinkTextClass]}>
+          <span>WhatsApp</span>
+          <svg class:list={["w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-250", chevronColorClass]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[600px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+          <div class:list={["border rounded-md shadow-lg p-3 grid grid-cols-2 gap-1.5", dropdownBgClass, dropdownBorderClass]}>
+            {whatsappFeatures.map((item) => (
+              <a href={item.href} class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                <span class="text-body-sm font-semibold text-ink">{item.title}</span>
+                <span class:list={["text-xs leading-normal", dropdownDescClass]}>{item.desc}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- SMS & Auth API Dropdown (India only) -->
+      {showSms && (
+        <div class="group relative">
+          <button class:list={["inline-flex items-center gap-1 px-3 py-2 rounded-sm text-body-sm font-medium transition-all cursor-pointer", navLinkHoverClass, navLinkTextClass]}>
+            <span>SMS & Auth API</span>
+            <svg class:list={["w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-250", chevronColorClass]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[600px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+            <div class:list={["border rounded-md shadow-lg p-3 grid grid-cols-2 gap-1.5", dropdownBgClass, dropdownBorderClass]}>
+              {smsAndAuthFeatures.map((item) => (
+                <a href={item.href} class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                  <span class="text-body-sm font-semibold text-ink">{item.title}</span>
+                  <span class:list={["text-xs leading-normal", dropdownDescClass]}>{item.desc}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <!-- Use Cases Dropdown -->
+      <div class="group relative">
+        <button class:list={["inline-flex items-center gap-1 px-3 py-2 rounded-sm text-body-sm font-medium transition-all cursor-pointer", navLinkHoverClass, navLinkTextClass]}>
+          <span>Use Cases</span>
+          <svg class:list={["w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-250", chevronColorClass]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[560px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+          <div class:list={["border rounded-md shadow-lg p-3 grid grid-cols-2 gap-1.5", dropdownBgClass, dropdownBorderClass]}>
+            {useCases.map((item) => (
+              <a href={item.href} class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                <span class="text-body-sm font-semibold text-ink">{item.title}</span>
+                <span class:list={["text-xs leading-normal", dropdownDescClass]}>{item.desc}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <a href={`${prefix}/pricing`} class:list={["px-3 py-2 rounded-sm text-body-sm font-medium transition-all", navLinkHoverClass, navLinkTextClass]}>
+        Pricing
+      </a>
+
+      <!-- Blog -->
+      <a href={`${prefix}/blog`} class:list={["px-3 py-2 rounded-sm text-body-sm font-medium transition-all", navLinkHoverClass, navLinkTextClass]}>
+        Blog
+      </a>
+
+      <!-- Docs Dropdown (No dead /docs link) -->
+      <div class="group relative">
+        <button class:list={["inline-flex items-center gap-1 px-3 py-2 rounded-sm text-body-sm font-medium transition-all cursor-pointer", navLinkHoverClass, navLinkTextClass]}>
+          <span>Docs</span>
+          <svg class:list={["w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-250", chevronColorClass]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="absolute left-0 top-full pt-2 w-[280px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+          <div class:list={["border rounded-md shadow-lg p-2 flex flex-col gap-1", dropdownBgClass, dropdownBorderClass]}>
+            <a href={`${prefix}/docs/whatsapp/getting-started`} class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+              <span class="text-body-sm font-semibold text-ink">WhatsApp API Docs</span>
+              <span class:list={["text-xs leading-normal", dropdownDescClass]}>Integration and Webhook guides.</span>
+            </a>
+            {showSms && (
+              <>
+                <a href="/docs/sms/getting-started" class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                  <span class="text-body-sm font-semibold text-ink">SMS API Docs</span>
+                  <span class:list={["text-xs leading-normal", dropdownDescClass]}>Transactional and DLT SMS setup.</span>
+                </a>
+                <a href="/docs/auth-api/getting-started" class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                  <span class="text-body-sm font-semibold text-ink">Auth API Docs</span>
+                  <span class:list={["text-xs leading-normal", dropdownDescClass]}>Multi-channel verification guide.</span>
+                </a>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <a href={`${prefix}/contact`} class:list={["px-3 py-2 rounded-sm text-body-sm font-medium transition-all", navLinkHoverClass, navLinkTextClass]}>
+        Contact
+      </a>
+
+    </nav>
+
+    <!-- Desktop CTAs / Mobile Toggle -->
+    <div class="flex items-center gap-3 shrink-0">
+      
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="https://app.startmessaging.com" class:list={["text-body-sm transition-colors font-medium", loginLinkClass]}>
+          {t('nav.login', c)}
+        </a>
+        <Button 
+          href="https://app.startmessaging.com/signup" 
+          variant="primary" 
+          size="sm"
+          class={isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""}
+        >
+          {t('nav.signup', c)}
+        </Button>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        id="mobile-menu-open"
+        class:list={[
+          "lg:hidden p-2 rounded-sm border transition-all cursor-pointer text-ink",
+          isWhatsapp ? "border-accent-wa/20 hover:bg-accent-wa/[0.06]" : "border-hairline hover:bg-surface-soft"
+        ]}
+        aria-label="Toggle menu"
+        type="button"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer Overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
+  role="dialog"
+  aria-modal="true"
+>
+  <!-- Drawer Panel -->
+  <div
+    id="mobile-menu-drawer"
+    class:list={["fixed inset-y-0 right-0 w-full max-w-sm border-l p-6 flex flex-col justify-between translate-x-full transition-transform duration-300 ease-out", drawerBgClass, borderClass]}
+  >
+    <div>
+      <!-- Drawer Header -->
+      <div class:list={["flex items-center justify-between pb-4 border-b mb-4", borderClass]}>
+        <a href={homeHref} class="flex items-center gap-2 font-bold text-title-lg text-ink">
+          <AppIcon class="h-5 w-5" theme={theme} />
+          <span>Start<span class:list={[logoTextClass]}>Messaging</span></span>
+        </a>
+        <button
+          id="mobile-menu-close"
+          class:list={[
+            "p-2 rounded-full text-muted hover:text-ink transition-colors cursor-pointer",
+            isWhatsapp ? "hover:bg-accent-wa/[0.06]" : "hover:bg-surface-soft"
+          ]}
+          aria-label="Close menu"
+          type="button"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Links (Accordions / Details) -->
+      <div class="flex flex-col gap-2 max-h-[60vh] overflow-y-auto pr-1">
+        
+        <!-- WhatsApp Accordion -->
+        <details class="group border-b border-hairline/50 pb-2">
+          <summary class="flex items-center justify-between py-2.5 font-medium text-ink cursor-pointer list-none select-none">
+            <span>WhatsApp Solutions</span>
+            <svg class="w-4 h-4 text-muted group-open:rotate-180 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pl-3 flex flex-col gap-1.5 pt-1 pb-2">
+            {whatsappFeatures.map((item) => (
+              <a href={item.href} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
+                <span class="text-body-sm font-medium text-ink">{item.title}</span>
+                <span class:list={["text-xs", dropdownDescClass]}>{item.desc}</span>
+              </a>
+            ))}
+          </div>
+        </details>
+
+        <!-- SMS & Auth API Accordion (India only) -->
+        {showSms && (
+          <details class="group border-b border-hairline/50 pb-2">
+            <summary class="flex items-center justify-between py-2.5 font-medium text-ink cursor-pointer list-none select-none">
+              <span>SMS & Auth API</span>
+              <svg class:list={["w-4 h-4 transition-transform duration-200 group-open:rotate-180", isWhatsapp ? "text-ink/60" : "text-muted"]} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="pl-3 flex flex-col gap-1.5 pt-1 pb-2">
+              {smsAndAuthFeatures.map((item) => (
+                <a href={item.href} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
+                  <span class="text-body-sm font-medium text-ink">{item.title}</span>
+                  <span class:list={["text-xs", dropdownDescClass]}>{item.desc}</span>
+                </a>
+              ))}
+            </div>
+          </details>
+        )}
+
+        <!-- Use Cases Accordion -->
+        <details class="group border-b border-hairline/50 pb-2">
+          <summary class="flex items-center justify-between py-2.5 font-medium text-ink cursor-pointer list-none select-none">
+            <span>Use Cases</span>
+            <svg class:list={["w-4 h-4 transition-transform duration-200 group-open:rotate-180", isWhatsapp ? "text-ink/60" : "text-muted"]} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pl-3 flex flex-col gap-1.5 pt-1 pb-2">
+            {useCases.map((item) => (
+              <a href={item.href} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
+                <span class="text-body-sm font-medium text-ink">{item.title}</span>
+                <span class:list={["text-xs", dropdownDescClass]}>{item.desc}</span>
+              </a>
+            ))}
+          </div>
+        </details>
+
+        <!-- Plain Links -->
+        <a href={`${prefix}/pricing`} class:list={["py-2.5 border-b border-hairline/50 font-medium text-ink transition-colors", hoverTextClass]}>
+          Pricing
+        </a>
+        <a href={`${prefix}/blog`} class:list={["py-2.5 border-b border-hairline/50 font-medium text-ink transition-colors", hoverTextClass]}>
+          Blog
+        </a>
+ 
+        <!-- Docs Accordion -->
+        <details class="group border-b border-hairline/50 pb-2">
+          <summary class="flex items-center justify-between py-2.5 font-medium text-ink cursor-pointer list-none select-none">
+            <span>Documentation</span>
+            <svg class:list={["w-4 h-4 transition-transform duration-200 group-open:rotate-180", isWhatsapp ? "text-ink/60" : "text-muted"]} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="pl-3 flex flex-col gap-1.5 pt-1 pb-2">
+            <a href={`${prefix}/docs/whatsapp/getting-started`} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
+              <span class="text-body-sm font-medium text-ink">WhatsApp API Docs</span>
+              <span class:list={["text-xs", dropdownDescClass]}>Integration and Webhook guides.</span>
+            </a>
+            {showSms && (
+              <>
+                <a href="/docs/sms/getting-started" class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
+                  <span class="text-body-sm font-medium text-ink">SMS API Docs</span>
+                  <span class:list={["text-xs", dropdownDescClass]}>Transactional and DLT SMS setup.</span>
+                </a>
+                <a href="/docs/auth-api/getting-started" class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
+                  <span class="text-body-sm font-medium text-ink">Auth API Docs</span>
+                  <span class:list={["text-xs", dropdownDescClass]}>Multi-channel verification guide.</span>
+                </a>
+              </>
+            )}
+          </div>
+        </details>
+ 
+        <a href={`${prefix}/contact`} class:list={["py-2.5 border-b border-hairline/50 font-medium text-ink transition-colors", hoverTextClass]}>
+          Contact
+        </a>
+ 
+      </div>
+    </div>
+ 
+    <!-- Mobile CTAs -->
+    <div class:list={["flex flex-col gap-3 mt-6 pt-4 border-t", borderClass]}>
+      <a href="https://app.startmessaging.com" class:list={["flex items-center justify-center h-11 border rounded-sm text-body-sm font-medium text-ink transition-colors", isWhatsapp ? "border-accent-wa/20 hover:bg-accent-wa/[0.03]" : "border-hairline hover:bg-surface-soft"]}>
+        {t('nav.login', c)}
+      </a>
+      <Button 
+        href="https://app.startmessaging.com/signup" 
+        variant="primary" 
+        size="md" 
+        class:list={["w-full", isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""]}
+      >
+        {t('nav.signup', c)}
+      </Button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function initMobileMenu() {
+    const openBtn = document.getElementById('mobile-menu-open');
+    const closeBtn = document.getElementById('mobile-menu-close');
+    const menu = document.getElementById('mobile-menu');
+    const drawer = document.getElementById('mobile-menu-drawer');
+
+    if (!openBtn || !closeBtn || !menu || !drawer) return;
+
+    const showMenu = () => {
+      menu.classList.remove('opacity-0', 'pointer-events-none');
+      menu.classList.add('opacity-100', 'pointer-events-auto');
+      drawer.classList.remove('translate-x-full');
+      drawer.classList.add('translate-x-0');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const hideMenu = () => {
+      menu.classList.remove('opacity-100', 'pointer-events-auto');
+      menu.classList.add('opacity-0', 'pointer-events-none');
+      drawer.classList.remove('translate-x-0');
+      drawer.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+    };
+
+    openBtn.addEventListener('click', showMenu);
+    closeBtn.addEventListener('click', hideMenu);
+    
+    // Close on overlay backdrop click
+    menu.addEventListener('click', (e) => {
+      if (e.target === menu) {
+        hideMenu();
+      }
+    });
+
+    // Clean up overflows when links inside are clicked
+    const links = drawer.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', hideMenu);
+    });
+  }
+
+  // Setup on page load / view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+  document.addEventListener('astro:after-swap', initMobileMenu);
+</script>

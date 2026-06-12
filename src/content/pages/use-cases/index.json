@@ -1,0 +1,162 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
+  "seo": {
+    "title": {
+      "en": "Business Use Cases — StartMessaging",
+      "pt": "Casos de Uso Corporativos — StartMessaging",
+      "es": "Casos de Uso Empresariales — StartMessaging",
+      "id": "Kasus Penggunaan Bisnis — StartMessaging",
+      "ar": "حالات الاستخدام للشركات — StartMessaging",
+      "tr": "Kurumsal Kullanım Örnekleri — StartMessaging",
+      "ng": "Business Use Cases — StartMessaging"
+    },
+    "description": {
+      "en": "Discover how businesses globally scale order updates, user support, marketing, notifications, and OTP verification using StartMessaging API.",
+      "pt": "Descubra como empresas usam o StartMessaging para e-commerce, suporte, marketing, notificações e verificação OTP.",
+      "es": "Descubra cómo las empresas usan StartMessaging para e-commerce, soporte, marketing, notificaciones y verificación OTP.",
+      "id": "Temukan bagaimana bisnis menggunakan StartMessaging untuk e-commerce, dukungan, pemasaran, notifikasi, dan verifikasi OTP.",
+      "ar": "اكتشف كيف تستخدم الشركات StartMessaging للتجارة الإلكترونية والدعم والتسويق والإشعارات والتحقق من OTP.",
+      "tr": "İşletmelerin e-ticaret, destek, pazarlama, bildirimler ve OTP doğrulaması için StartMessaging'i nasıl kullandığını keşfedin."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge": {
+          "en": "Use Cases",
+          "pt": "Casos de Uso",
+          "es": "Casos de Uso",
+          "id": "Kasus Penggunaan",
+          "ar": "حالات الاستخدام",
+          "tr": "Kullanım Örnekleri"
+        },
+        "title": {
+          "en": "Built for Every Business Use Case",
+          "pt": "Construído para Cada Caso de Uso",
+          "es": "Construido para Cada Caso de Uso",
+          "id": "Dibangun untuk Setiap Kasus Penggunaan Bisnis",
+          "ar": "مصمم لكل حالة استخدام تجارية",
+          "tr": "Her İş Kullanım Durumu İçin Tasarlandı"
+        },
+        "subtitle": {
+          "en": "From e-commerce order updates to healthcare reminders, see how businesses worldwide use StartMessaging to connect with customers.",
+          "pt": "De atualizações de pedidos e-commerce a lembretes de saúde, veja como empresas usam o StartMessaging para conectar com clientes.",
+          "es": "Desde actualizaciones de pedidos hasta recordatorios de salud, vea cómo las empresas usan StartMessaging para conectar con clientes.",
+          "id": "Dari pembaruan pesanan e-commerce hingga pengingat kesehatan, lihat bagaimana bisnis menggunakan StartMessaging untuk terhubung dengan pelanggan.",
+          "ar": "من تحديثات طلبات التجارة الإلكترونية إلى تذكيرات الرعاية الصحية، شاهد كيف تستخدم الشركات StartMessaging للتواصل مع العملاء.",
+          "tr": "E-ticaret sipariş güncellemelerinden sağlık hatırlatmalarına, işletmelerin müşterilerle bağlantı kurmak için StartMessaging'i nasıl kullandığını görün."
+        }
+      }
+    },
+    {
+      "type": "useCaseGrid",
+      "props": {
+        "heading": {
+          "en": "Popular Use Cases",
+          "pt": "Casos de Uso Populares",
+          "es": "Casos de Uso Populares",
+          "id": "Kasus Penggunaan Populer",
+          "ar": "حالات الاستخدام الشائعة",
+          "tr": "Popüler Kullanım Örnekleri"
+        },
+        "cases": [
+          {
+            "title": { "en": "E-Commerce" },
+            "description": { "en": "Order confirmations, shipping updates, abandoned cart recovery, and review requests via WhatsApp." },
+            "href": "/use-cases/ecommerce",
+            "icon": "cart"
+          },
+          {
+            "title": { "en": "Customer Support" },
+            "description": { "en": "24/7 automated support with chatbots, ticket updates, and seamless agent handoff." },
+            "href": "/use-cases/customer-support",
+            "icon": "headset"
+          },
+          {
+            "title": { "en": "Marketing Campaigns" },
+            "description": { "en": "Promotional broadcasts, product launches, seasonal sales, and re-engagement campaigns with 98% open rates." },
+            "href": "/use-cases/marketing-campaigns",
+            "icon": "megaphone"
+          },
+          {
+            "title": { "en": "Notifications" },
+            "description": { "en": "Appointment reminders, payment alerts, account notifications, and service updates." },
+            "href": "/use-cases/notifications",
+            "icon": "bell"
+          },
+          {
+            "title": { "en": "OTP Authentication" },
+            "description": { "en": "User verification, two-factor authentication, and secure login via WhatsApp OTP with SMS fallback." },
+            "href": "/use-cases/otp-authentication",
+            "icon": "lock"
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Platform Comparison" },
+        "heading": { "en": "StartMessaging vs. Legacy Systems vs. Custom Builds" },
+        "subheading": { "en": "Compare integration velocity, delivery speeds, and maintenance overhead for business communications." },
+        "columns": [
+          { "label": { "en": "Key Metrics" } },
+          { "label": { "en": "StartMessaging API" }, "highlight": true },
+          { "label": { "en": "Custom In-House Build" } },
+          { "label": { "en": "Legacy Aggregators" } }
+        ],
+        "rows": [
+          [
+            { "en": "Integration Speed" },
+            { "en": "Minutes (Single unified API)" },
+            { "en": "Weeks (Complex provider setups)" },
+            { "en": "Days (Heavy SOAP/REST manuals)" }
+          ],
+          [
+            { "en": "Multi-Channel Fallback" },
+            { "en": "✓ (WhatsApp to SMS auto-fallback)" },
+            { "en": "✗ (Requires custom coding)" },
+            { "en": "✗ (Manual routing configurations)" }
+          ],
+          [
+            { "en": "Compliance Guards" },
+            { "en": "✓ (Auto DLT & Opt-in check)" },
+            { "en": "✗ (User-maintained compliance)" },
+            { "en": "✗ (Basic template approvals)" }
+          ],
+          [
+            { "en": "Ongoing Maintenance" },
+            { "en": "Zero (Managed API updates)" },
+            { "en": "High (API provider updates)" },
+            { "en": "Medium (Periodic server updates)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Don't See Your Use Case?",
+          "pt": "Não Encontrou Seu Caso de Uso?",
+          "es": "¿No Ve Su Caso de Uso?",
+          "id": "Tidak Menemukan Kasus Penggunaan Anda?",
+          "ar": "لم تجد حالة الاستخدام الخاصة بك؟",
+          "tr": "Kullanım Durumunuzu Göremiyor musunuz?"
+        },
+        "subtext": {
+          "en": "Contact us to discuss your specific requirements.",
+          "pt": "Fale conosco para discutir seus requisitos.",
+          "es": "Contáctenos para discutir sus requisitos.",
+          "id": "Hubungi kami untuk mendiskusikan kebutuhan Anda.",
+          "ar": "تواصل معنا لمناقشة متطلباتك.",
+          "tr": "Gereksinimlerinizi tartışmak için bizimle iletişime geçin."
+        },
+        "primaryCta": { "en": "Contact Sales" },
+        "primaryHref": "/contact"
+      }
+    }
+  ]
+}

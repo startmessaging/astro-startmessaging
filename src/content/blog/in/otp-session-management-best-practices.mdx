@@ -1,0 +1,76 @@
+﻿---
+title: "OTP Session Management Best Practices (2026)"
+description: "How to manage sessions before, during and after OTP verification. Partial sessions, signed cookies, JWT vs server-side sessions, and idle vs absolute timeouts."
+publishedAt: "2026-05-19"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp session management"
+  - "session after otp"
+  - "jwt otp"
+  - "partial session otp"
+  - "otp cookie"
+relatedSlugs:
+  - "otp-verification-flow"
+  - "otp-resend-cooldown-implementation"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+Session management around OTP has three phases: pre-verify partial
+        session, the verify-itself transaction, and the post-verify
+        long-lived session. Each has its own rules.
+
+
+## Three Session Phases
+
+
+- Pre-verify: holds requestId only, 15-min TTL.
+- Verify: short transaction, no new session.
+- Post-verify: long-lived session with role + expiry.
+
+
+
+## Partial Session (Pre-Verify)
+
+
+- HTTP-only cookie or short-lived JWT.
+- Holds the OTP requestId, not user identity yet.
+- 15-minute TTL aligned with OTP expiry.
+
+
+
+## Verified Session
+
+
+- Issue after successful verify.
+- Bind to user ID, device fingerprint, role.
+- Set idle and absolute timeouts.
+
+
+
+## Cookies vs JWT
+
+
+- Server-side sessions: revocable, simpler, slightly more state.
+- JWT: stateless, harder to revoke, beware of long expiry.
+- Most consumer apps use signed-cookie sessions; SaaS APIs use short-lived JWT + refresh.
+
+
+
+## Idle vs Absolute Timeouts
+
+
+- Idle: time since last interaction.
+- Absolute: time since session creation.
+- Both checked on every request.
+
+
+
+## FAQ
+
+Tie session expiry to action sensitivity: read-only sessions can
+        live longer than write-capable ones.
+

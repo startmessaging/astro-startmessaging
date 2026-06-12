@@ -1,0 +1,47 @@
+---
+/**
+ * Non-India country home pages: /br  /mx  /id  /ae  /tr  /ng
+ * Per ASTRO_COUNTRY_PLAN.md §3.
+ */
+import { getEntry } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import ComponentRenderer from '@/components/ComponentRenderer.astro';
+import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
+
+export async function getStaticPaths() {
+  const page = await getEntry('pages', 'home');
+  if (!page) return [];
+
+  const pageCountries = (page.data.countries ?? ALL_COUNTRIES) as string[];
+
+  // This route handles all non-India countries (India is at /index.astro)
+  return pageCountries
+    .filter((c) => c !== DEFAULT_COUNTRY)
+    .map((c) => ({
+      params: { country: c },
+      props: { page, country: c },
+    }));
+}
+
+const { page, country } = Astro.props;
+const pageCountries = (page.data.countries ?? ALL_COUNTRIES) as string[];
+const pageTheme = page.data.theme ?? 'sms';
+---
+
+<MarketingLayout
+  seo={page.data.seo}
+  country={country}
+  pageCountries={pageCountries}
+  slug=""
+  theme={pageTheme}
+>
+  {page.data.sections.map((section: any) => (
+    <ComponentRenderer
+      type={section.type}
+      props={section.props}
+      country={country}
+      countries={section.countries}
+      theme={section.theme ?? pageTheme}
+    />
+  ))}
+</MarketingLayout>

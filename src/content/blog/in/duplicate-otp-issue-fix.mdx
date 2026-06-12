@@ -1,0 +1,70 @@
+﻿---
+title: "Duplicate OTP Sent? Causes and Fixes"
+description: "Why users receive two OTPs for one request: client retries, queue duplicates, network race conditions. How idempotency keys solve the problem."
+publishedAt: "2026-05-16"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "duplicate otp"
+  - "two otp received"
+  - "otp sent twice fix"
+  - "otp idempotency"
+  - "duplicate sms otp"
+relatedSlugs:
+  - "idempotency-keys-otp"
+  - "otp-rate-limiting-guide"
+  - "otp-not-received-india"
+featured: false
+---
+
+
+Duplicate OTPs annoy users, waste your wallet, and trigger fraud
+        flags. Almost always the cause is a missing idempotency key.
+
+
+## Causes of Duplicate OTPs
+
+
+- User taps "send" twice in quick succession.
+- Network failure → client retries → both succeed.
+- Background queue worker re-emits.
+- Race between primary and secondary route.
+
+
+
+## Client Retries
+
+Mobile networks routinely retry HTTP requests on flaky connections.
+        Without idempotency keys, every retry that lands costs an extra OTP.
+
+
+## Queue Duplicates
+
+At-least-once queues (SQS, Pub/Sub) can deliver the same job twice.
+        Worker must idempotency-key on the job ID.
+
+
+## Race Conditions
+
+Failover routes that both succeed before the failover marker
+        propagates.
+
+
+## The Fix: Idempotency Keys
+      
+```
+POST /otp/send
+{ "phoneNumber": "+91...", "idempotencyKey": "<uuid>" }
+```
+
+
+Same key = same response, no second SMS. See 
+        [our idempotency guide](/blog/idempotency-keys-otp).
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) supports idempotency
+        keys natively — pass one and we deduplicate for you.
+

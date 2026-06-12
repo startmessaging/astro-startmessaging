@@ -1,0 +1,84 @@
+﻿---
+title: "OTP for Job Portal Apps in India"
+description: "OTP design for Indian job portals: candidate phone verification, recruiter contact-unlock, application-confirmation SMS, and resume-fraud defences."
+publishedAt: "2026-05-01"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "job portal otp"
+  - "naukri otp"
+  - "recruiter otp"
+  - "job application sms"
+  - "resume verification otp"
+  - "recruitment otp india"
+relatedSlugs:
+  - "otp-matrimony-apps-india"
+  - "otp-classifieds-olx-india"
+  - "otp-coworking-membership-india"
+featured: false
+---
+
+
+Indian job portals are two-sided marketplaces where the OTP layer has
+        to satisfy candidates (low friction sign-up), recruiters (high
+        accountability for contact unlocks), and platform-side fraud teams
+        (defending the reputation of both).
+
+
+## Why Job Portals Use OTP
+
+
+- Candidate phone verification at sign-up.
+- Recruiter login + sensitive-action step-up.
+- Application-confirmation SMS to candidate.
+- Recruiter contact-unlock for premium tiers.
+
+
+
+## OTP Flows on Both Sides
+
+Candidate side:
+
+
+
+- Sign-up OTP.
+- Application-submit confirmation SMS.
+- Interview-reminder SMS.
+- Account-recovery OTP.
+
+
+
+Recruiter side:
+
+
+
+- Sign-up OTP.
+- Contact-unlock OTP per candidate.
+- Bulk-action step-up OTP.
+
+
+
+## Recruiter Contact-Unlock
+
+Pattern: when a recruiter requests a candidate's contact, system
+        emits OTP to recruiter's phone. Recruiter enters; system
+        delivers contact and logs the transaction. This both audit-trails the
+        unlock and defeats casual session-hijacking.
+
+
+## Resume / Recruitment Fraud Defences
+
+
+- Phone-verified resumes win trust signals on listings.
+- Disposable-number sign-ups flagged via virtual-number lists.
+- Recruiter accounts with abnormal unlock-rate auto-paused.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) handles candidate
+        and recruiter OTP traffic on a single API key — bulk-unlock workflows
+        get the same idempotency guarantees as one-at-a-time.
+

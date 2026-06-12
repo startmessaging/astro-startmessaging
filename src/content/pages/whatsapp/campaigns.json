@@ -1,0 +1,192 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
+  "seo": {
+    "title": {
+      "en": "WhatsApp Campaigns India — Target & Automate Marketing — StartMessaging",
+      "pt": "Campanhas de WhatsApp no Brasil — Segmentação e Automação — StartMessaging",
+      "es": "Campañas de WhatsApp en México — Marketing Segmentado — StartMessaging",
+      "id": "Kampanye WhatsApp Indonesia — Otomatisasi & Segmentasi — StartMessaging",
+      "ar": "حملات تسويق واتساب الإمارات — الأتمتة وجدول الحملات — StartMessaging",
+      "tr": "WhatsApp Kampanyaları Türkiye — Segmentasyon ve A/B Testleri — StartMessaging",
+      "ng": "WhatsApp Marketing Campaigns Nigeria — Target & Automate — StartMessaging"
+    },
+    "description": {
+      "en": "Run targeted WhatsApp marketing campaigns with audience segmentation, A/B testing, scheduling, and ROI tracking.",
+      "pt": "Execute campanhas de marketing WhatsApp segmentadas com testes A/B, agendamento de envios e rastreamento de ROI.",
+      "es": "Ejecute campañas de marketing WhatsApp segmentadas con pruebas A/B, programación de envíos y seguimiento de ROI.",
+      "id": "Jalankan kampanye marketing WhatsApp bertarget dengan segmentasi audiens, pengujian A/B, penjadwalan, dan pelacakan ROI.",
+      "ar": "شغّل حملات تسويق واتساب مستهدفة مع تقسيم الجمهور واختبار A/B والجدولة وتتبع العائد على الاستثمار.",
+      "tr": "Hedef kitle segmentasyonu, A/B testi ve detaylı ROI analitiği ile hedefli WhatsApp pazarlama kampanyaları yürütün."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": { "en": "WhatsApp Campaigns" },
+        "title": { "en": "Run High-Converting WhatsApp Campaigns" },
+        "subtitle": {
+          "en": "Segment audiences, schedule sends, A/B test templates, and track ROI — all from a single dashboard. 98% open rates vs 20% for email."
+        },
+        "primaryCta": { "en": "Launch Your Campaign" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "Intelligent Automation and Retargeting" },
+        "body": {
+          "en": "Create advanced marketing funnels on WhatsApp. Set up conditional rules (like 'if recipient clicks Button A, trigger follow-up message B after 2 hours'). Segment your contacts based on tags, custom fields, and past behaviors to maximize relevance and conversion rates."
+        },
+        "bullets": [
+          { "en": "Audience segmentation by customer tags" },
+          { "en": "Interactive quick replies and call-to-action buttons" },
+          { "en": "Timezone-aware campaign scheduling" }
+        ],
+        "image": "/images/campaign-flow.webp",
+        "imageAlt": { "en": "WhatsApp Campaign Builder Diagram" },
+        "reversed": false
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "Workflow" },
+        "heading": { "en": "4 Steps to Launch a WhatsApp Campaign" },
+        "steps": [
+          {
+            "title": { "en": "1. Import & Segment" },
+            "description": { "en": "Upload your opted-in customer lists and divide them by tags, tags history, or geographic location." }
+          },
+          {
+            "title": { "en": "2. Draft Templates" },
+            "description": { "en": "Write message templates with dynamic placeholders and buttons, submitting them to Meta for instant approval." }
+          },
+          {
+            "title": { "en": "3. Schedule & Test" },
+            "description": { "en": "Perform an A/B test on a small test group first, then schedule the winning message variation." }
+          },
+          {
+            "title": { "en": "4. Analyze Performance" },
+            "description": { "en": "Monitor delivery metrics, button clicks, and conversation read rates from your central dashboard." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Campaign Strategy" },
+        "heading": { "en": "Campaigns vs. Broadcast vs. Auto-responders" },
+        "subheading": { "en": "Choose the optimal approach to scale customer engagement on WhatsApp." },
+        "columns": [
+          { "label": { "en": "Feature Set" } },
+          { "label": { "en": "WhatsApp Campaigns" }, "highlight": true },
+          { "label": { "en": "One-off Broadcast" } },
+          { "label": { "en": "Simple Auto-responder" } }
+        ],
+        "rows": [
+          [
+            { "en": "A/B Template Testing" },
+            "✓",
+            "—",
+            "—"
+          ],
+          [
+            { "en": "Timezone-Aware Scheduling" },
+            "✓",
+            "✓",
+            "—"
+          ],
+          [
+            { "en": "Sequence Fallback Logic" },
+            { "en": "✓ (Multi-step)" },
+            { "en": "—" },
+            { "en": "—" }
+          ],
+          [
+            { "en": "Real-time Conversion ROI" },
+            "✓",
+            { "en": "Read receipts only" },
+            "—"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Campaigns API" },
+        "heading": { "en": "Launch and Schedule Campaigns via API" },
+        "overlayText": { "en": "Campaign API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/campaigns \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"campaignName\": \"summer_sale_2026\",\n    \"segmentId\": \"seg_xyz789\",\n    \"templateA\": \"sale_variant_a\",\n    \"templateB\": \"sale_variant_b\",\n    \"testRatio\": 0.15,\n    \"scheduledAt\": \"2026-06-20T10:00:00Z\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const response = await fetch(\"https://api.startmessaging.com/v1/campaigns\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\",\n  },\n  body: JSON.stringify({\n    campaignName: \"summer_sale_2026\",\n    segmentId: \"seg_xyz789\",\n    templateA: \"sale_variant_a\",\n    templateB: \"sale_variant_b\",\n    testRatio: 0.15,\n    scheduledAt: \"2026-06-20T10:00:00Z\"\n  })\n});\n\nconst data = await response.json();\nconsole.log(data);"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nresponse = requests.post(\n    \"https://api.startmessaging.com/v1/campaigns\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\",\n    },\n    json={\n        \"campaignName\": \"summer_sale_2026\",\n        \"segmentId\": \"seg_xyz789\",\n        \"templateA\": \"sale_variant_a\",\n        \"templateB\": \"sale_variant_b\",\n        \"testRatio\": 0.15,\n        \"scheduledAt\": \"2026-06-20T10:00:00Z\"\n    }\n)\n\nprint(response.json())"
+          },
+          {
+            "lang": "PHP",
+            "code": "$ch = curl_init(\"https://api.startmessaging.com/v1/campaigns\");\n\ncurl_setopt_array($ch, [\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_POST => true,\n    CURLOPT_HTTPHEADER => [\n        \"Content-Type: application/json\",\n        \"X-API-Key: sm_live_your_api_key_here\",\n    ],\n    CURLOPT_POSTFIELDS => json_encode([\n        \"campaignName\" => \"summer_sale_2026\",\n        \"segmentId\" => \"seg_xyz789\",\n        \"templateA\" => \"sale_variant_a\",\n        \"templateB\" => \"sale_variant_b\",\n        \"testRatio\" => 0.15,\n        \"scheduledAt\" => \"2026-06-20T10:00:00Z\"\n    ]),\n]);\n\n$response = curl_exec($ch);\ncurl_close($ch);\n$data = json_decode($response, true);"
+          },
+          {
+            "lang": "Java",
+            "code": "import java.net.http.*;\nimport java.net.URI;\n\nHttpClient client = HttpClient.newHttpClient();\nString body = \"\"\"\n    {\n      \"campaignName\": \"summer_sale_2026\",\n      \"segmentId\": \"seg_xyz789\",\n      \"templateA\": \"sale_variant_a\",\n      \"templateB\": \"sale_variant_b\",\n      \"testRatio\": 0.15,\n      \"scheduledAt\": \"2026-06-20T10:00:00Z\"\n    }\n    \"\"\";\n\nHttpRequest request = HttpRequest.newBuilder()\n    .uri(URI.create(\"https://api.startmessaging.com/v1/campaigns\"))\n    .header(\"Content-Type\", \"application/json\")\n    .header(\"X-API-Key\", \"sm_live_your_api_key_here\")\n    .POST(HttpRequest.BodyPublishers.ofString(body))\n    .build();\n\nHttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());\nSystem.out.println(response.body());"
+          },
+          {
+            "lang": "Go",
+            "code": "package main\n\nimport (\n  \"bytes\"\n  \"encoding/json\"\n  \"fmt\"\n  \"net/http\"\n  \"io\"\n)\n\nfunc main() {\n  payload, _ := json.Marshal(map[string]interface{}{\n    \"campaignName\": \"summer_sale_2026\",\n    \"segmentId\":    \"seg_xyz789\",\n    \"templateA\":    \"sale_variant_a\",\n    \"templateB\":    \"sale_variant_b\",\n    \"testRatio\":    0.15,\n    \"scheduledAt\":  \"2026-06-20T10:00:00Z\",\n  })\n\n  req, _ := http.NewRequest(\"POST\", \"https://api.startmessaging.com/v1/campaigns\", bytes.NewBuffer(payload))\n  req.Header.Set(\"Content-Type\", \"application/json\")\n  req.Header.Set(\"X-API-Key\", \"sm_live_your_api_key_here\")\n\n  resp, _ := http.DefaultClient.Do(req)\n  defer resp.Body.Close()\n  body, _ := io.ReadAll(resp.Body)\n  fmt.Println(string(body))\n}"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "Campaigns — Frequently Asked Questions" },
+        "items": [
+          {
+            "question": { "en": "What types of campaigns can I run on WhatsApp?" },
+            "answer": { "en": "You can run promotional campaigns (product launches, seasonal sales, event invitations), re-engagement campaigns (abandoned cart reminders, win-back offers), informational campaigns (product updates, feature announcements), and loyalty campaigns (rewards programs, VIP offers). All require opted-in contacts and pre-approved templates." }
+          },
+          {
+            "question": { "en": "How does A/B testing work?" },
+            "answer": { "en": "Create two or more template variations and split your audience. StartMessaging sends each variation to a test segment first, measures performance (delivery rate, open rate, click rate), then automatically sends the winning template to the remaining audience. You can test different copy, images, buttons, and CTAs." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Auto-Trigger Engine" }, "href": "/whatsapp/auto-trigger" },
+          { "label": { "en": "Marketing Solutions" }, "href": "/whatsapp/marketing" },
+          { "label": { "en": "Pricing" }, "href": "/pricing" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Launch Your First WhatsApp Campaign" },
+        "subtext": { "en": "Free plan. No credit card. 5-minute setup." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

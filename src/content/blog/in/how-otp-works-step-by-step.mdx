@@ -1,0 +1,147 @@
+﻿---
+title: "How OTP Works: A Step-by-Step Walkthrough (2026)"
+description: 'A step-by-step explanation of what happens when you click "Send OTP": from generation and hashing on the server, to telecom routing in India, to verification and replay protection.'
+publishedAt: "2026-04-27"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "how otp works"
+  - "how does otp work"
+  - "otp step by step"
+  - "otp flow explained"
+  - "otp generation algorithm"
+  - "how sms otp works india"
+relatedSlugs:
+  - "what-is-otp"
+  - "what-is-sms-otp"
+  - "otp-verification-flow"
+  - "otp-security-best-practices"
+  - "sim-swap-otp-protection-india"
+featured: false
+---
+
+
+The phrase "OTP login" hides a surprising amount of moving
+        parts: a cryptographic generator, a multi-step delivery pipeline that
+        crosses operator boundaries, a hashing routine, attempt counters, and
+        an idempotency layer. This guide walks through each step in order so
+        that next time something fails in production, you know exactly where
+        to look.
+
+
+## Overview
+
+Seven steps from button-press to authenticated session:
+
+
+
+- User triggers the flow.
+- Backend calls the OTP API.
+- Code generation and hashing.
+- SMS delivery (with India-specific DLT).
+- User reads or auto-fills the code.
+- Verification.
+- Session issuance.
+
+
+
+## 1. User Triggers a Flow
+
+Tap "Send OTP", "Pay", or "Verify".
+        The frontend POSTs to `/auth/send-otp` with the phone
+        number. Critical here: validate format on the server, never trust the
+        client. Use E.164 (`+919876543210`).
+
+
+## 2. Backend Calls the OTP API
+
+Your server calls the OTP service's `/otp/send` with
+        an idempotency key. Including the key protects against 
+        [duplicate sends](/blog/idempotency-keys-otp) when a
+        retry kicks in.
+
+
+## 3. Code Generation and Hashing
+
+
+- The OTP service uses a CSPRNG (typically  `crypto.randomInt`) to pick a 6-digit code from  `[100000, 999999]`.
+- A bcrypt or scrypt hash of the code is computed with a cost factor of 10–12.
+- The hash is persisted with `(requestId, expiresAt, attemptsLeft, idempotencyKey)`.
+- The plaintext code is held in memory only long enough to be passed to the SMS gateway.
+
+
+
+## 4. SMS Delivery (India Specifics)
+
+On Indian networks the message is enriched with the registered 
+        [sender ID](/blog/what-is-sms-sender-id), matched to
+        a pre-approved DLT template, and submitted to a multi-provider
+        gateway. Each operator's network independently:
+
+
+
+- Verifies sender ID + template ID + PE-ID match.
+- Runs [TRAI scrubbing](/blog/trai-message-scrubbing-india) for prohibited keywords or DND categories.
+- Submits to the SMSC, which routes to the recipient handset.
+
+
+
+Latency: P50 ~3s, P95 ~10–15s on a healthy route. Failures appear as
+        DLR codes returned to the gateway and surfaced via webhook.
+
+
+## 5. User Reads (or Auto-Fills) the Code
+
+The arrival path on the user device:
+
+
+
+- **Android:** the OS uses the SMS Retriever API or AutoFill to surface the code without permissions.
+- **iOS:** the keyboard suggestion bar offers the code extracted from the most recent SMS.
+- **Manual:** user reads and types.
+
+
+
+See our breakdown of 
+        [OTP auto-fill on Android and iOS](/blog/otp-autofill-android-ios-sms-retriever) 
+        for the implementation details.
+
+
+## 6. Verification
+
+
+- Frontend submits `(requestId, otpCode)` to  `/auth/verify-otp`.
+- Backend forwards to `/otp/verify`.
+- OTP service hashes the submitted code and compares against the stored hash in constant time.
+- On success: invalidate the request ID so it cannot be reused.
+- On wrong code: decrement `attemptsLeft`; on zero, invalidate the request.
+- On expiry: return 410 Gone.
+
+
+
+## 7. Session Issuance
+
+After successful verification, your backend issues a session — a JWT,
+        a signed cookie, or a server-side session row — and returns it to the
+        client. The OTP's job is done; from this point on the user is
+        authenticated by their session token, not the OTP.
+
+
+## Where the Attacks Hit
+
+
+- **Step 2 — pumping.** Bots fire random phone numbers to burn your SMS budget.  [Defence guide](/blog/otp-bot-attacks-traffic-pumping).
+- **Step 4 — interception.** SS7 attacks, SIM swap. See  [SIM swap defence](/blog/sim-swap-otp-protection-india).
+- **Step 5 — phishing.** Real-time phishing pages capture the OTP and replay it on the real site within the validity window.
+- **Step 6 — brute force.** Without attempt limits, an attacker could try all 10^6 codes in seconds.
+
+
+
+## FAQ
+
+StartMessaging implements all of steps 2–6 on your behalf. Your code
+        deals with steps 1 and 7. Get the 
+        [DLT-free OTP API](/dlt-free-otp) running in five
+        minutes.
+

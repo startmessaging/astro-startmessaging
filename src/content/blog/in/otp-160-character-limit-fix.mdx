@@ -1,0 +1,73 @@
+﻿---
+title: "OTP SMS Going Over 160 Characters? Fix Guide"
+description: "When your OTP SMS exceeds 160 characters: GSM-7 vs UCS-2 encoding, multi-part SMS, the cost impact, and template tightening tactics."
+publishedAt: "2026-05-16"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp 160 character limit"
+  - "sms split fix"
+  - "multipart sms otp"
+  - "gsm7 vs ucs2"
+  - "sms encoding"
+relatedSlugs:
+  - "unicode-otp-encoding-issue"
+  - "dlt-template-approval-guide"
+  - "reduce-sms-otp-cost-india"
+featured: false
+---
+
+
+SMS has hard character limits. OTP templates that go over the
+        limit silently fragment into multiple SMS, doubling cost and
+        sometimes confusing the user.
+
+
+## SMS Character Limits
+
+
+- GSM-7 (English / basic Latin): 160 chars per part.
+- UCS-2 (Unicode, Hindi, etc.): 70 chars per part.
+- Multi-part overhead: 7 chars per segment for the join header.
+
+
+
+## GSM-7 vs UCS-2
+
+Stick to GSM-7-safe characters (basic Latin) to keep your OTP at
+        160 chars. A single Unicode character pushes the entire SMS to
+        UCS-2 — meaning 70-char limit per part.
+
+
+## Multi-Part SMS
+
+Carriers reassemble parts on arrival, but DLR is per-part. A
+        partial-delivery condition is possible (rare).
+
+
+## Cost Impact
+
+
+- 1 part: Rs 0.25.
+- 2 parts: Rs 0.50.
+- 3 parts: Rs 0.75.
+
+
+
+## Tightening Templates
+
+
+- Drop "Thank you for using {`{brand}`}".
+- Drop apostrophes and curly quotes.
+- Use "mins" not "minutes".
+- Don't embed support phone in OTP SMS.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) templates are
+        defaulted to single-part GSM-7 — you stay at Rs 0.25 / OTP without
+        thinking about encoding.
+

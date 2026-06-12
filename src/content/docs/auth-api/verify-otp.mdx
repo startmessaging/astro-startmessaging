@@ -1,0 +1,163 @@
+---
+title: "Verify OTP — API Reference"
+description: "Complete API reference for the Verify OTP endpoint. Verification flow, security considerations, and error handling."
+product: auth-api
+order: 3
+countries: ["in"]
+---
+
+## Endpoint
+
+```
+POST /v1/auth/verify-otp
+```
+
+## Request Body
+
+```json
+{
+  "request_id": "auth_abc123def456",
+  "otp": "123456"
+}
+```
+
+## Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `request_id` | string | ✅ | The request ID from the send-otp response |
+| `otp` | string | ✅ | The OTP code entered by the user |
+
+## Response
+
+### Verified (200)
+
+```json
+{
+  "success": true,
+  "verified": true,
+  "phone": "+919876543210",
+  "channel": "sms",
+  "metadata": {
+    "user_id": "usr_123",
+    "action": "login"
+  },
+  "verified_at": "2026-01-15T10:32:00Z"
+}
+```
+
+### Invalid OTP (200)
+
+```json
+{
+  "success": true,
+  "verified": false,
+  "attempts_remaining": 2,
+  "message": "Invalid OTP. 2 attempts remaining."
+}
+```
+
+### Expired (200)
+
+```json
+{
+  "success": true,
+  "verified": false,
+  "attempts_remaining": 0,
+  "message": "OTP has expired. Please request a new one."
+}
+```
+
+## Error Codes
+
+| Code | HTTP | Description |
+|------|------|-------------|
+| `INVALID_REQUEST_ID` | 400 | Request ID not found or already consumed |
+| `OTP_EXPIRED` | 400 | OTP has expired |
+| `MAX_ATTEMPTS_EXCEEDED` | 400 | Maximum verification attempts (3) exceeded |
+| `ALREADY_VERIFIED` | 400 | OTP already successfully verified |
+
+## Security Features
+
+### Attempt Limiting
+
+Each OTP allows **3 verification attempts**. After 3 failed attempts, the OTP is invalidated and the user must request a new one.
+
+### One-Time Use
+
+Once an OTP is successfully verified, it cannot be used again. The `request_id` is consumed.
+
+### Expiry
+
+OTPs automatically expire after the configured `expiry_seconds` (default: 5 minutes). Expired OTPs cannot be verified.
+
+### Rate Limiting
+
+Verification attempts are rate-limited per phone number to prevent brute-force attacks:
+
+| Limit | Value |
+|-------|-------|
+| Failed verifications per number | 10 / hour |
+| Cooldown after max failures | 1 hour lockout |
+
+## Complete Flow Example
+
+```javascript
+const express = require('express');
+const StartMessaging = require('@startmessaging/node');
+
+const app = express();
+const client = new StartMessaging(process.env.SM_API_KEY);
+
+// Step 1: User requests OTP
+app.post('/auth/request-otp', async (req, res) => {
+  const { phone } = req.body;
+
+  const result = await client.auth.sendOTP({
+    phone,
+    channel: 'auto',
+    otp_length: 6,
+    expiry_seconds: 300,
+  });
+
+  // Store request_id in session
+  req.session.otpRequestId = result.request_id;
+  res.json({ success: true, message: 'OTP sent' });
+});
+
+// Step 2: User submits OTP
+app.post('/auth/verify-otp', async (req, res) => {
+  const { otp } = req.body;
+  const requestId = req.session.otpRequestId;
+
+  const result = await client.auth.verifyOTP({
+    request_id: requestId,
+    otp,
+  });
+
+  if (result.verified) {
+    // OTP verified — create session / JWT
+    req.session.authenticated = true;
+    req.session.phone = result.phone;
+    delete req.session.otpRequestId;
+    res.json({ success: true, verified: true });
+  } else {
+    res.json({
+      success: true,
+      verified: false,
+      attemptsRemaining: result.attempts_remaining,
+    });
+  }
+});
+```
+
+## FAQ
+
+**What happens if the user doesn't receive the OTP?**
+Call the send-otp endpoint again with the same phone number. A new OTP will be generated and sent. The old OTP is automatically invalidated.
+
+**Can I verify an OTP multiple times?**
+No — each OTP is single-use. Once verified, the request_id is consumed. If you need to re-verify, send a new OTP.
+
+**How secure is the OTP?**
+OTPs are generated using a cryptographically secure random number generator. They are stored as salted hashes on our servers — we never store plain-text OTPs.

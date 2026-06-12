@@ -1,0 +1,298 @@
+﻿---
+title: "How to Send OTP with FastAPI (2026 Guide)"
+description: "Step-by-step FastAPI tutorial to send and verify SMS OTPs using StartMessaging. Includes Pydantic models, async httpx, error handling, dependency injection and a complete /auth router."
+publishedAt: "2026-04-26"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp fastapi"
+  - "fastapi otp api"
+  - "fastapi sms otp"
+  - "otp verification fastapi"
+  - "fastapi authentication"
+  - "startmessaging fastapi"
+relatedSlugs:
+  - "send-otp-python"
+  - "send-otp-django"
+  - "send-otp-flask"
+  - "send-otp-nodejs"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+FastAPI's combination of async-first design, Pydantic validation
+        and dependency-injection container makes it a natural fit for
+        HTTP-based OTP flows. This tutorial walks through a complete 
+        `/auth` router that sends and verifies OTPs via 
+        [StartMessaging](/otp-api), with full error handling
+        and a basic in-memory rate limiter.
+
+
+## Prerequisites
+
+
+- Python 3.11+
+- A StartMessaging account —  [sign up](https://app.startmessaging.com/register)  and copy your API key.
+- Basic familiarity with FastAPI routers and Pydantic.
+
+
+
+## Project Setup
+      
+```
+uv init otp-fastapi
+cd otp-fastapi
+uv add fastapi uvicorn[standard] httpx pydantic pydantic-settings python-multipart
+```
+
+
+Project layout:
+
+      
+```
+otp-fastapi/
+  app/
+    __init__.py
+    main.py
+    settings.py
+    sm_client.py
+    routers/
+      __init__.py
+      auth.py
+  .env
+```
+
+
+## Configuration with Pydantic Settings
+      
+```typescript
+# app/settings.py
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file='.env', env_prefix='SM_')
+
+    api_key: str
+    base_url: str = 'https://api.startmessaging.com'
+    otp_default_attempts: int = 3
+
+settings = Settings()  # type: ignore
+```
+
+
+Add to `.env`:
+
+      
+```
+SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
+```
+
+
+## A Reusable HTTP Client
+      
+```python
+# app/sm_client.py
+from contextlib import asynccontextmanager
+import httpx
+from app.settings import settings
+
+@asynccontextmanager
+async def sm_client():
+    async with httpx.AsyncClient(
+        base_url=settings.base_url,
+        headers={'X-API-Key': settings.api_key, 'Content-Type': 'application/json'},
+        timeout=httpx.Timeout(10.0, connect=3.0),
+    ) as client:
+        yield client
+```
+
+
+## POST /auth/send-otp
+      
+```python
+# app/routers/auth.py
+from uuid import uuid4
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
+from app.sm_client import sm_client
+
+router = APIRouter(prefix='/auth', tags=['auth'])
+
+class SendOtpIn(BaseModel):
+    phone_number: str = Field(pattern=r'^\\+91\\d{10}$')
+
+class SendOtpOut(BaseModel):
+    request_id: str
+    expires_at: str
+    attempts_left: int
+
+@router.post('/send-otp', response_model=SendOtpOut)
+async def send_otp(body: SendOtpIn):
+    payload = {
+        'phoneNumber': body.phone_number,
+        'idempotencyKey': str(uuid4()),
+    }
+    async with sm_client() as client:
+        res = await client.post('/otp/send', json=payload)
+
+    if res.status_code == 402:
+        raise HTTPException(503, 'Service temporarily unavailable. Try again shortly.')
+    if res.status_code >= 400:
+        detail = res.json().get('message', 'Failed to send OTP')
+        raise HTTPException(res.status_code, detail)
+
+    data = res.json()['data']
+    return SendOtpOut(
+        request_id=data['requestId'],
+        expires_at=data['expiresAt'],
+        attempts_left=data['attemptsLeft'],
+    )
+```
+
+
+Notice we generate an idempotency key per request. If FastAPI's
+        outer client retries on transient failure, the same key is reused and
+        no duplicate SMS is sent. See 
+        [our idempotency guide](/blog/idempotency-keys-otp).
+
+
+## POST /auth/verify-otp
+      
+```typescript
+class VerifyOtpIn(BaseModel):
+    request_id: str
+    otp_code: str = Field(pattern=r'^\\d{4,8}$')
+
+class VerifyOtpOut(BaseModel):
+    verified: bool
+
+@router.post('/verify-otp', response_model=VerifyOtpOut)
+async def verify_otp(body: VerifyOtpIn):
+    async with sm_client() as client:
+        res = await client.post(
+            '/otp/verify',
+            json={'requestId': body.request_id, 'otpCode': body.otp_code},
+        )
+
+    if res.status_code == 410:
+        raise HTTPException(410, 'OTP expired. Please request a new one.')
+    if res.status_code == 400:
+        raise HTTPException(400, res.json().get('message', 'Invalid OTP'))
+    if res.status_code >= 400:
+        raise HTTPException(res.status_code, 'Verification failed')
+
+    return VerifyOtpOut(verified=True)
+```
+
+
+## Error Handling
+
+The status codes you will encounter mapped to FastAPI responses:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>StartMessaging</th>
+              <th>FastAPI response</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>400</td>
+              <td>400 Bad Request</td>
+              <td>Invalid phone or OTP format</td>
+            </tr>
+            <tr>
+              <td>401</td>
+              <td>500 Internal</td>
+              <td>API key issue — surface as generic 500 to user</td>
+            </tr>
+            <tr>
+              <td>402</td>
+              <td>503 Service Unavailable</td>
+              <td>Wallet exhausted; alert ops</td>
+            </tr>
+            <tr>
+              <td>410</td>
+              <td>410 Gone</td>
+              <td>OTP expired</td>
+            </tr>
+            <tr>
+              <td>429</td>
+              <td>429 Too Many Requests</td>
+              <td>Rate-limited</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+## Rate Limiting
+
+Add a simple per-phone limit to protect your wallet from 
+        [OTP traffic pumping](/blog/otp-bot-attacks-traffic-pumping):
+
+      
+```python
+from collections import defaultdict
+from time import time
+
+WINDOW = 3600   # 1h
+LIMIT = 5
+
+_buckets: dict[str, list[float]] = defaultdict(list)
+
+def assert_under_limit(phone: str) -> None:
+    now = time()
+    bucket = [t for t in _buckets[phone] if now - t < WINDOW]
+    if len(bucket) >= LIMIT:
+        raise HTTPException(429, 'Too many OTP requests. Try again later.')
+    bucket.append(now)
+    _buckets[phone] = bucket
+```
+
+
+For production, swap the in-memory dict for Redis. Read 
+        [our rate-limiting guide](/blog/otp-rate-limiting-guide).
+
+
+## Testing the Endpoints
+      
+```python
+# tests/test_auth.py
+import respx, httpx
+from fastapi.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
+
+@respx.mock
+def test_send_otp():
+    respx.post('https://api.startmessaging.com/otp/send').mock(
+        return_value=httpx.Response(200, json={
+            'data': {
+                'requestId': 'req_123',
+                'expiresAt': '2026-04-26T12:00:00Z',
+                'attemptsLeft': 3,
+            }
+        })
+    )
+    r = client.post('/auth/send-otp', json={'phone_number': '+919876543210'})
+    assert r.status_code == 200
+    assert r.json()['request_id'] == 'req_123'
+```
+
+
+## FAQ
+
+Looking for the same flow in another stack? 
+        [Django](/blog/send-otp-django), 
+        [Flask](/blog/send-otp-flask), 
+        [Node.js](/blog/send-otp-nodejs), 
+        [PHP/Laravel](/blog/send-otp-php-laravel), and many
+        more in our [tutorial library](/blog). Or jump into
+        the [API reference](/otp-api).
+

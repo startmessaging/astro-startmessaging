@@ -1,0 +1,134 @@
+﻿---
+title: "What is Flash Call Authentication? (And Should You Use It?)"
+description: "Flash call authentication explained: how the missed-call mechanism verifies phone numbers without an OTP, where it works and where it does not, and why India regulators have pushed back."
+publishedAt: "2026-04-25"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is flash call"
+  - "flash call authentication"
+  - "missed call otp"
+  - "flash call vs sms otp"
+  - "flash call india"
+  - "silent verification"
+relatedSlugs:
+  - "what-is-silent-authentication"
+  - "what-is-sms-otp"
+  - "silent-authentication-vs-otp-india"
+  - "what-is-otp"
+featured: false
+---
+
+
+Flash call authentication promises a simpler, cheaper, and faster
+        version of SMS OTP: instead of typing a code, the user's phone
+        receives a missed call from a number whose last few digits 
+        *are* the OTP, and the app reads those digits automatically.
+        Where it works, it is genuinely magical. The catch is that it works in
+        fewer places than vendors will tell you, and Indian regulators have
+        had specific concerns.
+
+
+This guide covers **what flash call authentication is**,
+        the precise mechanism, where it shines, where it breaks, and how to
+        decide whether to add it to your verification stack.
+
+
+## Flash Call — Definition
+
+**Flash call authentication** is a phone-number
+        verification technique in which the verification system places a brief
+        call to the user's number, then hangs up before the user can
+        answer. The last 3–6 digits of the calling number serve as the OTP.
+        The user's app reads those digits from the call log and
+        auto-fills the verification field — no SMS, no typing.
+
+
+## How a Flash Call Authenticates a Number
+
+
+- Backend triggers a flash-call request. The verification provider allocates a temporary outbound number whose suffix is the "OTP".
+- The provider places a call from that number to the user. The call rings briefly (1–3 seconds) and is hung up before the user answers.
+- The Android app — having been granted  `READ_CALL_LOG` permission — sees the missed call entry, extracts the suffix, and submits it to your backend automatically.
+- Backend verifies that the suffix matches what the provider said it would be, and marks the phone as verified.
+
+
+
+## Pros and Cons
+### Pros
+
+
+- 50–70% cheaper than SMS OTP.
+- Faster — no SMS network hop, often verified in 5 seconds.
+- No DLT or template approvals.
+- No SMS scrubbing risk.
+
+
+### Cons
+
+
+- Android-only in practice — iOS does not allow apps to read the call log.
+- Requires an installed app — not usable in web flows.
+- Some Android skins / regions strip incoming-call metadata for privacy.
+- Regulatory uncertainty in India.
+- Permission fatigue —  `READ_CALL_LOG` is one of Google's most strictly policed permissions; Play Store review may push back.
+
+
+
+## Flash Call in India
+
+TRAI and the major Indian telecom operators have been wary of flash
+        call authentication. Concerns include:
+
+
+
+- **Bypassing DLT.** Flash call dodges the SMS DLT framework, which regulators see as a hole in the compliance regime.
+- **Cost-shifting.** Flash calls reuse network signalling without revenue, which operators have publicly objected to.
+- **Permission concerns.** Reading call logs is sensitive and DPDP-relevant.
+
+
+
+As of 2026 there is no outright ban, but the practical effect is that
+        flash call delivery is unpredictable on Indian networks — large
+        carriers may rate-limit or filter the traffic.
+
+
+## When to Use It (and When Not To)
+
+Flash call may be a fit when:
+
+
+
+- You have an installed Android app.
+- SMS cost is dominating your unit economics at scale.
+- Your users are in markets where flash call is unambiguously permitted.
+
+
+
+Skip flash call when:
+
+
+
+- You serve a primarily web or iOS audience.
+- You are operating exclusively in India and need predictable delivery.
+- You cannot justify the call-log permission to Play Store review.
+
+
+
+## Alternatives
+
+
+- [SMS OTP](/blog/what-is-sms-otp) — the universal baseline.
+- [Silent network authentication](/blog/what-is-silent-authentication)  — carrier-side proof of possession, no permissions needed.
+- Android [SMS Retriever API](https://developers.google.com/identity/sms-retriever)  — auto-fill the SMS OTP without granting SMS-read permissions. Often the right balance.
+
+
+
+## FAQ
+
+For Indian apps, the pragmatic stack is 
+        [SMS OTP via StartMessaging](/dlt-free-otp) with
+        Android SMS Retriever for auto-fill. Flash call adds complexity and
+        regulatory exposure that rarely pays back.
+

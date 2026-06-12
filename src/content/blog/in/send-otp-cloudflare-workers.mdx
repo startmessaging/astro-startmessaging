@@ -1,0 +1,104 @@
+﻿---
+title: "How to Send OTP with Cloudflare Workers (2026)"
+description: "Cloudflare Workers OTP tutorial using StartMessaging. Uses Workers fetch, KV for rate-limit, signed-cookie session, and Durable Objects for production-grade pumping defence."
+publishedAt: "2026-05-09"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp cloudflare workers"
+  - "cloudflare workers otp"
+  - "workers sms otp"
+  - "cloudflare otp api"
+relatedSlugs:
+  - "send-otp-hono"
+  - "send-otp-bun"
+  - "send-otp-deno"
+  - "send-otp-aws-lambda"
+featured: false
+---
+
+
+Cloudflare Workers gives you a global, sub-millisecond edge for OTP
+        login. This tutorial uses Hono-on-Workers + KV / Durable Objects for
+        rate limiting.
+
+
+## Setup
+      
+```bash
+pnpm create cloudflare otp-worker
+cd otp-worker && pnpm install hono
+```
+
+
+## Wrangler Config
+      
+```bash
+# wrangler.toml
+name = "otp-worker"
+main = "src/index.ts"
+compatibility_date = "2026-04-01"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "<your-kv-id>"
+
+# secrets via: wrangler secret put SM_API_KEY
+```
+
+
+## The Worker
+      
+```typescript
+// src/index.ts
+import { Hono } from 'hono';
+type Env = { Bindings: { SM_API_KEY: string; RATE_LIMIT_KV: KVNamespace }};
+const app = new Hono<Env>();
+
+app.post('/auth/send-otp', async (c) => {
+  const { phoneNumber } = await c.req.json();
+  // simple per-phone hour cap
+  const key = \`rl:\${phoneNumber}\`;
+  const count = parseInt((await c.env.RATE_LIMIT_KV.get(key)) ?? '0');
+  if (count >= 5) return c.json({ error: 'rate limited' }, 429);
+  await c.env.RATE_LIMIT_KV.put(key, String(count + 1), { expirationTtl: 3600 });
+
+  const r = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': c.env.SM_API_KEY },
+    body: JSON.stringify({ phoneNumber, idempotencyKey: crypto.randomUUID() }),
+  });
+  if (!r.ok) return c.json({ error: 'upstream' }, 502);
+  return c.json((await r.json<any>()).data);
+});
+
+export default app;
+```
+
+
+## Rate Limiting via KV
+
+KV is good enough for soft per-phone caps where eventual consistency
+        is acceptable. For hard limits switch to Durable Objects.
+
+
+## Per-Phone Limits via Durable Objects
+
+Use a Durable Object per phone-number; it serialises increments and
+        gives you exact-once limit enforcement.
+
+
+## Deploy
+      
+```
+wrangler secret put SM_API_KEY
+wrangler deploy
+```
+
+
+## FAQ
+
+For full rate-limit patterns see our 
+        [OTP rate-limiting guide](/blog/otp-rate-limiting-guide).
+

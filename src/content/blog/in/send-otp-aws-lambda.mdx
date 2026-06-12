@@ -1,0 +1,127 @@
+﻿---
+title: "How to Send OTP with AWS Lambda (2026)"
+description: "AWS Lambda OTP tutorial using StartMessaging. Function URLs, Secrets Manager for API keys, DynamoDB for rate limits, and SAM/CDK deployment patterns."
+publishedAt: "2026-05-09"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp aws lambda"
+  - "aws lambda otp"
+  - "lambda sms otp"
+  - "serverless otp india"
+relatedSlugs:
+  - "send-otp-vercel-functions"
+  - "send-otp-cloudflare-workers"
+  - "send-otp-google-cloud-run"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+AWS Lambda is a popular target for Indian fintech and SaaS. This
+        tutorial wires [StartMessaging](/otp-api) with
+        Secrets Manager for keys and DynamoDB for rate limits.
+
+
+## Overview
+
+
+- Lambda function for /send-otp and /verify-otp.
+- Secrets Manager for SM_API_KEY.
+- DynamoDB for per-phone rate limit.
+- Function URL or API Gateway for HTTPS.
+
+
+
+## API Keys via Secrets Manager
+      
+```
+aws secretsmanager create-secret --name sm/api-key --secret-string sm_live_xxx
+```
+
+
+## The Lambda Handler
+      
+```typescript
+// src/handler.ts (Node.js 20 runtime)
+import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { randomUUID } from 'node:crypto';
+
+const sm = new SecretsManagerClient({});
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+let cached: string | null = null;
+
+async function getApiKey() {
+  if (cached) return cached;
+  const r = await sm.send(new GetSecretValueCommand({ SecretId: 'sm/api-key' }));
+  cached = r.SecretString!;
+  return cached;
+}
+
+export const handler = async (event: any) => {
+  const path = event.rawPath ?? event.path;
+  const body = JSON.parse(event.body ?? '{}');
+  const apiKey = await getApiKey();
+
+  if (path === '/auth/send-otp') {
+    // hourly cap per phone
+    await ddb.send(new UpdateCommand({
+      TableName: 'OtpRateLimit',
+      Key: { phone: body.phoneNumber },
+      UpdateExpression: 'ADD #c :one SET ttl = :ttl',
+      ExpressionAttributeNames: { '#c': 'count' },
+      ExpressionAttributeValues: { ':one': 1, ':ttl': Math.floor(Date.now() / 1000) + 3600 },
+    }));
+    const r = await fetch('https://api.startmessaging.com/otp/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
+      body: JSON.stringify({ phoneNumber: body.phoneNumber, idempotencyKey: randomUUID() }),
+    });
+    return { statusCode: r.status, body: await r.text() };
+  }
+
+  if (path === '/auth/verify-otp') {
+    const r = await fetch('https://api.startmessaging.com/otp/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
+      body: JSON.stringify(body),
+    });
+    return { statusCode: r.status, body: await r.text() };
+  }
+  return { statusCode: 404, body: 'not found' };
+};
+```
+
+
+## Rate Limiting via DynamoDB
+
+DynamoDB with TTL gives you simple per-phone hour caps. For tighter
+        limits, conditional updates with `count < 5` + reject
+        on failure.
+
+
+## Function URL or API Gateway
+
+
+- Function URL — simplest, no additional service.
+- API Gateway — when you need authentication, custom domains, request validation.
+
+
+
+## Cold Start Mitigation
+
+
+- Cache `SM_API_KEY` across invocations.
+- Use SnapStart (Java) or Provisioned Concurrency (Node).
+- Keep Lambda small — no heavy SDK imports beyond what you need.
+
+
+
+## FAQ
+
+For Vercel-hosted alternative, see 
+        [our Vercel guide](/blog/send-otp-vercel-functions).
+

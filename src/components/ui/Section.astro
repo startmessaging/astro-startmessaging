@@ -9,23 +9,45 @@
  */
 type Variant = 'default' | 'soft' | 'strong' | 'ink';
 
+import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
+
 interface Props {
   variant?: Variant;
   class?: string;
   id?: string;
+  theme?: 'sms' | 'whatsapp';
 }
+
 const { variant = 'default', class: cls = '', id } = Astro.props;
+
+// Dynamically resolve theme based on URL pathname prefix or explicit prop
+let theme = Astro.props.theme;
+if (!theme) {
+  const path = Astro.url.pathname;
+  const pathSegments = path.split('/').filter(Boolean);
+  const pathCountry = pathSegments[0];
+  const country = ALL_COUNTRIES.includes(pathCountry as any) ? pathCountry : DEFAULT_COUNTRY;
+  
+  if (country !== DEFAULT_COUNTRY) {
+    theme = 'whatsapp';
+  } else {
+    const isWhatsappPath = path.includes('/whatsapp');
+    theme = isWhatsappPath ? 'whatsapp' : 'sms';
+  }
+}
+
+const isWhatsapp = theme === 'whatsapp';
 
 const bg: Record<Variant, string> = {
   default: 'bg-canvas',
   soft:    'bg-surface-soft',
   strong:  'bg-surface-strong',
-  ink:     'bg-ink text-canvas',
+  ink:     isWhatsapp ? 'bg-accent-wa text-white' : 'bg-ink text-canvas',
 };
 ---
 <section
   id={id}
-  class:list={['py-(--spacing-section)', bg[variant], cls]}
+  class:list={['py-12 lg:py-section', bg[variant], cls]}
 >
   <slot />
 </section>

@@ -1,0 +1,96 @@
+---
+title: "Getting Started with SMS API"
+description: "Set up SMS messaging with StartMessaging. Send transactional and OTP messages at Rs 0.25 per message."
+product: sms
+order: 1
+countries: ["in"]
+---
+
+## Overview
+
+StartMessaging's SMS API lets you send transactional and OTP messages across India at **Rs 0.25 per SMS**. We support both DLT-registered and DLT-free (pre-registered) messaging.
+
+---
+
+## Prerequisites
+
+- A **StartMessaging account** with SMS service enabled.
+- An **API Key** generated from your dashboard (prefixed with `sm_live_`).
+
+---
+
+## Step 1: Choose Your Route
+
+| Feature | DLT Free OTP | DLT Route |
+|---------|---------------|-----------|
+| **Setup time** | Instant (< 5 minutes) | 3-7 business days |
+| **DLT registration** | Not required | Required by TRAI |
+| **Sender ID** | Shared ID | Custom branded ID |
+| **Price** | Rs 0.25/SMS | Rs 0.18/SMS |
+| **Endpoint** | `POST /otp/send` | `POST /otp/send` |
+
+---
+
+## Step 2: Send Your First OTP
+
+All API requests require your API key passed in the `X-API-Key` header.
+
+### Request
+
+```bash
+curl -X POST https://api.startmessaging.com/otp/send \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: sm_live_your_api_key_here" \
+  -d '{
+    "phoneNumber": "+919876543210",
+    "templateId": "YOUR_TEMPLATE_ID",
+    "variables": {
+      "otp": "123456",
+      "appName": "YourApp"
+    }
+  }'
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "statusCode": 201,
+  "requestId": "req_abc123",
+  "timestamp": "2026-02-15T10:30:00.000Z",
+  "data": {
+    "otpRequestId": "uuid-of-otp-request",
+    "messageId": "uuid-of-message",
+    "status": "queued"
+  }
+}
+```
+
+---
+
+## Step 3: Check Delivery Status
+
+You can check the real-time delivery status of any message by polling the status endpoint with the `messageId` returned from the send request.
+
+### Request
+
+```bash
+curl https://api.startmessaging.com/messages/uuid-of-message \
+  -H "X-API-Key: sm_live_your_api_key_here"
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "messageId": "uuid-of-message",
+    "status": "delivered",
+    "deliveredAt": "2026-02-15T10:30:05.000Z",
+    "error": null
+  }
+}
+```

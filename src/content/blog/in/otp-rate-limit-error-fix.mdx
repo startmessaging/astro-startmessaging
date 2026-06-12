@@ -1,0 +1,78 @@
+﻿---
+title: "Fix OTP Rate Limit (429) Errors"
+description: "How to diagnose and fix HTTP 429 rate-limit errors on OTP APIs. Per-phone vs per-IP limits, exponential backoff, idempotency, and capacity planning for spikes."
+publishedAt: "2026-05-15"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp 429 error"
+  - "otp rate limit fix"
+  - "otp api 429"
+  - "too many requests otp"
+  - "sms rate limit"
+relatedSlugs:
+  - "otp-rate-limiting-guide"
+  - "otp-bot-attacks-traffic-pumping"
+  - "idempotency-keys-otp"
+  - "otp-delivery-delay-fix"
+featured: false
+---
+
+
+429 means the OTP API has throttled your request. Honest diagnosis
+        first — is it your code looping, or a real spike?
+
+
+## What 429 Means
+
+Server is rejecting because your client exceeded a rate limit. The
+        limit could be on your account, on the destination phone, or on the
+        upstream operator route.
+
+
+## Where the Limit is Hit
+
+
+- Per-account TPS — you exceeded the account-wide limit.
+- Per-phone — the same phone got too many OTPs in the window.
+- Per-IP — pumping defence.
+- Carrier upstream — operator capping your sender ID.
+
+
+
+## Exponential Backoff
+      
+```typescript
+async function withBackoff<T>(fn: () => Promise<T>, max = 3): Promise<T> {
+  for (let i = 0; i < max; i++) {
+    try { return await fn(); }
+    catch (e: any) {
+      if (e.status !== 429 || i === max - 1) throw e;
+      await new Promise(r => setTimeout(r, (2 ** i) * 1000 + Math.random() * 1000));
+    }
+  }
+  throw new Error('unreachable');
+}
+```
+
+
+## Capacity Planning
+
+See [our rate-limiting guide](/blog/otp-rate-limiting-guide). For sale-day spikes pre-warn your provider.
+
+
+## Monitoring
+
+
+- Track 429 count per minute.
+- Alert when 429s exceed 1% of OTP traffic.
+- Surface to user as "please wait 30 seconds", not a generic error.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) exposes per-phone
+        and per-account limits clearly in the dashboard.
+

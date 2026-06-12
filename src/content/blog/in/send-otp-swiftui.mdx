@@ -1,0 +1,128 @@
+﻿---
+title: "How to Send OTP in SwiftUI (iOS) — 2026"
+description: "SwiftUI OTP tutorial using StartMessaging. URLSession, async/await, Observation, iOS keyboard auto-fill, and a clean phone+code flow."
+publishedAt: "2026-05-13"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp swiftui"
+  - "ios swiftui otp"
+  - "swift ios otp"
+  - "swiftui authentication otp"
+relatedSlugs:
+  - "send-otp-swift-ios"
+  - "send-otp-jetpack-compose"
+  - "send-otp-flutter-firebase"
+  - "otp-autofill-android-ios-sms-retriever"
+featured: false
+---
+
+
+iOS OTP login is one of the cleanest UX wins on the platform —
+        the keyboard surfaces the code automatically. This tutorial wires 
+        [StartMessaging](/otp-api) from SwiftUI.
+
+
+## Overview
+
+
+- URLSession with async/await calls your backend.
+- @Observable model holds phone / code / requestId.
+- Two SwiftUI views in a NavigationStack.
+
+
+
+## Network Client
+      
+```typescript
+// AuthApi.swift
+struct SendResponse: Codable { let requestId: String; let expiresAt: String }
+struct VerifyResponse: Codable { let verified: Bool }
+
+actor AuthApi {
+  let base = URL(string: "https://your-backend.example.com")!
+
+  func sendOtp(_ phone: String) async throws -> SendResponse {
+    var req = URLRequest(url: base.appending(path: "/auth/send-otp"))
+    req.httpMethod = "POST"
+    req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    req.httpBody = try JSONEncoder().encode(["phoneNumber": phone])
+    let (d, _) = try await URLSession.shared.data(for: req)
+    return try JSONDecoder().decode(SendResponse.self, from: d)
+  }
+
+  func verifyOtp(requestId: String, code: String) async throws -> VerifyResponse {
+    var req = URLRequest(url: base.appending(path: "/auth/verify-otp"))
+    req.httpMethod = "POST"
+    req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    req.httpBody = try JSONEncoder().encode(["requestId": requestId, "otpCode": code])
+    let (d, _) = try await URLSession.shared.data(for: req)
+    return try JSONDecoder().decode(VerifyResponse.self, from: d)
+  }
+}
+```
+
+
+## Observable AuthModel
+      
+```typescript
+@Observable
+class AuthModel {
+  var phone = ""
+  var code = ""
+  var requestId: String?
+  var error: String?
+  let api = AuthApi()
+
+  func send() async {
+    do { requestId = try await api.sendOtp(phone).requestId }
+    catch { self.error = "\\(error)" }
+  }
+
+  func verify() async -> Bool {
+    guard let rid = requestId else { return false }
+    do { return try await api.verifyOtp(requestId: rid, code: code).verified }
+    catch { self.error = "\\(error)"; return false }
+  }
+}
+```
+
+
+## SwiftUI Views
+      
+```typescript
+struct LoginView: View {
+  @State private var model = AuthModel()
+  var body: some View {
+    NavigationStack {
+      if model.requestId == nil {
+        VStack {
+          TextField("Phone", text: $model.phone).keyboardType(.phonePad)
+          Button("Send OTP") { Task { await model.send() } }
+        }
+      } else {
+        VStack {
+          TextField("OTP", text: $model.code)
+            .keyboardType(.numberPad)
+            .textContentType(.oneTimeCode)
+          Button("Verify") { Task { _ = await model.verify() } }
+        }
+      }
+    }
+  }
+}
+```
+
+
+## iOS Auto-Fill
+
+`textContentType(.oneTimeCode)` is all you need. iOS reads
+        the latest SMS, extracts the code, and surfaces it on the keyboard.
+
+
+## FAQ
+
+UIKit version at 
+        [our Swift iOS guide](/blog/send-otp-swift-ios).
+

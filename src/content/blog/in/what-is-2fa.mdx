@@ -1,0 +1,217 @@
+﻿---
+title: "What is 2FA? Two-Factor Authentication Explained (2026)"
+description: "Two-Factor Authentication (2FA) explained in plain English. The three factor categories, common 2FA methods, OTP vs TOTP vs passkeys, and how to add 2FA to your product."
+publishedAt: "2026-04-23"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is 2fa"
+  - "two factor authentication"
+  - "2fa meaning"
+  - "2fa explained"
+  - "2fa vs mfa"
+  - "how 2fa works"
+  - "enable 2fa"
+relatedSlugs:
+  - "what-is-otp"
+  - "what-is-mfa"
+  - "what-is-totp"
+  - "sms-otp-vs-email-magic-link-vs-totp"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+2FA — Two-Factor Authentication — is the single most cost-effective
+        defence against account takeover that exists today. Microsoft has
+        repeatedly published data showing that enabling 2FA blocks more than
+        99.9% of automated attacks on consumer accounts. If your product
+        handles money, personal data, or anything a competitor would pay to
+        steal, 2FA is not optional.
+
+
+This guide explains **what 2FA is**, how it differs from
+        single-factor login, the menu of 2FA methods you can offer, and how to
+        ship 2FA in your own application — including the India-specific
+        considerations around OTP delivery and DLT compliance.
+
+
+## What 2FA Means
+
+Two-Factor Authentication requires the user to prove their identity
+        using *two different categories* of evidence before being granted
+        access. Submitting two passwords is not 2FA — both belong to the same
+        category (knowledge). Submitting a password and a code from your phone
+        is 2FA, because they belong to two different categories.
+
+
+The intuition is simple: an attacker who phishes your password still
+        needs to physically possess your phone, and an attacker who steals your
+        phone still needs to know your password. Compromising both at once is
+        much harder than compromising either alone.
+
+
+## The Three Factor Categories
+
+The standard authentication factors are:
+
+
+
+- **Something you know.** Passwords, PINs, security questions. Cheap to deploy, easy to phish, easy to forget.
+- **Something you have.** A phone (for SMS OTP), a hardware key (YubiKey), an authenticator app (Google Authenticator, Authy), a smart card. Hard to steal at scale.
+- **Something you are.** Biometrics — fingerprint, face, voice, iris. Convenient but hard to revoke if breached and varies in accuracy across populations.
+
+
+
+Some frameworks add a fourth — *somewhere you are* (location) or 
+        *something you do* (typing rhythm). These are rarely used as
+        primary factors but show up as risk signals.
+
+
+## Common 2FA Methods Compared
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Factor</th>
+              <th>Phishing Resistance</th>
+              <th>Cost / OTP</th>
+              <th>India Adoption</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SMS OTP</td>
+              <td>Have</td>
+              <td>Low</td>
+              <td>Rs 0.10–0.30</td>
+              <td>Universal</td>
+            </tr>
+            <tr>
+              <td>Voice OTP</td>
+              <td>Have</td>
+              <td>Low</td>
+              <td>Rs 0.30–0.60</td>
+              <td>Common as fallback</td>
+            </tr>
+            <tr>
+              <td>Email magic link</td>
+              <td>Have</td>
+              <td>Low</td>
+              <td>≈ free</td>
+              <td>Used in B2B SaaS</td>
+            </tr>
+            <tr>
+              <td>TOTP app</td>
+              <td>Have</td>
+              <td>Medium</td>
+              <td>Free</td>
+              <td>Power users</td>
+            </tr>
+            <tr>
+              <td>Push approval</td>
+              <td>Have</td>
+              <td>Medium</td>
+              <td>Free</td>
+              <td>Banking apps</td>
+            </tr>
+            <tr>
+              <td>FIDO2 / Passkey</td>
+              <td>Have + are</td>
+              <td>High</td>
+              <td>Hardware cost</td>
+              <td>Emerging</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+For a deeper comparison see 
+        [SMS OTP vs Email Magic Link vs TOTP](/blog/sms-otp-vs-email-magic-link-vs-totp)
+        .
+
+
+## How a 2FA Login Flow Works
+
+The end-to-end flow with SMS OTP as the second factor:
+
+
+
+- User submits email + password (factor 1, knowledge).
+- Server validates credentials. If correct, marks the session as  `partial` and triggers an OTP send via your  [OTP API](/otp-api).
+- User receives SMS, enters the code in the app.
+- Server calls `/otp/verify`. On success, upgrades the session to `fully authenticated` and issues the final session token.
+- Optional: a "remember this device for 30 days" checkbox stores a long-lived signed cookie so the user is not re-prompted on every login.
+
+
+
+See our 
+        [end-to-end OTP verification flow guide](/blog/otp-verification-flow) 
+        for production-ready code.
+
+
+## Why 2FA Matters
+
+
+- **Stops credential stuffing.** Attackers buy leaked username/password pairs and replay them across hundreds of sites. Without the second factor, the replay fails.
+- **Defends against weak passwords.** "Password 123" is no longer enough on its own.
+- **Compliance.** RBI, SEBI, IRDAI, PCI-DSS, ISO/IEC 27001, and India's DPDP Act all expect a second factor for sensitive actions.
+- **User trust.** A visible 2FA option signals you take security seriously — particularly important for fintech, healthtech and any product holding KYC data.
+
+
+
+## 2FA vs MFA — What is Different?
+
+2FA is a specific case of MFA (Multi-Factor Authentication). MFA means 
+        *two or more* factors; 2FA means *exactly two*. In most
+        consumer products the two are used interchangeably, and switching from
+        2FA marketing copy to MFA marketing copy rarely affects the
+        implementation. We unpack the nuance in 
+        [our MFA explainer](/blog/what-is-mfa).
+
+
+## How to Add 2FA to Your App
+
+The minimum viable 2FA in India looks like this:
+
+
+
+- User signs up with phone + password. Phone is verified with an OTP before activation.
+- On every subsequent login, after correct password, send an OTP via  [StartMessaging](/otp-api).
+- Allow the user to enrol TOTP later for a faster fallback.
+- Provide secure recovery (backup codes printed at enrollment, or a KYC-bound human-review escalation).
+
+
+
+Code samples are in our tutorial library, e.g.:
+
+
+
+- [Send OTP in Node.js](/blog/send-otp-nodejs)
+- [Send OTP in Python](/blog/send-otp-python)
+- [Send OTP in Django](/blog/send-otp-django)
+- [Send OTP in Next.js (App Router)](/blog/send-otp-nextjs-app-router)
+
+
+
+## Common 2FA Pitfalls
+
+
+- **No rate limit on OTP send.** An attacker can burn your SMS budget by triggering thousands of sends. Throttle per-phone and per-IP. See  [our rate-limiting guide](/blog/otp-rate-limiting-guide) .
+- **OTP sent in cleartext over the response.** Never echo the code; only return a request ID.
+- **Logging OTPs.** Hash on the server, never write the plain code to logs or analytics.
+- **No backup factor.** Users lose phones. Without a backup, you create a support nightmare. Bake recovery codes into the enrolment flow.
+- **Trusting the client.** Verification must happen server-side via the OTP API; do not let the browser decide whether the code matched.
+
+
+
+## FAQ
+
+StartMessaging makes the SMS-OTP half of 2FA trivial: 
+        [no DLT registration](/dlt-free-otp), Rs 0.25 per OTP,
+        and a five-minute integration with your existing auth stack. 
+        [Get an API key](https://app.startmessaging.com/register) 
+        to start.
+

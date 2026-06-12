@@ -1,0 +1,172 @@
+---
+title: "Webhooks"
+description: "Receive real-time message delivery updates, incoming messages, and status changes via webhooks. Setup, verification, and event types."
+product: whatsapp
+order: 6
+---
+
+## Overview
+
+Webhooks allow you to receive real-time notifications when events occur — incoming messages, delivery status updates, template approvals, and more. Instead of polling our API, we push events directly to your server.
+
+## Setting Up Webhooks
+
+### Via Dashboard
+
+1. Navigate to **Settings → Webhooks**
+2. Enter your **Webhook URL** (must be HTTPS)
+3. Set your **Webhook Secret** (used for signature verification)
+4. Select the **events** you want to receive
+5. Click **Save & Verify**
+
+### Via API
+
+```bash
+curl -X PUT https://api.startmessaging.com/v1/webhooks \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://your-server.com/webhooks/whatsapp",
+    "secret": "your_webhook_secret_key",
+    "events": ["message.received", "message.status", "template.status"]
+  }'
+```
+
+## Webhook Verification
+
+When you set up a webhook, we send a GET verification request:
+
+```
+GET https://your-server.com/webhooks/whatsapp?hub.mode=subscribe&hub.challenge=CHALLENGE_STRING&hub.verify_token=YOUR_SECRET
+```
+
+Your server must respond with the `hub.challenge` value and a `200` status:
+
+```javascript
+app.get('/webhooks/whatsapp', (req, res) => {
+  const mode = req.query['hub.mode'];
+  const challenge = req.query['hub.challenge'];
+  const token = req.query['hub.verify_token'];
+
+  if (mode === 'subscribe' && token === process.env.WEBHOOK_SECRET) {
+    res.status(200).send(challenge);
+  } else {
+    res.status(403).send('Forbidden');
+  }
+});
+```
+
+## Event Types
+
+### `message.received` — Incoming Message
+
+```json
+{
+  "event": "message.received",
+  "timestamp": "2026-01-15T10:30:00Z",
+  "data": {
+    "message_id": "msg_incoming_123",
+    "from": "5511999999999",
+    "type": "text",
+    "text": { "body": "Hi, I need help with my order" },
+    "timestamp": "2026-01-15T10:30:00Z",
+    "contact": {
+      "name": "João Silva",
+      "wa_id": "5511999999999"
+    }
+  }
+}
+```
+
+### `message.status` — Delivery Status Update
+
+```json
+{
+  "event": "message.status",
+  "timestamp": "2026-01-15T10:30:05Z",
+  "data": {
+    "message_id": "msg_abc123",
+    "status": "delivered",
+    "recipient": "5511999999999",
+    "timestamp": "2026-01-15T10:30:05Z"
+  }
+}
+```
+
+Status values: `sent` → `delivered` → `read` (or `failed`)
+
+### `template.status` — Template Approval
+
+```json
+{
+  "event": "template.status",
+  "timestamp": "2026-01-15T12:00:00Z",
+  "data": {
+    "template_name": "order_shipped",
+    "status": "approved",
+    "language": "en"
+  }
+}
+```
+
+## Signature Verification
+
+Every webhook payload includes an `X-Signature-256` header. Always verify it:
+
+```python
+import hmac
+import hashlib
+
+def verify_signature(payload: bytes, signature: str, secret: str) -> bool:
+    expected = hmac.new(
+        secret.encode(),
+        payload,
+        hashlib.sha256
+    ).hexdigest()
+    return hmac.compare_digest(f"sha256={expected}", signature)
+```
+
+```javascript
+const crypto = require('crypto');
+
+function verifySignature(payload, signature, secret) {
+  const expected = 'sha256=' + crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex');
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expected)
+  );
+}
+```
+
+## Retry Policy
+
+If your server returns a non-2xx response, we retry with exponential backoff:
+
+| Attempt | Delay |
+|---------|-------|
+| 1st retry | 30 seconds |
+| 2nd retry | 2 minutes |
+| 3rd retry | 15 minutes |
+| 4th retry | 1 hour |
+| 5th retry | 6 hours |
+
+After 5 failed retries, the webhook is marked as **failing** and you'll receive an email alert.
+
+## Best Practices
+
+1. **Respond quickly** — return `200 OK` within 5 seconds, then process asynchronously
+2. **Use a message queue** — push webhook events to a queue (SQS, RabbitMQ, Redis) for reliable processing
+3. **Handle duplicates** — use `message_id` for idempotent processing
+4. **Always verify signatures** — prevent spoofed webhook calls
+5. **Monitor webhook health** — check the Webhooks dashboard for delivery stats
+
+## FAQ
+
+**What if my server is down?**
+We retry with exponential backoff for up to 24 hours. After that, events are dropped. Set up redundancy or a queue to avoid missed events.
+
+**Can I receive webhooks for multiple numbers?**
+Yes — all events from all connected numbers are sent to your configured webhook URL. The `from` field identifies the source number.

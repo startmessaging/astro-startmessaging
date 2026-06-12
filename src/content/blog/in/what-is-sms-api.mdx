@@ -1,0 +1,210 @@
+﻿---
+title: "What is an SMS API? A Developer’s Guide (India, 2026)"
+description: "SMS API explained: how it differs from an SMS gateway, the typical request/response shape, REST vs SMPP, OTP-specific endpoints, and India-specific DLT considerations."
+publishedAt: "2026-04-24"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is sms api"
+  - "sms api"
+  - "sms api india"
+  - "rest sms api"
+  - "send sms api"
+  - "http sms api"
+  - "sms api integration"
+relatedSlugs:
+  - "what-is-sms-gateway"
+  - "what-is-otp"
+  - "send-otp-nodejs"
+  - "best-otp-api-india"
+  - "otp-api-pricing-comparison-india"
+featured: false
+---
+
+
+An SMS API is the cleanest way for an application to send a text
+        message. You make an HTTP call, receive a JSON response, and the
+        provider handles everything from telecom integration to delivery
+        receipts. Almost every product that needs OTPs, alerts, or
+        transactional notifications ends up integrating with an SMS API at
+        some point.
+
+
+This guide covers **what an SMS API is**, what a typical
+        request looks like, what features distinguish good APIs from bad ones,
+        the India-specific quirks (DLT, sender IDs, scrubbing), and how to
+        pick a provider for an OTP workload.
+
+
+## SMS API — Definition
+
+An **SMS API** (Application Programming Interface) is an
+        HTTP-based service that accepts a request from your application and
+        sends an SMS to the phone number you specify. The API hides the
+        underlying complexity:
+
+
+
+- The SMPP / HTTP plumbing to telecom operators.
+- Routing across multiple aggregators.
+- Failover when a route is down.
+- Delivery-status (DLR) collection.
+- India-specific DLT compliance.
+
+
+
+For OTP-specific workloads, the API can also generate the code, hash
+        and store it, enforce attempt limits, and provide a separate 
+        `/verify` endpoint — turning a multi-step problem into two
+        HTTP calls.
+
+
+## Anatomy of an SMS API Call
+
+A typical send request looks like this:
+
+      
+```
+POST https://api.example.com/sms/send
+Content-Type: application/json
+X-API-Key: sm_live_xxxxxxxxxxxxxxxx
+
+{
+  "phoneNumber": "+919876543210",
+  "message":     "Your code is 482910. Valid for 10 min.",
+  "senderId":    "STMSGE",
+  "templateId":  "TEMPLATE-001"
+}
+```
+
+
+And the response:
+
+      
+```
+200 OK
+{
+  "data": {
+    "messageId": "msg_01HQ5...",
+    "status":    "queued",
+    "submittedAt": "2026-04-24T08:01:42Z"
+  }
+}
+```
+
+
+The status moves through `queued → submitted → delivered` 
+        (or `failed`). Delivery receipts arrive seconds to minutes
+        later via webhook or a polling endpoint. See 
+        [polling vs webhooks for OTP status](/blog/otp-delivery-status-polling-vs-webhooks) 
+        for trade-offs.
+
+
+## Features Beyond Send
+
+A production-grade SMS API does much more than dispatch one message:
+
+
+
+- **Idempotency keys** — protect against duplicate sends on network retries. See  [our idempotency guide](/blog/idempotency-keys-otp).
+- **OTP send + verify endpoints** — the API generates and hashes the code; you only handle request IDs.
+- **Webhooks for DLR** — push delivery status to your backend in real time.
+- **Templates and variables** — pre-approved SMS bodies (mandatory in India) with safe variable substitution.
+- **Sender-ID management** — per-environment sender IDs (TXN-INFO, OTP-LIVE) and registration handling.
+- **Rate limiting** — server-side enforcement so an attacker cannot empty your wallet with a sign-up bot.
+- **Logs and analytics** — searchable history of every request with delivery status and cost.
+
+
+
+## SMS API vs OTP API
+
+An OTP API is a *specialised* SMS API:
+
+
+
+- **SMS API** sends arbitrary text. You generate, store, verify, and rate-limit OTPs yourself.
+- **OTP API** exposes `/otp/send` and  `/otp/verify`. The provider generates the code, hashes it, enforces attempt limits and expiry, and verifies on your behalf. You never see the plaintext code on your servers.
+
+
+
+For phone-verification flows, the OTP API model is strictly
+        better — fewer security mistakes, less code to maintain, automatic
+        protection against attempt-pumping. We have a side-by-side breakdown in 
+        [our OTP verification flow guide](/blog/otp-verification-flow)
+        .
+
+
+## SMS APIs in India
+
+Operating in India adds a thick compliance layer on top of the
+        familiar SMS API model:
+
+
+
+- **DLT registration** — your business must register as a Principal Entity on the operator DLT platforms.
+- **Templates** — every distinct message body must be pre-registered and approved.
+- **Sender IDs (headers)** — six-character IDs that identify your brand, also pre-registered.
+- **Scrubbing** — non-compliant messages are silently dropped before delivery.
+- **DPDP Act 2023** — personal-data obligations on top of the existing TRAI framework.
+
+
+
+The simplest way to deal with this is to pick a provider that has
+        already done the DLT work for you. With 
+        [StartMessaging](/dlt-free-otp) you skip the
+        registration and template-approval queue entirely.
+
+
+## A Sample Integration
+      
+```typescript
+// Node.js — send an OTP
+const res = await fetch('https://api.startmessaging.com/otp/send', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+  },
+  body: JSON.stringify({ phoneNumber: '+919876543210' }),
+});
+const { data } = await res.json();
+console.log(data.requestId);
+
+// later — verify
+const v = await fetch('https://api.startmessaging.com/otp/verify', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+  },
+  body: JSON.stringify({ requestId: data.requestId, otpCode: '482910' }),
+});
+```
+
+
+Step-by-step walk-throughs are in our tutorial library — see 
+        [Node.js](/blog/send-otp-nodejs), 
+        [Python](/blog/send-otp-python), 
+        [PHP/Laravel](/blog/send-otp-php-laravel), and many
+        more.
+
+
+## How to Pick an SMS API Provider
+
+
+- **Delivery latency.** Ask for P50 / P95 numbers.
+- **India-specific DLT handling.** Built-in beats self-service.
+- **Pricing.** Per-OTP cost matters more than per-SMS for high-volume verification flows. See  [our pricing comparison](/blog/otp-api-pricing-comparison-india) .
+- **OTP-specific endpoints.** Saves you from rolling your own crypto.
+- **Multi-provider failover.** Keeps your sign-ups working when one route is down.
+- **Documentation.** Tutorials, code samples, OpenAPI spec, postman collection — these are the difference between a 5-minute integration and a 5-hour one.
+
+
+
+## FAQ
+
+StartMessaging is an OTP-specialised SMS API for the Indian market. 
+        [Sign up](https://app.startmessaging.com/register) 
+        and you have a working OTP integration in five minutes.
+

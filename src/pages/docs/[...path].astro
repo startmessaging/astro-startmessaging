@@ -1,0 +1,50 @@
+---
+/**
+ * India docs route: /docs/whatsapp/getting-started, /docs/sms/send-sms, etc.
+ * Per ASTRO_COUNTRY_PLAN.md §9.
+ */
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+// Static imports for nav.json — these are bundled at build time
+import whatsappNav from '@/content/docs/whatsapp/nav.json';
+import smsNav from '@/content/docs/sms/nav.json';
+import authApiNav from '@/content/docs/auth-api/nav.json';
+
+const navMap: Record<string, any> = {
+  whatsapp: whatsappNav,
+  sms: smsNav,
+  'auth-api': authApiNav,
+};
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+
+  return docs.map((doc) => {
+    const parts = doc.id.split('/');
+    const product = parts[0];
+    const slug = parts.slice(1).join('/');
+
+    return {
+      params: { path: `${product}/${slug}` },
+      props: { doc, product, slug },
+    };
+  });
+}
+
+const { doc, product, slug } = Astro.props;
+const { Content, headings } = await render(doc);
+const nav = navMap[product];
+---
+
+<DocsLayout
+  title={doc.data.title}
+  description={doc.data.description}
+  product={product}
+  country="in"
+  slug={slug}
+  nav={nav}
+  headings={headings}
+>
+  <Content />
+</DocsLayout>

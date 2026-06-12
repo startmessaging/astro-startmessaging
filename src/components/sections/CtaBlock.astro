@@ -1,6 +1,6 @@
 ---
 /**
- * CtaBlock — full-width CTA banner on ink background.
+ * CtaBlock — card-style CTA banner with dynamic glow theme (light theme variant).
  *
  * Example JSON:
  * {
@@ -22,36 +22,222 @@ import Text from '@/components/ui/Text.astro';
 import Button from '@/components/ui/Button.astro';
 import { r } from '@/i18n/r';
 
-const { heading, subtext, primaryCta, primaryHref, secondaryCta, secondaryHref, lang } = Astro.props;
+const { heading, subtext, primaryCta, primaryHref, secondaryCta, secondaryHref, country, badge, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+const underlineColor = isWhatsapp ? 'text-accent-wa-light/70' : 'text-primary/70';
+const logoTextClass = isWhatsapp ? 'gradient-text-wa inline-block' : 'gradient-text-primary inline-block';
+
+const text = r(heading, country);
+const highlightedText = text.replace(/(Start\s*)(Messaging)/gi, (match, p1, p2) => {
+  return `<span class="relative inline-block group cursor-pointer whitespace-nowrap cta-animated-underline">` +
+    `<span class="relative z-10">${p1}<span class="${logoTextClass}">${p2}</span></span>` +
+    `<svg viewBox="0 0 300 20" preserveAspectRatio="none" class="absolute -bottom-2.5 left-0 w-full h-[12px] ${underlineColor} pointer-events-none fill-none stroke-current stroke-[3] overflow-visible">` +
+      `<path d="M 0,10 Q 75,0 150,10 Q 225,20 300,10" class="animated-underline-path"></path>` +
+    `</svg>` +
+  `</span>`;
+});
+
+// Comma-separated HSL coordinates for high-compatibility box-shadows and gradients:
+// - SMS (Default Theme): Light purple (247, 79%, 74%) / Saturated dark purple (247, 68%, 29%)
+// - WhatsApp Theme: Light teal (169, 65%, 58%) / Saturated dark teal (177, 100%, 14%)
+const glowColor = isWhatsapp ? '169, 65%, 58%' : '247, 79%, 74%';
+const glowFgColor = isWhatsapp ? '177, 100%, 14%' : '247, 68%, 29%';
+
+const badgeToRender = badge || (isWhatsapp ? {
+  en: "WhatsApp API",
+  pt: "WhatsApp API",
+  es: "WhatsApp API",
+  id: "WhatsApp API",
+  ar: "واجهة برمجة تطبيقات واتساب",
+  tr: "WhatsApp API"
+} : {
+  en: "SMS & Auth API",
+  pt: "SMS & Auth API",
+  es: "SMS & Auth API",
+  id: "SMS & Auth API",
+  ar: "واجهة برمجة تطبيقات SMS والتحقق",
+  tr: "SMS ve Kimlik API"
+});
+
+// Primary button styles mapping
+const btnBg = isWhatsapp ? '!bg-accent-wa hover:!bg-accent-wa-hover' : '!bg-primary hover:!bg-primary-hover';
+const btnText = isWhatsapp ? '!text-on-accent-wa' : '!text-on-primary';
+const btnShadow = isWhatsapp ? 'shadow-accent-wa/10 hover:shadow-accent-wa/20' : 'shadow-primary/10 hover:shadow-primary/20';
+
+// Badge color styles
+const badgeBorder = isWhatsapp ? 'border-accent-wa/20 bg-accent-wa/[0.03] text-accent-wa/80' : 'border-primary/20 bg-primary/[0.03] text-primary/80';
+
+// Secondary button border styles mapping
+const secondaryBtnBorder = isWhatsapp ? '!border-accent-wa/30 hover:!bg-accent-wa/[0.03]' : 'border-hairline hover:bg-surface-soft';
 ---
 
-<Section variant="ink">
+<Section variant={isWhatsapp ? undefined : 'default'} theme={theme} class:list={["overflow-hidden !py-12 md:!py-16"]}>
   <Container>
-    <div class="flex flex-col items-center text-center gap-6">
+    <div 
+      class:list={[
+        "relative mx-auto flex max-w-5xl flex-col items-center gap-6 px-6 py-12 text-center sm:gap-8 sm:px-12 md:py-20 rounded-2xl border overflow-hidden shadow-sm cta-card",
+        isWhatsapp ? "bg-white/60 border-accent-wa/10" : "bg-white border-hairline"
+      ]}
+      style={`--glow-color: ${glowColor}; --glow-color-fg: ${glowFgColor};`}
+    >
+      {/* Glow Effect */}
+      <div class="fade-top-lg pointer-events-none absolute inset-0 rounded-2xl opacity-0 cta-glow" />
 
-      <Heading as="h2" class="!text-canvas">
-        {r(heading, lang)}
+      {/* Badge */}
+      <div class={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold backdrop-blur-sm opacity-0 cta-badge z-10 ${badgeBorder}`}>
+        <span>{r(badgeToRender, country)}</span>
+      </div>
+
+      {/* Title */}
+      <Heading as="h2" class="text-ink text-3xl sm:text-5xl font-semibold tracking-tight opacity-0 cta-title z-10 max-w-3xl leading-tight">
+        <Fragment set:html={highlightedText} />
       </Heading>
 
+      {/* Description */}
       {subtext && (
-        <Text size="body-md" tone="muted-soft" class="max-w-md">
-          {r(subtext, lang)}
+        <Text size="body-md" tone="body" class="max-w-2xl opacity-0 cta-desc z-10">
+          {r(subtext, country)}
         </Text>
       )}
 
-      <div class="flex flex-wrap gap-3 justify-center">
+      {/* Actions */}
+      <div class="flex flex-wrap gap-4 justify-center opacity-0 cta-buttons z-10">
         {primaryCta && primaryHref && (
-          <Button href={primaryHref} variant="primary" size="md">
-            {r(primaryCta, lang)}
+          <Button 
+            href={primaryHref} 
+            variant="primary" 
+            size="md"
+            class={`!rounded-md font-semibold shadow-lg transition-all duration-200 ${btnBg} ${btnText} ${btnShadow}`}
+          >
+            {r(primaryCta, country)}
           </Button>
         )}
         {secondaryCta && secondaryHref && (
-          <Button href={secondaryHref} variant="secondary" size="md" class="!border-canvas !text-canvas hover:!bg-white/10">
-            {r(secondaryCta, lang)}
+          <Button 
+            href={secondaryHref} 
+            variant="secondary" 
+            size="md" 
+            class={`!rounded-md font-semibold text-ink ${secondaryBtnBorder}`}
+          >
+            {r(secondaryCta, country)}
           </Button>
         )}
       </div>
-
     </div>
   </Container>
 </Section>
+
+<style is:global>
+  /* Animated Underline Effect for CTA Word */
+  .animated-underline-path {
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320;
+    will-change: stroke-dashoffset, d;
+  }
+
+  .cta-animated-underline.in-view .animated-underline-path {
+    animation: draw-underline 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .cta-animated-underline.in-view:hover .animated-underline-path {
+    animation: draw-underline-hover 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes draw-underline {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes draw-underline-hover {
+    from {
+      stroke-dashoffset: 320;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Custom Glow Shadow and Gradient Styling directly in CSS for maximum browser/tooling compatibility */
+  .cta-glow {
+    background-image: 
+      radial-gradient(circle at 50% 115%, hsla(var(--glow-color-fg), 0.22), transparent 55%),
+      linear-gradient(to top, hsla(var(--glow-color), 0.08), transparent 35%);
+    box-shadow: 
+      0 -12px 90px 0 hsla(var(--glow-color-fg), 0.28) inset, 
+      0 -4px 28px 0 hsla(var(--glow-color), 0.38) inset,
+      0 -1px 8px 0 hsla(var(--glow-color), 0.15) inset;
+  }
+
+  /* Staggered Transitions for CTA Block Card Elements */
+  .cta-card .cta-badge,
+  .cta-card .cta-title,
+  .cta-card .cta-desc,
+  .cta-card .cta-buttons {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .cta-card .cta-glow {
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .cta-card.in-view .cta-badge {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 100ms;
+  }
+
+  .cta-card.in-view .cta-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 200ms;
+  }
+
+  .cta-card.in-view .cta-desc {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 350ms;
+  }
+
+  .cta-card.in-view .cta-buttons {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 500ms;
+  }
+
+  .cta-card.in-view .cta-glow {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 200ms;
+  }
+</style>
+
+<script>
+  // Lightweight IntersectionObserver to trigger animation when in view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        // Also find any animated underlines inside this card and trigger them
+        entry.target.querySelectorAll('.cta-animated-underline').forEach((el) => {
+          el.classList.add('in-view');
+        });
+        observer.unobserve(entry.target); // Trigger once
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.cta-card').forEach((el) => {
+    observer.observe(el);
+  });
+</script>
+
+
+

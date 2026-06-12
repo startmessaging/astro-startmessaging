@@ -1,0 +1,169 @@
+﻿---
+title: "How to Send OTP in Ruby on Rails (2026 Guide)"
+description: "Send and verify SMS OTPs from a Ruby on Rails app using the StartMessaging API. Includes Net::HTTP examples, a service object, controller actions, and rspec tests."
+publishedAt: "2026-04-16"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp ruby on rails"
+  - "rails sms otp api"
+  - "ruby otp verification"
+  - "otp api india ruby"
+  - "ruby net::http otp"
+  - "startmessaging rails"
+  - "rails phone verification"
+  - "ruby send sms india"
+  - "rails otp without dlt"
+  - "rails service object otp"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "send-otp-python"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+Ruby on Rails is still a fast way to ship a backend, and adding phone
+        verification doesn't need to be complicated. This guide wires up
+        the [StartMessaging OTP API](/otp-api) from a Rails app
+        using only Net::HTTP and a clean service object.
+
+
+## Prerequisites
+
+
+- Rails 6, 7, or 8 with Ruby 3.0+.
+- A  [StartMessaging account](https://app.startmessaging.com/register)  and an API key.
+
+
+
+Add the key to your Rails credentials or to `.env`:
+
+      
+```bash
+# config/credentials.yml.enc
+startmessaging:
+  api_key: sm_live_xxxxxxxxxxxxxxxxxxxx
+```
+
+
+## Create a Rails Service Object
+
+Create `app/services/start_messaging_otp.rb`:
+
+      
+```python
+require "net/http"
+require "json"
+require "uri"
+
+class StartMessagingOtp
+  BASE_URL = "https://api.startmessaging.com".freeze
+
+  def self.send_otp(phone_number, idempotency_key: SecureRandom.uuid)
+    post("/otp/send", {
+      phoneNumber: phone_number,
+      idempotencyKey: idempotency_key
+    })
+  end
+
+  def self.verify_otp(request_id, code)
+    post("/otp/verify", { requestId: request_id, otpCode: code })
+  end
+
+  def self.post(path, body)
+    uri = URI(BASE_URL + path)
+    req = Net::HTTP::Post.new(uri)
+    req["Content-Type"] = "application/json"
+    req["X-API-Key"] = Rails.application.credentials.dig(:startmessaging, :api_key)
+    req.body = body.to_json
+
+    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req) }
+    raise "OTP API error: #{res.code} #{res.body}" unless res.is_a?(Net::HTTPSuccess)
+    JSON.parse(res.body, symbolize_names: true)
+  end
+end
+```
+
+
+## Send an OTP
+      
+```
+result = StartMessagingOtp.send_otp("+919876543210")
+request_id = result.dig(:data, :requestId)
+expires_at = result.dig(:data, :expiresAt)
+```
+
+
+## Verify the OTP
+      
+```
+verified = StartMessagingOtp.verify_otp(request_id, "482910").dig(:data, :verified)
+```
+
+
+## Controller Actions
+      
+```typescript
+# app/controllers/api/auth_controller.rb
+class Api::AuthController < ApplicationController
+  def send_otp
+    res = StartMessagingOtp.send_otp(params.require(:phone_number))
+    session[:otp_request_id] = res.dig(:data, :requestId)
+    render json: { ok: true, expires_at: res.dig(:data, :expiresAt) }
+  rescue => e
+    render json: { error: e.message }, status: :bad_gateway
+  end
+
+  def verify_otp
+    request_id = session.delete(:otp_request_id)
+    res = StartMessagingOtp.verify_otp(request_id, params.require(:code))
+    if res.dig(:data, :verified)
+      render json: { verified: true }
+    else
+      render json: { verified: false }, status: :unauthorized
+    end
+  end
+end
+```
+
+
+## Testing with RSpec
+
+Stub the HTTP call so your tests don't bill your wallet:
+
+      
+```ruby
+# spec/services/start_messaging_otp_spec.rb
+require "rails_helper"
+require "webmock/rspec"
+
+RSpec.describe StartMessagingOtp do
+  it "sends an OTP" do
+    stub_request(:post, "https://api.startmessaging.com/otp/send")
+      .to_return(status: 200, body: { data: { requestId: "abc", expiresAt: "...", attemptsLeft: 3 } }.to_json)
+
+    res = described_class.send_otp("+919876543210")
+    expect(res.dig(:data, :requestId)).to eq("abc")
+  end
+end
+```
+
+
+## Best Practices
+
+
+- **Always use idempotency keys** — see our  [idempotency guide](/blog/idempotency-keys-otp).
+- **Throttle send actions** with rack-attack or your own rate limiter to prevent abuse.
+- **Validate Indian numbers** with the ` phonelib` gem before sending.
+- **Never log OTP codes** or request bodies in production.
+
+
+
+## FAQ
+
+See [pricing](/pricing) or read our 
+        [end-to-end OTP verification flow guide](/blog/otp-verification-flow) 
+        for the architectural picture.
+

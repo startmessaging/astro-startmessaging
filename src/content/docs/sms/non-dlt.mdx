@@ -1,0 +1,108 @@
+---
+title: "How to Send OTP Without DLT Registration"
+description: "Send OTPs in India without DLT registration. No entity registration, no template approval, no sender ID setup. Start sending OTPs in 5 minutes with our simple API."
+product: sms
+order: 3
+countries: ["in"]
+---
+
+import Accordion from '../../../components/ui/Accordion.astro';
+import AccordionItem from '../../../components/ui/AccordionItem.astro';
+
+## Overview
+
+StartMessaging is a fully DLT-registered OTP provider. We have already completed entity registration, sender ID setup, and template approvals on the DLT platform.
+
+When you send an OTP through our API, the message is routed through our pre-approved DLT channels. Telecom operators see a valid, registered message — so your OTPs get delivered just like any other DLT-compliant SMS.
+
+This means you get full DLT compliance without any of the registration burden. No entity forms, no document uploads, no template approvals, no waiting.
+
+---
+
+## Step-by-Step Guide
+
+### Step 1: Create Your Account
+Sign up at [app.startmessaging.com](https://app.startmessaging.com) with your email. No company documents or KYC required to get started.
+
+### Step 2: Generate an API Key
+Go to the **API Keys** page in your dashboard and click "Create API Key". Copy the key — it is shown only once. The key starts with `sm_live_` prefix.
+
+### Step 3: Top Up Your Wallet
+Add funds to your wallet via Razorpay (UPI, cards, netbanking). Each OTP costs **Rs 0.25**.
+
+### Step 4: Send Your First OTP
+Make a `POST` request to `/otp/send` with the phone number and OTP code inside the `variables` object.
+
+```bash
+curl -X POST https://api.startmessaging.com/otp/send \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: sm_live_your_api_key_here" \
+  -d '{
+    "phoneNumber": "+919876543210",
+    "templateId": "YOUR_TEMPLATE_ID",
+    "variables": {
+      "otp": "123456",
+      "appName": "YourApp"
+    }
+  }'
+```
+
+### Step 5: Verify the OTP
+When your user enters the OTP, call `POST /otp/verify` with the OTP request ID and the code. We handle validation, expiry, and attempt limits.
+
+```bash
+curl -X POST https://api.startmessaging.com/otp/verify \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: sm_live_your_api_key_here" \
+  -d '{
+    "requestId": "uuid-of-otp-request",
+    "otpCode": "123456"
+  }'
+```
+
+---
+
+## Frequently Asked Questions
+
+### DLT & Compliance FAQ
+
+<Accordion>
+  <AccordionItem title="What is DLT registration?" open={true}>
+    DLT (Distributed Ledger Technology) is a framework mandated by TRAI (Telecom Regulatory Authority of India) for all commercial SMS senders in India. It requires businesses to register their entity, sender IDs, and message templates on a DLT platform before sending any SMS.
+  </AccordionItem>
+  <AccordionItem title="Is it legal to send OTPs without DLT registration?">
+    Yes. StartMessaging is a registered entity on the DLT platform. When you use our API, your OTPs are sent through our pre-approved DLT-registered channels. You are essentially using our infrastructure, which is fully compliant.
+  </AccordionItem>
+  <AccordionItem title="Why is DLT registration difficult?">
+    DLT registration involves multiple steps: entity registration with documents, sender ID (header) registration, and template approval for every unique message. The process takes 2-4 weeks, and any errors require resubmission.
+  </AccordionItem>
+  <AccordionItem title="How does StartMessaging handle DLT compliance?">
+    We are registered on the DLT platform ourselves. When you send an OTP through our API, it goes through our pre-registered templates and sender IDs, so you do not need to do any DLT setup yourself.
+  </AccordionItem>
+  <AccordionItem title="Will my OTPs be delivered reliably without my own DLT registration?">
+    Yes. Since we use our own DLT-registered templates, your OTPs are treated as legitimate transactional messages by telecom operators. We also use multi-provider failover to maximize delivery rates.
+  </AccordionItem>
+  <AccordionItem title="Can I customize the OTP message text?">
+    Currently, OTPs are sent using our pre-approved templates optimized for delivery. The templates include your OTP code and are designed to be clear and professional.
+  </AccordionItem>
+</Accordion>
+
+### General OTP API FAQ
+
+<Accordion>
+  <AccordionItem title="Do I need any documents to sign up?">
+    No. You can sign up with just an email address. No company registration, PAN card, GST certificate, or any other documents are required.
+  </AccordionItem>
+  <AccordionItem title="What phone number format should I use?">
+    Use E.164 format: country code + number. For India, that is +91 followed by the 10-digit mobile number. Example: `+919876543210`.
+  </AccordionItem>
+  <AccordionItem title="How many OTPs can I send per second?">
+    We support up to 20 OTPs per second globally per account. This ensures high throughput for production applications during peak times.
+  </AccordionItem>
+  <AccordionItem title="How long does an OTP remain valid?">
+    OTPs expire after a configurable time window. The default expiry ensures security while giving users enough time to receive and enter the code.
+  </AccordionItem>
+  <AccordionItem title="What happens if SMS delivery fails?">
+    StartMessaging automatically retries with a backup SMS provider. We only retry on service errors (5xx or timeout), not on validation errors like invalid phone numbers.
+  </AccordionItem>
+</Accordion>

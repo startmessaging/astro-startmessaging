@@ -1,0 +1,104 @@
+﻿---
+title: "Hindi & Regional Language OTP SMS in India: Unicode Guide"
+description: "How to send OTPs in Hindi, Tamil, Bengali, Marathi and other Indian languages: Unicode SMS segments, character costs, template tips, and when to use English instead."
+publishedAt: "2026-05-07"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "unicode sms india"
+  - "hindi sms otp"
+  - "tamil sms otp"
+  - "regional language sms india"
+  - "bengali sms api"
+  - "marathi sms otp"
+  - "unicode sms segment"
+  - "multilingual otp india"
+  - "vernacular sms india"
+  - "indian language sms api"
+relatedSlugs:
+  - "dlt-template-variables-rules-india"
+  - "otp-delivery-rates-india"
+  - "otp-edtech-student-verification"
+featured: false
+---
+
+
+Half of India's mobile internet users prefer a regional
+        language. Sending OTP messages in Hindi, Tamil, or Bengali measurably
+        improves comprehension and trust — especially for first-time
+        users in tier-2 and tier-3 cities. Here's how to do it without
+        blowing up your SMS budget.
+
+
+## Why Vernacular SMS Matters
+
+
+- Higher recall on the "do not share OTP" warning.
+- Lower fraud rates because users can read the warning fluently.
+- Higher OTP entry success rate (especially for older users).
+- Better brand affinity in non-metro markets.
+
+
+
+## Unicode SMS Segments
+
+Plain English SMS uses GSM-7 encoding: 160 characters per segment.
+        Hindi and other Indian scripts need Unicode (UCS-2): only 70
+        characters per segment. If your message exceeds 70 characters, the
+        carrier splits it into 67-character multipart segments — and
+        each segment is billed separately.
+
+
+## Cost Implications
+
+On most providers, a Unicode multipart SMS is billed as N segments
+        (N x base price). On StartMessaging's OTP API, the standard
+        Rs 0.25 per OTP applies for a one-segment Unicode message; longer
+        messages are quoted up-front. Plan templates so the worst-case
+        substituted message fits in one segment.
+
+
+## Template Tips
+
+
+- Lead with the OTP code so it appears in the SMS preview before the user opens the message.
+- Keep the body to one line of static text plus the variable.
+- Use script numerals consistently — either Latin (1, 2, 3) or Devanagari (१, २, ३). Mixing them confuses validators.
+- Submit one template per supported language and pick at runtime based on the user's profile.
+
+
+
+## When to Stick with English
+
+Code-by-code OTP messages are often best in English even for
+        Hindi-preferring users because the digits are universally
+        recognised and the message stays in one segment. Use vernacular for
+        the warning text but keep the digit string in Latin numerals to
+        maximise autofill compatibility on Android and iOS — see our 
+        [OTP autofill guide](/blog/otp-autofill-android-ios-sms-retriever)
+        .
+
+
+## Approved Hindi / Regional Examples
+      
+```bash
+# Hindi
+आपका OTP {#var#} है। 10 मिनट तक मान्य। किसी से साझा न करें। - YourBrand
+
+# Tamil
+உங்கள் OTP {#var#}. 10 நிமிடங்களுக்கு செல்லுபடியாகும். பகிர வேண்டாம். - YourBrand
+
+# Bengali
+আপনার OTP {#var#}. ১০ মিনিট বৈধ। কারো সাথে শেয়ার করবেন না। - YourBrand
+```
+
+
+## FAQ
+
+See 
+        [DLT template variable rules](/blog/dlt-template-variables-rules-india) 
+        for the underlying constraints, and our 
+        [edtech OTP guide](/blog/otp-edtech-student-verification) 
+        for a real-world multilingual case study.
+

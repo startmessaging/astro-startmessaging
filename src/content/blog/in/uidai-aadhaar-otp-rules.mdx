@@ -1,0 +1,88 @@
+﻿---
+title: "UIDAI Aadhaar OTP Rules for Indian Apps"
+description: "How UIDAI Aadhaar OTP works for Indian apps: KUA / Sub-AUA licensing, virtual ID flow, purpose limitation, allowed use-cases, and DPDP Act overlap."
+publishedAt: "2026-05-06"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "uidai aadhaar otp"
+  - "aadhaar otp api"
+  - "kua license"
+  - "aadhaar otp rules"
+  - "aadhaar virtual id"
+relatedSlugs:
+  - "otp-data-privacy-india"
+  - "dpdp-act-otp-compliance-india"
+  - "otp-fintech-india"
+  - "otp-nbfc-loan-apps-india"
+featured: false
+---
+
+
+Aadhaar OTP is the UIDAI-issued one-time password used for
+        identity verification. It is structurally separate from your
+        application OTP. This guide explains how it works and how to
+        integrate it correctly.
+
+
+## Overview
+
+
+- Aadhaar OTP issued by UIDAI infrastructure.
+- Requires KUA or Sub-AUA license.
+- Used for KYC, eSign, e-NACH consent.
+- Distinct from your app's SMS OTP layer.
+
+
+
+## KUA / Sub-AUA Licensing
+
+
+- KUA — KYC User Agency, direct UIDAI licensee.
+- Sub-AUA — operates under a parent AUA.
+- Most fintechs use a Sub-AUA arrangement via a regulated AUA.
+
+
+
+## Aadhaar OTP Flow
+
+
+- User enters Aadhaar number or VID in your app.
+- Backend calls UIDAI `/otp/generate` via your AUA gateway.
+- UIDAI dispatches OTP to the registered mobile.
+- User enters OTP; backend calls UIDAI `/auth` with OTP.
+- UIDAI returns verified KYC data.
+
+
+
+## Virtual ID and Masking
+
+UIDAI requires use of VID for most use-cases to avoid storing raw
+        Aadhaar. Masked Aadhaar shows only last four digits for display.
+
+
+## Permitted Use Cases
+
+
+- KYC for regulated entities.
+- e-Sign of legal documents.
+- e-NACH consent.
+- Specific government-service flows.
+
+
+
+## DPDP Crossover
+
+DPDP Act 2023 places additional purpose-limitation and
+        retention obligations on Aadhaar data. See 
+        [DPDP / OTP guide](/blog/dpdp-act-otp-compliance-india)
+        .
+
+
+## FAQ
+
+For the application-side phone-OTP layer (separate from Aadhaar OTP), 
+        [StartMessaging](/dlt-free-otp) provides a clean,
+        DLT-free integration that complements your KUA / Sub-AUA setup.
+

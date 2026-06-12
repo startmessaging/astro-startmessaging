@@ -1,0 +1,105 @@
+﻿---
+title: "OTP for Insurance Apps in India (IRDAI-Compliant Patterns)"
+description: "How Indian insurance apps use OTPs for policy issuance, claims, nominee changes and renewals. IRDAI rules, audit requirements, and a reference implementation."
+publishedAt: "2026-04-29"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp insurance app india"
+  - "irdai otp"
+  - "policy otp"
+  - "claims otp"
+  - "insurance digital onboarding"
+  - "irdai 2fa"
+relatedSlugs:
+  - "otp-nbfc-loan-apps-india"
+  - "rbi-2fa-2026-mandate"
+  - "otp-data-privacy-india"
+  - "otp-fintech-india"
+featured: false
+---
+
+
+Indian insurance apps sit at the intersection of two strict
+        regulators — IRDAI and the DPDP regime — and a customer base that
+        almost never logs in until something goes wrong. OTP is the
+        authentication thread that connects every milestone: from buying a
+        policy on a long weekend to filing a claim after an accident.
+
+
+## Why Insurance Apps Need Strict OTP Design
+
+
+- Long policy lifecycle (months to decades) — contact details drift.
+- Claims are emotionally loaded and time-sensitive.
+- Pay-outs are large; fraud is a constant pressure.
+- IRDAI examines OTP audit trails during digital-readiness reviews.
+
+
+
+## OTP Flows Across the Policy Lifecycle
+
+
+- Quote & sign-up — phone OTP.
+- KYC — Aadhaar / PAN OTP.
+- Premium payment — bank-issued OTP.
+- Policy issuance SMS — transactional.
+- Renewal reminder — service-explicit.
+- Nominee change — fresh OTP, audited.
+- Claim intimation — OTP + document upload.
+- Claim disbursement — confirmation SMS with UTR.
+
+
+
+## IRDAI Rules to Know
+
+
+- OTP-based digital onboarding permitted under IRDAI's e-policy framework.
+- Customer authentication required for any policy modification.
+- Audit logs accessible to IRDAI examiners.
+- See our  [RBI 2FA mandate guide](/blog/rbi-2fa-2026-mandate)  — IRDAI broadly mirrors the AFA framework.
+
+
+
+## Fraud Patterns Specific to Insurance
+
+
+- Account takeover before claim — attacker resets phone, then files.
+- Fake claims with rented phone numbers passing OTP.
+- Nominee-change attacks before policyholder death-claim.
+- Premium-rebate scams — promotional SMS pretending to be transactional.
+
+
+
+## Production Patterns
+
+
+- SIM-swap detection on policy modification.
+- Step-up auth (video KYC) for high-value claims.
+- Cool-off period after phone-number change.
+- Email + SMS dual-channel notifications for any modification.
+
+
+
+## Audit Trail and Retention
+
+Retain for each event:
+
+
+
+- OTP requestId.
+- Verified phone hash.
+- Timestamp.
+- Purpose (purchase / kyc / claim / nominee change).
+- IP address and device fingerprint.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) provides the
+        application OTP layer most insurers need — DLT-handled, hashed-storage,
+        DLR-retained — separate from any UIDAI Aadhaar OTP path you also
+        operate.
+

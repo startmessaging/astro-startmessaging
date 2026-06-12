@@ -1,0 +1,123 @@
+﻿---
+title: "How to Send OTP with CodeIgniter 4 (2026)"
+description: "CodeIgniter 4 OTP tutorial using StartMessaging. Uses CURLRequest, Config files for keys, and Session for the request ID. Drop-in patterns for Indian dev shops."
+publishedAt: "2026-05-10"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp codeigniter"
+  - "codeigniter 4 otp"
+  - "ci4 sms otp"
+  - "codeigniter authentication"
+relatedSlugs:
+  - "send-otp-php-laravel"
+  - "send-otp-symfony"
+  - "send-otp-wordpress"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+CodeIgniter 4 is widely used by Indian agencies. This tutorial wires 
+        [StartMessaging](/otp-api) via CURLRequest.
+
+
+## Setup
+      
+```
+composer create-project codeigniter4/appstarter otp-ci
+cd otp-ci
+```
+
+
+## Config
+      
+```bash
+# .env
+SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
+SM_BASE_URL=https://api.startmessaging.com
+```
+
+
+## StartMessaging Library
+      
+```php
+<?php
+// app/Libraries/StartMessaging.php
+namespace App\\Libraries;
+
+use CodeIgniter\\HTTP\\CURLRequest;
+
+class StartMessaging
+{
+    private CURLRequest $client;
+
+    public function __construct()
+    {
+        $this->client = service('curlrequest', [
+            'baseURI' => env('SM_BASE_URL'),
+            'headers' => [
+                'X-API-Key'    => env('SM_API_KEY'),
+                'Content-Type' => 'application/json',
+            ],
+            'timeout' => 10,
+        ]);
+    }
+
+    public function sendOtp(string $phone): array
+    {
+        $r = $this->client->post('/otp/send', [
+            'json' => ['phoneNumber' => $phone, 'idempotencyKey' => bin2hex(random_bytes(16))],
+        ]);
+        return json_decode((string) $r->getBody(), true)['data'];
+    }
+
+    public function verifyOtp(string $rid, string $code): bool
+    {
+        $r = $this->client->post('/otp/verify', [
+            'json' => ['requestId' => $rid, 'otpCode' => $code],
+            'http_errors' => false,
+        ]);
+        return $r->getStatusCode() === 200;
+    }
+}
+```
+
+
+## Auth Controller
+      
+```php
+<?php
+// app/Controllers/Auth.php
+namespace App\\Controllers;
+
+use App\\Libraries\\StartMessaging;
+
+class Auth extends BaseController
+{
+    public function sendOtp()
+    {
+        $sm = new StartMessaging();
+        $data = $sm->sendOtp($this->request->getJsonVar('phoneNumber'));
+        session()->set('otp_req', $data['requestId']);
+        return $this->response->setJSON(['expiresAt' => $data['expiresAt']]);
+    }
+
+    public function verifyOtp()
+    {
+        $sm = new StartMessaging();
+        $rid = session()->get('otp_req');
+        if (!$rid) return $this->response->setStatusCode(400)->setJSON(['error' => 'no otp']);
+        $ok = $sm->verifyOtp($rid, $this->request->getJsonVar('otpCode'));
+        return $this->response->setStatusCode($ok ? 200 : 401)->setJSON(['verified' => $ok]);
+    }
+}
+```
+
+
+## FAQ
+
+Looking for the same thing in Laravel? 
+        [Our Laravel guide](/blog/send-otp-php-laravel).
+

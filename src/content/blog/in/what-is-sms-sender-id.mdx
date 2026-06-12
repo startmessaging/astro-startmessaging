@@ -1,0 +1,128 @@
+﻿---
+title: "What is an SMS Sender ID? (India 2026 Guide)"
+description: "SMS sender ID explained: the 6-character header that tells users who sent the SMS, India DLT registration rules, transactional vs promotional sender IDs, and how to pick a good one."
+publishedAt: "2026-04-25"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is sender id"
+  - "sms sender id"
+  - "sender id india"
+  - "dlt sender id"
+  - "header registration"
+  - "tm vs ad sms"
+  - "6 character sender id"
+relatedSlugs:
+  - "sms-sender-id-india-otp-guide"
+  - "what-is-dlt-registration-india"
+  - "transactional-vs-promotional-sms-india"
+  - "dlt-template-approval-guide"
+featured: false
+---
+
+
+When an SMS arrives on an Indian phone reading 
+        `JD-STMSGE` at the top, that header is the sender ID. It is
+        the user's primary visual signal of who sent the message and is
+        deeply tied into India's SMS compliance system. For developers
+        shipping OTP or transactional SMS, getting your sender ID set up
+        correctly is non-negotiable.
+
+
+This guide covers **what an SMS sender ID is**, the rules
+        India places on them, the categories you must choose between, the
+        registration process, and the practical pitfalls.
+
+
+## Sender ID — Definition
+
+An **SMS sender ID** (also called the SMS header) is the
+        short alphanumeric or numeric label that appears in place of a phone
+        number when an SMS is delivered. Globally these are typically 11
+        characters; India standardised at 6 alphanumeric characters under the
+        DLT framework.
+
+
+The sender ID has two functions:
+
+
+
+- **Brand identification.** Users see who sent the message at a glance.
+- **Compliance routing.** The 2-character prefix encodes the message category, so operators can route and scrub correctly.
+
+
+
+## India Sender ID Rules
+
+
+- Exactly 6 characters: 2-letter operator-prefix + 4-letter brand abbreviation. Example: `JM-YRBRND`.
+- Each sender ID is registered against a specific Principal Entity (PE-ID) and category (transactional, promotional, service-implicit, service-explicit).
+- A given brand needs separate sender IDs for separate categories.
+- Reserved or potentially-misleading IDs (containing operator names, government acronyms, etc.) are rejected.
+
+
+
+## Sender ID Categories
+
+The two-letter operator prefix encodes the category:
+
+
+
+- **JD / JM / JT / JX** (varies by operator) — Jio transactional / OTP.
+- **VK / VM / VG / VX** — Vi (Vodafone Idea) categories.
+- **AX / AT / AM** — Airtel categories.
+- **AD-** prefix (legacy) — promotional.
+- **TX / TM** — transactional / OTP.
+
+
+
+See 
+        [our complete sender ID guide for OTP](/blog/sms-sender-id-india-otp-guide) 
+        for the full prefix matrix.
+
+
+## How to Choose a Sender ID
+
+
+- **Brand recognisability.** Use a 4-letter abbreviation your users will recognise. STMSGE for StartMessaging, AMZN for Amazon.
+- **Short and pronounceable.** Easier to remember, easier to dispute support tickets about.
+- **Category-correct.** OTP must use a transactional / service-implicit sender ID, not promotional.
+- **Avoid keyword traps.** Sender IDs containing "BANK", "GOVT", "RBI" etc. are scrutinised.
+
+
+
+## Registering a Sender ID
+
+
+- Register your business as a Principal Entity (PE-ID) on a DLT operator platform (Jio, Airtel, Vi, BSNL).
+- Apply for the sender ID by category. You will need identity documents (GST, PAN, declaration letter on letterhead).
+- Submit one or more message templates that will use the sender ID.
+- Wait for approval — typically 1–3 working days per operator.
+- Repeat the process for each operator network (Jio, Airtel, Vi, BSNL). Some aggregators handle the multi-operator paperwork.
+
+
+
+With 
+        [StartMessaging](/dlt-free-otp) the entire pipeline
+        is absorbed — we ship under our registered sender IDs so you can
+        start sending OTPs the same day.
+
+
+## Common Issues
+
+
+- **Wrong category prefix.** Most common cause of OTP scrubbing.
+- **Misleading abbreviation.** Using letters that imply a different brand or government association.
+- **Mismatched PE-ID.** The sender ID is bound to one PE-ID; using it under another registration is rejected.
+- **Operator coverage gaps.** Sender ID approved on Jio but not Airtel — Airtel deliveries fail silently.
+
+
+
+## FAQ
+
+For most teams the answer is to outsource the sender ID problem
+        entirely. [StartMessaging](/dlt-free-otp) manages
+        registered sender IDs across all operators on your behalf — your
+        engineers just call `/otp/send`.
+

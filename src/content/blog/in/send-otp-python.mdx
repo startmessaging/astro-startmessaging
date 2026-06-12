@@ -1,0 +1,395 @@
+﻿---
+title: "Send OTP via SMS in Python (Requests)"
+description: "Python tutorial to send and verify OTP via SMS using the requests library and StartMessaging API. Includes Flask and Django integration examples."
+publishedAt: "2026-01-18"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp python"
+  - "python otp sms"
+  - "otp api python requests"
+  - "python sms verification"
+  - "startmessaging python"
+  - "flask otp sms"
+  - "django otp verification"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+Sending OTP (one-time password) messages via SMS is a core requirement
+        for most Indian web and mobile applications. In this tutorial, you will
+        learn how to integrate OTP sending and verification into a Python
+        application using the 
+        [StartMessaging API](/features) and the popular 
+        `requests` library.
+
+
+By the end of this guide you will have a reusable OTP client class, a
+        working Flask example, and tips for integrating with Django. All for Rs
+        0.25 per OTP with no DLT hassle on your end.
+
+
+## Prerequisites
+
+
+- **Python 3.8+** installed on your system.
+- **A StartMessaging account** —  [sign up here](https://app.startmessaging.com/register)  and add funds to your wallet.
+- **An API key** starting with `sm_live_`, created from the  [API Keys page](https://app.startmessaging.com/api-keys) .
+
+
+
+## Install and Configure
+
+Install the `requests` library and 
+        `python-dotenv` for loading environment variables:
+
+      
+```bash
+pip install requests python-dotenv
+```
+
+
+Create a `.env` file in your project root:
+
+      
+```bash
+# .env
+STARTMESSAGING_API_KEY=sm_live_xxxxxxxxxxxxxxxxxxxx
+```
+
+
+Load the configuration:
+
+      
+```typescript
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.environ["STARTMESSAGING_API_KEY"]
+BASE_URL = "https://api.startmessaging.com"
+```
+
+
+## Send an OTP
+
+The `/otp/send` endpoint accepts a JSON body with the
+        phone number in E.164 format and returns a request ID you will use
+        later for verification.
+
+      
+```python
+import requests
+
+def send_otp(phone_number: str) -> dict:
+    """Send an OTP to the given phone number."""
+    response = requests.post(
+        f"{BASE_URL}/otp/send",
+        json={"phoneNumber": phone_number},
+        headers={
+            "Content-Type": "application/json",
+            "X-API-Key": API_KEY,
+        },
+        timeout=10,
+    )
+    response.raise_for_status()
+    return response.json()["data"]
+
+# Usage
+result = send_otp("+919876543210")
+print(f"OTP sent. Request ID: {result['requestId']}")
+print(f"Expires at: {result['expiresAt']}")
+```
+
+
+The response `data` object contains:
+
+
+
+- `requestId` — unique identifier to use during verification.
+- `expiresAt` — ISO 8601 timestamp for when the OTP expires.
+- `attemptsLeft` — number of verification attempts remaining.
+
+
+
+## Verify the OTP
+
+After the user enters the code they received, send it to 
+        `/otp/verify` along with the `requestId`:
+
+      
+```
+def verify_otp(request_id: str, otp_code: str) -> bool:
+    """Verify an OTP code. Returns True if valid."""
+    response = requests.post(
+        f"{BASE_URL}/otp/verify",
+        json={"requestId": request_id, "otpCode": otp_code},
+        headers={
+            "Content-Type": "application/json",
+            "X-API-Key": API_KEY,
+        },
+        timeout=10,
+    )
+    response.raise_for_status()
+    return response.json()["data"]["verified"]
+
+# Usage
+is_valid = verify_otp(result["requestId"], "384920")
+if is_valid:
+    print("Phone number verified!")
+```
+
+
+## Reusable OTP Client Class
+
+For cleaner code, wrap the API calls in a client class that handles
+        headers, timeouts, and error formatting in one place:
+
+      
+```python
+import uuid
+import requests
+
+class StartMessagingOTP:
+    """Thin client for the StartMessaging OTP API."""
+
+    def __init__(self, api_key: str, base_url: str = "https://api.startmessaging.com"):
+        self.base_url = base_url
+        self.session = requests.Session()
+        self.session.headers.update({
+            "Content-Type": "application/json",
+            "X-API-Key": api_key,
+        })
+        self.session.timeout = 10  # seconds
+
+    def send(self, phone_number: str, idempotency_key: str | None = None) -> dict:
+        """Send an OTP. Returns dict with requestId, expiresAt, attemptsLeft."""
+        payload = {"phoneNumber": phone_number}
+        if idempotency_key:
+            payload["idempotencyKey"] = idempotency_key
+        else:
+            payload["idempotencyKey"] = str(uuid.uuid4())
+
+        resp = self.session.post(f"{self.base_url}/otp/send", json=payload)
+        resp.raise_for_status()
+        return resp.json()["data"]
+
+    def verify(self, request_id: str, otp_code: str) -> bool:
+        """Verify an OTP code. Returns True if verified."""
+        resp = self.session.post(
+            f"{self.base_url}/otp/verify",
+            json={"requestId": request_id, "otpCode": otp_code},
+        )
+        resp.raise_for_status()
+        return resp.json()["data"]["verified"]
+
+
+# Usage
+otp_client = StartMessagingOTP(api_key=API_KEY)
+
+data = otp_client.send("+919876543210")
+print(f"Request ID: {data['requestId']}")
+
+verified = otp_client.verify(data["requestId"], "482910")
+print(f"Verified: {verified}")
+```
+
+
+This class automatically generates an 
+        [idempotency key](/blog/idempotency-keys-otp) for
+        every send request, protecting you from accidental duplicate SMS
+        charges caused by network retries.
+
+
+## Flask Integration
+
+Below is a minimal Flask application with two routes for OTP send and
+        verify. You can drop this into an existing Flask project.
+
+      
+```python
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+otp_client = StartMessagingOTP(api_key=API_KEY)
+
+@app.post("/auth/send-otp")
+def handle_send_otp():
+    body = request.get_json()
+    phone = body.get("phoneNumber")
+    if not phone:
+        return jsonify({"error": "phoneNumber is required"}), 400
+
+    try:
+        data = otp_client.send(phone)
+        return jsonify({
+            "requestId": data["requestId"],
+            "expiresAt": data["expiresAt"],
+        })
+    except requests.HTTPError as e:
+        status = e.response.status_code if e.response else 500
+        message = e.response.json().get("message", str(e)) if e.response else str(e)
+        return jsonify({"error": message}), status
+
+@app.post("/auth/verify-otp")
+def handle_verify_otp():
+    body = request.get_json()
+    request_id = body.get("requestId")
+    otp_code = body.get("otpCode")
+
+    if not request_id or not otp_code:
+        return jsonify({"error": "requestId and otpCode are required"}), 400
+
+    try:
+        verified = otp_client.verify(request_id, otp_code)
+        return jsonify({"verified": verified})
+    except requests.HTTPError as e:
+        status = e.response.status_code if e.response else 500
+        message = e.response.json().get("message", str(e)) if e.response else str(e)
+        return jsonify({"error": message}), status
+
+if __name__ == "__main__":
+    app.run(port=5000, debug=True)
+```
+
+
+Test it with `curl`:
+
+      
+```bash
+# Send OTP
+curl -X POST http://localhost:5000/auth/send-otp \\
+  -H "Content-Type: application/json" \\
+  -d '{"phoneNumber": "+919876543210"}'
+
+# Verify OTP (replace REQUEST_ID with actual value)
+curl -X POST http://localhost:5000/auth/verify-otp \\
+  -H "Content-Type: application/json" \\
+  -d '{"requestId": "REQUEST_ID", "otpCode": "384920"}'
+```
+
+
+## Django Integration Tips
+
+If you are using Django or Django REST Framework, here are the key
+        patterns to follow:
+
+
+
+- **Store the API key in `settings.py`** by reading it from an environment variable:  `STARTMESSAGING_API_KEY = os.environ["STARTMESSAGING_API_KEY"]`
+- **Create a service module** (e.g.  `myapp/services/otp.py`) that instantiates the  `StartMessagingOTP` client class using  `settings.STARTMESSAGING_API_KEY`.
+- **Call it from your view or serializer.** In DRF, you might use an `APIView` or `@api_view` decorator. The send endpoint returns the request ID to the client, and the verify endpoint checks the code.
+- **Use Django's cache framework** to optionally store the `requestId` in Redis or Memcached for quick lookup, though this is not required since the StartMessaging API handles all state.
+
+
+
+A quick DRF example:
+
+      
+```python
+# views.py
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.conf import settings
+from myapp.services.otp import StartMessagingOTP
+
+otp_client = StartMessagingOTP(api_key=settings.STARTMESSAGING_API_KEY)
+
+@api_view(["POST"])
+def send_otp_view(request):
+    phone = request.data.get("phoneNumber")
+    if not phone:
+        return Response({"error": "phoneNumber is required"}, status=400)
+    data = otp_client.send(phone)
+    return Response({"requestId": data["requestId"], "expiresAt": data["expiresAt"]})
+
+@api_view(["POST"])
+def verify_otp_view(request):
+    request_id = request.data.get("requestId")
+    otp_code = request.data.get("otpCode")
+    if not request_id or not otp_code:
+        return Response({"error": "requestId and otpCode required"}, status=400)
+    verified = otp_client.verify(request_id, otp_code)
+    return Response({"verified": verified})
+```
+
+
+## Error Handling and Retries
+
+The StartMessaging API returns standard HTTP status codes. Here is how
+        to handle common errors in Python:
+
+      
+```python
+from requests.exceptions import HTTPError, ConnectionError, Timeout
+import time
+
+def send_otp_with_retry(phone_number: str, max_retries: int = 3) -> dict:
+    """Send OTP with exponential backoff for transient errors."""
+    for attempt in range(1, max_retries + 1):
+        try:
+            data = otp_client.send(phone_number)
+            return data
+        except HTTPError as e:
+            status = e.response.status_code if e.response else 0
+            # Do not retry client errors (4xx)
+            if 400 <= status < 500:
+                raise
+            if attempt == max_retries:
+                raise
+        except (ConnectionError, Timeout):
+            if attempt == max_retries:
+                raise
+
+        delay = 2 ** (attempt - 1)
+        print(f"Attempt {attempt} failed, retrying in {delay}s...")
+        time.sleep(delay)
+
+    raise RuntimeError("Failed to send OTP after retries")
+```
+
+
+Key error codes to watch for:
+
+
+
+- **400** — bad request (invalid phone format). Fix the input, do not retry.
+- **401** — invalid API key. Check your configuration.
+- **402** — insufficient wallet balance. Top up your  [wallet](https://app.startmessaging.com/wallet).
+- **429** — rate limited. Wait and retry.
+- **5xx** — server error. Retry with backoff.
+
+
+
+## Best Practices
+
+
+- **Always use idempotency keys.** Network retries can cause duplicate SMS delivery. The  `StartMessagingOTP` class above handles this automatically by generating a UUID for each send call.
+- **Validate phone numbers on the server.** Use the  `phonenumbers` library to verify E.164 format before calling the API.
+- **Set timeouts.** Always pass a `timeout`  parameter to `requests` calls. 10 seconds is a good default.
+- **Keep your API key out of source control.** Use  `.env` files, environment variables, or a secrets manager.
+- **Never log OTP codes.** StartMessaging hashes them server-side with bcrypt. Your application should not log or store them either.
+- **Monitor wallet balance programmatically.** Use the  `/wallet` API endpoint to check your balance and set up alerts before it runs too low.
+
+
+
+For more on designing a complete OTP flow including retry logic and
+        expiry handling, see our guide on 
+        [building a complete OTP verification flow](/blog/otp-verification-flow)
+        .
+
+
+## FAQ
+
+
+Get started with StartMessaging at 
+        [Rs 0.25 per OTP](/pricing) — no monthly fees,
+        no DLT registration required. Read the full 
+        [OTP API documentation](/otp-api) for complete
+        endpoint details.
+

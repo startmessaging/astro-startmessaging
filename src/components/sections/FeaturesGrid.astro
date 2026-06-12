@@ -23,7 +23,11 @@ import Text from '@/components/ui/Text.astro';
 import Badge from '@/components/ui/Badge.astro';
 import { r } from '@/i18n/r';
 
-const { badge, heading, subheading, items = [], columns = 3, lang } = Astro.props;
+const { badge, heading, subheading, items = [], columns = 3, country, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+const textPrimaryClass = isWhatsapp ? 'text-accent-wa' : 'text-primary';
+const cardBgClass = isWhatsapp ? 'bg-white/60 border border-accent-wa/10 shadow-sm' : 'bg-surface-card border border-hairline shadow-sm';
 
 const icons: Record<string, string> = {
   broadcast: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
@@ -34,35 +38,43 @@ const icons: Record<string, string> = {
   shield:    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
 };
 
+const count = items.length;
+let resolvedCols = columns;
+if (!resolvedCols) {
+  resolvedCols = count === 4 ? 4 : (count % 2 === 0 && count <= 4 ? 2 : 3);
+} else if (resolvedCols === 3 && count === 4) {
+  resolvedCols = 4;
+}
+
 const gridCols = {
-  2: 'sm:grid-cols-2',
+  2: 'sm:grid-cols-2 max-w-4xl mx-auto',
   3: 'sm:grid-cols-2 lg:grid-cols-3',
   4: 'sm:grid-cols-2 lg:grid-cols-4',
-}[columns as 2 | 3 | 4] ?? 'sm:grid-cols-2 lg:grid-cols-3';
+}[resolvedCols as 2 | 3 | 4] ?? 'sm:grid-cols-2 lg:grid-cols-3';
 ---
 
-<Section>
+<Section theme={theme}>
   <Container>
     {(badge || heading || subheading) && (
       <div class="mb-12 flex flex-col items-center text-center gap-4">
-        {badge    && <Badge tone="muted">{r(badge, lang)}</Badge>}
-        {heading  && <Heading as="h2">{r(heading, lang)}</Heading>}
-        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, lang)}</Text>}
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
       </div>
     )}
 
     <ul class={`grid grid-cols-1 gap-8 ${gridCols}`}>
       {items.map((item: any) => (
-        <li class="flex flex-col gap-4 p-6 rounded-md border border-hairline bg-canvas hover:shadow-card transition-shadow">
+        <li class:list={["flex flex-col gap-4 p-6 rounded-lg hover:shadow-md hover:-translate-y-0.5 transition-all duration-300", cardBgClass]}>
           {item.icon && icons[item.icon] && (
-            <div class="w-10 h-10 text-primary" set:html={icons[item.icon]} />
+            <div class:list={["w-10 h-10", textPrimaryClass]} set:html={icons[item.icon]} />
           )}
           <div>
             <Heading as="h3" size="title-md" class="mb-2">
-              {r(item.title, lang)}
+              {r(item.title, country)}
             </Heading>
             <Text size="body-sm" tone="body">
-              {r(item.description, lang)}
+              {r(item.description, country)}
             </Text>
           </div>
         </li>

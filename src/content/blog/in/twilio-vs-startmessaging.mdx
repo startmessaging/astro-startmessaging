@@ -1,0 +1,434 @@
+﻿---
+title: "Twilio vs StartMessaging for OTP in India"
+description: "Detailed comparison of Twilio and StartMessaging for sending OTPs in India. Pricing, DLT, API simplicity, billing currency, and code examples."
+publishedAt: "2026-02-04"
+category: comparisons
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "twilio vs startmessaging"
+  - "twilio alternative india"
+  - "twilio otp india pricing"
+  - "cheap twilio alternative"
+  - "otp api india comparison"
+  - "twilio india dlt"
+  - "startmessaging vs twilio"
+  - "best otp api for indian startups"
+relatedSlugs:
+  - "best-otp-api-india"
+  - "msg91-vs-startmessaging"
+featured: false
+---
+
+
+Twilio is the default choice for many developers when they think about sending SMS. It is a
+        massive platform with global reach and a broad product portfolio. But if you are building in
+        India and your primary use case is OTP verification, Twilio may not be the best fit. In this
+        article, we do a head-to-head comparison of Twilio and 
+        [StartMessaging](/features) for Indian OTP use cases, covering pricing, DLT
+        requirements, API design, and real-world delivery performance.
+
+
+## Overview
+
+**Twilio** is a San Francisco-based cloud communications platform offering SMS,
+        voice, video, email, and more. It serves customers globally and supports India through local and
+        international routes. Twilio Verify is its dedicated OTP product.
+
+
+**StartMessaging** is an India-focused OTP API built specifically for Indian
+        developers. It offers two endpoints (send OTP and verify OTP), flat pricing at Rs 0.25 per OTP,
+        INR wallet billing, and no DLT registration requirement. It is designed to do one thing well:
+        deliver OTPs in India quickly and affordably.
+
+
+## Pricing Comparison
+
+This is where the difference is most stark. Let us break down the real cost of sending OTPs with
+        each provider:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Cost Component</th>
+              <th>Twilio</th>
+              <th>StartMessaging</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SMS cost (India)</td>
+              <td>$0.0187/SMS (~Rs 1.56)</td>
+              <td>Rs 0.25/OTP</td>
+            </tr>
+            <tr>
+              <td>Twilio Verify fee</td>
+              <td>$0.05/verification (~Rs 4.17)</td>
+              <td>Included</td>
+            </tr>
+            <tr>
+              <td>Phone number (monthly)</td>
+              <td>$1.15/month (~Rs 96)</td>
+              <td>Not required</td>
+            </tr>
+            <tr>
+              <td>Currency conversion fees</td>
+              <td>2-3% forex markup</td>
+              <td>None (INR)</td>
+            </tr>
+            <tr>
+              <td>Effective cost per OTP</td>
+              <td>**~Rs 1.75-4.50**</td>
+              <td>**Rs 0.25**</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+If you use Twilio Verify (their managed OTP product), you pay $0.05 per successful verification
+        rather than per-SMS pricing. That works out to approximately Rs 4.17 per OTP. If you build OTP
+        logic yourself on top of Twilio SMS, you pay the per-SMS rate plus your development time.
+
+
+### Cost at Scale
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Monthly OTPs</th>
+              <th>Twilio Verify Cost</th>
+              <th>StartMessaging Cost</th>
+              <th>Monthly Savings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,000</td>
+              <td>Rs 4,170</td>
+              <td>Rs 250</td>
+              <td>**Rs 3,920**</td>
+            </tr>
+            <tr>
+              <td>10,000</td>
+              <td>Rs 41,700</td>
+              <td>Rs 2,500</td>
+              <td>**Rs 39,200**</td>
+            </tr>
+            <tr>
+              <td>100,000</td>
+              <td>Rs 4,17,000</td>
+              <td>Rs 25,000</td>
+              <td>**Rs 3,92,000**</td>
+            </tr>
+            <tr>
+              <td>1,000,000</td>
+              <td>Rs 41,70,000</td>
+              <td>Rs 2,50,000</td>
+              <td>**Rs 39,20,000**</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+At 100,000 OTPs per month, you save nearly Rs 4 lakh per month by choosing StartMessaging over
+        Twilio Verify. See our [pricing page](/pricing) for the latest rates.
+
+
+## DLT Compliance
+
+TRAI requires all commercial SMS senders in India to register on a DLT platform. This means
+        registering your business entity, creating sender IDs, and submitting message templates for
+        approval. The process typically takes 3-7 business days and requires PAN, GST, or other business
+        documentation.
+
+
+**Twilio requires you to complete DLT registration yourself.** You must register on
+        a DLT platform (Jio, Airtel, Vi, or BSNL), get your entity approved, register your SMS
+        templates, and then link your DLT credentials to your Twilio account. Until this is done, you
+        cannot send SMS to Indian numbers.
+
+
+**StartMessaging does not require DLT registration from you.** We handle all DLT
+        compliance using our pre-approved routes and templates. You can start sending OTPs within minutes
+        of creating your account. Learn more about 
+        [DLT-free OTP sending](/dlt-free-otp).
+
+
+## Billing and Currency
+
+Twilio bills in USD. If your business operates in India, this means:
+
+
+
+- You pay forex conversion fees (typically 2-3%) on every payment
+- Your costs fluctuate with the USD/INR exchange rate
+- Accounting and GST reconciliation is more complex with foreign currency invoices
+- Credit card international transaction fees may apply
+
+
+
+StartMessaging bills in INR via a prepaid wallet. You top up your wallet using UPI, net banking,
+        or cards with no forex fees. Your invoices are in INR with proper GST, making accounting
+        straightforward.
+
+
+## API Design and Developer Experience
+
+Twilio is a powerful platform with hundreds of products, which means its API surface area is
+        large. To send an OTP, you typically need to:
+
+
+
+- Create a Twilio account and get your Account SID and Auth Token
+- Install the Twilio SDK for your language
+- Create a Verify Service via the console or API
+- Complete DLT registration and link it to your account
+- Call the Verify API to send and check OTPs
+
+
+
+With StartMessaging, the process is:
+
+
+
+- Sign up and get your API key
+- Call `POST /otp/send` with the phone number
+- Call `POST /otp/verify` with the OTP code
+
+
+
+No SDK required. No service configuration. No DLT paperwork. Just a REST API with two endpoints.
+        Read the full API documentation on our [OTP API reference](/otp-api).
+
+
+## Code Comparison
+
+### Sending an OTP with StartMessaging
+      
+```typescript
+// No SDK needed — plain fetch
+const res = await fetch('https://api.startmessaging.com/otp/send', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer sm_live_your_api_key',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ phoneNumber: '+919876543210' }),
+});
+
+const { data } = await res.json();
+console.log('OTP Request ID:', data.requestId);
+```
+
+
+### Verifying an OTP with StartMessaging
+      
+```typescript
+const res = await fetch('https://api.startmessaging.com/otp/verify', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer sm_live_your_api_key',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    requestId: 'req_abc123',
+    otp: '482916',
+  }),
+});
+
+const { data } = await res.json();
+console.log('Verified:', data.verified); // true
+```
+
+
+### Sending an OTP with Twilio Verify
+      
+```bash
+// Requires: npm install twilio
+const twilio = require('twilio');
+const client = twilio(
+  'YOUR_ACCOUNT_SID',
+  'YOUR_AUTH_TOKEN'
+);
+
+// You must create a Verify Service first in the Twilio Console
+const verification = await client.verify.v2
+  .services('VA_YOUR_SERVICE_SID')
+  .verifications.create({
+    to: '+919876543210',
+    channel: 'sms',
+  });
+
+console.log('Status:', verification.status);
+```
+
+
+### Verifying an OTP with Twilio Verify
+      
+```typescript
+const check = await client.verify.v2
+  .services('VA_YOUR_SERVICE_SID')
+  .verificationChecks.create({
+    to: '+919876543210',
+    code: '482916',
+  });
+
+console.log('Status:', check.status); // 'approved'
+```
+
+
+
+The Twilio approach requires an SDK dependency, account credentials management (SID + Auth
+        Token), and pre-configuration of a Verify Service. The StartMessaging approach uses standard HTTP
+        with a single API key.
+
+
+## Feature Comparison Table
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Twilio</th>
+              <th>StartMessaging</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>OTP send + verify</td>
+              <td>Yes (Verify product)</td>
+              <td>Yes (built-in)</td>
+            </tr>
+            <tr>
+              <td>DLT registration required</td>
+              <td>Yes</td>
+              <td>**No**</td>
+            </tr>
+            <tr>
+              <td>SDK required</td>
+              <td>Recommended</td>
+              <td>**No (REST API)**</td>
+            </tr>
+            <tr>
+              <td>Billing currency</td>
+              <td>USD</td>
+              <td>**INR**</td>
+            </tr>
+            <tr>
+              <td>Prepaid wallet</td>
+              <td>Yes (USD)</td>
+              <td>**Yes (INR, UPI/cards)**</td>
+            </tr>
+            <tr>
+              <td>Setup time</td>
+              <td>30-60 min + DLT days</td>
+              <td>**&lt;5 minutes**</td>
+            </tr>
+            <tr>
+              <td>India delivery rate</td>
+              <td>95-98%</td>
+              <td>**97-99%**</td>
+            </tr>
+            <tr>
+              <td>Auto fallback</td>
+              <td>No</td>
+              <td>**Yes (multi-provider)**</td>
+            </tr>
+            <tr>
+              <td>Global SMS</td>
+              <td>**Yes (190+ countries)**</td>
+              <td>India only</td>
+            </tr>
+            <tr>
+              <td>Voice, Email, WhatsApp</td>
+              <td>**Yes**</td>
+              <td>No (SMS OTP focused)</td>
+            </tr>
+            <tr>
+              <td>Dashboard</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Message logs</td>
+              <td>Yes</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Idempotent OTP sends</td>
+              <td>Limited</td>
+              <td>**Yes (idempotencyKey)**</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+## Delivery Performance in India
+
+Twilio routes Indian SMS through international and local gateways. While generally reliable,
+        some developers report lower delivery rates on BSNL and Vi networks compared to providers that
+        use purely domestic routes.
+
+
+StartMessaging uses domestic SMS providers (including Twilio and MSG91 as underlying providers)
+        with automatic fallback. If the primary provider fails to deliver an OTP, the system
+        automatically retries through a secondary provider. This multi-provider approach results in
+        delivery rates of 97-99% across all major Indian carriers.
+
+
+For more details on carrier-specific delivery rates, see our article on 
+        [OTP delivery rates in India](/blog/otp-delivery-rates-india).
+
+
+## When to Choose Twilio
+
+Twilio is a better choice when:
+
+
+
+- You need to send SMS to multiple countries, not just India
+- You need voice calls, WhatsApp, or email in addition to SMS
+- Your company already has a Twilio account and established workflows
+- You need enterprise-grade SLAs with contractual delivery guarantees
+- Your billing and accounting team is comfortable with USD invoicing
+
+
+
+## When to Choose StartMessaging
+
+StartMessaging is the better choice when:
+
+
+
+- Your users are in India and you need OTP verification specifically
+- You want the lowest cost per OTP without volume commitments
+- You do not want to deal with DLT registration paperwork
+- You prefer INR billing with simple prepaid wallet top-ups
+- You want to go from zero to production OTP in under 5 minutes
+- You want automatic multi-provider fallback for maximum delivery rates
+
+
+
+Get started now at the [StartMessaging pricing page](/pricing) or check the 
+        [API documentation](/otp-api).
+
+
+## Migrating from Twilio to StartMessaging
+
+If you are currently using Twilio and want to switch to StartMessaging, the migration is
+        straightforward:
+
+
+
+- **Sign up** at  [app.startmessaging.com](https://app.startmessaging.com)  and create an API key
+- **Replace the send call:** Replace your Twilio Verify  `verifications.create()` with a `POST /otp/send` call
+- **Replace the verify call:** Replace `verificationChecks.create()`  with `POST /otp/verify`
+- **Remove the Twilio SDK** from your dependencies if it was only used for OTP
+- **Top up your wallet** with INR and you are ready to go
+
+
+
+Most developers complete the migration in under an hour. For a broader comparison of all
+        providers, see our [best OTP API for India](/blog/best-otp-api-india) guide.
+

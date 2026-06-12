@@ -1,0 +1,128 @@
+---
+title: "Send OTP — API Reference"
+description: "Complete API reference for the Send OTP endpoint. Parameters, channels, rate limiting, and error handling."
+product: auth-api
+order: 2
+countries: ["in"]
+---
+
+## Endpoint
+
+```
+POST /v1/auth/send-otp
+```
+
+## Request Body
+
+```json
+{
+  "phone": "+919876543210",
+  "channel": "sms",
+  "otp_length": 6,
+  "expiry_seconds": 300,
+  "sender_name": "MyApp",
+  "locale": "en",
+  "metadata": {
+    "user_id": "usr_123",
+    "action": "login"
+  }
+}
+```
+
+## Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `phone` | string | ✅ | — | Phone number in E.164 format |
+| `channel` | string | ❌ | `"sms"` | Delivery channel: `"sms"`, `"whatsapp"`, `"auto"` |
+| `otp_length` | number | ❌ | 6 | OTP digit count: 4, 6, or 8 |
+| `expiry_seconds` | number | ❌ | 300 | OTP validity period: 60–600 |
+| `sender_name` | string | ❌ | App name | Brand name in OTP message |
+| `locale` | string | ❌ | `"en"` | Message language: `"en"`, `"hi"` |
+| `metadata` | object | ❌ | — | Custom metadata (returned in verify response and webhooks) |
+
+## Response
+
+### Success (200)
+
+```json
+{
+  "success": true,
+  "request_id": "auth_abc123def456",
+  "channel": "sms",
+  "phone": "+919876543210",
+  "expires_at": "2026-01-15T10:35:00Z",
+  "message": "OTP sent successfully"
+}
+```
+
+### Error (4xx)
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "RATE_LIMITED",
+    "message": "Too many OTP requests for this number. Try again in 120 seconds.",
+    "retry_after": 120
+  }
+}
+```
+
+## Error Codes
+
+| Code | HTTP | Description |
+|------|------|-------------|
+| `INVALID_PHONE` | 400 | Invalid phone number format |
+| `UNSUPPORTED_COUNTRY` | 400 | Phone number's country not supported |
+| `RATE_LIMITED` | 429 | Too many OTP requests (5/10 min per number) |
+| `CHANNEL_UNAVAILABLE` | 400 | Selected channel not available for this number |
+| `INSUFFICIENT_CREDITS` | 402 | Not enough SMS credits |
+
+## Channel Behavior
+
+### SMS Channel (`"sms"`)
+
+Sends OTP via SMS using StartMessaging's pre-registered non-DLT route. No DLT registration needed.
+
+Message format:
+```
+123456 is your MyApp verification code. Valid for 5 minutes.
+```
+
+### WhatsApp Channel (`"whatsapp"`)
+
+Sends OTP via WhatsApp using an approved authentication template. Free for first 1,000/month.
+
+### Auto Channel (`"auto"`)
+
+1. Checks if the phone number is on WhatsApp
+2. If yes → sends via WhatsApp (free)
+3. If no → falls back to SMS (₹0.25)
+
+The response indicates which channel was used:
+
+```json
+{
+  "success": true,
+  "request_id": "auth_abc123",
+  "channel": "whatsapp",
+  "fallback_used": false
+}
+```
+
+## Rate Limiting
+
+| Limit | Value | Configurable |
+|-------|-------|-------------|
+| Per phone number | 5 requests / 10 minutes | Enterprise only |
+| Per API key | 100 requests / second | Enterprise only |
+| Global daily | Based on plan | ✅ |
+
+## FAQ
+
+**Can I customize the OTP message text?**
+The message format is standardized for security and deliverability. You can customize the `sender_name` parameter to show your brand name.
+
+**Does the auto channel add latency?**
+The WhatsApp number lookup adds ~200ms. If speed is critical, specify `"sms"` directly.

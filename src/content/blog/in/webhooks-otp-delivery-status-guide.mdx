@@ -1,0 +1,105 @@
+﻿---
+title: "Webhooks for OTP Delivery Status: Complete Guide"
+description: "How to implement and operate OTP delivery-status webhooks: signature verification, idempotent handlers, retries, dead-letter queues, and observability."
+publishedAt: "2026-05-20"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp webhook"
+  - "sms delivery status webhook"
+  - "dlr webhook"
+  - "webhook signature verification"
+  - "otp callback url"
+relatedSlugs:
+  - "otp-delivery-status-polling-vs-webhooks"
+  - "idempotency-keys-otp"
+  - "otp-monitoring-slos-error-budgets"
+featured: false
+---
+
+
+Polling DLR endpoints wastes both your CPU and the
+        provider's. Webhooks push delivery status the moment it
+        changes. This guide covers production-grade implementation.
+
+
+## Why Webhooks Beat Polling
+
+
+- Real-time, sub-second.
+- Lower load on both sides.
+- Cleaner architecture.
+
+
+
+## Webhook Shape
+      
+```
+POST /webhooks/sm
+{
+  "eventId": "evt_01HQ...",
+  "type":    "otp.delivered",
+  "createdAt": "2026-05-20T08:01:42Z",
+  "data": {
+    "requestId": "req_01HQ...",
+    "phoneNumberHash": "...",
+    "status": "delivered",
+    "deliveredAt": "2026-05-20T08:01:39Z"
+  }
+}
+```
+
+
+## Signature Verification
+      
+```typescript
+function verify(headers: Headers, rawBody: string, secret: string) {
+  const sig = headers.get('x-sm-signature')!;
+  const expected = crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
+  return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
+}
+```
+
+
+Always read the raw body before `express.json()` parses.
+
+
+## Idempotent Handlers
+      
+```typescript
+async function onWebhook(event: Event) {
+  const inserted = await db.insert('webhook_events').values({
+    id: event.eventId, ...
+  }).onConflictDoNothing();
+  if (!inserted.rowCount) return; // already processed
+  await processEvent(event);
+}
+```
+
+
+## Provider Retries and DLQ
+
+
+- Most providers retry 5–10 times with backoff.
+- Return 2xx fast — process async.
+- Monitor unprocessed-event lag for DLQ.
+
+
+
+## Observability
+
+
+- Webhook receipt count.
+- Verification failure count (signal of misconfig or attack).
+- Processing latency p95.
+- Lag between OTP send and DLR.
+
+
+
+## FAQ
+
+Compare with polling at 
+        [our polling vs webhooks guide](/blog/otp-delivery-status-polling-vs-webhooks)
+        .
+

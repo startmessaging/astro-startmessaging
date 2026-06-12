@@ -1,0 +1,340 @@
+﻿---
+title: "DLT Template Approval: Tips to Get Approved"
+description: "Learn how to write DLT SMS templates that get approved on the first attempt. Template types, variable syntax, rejection reasons, and operator-specific tips."
+publishedAt: "2026-01-21"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "DLT template approval"
+  - "DLT template rejected"
+  - "DLT SMS template"
+  - "DLT template format"
+  - "DLT variable syntax"
+  - "TRAI DLT template"
+  - "DLT template tips"
+  - "transactional SMS template"
+  - "promotional SMS template"
+relatedSlugs:
+  - "what-is-dlt-registration-india"
+  - "transactional-vs-promotional-sms-india"
+featured: false
+---
+
+
+DLT template approval is often the most frustrating part of getting SMS delivery working
+        in India. You write a message, submit it for approval, wait several days, and then get a
+        cryptic rejection with minimal explanation. This guide will help you write templates that
+        get approved on the first attempt, understand the rules each operator enforces, and know
+        what to do when things go wrong.
+
+
+If you are not familiar with the DLT registration process itself, start with our 
+        [comprehensive DLT registration guide](/blog/what-is-dlt-registration-india) 
+        before diving into templates.
+
+
+## What Are DLT Templates?
+
+A DLT template is the pre-approved format of every commercial SMS you send in India. TRAI
+        requires that all commercial messages match a registered template exactly. When a telecom
+        operator receives an SMS for delivery, it runs the message through a 
+        **scrubbing engine** that compares it against your registered templates. If
+        there is no match, the message is blocked.
+
+
+Templates consist of fixed text and variable placeholders. The fixed text must match
+        character for character. Variable placeholders represent dynamic content like OTP codes,
+        order numbers, or customer names. The operator verifies that only the variable portions
+        differ between the template and the actual message.
+
+
+For example, an OTP template looks like this:
+```
+Your OTP for {#var#} is {#var#}. Valid for {#var#} minutes. Do not share this code. - {#var#}
+```
+
+
+When you send an actual SMS, it would read: "Your OTP for login is 482917. Valid for
+        10 minutes. Do not share this code. - AcmeCorp"
+
+
+## Template Categories
+
+DLT templates are classified into categories that determine when and to whom they can be
+        sent. Choosing the wrong category is one of the most common reasons for rejection.
+
+
+### Transactional Templates
+
+Transactional templates are for messages triggered by a user action or required for
+        service delivery. Examples include:
+
+
+
+- OTP and verification codes
+- Order confirmations and shipping updates
+- Payment receipts and alerts
+- Account activity notifications
+- Appointment reminders
+
+
+
+Transactional messages can be sent 24/7, including to numbers on the Do Not Disturb
+        (DND) registry. They use sender headers with specific operator-assigned prefixes. For a
+        deep dive on how transactional SMS differs from promotional, see our guide on 
+        [transactional vs promotional SMS in India](/blog/transactional-vs-promotional-sms-india).
+
+
+### Promotional Templates
+
+Promotional templates are for marketing messages, offers, discounts, and sales
+        communications. These have significant restrictions:
+
+
+
+- Cannot be sent to DND-registered numbers
+- Restricted to 9 AM – 9 PM delivery window
+- Require explicit opt-in consent from the recipient
+- Use numeric sender IDs (not alphanumeric headers)
+
+
+
+### Service Implicit Templates
+
+Service implicit templates cover messages to existing customers based on an ongoing
+        relationship. Examples include subscription renewal reminders, loyalty program updates, or
+        service change notifications. The customer does not need to explicitly opt in, but there
+        must be an existing service relationship.
+
+
+### Service Explicit Templates
+
+Service explicit templates are for messages where the customer has given explicit written
+        or digital consent to receive communications. This is a middle ground between
+        transactional and promotional.
+
+
+## Variable Syntax Rules
+
+Getting the variable syntax right is critical. DLT portals use a specific format for
+        template variables, and any deviation will result in rejection.
+
+
+### Standard Variable Format
+
+The standard variable placeholder is `{#var#}`. This represents any
+        dynamic content in your message. Every piece of text that changes between messages must
+        be wrapped in this placeholder.
+
+
+### Variable Rules
+
+
+- **Minimum fixed text** — at least 30% of your template must be fixed text. Templates that are mostly variables get rejected.
+- **No nested variables** — you cannot place a variable inside another variable.
+- **Variable character limits** — some operators enforce maximum character lengths per variable (typically 30 characters).
+- **No consecutive variables** — placing two `{#var#}`  placeholders next to each other without fixed text in between may be rejected on some portals.
+- **Unicode support** — if your template uses Hindi or other regional languages, ensure the portal supports Unicode templates and select the correct encoding.
+
+
+
+### Examples of Correct Variable Usage
+      
+```
+// Correct: OTP template
+Your verification code is {#var#}. It expires in {#var#} minutes.
+
+// Correct: Order update
+Your order {#var#} has been shipped via {#var#}. Track at {#var#}.
+
+// Incorrect: Too many variables
+{#var#} {#var#} {#var#} {#var#} {#var#}
+
+// Incorrect: Wrong syntax
+Your OTP is {{otp}}. Valid for {{minutes}} minutes.
+```
+
+
+## Content Policies
+
+DLT portals enforce strict content policies. Templates containing the following are
+        typically rejected:
+
+
+
+- **Financial product promotions** — loan offers, insurance schemes, credit card promotions (unless you are a registered financial institution)
+- **Gambling or betting references** — any content related to gambling, lotteries, or betting
+- **Political content** — messages with political party names or election-related content
+- **Alcohol or tobacco** — promotions for restricted products
+- **Misleading content** — fake urgency, misleading claims, or phishing-like language
+- **URL shorteners** — many operators block templates with bit.ly or other URL shortener links
+
+
+
+For OTP templates specifically, keep the content straightforward. State the OTP purpose,
+        the code placeholder, the expiry time, and a warning not to share the code. Avoid adding
+        marketing content or links to OTP messages.
+
+
+## Common Rejection Reasons
+
+Based on our experience processing thousands of DLT templates, here are the most frequent
+        rejection reasons and how to fix them:
+
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Rejection Reason</th>
+            <th>Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Incorrect variable format</td>
+            <td>Use `{#var#}` exactly. No spaces inside braces.</td>
+          </tr>
+          <tr>
+            <td>Category mismatch</td>
+            <td>OTPs must be transactional, not promotional or service.</td>
+          </tr>
+          <tr>
+            <td>Content too generic</td>
+            <td>Add specific context about what the message is for.</td>
+          </tr>
+          <tr>
+            <td>Excessive variables</td>
+            <td>Ensure at least 30% fixed text. Reduce dynamic portions.</td>
+          </tr>
+          <tr>
+            <td>Restricted content detected</td>
+            <td>Remove financial, gambling, or political references.</td>
+          </tr>
+          <tr>
+            <td>URL shortener used</td>
+            <td>Use full domain URLs instead of bit.ly or similar.</td>
+          </tr>
+          <tr>
+            <td>Missing entity brand name</td>
+            <td>Include your company/brand name in the template text.</td>
+          </tr>
+          <tr>
+            <td>Template too long</td>
+            <td>Keep under 160 characters for single SMS or clearly indicate multi-part.</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+## Operator-Specific Tips
+
+### Jio (Vilpower)
+
+
+- Generally the most lenient with template approvals
+- Auto-approval for simple transactional templates is sometimes available
+- Variable character limits are enforced at 30 characters by default
+- Supports bulk template upload via CSV for large template sets
+
+
+
+### Airtel
+
+
+- Stricter on content policy enforcement than Jio
+- Requires exact brand name match between entity and template
+- Rejection messages tend to be more descriptive, which helps with fixes
+- Processing time is slightly longer but more predictable
+
+
+
+### Vodafone Idea
+
+
+- Portal interface can be slow during peak hours
+- Some developers report inconsistent approval criteria
+- Save your work frequently as sessions may time out
+- Template edits after approval require fresh submission
+
+
+
+### BSNL
+
+
+- Longest approval times, sometimes exceeding 7 business days
+- Government-operated portal with limited support
+- Best avoided if speed is a priority; register on Jio or Airtel instead
+
+
+
+## Approval Timelines
+
+Template approval times vary by operator and by how busy the review queue is. Here are
+        realistic expectations:
+
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Operator</th>
+            <th>First Submission</th>
+            <th>After Rejection (Resubmission)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jio</td>
+            <td>1–2 business days</td>
+            <td>1–2 business days</td>
+          </tr>
+          <tr>
+            <td>Airtel</td>
+            <td>2–3 business days</td>
+            <td>2–3 business days</td>
+          </tr>
+          <tr>
+            <td>Vodafone Idea</td>
+            <td>2–5 business days</td>
+            <td>2–4 business days</td>
+          </tr>
+          <tr>
+            <td>BSNL</td>
+            <td>3–7 business days</td>
+            <td>3–7 business days</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+If you need multiple templates (which most production applications do), the total wait
+        time compounds. A typical application with five templates, assuming one rejection cycle,
+        could easily take two to three weeks.
+
+
+## Skip Templates with StartMessaging
+
+Every minute you spend writing, submitting, and fixing DLT templates is time not spent
+        building your product. With [StartMessaging](/features), you skip the
+        entire template process.
+
+
+Here is how it works: StartMessaging maintains a library of pre-approved OTP templates
+        across all DLT portals. When you call our 
+        [OTP API](/otp-api), we automatically select the right template,
+        inject your OTP code, and deliver through our compliant infrastructure. You never write a
+        template, never wait for approval, and never deal with rejections.
+
+
+The entire integration takes under five minutes. Send your first OTP with a single API
+        call at **Rs 0.25 per message**. No DLT entity registration, no header
+        registration, no template registration. 
+        [Learn more about DLT-free OTP delivery](/dlt-free-otp) or 
+        [see how to send OTPs without DLT](/send-otp-without-dlt).
+
+
+Check our [pricing](/pricing) for volume discounts and see why
+        thousands of Indian developers trust StartMessaging for their OTP needs.
+
+
+## Frequently Asked Questions

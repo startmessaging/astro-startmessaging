@@ -1,0 +1,189 @@
+---
+/**
+ * DocsLayout — wraps docs pages with sidebar navigation + prev/next + TOC.
+ * Per ASTRO_COUNTRY_PLAN.md §9.
+ */
+import MarketingLayout from './MarketingLayout.astro';
+import { COUNTRY_CONFIG, HREFLANG, urlPrefix, type Country } from '@/config/countries';
+import { r } from '@/i18n/r';
+
+interface NavItem {
+  slug: string;
+  label: Record<string, string> | string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  product: string;
+  country: string;
+  slug: string;
+  nav: {
+    product: string;
+    label: Record<string, string> | string;
+    items: NavItem[];
+  };
+  headings?: { depth: number; slug: string; text: string }[];
+}
+
+const { title, description, product, country, slug, nav, headings = [] } = Astro.props;
+const c = country as Country;
+const prefix = urlPrefix(c);
+const lang = COUNTRY_CONFIG[c]?.lang ?? 'en';
+
+// Determine theme dynamically based on country and url pathname
+let theme = 'sms';
+if (country !== 'in') {
+  theme = 'whatsapp';
+} else {
+  const path = Astro.url.pathname;
+  const isWhatsappPath = path.includes('/whatsapp');
+  theme = isWhatsappPath ? 'whatsapp' : 'sms';
+}
+const isWhatsapp = theme === 'whatsapp';
+const accentTextClass = isWhatsapp ? 'text-accent-wa' : 'text-primary';
+const hoverPrimaryClass = isWhatsapp ? 'group-hover:text-accent-wa' : 'group-hover:text-primary';
+const activeItemClass = isWhatsapp ? 'bg-accent-wa text-white font-medium' : 'bg-primary text-white font-medium';
+const inactiveItemClass = isWhatsapp ? 'text-muted hover:text-ink hover:bg-accent-wa/[0.06]' : 'text-muted hover:text-ink hover:bg-surface-soft';
+
+// Resolve nav label
+const navLabel = typeof nav.label === 'string' ? nav.label : (nav.label[lang] ?? nav.label['en'] ?? product);
+
+// Build sidebar links
+const sidebarItems = nav.items.map((item) => {
+  const itemLabel = typeof item.label === 'string' ? item.label : (item.label[lang] ?? item.label['en'] ?? item.slug);
+  const href = `${prefix}/docs/${product}/${item.slug}`;
+  const isActive = item.slug === slug;
+  return { label: itemLabel, href, isActive };
+});
+
+// Prev / next navigation
+const currentIndex = nav.items.findIndex((item) => item.slug === slug);
+const prevItem = currentIndex > 0 ? nav.items[currentIndex - 1] : null;
+const nextItem = currentIndex < nav.items.length - 1 ? nav.items[currentIndex + 1] : null;
+
+const prevLabel = prevItem
+  ? (typeof prevItem.label === 'string' ? prevItem.label : (prevItem.label[lang] ?? prevItem.label['en'] ?? ''))
+  : '';
+const nextLabel = nextItem
+  ? (typeof nextItem.label === 'string' ? nextItem.label : (nextItem.label[lang] ?? nextItem.label['en'] ?? ''))
+  : '';
+
+const prevHref = prevItem ? `${prefix}/docs/${product}/${prevItem.slug}` : '';
+const nextHref = nextItem ? `${prefix}/docs/${product}/${nextItem.slug}` : '';
+
+const tocItems = headings.filter((h) => h.depth <= 3);
+---
+
+<MarketingLayout
+  seo={{
+    title: `${title} — ${navLabel} Docs — StartMessaging`,
+    description,
+  }}
+  country={country}
+  pageCountries={[country]}
+  slug={`docs/${product}/${slug}`}
+  theme={theme}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="lg:grid lg:grid-cols-[240px_1fr_200px] lg:gap-8 xl:gap-12">
+
+      <!-- Sidebar -->
+      <aside class="hidden lg:block">
+        <nav
+          aria-label={`${navLabel} documentation`}
+          class="sticky top-24"
+        >
+          <p class:list={["text-xs font-semibold uppercase tracking-widest mb-4", accentTextClass]}>
+            {navLabel}
+          </p>
+          <ul class="space-y-1">
+            {sidebarItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    'block text-sm py-1.5 px-3 rounded-md transition-colors',
+                    item.isActive
+                      ? activeItemClass
+                      : inactiveItemClass,
+                  ]}
+                  aria-current={item.isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <article class="min-w-0">
+        <header class="mb-10">
+          <p class:list={["text-xs font-medium uppercase tracking-wider mb-2", accentTextClass]}>
+            {navLabel}
+          </p>
+          <h1 class="text-display-md font-bold text-ink leading-tight mb-3">
+            {title}
+          </h1>
+          <p class="text-body-md text-muted">
+            {description}
+          </p>
+        </header>
+
+        <div class="prose prose-blog max-w-none">
+          <slot />
+        </div>
+
+        <!-- Prev / Next -->
+        {(prevItem || nextItem) && (
+          <nav class="flex items-center justify-between gap-4 mt-16 pt-8 border-t border-hairline" aria-label="Pagination">
+            {prevItem ? (
+              <a href={prevHref} class="group flex flex-col items-start text-left">
+                <span class="text-xs text-muted mb-1">← Previous</span>
+                <span class:list={["text-sm font-medium text-ink transition-colors", hoverPrimaryClass]}>{prevLabel}</span>
+              </a>
+            ) : <div />}
+            {nextItem ? (
+              <a href={nextHref} class="group flex flex-col items-end text-right">
+                <span class="text-xs text-muted mb-1">Next →</span>
+                <span class:list={["text-sm font-medium text-ink transition-colors", hoverPrimaryClass]}>{nextLabel}</span>
+              </a>
+            ) : <div />}
+          </nav>
+        )}
+      </article>
+
+      <!-- TOC sidebar -->
+      {tocItems.length > 0 && (
+        <aside class="hidden xl:block">
+          <nav
+            aria-label="On this page"
+            class:list={[
+              "sticky top-24 rounded-md p-5",
+              isWhatsapp ? "bg-white/60 border border-accent-wa/10" : "bg-surface-soft border border-hairline"
+            ]}
+          >
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted mb-4">
+              On this page
+            </p>
+            <ul class="space-y-2">
+              {tocItems.map((item) => (
+                <li style={`padding-left: ${(item.depth - 2) * 12}px`}>
+                  <a
+                    href={`#${item.slug}`}
+                    class="text-sm text-muted hover:text-body transition-colors line-clamp-2"
+                  >
+                    {item.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
+      )}
+
+    </div>
+  </div>
+</MarketingLayout>

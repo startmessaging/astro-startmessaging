@@ -1,86 +1,736 @@
 {
-  "locales": ["en", "pt-br"],
-
   "seo": {
     "title": {
-      "en":    "StartMessaging — WhatsApp Business API for Growing Teams",
-      "pt-br": "StartMessaging — API WhatsApp Business para Equipes em Crescimento"
+      "en": "StartMessaging — WhatsApp Business API & SMS Platform for Growing Teams",
+      "pt": "StartMessaging — API WhatsApp Business e Plataforma SMS para Equipes em Crescimento",
+      "es": "StartMessaging — API de WhatsApp Business y Plataforma SMS para Equipos en Crecimiento",
+      "id": "StartMessaging — API WhatsApp Business & Platform SMS untuk Tim yang Berkembang",
+      "ar": "StartMessaging — واجهة برمجة تطبيقات واتساب للأعمال ومنصة SMS للفرق المتنامية",
+      "tr": "StartMessaging — Büyüyen Ekipler İçin WhatsApp Business API ve SMS Platformu"
     },
     "description": {
-      "en":    "Send WhatsApp messages at scale. Broadcasts, chatbots, and automation for businesses reaching customers worldwide.",
-      "pt-br": "Envie mensagens WhatsApp em escala. Transmissões, chatbots e automação para empresas que alcançam clientes no mundo todo."
+      "en": "Send WhatsApp messages and SMS at scale. Broadcasts, chatbots, OTP verification, and automation for businesses reaching customers worldwide.",
+      "pt": "Envie mensagens WhatsApp e SMS em escala. Transmissões, chatbots, verificação OTP e automação para empresas que alcançam clientes no mundo todo.",
+      "es": "Envíe mensajes de WhatsApp y SMS a escala. Difusiones, chatbots, verificación OTP y automatización para empresas que llegan a clientes en todo el mundo.",
+      "id": "Kirim pesan WhatsApp dan SMS secara massal. Siaran, chatbot, verifikasi OTP, dan otomatisasi untuk bisnis yang menjangkau pelanggan di seluruh dunia.",
+      "ar": "أرسل رسائل واتساب وSMS على نطاق واسع. البث والشات بوت والتحقق من OTP والأتمتة للشركات التي تصل إلى العملاء في جميع أنحاء العالم.",
+      "tr": "WhatsApp mesajlarını ve SMS'leri ölçekli olarak gönderin. Yayınlar, chatbot'lar, OTP doğrulama ve dünya çapında müşterilere ulaşan işletmeler için otomasyon."
     },
     "ogImage": "/og/home.png"
   },
-
   "sections": [
     {
       "type": "hero",
+      "countries": ["in"],
+      "theme": "sms",
       "props": {
-        "badge":    { "en": "WhatsApp Business API", "pt-br": "API WhatsApp Business" },
-        "title":    { "en": "Reach customers on WhatsApp at scale", "pt-br": "Alcance clientes no WhatsApp em escala" },
-        "subtitle": {
-          "en":    "Send broadcasts, run chatbots, and automate conversations — all through the official WhatsApp Business API.",
-          "pt-br": "Envie transmissões, execute chatbots e automatize conversas — tudo pela API oficial do WhatsApp Business."
+        "badge": {
+          "en": "SMS & WhatsApp Business API"
         },
-        "primaryCta":  { "en": "Start Free", "pt-br": "Começar Grátis" },
-        "primaryHref": "/signup",
-        "secondaryCta":  { "en": "See how it works", "pt-br": "Veja como funciona" },
-        "secondaryHref": "/whatsapp",
-        "image": "/images/hero-dashboard.png",
-        "imageAlt": { "en": "StartMessaging dashboard", "pt-br": "Painel StartMessaging" }
+        "title": {
+          "en": "SMS OTPs & WhatsApp Messaging — One Platform",
+          "ng": "SMS OTPs & WhatsApp Messaging — One Platform"
+        },
+        "subtitle": {
+          "en": "Send OTPs at ₹0.25/SMS without DLT registration. Plus WhatsApp broadcasts, chatbots, and automation — all from a single API.",
+          "ng": "Send OTPs and WhatsApp broadcasts, chatbots, and automation — all from a single API."
+        },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "See How It Works"
+        },
+        "secondaryHref": "/whatsapp"
       }
     },
     {
-      "type": "statsBar",
+      "type": "hero",
+      "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+      "theme": "whatsapp",
       "props": {
-        "stats": [
-          { "value": "10M+",  "label": { "en": "Messages sent daily",  "pt-br": "Mensagens por dia" } },
-          { "value": "99.9%", "label": { "en": "Delivery rate",        "pt-br": "Taxa de entrega" } },
-          { "value": "150+",  "label": { "en": "Countries supported",  "pt-br": "Países atendidos" } },
-          { "value": "< 2s",  "label": { "en": "Average delivery",     "pt-br": "Entrega média" } }
+        "badge": {
+          "en": "WhatsApp Business API",
+          "pt": "API WhatsApp Business",
+          "es": "API de WhatsApp Business",
+          "id": "API WhatsApp Business",
+          "ar": "واجهة برمجة تطبيقات واتساب للأعمال",
+          "tr": "WhatsApp Business API"
+        },
+        "title": {
+          "en": "Reach Customers on WhatsApp at Scale",
+          "pt": "Alcance Clientes no WhatsApp em Escala",
+          "es": "Llegue a sus Clientes en WhatsApp a Gran Escala",
+          "id": "Jangkau Pelanggan di WhatsApp secara Massal",
+          "ar": "تواصل مع العملاء عبر واتساب على نطاق واسع",
+          "tr": "WhatsApp'ta Müşterilere Ölçekli Olarak Ulaşın"
+        },
+        "subtitle": {
+          "en": "Send broadcasts, run chatbots, and automate conversations — all through the official WhatsApp Business API. 98% open rate.",
+          "pt": "Envie transmissões, execute chatbots e automatize conversas — tudo pela API oficial do WhatsApp Business. Taxa de abertura de 98%.",
+          "es": "Envíe difusiones, ejecute chatbots y automatice conversaciones — todo a través de la API oficial de WhatsApp Business. 98% de tasa de apertura.",
+          "id": "Kirim siaran, jalankan chatbot, dan otomatisasi percakapan — semuanya melalui API resmi WhatsApp Business. Tingkat buka 98%.",
+          "ar": "أرسل بثًا وشغّل شات بوت وأتمت المحادثات — كل ذلك من خلال واجهة برمجة تطبيقات واتساب الرسمية. معدل فتح 98%.",
+          "tr": "Yayın gönderin, chatbot çalıştırın ve konuşmaları otomatikleştirin — hepsi resmi WhatsApp Business API aracılığıyla. %98 açılma oranı."
+        },
+        "primaryCta": {
+          "en": "Start Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "See How It Works",
+          "pt": "Veja Como Funciona",
+          "es": "Vea Cómo Funciona",
+          "id": "Lihat Cara Kerjanya",
+          "ar": "شاهد كيف يعمل",
+          "tr": "Nasıl Çalıştığını Görün"
+        },
+        "secondaryHref": "/whatsapp"
+      }
+    },
+    {
+      "type": "trustBadges",
+      "props": {
+        "heading": {
+          "en": "Trusted by Businesses Worldwide",
+          "pt": "Confiado por Empresas em Todo o Mundo",
+          "es": "Empresas de Todo el Mundo Confían en Nosotros",
+          "id": "Dipercaya oleh Bisnis di Seluruh Dunia",
+          "ar": "موثوق به من قبل الشركات في جميع أنحاء العالم",
+          "tr": "Dünya Çapında İşletmeler Tarafından Güvenilir"
+        },
+        "badges": [
+          {
+            "label": {
+              "en": "Official Meta BSP",
+              "pt": "BSP Oficial da Meta",
+              "es": "BSP Oficial de Meta",
+              "id": "BSP Resmi Meta",
+              "ar": "شريك أعمال Meta الرسمي",
+              "tr": "Resmi Meta BSP"
+            }
+          },
+          {
+            "label": {
+              "en": "99.9% Uptime SLA",
+              "pt": "SLA de 99,9% de Disponibilidade",
+              "es": "SLA de 99,9% de Disponibilidad",
+              "id": "SLA Uptime 99,9%",
+              "ar": "اتفاقية مستوى خدمة 99.9% وقت التشغيل",
+              "tr": "%99,9 Çalışma Süresi SLA"
+            }
+          },
+          {
+            "label": {
+              "en": "GDPR & LGPD Compliant",
+              "pt": "Conformidade LGPD e GDPR",
+              "es": "Cumplimiento GDPR y LGPD",
+              "id": "Kepatuhan GDPR & LGPD",
+              "ar": "متوافق مع GDPR وLGPD",
+              "tr": "GDPR ve LGPD Uyumlu"
+            }
+          },
+          {
+            "label": {
+              "en": "Enterprise-grade Security",
+              "pt": "Segurança de Nível Empresarial",
+              "es": "Seguridad de Nivel Empresarial",
+              "id": "Keamanan Kelas Enterprise",
+              "ar": "أمان على مستوى المؤسسات",
+              "tr": "Kurumsal Düzey Güvenlik"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "serviceCards",
+      "countries": ["in"],
+      "props": {
+        "badge": {
+          "en": "Our Services"
+        },
+        "heading": {
+          "en": "Two Powerful Channels, One Dashboard"
+        },
+        "cards": [
+          {
+            "theme": "sms",
+            "icon": "sms",
+            "title": { "en": "SMS API" },
+            "description": {
+              "en": "Transactional OTPs at ₹0.25/SMS. No DLT registration required. 99.9% delivery rate with sub-second speed across all Indian networks."
+            },
+            "features": [
+              { "en": "DLT-free OTP delivery" },
+              { "en": "₹0.25 per transactional SMS" },
+              { "en": "99.9% delivery rate" },
+              { "en": "Automatic network routing" }
+            ],
+            "ctaLabel": { "en": "Explore SMS API" },
+            "ctaHref": "/sms"
+          },
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": { "en": "WhatsApp Business API" },
+            "description": {
+              "en": "Official Meta BSP. Send broadcasts, build chatbots, and automate customer journeys on WhatsApp with 98% open rates."
+            },
+            "features": [
+              { "en": "Official Meta BSP partner" },
+              { "en": "Bulk broadcasts & campaigns" },
+              { "en": "Chatbot & agent handoff" },
+              { "en": "Rich media templates" }
+            ],
+            "ctaLabel": { "en": "Explore WhatsApp" },
+            "ctaHref": "/whatsapp"
+          }
+        ]
+      }
+    },
+    {
+      "type": "serviceCards",
+      "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+      "props": {
+        "badge": {
+          "en": "Our Platform",
+          "pt": "Nossa Plataforma",
+          "es": "Nuestra Plataforma",
+          "id": "Platform Kami",
+          "ar": "منصتنا",
+          "tr": "Platformumuz"
+        },
+        "heading": {
+          "en": "The Complete WhatsApp Business Solution",
+          "pt": "A Solução Completa para WhatsApp Business",
+          "es": "La Solución Completa para WhatsApp Business",
+          "id": "Solusi WhatsApp Business yang Lengkap",
+          "ar": "الحل المتكامل لأعمال واتساب",
+          "tr": "Eksiksiz WhatsApp Business Çözümü"
+        },
+        "cards": [
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": {
+              "en": "WhatsApp Business API",
+              "pt": "API WhatsApp Business",
+              "es": "API de WhatsApp Business",
+              "id": "API WhatsApp Business",
+              "ar": "واجهة برمجة تطبيقات واتساب للأعمال",
+              "tr": "WhatsApp Business API"
+            },
+            "description": {
+              "en": "Official Meta Business Solution Provider. Send broadcasts, build chatbots, automate conversations, and engage customers with 98% open rates.",
+              "pt": "Provedor Oficial de Soluções de Negócios Meta. Envie transmissões, crie chatbots, automatize conversas e engaje clientes com taxas de abertura de 98%.",
+              "es": "Proveedor Oficial de Soluciones de Negocio de Meta. Envíe difusiones, cree chatbots, automatice conversaciones y comprometa a sus clientes con tasas de apertura del 98%.",
+              "id": "Penyedia Solusi Bisnis Resmi Meta. Kirim siaran, buat chatbot, otomatisasi percakapan, dan libatkan pelanggan dengan tingkat buka 98%.",
+              "ar": "مزود حلول الأعمال الرسمي من Meta. أرسل بثًا وأنشئ شات بوت وأتمت المحادثات وتفاعل مع العملاء بمعدل فتح 98%.",
+              "tr": "Resmi Meta İş Çözümleri Sağlayıcısı. Yayınlar gönderin, chatbot oluşturun, konuşmaları otomatikleştirin ve %98 açılma oranıyla müşterilerle etkileşim kurun."
+            },
+            "features": [
+              {
+                "en": "Bulk broadcasts & campaigns",
+                "pt": "Transmissões em massa e campanhas",
+                "es": "Difusiones masivas y campañas",
+                "id": "Siaran massal dan kampanye",
+                "ar": "البث الجماعي والحملات",
+                "tr": "Toplu yayınlar ve kampanyalar"
+              },
+              {
+                "en": "Chatbot & agent handoff",
+                "pt": "Chatbot e passagem para agente",
+                "es": "Chatbot y transferencia a agente",
+                "id": "Chatbot dan serah terima ke agen",
+                "ar": "شات بوت وتحويل إلى موظف",
+                "tr": "Chatbot ve ajan devri"
+              },
+              {
+                "en": "Rich media message templates",
+                "pt": "Modelos de mensagem com mídia rica",
+                "es": "Plantillas de mensajes con medios enriquecidos",
+                "id": "Template pesan media kaya",
+                "ar": "قوالب رسائل الوسائط الغنية",
+                "tr": "Zengin medya mesaj şablonları"
+              },
+              {
+                "en": "Real-time webhooks & analytics",
+                "pt": "Webhooks e análises em tempo real",
+                "es": "Webhooks y análisis en tiempo real",
+                "id": "Webhook dan analitik real-time",
+                "ar": "إشعارات ويب وتحليلات في الوقت الفعلي",
+                "tr": "Gerçek zamanlı webhook'lar ve analitik"
+              }
+            ],
+            "ctaLabel": {
+              "en": "Explore WhatsApp API",
+              "pt": "Explorar API do WhatsApp",
+              "es": "Explorar API de WhatsApp",
+              "id": "Jelajahi API WhatsApp",
+              "ar": "استكشف واجهة واتساب",
+              "tr": "WhatsApp API'yi Keşfedin"
+            },
+            "ctaHref": "/whatsapp"
+          }
         ]
       }
     },
     {
       "type": "featuresGrid",
       "props": {
-        "badge":    { "en": "Features", "pt-br": "Funcionalidades" },
-        "heading":  { "en": "Everything you need to message at scale", "pt-br": "Tudo que você precisa para mensagens em escala" },
+        "badge": {
+          "en": "Features",
+          "pt": "Funcionalidades",
+          "es": "Características",
+          "id": "Fitur",
+          "ar": "الميزات",
+          "tr": "Özellikler"
+        },
+        "heading": {
+          "en": "Everything You Need to Message at Scale",
+          "pt": "Tudo que Você Precisa para Mensagens em Escala",
+          "es": "Todo lo que Necesita para Enviar Mensajes a Escala",
+          "id": "Semua yang Anda Butuhkan untuk Berkirim Pesan secara Massal",
+          "ar": "كل ما تحتاجه للمراسلة على نطاق واسع",
+          "tr": "Ölçekli Mesajlaşma İçin İhtiyacınız Olan Her Şey"
+        },
         "subheading": {
-          "en":    "From single API calls to full campaign management — we cover every WhatsApp use case.",
-          "pt-br": "De chamadas de API simples ao gerenciamento completo de campanhas — cobrimos todos os casos de uso do WhatsApp."
+          "en": "From single API calls to full campaign management — we cover every WhatsApp use case.",
+          "pt": "De chamadas de API simples ao gerenciamento completo de campanhas — cobrimos todos os casos de uso do WhatsApp.",
+          "es": "Desde llamadas de API individuales hasta la gestión completa de campañas — cubrimos todos los casos de uso de WhatsApp.",
+          "id": "Dari panggilan API tunggal hingga manajemen kampanye lengkap — kami mencakup setiap kasus penggunaan WhatsApp.",
+          "ar": "من استدعاءات API الفردية إلى إدارة الحملات الكاملة — نغطي كل حالة استخدام لواتساب.",
+          "tr": "Tek API çağrılarından tam kampanya yönetimine — her WhatsApp kullanım senaryosunu kapsıyoruz."
         },
         "items": [
           {
             "icon": "broadcast",
-            "title":       { "en": "Bulk Broadcasts",    "pt-br": "Transmissões em Massa" },
-            "description": { "en": "Send templated messages to thousands of opted-in contacts in minutes.", "pt-br": "Envie mensagens padronizadas para milhares de contatos em minutos." }
+            "title": {
+              "en": "Bulk Broadcasts",
+              "pt": "Transmissões em Massa",
+              "es": "Difusiones Masivas",
+              "id": "Siaran Massal",
+              "ar": "البث الجماعي",
+              "tr": "Toplu Yayınlar"
+            },
+            "description": {
+              "en": "Send templated messages to thousands of opted-in contacts in minutes with delivery tracking.",
+              "pt": "Envie mensagens padronizadas para milhares de contatos em minutos com rastreamento de entrega.",
+              "es": "Envíe mensajes con plantillas a miles de contactos con seguimiento de entrega en minutos.",
+              "id": "Kirim pesan template ke ribuan kontak yang sudah opt-in dalam hitungan menit dengan pelacakan pengiriman.",
+              "ar": "أرسل رسائل مُنسَّقة لآلاف جهات الاتصال المشتركة في دقائق مع تتبع التسليم.",
+              "tr": "Dakikalar içinde binlerce onaylı kişiye şablonlu mesajlar gönderin ve teslim takibi yapın."
+            }
           },
           {
             "icon": "bot",
-            "title":       { "en": "Chatbots",           "pt-br": "Chatbots" },
-            "description": { "en": "Build no-code conversation flows that handle support, sales, and bookings 24/7.", "pt-br": "Crie fluxos de conversa sem código que gerenciam suporte, vendas e agendamentos 24/7." }
+            "title": {
+              "en": "Chatbots & Automation",
+              "pt": "Chatbots e Automação",
+              "es": "Chatbots y Automatización",
+              "id": "Chatbot dan Otomatisasi",
+              "ar": "شات بوت والأتمتة",
+              "tr": "Chatbot ve Otomasyon"
+            },
+            "description": {
+              "en": "Build no-code conversation flows that handle support, sales, and bookings 24/7 with agent handoff.",
+              "pt": "Crie fluxos de conversa sem código que gerenciam suporte, vendas e agendamentos 24/7 com passagem para agente.",
+              "es": "Cree flujos de conversación sin código para soporte, ventas y reservas 24/7 con transferencia a agente.",
+              "id": "Buat alur percakapan tanpa kode untuk menangani dukungan, penjualan, dan pemesanan 24/7 dengan serah terima agen.",
+              "ar": "أنشئ تدفقات محادثة بدون كود لإدارة الدعم والمبيعات والحجوزات على مدار الساعة مع التحويل لموظف.",
+              "tr": "Destek, satış ve rezervasyonları 7/24 yöneten kod gerektirmeyen konuşma akışları oluşturun."
+            }
           },
           {
             "icon": "api",
-            "title":       { "en": "REST API",           "pt-br": "API REST" },
-            "description": { "en": "Simple HTTP endpoints to send messages, manage contacts, and receive webhooks.", "pt-br": "Endpoints HTTP simples para enviar mensagens, gerenciar contatos e receber webhooks." }
+            "title": {
+              "en": "REST API",
+              "pt": "API REST",
+              "es": "API REST",
+              "id": "REST API",
+              "ar": "واجهة REST API",
+              "tr": "REST API"
+            },
+            "description": {
+              "en": "Simple HTTP endpoints to send messages, manage contacts, and receive real-time webhooks.",
+              "pt": "Endpoints HTTP simples para enviar mensagens, gerenciar contatos e receber webhooks em tempo real.",
+              "es": "Endpoints HTTP simples para enviar mensajes, gestionar contactos y recibir webhooks en tiempo real.",
+              "id": "Endpoint HTTP sederhana untuk mengirim pesan, mengelola kontak, dan menerima webhook real-time.",
+              "ar": "نقاط نهاية HTTP بسيطة لإرسال الرسائل وإدارة جهات الاتصال واستقبال إشعارات الويب في الوقت الفعلي.",
+              "tr": "Mesaj göndermek, kişileri yönetmek ve gerçek zamanlı webhook almak için basit HTTP uç noktaları."
+            }
           },
           {
             "icon": "analytics",
-            "title":       { "en": "Analytics",          "pt-br": "Análises" },
-            "description": { "en": "Real-time delivery receipts, open rates, and reply tracking in one dashboard.", "pt-br": "Confirmações de entrega em tempo real, taxas de abertura e rastreamento de respostas." }
+            "title": {
+              "en": "Real-time Analytics",
+              "pt": "Análises em Tempo Real",
+              "es": "Análisis en Tiempo Real",
+              "id": "Analitik Real-time",
+              "ar": "تحليلات في الوقت الفعلي",
+              "tr": "Gerçek Zamanlı Analitik"
+            },
+            "description": {
+              "en": "Delivery receipts, open rates, reply tracking, and campaign performance in one dashboard.",
+              "pt": "Confirmações de entrega, taxas de abertura, rastreamento de respostas e desempenho de campanhas em um painel.",
+              "es": "Confirmaciones de entrega, tasas de apertura, seguimiento de respuestas y rendimiento de campañas en un panel.",
+              "id": "Konfirmasi pengiriman, tingkat buka, pelacakan balasan, dan kinerja kampanye dalam satu dasbor.",
+              "ar": "إيصالات التسليم ومعدلات الفتح وتتبع الردود وأداء الحملات في لوحة واحدة.",
+              "tr": "Teslimat onayları, açılma oranları, yanıt takibi ve kampanya performansı tek panelde."
+            }
           },
           {
             "icon": "template",
-            "title":       { "en": "Message Templates",  "pt-br": "Modelos de Mensagem" },
-            "description": { "en": "Pre-approved templates for transactional messages, OTPs, and marketing campaigns.", "pt-br": "Modelos pré-aprovados para mensagens transacionais, OTPs e campanhas de marketing." }
+            "title": {
+              "en": "Message Templates",
+              "pt": "Modelos de Mensagem",
+              "es": "Plantillas de Mensajes",
+              "id": "Template Pesan",
+              "ar": "قوالب الرسائل",
+              "tr": "Mesaj Şablonları"
+            },
+            "description": {
+              "en": "Pre-approved templates for transactional messages, OTPs, and marketing campaigns with rich media support.",
+              "pt": "Modelos pré-aprovados para mensagens transacionais, OTPs e campanhas de marketing com suporte a mídia rica.",
+              "es": "Plantillas preaprobadas para mensajes transaccionales, OTP y campañas de marketing con soporte de medios enriquecidos.",
+              "id": "Template pra-persetujuan untuk pesan transaksional, OTP, dan kampanye pemasaran dengan dukungan media kaya.",
+              "ar": "قوالب مُعتمدة مسبقًا للرسائل المعاملاتية وOTP والحملات التسويقية مع دعم الوسائط الغنية.",
+              "tr": "İşlemsel mesajlar, OTP ve pazarlama kampanyaları için önceden onaylanmış zengin medya destekli şablonlar."
+            }
           },
           {
             "icon": "shield",
-            "title":       { "en": "Compliance Ready",   "pt-br": "Conformidade Garantida" },
-            "description": { "en": "GDPR-compliant opt-in flows, data residency options, and 99.9% SLA uptime.", "pt-br": "Fluxos de opt-in conformes com a LGPD, opções de residência de dados e SLA de 99,9%." }
+            "title": {
+              "en": "Compliance Ready",
+              "pt": "Conformidade Garantida",
+              "es": "Cumplimiento Garantizado",
+              "id": "Siap Kepatuhan",
+              "ar": "جاهز للامتثال",
+              "tr": "Uyumluluk Hazır"
+            },
+            "description": {
+              "en": "GDPR-compliant opt-in flows, data residency options, and 99.9% SLA uptime guarantee.",
+              "pt": "Fluxos de opt-in conformes com LGPD/GDPR, opções de residência de dados e garantia de SLA de 99,9%.",
+              "es": "Flujos de opt-in conformes con GDPR, opciones de residencia de datos y garantía de SLA del 99,9%.",
+              "id": "Alur opt-in yang sesuai GDPR, opsi residensi data, dan jaminan SLA uptime 99,9%.",
+              "ar": "تدفقات موافقة متوافقة مع GDPR وخيارات إقامة البيانات وضمان SLA بنسبة 99.9%.",
+              "tr": "GDPR uyumlu onay akışları, veri yerleşimi seçenekleri ve %99,9 SLA çalışma süresi garantisi."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "howItWorks",
+      "props": {
+        "badge": {
+          "en": "How It Works",
+          "pt": "Como Funciona",
+          "es": "Cómo Funciona",
+          "id": "Cara Kerja",
+          "ar": "كيف يعمل",
+          "tr": "Nasıl Çalışır"
+        },
+        "heading": {
+          "en": "Go Live in Under 5 Minutes",
+          "pt": "Comece em Menos de 5 Minutos",
+          "es": "Comience en Menos de 5 Minutos",
+          "id": "Mulai dalam Kurang dari 5 Menit",
+          "ar": "ابدأ البث المباشر في أقل من 5 دقائق",
+          "tr": "5 Dakikadan Kısa Sürede Başlayın"
+        },
+        "subheading": {
+          "en": "Four simple steps from signup to your first message.",
+          "pt": "Quatro passos simples do cadastro à sua primeira mensagem.",
+          "es": "Cuatro pasos simples desde el registro hasta su primer mensaje.",
+          "id": "Empat langkah sederhana dari pendaftaran hingga pesan pertama Anda.",
+          "ar": "أربع خطوات بسيطة من التسجيل إلى رسالتك الأولى.",
+          "tr": "Kayıttan ilk mesajınıza kadar dört basit adım."
+        },
+        "steps": [
+          {
+            "icon": "user",
+            "title": {
+              "en": "Create Your Account",
+              "pt": "Crie Sua Conta",
+              "es": "Cree Su Cuenta",
+              "id": "Buat Akun Anda",
+              "ar": "أنشئ حسابك",
+              "tr": "Hesabınızı Oluşturun"
+            },
+            "description": {
+              "en": "Sign up in 30 seconds. No credit card required. Free plan includes 1,000 messages/month.",
+              "pt": "Cadastre-se em 30 segundos. Sem necessidade de cartão de crédito. O plano gratuito inclui 1.000 mensagens/mês.",
+              "es": "Regístrese en 30 segundos. Sin necesidad de tarjeta de crédito. El plan gratuito incluye 1.000 mensajes/mes.",
+              "id": "Daftar dalam 30 detik. Tidak perlu kartu kredit. Paket gratis termasuk 1.000 pesan/bulan.",
+              "ar": "سجّل في 30 ثانية. لا حاجة لبطاقة ائتمان. الخطة المجانية تشمل 1,000 رسالة/شهر.",
+              "tr": "30 saniyede kaydolun. Kredi kartı gerekmez. Ücretsiz plan aylık 1.000 mesaj içerir."
+            }
+          },
+          {
+            "icon": "key",
+            "title": {
+              "en": "Get Your API Keys",
+              "pt": "Obtenha Suas Chaves API",
+              "es": "Obtenga Sus Claves API",
+              "id": "Dapatkan Kunci API Anda",
+              "ar": "احصل على مفاتيح API الخاصة بك",
+              "tr": "API Anahtarlarınızı Alın"
+            },
+            "description": {
+              "en": "Your dashboard generates API credentials instantly. Copy, paste, and start integrating.",
+              "pt": "Seu painel gera credenciais de API instantaneamente. Copie, cole e comece a integrar.",
+              "es": "Su panel genera las credenciales de la API instantáneamente. Copie, pegue y comience a integrar.",
+              "id": "Dasbor Anda menghasilkan kredensial API secara instan. Salin, tempel, dan mulai integrasikan.",
+              "ar": "لوحة التحكم الخاصة بك تولّد بيانات اعتماد API فوراً. انسخ والصق وابدأ التكامل.",
+              "tr": "Paneliniz API kimlik bilgilerini anında oluşturur. Kopyalayın, yapıştırın ve entegre etmeye başlayın."
+            }
+          },
+          {
+            "icon": "send",
+            "title": {
+              "en": "Send Your First Message",
+              "pt": "Envie Sua Primeira Mensagem",
+              "es": "Envíe Su Primer Mensaje",
+              "id": "Kirim Pesan Pertama Anda",
+              "ar": "أرسل رسالتك الأولى",
+              "tr": "İlk Mesajınızı Gönderin"
+            },
+            "description": {
+              "en": "Use our sandbox to test OTPs, broadcasts, and chatbot flows before going live.",
+              "pt": "Use nossa sandbox para testar OTPs, transmissões e fluxos de chatbot antes de publicar.",
+              "es": "Use nuestro sandbox para probar OTPs, difusiones y flujos de chatbot antes de pasar a producción.",
+              "id": "Gunakan sandbox kami untuk menguji OTP, siaran, dan alur chatbot sebelum meluncurkan.",
+              "ar": "استخدم بيئة الاختبار الخاصة بنا لاختبار OTPs والبث وتدفقات الشات بوت قبل البدء.",
+              "tr": "Canlıya geçmeden önce OTP, yayın ve chatbot akışlarını test etmek için sandbox'umuzu kullanın."
+            }
+          },
+          {
+            "icon": "rocket",
+            "title": {
+              "en": "Scale to Millions",
+              "pt": "Escale para Milhões",
+              "es": "Escale a Millones",
+              "id": "Skalakan ke Jutaan",
+              "ar": "وسّع النطاق إلى الملايين",
+              "tr": "Milyonlara Ölçeklendirin"
+            },
+            "description": {
+              "en": "Our infrastructure handles 10M+ messages daily with auto-scaling and 99.9% uptime.",
+              "pt": "Nossa infraestrutura processa mais de 10M de mensagens diariamente com auto-escala e 99,9% de disponibilidade.",
+              "es": "Nuestra infraestructura maneja más de 10M de mensajes diarios con autoescalado y 99,9% de disponibilidad.",
+              "id": "Infrastruktur kami menangani 10 juta+ pesan setiap hari dengan penskalaan otomatis dan 99,9% uptime.",
+              "ar": "بنيتنا التحتية تعالج أكثر من 10 ملايين رسالة يومياً مع التوسع التلقائي ووقت التشغيل 99.9%.",
+              "tr": "Altyapımız günlük 10M+ mesajı otomatik ölçekleme ve %99,9 çalışma süresiyle yönetir."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "testimonials",
+      "props": {
+        "badge": {
+          "en": "What Our Customers Say",
+          "pt": "O que Nossos Clientes Dizem",
+          "es": "Lo que Dicen Nuestros Clientes",
+          "id": "Apa Kata Pelanggan Kami",
+          "ar": "ماذا يقول عملاؤنا",
+          "tr": "Müşterilerimiz Ne Diyor"
+        },
+        "heading": {
+          "en": "Trusted by Teams That Ship Fast",
+          "pt": "Confiado por Equipes que Entregam Rápido",
+          "es": "La Confianza de Equipos que Entregan Rápido",
+          "id": "Dipercaya oleh Tim yang Bergerak Cepat",
+          "ar": "موثوق به من قبل الفرق التي تنجز بسرعة",
+          "tr": "Hızlı İlerleme Sağlayan Ekipler Tarafından Güvenilir"
+        },
+        "items": [
+          {
+            "quote": {
+              "en": "StartMessaging's WhatsApp API cut our customer response time by 70%. The chatbot handles 80% of queries automatically.",
+              "pt": "A API do WhatsApp da StartMessaging reduziu nosso tempo de resposta em 70%. O chatbot lida com 80% das consultas automaticamente.",
+              "es": "La API de WhatsApp de StartMessaging redujo nuestro tiempo de respuesta en un 70%. El chatbot maneja el 80% de las consultas automáticamente.",
+              "id": "API WhatsApp StartMessaging memangkas waktu respons pelanggan kami sebesar 70%. Chatbot menangani 80% pertanyaan secara otomatis.",
+              "ar": "خفّضت واجهة واتساب من StartMessaging وقت استجابة العملاء بنسبة 70%. الشات بوت يتعامل مع 80% من الاستفسارات تلقائياً.",
+              "tr": "StartMessaging'in WhatsApp API'si müşteri yanıt süremizi %70 azalttı. Chatbot sorguların %80'ini otomatik olarak yönetiyor."
+            },
+            "author": "Priya Sharma",
+            "role": {
+              "en": "CTO, TechScale India",
+              "pt": "CTO, TechScale India",
+              "es": "CTO, TechScale India",
+              "id": "CTO, TechScale India",
+              "ar": "CTO، TechScale India",
+              "tr": "CTO, TechScale India"
+            }
+          },
+          {
+            "quote": {
+              "en": "We switched from Twilio to StartMessaging and saved 40% on messaging costs while getting better delivery rates.",
+              "pt": "Mudamos do Twilio para o StartMessaging e economizamos 40% nos custos de mensagens com melhores taxas de entrega.",
+              "es": "Cambiamos de Twilio a StartMessaging y ahorramos un 40% en costos de mensajería con mejores tasas de entrega.",
+              "id": "Kami beralih dari Twilio ke StartMessaging dan menghemat 40% biaya pesan dengan tingkat pengiriman yang lebih baik.",
+              "ar": "انتقلنا من Twilio إلى StartMessaging ووفّرنا 40% من تكاليف المراسلة مع معدلات تسليم أفضل.",
+              "tr": "Twilio'dan StartMessaging'e geçtik ve daha iyi teslimat oranlarıyla mesajlaşma maliyetlerinde %40 tasarruf ettik."
+            },
+            "author": "Carlos Mendes",
+            "role": {
+              "en": "Head of Engineering, ShopFast",
+              "pt": "Diretor de Engenharia, ShopFast",
+              "es": "Director de Ingeniería, ShopFast",
+              "id": "Kepala Engineering, ShopFast",
+              "ar": "رئيس الهندسة، ShopFast",
+              "tr": "Mühendislik Müdürü, ShopFast"
+            }
+          },
+          {
+            "quote": {
+              "en": "The sandbox made integration incredibly fast. We were sending OTPs in production within an hour of signing up.",
+              "pt": "O sandbox tornou a integração incrivelmente rápida. Estávamos enviando OTPs em produção uma hora após a inscrição.",
+              "es": "El sandbox hizo que la integración fuera increíblemente rápida. Enviamos OTPs en producción una hora después de registrarnos.",
+              "id": "Sandbox membuat integrasi sangat cepat. Kami mengirim OTP di produksi dalam satu jam setelah mendaftar.",
+              "ar": "جعلت بيئة الاختبار التكامل سريعاً بشكل لا يصدق. كنا نرسل OTPs في الإنتاج خلال ساعة من التسجيل.",
+              "tr": "Sandbox entegrasyonu inanılmaz derecede hızlı yaptı. Kaydolduktan sonra bir saat içinde üretimde OTP gönderiyorduk."
+            },
+            "author": "Ahmad Al-Rashid",
+            "role": {
+              "en": "Lead Developer, FinTech Solutions",
+              "pt": "Desenvolvedor Líder, FinTech Solutions",
+              "es": "Desarrollador Líder, FinTech Solutions",
+              "id": "Lead Developer, FinTech Solutions",
+              "ar": "المطور الرئيسي، FinTech Solutions",
+              "tr": "Baş Geliştirici, FinTech Solutions"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "pricingTeaser",
+      "props": {
+        "showSms": "$hasSms",
+        "currency": "$currency",
+        "country": "$country"
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "Frequently Asked Questions",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "Pertanyaan yang Sering Diajukan",
+          "ar": "الأسئلة الشائعة",
+          "tr": "Sıkça Sorulan Sorular"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "What is StartMessaging?",
+              "pt": "O que é o StartMessaging?",
+              "es": "¿Qué es StartMessaging?",
+              "id": "Apa itu StartMessaging?",
+              "ar": "ما هو StartMessaging؟",
+              "tr": "StartMessaging nedir?"
+            },
+            "answer": {
+              "en": "StartMessaging is an official Meta Business Solution Provider that offers WhatsApp Business API and SMS API for businesses of all sizes. We help you send broadcasts, build chatbots, deliver OTPs, and automate customer conversations.",
+              "pt": "StartMessaging é um Provedor Oficial de Soluções de Negócios Meta que oferece API WhatsApp Business e API SMS para empresas de todos os tamanhos. Ajudamos você a enviar transmissões, criar chatbots, entregar OTPs e automatizar conversas com clientes.",
+              "es": "StartMessaging es un Proveedor Oficial de Soluciones de Negocio de Meta que ofrece API de WhatsApp Business y API de SMS para empresas de todos los tamaños. Le ayudamos a enviar difusiones, crear chatbots, entregar OTPs y automatizar conversaciones con clientes.",
+              "id": "StartMessaging adalah Penyedia Solusi Bisnis Meta resmi yang menawarkan API WhatsApp Business dan API SMS untuk bisnis dari semua ukuran. Kami membantu Anda mengirim siaran, membangun chatbot, mengirim OTP, dan mengotomatisasi percakapan pelanggan.",
+              "ar": "StartMessaging هو مزود حلول الأعمال الرسمي من Meta الذي يقدم واجهة برمجة تطبيقات واتساب للأعمال وواجهة برمجة تطبيقات SMS للشركات من جميع الأحجام. نساعدك في إرسال البث وإنشاء الشات بوت وتوصيل OTPs وأتمتة محادثات العملاء.",
+              "tr": "StartMessaging, her ölçekteki işletme için WhatsApp Business API ve SMS API sunan resmi bir Meta İş Çözümleri Sağlayıcısıdır. Yayın göndermenize, chatbot oluşturmanıza, OTP iletmenize ve müşteri konuşmalarını otomatikleştirmenize yardımcı oluyoruz."
+            }
+          },
+          {
+            "question": {
+              "en": "Is there a free plan?",
+              "pt": "Existe um plano gratuito?",
+              "es": "¿Hay un plan gratuito?",
+              "id": "Apakah ada paket gratis?",
+              "ar": "هل يوجد خطة مجانية؟",
+              "tr": "Ücretsiz plan var mı?"
+            },
+            "answer": {
+              "en": "Yes! Our free plan includes 1,000 free messages per month with full API access, sandbox testing, and core features. No credit card required to start. Upgrade anytime as you grow.",
+              "pt": "Sim! Nosso plano gratuito inclui 1.000 mensagens gratuitas por mês com acesso completo à API, testes em sandbox e funcionalidades essenciais. Não é necessário cartão de crédito para começar. Faça upgrade a qualquer momento.",
+              "es": "¡Sí! Nuestro plan gratuito incluye 1.000 mensajes gratuitos al mes con acceso completo a la API, pruebas en sandbox y funciones básicas. No se requiere tarjeta de crédito para empezar. Actualice en cualquier momento.",
+              "id": "Ya! Paket gratis kami mencakup 1.000 pesan gratis per bulan dengan akses API penuh, pengujian sandbox, dan fitur inti. Tidak perlu kartu kredit untuk memulai. Upgrade kapan saja sesuai kebutuhan.",
+              "ar": "نعم! خطتنا المجانية تشمل 1,000 رسالة مجانية شهرياً مع وصول كامل لـ API واختبار في بيئة تجريبية وميزات أساسية. لا حاجة لبطاقة ائتمان للبدء. قم بالترقية في أي وقت.",
+              "tr": "Evet! Ücretsiz planımız aylık 1.000 ücretsiz mesaj, tam API erişimi, sandbox testi ve temel özellikler içerir. Başlamak için kredi kartı gerekmez. İstediğiniz zaman yükseltin."
+            }
+          },
+          {
+            "question": {
+              "en": "How quickly can I integrate?",
+              "pt": "Quão rápido posso integrar?",
+              "es": "¿Qué tan rápido puedo integrar?",
+              "id": "Seberapa cepat saya bisa mengintegrasikan?",
+              "ar": "ما مدى سرعة التكامل؟",
+              "tr": "Ne kadar hızlı entegre edebilirim?"
+            },
+            "answer": {
+              "en": "Most developers send their first message within 5 minutes. Our REST API has straightforward endpoints with comprehensive documentation, code samples in 6 languages (cURL, Node.js, Python, PHP, Java, Go), and a sandbox for safe testing.",
+              "pt": "A maioria dos desenvolvedores envia sua primeira mensagem em 5 minutos. Nossa API REST tem endpoints simples com documentação completa, exemplos de código em 6 linguagens (cURL, Node.js, Python, PHP, Java, Go) e uma sandbox para testes seguros.",
+              "es": "La mayoría de los desarrolladores envían su primer mensaje en 5 minutos. Nuestra API REST tiene endpoints simples con documentación completa, ejemplos de código en 6 lenguajes (cURL, Node.js, Python, PHP, Java, Go) y un sandbox para pruebas seguras.",
+              "id": "Sebagian besar developer mengirim pesan pertama mereka dalam 5 menit. REST API kami memiliki endpoint yang mudah dengan dokumentasi lengkap, contoh kode dalam 6 bahasa (cURL, Node.js, Python, PHP, Java, Go), dan sandbox untuk pengujian aman.",
+              "ar": "معظم المطورين يرسلون رسالتهم الأولى في 5 دقائق. واجهة REST API الخاصة بنا تحتوي على نقاط نهاية واضحة مع توثيق شامل وأمثلة كود بـ 6 لغات (cURL وNode.js وPython وPHP وJava وGo) وبيئة تجريبية للاختبار الآمن.",
+              "tr": "Çoğu geliştirici ilk mesajını 5 dakika içinde gönderir. REST API'miz kapsamlı belgeler, 6 dilde (cURL, Node.js, Python, PHP, Java, Go) kod örnekleri ve güvenli test için sandbox ile basit uç noktalara sahiptir."
+            }
+          },
+          {
+            "question": {
+              "en": "What countries does StartMessaging support?",
+              "pt": "Quais países o StartMessaging suporta?",
+              "es": "¿En qué países opera StartMessaging?",
+              "id": "Negara mana saja yang didukung StartMessaging?",
+              "ar": "ما الدول التي يدعمها StartMessaging؟",
+              "tr": "StartMessaging hangi ülkeleri destekliyor?"
+            },
+            "answer": {
+              "en": "StartMessaging serves businesses in India, Brazil, Mexico, Indonesia, UAE, Turkey, and Nigeria with localized pricing and support. WhatsApp messages can be delivered to 180+ countries worldwide.",
+              "pt": "O StartMessaging atende empresas na Índia, Brasil, México, Indonésia, Emirados Árabes, Turquia e Nigéria com preços e suporte localizados. Mensagens do WhatsApp podem ser entregues em mais de 180 países.",
+              "es": "StartMessaging atiende a empresas en India, Brasil, México, Indonesia, EAU, Turquía y Nigeria con precios y soporte localizados. Los mensajes de WhatsApp se pueden entregar en más de 180 países.",
+              "id": "StartMessaging melayani bisnis di India, Brasil, Meksiko, Indonesia, UEA, Turki, dan Nigeria dengan harga dan dukungan lokal. Pesan WhatsApp dapat dikirim ke lebih dari 180 negara di seluruh dunia.",
+              "ar": "يخدم StartMessaging الشركات في الهند والبرازيل والمكسيك وإندونيسيا والإمارات وتركيا ونيجيريا بأسعار ودعم محلي. يمكن توصيل رسائل واتساب إلى أكثر من 180 دولة حول العالم.",
+              "tr": "StartMessaging, Hindistan, Brezilya, Meksika, Endonezya, BAE, Türkiye ve Nijerya'daki işletmelere yerelleştirilmiş fiyatlandırma ve destekle hizmet vermektedir. WhatsApp mesajları dünya çapında 180'den fazla ülkeye iletilebilir."
+            }
+          },
+          {
+            "question": {
+              "en": "Is StartMessaging an official Meta partner?",
+              "pt": "O StartMessaging é um parceiro oficial da Meta?",
+              "es": "¿Es StartMessaging un socio oficial de Meta?",
+              "id": "Apakah StartMessaging partner resmi Meta?",
+              "ar": "هل StartMessaging شريك رسمي لـ Meta؟",
+              "tr": "StartMessaging resmi bir Meta ortağı mı?"
+            },
+            "answer": {
+              "en": "Yes, StartMessaging is an official Meta Business Solution Provider (BSP). This means we have direct access to the WhatsApp Business API with guaranteed reliability, compliance, and enterprise-grade support.",
+              "pt": "Sim, o StartMessaging é um Provedor Oficial de Soluções de Negócios da Meta (BSP). Isso significa que temos acesso direto à API do WhatsApp Business com confiabilidade, conformidade e suporte empresarial garantidos.",
+              "es": "Sí, StartMessaging es un Proveedor Oficial de Soluciones de Negocio de Meta (BSP). Esto significa que tenemos acceso directo a la API de WhatsApp Business con fiabilidad, cumplimiento y soporte empresarial garantizados.",
+              "id": "Ya, StartMessaging adalah Penyedia Solusi Bisnis Meta resmi (BSP). Ini berarti kami memiliki akses langsung ke API WhatsApp Business dengan keandalan, kepatuhan, dan dukungan kelas enterprise yang terjamin.",
+              "ar": "نعم، StartMessaging هو مزود حلول أعمال رسمي من Meta (BSP). هذا يعني أن لدينا وصولاً مباشراً إلى واجهة برمجة تطبيقات واتساب للأعمال مع موثوقية وامتثال ودعم مؤسسي مضمون.",
+              "tr": "Evet, StartMessaging resmi bir Meta İş Çözümleri Sağlayıcısıdır (BSP). Bu, güvenilirlik, uyumluluk ve kurumsal düzey destekle WhatsApp Business API'ye doğrudan erişimimiz olduğu anlamına gelir."
+            }
           }
         ]
       }
@@ -88,13 +738,42 @@
     {
       "type": "ctaBlock",
       "props": {
-        "heading":  { "en": "Ready to start messaging?",       "pt-br": "Pronto para começar a enviar mensagens?" },
-        "subtext":  { "en": "Free plan available. No credit card required.", "pt-br": "Plano gratuito disponível. Sem necessidade de cartão de crédito." },
-        "primaryCta":    { "en": "Get Started Free", "pt-br": "Começar Grátis" },
-        "primaryHref":   "/signup",
-        "secondaryCta":  { "en": "Talk to Sales",   "pt-br": "Falar com Vendas" },
+        "heading": {
+          "en": "Ready to Start Messaging?",
+          "pt": "Pronto para Começar a Enviar Mensagens?",
+          "es": "¿Listo para Comenzar a Enviar Mensajes?",
+          "id": "Siap untuk Mulai Berkirim Pesan?",
+          "ar": "هل أنت مستعد لبدء المراسلة؟",
+          "tr": "Mesajlaşmaya Başlamaya Hazır mısınız?"
+        },
+        "subtext": {
+          "en": "Free plan available. No credit card required. Setup in under 5 minutes.",
+          "pt": "Plano gratuito disponível. Sem necessidade de cartão de crédito. Configuração em menos de 5 minutos.",
+          "es": "Plan gratuito disponible. Sin necesidad de tarjeta de crédito. Configuración en menos de 5 minutos.",
+          "id": "Paket gratis tersedia. Tidak perlu kartu kredit. Pengaturan dalam kurang dari 5 menit.",
+          "ar": "خطة مجانية متاحة. لا حاجة لبطاقة ائتمان. الإعداد في أقل من 5 دقائق.",
+          "tr": "Ücretsiz plan mevcut. Kredi kartı gerekmez. 5 dakikadan kısa sürede kurulum."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Talk to Sales",
+          "pt": "Falar com Vendas",
+          "es": "Hablar con Ventas",
+          "id": "Hubungi Sales",
+          "ar": "تحدث مع المبيعات",
+          "tr": "Satışla İletişim"
+        },
         "secondaryHref": "/contact"
       }
     }
-  ]
+  ],
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"]
 }

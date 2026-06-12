@@ -1,0 +1,101 @@
+﻿---
+title: "OTP Autofill on Android and iOS: SMS Retriever and Beyond"
+description: "Improve OTP UX with Android SMS Retriever, User Consent API, and iOS one-time code fields. Aligns with TRAI DLT-approved SMS templates and StartMessaging when your backend sends the SMS."
+publishedAt: "2026-04-11"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "SMS Retriever API"
+  - "Android OTP autofill"
+  - "iOS OTP autofill"
+  - "one time code iOS"
+  - "OTP UX mobile"
+  - "Google Play SMS verification"
+  - "DLT SMS template India"
+  - "TRAI SMS OTP template"
+  - "service implicit SMS OTP"
+  - "SMS template variable DLT"
+  - "OTP SMS API India"
+  - "DLT template registration OTP"
+  - "transactional SMS autofill"
+relatedSlugs:
+  - "otp-verification-flow"
+  - "otp-sms-deliverability-checklist"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+Faster OTP entry means higher conversion on signup and login. On mobile,
+        that usually means letting the OS suggest or paste the code from SMS.
+        This guide explains how Android and iOS handle OTP autofill and how it
+        connects to a backend that sends OTP via an API like StartMessaging—not
+        a repeat of generic "build an OTP flow" content, but the
+        mobile-specific layer on top.
+
+
+## Why Autofill Matters for OTP
+
+Typing six digits on a small keyboard is error-prone. Users switch apps,
+        lose context, or mistype. Autofill reduces support tickets and abandoned
+        sessions. For Indian apps where SMS OTP remains the default login factor,
+        investing in platform autofill APIs pays off even when your server
+        already uses a reliable 
+        [OTP API](/otp-api)
+        .
+
+
+## Android: SMS Retriever and User Consent
+
+Google offers the **SMS Retriever API** for app-initiated
+        verification without the READ_SMS permission when messages include a
+        specific app hash. For cases where the format does not match, the 
+        **User Consent API** can prompt once to allow reading a
+        single SMS. Your implementation team reads Google's current
+        documentation for Play policy and API levels.
+
+
+The critical integration point: the incoming SMS format must match what
+        the Retriever expects, alongside your registered hash. That is a
+        coordination problem between DLT-approved template text, your variable
+        placeholders, and the client—not something the OTP provider invents for
+        you.
+
+
+## iOS: Web OTP and One-Time Code
+
+Safari and in-app web views can use standards-based Web OTP where the
+        SMS includes a domain-bound code format. Native iOS apps often use 
+        **UITextField** with **textContentType oneTimeCode** 
+        so iOS suggests codes from Messages when the SMS follows recognizable
+        patterns. Test on real devices: simulators do not fully replicate SMS.
+
+
+## What Your SMS Body Must Look Like
+
+Autofill is not magic if the message body drifts from what templates allow.
+        Lock down copy with your compliance and SMS teams, then test end-to-end:
+        send from staging through the same provider path you use in production.
+        If you previously read our 
+        [deliverability checklist](/blog/otp-sms-deliverability-checklist)
+        , autofill is the other half: the message must arrive *and* parse
+        cleanly on the device.
+
+
+## Using StartMessaging in This Flow
+
+StartMessaging sends OTP SMS on Indian routes with DLT handled on the
+        provider side when you use our hosted templates. Your app team owns
+        autofill configuration; your backend owns generation, storage, and verify
+        calls. Connect the two with explicit acceptance tests: one build that
+        sends a real SMS to a test handset and asserts the client extracts the
+        code. For server-side patterns, our 
+        [OTP verification flow](/blog/otp-verification-flow) 
+        article remains the blueprint—this post extends it to mobile UX.
+
+
+## FAQ
+
+See the FAQ block above for short answers.
+

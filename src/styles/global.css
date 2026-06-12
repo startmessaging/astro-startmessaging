@@ -1,87 +1,320 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+  --blue-500: #3b82f6;
+  --indigo-300: #a5b4fc;
+  --blue-300: #93c5fd;
+  --violet-200: #ddd6fe;
+  --blue-400: #60a5fa;
+  --container-max: 80rem;
+}
+
 
 /* ─── Design Tokens ──────────────────────────────────────────────────────────
-   Single source of truth for the StartMessaging design system.
-   To rebrand: change values here only. Components reference these tokens.
-   See DESIGN_SYSTEM.md for the full token reference.
+   StartMessaging — Two Brand Themes + Dark Mode
+   
+   SMS/Auth theme:  Persian (#27187e) + Ghost (#f7f7ff)
+   WhatsApp theme:  Cyprus (#004643) + Sand (#f0ede5)
+   
+   To rebrand: edit values here only. Components reference tokens.
+   See DESIGN_SYSTEM.md for the full reference.
    ─────────────────────────────────────────────────────────────────────────── */
 
 @theme {
-  /* Colors — Brand */
-  --color-primary:          #ff385c;   /* brand CTA — swap here to rebrand */
-  --color-primary-active:   #e00b41;
-  --color-primary-disabled: #ffd1da;
-  --color-on-primary:       #ffffff;
+  /* ── Raw Brand Palette ─────────────────────────────────────────────── */
+  --color-persian: #27187e;
+  --color-persian-light: #4338ca;
+  --color-ghost: #f7f7ff;
+  --color-cyprus: #004643;
+  --color-cyprus-light: #0d9488;
+  --color-sand: #f0ede5;
 
-  /* Colors — Canvas & Surfaces */
-  --color-canvas:           #ffffff;
-  --color-surface-soft:     #f7f7f7;
-  --color-surface-strong:   #f2f2f2;
+  /* ── Primary (SMS/Auth Theme — Default) ────────────────────────────── */
+  --color-primary: #27187e;
+  --color-primary-active: #1e1266;
+  --color-primary-hover: #312e81;
+  --color-primary-disabled: #c7d2fe;
+  --color-on-primary: #ffffff;
 
-  /* Colors — Text hierarchy */
-  --color-ink:              #222222;   /* headlines, primary nav */
-  --color-body:             #3f3f3f;   /* long-form body copy */
-  --color-muted:            #6a6a6a;   /* sub-titles, meta, inactive */
-  --color-muted-soft:       #929292;   /* disabled text */
+  /* ── Background Curves (SMS/Auth Theme — Default) ──────────────────── */
+  --color-curve-1: #818cf8;
+  --color-curve-2: #6366f1;
+  --color-curve-3: #4f46e5;
 
-  /* Colors — Borders */
-  --color-hairline:         #dddddd;   /* default 1px dividers */
-  --color-hairline-soft:    #ebebeb;   /* lighter separators */
-  --color-border-strong:    #c1c1c1;   /* focused input outlines */
+  /* ── WhatsApp Accent ───────────────────────────────────────────────── */
+  --color-accent-wa: #004643;
+  --color-accent-wa-hover: #115e59;
+  --color-accent-wa-light: #14b8a6;
+  --color-on-accent-wa: #ffffff;
 
-  /* Colors — Semantic */
-  --color-error:            #c13515;
-  --color-error-hover:      #b32505;
-  --color-scrim:            rgba(0, 0, 0, 0.5);
+  /* ── Canvas & Surfaces ─────────────────────────────────────────────── */
+  --color-canvas: #f7f7ff;
+  --color-surface-soft: var(--color-canvas);
+  --color-surface-strong: var(--color-canvas);
+  --color-surface-card: #ffffff;
+  --color-surface-wa: #f0ede5;
+  --color-surface-hero: #0f0f14;
 
-  /* Typography — Font family */
-  --font-sans: 'Inter', -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, monospace;
+  /* ── Text Hierarchy ────────────────────────────────────────────────── */
+  --color-ink: #0f0f14;
+  --color-body: #2a2a3a;
+  --color-muted: #6b7280;
+  --color-muted-soft: #9ca3af;
 
-  /* Typography — Scale (matches the described system) */
-  --text-display-xl:  1.75rem;   /* 28px / 700 — hero headline */
-  --text-display-lg:  1.375rem;  /* 22px / 500 — page h1 */
-  --text-display-md:  1.3125rem; /* 21px / 700 — section heads */
-  --text-display-sm:  1.25rem;   /* 20px / 600 — sub-section titles */
-  --text-title-md:    1rem;      /* 16px / 600 — card titles */
-  --text-title-sm:    1rem;      /* 16px / 500 — footer column heads */
-  --text-body-md:     1rem;      /* 16px / 400 — default body */
-  --text-body-sm:     0.875rem;  /* 14px / 400 — card meta */
-  --text-caption:     0.875rem;  /* 14px / 500 — labels */
-  --text-caption-sm:  0.8125rem; /* 13px / 400 — legal line */
-  --text-badge:       0.6875rem; /* 11px / 600 — floating badge */
-  --text-micro:       0.75rem;   /* 12px / 700 — micro-labels */
-  --text-button-md:   1rem;      /* 16px / 500 — CTA labels */
-  --text-button-sm:   0.875rem;  /* 14px / 500 — pill button labels */
+  /* ── Borders ───────────────────────────────────────────────────────── */
+  --color-hairline: rgba(39, 24, 126, 0.10);
+  --color-hairline-soft: rgba(39, 24, 126, 0.06);
+  --color-border-strong: rgba(39, 24, 126, 0.20);
 
-  /* Spacing — 4px base system */
-  --spacing-xxs:     0.125rem;   /* 2px  */
-  --spacing-xs:      0.25rem;    /* 4px  */
-  --spacing-sm:      0.5rem;     /* 8px  */
-  --spacing-md:      0.75rem;    /* 12px */
-  --spacing-base:    1rem;       /* 16px */
-  --spacing-lg:      1.5rem;     /* 24px */
-  --spacing-xl:      2rem;       /* 32px */
-  --spacing-xxl:     3rem;       /* 48px */
-  --spacing-section: 4rem;       /* 64px — major section vertical padding */
+  /* ── Semantic ──────────────────────────────────────────────────────── */
+  --color-error: #dc2626;
+  --color-error-hover: #b91c1c;
+  --color-success: #059669;
+  --color-success-light: #d1fae5;
+  --color-warning: #d97706;
+  --color-info: #2563eb;
+  --color-scrim: rgba(0, 0, 0, 0.5);
 
-  /* Border radius */
-  --radius-sm:   0.5rem;         /* 8px  — buttons, inputs */
-  --radius-md:   0.875rem;       /* 14px — cards */
-  --radius-xl:   2rem;           /* 32px — category strips */
-  --radius-full: 9999px;         /* pills, orbs, circles */
+  /* ── Typography — Font Family ──────────────────────────────────────── */
+  --font-sans: 'Inter', -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, 'Cascadia Code', monospace;
 
-  /* Elevation — single tier */
-  --shadow-card: rgba(0,0,0,0.02) 0 0 0 1px,
-                 rgba(0,0,0,0.04) 0 2px 6px 0,
-                 rgba(0,0,0,0.10) 0 4px 8px 0;
+  /* ── Typography — Fluid Scale ──────────────────────────────────────── */
+  --text-display-hero: clamp(2.5rem, 5.5vw, 4.5rem);
+  --text-display-xl: clamp(2rem, 4.5vw, 3.5rem);
+  --text-display-lg: clamp(1.75rem, 3.5vw, 2.75rem);
+  --text-display-md: clamp(1.5rem, 3vw, 2.25rem);
+  --text-display-sm: clamp(1.25rem, 2.5vw, 1.75rem);
+  --text-title-lg: 1.25rem;
+  --text-title-md: 1rem;
+  --text-title-sm: 1rem;
+  --text-body-lg: 1.125rem;
+  --text-body-md: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-caption: 0.875rem;
+  --text-caption-sm: 0.8125rem;
+  --text-badge: 0.6875rem;
+  --text-micro: 0.75rem;
+  --text-button-md: 1rem;
+  --text-button-sm: 0.875rem;
 
-  /* Container */
-  --container-max:   80rem;      /* 1280px */
-  --container-px:    1rem;       /* 16px mobile gutter */
+  /* ── Spacing — 4px base ────────────────────────────────────────────── */
+  --spacing-xxs: 0.125rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-base: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-xxl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-section: 5rem;
+
+  /* ── Border Radius ─────────────────────────────────────────────────── */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
+
+  /* ── Elevation ─────────────────────────────────────────────────────── */
+  --shadow-card: 0 1px 3px rgba(39,24,126,0.04), 0 4px 12px rgba(39,24,126,0.06);
+  --shadow-card-hover: 0 4px 16px rgba(39,24,126,0.10), 0 8px 32px rgba(39,24,126,0.06);
+  --shadow-float: 0 12px 40px rgba(39,24,126,0.12);
+  --shadow-glow-primary: 0 0 40px rgba(39,24,126,0.20);
+  --shadow-glow-wa: 0 0 40px rgba(0,70,67,0.20);
+
+  /* ── Container ─────────────────────────────────────────────────────── */
+  --container-max: 80rem;
+  --container-px: 1rem;
+
+  /* ── Animations ────────────────────────────────────────────────────── */
+  --animate-aurora: aurora 60s linear infinite;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out both;
+  --animate-fade-in: fade-in 0.6s ease-out both;
+  --animate-slide-in-right: slide-in-right 0.6s ease-out both;
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+
+  /* ── Width & Max-Width Overrides (fixes Tailwind v4 spacing collision) ── */
+  --width-xs: 20rem;
+  --width-sm: 24rem;
+  --width-md: 28rem;
+  --width-lg: 32rem;
+  --width-xl: 36rem;
+  --width-2xl: 42rem;
+  --width-3xl: 48rem;
+  --width-4xl: 56rem;
+  --width-5xl: 64rem;
+  --width-6xl: 72rem;
+  --width-7xl: 80rem;
+
+  --max-width-xs: 20rem;
+  --max-width-sm: 24rem;
+  --max-width-md: 28rem;
+  --max-width-lg: 32rem;
+  --max-width-xl: 36rem;
+  --max-width-2xl: 42rem;
+  --max-width-3xl: 48rem;
+  --max-width-4xl: 56rem;
+  --max-width-5xl: 64rem;
+  --max-width-6xl: 72rem;
+  --max-width-7xl: 80rem;
+
+  /* Brand Colors & Shadows for CTA */
+  --color-brand: hsl(var(--brand));
+  --color-brand-foreground: hsl(var(--brand-foreground));
+  --shadow-glow: 0 -16px 128px 0 hsla(var(--brand-foreground) / 0.5) inset, 0 -16px 32px 0 hsla(var(--brand) / 0.5) inset;
+
+  /* Custom CTA Animations */
+  --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-scale-in: scale-in 0.5s ease-out forwards;
+
+  @keyframes fade-in-up {
+    0% { 
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
-/* ─── Base styles ─────────────────────────────────────────────────────────── */
+/* ─── Dark Mode Token Overrides ──────────────────────────────────────────── */
+
+[data-theme="dark"] {
+  --color-canvas: #0f0f14;
+  --color-surface-soft: var(--color-canvas);
+  --color-surface-strong: var(--color-canvas);
+  --color-surface-card: #161618;
+  --color-surface-hero: #0a0a10;
+  --color-ink: #f0f0fa;
+  --color-body: #d0d0e0;
+  --color-muted: #8080a0;
+  --color-muted-soft: #606080;
+  --color-primary: #9488f0;
+  --color-primary-active: #a89cf5;
+  --color-primary-hover: #7c6ef0;
+  --color-primary-disabled: #3d3568;
+  --color-on-primary: #0f0f14;
+  --color-accent-wa: #4dd9c0;
+  --color-accent-wa-hover: #6ee7c7;
+  --color-accent-wa-light: #2dd4bf;
+  --color-surface-wa: #0a1410;
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-hairline-soft: rgba(255, 255, 255, 0.04);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.20);
+  --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.30), 0 8px 32px rgba(0,0,0,0.20);
+  --shadow-float: 0 12px 40px rgba(0,0,0,0.35);
+  --shadow-glow-primary: 0 0 40px rgba(148,136,240,0.25);
+  --shadow-glow-wa: 0 0 40px rgba(77,217,192,0.25);
+
+  --color-curve-1: #9488f0;
+  --color-curve-2: #7c6ef0;
+  --color-curve-3: #6366f1;
+}
+
+/* ─── WhatsApp Brand Theme Overrides ───────────────────────────────────────── */
+
+html[data-theme-brand="whatsapp"] {
+  --color-canvas: var(--color-surface-wa);
+  --color-surface-soft: var(--color-surface-wa);
+  --color-surface-strong: var(--color-surface-wa);
+  --color-surface-card: rgba(255, 255, 255, 0.60);
+  --color-primary: var(--color-accent-wa);
+  --color-primary-active: var(--color-accent-wa-hover);
+  --color-primary-hover: var(--color-accent-wa-hover);
+  --color-primary-disabled: var(--color-accent-wa-light);
+  --color-hairline: rgba(0, 70, 67, 0.12);
+  --color-hairline-soft: rgba(0, 70, 67, 0.06);
+  --color-border-strong: rgba(0, 70, 67, 0.22);
+
+  --color-curve-1: var(--color-accent-wa-light);
+  --color-curve-2: var(--color-accent-wa);
+  --color-curve-3: var(--color-accent-wa-hover);
+}
+
+html[data-theme-brand="whatsapp"][data-theme="dark"],
+[data-theme="dark"] html[data-theme-brand="whatsapp"] {
+  --color-canvas: var(--color-surface-wa);
+  --color-surface-soft: var(--color-surface-wa);
+  --color-surface-strong: var(--color-surface-wa);
+  --color-surface-card: rgba(22, 22, 34, 0.60);
+  --color-primary: var(--color-accent-wa);
+  --color-primary-active: var(--color-accent-wa-hover);
+  --color-primary-hover: var(--color-accent-wa-hover);
+  --color-primary-disabled: var(--color-accent-wa-light);
+  --color-hairline: rgba(77, 217, 192, 0.15);
+  --color-hairline-soft: rgba(77, 217, 192, 0.08);
+  --color-border-strong: rgba(77, 217, 192, 0.25);
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────── */
+
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to   { background-position: 350% 50%, 350% 50%; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(2rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(1.5rem); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
 
 @layer base {
   *, *::before, *::after {
@@ -95,11 +328,13 @@
     -moz-osx-font-smoothing: grayscale;
     color: var(--color-ink);
     background-color: var(--color-canvas);
+    scroll-behavior: smooth;
+    transition: background-color 200ms ease, color 200ms ease;
   }
 
   body {
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.6;
     color: var(--color-ink);
     background-color: var(--color-canvas);
   }
@@ -117,15 +352,156 @@
 
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.15;
     color: var(--color-ink);
   }
 
   p { margin: 0; }
   ul, ol { margin: 0; padding: 0; list-style: none; }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
 }
 
-/* ─── Prose styles (blog / docs content) ──────────────────────────────────── */
+/* ─── Aurora Background Effect ───────────────────────────────────────────── */
+
+.aurora-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-canvas);
+  overflow: hidden;
+  transition: background-color 200ms ease;
+}
+
+.aurora-layer {
+  --aurora-white: repeating-linear-gradient(
+    100deg,
+    var(--color-ink) 0%,
+    var(--color-ink) 7%,
+    transparent 10%,
+    transparent 12%,
+    var(--color-ink) 16%
+  );
+  --aurora-gradient: repeating-linear-gradient(
+    100deg,
+    var(--color-persian) 10%,
+    #6366f1 15%,
+    #818cf8 20%,
+    #c4b5fd 25%,
+    #60a5fa 30%
+  );
+
+  position: absolute;
+  inset: -10px;
+  background-image: var(--aurora-white), var(--aurora-gradient);
+  background-size: 300% 200%;
+  background-position: 50% 50%;
+  filter: blur(10px);
+  pointer-events: none;
+  opacity: 0.50;
+  will-change: transform;
+  mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+}
+
+.aurora-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--aurora-white), var(--aurora-gradient);
+  background-size: 200% 100%;
+  animation: aurora 60s linear infinite;
+  background-attachment: fixed;
+  mix-blend-mode: difference;
+}
+
+/* WhatsApp theme aurora — teal/green tones */
+.aurora-wrap[data-aurora-theme="whatsapp"] .aurora-layer {
+  --aurora-gradient: repeating-linear-gradient(
+    100deg,
+    var(--color-cyprus) 10%,
+    #0d9488 15%,
+    #2dd4bf 20%,
+    #99f6e4 25%,
+    #5eead4 30%
+  );
+}
+
+/* ─── Gradient Text Utility ──────────────────────────────────────────────── */
+
+.gradient-text-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #6366f1 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-wa {
+  background: linear-gradient(135deg, var(--color-accent-wa) 0%, #0d9488 50%, #2dd4bf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Staggered Entrance Animations ──────────────────────────────────────── */
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* ─── Glass Effect ───────────────────────────────────────────────────────── */
+
+.glass {
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+}
+
+[data-theme="dark"] .glass {
+  background: rgba(22, 22, 24, 0.70);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── FAQ Accordion ──────────────────────────────────────────────────────── */
+
+details.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+}
+details.faq-item summary::-webkit-details-marker { display: none; }
+details.faq-item summary::marker { display: none; }
+
+details.faq-item .faq-chevron {
+  transition: transform 0.3s ease;
+}
+details.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+details.faq-item .faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+details.faq-item[open] .faq-answer {
+  grid-template-rows: 1fr;
+}
+details.faq-item .faq-answer > div {
+  overflow: hidden;
+}
+
+/* ─── Prose Styles (Blog / Docs Content) ─────────────────────────────────── */
 
 .prose h2 { font-size: var(--text-display-md); font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; scroll-margin-top: 6rem; }
 .prose h3 { font-size: var(--text-display-sm); font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; }
@@ -145,3 +521,54 @@
 .prose table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: var(--text-body-sm); }
 .prose th { background: var(--color-surface-soft); font-weight: 600; text-align: left; padding: 0.5rem 0.75rem; border: 1px solid var(--color-hairline); }
 .prose td { padding: 0.5rem 0.75rem; border: 1px solid var(--color-hairline); color: var(--color-body); }
+
+@theme inline {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Custom CTA Utility Classes */
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+.delay-700 {
+  animation-delay: 700ms;
+}
+
+.fade-top-lg {
+  mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 1) 8rem);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 1) 8rem);
+}
+
+.animate-in {
+  animation-duration: 1000ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}

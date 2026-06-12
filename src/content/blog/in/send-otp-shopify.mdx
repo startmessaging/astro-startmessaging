@@ -1,0 +1,110 @@
+﻿---
+title: "How to Send OTP on Shopify (2026)"
+description: "Shopify OTP integration using StartMessaging. App-based pattern with App Proxy, customer metafields, signed cookies, and a checkout-extension flow for India COD verification."
+publishedAt: "2026-05-11"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp shopify"
+  - "shopify otp app"
+  - "shopify cod otp"
+  - "shopify india otp"
+relatedSlugs:
+  - "send-otp-wordpress"
+  - "send-otp-nodejs"
+  - "send-otp-express"
+  - "otp-ecommerce-india"
+featured: false
+---
+
+
+Shopify is heavily used by Indian D2C brands. OTP at checkout is the
+        single most effective COD-fraud reduction. This tutorial wires 
+        [StartMessaging](/otp-api) via App Proxy.
+
+
+## Overview
+
+
+- Shopify app with an App Proxy URL.
+- Backend (Node / any) hosts `/sm/send` + `/sm/verify`.
+- Storefront / checkout-extension calls App Proxy.
+- On verify, set a customer metafield `sm.phone_verified = true`.
+
+
+
+## App Proxy Pattern
+
+App Proxy lets your store frontend call your backend without CORS
+        gymnastics. Configure proxy prefix `apps/sm` and proxy URL
+        pointing at your backend.
+
+
+## Send Route
+      
+```typescript
+// backend/index.ts (Node)
+import express from 'express';
+import { randomUUID } from 'node:crypto';
+
+const app = express();
+app.use(express.json());
+
+app.post('/sm/send', async (req, res) => {
+  const { phoneNumber } = req.body;
+  const r = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: { 'X-API-Key': process.env.SM_API_KEY!, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phoneNumber, idempotencyKey: randomUUID() }),
+  });
+  const data = (await r.json()).data;
+  res.cookie('sm_otp_req', data.requestId, { httpOnly: true, secure: true, sameSite: 'lax', maxAge: 900_000 });
+  res.json({ expiresAt: data.expiresAt });
+});
+```
+
+
+## Verify Route
+      
+```typescript
+app.post('/sm/verify', async (req, res) => {
+  const { otpCode } = req.body;
+  const requestId = req.cookies?.sm_otp_req;
+  if (!requestId) return res.status(400).json({ error: 'no otp' });
+  const r = await fetch('https://api.startmessaging.com/otp/verify', {
+    method: 'POST',
+    headers: { 'X-API-Key': process.env.SM_API_KEY!, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ requestId, otpCode }),
+  });
+  if (!r.ok) return res.status(401).json({ error: 'invalid' });
+  // set Shopify customer metafield via Admin API
+  return res.json({ verified: true });
+});
+```
+
+
+## Customer Metafield
+
+After verification, set the customer's metafield 
+        `sm.phone_verified = true` via Shopify Admin API.
+        Checkout-extension can then read this and enable / disable COD
+        accordingly.
+
+
+## COD Verification Pattern
+
+
+- Buyer enters phone at checkout.
+- Checkout-extension prompts OTP if metafield false.
+- Buyer enters OTP; verify call sets metafield.
+- COD radio button enables.
+
+
+
+## FAQ
+
+See our 
+        [e-commerce OTP guide](/blog/otp-ecommerce-india) 
+        for the broader Indian COD-fraud playbook.
+

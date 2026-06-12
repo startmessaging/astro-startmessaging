@@ -1,0 +1,116 @@
+---
+/**
+ * CurveBackground — SVG curve background component using design tokens.
+ * Uses dynamic theme colors based on CSS variables.
+ * Designed for static-first rendering.
+ */
+interface Props {
+  theme?: 'sms' | 'whatsapp';
+  class?: string;
+}
+
+const { theme = 'sms', class: className = '' } = Astro.props;
+
+// Determine fill colors dynamically using CSS variables
+const fills = [
+  'var(--color-curve-1)',
+  'var(--color-curve-2)',
+  'var(--color-curve-3)',
+];
+
+// Optional background gradients
+const bgFrom = theme === 'whatsapp' ? 'var(--color-surface-wa)' : 'var(--color-canvas)';
+const bgTo = 'transparent';
+---
+
+<div class:list={["absolute inset-0 overflow-hidden pointer-events-none select-none z-0", className]}>
+  {/* Right side curves */}
+  <svg
+    viewBox="0 0 900 480"
+    xmlns="http://www.w3.org/2000/svg"
+    class="absolute top-0 right-0 w-[62%] h-full pointer-events-none"
+    preserveAspectRatio="xMaxYMid slice"
+  >
+    <defs>
+      <linearGradient id={`bgGrad-right-${theme}`} x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color={bgFrom} stop-opacity="1" />
+        <stop offset="100%" stop-color={bgTo} stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    {/* Outermost curve — lightest */}
+    <path
+      d="M 900 -60
+         C 700 -20, 480 80, 380 200
+         C 280 320, 340 420, 520 480
+         L 900 480 Z"
+      fill={fills[0]}
+      opacity="0.08"
+    />
+
+    {/* Middle curve */}
+    <path
+      d="M 900 30
+         C 740 50, 560 130, 460 260
+         C 370 370, 430 460, 620 480
+         L 900 480 Z"
+      fill={fills[1]}
+      opacity="0.05"
+    />
+
+    {/* Inner tightest curve — most saturated */}
+    <path
+      d="M 900 130
+         C 800 140, 680 200, 610 310
+         C 550 400, 590 460, 720 480
+         L 900 480 Z"
+      fill={fills[2]}
+      opacity="0.06"
+    />
+  </svg>
+
+  {/* Left side curves (Mirrored & Rotated) */}
+  <svg
+    viewBox="0 0 900 480"
+    xmlns="http://www.w3.org/2000/svg"
+    class="absolute top-0 left-0 w-[62%] h-full pointer-events-none rotate-180"
+    preserveAspectRatio="xMaxYMid slice"
+  >
+    <defs>
+      <linearGradient id={`bgGrad-left-${theme}`} x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color={bgFrom} stop-opacity="1" />
+        <stop offset="100%" stop-color={bgTo} stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    {/* Outermost curve — lightest */}
+    <path
+      d="M 900 -60
+         C 700 -20, 480 80, 380 200
+         C 280 320, 340 420, 520 480
+         L 900 480 Z"
+      fill={fills[0]}
+      opacity="0.08"
+    />
+
+    {/* Middle curve */}
+    <path
+      d="M 900 30
+         C 740 50, 560 130, 460 260
+         C 370 370, 430 460, 620 480
+         L 900 480 Z"
+      fill={fills[1]}
+      opacity="0.05"
+    />
+
+    {/* Inner tightest curve — most saturated */}
+    <path
+      d="M 900 130
+         C 800 140, 680 200, 610 310
+         C 550 400, 590 460, 720 480
+         L 900 480 Z"
+      fill={fills[2]}
+      opacity="0.05"
+    />
+  </svg>
+</div>

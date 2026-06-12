@@ -1,0 +1,238 @@
+﻿---
+title: "How to Send OTP with Express.js (2026)"
+description: "Production-ready Express.js OTP guide using StartMessaging. Covers send, verify, idempotency, rate-limit middleware, error mapping and a session-based verification flow."
+publishedAt: "2026-04-26"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp express"
+  - "express js otp"
+  - "otp middleware express"
+  - "express sms otp"
+  - "startmessaging express"
+  - "nodejs express otp"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "send-otp-nestjs"
+  - "send-otp-nextjs-app-router"
+  - "send-otp-fastapi"
+  - "idempotency-keys-otp"
+featured: false
+---
+
+
+Express.js is still the dominant Node.js framework for new APIs in
+        2026, especially in India where teams iterate quickly on auth flows.
+        This tutorial walks through a production-ready 
+        `/auth/send-otp` and `/auth/verify-otp` pair on
+        top of [StartMessaging](/otp-api), with the
+        middleware patterns most teams reach for.
+
+
+## Project Setup
+      
+```bash
+mkdir otp-express && cd otp-express
+npm init -y
+npm install express dotenv cookie-session
+npm install -D typescript @types/node @types/express tsx
+```
+
+
+We use ESM and TypeScript. Add to `package.json`:
+
+      
+```
+{
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  }
+}
+```
+
+
+## Environment Variables
+      
+```bash
+# .env
+SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
+SM_BASE_URL=https://api.startmessaging.com
+SESSION_SECRET=replace-me-with-a-real-secret
+```
+
+
+## A Tiny SM Client Wrapper
+      
+```typescript
+// src/sm.ts
+import { randomUUID } from 'node:crypto';
+
+const BASE_URL = process.env.SM_BASE_URL!;
+const API_KEY  = process.env.SM_API_KEY!;
+
+interface SendResp { requestId: string; expiresAt: string; attemptsLeft: number; }
+
+async function smPost(path: string, body: object) {
+  const res = await fetch(\`\${BASE_URL}\${path}\`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(10_000),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(json.message ?? \`SM error \${res.status}\`) as Error & { status?: number };
+    err.status = res.status;
+    throw err;
+  }
+  return json.data;
+}
+
+export const sm = {
+  sendOtp: (phoneNumber: string): Promise<SendResp> =>
+    smPost('/otp/send', { phoneNumber, idempotencyKey: randomUUID() }),
+  verifyOtp: (requestId: string, otpCode: string) =>
+    smPost('/otp/verify', { requestId, otpCode }),
+};
+```
+
+
+## The /auth Router
+      
+```typescript
+// src/auth.router.ts
+import { Router } from 'express';
+import { sm } from './sm.js';
+import { phoneRateLimit } from './middleware.js';
+
+export const auth = Router();
+
+auth.post('/send-otp', phoneRateLimit, async (req, res) => {
+  const { phoneNumber } = req.body ?? {};
+  if (!/^\\+91\\d{10}$/.test(phoneNumber ?? '')) {
+    return res.status(400).json({ error: 'Invalid phoneNumber' });
+  }
+  try {
+    const data = await sm.sendOtp(phoneNumber);
+    req.session!.otp = { requestId: data.requestId, phoneNumber };
+    return res.json({ expiresAt: data.expiresAt, attemptsLeft: data.attemptsLeft });
+  } catch (e: any) {
+    return res.status(e.status ?? 500).json({ error: e.message });
+  }
+});
+
+auth.post('/verify-otp', async (req, res) => {
+  const { otpCode } = req.body ?? {};
+  const session = req.session?.otp;
+  if (!session) return res.status(400).json({ error: 'No active OTP request' });
+  try {
+    await sm.verifyOtp(session.requestId, otpCode);
+    req.session!.otp = undefined;
+    req.session!.userPhone = session.phoneNumber;
+    return res.json({ verified: true });
+  } catch (e: any) {
+    return res.status(e.status ?? 500).json({ error: e.message });
+  }
+});
+```
+
+
+## Rate Limiting
+      
+```typescript
+// src/middleware.ts
+import type { Request, Response, NextFunction } from 'express';
+
+const WINDOW = 60 * 60 * 1000;
+const LIMIT  = 5;
+const buckets = new Map<string, number[]>();
+
+export function phoneRateLimit(req: Request, res: Response, next: NextFunction) {
+  const phone: string | undefined = req.body?.phoneNumber;
+  if (!phone) return next();
+  const now = Date.now();
+  const bucket = (buckets.get(phone) ?? []).filter((t) => now - t < WINDOW);
+  if (bucket.length >= LIMIT) {
+    return res.status(429).json({ error: 'Too many OTP requests for this number' });
+  }
+  bucket.push(now);
+  buckets.set(phone, bucket);
+  next();
+}
+```
+
+
+Swap the in-memory map for Redis in production — 
+        [full pattern here](/blog/otp-rate-limiting-guide).
+
+
+## Session-Based Verification
+      
+```typescript
+// src/index.ts
+import 'dotenv/config';
+import express from 'express';
+import cookieSession from 'cookie-session';
+import { auth } from './auth.router.js';
+
+const app = express();
+app.use(express.json());
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_SECRET!],
+  maxAge: 30 * 60_000,
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: process.env.NODE_ENV === 'production',
+}));
+app.use('/auth', auth);
+
+app.listen(3001, () => console.log('Listening on :3001'));
+```
+
+
+The session cookie holds the requestId between send and verify, so the
+        client never has to remember it. After verify, we elevate the session
+        to `userPhone`.
+
+
+## Error Handling
+
+The codes you will see from StartMessaging:
+
+      <div>
+        <table>
+          <thead>
+            <tr><th>Status</th><th>Cause</th><th>Suggested response</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>400</td><td>Bad phone / OTP format</td><td>4xx to user</td></tr>
+            <tr><td>402</td><td>Wallet exhausted</td><td>503 + ops alert</td></tr>
+            <tr><td>410</td><td>OTP expired</td><td>410 with retry hint</td></tr>
+            <tr><td>429</td><td>Provider rate-limit</td><td>429 with Retry-After</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+## Tests
+
+For unit tests, mock global `fetch` with 
+        `vi.stubGlobal` (Vitest) or 
+        `jest.spyOn(global, 'fetch')`. Integration tests should hit
+        the StartMessaging sandbox key — see our 
+        [guide on testing OTP flows in staging](/blog/testing-otp-flows-staging-sandboxes)
+        .
+
+
+## FAQ
+
+Want the same flow in NestJS, Hono or Next.js? 
+        [NestJS](/blog/send-otp-nestjs), 
+        [Next.js App Router](/blog/send-otp-nextjs-app-router),
+        and the rest are in our 
+        [tutorials library](/blog).
+

@@ -1,0 +1,49 @@
+---
+/**
+ * TrustBadges — Horizontal strip of trust indicators and social proof.
+ *
+ * Example JSON:
+ * {
+ *   "type": "trustBadges",
+ *   "props": {
+ *     "heading": { "en": "Trusted by businesses worldwide" },
+ *     "badges": [
+ *       { "value": "5,000+", "label": { "en": "Active businesses" } },
+ *       { "value": "10M+",   "label": { "en": "Messages daily" } }
+ *     ]
+ *   }
+ * }
+ */
+import Container from '@/components/ui/Container.astro';
+import Text from '@/components/ui/Text.astro';
+import { r } from '@/i18n/r';
+
+const { heading, badges = [], country, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+const bgClass = isWhatsapp ? 'bg-surface-wa border-accent-wa/20' : 'bg-surface border-hairline';
+const textColorClass = isWhatsapp ? 'text-accent-wa' : 'text-primary';
+---
+
+<section class:list={["py-10 border-b", bgClass]}>
+  <Container>
+    {heading && (
+      <p class="text-center text-caption text-muted uppercase tracking-wider mb-8">
+        {r(heading, country)}
+      </p>
+    )}
+
+    <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+      {badges.map((badge: any) => (
+        <div class="flex flex-col items-center text-center gap-1 group">
+          <span class:list={["text-display-sm font-bold group-hover:scale-105 transition-transform", textColorClass]}>
+            {badge.value}
+          </span>
+          <Text as="span" size="caption-sm" tone="muted">
+            {r(badge.label, country)}
+          </Text>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

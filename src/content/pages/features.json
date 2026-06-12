@@ -1,0 +1,599 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
+  "seo": {
+    "title": {
+      "en": "Features — StartMessaging",
+      "pt": "Recursos — StartMessaging",
+      "es": "Características — StartMessaging",
+      "id": "Fitur — StartMessaging",
+      "ar": "الميزات — StartMessaging",
+      "tr": "Özellikler — StartMessaging"
+    },
+    "description": {
+      "en": "Explore all features: bulk broadcasts, chatbots, REST API, analytics, message templates, and compliance tools for WhatsApp and SMS.",
+      "pt": "Explore todos os recursos: transmissões em massa, chatbots, API REST, análises, modelos de mensagem e ferramentas de conformidade para WhatsApp e SMS.",
+      "es": "Explore todas las características: difusiones masivas, chatbots, API REST, análisis, plantillas de mensajes y herramientas de cumplimiento para WhatsApp y SMS.",
+      "id": "Jelajahi semua fitur: siaran massal, chatbot, REST API, analitik, template pesan, dan alat kepatuhan untuk WhatsApp dan SMS.",
+      "ar": "استكشف جميع الميزات: البث الجماعي والشات بوت وواجهة REST API والتحليلات وقوالب الرسائل وأدوات الامتثال لواتساب وSMS.",
+      "tr": "Tüm özellikleri keşfedin: toplu yayınlar, chatbot'lar, REST API, analitik, mesaj şablonları ve WhatsApp ile SMS için uyumluluk araçları."
+    },
+    "ogImage": "/og.png?title=Features&theme=sms"
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "sms",
+      "props": {
+        "badge": {
+          "en": "Features Overview",
+          "pt": "Visão Geral dos Recursos",
+          "es": "Resumen de Características",
+          "id": "Ikhtisar Fitur",
+          "ar": "نظرة عامة على الميزات",
+          "tr": "Özellik Genel Bakışı"
+        },
+        "title": {
+          "en": "Powerful APIs for SMS & WhatsApp Campaigns",
+          "pt": "APIs Poderosas para Campanhas de SMS e WhatsApp",
+          "es": "APIs Potentes para Campañas de SMS y WhatsApp",
+          "id": "API Kuat untuk Kampanye SMS dan WhatsApp",
+          "ar": "واجهات برمجة تطبيقات قوية لحملات SMS وواتساب",
+          "tr": "SMS ve WhatsApp Kampanyaları İçin Güçlü API'ler"
+        },
+        "subtitle": {
+          "en": "Scale your user verification, marketing broadcasts, and transactional updates globally with enterprise-grade reliability.",
+          "pt": "Escale sua verificação de usuário, transmissões de marketing e atualizações transacionais globalmente com confiabilidade empresarial.",
+          "es": "Escale su verificación de usuarios, difusiones de marketing y actualizaciones transaccionales a nivel global con fiabilidad empresarial.",
+          "id": "Skalakan verifikasi pengguna, siaran pemasaran, dan pembaruan transaksional Anda secara global dengan keandalan kelas enterprise.",
+          "ar": "وسّع نطاق التحقق من المستخدم والبث التسويقي والتحديثات المعاملاتية عالمياً بموثوقية مؤسسية.",
+          "tr": "Kullanıcı doğrulamanızı, pazarlama yayınlarınızı ve işlemsel güncellemelerinizi kurumsal düzey güvenilirlikle küresel olarak ölçeklendirin."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "View Pricing",
+          "pt": "Ver Preços",
+          "es": "Ver Precios",
+          "id": "Lihat Harga",
+          "ar": "عرض الأسعار",
+          "tr": "Fiyatları Görüntüle"
+        },
+        "secondaryHref": "/pricing"
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": {
+          "en": "Core Features",
+          "pt": "Recursos Principais",
+          "es": "Características Principales",
+          "id": "Fitur Utama",
+          "ar": "الميزات الأساسية",
+          "tr": "Temel Özellikler"
+        },
+        "heading": {
+          "en": "Everything You Need to Message at Scale",
+          "pt": "Tudo que Você Precisa para Mensagens em Escala",
+          "es": "Todo lo que Necesita para Enviar Mensajes a Escala",
+          "id": "Semua yang Anda Butuhkan untuk Berkirim Pesan secara Massal",
+          "ar": "كل ما تحتاجه للمراسلة على نطاق واسع",
+          "tr": "Ölçekli Mesajlaşma İçin İhtiyacınız Olan Her Şey"
+        },
+        "items": [
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Bulk Broadcasts",
+              "pt": "Transmissões em Massa",
+              "es": "Difusiones Masivas",
+              "id": "Siaran Massal",
+              "ar": "البث الجماعي",
+              "tr": "Toplu Yayınlar"
+            },
+            "description": {
+              "en": "Send templated messages to thousands of opted-in contacts in minutes with real-time delivery tracking and analytics.",
+              "pt": "Envie mensagens padronizadas para milhares de contatos em minutos com rastreamento e análise de entrega em tempo real.",
+              "es": "Envíe mensajes con plantillas a miles de contactos en minutos con seguimiento y análisis de entrega en tiempo real.",
+              "id": "Kirim pesan template ke ribuan kontak dalam hitungan menit dengan pelacakan dan analitik pengiriman real-time.",
+              "ar": "أرسل رسائل مُنسَّقة لآلاف جهات الاتصال في دقائق مع تتبع وتحليل التسليم في الوقت الفعلي.",
+              "tr": "Gerçek zamanlı teslimat takibi ve analitikle binlerce kişiye şablonlu mesajlar gönderin."
+            }
+          },
+          {
+            "icon": "bot",
+            "title": {
+              "en": "Chatbot Builder",
+              "pt": "Construtor de Chatbot",
+              "es": "Constructor de Chatbot",
+              "id": "Pembuat Chatbot",
+              "ar": "منشئ الشات بوت",
+              "tr": "Chatbot Oluşturucu"
+            },
+            "description": {
+              "en": "Build no-code conversation flows for support, sales, and bookings. Seamless agent handoff when human help is needed.",
+              "pt": "Crie fluxos de conversa sem código para suporte, vendas e agendamentos. Passagem para agente quando ajuda humana é necessária.",
+              "es": "Cree flujos de conversación sin código para soporte, ventas y reservas. Transferencia a agente cuando se necesita ayuda humana.",
+              "id": "Buat alur percakapan tanpa kode untuk dukungan, penjualan, dan pemesanan. Serah terima agen saat bantuan manusia diperlukan.",
+              "ar": "أنشئ تدفقات محادثة بدون كود للدعم والمبيعات والحجوزات. تحويل سلس للموظف عند الحاجة.",
+              "tr": "Destek, satış ve rezervasyonlar için kodsuz konuşma akışları oluşturun. İnsan yardımı gerektiğinde sorunsuz ajan devri."
+            }
+          },
+          {
+            "icon": "api",
+            "title": {
+              "en": "REST API",
+              "pt": "API REST",
+              "es": "API REST",
+              "id": "REST API",
+              "ar": "واجهة REST API",
+              "tr": "REST API"
+            },
+            "description": {
+              "en": "Simple HTTP endpoints with code samples in 6 languages. Send messages, manage contacts, and receive webhooks programmatically.",
+              "pt": "Endpoints HTTP simples com exemplos de código em 6 linguagens. Envie mensagens, gerencie contatos e receba webhooks programaticamente.",
+              "es": "Endpoints HTTP simples con ejemplos de código en 6 lenguajes. Envíe mensajes, gestione contactos y reciba webhooks programáticamente.",
+              "id": "Endpoint HTTP sederhana dengan contoh kode dalam 6 bahasa. Kirim pesan, kelola kontak, dan terima webhook secara programatis.",
+              "ar": "نقاط نهاية HTTP بسيطة مع أمثلة كود بـ 6 لغات. أرسل الرسائل وأدِر جهات الاتصال واستقبل إشعارات الويب برمجياً.",
+              "tr": "6 dilde kod örnekleriyle basit HTTP uç noktaları. Programatik olarak mesaj gönderin, kişileri yönetin ve webhook alın."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Real-time Analytics",
+              "pt": "Análises em Tempo Real",
+              "es": "Análisis en Tiempo Real",
+              "id": "Analitik Real-time",
+              "ar": "تحليلات في الوقت الفعلي",
+              "tr": "Gerçek Zamanlı Analitik"
+            },
+            "description": {
+              "en": "Track delivery receipts, open rates, reply rates, and campaign ROI in a single dashboard with exportable reports.",
+              "pt": "Acompanhe confirmações de entrega, taxas de abertura, taxas de resposta e ROI de campanhas em um painel único com relatórios exportáveis.",
+              "es": "Realice seguimiento de confirmaciones de entrega, tasas de apertura, tasas de respuesta y ROI de campañas en un panel único con informes exportables.",
+              "id": "Lacak konfirmasi pengiriman, tingkat buka, tingkat balasan, dan ROI kampanye dalam satu dasbor dengan laporan yang dapat diekspor.",
+              "ar": "تتبع إيصالات التسليم ومعدلات الفتح ومعدلات الرد وعائد الاستثمار للحملات في لوحة واحدة مع تقارير قابلة للتصدير.",
+              "tr": "Dışa aktarılabilir raporlarla tek panelde teslimat onaylarını, açılma oranlarını, yanıt oranlarını ve kampanya ROI'sini takip edin."
+            }
+          },
+          {
+            "icon": "template",
+            "title": {
+              "en": "Message Templates",
+              "pt": "Modelos de Mensagem",
+              "es": "Plantillas de Mensajes",
+              "id": "Template Pesan",
+              "ar": "قوالب الرسائل",
+              "tr": "Mesaj Şablonları"
+            },
+            "description": {
+              "en": "Pre-approved templates for transactional alerts, OTP codes, and marketing campaigns. Rich media, buttons, and quick replies included.",
+              "pt": "Modelos pré-aprovados para alertas transacionais, códigos OTP e campanhas de marketing. Inclui mídia rica, botões e respostas rápidas.",
+              "es": "Plantillas preaprobadas para alertas transaccionales, códigos OTP y campañas de marketing. Incluye medios enriquecidos, botones y respuestas rápidas.",
+              "id": "Template pra-persetujuan untuk peringatan transaksional, kode OTP, dan kampanye pemasaran. Termasuk media kaya, tombol, dan balasan cepat.",
+              "ar": "قوالب معتمدة مسبقاً للتنبيهات المعاملاتية ورموز OTP والحملات التسويقية. تشمل الوسائط الغنية والأزرار والردود السريعة.",
+              "tr": "İşlemsel uyarılar, OTP kodları ve pazarlama kampanyaları için önceden onaylanmış şablonlar. Zengin medya, butonlar ve hızlı yanıtlar dahil."
+            }
+          },
+          {
+            "icon": "shield",
+            "title": {
+              "en": "Enterprise Security",
+              "pt": "Segurança Empresarial",
+              "es": "Seguridad Empresarial",
+              "id": "Keamanan Enterprise",
+              "ar": "أمان المؤسسات",
+              "tr": "Kurumsal Güvenlik"
+            },
+            "description": {
+              "en": "GDPR/LGPD compliant. End-to-end encryption, SOC 2 practices, data residency options, and 99.9% uptime SLA.",
+              "pt": "Conformidade com LGPD/GDPR. Criptografia de ponta a ponta, práticas SOC 2, opções de residência de dados e SLA de 99,9%.",
+              "es": "Cumplimiento GDPR/LGPD. Cifrado de extremo a extremo, prácticas SOC 2, opciones de residencia de datos y SLA del 99,9%.",
+              "id": "Kepatuhan GDPR/LGPD. Enkripsi end-to-end, praktik SOC 2, opsi residensi data, dan SLA uptime 99,9%.",
+              "ar": "متوافق مع GDPR/LGPD. تشفير من طرف إلى طرف وممارسات SOC 2 وخيارات إقامة البيانات واتفاقية مستوى خدمة 99.9%.",
+              "tr": "GDPR/LGPD uyumlu. Uçtan uca şifreleme, SOC 2 uygulamaları, veri yerleşimi seçenekleri ve %99,9 çalışma süresi SLA."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Broadcast to Millions in Minutes",
+          "pt": "Transmita para Milhões em Minutos",
+          "es": "Difunda a Millones en Minutos",
+          "id": "Siaran ke Jutaan dalam Hitungan Menit",
+          "ar": "أرسل بثاً لملايين في دقائق",
+          "tr": "Dakikalar İçinde Milyonlara Yayın Yapın"
+        },
+        "body": {
+          "en": "Our broadcast engine handles millions of WhatsApp messages with intelligent throttling, automatic retry logic, and real-time delivery tracking. Target specific user segments with personalized template variables.",
+          "pt": "Nosso motor de transmissão processa milhões de mensagens WhatsApp com limitação inteligente, lógica de reenvio automático e rastreamento de entrega em tempo real. Segmente usuários específicos com variáveis de modelo personalizadas.",
+          "es": "Nuestro motor de difusión maneja millones de mensajes de WhatsApp con limitación inteligente, lógica de reintento automático y seguimiento de entrega en tiempo real. Diríjase a segmentos de usuarios específicos con variables de plantilla personalizadas.",
+          "id": "Mesin siaran kami menangani jutaan pesan WhatsApp dengan pembatasan cerdas, logika percobaan ulang otomatis, dan pelacakan pengiriman real-time. Targetkan segmen pengguna tertentu dengan variabel template yang dipersonalisasi.",
+          "ar": "محرك البث الخاص بنا يعالج ملايين رسائل واتساب مع تحكم ذكي في السرعة ومنطق إعادة المحاولة التلقائي وتتبع التسليم في الوقت الفعلي. استهدف شرائح مستخدمين محددة بمتغيرات قوالب مخصصة.",
+          "tr": "Yayın motorumuz akıllı hız sınırlama, otomatik yeniden deneme mantığı ve gerçek zamanlı teslimat takibiyle milyonlarca WhatsApp mesajını yönetir. Kişiselleştirilmiş şablon değişkenleriyle belirli kullanıcı segmentlerini hedefleyin."
+        },
+        "bullets": [
+          {
+            "en": "Send to 100K+ contacts per campaign",
+            "pt": "Envie para mais de 100 mil contatos por campanha",
+            "es": "Envíe a más de 100K contactos por campaña",
+            "id": "Kirim ke 100 ribu+ kontak per kampanye",
+            "ar": "أرسل إلى أكثر من 100 ألف جهة اتصال لكل حملة",
+            "tr": "Kampanya başına 100 bin+ kişiye gönderin"
+          },
+          {
+            "en": "Intelligent rate limiting & auto-retry",
+            "pt": "Limitação de taxa inteligente e reenvio automático",
+            "es": "Limitación de tasa inteligente y reintento automático",
+            "id": "Pembatasan kecepatan cerdas dan percobaan ulang otomatis",
+            "ar": "تحكم ذكي في السرعة وإعادة المحاولة التلقائية",
+            "tr": "Akıllı hız sınırlama ve otomatik yeniden deneme"
+          },
+          {
+            "en": "Real-time delivery & read receipts",
+            "pt": "Confirmações de entrega e leitura em tempo real",
+            "es": "Confirmaciones de entrega y lectura en tiempo real",
+            "id": "Konfirmasi pengiriman dan baca real-time",
+            "ar": "إيصالات التسليم والقراءة في الوقت الفعلي",
+            "tr": "Gerçek zamanlı teslimat ve okundu bilgisi"
+          }
+        ],
+        "reversed": false
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "No-Code Chatbot Builder",
+          "pt": "Construtor de Chatbot Sem Código",
+          "es": "Constructor de Chatbot Sin Código",
+          "id": "Pembuat Chatbot Tanpa Kode",
+          "ar": "منشئ شات بوت بدون كود",
+          "tr": "Kodsuz Chatbot Oluşturucu"
+        },
+        "body": {
+          "en": "Design conversation flows visually with our drag-and-drop builder. Handle FAQs, collect leads, process orders, and route complex queries to human agents — all without writing a single line of code.",
+          "pt": "Desenhe fluxos de conversa visualmente com nosso construtor drag-and-drop. Gerencie perguntas frequentes, colete leads, processe pedidos e direcione consultas complexas para agentes humanos — tudo sem escrever uma única linha de código.",
+          "es": "Diseñe flujos de conversación visualmente con nuestro constructor de arrastrar y soltar. Gestione preguntas frecuentes, recopile leads, procese pedidos y dirija consultas complejas a agentes humanos — todo sin escribir una sola línea de código.",
+          "id": "Rancang alur percakapan secara visual dengan pembuat drag-and-drop kami. Tangani FAQ, kumpulkan lead, proses pesanan, dan arahkan pertanyaan kompleks ke agen manusia — semuanya tanpa menulis satu baris kode pun.",
+          "ar": "صمم تدفقات المحادثة بصرياً باستخدام أداة السحب والإفلات. أدِر الأسئلة الشائعة واجمع العملاء المحتملين ومعالجة الطلبات وتوجيه الاستفسارات المعقدة لموظفين — كل ذلك بدون كتابة سطر كود واحد.",
+          "tr": "Sürükle-bırak oluşturucumuzla konuşma akışlarını görsel olarak tasarlayın. SSS'leri yönetin, lead toplayın, siparişleri işleyin ve karmaşık sorguları insan ajanlara yönlendirin — tek bir satır kod yazmadan."
+        },
+        "bullets": [
+          {
+            "en": "Visual drag-and-drop flow builder",
+            "pt": "Construtor visual de fluxos drag-and-drop",
+            "es": "Constructor visual de flujos de arrastrar y soltar",
+            "id": "Pembuat alur visual seret dan lepas",
+            "ar": "منشئ تدفق مرئي بالسحب والإفلات",
+            "tr": "Görsel sürükle-bırak akış oluşturucu"
+          },
+          {
+            "en": "Automatic agent handoff with context",
+            "pt": "Passagem automática para agente com contexto",
+            "es": "Transferencia automática a agente con contexto",
+            "id": "Serah terima otomatis ke agen dengan konteks",
+            "ar": "تحويل تلقائي للموظف مع السياق",
+            "tr": "Bağlamla otomatik ajan devri"
+          },
+          {
+            "en": "Multi-language bot responses",
+            "pt": "Respostas de bot em vários idiomas",
+            "es": "Respuestas de bot en varios idiomas",
+            "id": "Respons bot multi-bahasa",
+            "ar": "ردود البوت متعددة اللغات",
+            "tr": "Çok dilli bot yanıtları"
+          }
+        ],
+        "reversed": true
+      }
+    },
+    {
+      "type": "featureSplit",
+      "countries": ["in"],
+      "props": {
+        "heading": { "en": "SMS OTPs Without DLT Registration" },
+        "body": {
+          "en": "India-exclusive: send transactional OTPs at just ₹0.25/SMS without the hassle of DLT registration. Our pre-registered routes handle compliance automatically so you can focus on building your product."
+        },
+        "bullets": [
+          { "en": "₹0.25 per transactional SMS" },
+          { "en": "No DLT registration required" },
+          { "en": "Pre-registered compliant routes" },
+          { "en": "99.9% delivery rate across all networks" }
+        ],
+        "ctaLabel": { "en": "Explore SMS API" },
+        "ctaHref": "/sms",
+        "reversed": false
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Why Choose Us",
+          "pt": "Por Que Nos Escolher",
+          "es": "Por Qué Elegirnos",
+          "id": "Mengapa Memilih Kami",
+          "ar": "لماذا تختارنا",
+          "tr": "Neden Bizi Seçmelisiniz"
+        },
+        "heading": {
+          "en": "StartMessaging vs Generic Providers",
+          "pt": "StartMessaging vs Provedores Genéricos",
+          "es": "StartMessaging vs Proveedores Genéricos",
+          "id": "StartMessaging vs Penyedia Umum",
+          "ar": "StartMessaging مقابل المزودين العامين",
+          "tr": "StartMessaging vs Genel Sağlayıcılar"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Feature",
+              "pt": "Recurso",
+              "es": "Característica",
+              "id": "Fitur",
+              "ar": "الميزة",
+              "tr": "Özellik"
+            }
+          },
+          {
+            "label": {
+              "en": "StartMessaging",
+              "pt": "StartMessaging",
+              "es": "StartMessaging",
+              "id": "StartMessaging",
+              "ar": "StartMessaging",
+              "tr": "StartMessaging"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Others",
+              "pt": "Outros",
+              "es": "Otros",
+              "id": "Lainnya",
+              "ar": "آخرون",
+              "tr": "Diğerleri"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Official Meta BSP",
+              "pt": "BSP Oficial Meta",
+              "es": "BSP Oficial Meta",
+              "id": "BSP Resmi Meta",
+              "ar": "شريك Meta الرسمي",
+              "tr": "Resmi Meta BSP"
+            },
+            "✓",
+            "✗"
+          ],
+          [
+            {
+              "en": "Free plan with 1,000 msgs",
+              "pt": "Plano gratuito com 1.000 msgs",
+              "es": "Plan gratuito con 1.000 msgs",
+              "id": "Paket gratis 1.000 pesan",
+              "ar": "خطة مجانية مع 1,000 رسالة",
+              "tr": "1.000 mesajlık ücretsiz plan"
+            },
+            "✓",
+            "✗"
+          ],
+          [
+            {
+              "en": "No-code chatbot builder",
+              "pt": "Construtor de chatbot sem código",
+              "es": "Constructor de chatbot sin código",
+              "id": "Pembuat chatbot tanpa kode",
+              "ar": "منشئ شات بوت بدون كود",
+              "tr": "Kodsuz chatbot oluşturucu"
+            },
+            "✓",
+            "—"
+          ],
+          [
+            {
+              "en": "Multi-country pricing",
+              "pt": "Preços multi-país",
+              "es": "Precios multi-país",
+              "id": "Harga multi-negara",
+              "ar": "تسعير متعدد البلدان",
+              "tr": "Çok ülkeli fiyatlandırma"
+            },
+            "✓",
+            "✗"
+          ],
+          [
+            {
+              "en": "Real-time webhooks",
+              "pt": "Webhooks em tempo real",
+              "es": "Webhooks en tiempo real",
+              "id": "Webhook real-time",
+              "ar": "إشعارات ويب في الوقت الفعلي",
+              "tr": "Gerçek zamanlı webhook'lar"
+            },
+            "✓",
+            "✓"
+          ],
+          [
+            {
+              "en": "99.9% SLA uptime",
+              "pt": "SLA de 99,9% de disponibilidade",
+              "es": "SLA del 99,9% de disponibilidad",
+              "id": "SLA uptime 99,9%",
+              "ar": "اتفاقية خدمة 99.9%",
+              "tr": "%99,9 SLA çalışma süresi"
+            },
+            "✓",
+            "—"
+          ],
+          [
+            {
+              "en": "Sub-second delivery",
+              "pt": "Entrega sub-segundo",
+              "es": "Entrega sub-segundo",
+              "id": "Pengiriman sub-detik",
+              "ar": "تسليم في أقل من ثانية",
+              "tr": "Saniyenin altında teslimat"
+            },
+            "✓",
+            "—"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "Features — Frequently Asked Questions",
+          "pt": "Recursos — Perguntas Frequentes",
+          "es": "Características — Preguntas Frecuentes",
+          "id": "Fitur — Pertanyaan yang Sering Diajukan",
+          "ar": "الميزات — الأسئلة الشائعة",
+          "tr": "Özellikler — Sıkça Sorulan Sorular"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "Can I use StartMessaging for both marketing and transactional messages?",
+              "pt": "Posso usar o StartMessaging para mensagens de marketing e transacionais?",
+              "es": "¿Puedo usar StartMessaging para mensajes de marketing y transaccionales?",
+              "id": "Bisakah saya menggunakan StartMessaging untuk pesan pemasaran dan transaksional?",
+              "ar": "هل يمكنني استخدام StartMessaging للرسائل التسويقية والمعاملاتية؟",
+              "tr": "StartMessaging'i hem pazarlama hem de işlemsel mesajlar için kullanabilir miyim?"
+            },
+            "answer": {
+              "en": "Yes. StartMessaging supports all WhatsApp message categories: marketing (promotions, broadcasts), utility (order updates, shipping alerts), authentication (OTPs), and service (customer support). Each category has its own pricing tier as defined by Meta.",
+              "pt": "Sim. O StartMessaging suporta todas as categorias de mensagem do WhatsApp: marketing (promoções, transmissões), utilitário (atualizações de pedido, alertas de envio), autenticação (OTPs) e serviço (suporte ao cliente). Cada categoria tem seu próprio nível de preço definido pela Meta.",
+              "es": "Sí. StartMessaging soporta todas las categorías de mensajes de WhatsApp: marketing (promociones, difusiones), utilidad (actualizaciones de pedidos, alertas de envío), autenticación (OTPs) y servicio (soporte al cliente). Cada categoría tiene su propio nivel de precios definido por Meta.",
+              "id": "Ya. StartMessaging mendukung semua kategori pesan WhatsApp: marketing (promosi, siaran), utilitas (pembaruan pesanan, peringatan pengiriman), autentikasi (OTP), dan layanan (dukungan pelanggan). Setiap kategori memiliki tingkat harga tersendiri yang ditentukan oleh Meta.",
+              "ar": "نعم. يدعم StartMessaging جميع فئات رسائل واتساب: التسويق (العروض والبث) والخدمات (تحديثات الطلبات وتنبيهات الشحن) والمصادقة (OTP) والخدمة (دعم العملاء). لكل فئة مستوى تسعير خاص بها كما حددتها Meta.",
+              "tr": "Evet. StartMessaging tüm WhatsApp mesaj kategorilerini destekler: pazarlama (promosyonlar, yayınlar), yardımcı program (sipariş güncellemeleri, kargo uyarıları), kimlik doğrulama (OTP) ve hizmet (müşteri desteği). Her kategorinin Meta tarafından belirlenen kendi fiyatlandırma katmanı vardır."
+            }
+          },
+          {
+            "question": {
+              "en": "What programming languages does the API support?",
+              "pt": "Quais linguagens de programação a API suporta?",
+              "es": "¿Qué lenguajes de programación soporta la API?",
+              "id": "Bahasa pemrograman apa saja yang didukung API?",
+              "ar": "ما لغات البرمجة التي تدعمها الواجهة؟",
+              "tr": "API hangi programlama dillerini destekliyor?"
+            },
+            "answer": {
+              "en": "Our REST API works with any language that can make HTTP requests. We provide official code samples and SDKs for cURL, Node.js, Python, PHP, Java, and Go. Community SDKs are also available for Ruby, C#, and Kotlin.",
+              "pt": "Nossa API REST funciona com qualquer linguagem que faça requisições HTTP. Oferecemos exemplos de código oficiais e SDKs para cURL, Node.js, Python, PHP, Java e Go. SDKs da comunidade também estão disponíveis para Ruby, C# e Kotlin.",
+              "es": "Nuestra API REST funciona con cualquier lenguaje que pueda hacer solicitudes HTTP. Proporcionamos ejemplos de código oficiales y SDKs para cURL, Node.js, Python, PHP, Java y Go. También hay SDKs de la comunidad disponibles para Ruby, C# y Kotlin.",
+              "id": "REST API kami bekerja dengan bahasa apa pun yang dapat membuat permintaan HTTP. Kami menyediakan contoh kode resmi dan SDK untuk cURL, Node.js, Python, PHP, Java, dan Go. SDK komunitas juga tersedia untuk Ruby, C#, dan Kotlin.",
+              "ar": "تعمل واجهة REST API الخاصة بنا مع أي لغة يمكنها إجراء طلبات HTTP. نوفر أمثلة كود رسمية وSDK لـ cURL وNode.js وPython وPHP وJava وGo. كما تتوفر SDK مجتمعية لـ Ruby وC# وKotlin.",
+              "tr": "REST API'miz HTTP istekleri yapabilen herhangi bir dille çalışır. cURL, Node.js, Python, PHP, Java ve Go için resmi kod örnekleri ve SDK'lar sağlıyoruz. Ruby, C# ve Kotlin için topluluk SDK'ları da mevcuttur."
+            }
+          },
+          {
+            "question": {
+              "en": "Does StartMessaging support rich media messages?",
+              "pt": "O StartMessaging suporta mensagens com mídia rica?",
+              "es": "¿StartMessaging soporta mensajes con medios enriquecidos?",
+              "id": "Apakah StartMessaging mendukung pesan media kaya?",
+              "ar": "هل يدعم StartMessaging رسائل الوسائط الغنية؟",
+              "tr": "StartMessaging zengin medya mesajlarını destekliyor mu?"
+            },
+            "answer": {
+              "en": "Absolutely. You can send images, videos, documents, audio files, location pins, contact cards, and interactive buttons/quick replies through our API. All media types are supported in both broadcast and chatbot flows.",
+              "pt": "Com certeza. Você pode enviar imagens, vídeos, documentos, arquivos de áudio, pins de localização, cartões de contato e botões interativos/respostas rápidas através da nossa API. Todos os tipos de mídia são suportados em fluxos de transmissão e chatbot.",
+              "es": "Absolutamente. Puede enviar imágenes, videos, documentos, archivos de audio, ubicaciones, tarjetas de contacto y botones interactivos/respuestas rápidas a través de nuestra API. Todos los tipos de medios son compatibles tanto en flujos de difusión como de chatbot.",
+              "id": "Tentu saja. Anda dapat mengirim gambar, video, dokumen, file audio, pin lokasi, kartu kontak, dan tombol interaktif/balasan cepat melalui API kami. Semua jenis media didukung dalam alur siaran maupun chatbot.",
+              "ar": "بالتأكيد. يمكنك إرسال صور وفيديوهات ومستندات وملفات صوتية ودبابيس موقع وبطاقات اتصال وأزرار تفاعلية/ردود سريعة من خلال واجهتنا. جميع أنواع الوسائط مدعومة في تدفقات البث والشات بوت.",
+              "tr": "Kesinlikle. API'miz aracılığıyla resimler, videolar, belgeler, ses dosyaları, konum pinleri, kişi kartları ve etkileşimli butonlar/hızlı yanıtlar gönderebilirsiniz. Tüm medya türleri hem yayın hem de chatbot akışlarında desteklenir."
+            }
+          },
+          {
+            "question": {
+              "en": "How does the chatbot handle complex queries?",
+              "pt": "Como o chatbot lida com consultas complexas?",
+              "es": "¿Cómo maneja el chatbot las consultas complejas?",
+              "id": "Bagaimana chatbot menangani pertanyaan kompleks?",
+              "ar": "كيف يتعامل الشات بوت مع الاستفسارات المعقدة؟",
+              "tr": "Chatbot karmaşık sorguları nasıl yönetiyor?"
+            },
+            "answer": {
+              "en": "When a conversation exceeds the chatbot's capability, it automatically hands off to a human agent with full conversation context. Agents see the entire chat history, user profile, and bot interaction summary so they can help instantly without asking the customer to repeat themselves.",
+              "pt": "Quando uma conversa excede a capacidade do chatbot, ela é automaticamente passada para um agente humano com contexto completo da conversa. Os agentes veem todo o histórico de chat, perfil do usuário e resumo da interação com o bot para ajudar instantaneamente.",
+              "es": "Cuando una conversación excede la capacidad del chatbot, se transfiere automáticamente a un agente humano con el contexto completo de la conversación. Los agentes ven todo el historial del chat, el perfil del usuario y el resumen de la interacción del bot.",
+              "id": "Ketika percakapan melebihi kemampuan chatbot, percakapan otomatis diserahkan ke agen manusia dengan konteks percakapan lengkap. Agen melihat seluruh riwayat chat, profil pengguna, dan ringkasan interaksi bot sehingga mereka dapat membantu secara instan.",
+              "ar": "عندما تتجاوز المحادثة قدرة الشات بوت، يتم تحويلها تلقائياً إلى موظف بشري مع سياق المحادثة الكامل. يرى الموظفون كامل سجل المحادثة وملف المستخدم وملخص تفاعل البوت.",
+              "tr": "Bir konuşma chatbot'un kapasitesini aştığında, tam konuşma bağlamıyla otomatik olarak bir insan ajana aktarılır. Ajanlar tüm sohbet geçmişini, kullanıcı profilini ve bot etkileşim özetini görerek anında yardımcı olabilir."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Ready to Build with StartMessaging?",
+          "pt": "Pronto para Criar com StartMessaging?",
+          "es": "¿Listo para Crear con StartMessaging?",
+          "id": "Siap untuk Membangun dengan StartMessaging?",
+          "ar": "هل أنت مستعد للبناء مع StartMessaging؟",
+          "tr": "StartMessaging ile Oluşturmaya Hazır mısınız?"
+        },
+        "subtext": {
+          "en": "Get your API credentials and go live in less than 5 minutes.",
+          "pt": "Obtenha suas credenciais da API e entre no ar em menos de 5 minutos.",
+          "es": "Obtenga sus credenciales de la API y comience en menos de 5 minutos.",
+          "id": "Dapatkan kredensial API Anda dan mulai dalam kurang dari 5 menit.",
+          "ar": "احصل على بيانات اعتماد API الخاصة بك وابدأ البث في أقل من 5 دقائق.",
+          "tr": "API kimlik bilgilerinizi alın ve 5 dakikadan kısa sürede yayına geçin."
+        },
+        "primaryCta": {
+          "en": "Create Free Account",
+          "pt": "Criar Conta Grátis",
+          "es": "Crear Cuenta Gratis",
+          "id": "Buat Akun Gratis",
+          "ar": "أنشئ حساباً مجانياً",
+          "tr": "Ücretsiz Hesap Oluşturun"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Talk to Sales",
+          "pt": "Falar com Vendas",
+          "es": "Hablar con Ventas",
+          "id": "Hubungi Sales",
+          "ar": "تحدث مع المبيعات",
+          "tr": "Satışla İletişim"
+        },
+        "secondaryHref": "/contact"
+      }
+    }
+  ]
+}

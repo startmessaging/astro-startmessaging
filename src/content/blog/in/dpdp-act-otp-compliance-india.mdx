@@ -1,0 +1,94 @@
+﻿---
+title: "DPDP Act and OTP Compliance in India"
+description: "How the Digital Personal Data Protection Act 2023 affects OTP and SMS workflows: consent, purpose limitation, data minimisation, retention, and OTP-specific patterns."
+publishedAt: "2026-05-05"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "dpdp act otp"
+  - "data protection india otp"
+  - "consent otp dpdp"
+  - "dpdp sms compliance"
+  - "dpdp 2023 otp"
+relatedSlugs:
+  - "otp-data-privacy-india"
+  - "trai-message-scrubbing-india"
+  - "rbi-2fa-2026-mandate"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+The Digital Personal Data Protection Act 2023 (DPDP) reshaped how
+        Indian businesses handle personal data. OTP — being a phone number
+        plus authentication code — is squarely in scope. This guide explains
+        what changes for OTP flows.
+
+
+## Overview of DPDP Act
+
+
+- Lawful basis for processing.
+- Purpose limitation.
+- Data minimisation.
+- Reasonable security safeguards.
+- User rights (access, correction, erasure).
+- Breach notification obligations.
+
+
+
+## Consent for OTP Processing
+
+Consent for OTP-based authentication is typically captured at
+        sign-up under "performance of contract". Marketing SMS,
+        on-call notifications, and service-explicit messages need separate
+        consent.
+
+
+## Purpose Limitation
+
+Phone number captured for OTP cannot be repurposed for marketing
+        without separate consent. Document the purpose at collection and
+        honour it.
+
+
+## Data Minimisation
+
+
+- Don't collect what you don't need.
+- OTP requestId is enough — no need to store the plaintext code.
+- IP / device fingerprint only if required for fraud control.
+
+
+
+## Retention Rules
+
+
+- OTP logs: as long as needed for the stated purpose, plus statutory minimums (financial flows = 7+ years).
+- Marketing data: until consent withdrawn.
+- Phone numbers: bound to the account lifecycle plus statutory retention.
+
+
+
+## Breach Notification
+
+DPDP requires notification to the Data Protection Board and affected
+        individuals on a personal-data breach. OTP plaintext leakage qualifies.
+
+
+## OTP-Specific Patterns
+
+
+- Hash OTPs server-side, store the hash, never log plaintext.
+- Capture purpose in the OTP audit row.
+- Implement right-to-erasure on the phone-number column.
+- Maintain access-request export pipeline.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) hashes OTPs by
+        default and provides DLR / audit logs in a DPDP-friendly format.
+

@@ -1,0 +1,120 @@
+---
+title: "DLT Registration Guide"
+description: "Step-by-step guide to register your entity, sender ID, and message templates on India's DLT platform for TRAI-compliant SMS messaging."
+product: sms
+order: 3
+countries: ["in"]
+---
+
+import Accordion from '../../../components/ui/Accordion.astro';
+import AccordionItem from '../../../components/ui/AccordionItem.astro';
+
+## What Is DLT?
+
+DLT (Distributed Ledger Technology) is TRAI's regulatory framework for commercial SMS in India. All businesses sending transactional or promotional SMS must register on a DLT platform. OTP messages via StartMessaging's non-DLT route are exempt.
+
+## DLT Registration Steps
+
+### Step 1: Register Your Entity
+
+1. Choose a DLT operator: **Jio DLT**, **Airtel DLT**, **Vodafone Idea DLT**, or **BSNL DLT**
+2. Visit the operator's DLT portal (e.g., [Jio TruConnect](https://trueconnect.jio.com))
+3. Register as an **Enterprise** entity
+4. Submit required documents:
+   - Company PAN card
+   - GST certificate
+   - Certificate of Incorporation
+   - Letter of Authorization (on company letterhead)
+5. Wait for approval (typically 2–5 business days)
+
+### Step 2: Register Sender IDs (Headers)
+
+After entity approval:
+
+1. Go to **Headers** section in your DLT portal
+2. Add your desired sender ID (6 alphabetic characters, e.g., `MYCOMP`)
+3. Select the header type:
+   - **Transactional** — for order updates, alerts, OTPs
+   - **Promotional** — for marketing messages
+   - **Service Explicit** — for opt-in service messages
+   - **Service Implicit** — for existing customer communications
+4. Submit for approval (1–3 business days)
+
+### Step 3: Register Message Templates
+
+1. Go to **Content Templates** in your DLT portal
+2. Create a new template with:
+   - **Template name**: descriptive label
+   - **Template type**: Transactional / Promotional / Service
+   - **Message body**: with variables marked as `{#var#}`
+   - **Associated header**: your registered sender ID
+
+Example template:
+```
+Dear {#var#}, your order {#var#} has been shipped.
+Track at {#var#}. - {#var#}
+```
+
+3. Submit for approval (1–2 business days)
+4. Copy the **Template ID** (e.g., `1107161234567890`) — you'll need it when sending via API
+
+### Step 4: Link DLT to StartMessaging
+
+1. In your StartMessaging dashboard, go to **Settings → SMS → DLT Configuration**
+2. Enter your **Entity ID** and **DLT Operator**
+3. Import your registered headers and templates (we auto-sync every 24h)
+4. Map each template to a StartMessaging SMS template for easy use
+
+## DLT Template Variables
+
+| DLT Variable | API Usage |
+|-------------|-----------|
+| `{#var#}` | Replaced with dynamic content at send time |
+| Fixed text | Must match exactly — no modifications allowed |
+
+> **Important:** The message you send via API must match the DLT template **exactly**, including spaces, punctuation, and variable positions. Any mismatch will cause the operator to reject the message.
+
+## Common DLT Rejection Reasons
+
+| Reason | Fix |
+|--------|-----|
+| Entity documents not matching | Ensure PAN, GST, and CIN are for the same legal entity |
+| Header already registered | Another entity has that header; choose a different one |
+| Template too generic | Add specific brand/company context to the template |
+| Promotional content in transactional template | Move promotional text to a promotional template |
+| Missing opt-out instruction in promotional | Add "Reply STOP to unsubscribe" to promotional templates |
+
+## Testing DLT Templates
+
+Before going live, test your DLT templates using the API:
+
+```bash
+curl -X POST https://api.startmessaging.com/otp/send \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: sm_live_your_api_key_here" \
+  -d '{
+    "phoneNumber": "+919876543210",
+    "templateId": "1107161234567890",
+    "variables": {
+      "otp": "123456",
+      "appName": "MyCompany"
+    }
+  }'
+```
+
+## FAQ
+
+<Accordion>
+  <AccordionItem title="Is DLT registration free?" open={true}>
+    No. The standard fee mandated across telecom DLT platforms in India is **₹5,000 + 18% GST (total ₹5,900)** for the initial entity registration. However, registering headers (Sender IDs) and templates is free of cost. Once registered with one operator, enrolling with others using your Entity ID is also free.
+  </AccordionItem>
+  <AccordionItem title="Can I use one DLT entity across multiple SMS providers?">
+    Yes — your DLT entity, headers, and templates work with any SMS provider, including StartMessaging. You just need to configure the Entity ID in each provider's dashboard.
+  </AccordionItem>
+  <AccordionItem title="How long does the entire DLT process take?">
+    Typically 5–10 business days: entity approval (2–5 days) + header approval (1–3 days) + template approval (1–2 days). StartMessaging's non-DLT OTP route lets you start sending immediately while DLT is pending.
+  </AccordionItem>
+  <AccordionItem title="What if I only need to send OTPs?">
+    Use StartMessaging's non-DLT route — it's instant, requires no DLT registration, and costs the same ₹0.25 per SMS. See [Getting Started](/docs/sms/getting-started).
+  </AccordionItem>
+</Accordion>

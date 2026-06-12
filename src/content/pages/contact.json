@@ -1,14 +1,206 @@
 {
-  "locales": ["en", "pt-br"],
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
   "seo": {
-    "title":       { "en": "Contact — StartMessaging", "pt-br": "Contato — StartMessaging" },
-    "description": { "en": "Get in touch with the StartMessaging team.", "pt-br": "Entre em contato com a equipe StartMessaging." }
+    "title": {
+      "en": "Contact Us — StartMessaging",
+      "pt": "Contato — StartMessaging",
+      "es": "Contacto — StartMessaging",
+      "id": "Kontak Kami — StartMessaging",
+      "ar": "اتصل بنا — StartMessaging",
+      "tr": "İletişim — StartMessaging"
+    },
+    "description": {
+      "en": "Get in touch with StartMessaging via email, phone, or WhatsApp. We're here to help with integration, support, and sales inquiries.",
+      "pt": "Entre em contato com o StartMessaging por email, telefone ou WhatsApp. Estamos aqui para ajudar com integração, suporte e consultas de vendas.",
+      "es": "Póngase en contacto con StartMessaging por correo electrónico, teléfono o WhatsApp. Estamos aquí para ayudar con integración, soporte y consultas de ventas.",
+      "id": "Hubungi StartMessaging melalui email, telepon, atau WhatsApp. Kami siap membantu dengan integrasi, dukungan, dan pertanyaan penjualan.",
+      "ar": "تواصل مع StartMessaging عبر البريد الإلكتروني أو الهاتف أو واتساب. نحن هنا للمساعدة في التكامل والدعم واستفسارات المبيعات.",
+      "tr": "E-posta, telefon veya WhatsApp aracılığıyla StartMessaging ile iletişime geçin. Entegrasyon, destek ve satış sorularında yardımcı olmak için buradayız."
+    },
+    "ogImage": "/og.png?title=Contact+Us&theme=sms"
   },
   "sections": [
     {
-      "type": "comingSoon",
+      "type": "hero",
       "props": {
-        "title": { "en": "Contact Us", "pt-br": "Fale Conosco" }
+        "badge": {
+          "en": "Get In Touch",
+          "pt": "Entre em Contato",
+          "es": "Contáctenos",
+          "id": "Hubungi Kami",
+          "ar": "تواصل معنا",
+          "tr": "Bize Ulaşın"
+        },
+        "title": {
+          "en": "We're Here to Support Your Growth",
+          "pt": "Estamos Aqui para Apoiar Seu Crescimento",
+          "es": "Estamos Aquí para Apoyar Su Crecimiento",
+          "id": "Kami di Sini untuk Mendukung Pertumbuhan Anda",
+          "ar": "نحن هنا لدعم نموك",
+          "tr": "Büyümenizi Desteklemek İçin Buradayız"
+        },
+        "subtitle": {
+          "en": "Questions about integration, pricing, or compliance? Reach us directly via email, phone, or WhatsApp. We typically respond within 2 hours.",
+          "pt": "Dúvidas sobre integração, preços ou conformidade? Fale conosco diretamente por email, telefone ou WhatsApp. Normalmente respondemos em 2 horas.",
+          "es": "¿Preguntas sobre integración, precios o cumplimiento? Contáctenos directamente por correo electrónico, teléfono o WhatsApp. Normalmente respondemos en 2 horas.",
+          "id": "Pertanyaan tentang integrasi, harga, atau kepatuhan? Hubungi kami langsung melalui email, telepon, atau WhatsApp. Kami biasanya merespons dalam 2 jam.",
+          "ar": "أسئلة حول التكامل أو الأسعار أو الامتثال؟ تواصل معنا مباشرة عبر البريد الإلكتروني أو الهاتف أو واتساب. نرد عادة خلال ساعتين.",
+          "tr": "Entegrasyon, fiyatlandırma veya uyumluluk hakkında sorularınız mı var? E-posta, telefon veya WhatsApp aracılığıyla doğrudan bize ulaşın. Genellikle 2 saat içinde yanıt veriyoruz."
+        }
+      }
+    },
+    {
+      "type": "contactChannels",
+      "props": {
+        "badge": {
+          "en": "Reach Us Directly",
+          "pt": "Fale Diretamente Conosco",
+          "es": "Contáctenos Directamente",
+          "id": "Hubungi Kami Langsung",
+          "ar": "تواصل معنا مباشرة",
+          "tr": "Bize Doğrudan Ulaşın"
+        },
+        "heading": {
+          "en": "Choose Your Preferred Channel",
+          "pt": "Escolha Seu Canal Preferido",
+          "es": "Elija Su Canal Preferido",
+          "id": "Pilih Saluran Anda",
+          "ar": "اختر قناتك المفضلة",
+          "tr": "Tercih Ettiğiniz Kanalı Seçin"
+        },
+        "channels": [
+          {
+            "type": "email",
+            "value": "startmessagingdotcom@gmail.com",
+            "label": {
+              "en": "Email Us",
+              "pt": "Envie um Email",
+              "es": "Envíenos un Email",
+              "id": "Email Kami",
+              "ar": "راسلنا بالبريد",
+              "tr": "E-posta Gönderin"
+            },
+            "description": {
+              "en": "We reply within 2 hours on business days",
+              "pt": "Respondemos em 2 horas nos dias úteis",
+              "es": "Respondemos en 2 horas en días laborales",
+              "id": "Kami membalas dalam 2 jam di hari kerja",
+              "ar": "نرد خلال ساعتين في أيام العمل",
+              "tr": "İş günlerinde 2 saat içinde yanıt veriyoruz"
+            }
+          },
+          {
+            "type": "phone",
+            "value": "+916376383348",
+            "label": {
+              "en": "Call Us",
+              "pt": "Ligue para Nós",
+              "es": "Llámenos",
+              "id": "Telepon Kami",
+              "ar": "اتصل بنا",
+              "tr": "Bizi Arayın"
+            },
+            "description": {
+              "en": "Mon–Sat, 9 AM – 7 PM IST",
+              "pt": "Seg–Sáb, 9h – 19h IST",
+              "es": "Lun–Sáb, 9 AM – 7 PM IST",
+              "id": "Sen–Sab, 9 AM – 7 PM IST",
+              "ar": "الإثنين–السبت، 9 ص – 7 م بتوقيت الهند",
+              "tr": "Pzt–Cmt, 09:00 – 19:00 IST"
+            }
+          },
+          {
+            "type": "whatsapp",
+            "value": "+916376383348",
+            "label": {
+              "en": "WhatsApp Support",
+              "pt": "Suporte WhatsApp",
+              "es": "Soporte WhatsApp",
+              "id": "Dukungan WhatsApp",
+              "ar": "دعم واتساب",
+              "tr": "WhatsApp Destek"
+            },
+            "description": {
+              "en": "Fastest response — chat with our team",
+              "pt": "Resposta mais rápida — converse com nossa equipe",
+              "es": "Respuesta más rápida — chatee con nuestro equipo",
+              "id": "Respons tercepat — chat dengan tim kami",
+              "ar": "أسرع استجابة — تحدث مع فريقنا",
+              "tr": "En hızlı yanıt — ekibimizle sohbet edin"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": {
+          "en": "Contact — Frequently Asked Questions",
+          "pt": "Contato — Perguntas Frequentes",
+          "es": "Contacto — Preguntas Frecuentes",
+          "id": "Kontak — Pertanyaan yang Sering Diajukan",
+          "ar": "اتصل بنا — الأسئلة الشائعة",
+          "tr": "İletişim — Sıkça Sorulan Sorular"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "What is the typical response time?",
+              "pt": "Qual é o tempo de resposta típico?",
+              "es": "¿Cuál es el tiempo de respuesta típico?",
+              "id": "Berapa waktu respons tipikal?",
+              "ar": "ما هو وقت الاستجابة النموذجي؟",
+              "tr": "Tipik yanıt süresi nedir?"
+            },
+            "answer": {
+              "en": "Email and WhatsApp: typically within 2 hours during business hours (Mon–Sat, 9 AM–7 PM IST). Enterprise customers with Premium or Enterprise plans receive priority support with faster response times.",
+              "pt": "Email e WhatsApp: normalmente dentro de 2 horas durante o horário comercial (Seg–Sáb, 9h–19h IST). Clientes empresariais com planos Premium ou Enterprise recebem suporte prioritário com tempos de resposta mais rápidos.",
+              "es": "Email y WhatsApp: normalmente dentro de 2 horas en horario laboral (Lun–Sáb, 9 AM–7 PM IST). Los clientes empresariales con planes Premium o Enterprise reciben soporte prioritario con tiempos de respuesta más rápidos.",
+              "id": "Email dan WhatsApp: biasanya dalam 2 jam selama jam kerja (Sen–Sab, 9 AM–7 PM IST). Pelanggan enterprise dengan paket Premium atau Enterprise menerima dukungan prioritas dengan waktu respons lebih cepat.",
+              "ar": "البريد الإلكتروني وواتساب: عادة خلال ساعتين خلال ساعات العمل (الإثنين–السبت، 9 ص–7 م IST). يحصل عملاء المؤسسات على خطط Premium أو Enterprise على دعم ذي أولوية مع أوقات استجابة أسرع.",
+              "tr": "E-posta ve WhatsApp: genellikle iş saatlerinde (Pzt–Cmt, 09:00–19:00 IST) 2 saat içinde. Premium veya Kurumsal planlı kurumsal müşteriler daha hızlı yanıt süreleriyle öncelikli destek alır."
+            }
+          },
+          {
+            "question": {
+              "en": "Do you offer technical integration support?",
+              "pt": "Vocês oferecem suporte técnico de integração?",
+              "es": "¿Ofrecen soporte técnico de integración?",
+              "id": "Apakah Anda menawarkan dukungan integrasi teknis?",
+              "ar": "هل تقدمون دعم التكامل التقني؟",
+              "tr": "Teknik entegrasyon desteği sunuyor musunuz?"
+            },
+            "answer": {
+              "en": "Yes! All plans include access to our comprehensive API documentation, code samples in 6 languages, and community support. Premium and Enterprise customers get dedicated technical support with hands-on integration assistance and live debugging sessions.",
+              "pt": "Sim! Todos os planos incluem acesso à nossa documentação de API completa, exemplos de código em 6 linguagens e suporte da comunidade. Clientes Premium e Enterprise recebem suporte técnico dedicado com assistência prática de integração e sessões de depuração ao vivo.",
+              "es": "¡Sí! Todos los planes incluyen acceso a nuestra documentación de API completa, ejemplos de código en 6 lenguajes y soporte de la comunidad. Los clientes Premium y Enterprise obtienen soporte técnico dedicado con asistencia práctica de integración y sesiones de depuración en vivo.",
+              "id": "Ya! Semua paket mencakup akses ke dokumentasi API lengkap, contoh kode dalam 6 bahasa, dan dukungan komunitas. Pelanggan Premium dan Enterprise mendapatkan dukungan teknis khusus dengan bantuan integrasi langsung dan sesi debugging live.",
+              "ar": "نعم! تشمل جميع الخطط الوصول إلى توثيق API الشامل وأمثلة الكود بـ 6 لغات ودعم المجتمع. يحصل عملاء Premium وEnterprise على دعم تقني مخصص مع مساعدة عملية في التكامل وجلسات تصحيح أخطاء مباشرة.",
+              "tr": "Evet! Tüm planlar kapsamlı API belgelerimize, 6 dilde kod örneklerine ve topluluk desteğine erişim içerir. Premium ve Kurumsal müşteriler uygulamalı entegrasyon yardımı ve canlı hata ayıklama oturumlarıyla özel teknik destek alır."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I schedule a demo or sales call?",
+              "pt": "Posso agendar uma demonstração ou ligação de vendas?",
+              "es": "¿Puedo programar una demostración o llamada de ventas?",
+              "id": "Bisakah saya menjadwalkan demo atau panggilan penjualan?",
+              "ar": "هل يمكنني جدولة عرض توضيحي أو مكالمة مبيعات؟",
+              "tr": "Demo veya satış görüşmesi ayarlayabilir miyim?"
+            },
+            "answer": {
+              "en": "Absolutely! Send us an email at startmessagingdotcom@gmail.com or WhatsApp us at +916376383348 with your company name, use case, and preferred time. We'll schedule a personalized demo and walkthrough of the platform.",
+              "pt": "Com certeza! Envie-nos um email para startmessagingdotcom@gmail.com ou WhatsApp para +916376383348 com o nome da sua empresa, caso de uso e horário preferido. Agendaremos uma demonstração personalizada da plataforma.",
+              "es": "¡Por supuesto! Envíenos un email a startmessagingdotcom@gmail.com o WhatsApp al +916376383348 con el nombre de su empresa, caso de uso y horario preferido. Programaremos una demostración personalizada de la plataforma.",
+              "id": "Tentu saja! Kirimkan email ke startmessagingdotcom@gmail.com atau WhatsApp ke +916376383348 dengan nama perusahaan, kasus penggunaan, dan waktu yang diinginkan. Kami akan menjadwalkan demo personal dan walkthrough platform.",
+              "ar": "بالتأكيد! أرسل لنا بريداً إلكترونياً على startmessagingdotcom@gmail.com أو واتساب على +916376383348 مع اسم شركتك وحالة الاستخدام والوقت المفضل. سنحدد موعد عرض توضيحي مخصص للمنصة.",
+              "tr": "Kesinlikle! Şirket adınız, kullanım durumunuz ve tercih ettiğiniz zamanla startmessagingdotcom@gmail.com adresine e-posta gönderin veya +916376383348 numarasından WhatsApp'tan yazın. Platformun kişiselleştirilmiş demosunu planlayacağız."
+            }
+          }
+        ]
       }
     }
   ]

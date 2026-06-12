@@ -1,0 +1,155 @@
+﻿---
+title: "What is an SMS Gateway? How It Works (Indian Context, 2026)"
+description: "SMS gateway explained: how messages travel from your application to the user’s phone, the role of SMPP, aggregators and DLT in India, and how SMS gateways differ from SMS APIs."
+publishedAt: "2026-04-24"
+category: business
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is sms gateway"
+  - "sms gateway"
+  - "how sms gateway works"
+  - "sms gateway india"
+  - "smpp"
+  - "sms aggregator"
+relatedSlugs:
+  - "what-is-sms-api"
+  - "what-is-dlt-registration-india"
+  - "best-otp-api-india"
+  - "reduce-sms-otp-cost-india"
+  - "otp-sms-deliverability-checklist"
+featured: false
+---
+
+
+An SMS gateway is the piece of plumbing that lets your application send
+        a text message to any mobile number on earth without you running cell
+        towers. It is invisible to most developers because they only ever
+        interact with the friendly REST or SDK layer that sits in front of it,
+        but understanding what is happening behind that layer makes it much
+        easier to debug delivery problems, choose a vendor, and reason about
+        cost.
+
+
+This guide covers **what an SMS gateway is**, how a
+        message travels from your code to the recipient's phone, the
+        India-specific DLT layer that all gateways must navigate, and how an
+        SMS gateway differs from an SMS API.
+
+
+## SMS Gateway — Definition
+
+An **SMS gateway** is software (or hosted service) that
+        receives messages from applications and forwards them to mobile network
+        operators (MNOs) for delivery. It performs three core jobs:
+
+
+
+- **Translation.** Convert from the application protocol — usually HTTP/REST — to the telecom protocol — usually SMPP.
+- **Routing.** Pick the right upstream operator or aggregator for the recipient's number.
+- **Reporting.** Track delivery status (DLR) and surface it back to the application.
+
+
+
+## How an SMS Gateway Routes a Message
+
+
+- Your application makes an HTTP call to the gateway's API, e.g.  `POST /sms` with phone number and body.
+- The gateway authenticates the request, validates the recipient format, and checks DLT compliance (in India: matching template, approved sender ID).
+- The gateway selects an upstream route — typically a telecom aggregator with bilateral agreements with Jio, Airtel, Vi, BSNL — and encodes the message into an SMPP `submit_sm` PDU.
+- The aggregator forwards to the destination MNO's SMSC (Short Message Service Center).
+- The SMSC delivers to the recipient's handset via the radio network.
+- The MNO sends a delivery receipt (DLR) back up the chain to the gateway, which exposes it to your application via webhook or a status-polling endpoint.
+
+
+
+## SMS Gateway vs SMS API
+
+Confusingly, the two terms are sometimes used interchangeably. The
+        precise distinction:
+
+
+
+- **SMS gateway** — the infrastructure layer that handles SMPP, telecom routing, and DLR processing.
+- **SMS API** — the developer-facing HTTP layer in front of one or more gateways.
+
+
+
+From an integration standpoint, you almost always want an 
+        [SMS API](/blog/what-is-sms-api), not raw SMPP.
+        Multi-provider gateways like 
+        [StartMessaging](/otp-api) add value on top of the
+        underlying gateway by handling failover, idempotency, OTP-specific
+        helpers, and DLT compliance.
+
+
+## SMS Gateways in India (DLT)
+
+India layers an additional approval system on top of the standard SMS
+        infrastructure: the 
+        [DLT (Distributed Ledger Technology) platform](/blog/what-is-dlt-registration-india)
+        . Before any commercial SMS leaves an Indian gateway, the operator
+        validates:
+
+
+
+- The sending business is registered as a Principal Entity (PE-ID).
+- The exact text matches a pre-approved template tied to that PE-ID.
+- The 6-character sender ID (header) is registered for that template category.
+- The recipient is not on the National DND register for that category of message.
+
+
+
+Mismatches result in scrubbing — the message is silently dropped before
+        delivery. See our breakdown of 
+        [TRAI message scrubbing](/blog/trai-message-scrubbing-india) 
+        for the most common reasons messages disappear.
+
+
+## How to Choose an SMS Gateway
+
+The factors that actually matter for OTP / transactional volume:
+
+
+
+- **Latency to handset.** Look for P50 < 5s and P95 < 15s on Indian networks. Anything slower kills login conversion.
+- **Multi-provider failover.** A single bad route can take down your sign-ups for hours. The gateway should detect failure and re-route within seconds.
+- **DLT handling.** Either built-in (preferred) or well-documented self-service.
+- **OTP-specific features.** Idempotency, hashed storage, attempt-limit enforcement, automatic resends.
+- **Pricing model.** Pay-as-you-go without monthly minimums beats committed contracts for variable workloads.
+- **Webhooks for DLR.** Real-time delivery status without polling.
+
+
+
+Detailed comparison in 
+        [our guide to the best OTP APIs in India](/blog/best-otp-api-india)
+        .
+
+
+## SMS Gateway Costs
+
+India price ranges, roughly:
+
+
+
+- **Promotional SMS:** Rs 0.10–0.15 per message.
+- **Transactional SMS:** Rs 0.15–0.25 per message.
+- **OTP SMS:** Rs 0.15–0.30 per message, depending on provider and volume.
+- **International SMS:** highly variable, USD 0.02–0.10 per message depending on destination.
+
+
+
+On top of the per-message charge, expect DLT subscription fees (Rs 5,000
+        one-time + Rs 1,000–2,000/year per PE-ID) unless you use a provider
+        like 
+        [StartMessaging that absorbs the DLT layer](/dlt-free-otp)
+        .
+
+
+## FAQ
+
+Want to skip the SMPP plumbing and DLT paperwork entirely? 
+        [StartMessaging's API](/otp-api) sits on top of
+        a multi-provider Indian SMS gateway and exposes a clean two-call OTP
+        interface. [Rs 0.25 per OTP, no monthly fees](/pricing).
+

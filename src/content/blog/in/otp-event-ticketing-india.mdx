@@ -1,0 +1,116 @@
+﻿---
+title: "OTP for Event Ticketing and Bookings in India"
+description: "How concert, IPL and movie ticketing apps in India use OTP for sign-up, queue protection, payment and entry-gate verification — with patterns to survive 50× traffic spikes."
+publishedAt: "2026-04-29"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "event ticketing otp"
+  - "movie ticket otp india"
+  - "concert ticket otp"
+  - "ipl ticket otp"
+  - "event booking sms"
+  - "ticket entry otp"
+relatedSlugs:
+  - "otp-travel-hotel-booking-india"
+  - "otp-bot-attacks-traffic-pumping"
+  - "otp-rate-limiting-guide"
+  - "otp-gaming-fantasy-india"
+featured: false
+---
+
+
+Event ticketing is the most extreme OTP workload most teams ever ship.
+        IPL final tickets, BookMyShow concerts, and on-sale-now releases
+        compress what would otherwise be a year of sign-ups into a thirty-
+        minute window. Your OTP layer either survives or your trending hashtag
+        is "site down" on Twitter.
+
+
+## Why Ticketing Apps Burn OTPs
+
+
+- First-time users sign up at sale time.
+- Queue-protection codes resent every refresh.
+- Payment OTPs from issuing banks.
+- Booking-confirmation SMS.
+- Entry-gate OTPs at the venue.
+
+
+
+## OTP Flows in Event Ticketing
+
+
+- **Account / login OTP** — phone-first auth, often the user's very first interaction.
+- **Queue / virtual-waiting-room OTP** — confirms the user is real before granting a spot in the buy queue.
+- **Payment OTP** — issued by the bank.
+- **Booking confirmation SMS** — transactional, contains the e-ticket QR.
+- **Entry-gate OTP** — short-lived code emitted only on arrival.
+
+
+
+## Surviving the Sale-Open Spike
+
+The defensive stack:
+
+
+
+- **No monthly-minimum provider.** 50× spike = 50× SMS bill if you size for off-peak.
+- **Multi-provider failover.** One operator throttling your sender ID kills your sale.
+- **Per-phone rate limits.** Block at 5 OTPs / hour per number.
+- **Per-IP and device fingerprint limits.** Block bot farms.
+- **Captcha at the OTP send step.** Adds 200 ms of human friction; saves thousands of fraudulent SMS.
+
+
+
+## Fraud Defences
+
+
+- **OTP traffic pumping** — see  [our defence guide](/blog/otp-bot-attacks-traffic-pumping) .
+- **Account farms.** Verify+kyc only at first purchase to deter bulk-account creation for resale.
+- **SIM-swap account takeover.** Recent port-out is a red flag; require step-up auth.
+
+
+
+## Entry-Gate OTPs
+
+At the venue, an entry-gate OTP is the friction-free way to verify the
+        ticket-holder is the booker — without scanning paper. Pattern:
+
+
+
+- User taps "Show entry code" in the app.
+- Backend generates a 5-minute OTP and SMSes it to the registered phone.
+- Gate scanner asks for last 4 digits. Backend verifies via  `/otp/verify`.
+- Ticket marks "used".
+
+
+
+## Compliance Notes
+
+
+- OTP SMS — service-implicit DLT category.
+- Confirmation SMS — transactional.
+- Promo "sale starts in 1 hour" — promotional, requires consent.
+
+
+
+## Reference Implementation
+      
+```
+// Queue-OTP with idempotency to survive refresh storms
+POST /otp/send  { "phoneNumber": "+91...", "idempotencyKey": userQueueToken }
+```
+
+
+Code samples for Node, Python, Django, Java are in 
+        [our tutorials library](/blog).
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) is built for
+        elastic, bursty Indian SMS workloads — no monthly minimums, multi-
+        provider failover, idempotency keys baked in.
+

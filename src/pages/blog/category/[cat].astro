@@ -1,0 +1,107 @@
+---
+/**
+ * India blog category listing: /blog/category/tutorials
+ * Style ported from startmessaging-astro category page.
+ */
+import { getCollection } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
+import Button from '@/components/ui/Button.astro';
+
+const CATEGORY_LABELS: Record<string, string> = {
+  tutorials: 'Tutorials',
+  guides: 'Guides',
+  comparisons: 'Comparisons',
+  compliance: 'Compliance',
+  'use-cases': 'Use Cases',
+  business: 'Business',
+};
+
+export async function getStaticPaths() {
+  const CATEGORIES = ['tutorials', 'guides', 'comparisons', 'compliance', 'use-cases', 'business'];
+  return CATEGORIES.map((cat) => ({
+    params: { cat },
+  }));
+}
+
+const { cat } = Astro.params;
+const label = CATEGORY_LABELS[cat!] ?? cat;
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((p) => p.id.startsWith('in/') && p.data.category === cat)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+---
+
+<MarketingLayout
+  seo={{
+    title: `${label} — Blog | StartMessaging`,
+    description: `Browse ${posts.length} articles in the ${label} category on the StartMessaging blog.`,
+  }}
+  country="in"
+  pageCountries={['in']}
+  slug={`blog/category/${cat}`}
+>
+  <article>
+    <section class="py-12 sm:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-medium text-[var(--color-persian)]/60 mb-2">
+            <a href="/blog" class="hover:text-[var(--color-persian)]">Blog</a> /
+          </p>
+          <h1 class="text-4xl font-bold tracking-tight text-[var(--color-persian)] sm:text-5xl">{label}</h1>
+          <p class="mt-4 text-lg text-[var(--color-persian)]/70">{posts.length} articles</p>
+        </div>
+
+        <!-- Category pills -->
+        <div class="mt-8 flex flex-wrap justify-center gap-2">
+          <a href="/blog" class="rounded-full bg-[var(--color-persian)]/10 px-4 py-2 text-sm font-medium text-[var(--color-persian)] hover:bg-[var(--color-persian)]/20 transition-colors">
+            All
+          </a>
+          {Object.entries(CATEGORY_LABELS).map(([c, l]) => (
+            <a
+              href={`/blog/category/${c}`}
+              class={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${c === cat ? 'bg-[var(--color-persian)] text-white' : 'bg-[var(--color-persian)]/10 text-[var(--color-persian)] hover:bg-[var(--color-persian)]/20'}`}
+            >
+              {l}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-12 sm:pb-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {posts.length > 0 ? (
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {posts.map((post) => <BlogCard post={post} country="in" />)}
+          </div>
+        ) : (
+          <p class="text-center text-[var(--color-persian)]/60">No posts found in this category.</p>
+        )}
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-[var(--color-surface-soft)] py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            Ready to Start Building?
+          </h2>
+          <p class="mt-4 text-lg text-muted">
+            Skip the blog and go straight to sending OTPs. Sign up and integrate in 5 minutes.
+          </p>
+          <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Button href="https://app.startmessaging.com/signup" variant="primary" size="md">
+              Start for Free →
+            </Button>
+            <Button href="/otp-api" variant="secondary" size="md">
+              View API Docs
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</MarketingLayout>

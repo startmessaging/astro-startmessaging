@@ -1,0 +1,71 @@
+﻿---
+title: "Implementing OTP Resend Cooldown"
+description: "How to implement a polished OTP resend flow with cooldown timer, exponential back-off, server-side enforcement and clear UX. Patterns for web and mobile."
+publishedAt: "2026-05-19"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp resend cooldown"
+  - "otp resend timer"
+  - "resend otp ux"
+  - "otp button disable"
+  - "resend cooldown ui"
+relatedSlugs:
+  - "otp-rate-limiting-guide"
+  - "otp-bot-attacks-traffic-pumping"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+Resend cooldowns prevent users from accidentally (or maliciously)
+        firing repeated OTPs. Combined with server-side enforcement, they
+        cap your wallet exposure.
+
+
+## Why Cooldown Matters
+
+
+- Wallet protection — every resend costs.
+- Carrier rate-limit avoidance.
+- User confusion reduction (which OTP is current?).
+
+
+
+## Progressive Cooldown
+
+
+- Resend 1: 30s.
+- Resend 2: 60s.
+- Resend 3: 120s.
+- Past resend 3: lock out, restart flow.
+
+
+
+## Server-Side Enforcement
+      
+```typescript
+async function canResend(phone: string) {
+  const k = \`resend:\${phone}\`;
+  const count = parseInt(await redis.get(k) ?? '0');
+  const since = await redis.ttl(k);
+  const required = [30, 60, 120][count] ?? 999;
+  return since < (required - 1) ? false : true;
+}
+```
+
+
+## UX Patterns
+
+
+- Disabled button with countdown text.
+- Auto-focus OTP input after send.
+- Allow one-tap voice fallback after the second resend fails.
+
+
+
+## FAQ
+
+Combine with idempotency keys to handle network retries cleanly.
+

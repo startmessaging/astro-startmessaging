@@ -1,0 +1,91 @@
+﻿---
+title: "OTP for Classifieds Apps in India (OLX-Style Marketplaces)"
+description: "How OLX-style classifieds apps in India use OTP for listings, contact unlock and meetup verification. Anti-fraud patterns, listing limits, and reference flow."
+publishedAt: "2026-04-30"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "classifieds otp"
+  - "olx otp"
+  - "marketplace otp india"
+  - "listing verification otp"
+  - "meetup otp"
+  - "second hand sales otp"
+relatedSlugs:
+  - "otp-matrimony-apps-india"
+  - "otp-bot-attacks-traffic-pumping"
+  - "otp-fintech-india"
+  - "otp-rate-limiting-guide"
+featured: false
+---
+
+
+Classifieds apps face two-sided fraud and have made OTP one of the
+        most heavily-used tools in their stack. Sign-up OTPs gate listing
+        creation; meetup OTPs build trust at handover; account-recovery OTPs
+        protect listings against takeover.
+
+
+## Why Classifieds Need OTP
+
+
+- Listings monetise spam.
+- Buyer-seller trust is fragile.
+- Number-masking requires verified primary numbers.
+- High-value categories (cars, real estate) attract organised fraud.
+
+
+
+## OTP Flows in Classifieds Apps
+
+
+- Sign-up OTP.
+- Listing-creation OTP (or rate-limited CAPTCHA).
+- Buyer contact-unlock OTP.
+- Meetup OTP at handover.
+- Listing-edit OTP for high-value categories.
+
+
+
+## Listing Fraud and Mitigations
+
+
+- Disposable-number sign-ups → per-device fingerprint limits.
+- Cross-listed photos → reverse image search.
+- Fake car listings with stolen photos → human review on cars above Rs 5 lakh.
+- Hijack of high-traffic listings via account takeover → OTP step-up on edit.
+
+
+
+## Meetup OTPs (Trust at Pickup)
+
+Pattern used by car-buying and large-item handovers:
+
+
+
+- At deal-confirmed, system issues a 6-digit meetup OTP to seller only.
+- Buyer asks seller for the OTP at pickup.
+- Buyer enters it in the app; both sides confirmed in person.
+
+
+
+See similar mechanics in our 
+        [food-delivery handover guide](/blog/otp-food-delivery-logistics).
+
+
+## Compliance Notes
+
+
+- OTP SMS — service-implicit.
+- Listing notifications — service-explicit, opt-in.
+- DPDP — number-masking is the privacy default.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) handles the
+        primary-account OTP, listing-edit OTP and meetup OTP layers cleanly —
+        same API, different request flows.
+

@@ -1,10 +1,12 @@
 ---
 /**
- * HeroSection — full-width hero with headline, subtitle, dual CTAs, and optional image.
+ * HeroSection — Aurora-background hero with headline, subtitle, and dual CTAs.
+ * Uses pure CSS aurora animation for zero client JavaScript.
  *
  * Example JSON:
  * {
  *   "type": "hero",
+ *   "theme": "sms",
  *   "props": {
  *     "badge":         { "en": "WhatsApp Business API" },
  *     "title":         { "en": "Reach customers at scale" },
@@ -12,72 +14,101 @@
  *     "primaryCta":    { "en": "Start Free" },
  *     "primaryHref":   "/signup",
  *     "secondaryCta":  { "en": "See how it works" },
- *     "secondaryHref": "/whatsapp",
- *     "image":         "/images/hero.png",
- *     "imageAlt":      { "en": "Dashboard screenshot" }
+ *     "secondaryHref": "/whatsapp"
  *   }
  * }
  */
-import Section from '@/components/ui/Section.astro';
 import Container from '@/components/ui/Container.astro';
-import Heading from '@/components/ui/Heading.astro';
-import Text from '@/components/ui/Text.astro';
-import Button from '@/components/ui/Button.astro';
 import Badge from '@/components/ui/Badge.astro';
+import Button from '@/components/ui/Button.astro';
 import { r } from '@/i18n/r';
+import AuroraBackground from '@/components/ui/AuroraBackground.astro';
+import CurveBackground from '@/components/ui/CurveBackground.astro';
 
-const { badge, title, subtitle, primaryCta, primaryHref, secondaryCta, secondaryHref, image, imageAlt, lang } = Astro.props;
+const {
+  badge,
+  title,
+  subtitle,
+  primaryCta,
+  primaryHref,
+  secondaryCta,
+  secondaryHref,
+  country,
+} = Astro.props;
+
+// Determine theme dynamically based on country and url pathname / page content
+let theme = Astro.props.theme || 'sms';
+if (country !== 'in') {
+  theme = 'whatsapp';
+} else {
+  const path = Astro.url.pathname;
+  const isWhatsappPath = path.includes('/whatsapp');
+  theme = (theme === 'whatsapp' || isWhatsappPath) ? 'whatsapp' : 'sms';
+}
+
+const isWhatsapp = theme === 'whatsapp';
+const auroraTheme = isWhatsapp ? 'whatsapp' : 'sms';
 ---
 
-<Section>
+<div
+  class="relative min-h-[85vh] h-auto flex items-center justify-center text-ink transition-colors bg-canvas overflow-hidden"
+>
+  <CurveBackground theme={auroraTheme} />
+  {/* Hero content */}
   <Container>
-    <div class="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
+    <div class="relative z-10 flex flex-col items-center text-center gap-6 py-20 lg:py-28">
 
-      <!-- Text column -->
-      <div class="flex flex-col items-center text-center lg:items-start lg:text-left lg:max-w-[52%]">
-        {badge && (
-          <Badge tone="primary" class="mb-5">
-            {r(badge, lang)}
+      {badge && (
+        <div class="animate-fade-in stagger-1">
+          <Badge tone="primary" class:list={["mb-2", isWhatsapp ? "!bg-accent-wa/10 !text-accent-wa" : ""]}>
+            {r(badge, country)}
           </Badge>
-        )}
-
-        <Heading as="h1" class="mb-5">
-          {r(title, lang)}
-        </Heading>
-
-        {subtitle && (
-          <Text tone="body" class="mb-8 max-w-xl">
-            {r(subtitle, lang)}
-          </Text>
-        )}
-
-        <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-          {primaryCta && primaryHref && (
-            <Button href={primaryHref} variant="primary" size="md">
-              {r(primaryCta, lang)}
-            </Button>
-          )}
-          {secondaryCta && secondaryHref && (
-            <Button href={secondaryHref} variant="secondary" size="md">
-              {r(secondaryCta, lang)}
-            </Button>
-          )}
-        </div>
-      </div>
-
-      <!-- Image column -->
-      {image && (
-        <div class="flex-1 w-full max-w-xl lg:max-w-none">
-          <img
-            src={image}
-            alt={r(imageAlt, lang)}
-            class="w-full rounded-md shadow-card"
-            loading="eager"
-            decoding="async"
-          />
         </div>
       )}
 
+      <h1 class="text-display-hero font-bold leading-tight max-w-4xl animate-fade-in-up stagger-2">
+        <span class:list={[
+          'inline-block',
+          auroraTheme === 'whatsapp' ? 'gradient-text-wa' : 'gradient-text-primary',
+        ]}>
+          {r(title, country)}
+        </span>
+      </h1>
+
+      {subtitle && (
+        <p class="text-body-lg leading-relaxed text-body max-w-2xl animate-fade-in-up stagger-3">
+          {r(subtitle, country)}
+        </p>
+      )}
+
+      <div class="flex flex-wrap gap-4 justify-center mt-4 animate-fade-in-up stagger-4">
+        {primaryCta && primaryHref && (
+          <Button 
+            href={primaryHref} 
+            variant="primary" 
+            size="md"
+            class={isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""}
+          >
+            {r(primaryCta, country)}
+          </Button>
+        )}
+        {secondaryCta && secondaryHref && (
+          <Button 
+            href={secondaryHref} 
+            variant="secondary" 
+            size="md"
+            class={isWhatsapp ? "hover:!bg-accent-wa/[0.06] !border-accent-wa/30 !text-accent-wa" : ""}
+          >
+            {r(secondaryCta, country)}
+          </Button>
+        )}
+      </div>
+
+      {/* Trust line */}
+      <p class:list={["text-caption mt-6 animate-fade-in stagger-5", isWhatsapp ? "text-body/80" : "text-muted"]}>
+        ✦ No credit card required &middot; Free plan available &middot; Setup in 5 minutes
+      </p>
     </div>
   </Container>
-</Section>
+</div>
+

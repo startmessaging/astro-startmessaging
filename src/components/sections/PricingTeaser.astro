@@ -1,0 +1,114 @@
+---
+/**
+ * PricingTeaser — compact pricing highlight for home page.
+ * Shows WhatsApp pricing for all countries + SMS pricing for India.
+ * Per ASTRO_COUNTRY_PLAN.md §8.
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Button from '@/components/ui/Button.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+import { hasSms, urlPrefix, type Country } from '@/config/countries';
+import { WHATSAPP_PRICING, SMS_PRICING } from '@/lib/pricing';
+
+const {
+  badge,
+  heading,
+  subheading,
+  primaryCta,
+  primaryHref,
+  showSms = false,
+  currency,
+  country,
+  theme,
+} = Astro.props;
+
+const c = country as Country;
+const prefix = urlPrefix(c);
+const waPricing = WHATSAPP_PRICING[c];
+const showSmsSection = showSms === true || (showSms === '$hasSms' && hasSms(c));
+
+let resolvedTheme = theme || 'sms';
+if (c !== 'in') {
+  resolvedTheme = 'whatsapp';
+} else {
+  const path = Astro.url.pathname;
+  const isWhatsappPath = path.includes('/whatsapp');
+  resolvedTheme = (resolvedTheme === 'whatsapp' || isWhatsappPath) ? 'whatsapp' : 'sms';
+}
+const isWhatsapp = resolvedTheme === 'whatsapp';
+const cardBgClass = isWhatsapp ? 'bg-white/60 border border-accent-wa/10 shadow-sm' : 'bg-surface-card border border-hairline shadow-sm';
+---
+
+<Section variant="soft" id="pricing-teaser" theme={resolvedTheme}>
+  <Container>
+    <div class="flex flex-col items-center text-center gap-4 mb-12">
+      {badge && <Badge tone="muted">{r(badge, c)}</Badge>}
+      {heading && <Heading as="h2">{r(heading, c)}</Heading>}
+      {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, c)}</Text>}
+    </div>
+
+    <div class={`grid gap-6 max-w-4xl mx-auto ${showSmsSection ? 'md:grid-cols-2' : 'md:grid-cols-1 max-w-lg'}`}>
+
+      <!-- WhatsApp pricing card -->
+      <div class:list={["rounded-lg p-6 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-4", cardBgClass]}>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-wa" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          </svg>
+          <Heading as="h3" size="display-sm">WhatsApp</Heading>
+        </div>
+        <div class="space-y-2">
+          <div class="flex justify-between text-body-sm">
+            <Text tone="muted">Marketing</Text>
+            <Text tone="default" class="font-semibold">{waPricing.marketing}</Text>
+          </div>
+          <div class="flex justify-between text-body-sm">
+            <Text tone="muted">Utility</Text>
+            <Text tone="default" class="font-semibold">{waPricing.utility}</Text>
+          </div>
+          <div class="flex justify-between text-body-sm">
+            <Text tone="muted">Authentication</Text>
+            <Text tone="default" class="font-semibold">{waPricing.auth}</Text>
+          </div>
+        </div>
+        <Text size="caption-sm" tone="muted">per message</Text>
+      </div>
+
+      <!-- SMS pricing card (India only) -->
+      {showSmsSection && (
+        <div class:list={["rounded-lg p-6 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-4", cardBgClass]}>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <Heading as="h3" size="display-sm">SMS</Heading>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between text-body-sm">
+              <Text tone="muted">Non-DLT OTP</Text>
+              <Text tone="default" class="font-semibold">{SMS_PRICING.nonDlt.price}</Text>
+            </div>
+            <div class="flex justify-between text-body-sm">
+              <Text tone="muted">DLT SMS</Text>
+              <Text tone="default" class="font-semibold">{SMS_PRICING.dlt.price}</Text>
+            </div>
+          </div>
+          <Text size="caption-sm" tone="muted">{SMS_PRICING.nonDlt.note}</Text>
+        </div>
+      )}
+
+    </div>
+
+    {primaryCta && (
+      <div class="flex justify-center mt-8">
+        <Button href={primaryHref ?? `${prefix}/pricing`} variant="primary" class={isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""}>
+          {r(primaryCta, c)}
+        </Button>
+      </div>
+    )}
+  </Container>
+</Section>

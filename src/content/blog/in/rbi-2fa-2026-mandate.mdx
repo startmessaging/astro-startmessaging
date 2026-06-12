@@ -1,0 +1,106 @@
+﻿---
+title: "RBI 2026 Mandatory 2FA Rules: What Indian Apps Must Do"
+description: "Plain-English summary of RBI's April 2026 mandatory 2FA rules for digital payments, what counts as a valid second factor, and how OTP fits in."
+publishedAt: "2026-05-03"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "rbi 2fa 2026"
+  - "rbi 2fa mandate digital payments"
+  - "rbi additional factor authentication"
+  - "rbi otp rules 2026"
+  - "rbi 2fa india fintech"
+  - "rbi second factor authentication"
+  - "india digital payment rules 2026"
+  - "rbi otp guidelines"
+  - "fintech compliance india 2026"
+  - "rbi sms otp regulation"
+relatedSlugs:
+  - "silent-authentication-vs-otp-india"
+  - "sim-swap-otp-protection-india"
+  - "otp-fintech-india"
+featured: false
+---
+
+
+From 1 April 2026, the Reserve Bank of India requires every digital
+        payment to be protected by an "additional factor of
+        authentication" (AFA). The headline grabbed attention but the
+        operational details matter more — and SMS OTP is still a
+        recognised second factor for most transaction tiers.
+
+
+## What Changed in April 2026
+
+The 2026 framework moves AFA from a card-payment-only rule to a
+        cross-channel rule covering UPI, prepaid wallets, recurring mandates,
+        and net banking. It also introduces a risk-based tier where the
+        chosen factor must scale with transaction value and user risk.
+
+
+## Who is Affected
+
+
+- Banks (issuers and acquirers).
+- Payment aggregators and gateways (PA/PG).
+- Prepaid Payment Instrument (PPI) issuers and wallets.
+- UPI apps and TPAPs.
+- NBFCs offering BNPL or instant-credit products.
+
+
+
+Most fintech apps inherit compliance through their PG / aggregator,
+        but you still need to demonstrate AFA on your own login and
+        sensitive-action screens.
+
+
+## What Counts as a Valid Second Factor
+
+RBI's framework recognises three classes:
+
+
+
+- **Something you have:** SMS OTP, push notification to a registered device, hardware token, silent network auth.
+- **Something you are:** fingerprint, face, voice, or other biometric.
+- **Something you know:** PIN or password (no longer enough on its own — must combine with one of the above).
+
+
+
+## Where SMS OTP Still Fits
+
+For most consumer apps, SMS OTP is the cheapest and most universal
+        "something you have." It works on every Indian phone
+        regardless of OS or smartphone status. Pair it with device binding
+        for high-risk actions and you satisfy AFA across the full transaction
+        ladder. See our deep-dive on 
+        [silent authentication vs OTP](/blog/silent-authentication-vs-otp-india) 
+        for when each fits.
+
+
+## Exemptions and Risk-Based Auth
+
+Low-value contactless payments under Rs 5000 may use a streamlined
+        AFA flow (e.g. tap-and-go), and recurring mandates registered with
+        AFA at setup don't require AFA on each charge. Risk-based auth
+        is encouraged: skip the second factor on low-risk repeats, escalate
+        on anomalies.
+
+
+## Implementation Checklist
+
+
+- Audit every authenticated action and tag its risk tier (low / medium / high).
+- Map each tier to a factor combination (PIN+OTP, biometric+device, etc.).
+- Add SIM-age and device-fingerprint checks for high-tier actions (defends against  [SIM swap](/blog/sim-swap-otp-protection-india)).
+- Log every AFA event with a tamper-evident audit trail.
+- Document your AFA matrix and keep it ready for the next RBI inspection.
+
+
+
+## FAQ
+
+Building a fintech? 
+        [See our fintech OTP guide](/blog/otp-fintech-india) 
+        for the full architecture.
+

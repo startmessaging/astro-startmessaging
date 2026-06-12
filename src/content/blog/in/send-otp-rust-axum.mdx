@@ -1,0 +1,168 @@
+﻿---
+title: "Send OTP in Rust with Axum and Reqwest — 2026 Guide"
+description: "Build a production OTP backend in Rust using Axum and reqwest, calling the StartMessaging API. Includes structs, handlers, error type, and tower-http rate limiting."
+publishedAt: "2026-04-23"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp rust"
+  - "axum sms otp api"
+  - "rust phone verification"
+  - "reqwest otp india"
+  - "startmessaging rust"
+  - "rust backend otp"
+  - "rust axum auth"
+  - "rust otp without dlt"
+  - "tokio otp api"
+  - "sms otp api rust"
+relatedSlugs:
+  - "send-otp-go-golang"
+  - "send-otp-nodejs"
+  - "idempotency-keys-otp"
+featured: false
+---
+
+
+Rust is a great fit for OTP backends: tiny binary, predictable
+        performance, and no GC pauses while a marketing burst slams your
+        endpoints. This guide builds a complete OTP service on Axum that
+        proxies the [StartMessaging OTP API](/otp-api).
+
+
+## Why Rust for OTP Backends
+
+OTP traffic is bursty and latency-sensitive. Rust's async runtime
+        gives you C-like throughput with memory safety, which means your OTP
+        service can run on a small ARM VM and still handle spikes during sale
+        events.
+
+
+## Cargo.toml
+      
+```
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tower-http = { version = "0.5", features = ["limit"] }
+uuid = { version = "1", features = ["v4"] }
+anyhow = "1"
+```
+
+
+## StartMessaging Client
+      
+```typescript
+use reqwest::Client;
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone)]
+pub struct StartMessaging {
+    http: Client,
+    api_key: String,
+}
+
+#[derive(Serialize)]
+struct SendBody<'a> { phoneNumber: &'a str, idempotencyKey: String }
+
+#[derive(Deserialize)]
+pub struct SendData { pub requestId: String, pub expiresAt: String, pub attemptsLeft: u32 }
+
+#[derive(Deserialize)]
+struct Envelope<T> { data: T }
+
+impl StartMessaging {
+    pub fn new(api_key: String) -> Self {
+        Self { http: Client::new(), api_key }
+    }
+
+    pub async fn send_otp(&self, phone: &str) -> anyhow::Result<SendData> {
+        let body = SendBody { phoneNumber: phone, idempotencyKey: uuid::Uuid::new_v4().to_string() };
+        let env: Envelope<SendData> = self.http
+            .post("https://api.startmessaging.com/otp/send")
+            .header("X-API-Key", &self.api_key)
+            .json(&body)
+            .send().await?
+            .error_for_status()?
+            .json().await?;
+        Ok(env.data)
+    }
+
+    pub async fn verify_otp(&self, request_id: &str, code: &str) -> anyhow::Result<bool> {
+        #[derive(Serialize)] struct B<'a> { requestId: &'a str, otpCode: &'a str }
+        #[derive(Deserialize)] struct V { verified: bool }
+        let env: Envelope<V> = self.http
+            .post("https://api.startmessaging.com/otp/verify")
+            .header("X-API-Key", &self.api_key)
+            .json(&B { requestId: request_id, otpCode: code })
+            .send().await?
+            .error_for_status()?
+            .json().await?;
+        Ok(env.data.verified)
+    }
+}
+```
+
+
+## Axum Handlers
+      
+```typescript
+use axum::{routing::post, Json, Router, extract::State};
+
+#[derive(Deserialize)] struct SendReq { phone: String }
+#[derive(Serialize)]   struct SendRes { request_id: String, expires_at: String }
+
+async fn send_handler(
+    State(sm): State<StartMessaging>,
+    Json(req): Json<SendReq>,
+) -> Result<Json<SendRes>, String> {
+    let data = sm.send_otp(&req.phone).await.map_err(|e| e.to_string())?;
+    Ok(Json(SendRes { request_id: data.requestId, expires_at: data.expiresAt }))
+}
+
+#[tokio::main]
+async fn main() {
+    let sm = StartMessaging::new(std::env::var("STARTMESSAGING_API_KEY").unwrap());
+    let app = Router::new()
+        .route("/auth/send-otp", post(send_handler))
+        .with_state(sm);
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}
+```
+
+
+## Error Type
+
+For production, replace `String` error returns with a
+        thiserror enum that maps each StartMessaging status code to a typed
+        variant. This lets you log errors structurally and return clean JSON to
+        the client.
+
+
+## Rate Limiting
+
+Use `tower-governor` for IP-based limits and a Redis-backed
+        sliding window keyed by phone for the send endpoint. See our 
+        [OTP rate limiting guide](/blog/otp-rate-limiting-guide) 
+        for the algorithms.
+
+
+## Best Practices
+
+
+- Reuse one `reqwest::Client` for the lifetime of the process.
+- Use rustls-tls to avoid the OpenSSL dependency on minimal containers.
+- Add a 10-second timeout on every reqwest call.
+- Return verified=false rather than 401 if you want a generic UX.
+
+
+
+## FAQ
+
+See [pricing](/pricing) or compare with the 
+        [Go version](/blog/send-otp-go-golang).
+

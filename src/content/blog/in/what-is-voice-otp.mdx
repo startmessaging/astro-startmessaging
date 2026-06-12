@@ -1,0 +1,128 @@
+﻿---
+title: "What is Voice OTP? When to Use It Instead of SMS"
+description: "Voice OTP explained — how the OTP is read aloud over a robocall, when it beats SMS, accessibility benefits, India regulatory context, and integration patterns."
+publishedAt: "2026-04-24"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is voice otp"
+  - "voice otp india"
+  - "voice call otp"
+  - "ivr otp"
+  - "voice otp vs sms"
+  - "audio otp"
+relatedSlugs:
+  - "voice-otp-vs-sms-otp-india"
+  - "what-is-sms-otp"
+  - "what-is-otp"
+  - "otp-delivery-rates-india"
+featured: false
+---
+
+
+Voice OTP is SMS OTP's less famous sibling: instead of arriving as
+        a text message, the code is read aloud over an automated phone call.
+        It is rarely the first choice for an OTP flow but is the right answer
+        in specific situations — accessibility, SMS-blocked corridors, and
+        elderly users — and almost always sits alongside SMS OTP as a
+        fallback.
+
+
+This guide covers **what voice OTP is**, how the
+        underlying robocall works, when to pick it, the India regulatory
+        context, and a typical integration pattern.
+
+
+## Voice OTP — Definition
+
+**Voice OTP** delivers a one-time password to the user as
+        a recorded or text-to-speech (TTS) phone call. The properties are
+        otherwise identical to SMS OTP: single use, time-bound, generated
+        server-side.
+
+
+## How Voice OTP Works
+
+
+- Backend calls the voice OTP API with the user's phone number.
+- The API generates a numeric code, hashes it for storage, and queues an outbound call.
+- A telephony aggregator places the call. When the user answers, an IVR plays the script: "Your verification code is four eight two nine one zero. Repeating: four eight two nine one zero. Press one to repeat."
+- The user types the code into the app, your backend calls  `/otp/verify`, the call hangs up.
+
+
+
+## When Voice OTP Beats SMS
+
+
+- **SMS-blocked routes.** When DLT scrubbing or a carrier issue suppresses the SMS, voice often gets through.
+- **Elderly or non-tech-savvy users.** Hearing the code read aloud is more reliable than reading SMS for some demographics.
+- **Accessibility.** Visually impaired users may rely on screen readers; an explicit voice channel ensures the OTP reaches them clearly.
+- **International numbers.** Some destinations have unreliable SMS but reliable voice.
+- **Fallback after SMS fails.** If a user has not entered a code within ~30 seconds, automatically trigger a voice OTP.
+
+
+
+## Voice OTP in India
+
+Outbound voice in India is governed by TRAI's commercial
+        communication regulations and the Telecom Commercial Communications
+        Customer Preference Regulations (TCCCPR). Specific points to know:
+
+
+
+- Outbound IVR campaigns require operator-level registration similar to SMS DLT, though with a different platform.
+- Voice OTP for transactional / OTP categories is generally exempt from DND rules, but documentation is required.
+- Calls must originate from registered DID numbers tied to your business.
+
+
+
+See our deep comparison of 
+        [voice OTP vs SMS OTP in India](/blog/voice-otp-vs-sms-otp-india) 
+        for a fuller breakdown of when each shines.
+
+
+## Cost and Latency
+
+
+- **Cost.** Voice OTP in India is roughly 2–3× the cost of SMS — Rs 0.40–0.80 per call vs Rs 0.15–0.25 per SMS.
+- **Latency.** Slightly higher than SMS — the call has to be placed and answered. Plan for ~10–20 seconds of dial time before the user hears the code.
+- **Conversion.** Some users will not answer unknown numbers; voice fallback may have lower completion than SMS retry. A/B test it.
+
+
+
+## Pitfalls
+
+
+- **Repeated digits sound similar.** "5" and "9" can be confused. Pad the script with phonetics or pause between each digit.
+- **Voicemail.** The OTP will be left on the user's voicemail unless you detect answering machine and bail. Most providers expose AMD (answering machine detection).
+- **Call-blocking apps.** Truecaller and similar mark unknown numbers as spam. Use a registered DID with a clear business name displayed.
+
+
+
+## Integration Pattern
+      
+```typescript
+// Pseudo-code: SMS first, voice fallback after 30s
+const { requestId } = await sendSmsOtp(phone);
+
+// On the client, watch for OTP autofill or user input
+// If neither happens within 30s:
+await sendVoiceOtpFallback(requestId, phone);
+```
+
+
+StartMessaging's OTP API supports voice OTP as a fallback option
+        on the same request ID, so the verify call works regardless of which
+        channel actually delivered the code. See 
+        [our API docs](/otp-api).
+
+
+## FAQ
+
+Most products start with SMS OTP and add voice only after they see
+        delivery failures in the wild. 
+        [StartMessaging](/dlt-free-otp) handles both
+        channels, both regulatory regimes, and shared verification on a single
+        request ID — no DLT registration, no double integration.
+

@@ -1,0 +1,143 @@
+---
+/**
+ * CodeShowcase — Multi-language code tabs section.
+ * Uses radio buttons for zero-JS tab switching.
+ *
+ * Example JSON:
+ * {
+ *   "type": "codeShowcase",
+ *   "props": {
+ *     "badge":   { "en": "Integration" },
+ *     "heading": { "en": "Send your first message in minutes" },
+ *     "snippets": [
+ *       { "lang": "cURL", "code": "curl -X POST ..." },
+ *       { "lang": "Node.js", "code": "const res = await fetch(..." },
+ *       { "lang": "Python", "code": "import requests..." }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, snippets = [], overlayText, country } = Astro.props;
+
+// Determine theme dynamically based on country and url pathname / page content
+let theme = Astro.props.theme || 'sms';
+if (country !== 'in') {
+  theme = 'whatsapp';
+} else {
+  const path = Astro.url.pathname;
+  const isWhatsappPath = path.includes('/whatsapp');
+  theme = (theme === 'whatsapp' || isWhatsappPath) ? 'whatsapp' : 'sms';
+}
+
+const isWhatsapp = theme === 'whatsapp';
+const tabBgClass = isWhatsapp ? 'bg-white/60' : 'bg-surface-card';
+const borderClass = isWhatsapp ? 'border-b border-accent-wa/20' : 'border-b border-hairline';
+const tabColor = isWhatsapp ? 'var(--color-accent-wa)' : 'var(--color-primary)';
+
+const uniqueId = `code-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<Section variant="soft" theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-12 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <div class="max-w-4xl mx-auto code-showcase-wrapper" style={`--tab-color: ${tabColor};`}>
+      {/* Tab buttons */}
+      <div class:list={["flex gap-0 overflow-x-auto rounded-t-lg", tabBgClass, borderClass]}>
+        {snippets.map((snippet: any, idx: number) => (
+          <Fragment>
+            <input
+              type="radio"
+              name={uniqueId}
+              id={`${uniqueId}-${idx}`}
+              class="code-tab-radio sr-only peer"
+              checked={idx === 0 ? true : undefined}
+            />
+            <label
+              for={`${uniqueId}-${idx}`}
+              class="code-tab-label px-5 py-3 text-button-sm font-medium cursor-pointer text-muted hover:text-ink border-b-2 border-transparent transition-colors whitespace-nowrap"
+            >
+              {snippet.lang}
+            </label>
+          </Fragment>
+        ))}
+      </div>
+
+      {/* Code panels */}
+      <div class="relative bg-[#1a1b26] rounded-b-lg overflow-hidden">
+        {snippets.map((snippet: any, idx: number) => (
+          <div class:list={['code-panel', idx === 0 ? 'code-panel-active' : '']} data-panel-index={idx}>
+            <pre class="p-6 overflow-x-auto text-sm leading-relaxed"><code class="text-[#a9b1d6] font-mono">{snippet.code}</code></pre>
+          </div>
+        ))}
+        {overlayText && (
+          <div class="absolute inset-0 backdrop-blur-md bg-black/70 flex flex-col items-center justify-center text-center p-6 gap-4 z-10 select-none">
+            <span class:list={["text-lg font-bold tracking-wide uppercase", isWhatsapp ? "text-accent-wa-light" : "text-primary"]}>
+              {r(overlayText, country)}
+            </span>
+            <span class="text-body-sm text-[#a9b1d6] max-w-sm">
+              This API route is under construction. Sandbox access is available for early adopters.
+            </span>
+            <a href="https://app.startmessaging.com/signup" class:list={["px-5 py-2 rounded-md font-semibold text-button-sm text-white transition-all shadow-md", isWhatsapp ? "bg-accent-wa hover:bg-accent-wa-hover" : "bg-primary hover:bg-primary-hover"]}>
+              Request Sandbox Access
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .code-tab-radio:checked + .code-tab-label {
+    color: var(--tab-color);
+    border-bottom-color: var(--tab-color);
+  }
+
+  .code-panel {
+    display: none;
+  }
+  .code-panel-active {
+    display: block;
+  }
+
+  /* JS-free tab switching via :has() — modern browsers */
+  @supports selector(:has(*)) {
+    .code-showcase-wrapper:has(.code-tab-radio:nth-of-type(1):checked) .code-panel[data-panel-index="0"],
+    .code-showcase-wrapper:has(.code-tab-radio:nth-of-type(2):checked) .code-panel[data-panel-index="1"],
+    .code-showcase-wrapper:has(.code-tab-radio:nth-of-type(3):checked) .code-panel[data-panel-index="2"],
+    .code-showcase-wrapper:has(.code-tab-radio:nth-of-type(4):checked) .code-panel[data-panel-index="3"],
+    .code-showcase-wrapper:has(.code-tab-radio:nth-of-type(5):checked) .code-panel[data-panel-index="4"],
+    .code-showcase-wrapper:has(.code-tab-radio:nth-of-type(6):checked) .code-panel[data-panel-index="5"] {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  /* Fallback for browsers without :has() */
+  document.querySelectorAll('.code-tab-radio').forEach((radio) => {
+    radio.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const wrapper = target.closest('.code-showcase-wrapper');
+      if (!wrapper) return;
+      const idx = Array.from(wrapper.querySelectorAll('.code-tab-radio')).indexOf(target);
+      wrapper.querySelectorAll('.code-panel').forEach((panel, i) => {
+        (panel as HTMLElement).style.display = i === idx ? 'block' : 'none';
+      });
+    });
+  });
+</script>

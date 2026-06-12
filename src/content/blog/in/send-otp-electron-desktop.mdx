@@ -1,0 +1,92 @@
+﻿---
+title: "How to Send OTP in an Electron Desktop App (2026)"
+description: "Electron OTP tutorial using StartMessaging. Calls a thin remote backend (never embed API keys in the desktop bundle), uses safeStorage for the session token."
+publishedAt: "2026-05-13"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp electron"
+  - "electron desktop otp"
+  - "electron sms otp"
+  - "electron authentication"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "send-otp-express"
+  - "send-otp-react-native-expo"
+featured: false
+---
+
+
+Electron desktop apps need OTP login like any other client — but the
+        key rule is: API keys do not live in the desktop bundle. Always
+        proxy through a backend.
+
+
+## Security First
+
+
+- Backend holds SM_API_KEY.
+- Electron app calls backend over HTTPS.
+- Use `contextIsolation: true` and `nodeIntegration: false`.
+
+
+
+## Main Process — Network Bridge
+      
+```typescript
+// src/main/handlers.ts
+import { ipcMain, net } from 'electron';
+
+ipcMain.handle('auth:send-otp', async (_e, phone: string) => {
+  const r = await net.fetch('https://your-backend.example.com/auth/send-otp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phoneNumber: phone }),
+  });
+  return r.json();
+});
+```
+
+
+## Preload Bridge
+      
+```typescript
+// src/preload/index.ts
+import { contextBridge, ipcRenderer } from 'electron';
+contextBridge.exposeInMainWorld('auth', {
+  sendOtp: (phone: string) => ipcRenderer.invoke('auth:send-otp', phone),
+  verifyOtp: (requestId: string, code: string) =>
+    ipcRenderer.invoke('auth:verify-otp', { requestId, code }),
+});
+```
+
+
+## Renderer UI
+      
+```typescript
+// React component
+const send = async () => {
+  const r = await window.auth.sendOtp(phone);
+  setRequestId(r.requestId);
+};
+const verify = async () => {
+  await window.auth.verifyOtp(requestId, code);
+};
+```
+
+
+## Session via safeStorage
+      
+```typescript
+import { safeStorage } from 'electron';
+const buf = safeStorage.encryptString(token);
+// store buf in user data dir
+```
+
+
+## FAQ
+
+For the backend half see 
+        [our Express guide](/blog/send-otp-express).
+

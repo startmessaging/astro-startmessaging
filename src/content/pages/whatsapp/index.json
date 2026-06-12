@@ -1,14 +1,264 @@
 {
-  "locales": ["en", "pt-br"],
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
   "seo": {
-    "title":       { "en": "WhatsApp Business API — StartMessaging", "pt-br": "API WhatsApp Business — StartMessaging" },
-    "description": { "en": "Send WhatsApp messages at scale with the official Business API.", "pt-br": "Envie mensagens WhatsApp em escala com a API Business oficial." }
+    "title": {
+      "en": "WhatsApp Business API India — Official Meta Partner BSP — StartMessaging",
+      "pt": "API do WhatsApp Business Brasil — BSP Oficial da Meta — StartMessaging",
+      "es": "API de WhatsApp Business México — BSP Oficial de Meta — StartMessaging",
+      "id": "API WhatsApp Business Indonesia — BSP Resmi Meta — StartMessaging",
+      "ar": "واجهة واتساب للأعمال الإمارات — شريك Meta الرسمي — StartMessaging",
+      "tr": "WhatsApp Business API Türkiye — Resmi Meta Partneri BSP — StartMessaging",
+      "ng": "WhatsApp Business API Nigeria — Official Meta BSP Partner — StartMessaging"
+    },
+    "description": {
+      "en": "Official Meta Business Service Provider. Scale communication with broadcasts, campaigns, chatbots, and OTP authentication on WhatsApp with 98% open rates.",
+      "pt": "Provedor oficial de serviços Meta. Envie transmissões, campanhas, chatbots e autenticação OTP via WhatsApp com taxa de abertura de 98%.",
+      "es": "Proveedor oficial de servicios Meta. Envíe difusiones, campañas, chatbots y autenticación OTP vía WhatsApp con tasa de apertura del 98%.",
+      "id": "Penyedia Layanan Resmi Meta BSP. Siaran massal, kampanye, chatbot, dan autentikasi OTP WhatsApp dengan tingkat buka pesan 98%.",
+      "ar": "شريك Meta الرسمي. أرسل بثاً وحملات تسويقية وشات بوت ومصادقة OTP عبر واتساب بمعدل فتح 98%.",
+      "tr": "Resmi Meta BSP. WhatsApp üzerinden %98 açılma oranıyla yayınlar, kampanyalar, chatbot'lar ve OTP doğrulamaları gönderin.",
+      "ng": "Official Meta Business Service Provider. Send broadcasts, campaigns, chatbots, and OTP verification on WhatsApp with 98% open rates."
+    },
+    "ogImage": "/og.png?title=WhatsApp+Business+API&theme=whatsapp"
   },
   "sections": [
     {
-      "type": "comingSoon",
+      "type": "hero",
+      "theme": "whatsapp",
       "props": {
-        "title": { "en": "WhatsApp Business API", "pt-br": "API WhatsApp Business" }
+        "badge": {
+          "en": "Official Meta BSP",
+          "pt": "BSP Oficial Meta",
+          "es": "BSP Oficial Meta",
+          "id": "BSP Resmi Meta",
+          "ar": "شريك Meta الرسمي",
+          "tr": "Resmi Meta BSP"
+        },
+        "title": {
+          "en": "The Complete WhatsApp Business API Platform",
+          "pt": "A Plataforma Completa da API WhatsApp Business",
+          "es": "La Plataforma Completa de API de WhatsApp Business",
+          "id": "Platform API WhatsApp Business yang Lengkap",
+          "ar": "منصة واجهة واتساب للأعمال المتكاملة",
+          "tr": "Eksiksiz WhatsApp Business API Platformu"
+        },
+        "subtitle": {
+          "en": "Send broadcasts, build chatbots, automate OTP verification, and run marketing campaigns — all through the official WhatsApp Business API with 98% open rates.",
+          "pt": "Envie transmissões, crie chatbots, automatize verificação OTP e execute campanhas de marketing — tudo pela API oficial do WhatsApp Business com taxas de abertura de 98%.",
+          "es": "Envíe difusiones, cree chatbots, automatice la verificación OTP y ejecute campañas de marketing — todo a través de la API oficial de WhatsApp Business con tasas de apertura del 98%.",
+          "id": "Kirim siaran, buat chatbot, otomatisasi verifikasi OTP, dan jalankan kampanye pemasaran — semuanya melalui API resmi WhatsApp Business dengan tingkat buka 98%.",
+          "ar": "أرسل بثاً وأنشئ شات بوت وأتمت التحقق من OTP وشغّل حملات تسويقية — كل ذلك من خلال واجهة واتساب الرسمية بمعدل فتح 98%.",
+          "tr": "Yayınlar gönderin, chatbot'lar oluşturun, OTP doğrulamayı otomatikleştirin ve pazarlama kampanyaları yürütün — hepsi %98 açılma oranıyla resmi WhatsApp Business API aracılığıyla."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "View Pricing",
+          "pt": "Ver Preços",
+          "es": "Ver Precios",
+          "id": "Lihat Harga",
+          "ar": "عرض الأسعار",
+          "tr": "Fiyatları Görün"
+        },
+        "secondaryHref": "/pricing"
+      }
+    },
+    {
+      "type": "serviceCards",
+      "props": {
+        "badge": {
+          "en": "WhatsApp Solutions"
+        },
+        "heading": {
+          "en": "Enterprise Features, One Powerful API"
+        },
+        "cards": [
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": { "en": "Broadcast Messaging" },
+            "description": {
+              "en": "Send transactional or marketing templates to thousands of opted-in contacts instantly with full delivery tracking."
+            },
+            "features": [],
+            "ctaLabel": { "en": "Learn More" },
+            "ctaHref": "/whatsapp/broadcast"
+          },
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": { "en": "Marketing Campaigns" },
+            "description": {
+              "en": "Design targeted customer sequences with smart segmentation, scheduling, and built-in A/B testing."
+            },
+            "features": [],
+            "ctaLabel": { "en": "Learn More" },
+            "ctaHref": "/whatsapp/campaigns"
+          },
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": { "en": "Chatbot Builder" },
+            "description": {
+              "en": "Build automated conversation flows for customer support, lead capturing, and direct sales with agent handoffs."
+            },
+            "features": [],
+            "ctaLabel": { "en": "Learn More" },
+            "ctaHref": "/whatsapp/chatbot"
+          },
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": { "en": "OTP Authentication" },
+            "description": {
+              "en": "Verify user logins and identity securely using official high-speed WhatsApp verification API endpoints."
+            },
+            "features": [],
+            "ctaLabel": { "en": "Learn More" },
+            "ctaHref": "/whatsapp/authentication"
+          },
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": { "en": "Auto-Trigger Engine" },
+            "description": {
+              "en": "Trigger automated WhatsApp messages dynamically from database edits, webhooks, or CRM system events."
+            },
+            "features": [],
+            "ctaLabel": { "en": "Learn More" },
+            "ctaHref": "/whatsapp/auto-trigger"
+          },
+          {
+            "theme": "whatsapp",
+            "icon": "whatsapp",
+            "title": { "en": "Utility Notifications" },
+            "description": {
+              "en": "Dispatch receipts, shipping alerts, flight updates, and booking confirmations automatically to customer chats."
+            },
+            "features": [],
+            "ctaLabel": { "en": "Learn More" },
+            "ctaHref": "/whatsapp/utility"
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Messaging Modes" },
+        "heading": { "en": "Broadcast vs Campaigns vs Bulk Blasting" },
+        "subheading": { "en": "Understand the differences in mechanics, compliance, and suitability on the official WhatsApp Cloud API." },
+        "columns": [
+          { "label": { "en": "Features" } },
+          { "label": { "en": "Broadcast Messaging" } },
+          { "label": { "en": "Marketing Campaigns" } },
+          { "label": { "en": "Bulk Messaging (Official)" } }
+        ],
+        "rows": [
+          [
+            { "en": "Targeting" },
+            { "en": "Static user lists" },
+            { "en": "Dynamic segmented funnels" },
+            { "en": "Mass database dispatches" }
+          ],
+          [
+            { "en": "Scheduling / Automation" },
+            { "en": "Immediate or one-off" },
+            { "en": "Multi-step automated triggers" },
+            { "en": "Batched high-speed queues" }
+          ],
+          [
+            { "en": "Opt-In Compliance" },
+            { "en": "Required" },
+            { "en": "Required" },
+            { "en": "Strictly Required" }
+          ],
+          [
+            { "en": "A/B Testing Content" },
+            { "en": "✗" },
+            { "en": "✓" },
+            { "en": "✗" }
+          ],
+          [
+            { "en": "Risk of Number Ban" },
+            { "en": "Zero (TRAI / Meta approved)" },
+            { "en": "Zero (TRAI / Meta approved)" },
+            { "en": "Zero (If Opt-In is verified)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "statsBar",
+      "props": {
+        "stats": [
+          { "value": "2B+", "label": { "en": "WhatsApp users worldwide" } },
+          { "value": "98%", "label": { "en": "Message open rate" } },
+          { "value": "< 2s", "label": { "en": "Average delivery time" } },
+          { "value": "180+", "label": { "en": "Countries reachable" } }
+        ]
+      }
+    },
+    {
+      "type": "howItWorks",
+      "props": {
+        "badge": { "en": "Getting Started" },
+        "heading": { "en": "Start Sending WhatsApp Messages in 3 Steps" },
+        "steps": [
+          {
+            "icon": "user",
+            "title": { "en": "Register & Get API Key" },
+            "description": { "en": "Create your free account and receive API credentials instantly." }
+          },
+          {
+            "icon": "code",
+            "title": { "en": "Create Message Templates" },
+            "description": { "en": "Submit message templates for Meta approval. Most templates are approved within minutes." }
+          },
+          {
+            "icon": "rocket",
+            "title": { "en": "Send & Track Messages" },
+            "description": { "en": "Send your first broadcast and monitor delivery, opens, and replies in real-time." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "WhatsApp API — Frequently Asked Questions" },
+        "items": [
+          {
+            "question": { "en": "What is the WhatsApp Business API?" },
+            "answer": { "en": "The WhatsApp Business API is Meta's official programmatic interface that allows businesses to send messages, notifications, and engage with customers at scale. Unlike the WhatsApp Business App, the API is designed for businesses that need to integrate messaging into CRMs, dashboards, and custom backend systems. StartMessaging is an official BSP providing direct access." }
+          },
+          {
+            "question": { "en": "How much does WhatsApp Business API cost?" },
+            "answer": { "en": "WhatsApp API pricing is conversation-based, set by Meta and varying by country and message category (marketing, utility, authentication, service). StartMessaging adds no markup to Meta's base pricing. We offer 1,000 free messages/month on our Free plan, and volume discounts for high-usage businesses." }
+          },
+          {
+            "question": { "en": "Can I send promotional messages on WhatsApp?" },
+            "answer": { "en": "Yes! WhatsApp allows marketing messages to opted-in contacts. You can send promotions, product launches, event invitations, and personalized offers using pre-approved templates." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Ready to Connect with Your Customers on WhatsApp?" },
+        "subtext": { "en": "Free plan with 1,000 messages/month. No credit card required." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
       }
     }
   ]

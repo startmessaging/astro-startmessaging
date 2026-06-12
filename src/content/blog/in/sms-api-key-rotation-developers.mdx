@@ -1,0 +1,76 @@
+﻿---
+title: "Rotating SMS API Keys Without Taking Login Offline"
+description: "Key lifecycle for SMS OTP APIs: dual-key cutover, secrets storage, incident response, and protecting credentials used for TRAI DLT-compliant sends."
+publishedAt: "2026-04-14"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "API key rotation"
+  - "SMS API key security"
+  - "rotate API keys zero downtime"
+  - "OTP API key leak"
+  - "secrets manager SMS"
+  - "API key best practices"
+  - "DLT SMS API credentials"
+  - "TRAI SMS API security India"
+  - "OTP SMS API India key"
+  - "bulk SMS API authentication"
+  - "SMS gateway API key leak"
+relatedSlugs:
+  - "otp-security-best-practices"
+  - "testing-otp-flows-staging-sandboxes"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+[OTP security best practices](/blog/otp-security-best-practices) 
+        cover bcrypt for codes and HTTPS for transport. This article focuses on
+        a different secret: **your SMS gateway API key**—the
+        credential that authorizes spend and sends. It complements, not
+        duplicates, that guide.
+
+
+## Different From Hashing OTP Codes
+
+User-facing OTP values are short-lived secrets you hash at rest. API
+        keys are long-lived authentication to your provider. Leaked keys let an
+        attacker send messages on your bill—see 
+        [OTP fraud](/blog/prevent-otp-fraud) 
+        for attack patterns. Rotation reduces how long a stolen key works.
+
+
+## Dual-Key Cutover Pattern
+
+If your dashboard allows creating a second key before revoking the old
+        one, deploy in three steps: add new key to secrets store, roll pods or
+        Lambdas to pick up new secret, verify traffic, revoke old key. Avoid
+        big-bang restarts during peak login unless you run blue-green with both
+        keys briefly valid.
+
+
+## Where Keys Live
+
+Never commit keys to git. Use a secrets manager or encrypted CI
+        variables. For local dev, document a fake key that points to mocks as in 
+        [testing OTP in staging](/blog/testing-otp-flows-staging-sandboxes)
+        . Production keys should be readable only to the runtime role that calls 
+        [your OTP API](/otp-api)
+        .
+
+
+## Leak Response Checklist
+
+
+- Revoke the compromised key immediately in the provider dashboard.
+- Issue a new key and deploy through your normal pipeline.
+- Review recent sends for anomalous countries or volume spikes.
+- Postmortem: how did the key leak—log, ticket, screenshot?
+
+
+
+## FAQ
+
+See FAQ above.
+

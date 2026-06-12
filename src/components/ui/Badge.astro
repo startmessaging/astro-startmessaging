@@ -1,15 +1,40 @@
 ---
+import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
+
 type Tone = 'primary' | 'muted' | 'success';
 
 interface Props {
   tone?: Tone;
   class?: string;
+  theme?: 'sms' | 'whatsapp';
 }
 const { tone = 'muted', class: cls = '' } = Astro.props;
 
-const toneClass: Record<Tone, string> = {
+// Dynamically resolve theme based on URL pathname prefix or explicit prop
+let theme = Astro.props.theme;
+if (!theme) {
+  const path = Astro.url.pathname;
+  const pathSegments = path.split('/').filter(Boolean);
+  const pathCountry = pathSegments[0];
+  const country = ALL_COUNTRIES.includes(pathCountry as any) ? pathCountry : DEFAULT_COUNTRY;
+  
+  if (country !== DEFAULT_COUNTRY) {
+    theme = 'whatsapp';
+  } else {
+    const isWhatsappPath = path.includes('/whatsapp');
+    theme = isWhatsappPath ? 'whatsapp' : 'sms';
+  }
+}
+
+const isWhatsapp = theme === 'whatsapp';
+
+const toneClass: Record<Tone, string> = isWhatsapp ? {
+  primary: 'bg-accent-wa/10 text-accent-wa',
+  muted:   'bg-accent-wa/[0.06] text-accent-wa/70',
+  success: 'bg-[#dcfce7] text-[#166534]',
+} : {
   primary: 'bg-primary-disabled text-primary',
-  muted:   'bg-surface-strong   text-muted',
+  muted:   'bg-primary/[0.06]    text-primary/70',
   success: 'bg-[#dcfce7]        text-[#166534]',
 };
 ---

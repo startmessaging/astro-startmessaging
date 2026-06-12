@@ -1,0 +1,158 @@
+﻿---
+title: "Send OTP in Next.js (App Router) — Server Actions Guide 2026"
+description: "Send and verify SMS OTPs from a Next.js 14/15 App Router app using server actions and the StartMessaging API. Includes a full login form, server actions, and middleware."
+publishedAt: "2026-04-18"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp nextjs app router"
+  - "next.js otp server actions"
+  - "next.js phone otp login"
+  - "next.js sms otp api"
+  - "startmessaging next.js"
+  - "next.js 14 phone verification"
+  - "next.js otp login india"
+  - "next.js otp without dlt"
+  - "react otp form input"
+  - "next.js auth otp tutorial"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "otp-verification-flow"
+  - "otp-autofill-android-ios-sms-retriever"
+featured: false
+---
+
+
+The Next.js App Router's server actions make phone OTP login
+        almost trivial: no API routes, no client-side fetch, just a form that
+        calls a server function. This guide builds a complete OTP login flow
+        backed by the [StartMessaging OTP API](/otp-api).
+
+
+## Why Server Actions for OTP
+
+Server actions run on the Next.js server, so your StartMessaging API
+        key never reaches the browser. They progressively enhance form
+        submissions, work without JavaScript, and let you set cookies
+        atomically with the response.
+
+
+## Environment Setup
+      
+```bash
+# .env.local
+STARTMESSAGING_API_KEY=sm_live_xxxxxxxxxxxxxxxxxxxx
+STARTMESSAGING_BASE_URL=https://api.startmessaging.com
+```
+
+
+## Server Action to Send OTP
+      
+```typescript
+// app/(auth)/actions.ts
+'use server';
+
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { randomUUID } from 'crypto';
+
+const BASE = process.env.STARTMESSAGING_BASE_URL!;
+const KEY = process.env.STARTMESSAGING_API_KEY!;
+
+export async function sendOtpAction(formData: FormData) {
+  const phone = String(formData.get('phone') ?? '').trim();
+  if (!/^\\+91\\d{10}$/.test(phone)) {
+    return { error: 'Enter a valid Indian mobile number' };
+  }
+
+  const res = await fetch(\`\${BASE}/otp/send\`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': KEY },
+    body: JSON.stringify({ phoneNumber: phone, idempotencyKey: randomUUID() }),
+    cache: 'no-store',
+  });
+  const json = await res.json();
+  if (!res.ok) return { error: json.message ?? 'Failed to send OTP' };
+
+  cookies().set('otp_request_id', json.data.requestId, {
+    httpOnly: true, secure: true, sameSite: 'lax', maxAge: 600,
+  });
+  redirect('/login/verify');
+}
+```
+
+
+## Server Action to Verify OTP
+      
+```typescript
+export async function verifyOtpAction(formData: FormData) {
+  const code = String(formData.get('code') ?? '').trim();
+  const requestId = cookies().get('otp_request_id')?.value;
+  if (!requestId) return { error: 'Session expired. Send a new OTP.' };
+
+  const res = await fetch(\`\${BASE}/otp/verify\`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': KEY },
+    body: JSON.stringify({ requestId, otpCode: code }),
+    cache: 'no-store',
+  });
+  const json = await res.json();
+  if (!res.ok || !json.data?.verified) return { error: 'Wrong code' };
+
+  cookies().delete('otp_request_id');
+  cookies().set('session', 'verified', { httpOnly: true, secure: true, sameSite: 'lax' });
+  redirect('/dashboard');
+}
+```
+
+
+## Client Login Form
+      
+```typescript
+// app/(auth)/login/page.tsx
+import { sendOtpAction } from '../actions';
+
+export default function LoginPage() {
+  return (
+    <form action={sendOtpAction} className="space-y-4">
+      <input name="phone" type="tel" placeholder="+91 98765 43210" required />
+      <button type="submit">Send OTP</button>
+    </form>
+  );
+}
+```
+
+
+## Middleware to Protect Routes
+      
+```typescript
+// middleware.ts
+import { NextResponse, type NextRequest } from 'next/server';
+
+export function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith('/dashboard')) {
+    if (req.cookies.get('session')?.value !== 'verified') {
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
+  }
+  return NextResponse.next();
+}
+```
+
+
+## Best Practices
+
+
+- **Use the Web OTP API** on the verify page so Chrome on Android can autofill the code. See our guide on  [OTP autofill on Android & iOS](/blog/otp-autofill-android-ios-sms-retriever) .
+- **Rate-limit the send action** by phone and IP using Vercel KV.
+- **Encrypt the session cookie** with iron-session or jose.
+- **Show resend timer** in the UI to prevent users from spamming send.
+
+
+
+## FAQ
+
+Curious about pricing? [It's Rs 0.25 per OTP](/pricing) 
+        with no DLT registration required.
+

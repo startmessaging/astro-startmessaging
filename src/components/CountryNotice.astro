@@ -1,0 +1,302 @@
+---
+/**
+ * CountryNotice — Apple-style "switch country?" banner.
+ * Per ASTRO_COUNTRY_PLAN.md §4.
+ *
+ * Hydrates client-side only. Calls /api/geo, compares
+ * detected country to current URL country, and shows
+ * a non-intrusive banner with "Continue" and "✕" controls.
+ *
+ * Uses chrome.json banner.* keys for all text.
+ */
+import { COUNTRY_CONFIG, IP_TO_COUNTRY, urlPrefix, ALL_COUNTRIES } from '@/config/countries';
+
+interface Props {
+  country: string;
+  currentPath: string;
+}
+
+const { country, currentPath } = Astro.props;
+
+// Pre-serialize country data for the client script
+const countryDataJson = JSON.stringify(
+  Object.fromEntries(
+    ALL_COUNTRIES.map((c) => [c, {
+      name: COUNTRY_CONFIG[c].name,
+      lang: COUNTRY_CONFIG[c].lang,
+      prefix: urlPrefix(c),
+    }])
+  )
+);
+
+const ipToCountryJson = JSON.stringify(IP_TO_COUNTRY);
+---
+
+<div
+  id="country-notice"
+  class="country-notice"
+  data-current-country={country}
+  data-current-path={currentPath}
+  data-country-config={countryDataJson}
+  data-ip-map={ipToCountryJson}
+  style="display:none;"
+  role="alert"
+  aria-live="polite"
+>
+  <div class="country-notice__inner">
+    <div class="country-notice__content">
+      <span class="country-notice__flag" id="cn-flag"></span>
+      <div class="country-notice__text">
+        <p class="country-notice__title" id="cn-title"></p>
+        <p class="country-notice__subtitle" id="cn-subtitle"></p>
+      </div>
+    </div>
+    <div class="country-notice__actions">
+      <a
+        id="cn-continue"
+        class="country-notice__btn country-notice__btn--primary"
+        href="#"
+      >
+        Continue →
+      </a>
+      <button
+        id="cn-dismiss"
+        class="country-notice__btn country-notice__btn--dismiss"
+        aria-label="Dismiss"
+        type="button"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .country-notice {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    z-index: 9999;
+    width: calc(100% - 2rem);
+    max-width: 540px;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .country-notice--visible {
+    display: block !important;
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .country-notice__inner {
+    background: var(--color-surface-card, #fff);
+    border: 1px solid var(--color-hairline, #e5e5e5);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  [data-theme="dark"] .country-notice__inner {
+    background: var(--color-surface-card, #1a1a2e);
+    border-color: var(--color-hairline, #333);
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.4),
+      0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .country-notice__content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .country-notice__flag {
+    font-size: 1.75rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .country-notice__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink, #111);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .country-notice__subtitle {
+    font-size: 0.8rem;
+    color: var(--color-muted, #666);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .country-notice__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .country-notice__btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .country-notice__btn--primary {
+    background: var(--color-primary, #27187e);
+    color: var(--color-on-primary, #fff);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .country-notice__btn--primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+  }
+
+  .country-notice__btn--dismiss {
+    background: transparent;
+    color: var(--color-muted, #999);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1rem;
+  }
+
+  .country-notice__btn--dismiss:hover {
+    background: var(--color-surface-soft, #f5f5f5);
+    color: var(--color-ink, #111);
+  }
+
+  @media (max-width: 480px) {
+    .country-notice {
+      bottom: 1rem;
+      width: calc(100% - 1rem);
+    }
+    .country-notice__inner {
+      padding: 0.875rem 1rem;
+    }
+  }
+</style>
+
+<script>
+  const FLAGS: Record<string, string> = {
+    in: '🇮🇳', br: '🇧🇷', mx: '🇲🇽', id: '🇮🇩', ae: '🇦🇪', tr: '🇹🇷', ng: '🇳🇬',
+  };
+
+  const LANG_NAMES: Record<string, string> = {
+    en: 'English', pt: 'Português', es: 'Español',
+    id: 'Bahasa Indonesia', ar: 'العربية', tr: 'Türkçe',
+  };
+
+  async function initCountryNotice() {
+    const el = document.getElementById('country-notice');
+    if (!el) return;
+
+    // Check cookies — already chose/dismissed
+    if (getCookie('sm_country') || getCookie('sm_notice_dismissed')) return;
+
+    const currentCountry = el.dataset.currentCountry || 'in';
+    const currentPath = el.dataset.currentPath || '/';
+    const countryConfig: Record<string, { name: string; lang: string; prefix: string }> =
+      JSON.parse(el.dataset.countryConfig || '{}');
+    const ipMap: Record<string, string> = JSON.parse(el.dataset.ipMap || '{}');
+
+    try {
+      const res = await fetch('/api/geo', { cache: 'no-store' });
+      if (!res.ok) return;
+      const { country: ipCountry } = await res.json();
+
+      // Map IP country → our site country
+      const detectedCountry = ipMap[ipCountry];
+
+      // No match, or same as current → do nothing
+      if (!detectedCountry || detectedCountry === currentCountry) return;
+
+      const cfg = countryConfig[detectedCountry];
+      if (!cfg) return;
+
+      // Build target URL: swap country prefix
+      const stripped = currentPath.replace(/^\/(br|mx|id|ae|tr|ng)(\/|$)/, '/');
+      const targetPath = cfg.prefix + (stripped === '/' ? '' : stripped);
+
+      // Populate banner
+      const flagEl = document.getElementById('cn-flag');
+      const titleEl = document.getElementById('cn-title');
+      const subtitleEl = document.getElementById('cn-subtitle');
+      const continueBtn = document.getElementById('cn-continue') as HTMLAnchorElement;
+      const dismissBtn = document.getElementById('cn-dismiss');
+
+      if (flagEl) flagEl.textContent = FLAGS[detectedCountry] || '🌍';
+      if (titleEl) titleEl.textContent = `It looks like you're in ${cfg.name}.`;
+      if (subtitleEl) subtitleEl.textContent = `View StartMessaging ${cfg.name} (${LANG_NAMES[cfg.lang] || cfg.lang})?`;
+      if (continueBtn) {
+        continueBtn.href = targetPath || '/';
+        continueBtn.addEventListener('click', () => {
+          setCookie('sm_country', detectedCountry, 30);
+        });
+      }
+
+      if (dismissBtn) {
+        dismissBtn.addEventListener('click', () => {
+          setCookie('sm_notice_dismissed', '1', 7);
+          el.classList.remove('country-notice--visible');
+          setTimeout(() => { el.style.display = 'none'; }, 400);
+        });
+      }
+
+      // Show banner with animation
+      el.style.display = 'block';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          el.classList.add('country-notice--visible');
+        });
+      });
+
+    } catch {
+      // Geo detection failed — silently do nothing
+    }
+  }
+
+  function getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name: string, value: string, days: number) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 86400000);
+    document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+  }
+
+  // Init on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCountryNotice);
+  } else {
+    initCountryNotice();
+  }
+</script>

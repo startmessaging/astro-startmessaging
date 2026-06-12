@@ -1,0 +1,117 @@
+﻿---
+title: "How to Send OTP with Google Cloud Run (2026)"
+description: "Cloud Run OTP tutorial using StartMessaging. Containerised Node service, Secret Manager for keys, Memorystore for rate limit, deployed via gcloud."
+publishedAt: "2026-05-11"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp cloud run"
+  - "google cloud run otp"
+  - "cloud run sms api"
+  - "cloud run india otp"
+relatedSlugs:
+  - "send-otp-firebase-functions"
+  - "send-otp-aws-lambda"
+  - "send-otp-vercel-functions"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+Cloud Run is a tidy target for containerised Indian SaaS. This
+        tutorial wires 
+        [StartMessaging](/otp-api) via a small Node
+        container.
+
+
+## Overview
+
+
+- Containerise a Node app with /send + /verify routes.
+- Pull SM_API_KEY from Secret Manager at startup.
+- Per-phone hourly cap in Memorystore (Redis).
+- Deploy with `gcloud run deploy`.
+
+
+
+## Cloud Run Service
+      
+```bash
+# Dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+ENV PORT=8080
+CMD ["node", "src/index.js"]
+```
+
+      
+```typescript
+// src/index.ts
+import express from 'express';
+import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
+import { randomUUID } from 'node:crypto';
+
+const sm = new SecretManagerServiceClient();
+let apiKey: string | null = null;
+async function getKey() {
+  if (apiKey) return apiKey;
+  const [v] = await sm.accessSecretVersion({ name: process.env.SM_API_KEY_REF! });
+  apiKey = v.payload!.data!.toString();
+  return apiKey;
+}
+
+const app = express();
+app.use(express.json());
+app.post('/auth/send-otp', async (req, res) => {
+  const k = await getKey();
+  const r = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: { 'X-API-Key': k, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phoneNumber: req.body.phoneNumber, idempotencyKey: randomUUID() }),
+  });
+  res.status(r.status).send(await r.text());
+});
+app.post('/auth/verify-otp', async (req, res) => {
+  const k = await getKey();
+  const r = await fetch('https://api.startmessaging.com/otp/verify', {
+    method: 'POST',
+    headers: { 'X-API-Key': k, 'Content-Type': 'application/json' },
+    body: JSON.stringify(req.body),
+  });
+  res.status(r.status).send(await r.text());
+});
+app.listen(Number(process.env.PORT) || 8080);
+```
+
+
+## Secret Manager
+      
+```
+gcloud secrets create sm-api-key --replication-policy=automatic
+echo -n 'sm_live_xxx' | gcloud secrets versions add sm-api-key --data-file=-
+```
+
+
+## Memorystore Rate Limit
+
+Spin a small Memorystore Redis; per-phone INCR with EXPIRE 3600.
+
+
+## Deploy with gcloud
+      
+```
+gcloud run deploy otp-api --source . \\
+  --set-env-vars SM_API_KEY_REF=projects/<id>/secrets/sm-api-key/versions/latest \\
+  --service-account otp-runtime@<id>.iam.gserviceaccount.com
+```
+
+
+## FAQ
+
+Lambda equivalent in 
+        [our AWS Lambda guide](/blog/send-otp-aws-lambda).
+

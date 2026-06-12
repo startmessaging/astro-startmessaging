@@ -1,29 +1,36 @@
 ---
+/**
+ * India home page: /
+ * Per ASTRO_COUNTRY_PLAN.md §3.
+ */
 import { getEntry } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
-import { ALL_LOCALES } from '@/i18n/locales';
+import { ALL_COUNTRIES } from '@/config/countries';
 
-const lang = 'en';
+const country = 'in';
 const page = await getEntry('pages', 'home');
 
 if (!page) return Astro.redirect('/404');
 
-const pageLocales = (page.data.locales ?? ALL_LOCALES) as string[];
+const pageCountries = (page.data.countries ?? ALL_COUNTRIES) as string[];
+const pageTheme = page.data.theme ?? 'sms';
 ---
 
 <MarketingLayout
   seo={page.data.seo}
-  lang={lang}
-  pageLocales={pageLocales}
+  country={country}
+  pageCountries={pageCountries}
   slug=""
+  theme={pageTheme}
 >
   {page.data.sections.map((section) => (
     <ComponentRenderer
       type={section.type}
       props={section.props}
-      lang={lang}
-      locales={section.locales}
+      country={country}
+      countries={section.countries}
+      theme={section.theme ?? pageTheme}
     />
   ))}
 </MarketingLayout>

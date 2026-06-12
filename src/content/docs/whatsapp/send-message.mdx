@@ -1,0 +1,147 @@
+---
+title: "Send Messages"
+description: "Send text, template, interactive, and location messages via the WhatsApp Business API. Complete request/response examples."
+product: whatsapp
+order: 3
+---
+
+## Overview
+
+The `/v1/messages` endpoint lets you send messages to any WhatsApp user. Messages can be:
+
+- **Text messages** — plain text, up to 4,096 characters
+- **Template messages** — pre-approved templates for outbound messaging
+- **Interactive messages** — buttons, lists, and quick replies
+- **Location messages** — share GPS coordinates
+- **Contact messages** — share vCards
+
+## Send a Text Message
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "text",
+    "text": {
+      "body": "Hello! Your order #1234 has been shipped.",
+      "preview_url": false
+    }
+  }'
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "message_id": "msg_abc123def456",
+  "status": "accepted",
+  "timestamp": "2026-01-15T10:30:00Z"
+}
+```
+
+## Send a Template Message
+
+Template messages are required for initiating conversations (outside the 24-hour window) or for sending notifications.
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "template",
+    "template": {
+      "name": "order_confirmation",
+      "language": { "code": "pt_BR" },
+      "components": [
+        {
+          "type": "body",
+          "parameters": [
+            { "type": "text", "text": "João" },
+            { "type": "text", "text": "#ORD-5678" },
+            { "type": "text", "text": "R$ 149,90" }
+          ]
+        }
+      ]
+    }
+  }'
+```
+
+## Send an Interactive Message (Buttons)
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "interactive",
+    "interactive": {
+      "type": "button",
+      "body": { "text": "Would you like to track your order?" },
+      "action": {
+        "buttons": [
+          { "type": "reply", "reply": { "id": "track_yes", "title": "Track Order" } },
+          { "type": "reply", "reply": { "id": "track_no", "title": "No Thanks" } }
+        ]
+      }
+    }
+  }'
+```
+
+## Send a Location Message
+
+```bash
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "location",
+    "location": {
+      "latitude": -23.5505,
+      "longitude": -46.6333,
+      "name": "StartMessaging Office",
+      "address": "São Paulo, SP, Brazil"
+    }
+  }'
+```
+
+## Message Status
+
+After sending, messages go through these statuses:
+
+| Status | Description |
+|--------|-------------|
+| `accepted` | Message received by StartMessaging |
+| `sent` | Delivered to WhatsApp servers |
+| `delivered` | Delivered to the user's device |
+| `read` | User opened/read the message |
+| `failed` | Delivery failed (see error code) |
+
+Track delivery via [webhooks](/docs/whatsapp/webhooks).
+
+## Error Handling
+
+Common errors when sending messages:
+
+| Error Code | Description | Solution |
+|------------|-------------|----------|
+| `INVALID_RECIPIENT` | Phone number not on WhatsApp | Verify the number is registered |
+| `TEMPLATE_NOT_FOUND` | Template doesn't exist | Check template name and language |
+| `OUTSIDE_WINDOW` | 24h session expired | Use a template message instead |
+| `RATE_LIMITED` | Too many requests | Implement exponential backoff |
+
+## FAQ
+
+**Can I send messages to any phone number?**
+You can only send messages to numbers that are registered on WhatsApp. For outbound messaging outside the 24-hour window, you must use an approved template message.
+
+**What's the maximum message size?**
+Text messages support up to 4,096 characters. Template messages have variable limits based on the template structure.
+
+**How do I know if a message was delivered?**
+Set up [webhooks](/docs/whatsapp/webhooks) to receive real-time delivery status updates.

@@ -1,0 +1,41 @@
+---
+/**
+ * AppIcon — chat-bubble SVG logo from the old website.
+ * Used in the header/footer alongside the "StartMessaging" wordmark.
+ */
+interface Props {
+  class?: string;
+  theme?: string;
+}
+
+const { class: className = 'h-6 w-6', theme = 'sms' } = Astro.props;
+const isWhatsapp = theme === 'whatsapp';
+
+// Gradient stop colors:
+// - SMS (Default): Persian purple (#27187e) to light indigo (#818cf8)
+// - WhatsApp: Cyprus green (#004643) to bright teal (#2dd4bf)
+const stopStart = isWhatsapp ? '#004643' : '#27187e';
+const stopEnd = isWhatsapp ? '#2dd4bf' : '#818cf8';
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke={`url(#icon-gradient-${theme})`}
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+>
+  <defs>
+    <linearGradient id={`icon-gradient-${theme}`} x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color={stopStart} />
+      <stop offset="100%" stop-color={stopEnd} />
+    </linearGradient>
+  </defs>
+  <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
+  <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+</svg>

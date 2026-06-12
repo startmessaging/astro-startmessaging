@@ -1,0 +1,130 @@
+﻿---
+title: "SMS Sender ID in India: What Developers Need for OTP Traffic"
+description: "Understand Header, PE, and promotional sender types, TRAI rules, and how DLT registration affects OTP delivery. Practical guidance for Indian apps and SaaS teams."
+publishedAt: "2026-04-09"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "SMS sender ID India"
+  - "OTP sender ID"
+  - "DLT sender ID"
+  - "TRAI SMS sender"
+  - "transactional SMS header"
+  - "PE ID SMS"
+  - "promotional vs transactional SMS"
+  - "OTP SMS compliance India"
+  - "DLT registration India TRAI"
+  - "Principal Entity registration SMS"
+  - "SMS DLT portal Airtel Jio Vi"
+  - "DLT template registration India"
+  - "SMS header registration DLT"
+  - "service implicit OTP template"
+  - "telemarketer DLT SMS chain"
+  - "bulk SMS sender ID approval"
+relatedSlugs:
+  - "what-is-dlt-registration-india"
+  - "transactional-vs-promotional-sms-india"
+  - "trai-sms-regulations-2026"
+featured: false
+---
+
+
+If you send OTP SMS in India, you have probably seen terms like Header,
+        PE ID, DLT template, and transactional route. Getting sender identity
+        wrong does not just hurt branding; it can block delivery or trigger
+        compliance issues. This guide explains how SMS sender IDs work for OTP
+        traffic in India and what your engineering team should verify with any
+        SMS or OTP provider.
+
+
+Nothing here is legal advice. Always confirm current TRAI and operator
+        rules with your counsel or compliance team, especially when you change
+        use cases or message content.
+
+
+## What Is an SMS Sender ID?
+
+An SMS sender ID is the label a subscriber sees as the origin of a text.
+        On many Indian handsets, a six-letter header (for example, a short brand
+        mnemonic) appears for approved transactional traffic. Marketing
+        messages may use a different class of identifiers or numeric codes
+        depending on registration and routing.
+
+
+For OTP and account-security messages, operators expect traffic to be
+        classified correctly, registered on Distributed Ledger Technology (DLT)
+        platforms, and sent only through approved templates that match the
+        content you actually deliver.
+
+
+## Types of Headers in India
+
+Businesses typically distinguish between traffic classes such as
+        transactional, service-implicit, and promotional. OTP and
+        authentication codes usually fall under transactional or
+        service-oriented categories, not promotional marketing.
+
+
+
+- **Transactional / service:** Includes OTPs, order updates, and similar non-promotional alerts. Subject to DLT template registration and header rules.
+- **Promotional:** Marketing and sales messages. Different consent and timing rules apply; OTP traffic should not be mixed into promotional routes.
+
+
+
+Your Principal Entity (PE) registration ties your organization to
+        specific headers and templates on DLT. If you manage DLT yourself, you
+        must keep entity details, documents, and template text aligned with what
+        you send in production.
+
+
+## DLT and Template Binding
+
+Under TRAI's framework, SMS content is registered as templates with
+        variables. OTP messages typically include a variable placeholder for
+        the code and sometimes for an app or product name. Sending text that
+        does not match an approved template can cause filtering or failure.
+
+
+When you use a provider like 
+        [StartMessaging without your own DLT registration](/dlt-free-otp)
+        , the provider's approved templates and routing cover compliance for
+        standard OTP flows. You still pass the OTP value and metadata your API
+        contract requires.
+
+
+## Rules That Matter for OTP
+
+For OTP delivery specifically, teams should pay attention to:
+
+
+
+- **Template accuracy:** The live SMS body must match the registered pattern, including variable positions.
+- **Rate limits and retries:** Flooding users with OTPs harms UX and can trigger abuse filters. Implement cooldowns and attempt limits ( [see our guide on expiry and limits](/blog/otp-expiry-attempt-limits) ).
+- **International numbers:** Indian DLT rules apply to traffic originated for Indian subscribers; cross-border or global routing may use different policies.
+
+
+
+## Developer Checklist
+
+
+- Confirm whether you self-manage DLT or use a hosted OTP API that includes compliance.
+- Store template IDs and variable maps exactly as your provider documents them.
+- Monitor delivery and sender presentation in production on major operators, not only in sandbox.
+- Align product and support copy with what your SMS actually says (brand name, language, expiry time).
+- Revisit registration when you add new message types beyond OTP.
+
+
+
+For a deeper comparison of compliance responsibilities, read 
+        [what DLT registration means in India](/blog/what-is-dlt-registration-india) 
+        and our overview of 
+        [TRAI SMS regulations](/blog/trai-sms-regulations-2026)
+        .
+
+
+## FAQ
+
+Common questions about sender IDs and OTP traffic are answered in the
+        structured FAQ on this page for quick scanning.
+

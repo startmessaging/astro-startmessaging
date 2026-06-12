@@ -1,0 +1,100 @@
+---
+title: "Getting Started with WhatsApp Business API"
+description: "Set up your WhatsApp Business API account with StartMessaging in under 10 minutes. API keys, sandbox, and your first message."
+product: whatsapp
+order: 1
+---
+
+## Prerequisites
+
+Before integrating with the WhatsApp Business API, you'll need:
+
+- A **StartMessaging account** — [sign up free](https://app.startmessaging.com/signup)
+- A **Facebook Business Manager** account
+- A **phone number** that isn't already registered with WhatsApp or WhatsApp Business app
+
+## Step 1: Create Your Account
+
+1. Visit [app.startmessaging.com/signup](https://app.startmessaging.com/signup)
+2. Enter your business email and create a password
+3. Verify your email address
+4. Complete the onboarding wizard
+
+## Step 2: Connect Your WhatsApp Business Account
+
+After signing in, navigate to **Settings → WhatsApp → Connect Account**:
+
+1. Click **Connect with Facebook**
+2. Select or create your Facebook Business Manager
+3. Create a new WhatsApp Business Account (WABA) or connect an existing one
+4. Register a phone number — you'll receive a verification code via SMS or voice call
+5. Once verified, your number is live on the API
+
+> **Note:** StartMessaging handles the Meta app review process automatically. Most accounts are approved within 24 hours.
+
+## Step 3: Get Your API Key
+
+Navigate to **Settings → API Keys**:
+
+1. Click **Generate API Key**
+2. Copy your API key — you'll need it for all API requests
+3. Store it securely; never expose it in client-side code
+
+```bash
+# Your API key goes in the Authorization header
+curl -X POST https://api.startmessaging.com/v1/messages \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "5511999999999",
+    "type": "text",
+    "text": { "body": "Hello from StartMessaging!" }
+  }'
+```
+
+## Step 4: Send a Test Message
+
+Use the **sandbox** to send test messages without affecting your quality rating:
+
+1. Go to **Dashboard → Sandbox**
+2. Scan the QR code with your personal WhatsApp to opt in
+3. Send a test message from the sandbox console
+4. Check the response and delivery status
+
+## Step 5: Go Live
+
+Once you've tested successfully:
+
+1. Submit your **display name** for review (Settings → WhatsApp → Display Name)
+2. Upload your **business profile** photo and description
+3. Create your first **message template** (required for outbound messages after 24h)
+4. Start sending real messages!
+
+## SDK Libraries
+
+We offer official SDKs for the most popular languages:
+
+| Language | Package | Install |
+|----------|---------|---------|
+| Node.js | `@startmessaging/node` | `npm install @startmessaging/node` |
+| Python | `startmessaging` | `pip install startmessaging` |
+| PHP | `startmessaging/php-sdk` | `composer require startmessaging/php-sdk` |
+| Java | `com.startmessaging:sdk` | Maven/Gradle |
+| Go | `github.com/startmessaging/go-sdk` | `go get` |
+
+## Next Steps
+
+- [Authentication](/docs/whatsapp/authentication) — Learn about API authentication methods
+- [Send Messages](/docs/whatsapp/send-message) — Send your first text, image, and template messages
+- [Webhooks](/docs/whatsapp/webhooks) — Receive incoming messages and status updates
+
+## FAQ
+
+**How long does account setup take?**
+Most accounts are fully set up within 24 hours. The Facebook Business verification may take 1–3 business days for new accounts.
+
+**Can I use my existing WhatsApp number?**
+Yes, but you'll need to delete the WhatsApp or WhatsApp Business app from the phone first. The number can only be registered with one platform at a time.
+
+**Is there a sandbox for testing?**
+Yes — every account includes a free sandbox where you can send test messages without affecting your quality rating or messaging limits.

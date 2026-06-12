@@ -1,0 +1,66 @@
+﻿---
+title: "What is SMS TPS? Throughput-Per-Second Explained"
+description: "SMS TPS — transactions / messages per second — explained for Indian SMS workloads. How TPS is allocated, why it matters at sale-day, and how to size for OTP traffic."
+publishedAt: "2026-05-22"
+category: business
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is sms tps"
+  - "sms throughput per second"
+  - "tps india sms"
+  - "sms api tps"
+  - "message tps"
+relatedSlugs:
+  - "what-is-sms-gateway"
+  - "what-is-sms-api"
+  - "phone-verification-at-scale-best-practices"
+featured: false
+---
+
+
+SMS TPS — Transactions Per Second — is the rate at which a provider
+        will accept your sends before throttling. For OTP-heavy apps with
+        sale-day spikes, TPS is the number that decides whether your sale
+        survives.
+
+
+## TPS — Definition
+
+Maximum number of SMS submissions accepted by the gateway per
+        second per account or sender ID.
+
+
+## Why TPS Matters
+
+
+- Sale-day spikes can demand 50–200× normal TPS.
+- Hitting TPS limit causes 429 throttling.
+- Users see "OTP failed" at exactly the wrong moment.
+
+
+
+## TPS in Indian SMS
+
+
+- Operators allocate TPS per sender ID.
+- Defaults are conservative (10–30 TPS).
+- Higher allocations require operator approval.
+
+
+
+## How to Size for OTP Traffic
+
+
+- Average TPS = peak hourly OTPs / 3600.
+- Plan for 5× the average for spike absorption.
+- Test with sandbox load before launch day.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) auto-elastic TPS —
+        no fixed cap as long as wallet is funded. Contact support before
+        IPL-scale events for capacity planning.
+

@@ -1,9 +1,12 @@
 ---
-// English marketing pages: /pricing  /whatsapp  /whatsapp/bulk-messaging  etc.
+/**
+ * India non-home marketing pages: /pricing  /whatsapp  /whatsapp/broadcast  etc.
+ * Per ASTRO_COUNTRY_PLAN.md §3.
+ */
 import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
-import { ALL_LOCALES, DEFAULT_LOCALE } from '@/i18n/locales';
+import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -11,37 +14,40 @@ export async function getStaticPaths() {
   return pages
     .filter((page) => {
       // Skip home — handled by index.astro
-      // Skip pages not available in English
-      const locales = (page.data.locales ?? ALL_LOCALES) as string[];
-      return page.id !== 'home' && locales.includes(DEFAULT_LOCALE);
+      // Skip pages not available in India
+      const countries = (page.data.countries ?? ALL_COUNTRIES) as string[];
+      return page.id !== 'home' && countries.includes(DEFAULT_COUNTRY);
     })
     .map((page) => {
       // "whatsapp/index" → "whatsapp"  |  "pricing" → "pricing"
       const slug = page.id.replace(/\/index$/, '');
-      const locales = (page.data.locales ?? ALL_LOCALES) as string[];
+      const countries = (page.data.countries ?? ALL_COUNTRIES) as string[];
       return {
         params: { slug },
-        props: { page, lang: DEFAULT_LOCALE, pageLocales: locales },
+        props: { page, country: DEFAULT_COUNTRY, pageCountries: countries },
       };
     });
 }
 
-const { page, lang, pageLocales } = Astro.props;
+const { page, country, pageCountries } = Astro.props;
 const slug = Astro.params.slug ?? '';
+const pageTheme = page.data.theme ?? 'sms';
 ---
 
 <MarketingLayout
   seo={page.data.seo}
-  lang={lang}
-  pageLocales={pageLocales}
+  country={country}
+  pageCountries={pageCountries}
   slug={slug}
+  theme={pageTheme}
 >
   {page.data.sections.map((section: any) => (
     <ComponentRenderer
       type={section.type}
       props={section.props}
-      lang={lang}
-      locales={section.locales}
+      country={country}
+      countries={section.countries}
+      theme={section.theme ?? pageTheme}
     />
   ))}
 </MarketingLayout>

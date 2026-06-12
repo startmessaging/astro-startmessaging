@@ -1,193 +1,100 @@
 # StartMessaging — Design System
 
 > **Single source of truth for all design decisions.**
-> To rebrand or change any visual: edit `astro-startmessaging/src/styles/global.css` only.
-> Components reference CSS custom properties — they update everywhere automatically.
+> To rebrand or change any visual aspect: edit `src/styles/global.css` only.
+> Components must reference CSS custom properties/design tokens — they update everywhere automatically.
 
 ---
 
 ## Overview
 
-A clean, photography-light SaaS marketing system. White canvas with near-black ink for hierarchy and a single brand color carrying all primary CTAs and interactive moments.
+The visual language of StartMessaging is built around a clean, typography-led SaaS aesthetic with two brand themes that adapt to the active product area:
+1. **SMS / Auth Theme (Default):** Persian indigo (`#27187e`) accent with Ghost white (`#f7f7ff`) canvas.
+2. **WhatsApp Theme:** Cyprus teal (`#004643`) accent with Sand gray-green (`#f0ede5`) canvas.
 
-- **Canvas:** Pure white `#ffffff` — the default background for every page.
-- **Brand color:** `#ff385c` (placeholder — swap here when brand color is finalized).
-- **Type:** Inter variable font, modest weights. Display headlines at 500–700, body at 400.
-- **Shape language:** Soft. Buttons at 8px radius, cards at 14px, pills fully rounded.
-- **Elevation:** Single shadow tier. Either the card shadow or nothing.
-- **Spacing:** 4px base unit. Sections breathe at 64px vertical padding.
+The system incorporates a complete dark mode layer (`[data-theme="dark"]`) using semantic tokens that swap canvas, surface, and text colors atomically.
 
 ---
 
 ## Colors
 
-### Brand
-| Token | Value | Use |
-|---|---|---|
-| `--color-primary` | `#ff385c` | All primary CTAs, brand links, interactive accent |
-| `--color-primary-active` | `#e00b41` | Pressed / hover state of primary |
-| `--color-primary-disabled` | `#ffd1da` | Disabled CTA background |
-| `--color-on-primary` | `#ffffff` | Text on primary-colored surfaces |
+### Brand Themes
 
-### Surfaces
-| Token | Value | Use |
-|---|---|---|
-| `--color-canvas` | `#ffffff` | Default page floor |
-| `--color-surface-soft` | `#f7f7f7` | Stats bar, disabled fields, hover fills |
-| `--color-surface-strong` | `#f2f2f2` | Icon button surfaces, stronger divider fills |
+| Theme | Token | Light Value | Dark Value | Use |
+|---|---|---|---|---|
+| **SMS/Auth** | `--color-primary` | `#27187e` | `#a5b4fc` | Primary buttons, link accents, brand icons |
+| **SMS/Auth** | `--color-primary-hover` | `#312e81` | `#c7d2fe` | Hover state of primary buttons |
+| **WhatsApp** | `--color-accent-wa` | `#004643` | `#14b8a6` | WA-themed buttons, link accents, brand icons |
+| **WhatsApp** | `--color-accent-wa-hover` | `#115e59` | `#99f6e4` | Hover state of WA buttons |
 
-### Text
-| Token | Value | Use |
-|---|---|---|
-| `--color-ink` | `#222222` | Headlines, primary nav, default text |
-| `--color-body` | `#3f3f3f` | Body copy inside longer prose |
-| `--color-muted` | `#6a6a6a` | Subtitles, meta, inactive labels, footer links |
-| `--color-muted-soft` | `#929292` | Disabled text |
+### Canvas & Surfaces
+
+| Token | Light Value | Dark Value | Use |
+|---|---|---|---|
+| `--color-canvas` | `#f7f7ff` | `#0f0f14` | Default page background |
+| `--color-surface-card` | `#ffffff` | `#161622` | Cards, forms, sidebars, floating widgets |
+| `--color-surface-soft` | `#eeeef8` | `#1f1f2e` | Table headers, stats bar backgrounds, input fills |
+| `--color-surface-strong` | `#e4e4f0` | `#2a2a3e` | Interactive hover fills, active tabs |
+| `--color-surface-wa` | `#f0ede5` | `#0f1412` | WhatsApp-themed segment backgrounds |
+
+### Text Hierarchy
+
+| Token | Light Value | Dark Value | Use |
+|---|---|---|---|
+| `--color-ink` | `#0f0f14` | `#f3f4f6` | Headings, titles, active nav links |
+| `--color-body` | `#2a2a3a` | `#d1d5db` | Body paragraphs, standard text |
+| `--color-muted` | `#6b7280` | `#9ca3af` | Secondary labels, descriptions, footer links |
+| `--color-muted-soft`| `#9ca3af` | `#4b5563` | Placeholders, disabled states |
 
 ### Borders
-| Token | Value | Use |
-|---|---|---|
-| `--color-hairline` | `#dddddd` | Default 1px dividers, card borders |
-| `--color-hairline-soft` | `#ebebeb` | Lighter separators, footer bands |
-| `--color-border-strong` | `#c1c1c1` | Focus outlines, heavier strokes |
 
-### Semantic
-| Token | Value | Use |
-|---|---|---|
-| `--color-error` | `#c13515` | Form validation errors |
-| `--color-scrim` | `rgba(0,0,0,0.5)` | Modal / overlay backdrop |
+| Token | Value (Light) | Value (Dark) | Use |
+|---|---|---|---|
+| `--color-hairline` | `rgba(39, 24, 126, 0.1)` | `rgba(255, 255, 255, 0.1)` | Fine dividers, card borders |
+| `--color-hairline-soft` | `rgba(39, 24, 126, 0.06)`| `rgba(255, 255, 255, 0.06)`| Subtle dividers, layout bands |
+| `--color-border-strong` | `rgba(39, 24, 126, 0.2)` | `rgba(255, 255, 255, 0.2)` | Active outlines, focus states |
 
 ---
 
 ## Typography
 
-**Font:** `Inter` (variable), with system stack fallback.  
-Defined in `--font-sans`. Swap this single token to change the entire type system.
+We use **Inter** as our sans-serif typeface, styled with a fluid typography scale driven by `clamp()` to scale size automatically based on screen width:
 
-| Token | Size | Weight | Use |
+| Token | Light/Mobile Size | Desktop Size | Use |
 |---|---|---|---|
-| `--text-display-xl` | 28px | 700 | Hero h1 |
-| `--text-display-lg` | 22px | 500 | Page h1 |
-| `--text-display-md` | 21px | 700 | Section headings (h2) |
-| `--text-display-sm` | 20px | 600 | Sub-section headings (h3) |
-| `--text-title-md` | 16px | 600 | Card titles, nav links |
-| `--text-title-sm` | 16px | 500 | Footer column heads |
-| `--text-body-md` | 16px | 400 | Default body copy |
-| `--text-body-sm` | 14px | 400 | Card meta, captions |
-| `--text-caption` | 14px | 500 | Labels, field captions |
-| `--text-caption-sm` | 13px | 400 | Legal copy, footer fine print |
-| `--text-badge` | 11px | 600 | Floating badge text |
-| `--text-button-md` | 16px | 500 | CTA button labels |
-| `--text-button-sm` | 14px | 500 | Pill / small button labels |
+| `--text-display-hero` | `2.5rem` | `4.5rem` | Landing hero headlines |
+| `--text-display-xl` | `2.0rem` | `3.5rem` | Major page section headlines |
+| `--text-display-lg` | `1.75rem` | `2.75rem` | Standard page headers |
+| `--text-display-md` | `1.5rem` | `2.25rem` | Component headers |
+| `--text-display-sm` | `1.25rem` | `1.75rem` | Inner section headers |
+| `--text-title-md` | `1.0rem` | `1.0rem` | Card titles, primary nav links |
+| `--text-body-md` | `1.0rem` | `1.0rem` | Default body copy |
+| `--text-body-sm` | `0.875rem` | `0.875rem` | Caption text, small card text |
 
 ---
 
-## Spacing
-
-4px base unit. Use these tokens — never raw pixel values in components.
+## Spacing (4px Base Unit)
 
 | Token | Value | Use |
 |---|---|---|
-| `--spacing-xxs` | 2px | Micro gaps |
-| `--spacing-xs` | 4px | Icon padding, tight gutters |
-| `--spacing-sm` | 8px | Card internal gaps |
-| `--spacing-md` | 12px | Compact padding |
-| `--spacing-base` | 16px | Default card padding, grid gutters |
-| `--spacing-lg` | 24px | Card body padding, footer gutters |
-| `--spacing-xl` | 32px | Large internal sections |
-| `--spacing-xxl` | 48px | Footer top padding |
-| `--spacing-section` | 64px | Major section vertical padding |
+| `--spacing-xxs` | `2px` | Borders, sub-pixel alignments |
+| `--spacing-xs` | `4px` | Small list items, icon gaps |
+| `--spacing-sm` | `8px` | Inner button padding, badge gaps |
+| `--spacing-md` | `12px` | Badges, card headers, compact text |
+| `--spacing-base` | `16px` | Standard padding, list gutters |
+| `--spacing-lg` | `24px` | Card internal content, grid gaps |
+| `--spacing-xl` | `32px` | Outer card padding, form section gutters |
+| `--spacing-xxl` | `48px` | Column gutters, header heights |
+| `--spacing-section` | `64px` | Major section vertical margins |
 
 ---
 
-## Border Radius
+## Component Primitive Inventory
 
-| Token | Value | Use |
-|---|---|---|
-| `--radius-sm` | 8px | Buttons, inputs, tags |
-| `--radius-md` | 14px | Cards, images |
-| `--radius-xl` | 32px | Category strips, large pills |
-| `--radius-full` | 9999px | Circular elements, full pills |
-
----
-
-## Elevation
-
-Single shadow tier — either this or nothing. No progressive layers.
-
-```css
---shadow-card: rgba(0,0,0,0.02) 0 0 0 1px,
-               rgba(0,0,0,0.04) 0 2px 6px 0,
-               rgba(0,0,0,0.10) 0 4px 8px 0;
-```
-
-Applied on: hovered cards, floating badges, nav dropdowns.  
-**Not** applied on: body, hero, footer, editorial bands, stat bars.
-
----
-
-## UI Primitives
-
-These components live in `astro-startmessaging/src/components/ui/`.  
-They have **no Sanity types, no page-specific logic**. Props-only, token-aware.
-
-| Component | File | Key props | Notes |
-|---|---|---|---|
-| `Container` | `ui/Container.astro` | `as?`, `class?` | `max-w-7xl` centred, responsive px |
-| `Section` | `ui/Section.astro` | `variant?` (`default`\|`soft`\|`strong`\|`ink`), `id?` | Outer `<section>` + bg token + `py-section` |
-| `Heading` | `ui/Heading.astro` | `as` (`h1`–`h4`), `size?`, `class?` | Semantic; defaults: h1→display-xl, h2→display-md, h3→display-sm, h4→title-md |
-| `Text` | `ui/Text.astro` | `as?` (`p`\|`span`\|`div`\|`li`\|`dt`\|`dd`), `size?`, `tone?`, `class?` | `as="dt"` / `as="dd"` for definition lists |
-| `Button` | `ui/Button.astro` | `variant?` (`primary`\|`secondary`\|`ghost`), `size?` (`md`\|`sm`), `href?`, `disabled?` | `<a>` when `href` provided, `<button>` otherwise |
-| `Badge` | `ui/Badge.astro` | `tone?` (`primary`\|`muted`\|`success`) | Pill label; `text-badge` size + uppercase |
-
-### `Text` size scale
-
-| `size` prop | Token | Pixels |
-|---|---|---|
-| `body-md` *(default)* | `--text-body-md` | 16px |
-| `body-sm` | `--text-body-sm` | 14px |
-| `caption` | `--text-caption` | 14px / medium |
-| `caption-sm` | `--text-caption-sm` | 13px |
-
-### `Text` tone scale
-
-| `tone` prop | Token | Hex |
-|---|---|---|
-| `body` *(default)* | `--color-body` | `#3f3f3f` |
-| `default` | `--color-ink` | `#222222` |
-| `muted` | `--color-muted` | `#6a6a6a` |
-| `muted-soft` | `--color-muted-soft` | `#929292` |
-| `on-primary` | `--color-on-primary` | `#ffffff` |
-
-### Extending primitives
-
-Before creating a new component, check if an existing primitive handles it with a `variant`, `tone`, or `class` prop. Add variants to existing primitives rather than creating parallel components.
-
----
-
-## Section Components
-
-Live in `src/components/sections/`. Each maps 1:1 to a JSON `type` key in `componentMap.ts`.
-**All section components must use UI primitives for text, headings, buttons, and badges — no raw Tailwind colour/size classes.**
-
-| JSON `type` | Component | Description |
-|---|---|---|
-| `hero` | `HeroSection.astro` | Full-width hero: `Badge` + `Heading h1` + `Text` subtitle + dual `Button` CTAs + optional image |
-| `statsBar` | `StatsBar.astro` | `<dl>` stat grid on soft background; `Text as="dt"` for value, `Text as="dd"` for label |
-| `featuresGrid` | `FeaturesGrid.astro` | SVG icon + `Heading h3` + `Text` description cards; 2/3/4 column layout |
-| `ctaBlock` | `CtaBlock.astro` | Ink-background `Section`; `Heading h2` + `Text` subtext + `Button` pair |
-| `comingSoon` | `ComingSoon.astro` | Placeholder with clock icon, localized "Coming Soon" message, home `Button` |
-
----
-
-## Rebranding Checklist
-
-When the final brand identity is ready:
-
-1. Open `src/styles/global.css`
-2. Update `--color-primary` + `--color-primary-active` + `--color-primary-disabled`
-3. Update `--font-sans` if using a custom typeface (add `@font-face` above the `@theme` block)
-4. Update `--color-ink` / `--color-body` / `--color-canvas` if background changes
-5. Run `npm run build` — every component inherits the new values
-
-No component files need to change for a rebrand. This is the entire point of the token system.
+All UI modules should be built using our core design system primitives:
+1. **Container:** Constrains content to `--container-max` (`80rem`) with fluid responsive padding.
+2. **Section:** Defines layout vertical rhythm using `--spacing-section` and background themes.
+3. **Button:** Implements semantic buttons (`variant="primary" | "secondary" | "accent-wa"`) with smooth transitions.
+4. **Card:** Rounded containers utilizing `--color-surface-card` and subtle Persian-tinted shadows.
+5. **Badge:** Used for small tag indicators (e.g. "Popular", "New") using theme accents.
+6. **Heading & Text:** Configurable text rendering mapping to our fluid typography scale.

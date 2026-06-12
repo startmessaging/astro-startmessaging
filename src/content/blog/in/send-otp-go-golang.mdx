@@ -1,0 +1,233 @@
+﻿---
+title: "How to Send OTP in Go (Golang) — 2026 Developer Guide"
+description: "Step-by-step Go (Golang) tutorial to send and verify SMS OTPs using the StartMessaging API. Includes net/http examples, structs, error handling, and a complete Gin server."
+publishedAt: "2026-04-15"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp golang"
+  - "go sms otp api"
+  - "golang otp verification"
+  - "go phone verification"
+  - "otp api india golang"
+  - "startmessaging go sdk"
+  - "go gin otp tutorial"
+  - "send sms golang india"
+  - "golang otp without dlt"
+  - "go backend otp verification"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "send-otp-python"
+  - "send-otp-java-spring-boot"
+featured: false
+---
+
+
+Go is a popular choice for high-throughput OTP backends thanks to its
+        simple concurrency model and tiny memory footprint. In this guide
+        you'll wire up the 
+        [StartMessaging OTP API](/otp-api) from a Go service
+        using only the standard library — no third-party SDK required.
+
+
+## Why Use Go for OTP Backends
+
+OTP traffic is bursty: thousands of users may try to log in at the same
+        instant during a marketing push or app launch. Go's goroutines let
+        a single small VM handle that fan-out comfortably, and the static
+        binary makes deployment trivial. Pair that with a 
+        [DLT-free OTP API](/dlt-free-otp) and you can ship a
+        production OTP flow in an afternoon.
+
+
+## Prerequisites
+
+
+- Go 1.21 or newer.
+- A free  [StartMessaging account](https://app.startmessaging.com/register)  with wallet credit.
+- An API key generated from the  [API Keys page](https://app.startmessaging.com/api-keys) .
+
+
+      
+```bash
+# .env
+STARTMESSAGING_API_KEY=sm_live_xxxxxxxxxxxxxxxxxxxx
+```
+
+
+## Send an OTP from Go
+
+Define small request and response structs, then POST JSON to 
+        `/otp/send`:
+
+      
+```go
+package otp
+
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"net/http"
+	"os"
+	"time"
+)
+
+const baseURL = "https://api.startmessaging.com"
+
+type sendReq struct {
+	PhoneNumber    string \`json:"phoneNumber"\`
+	IdempotencyKey string \`json:"idempotencyKey,omitempty"\`
+}
+
+type SendResponse struct {
+	Data struct {
+		RequestID    string    \`json:"requestId"\`
+		ExpiresAt    time.Time \`json:"expiresAt"\`
+		AttemptsLeft int       \`json:"attemptsLeft"\`
+	} \`json:"data"\`
+}
+
+var client = &http.Client{Timeout: 10 * time.Second}
+
+func Send(phone, idemKey string) (*SendResponse, error) {
+	body, _ := json.Marshal(sendReq{PhoneNumber: phone, IdempotencyKey: idemKey})
+	req, _ := http.NewRequest("POST", baseURL+"/otp/send", bytes.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-API-Key", os.Getenv("STARTMESSAGING_API_KEY"))
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		return nil, errors.New("startmessaging: send failed status " + resp.Status)
+	}
+	var out SendResponse
+	if err := json.NewDecoder(resp.Body).Decode(&out); err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+```
+
+
+## Verify the OTP
+      
+```typescript
+type verifyReq struct {
+	RequestID string \`json:"requestId"\`
+	OtpCode   string \`json:"otpCode"\`
+}
+
+type VerifyResponse struct {
+	Data struct {
+		Verified bool \`json:"verified"\`
+	} \`json:"data"\`
+}
+
+func Verify(requestID, code string) (bool, error) {
+	body, _ := json.Marshal(verifyReq{RequestID: requestID, OtpCode: code})
+	req, _ := http.NewRequest("POST", baseURL+"/otp/verify", bytes.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-API-Key", os.Getenv("STARTMESSAGING_API_KEY"))
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, err
+	}
+	defer resp.Body.Close()
+
+	var out VerifyResponse
+	if err := json.NewDecoder(resp.Body).Decode(&out); err != nil {
+		return false, err
+	}
+	return out.Data.Verified, nil
+}
+```
+
+
+## Full Gin Server Example
+      
+```go
+package main
+
+import (
+	"net/http"
+	"yourapp/otp"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+)
+
+func main() {
+	r := gin.Default()
+
+	r.POST("/auth/send-otp", func(c *gin.Context) {
+		var body struct{ PhoneNumber string \`json:"phoneNumber"\` }
+		if err := c.BindJSON(&body); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid body"})
+			return
+		}
+		res, err := otp.Send(body.PhoneNumber, uuid.NewString())
+		if err != nil {
+			c.JSON(http.StatusBadGateway, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"requestId": res.Data.RequestID,
+			"expiresAt": res.Data.ExpiresAt,
+		})
+	})
+
+	r.POST("/auth/verify-otp", func(c *gin.Context) {
+		var body struct {
+			RequestID string \`json:"requestId"\`
+			OtpCode   string \`json:"otpCode"\`
+		}
+		if err := c.BindJSON(&body); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid body"})
+			return
+		}
+		ok, err := otp.Verify(body.RequestID, body.OtpCode)
+		if err != nil || !ok {
+			c.JSON(http.StatusUnauthorized, gin.H{"verified": false})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"verified": true})
+	})
+
+	r.Run(":8080")
+}
+```
+
+
+## Error Handling & Retries
+
+Wrap the `Send` call in a small retry helper that backs off
+        on 5xx and 429 responses but never retries 4xx — those will not succeed
+        on retry. Combine this with 
+        [idempotency keys](/blog/idempotency-keys-otp) so a
+        retried network request never bills the wallet twice.
+
+
+## Best Practices
+
+
+- **Validate phone numbers** server-side using libphonenumber or a regex before calling the API.
+- **Set short HTTP timeouts** (8–10 seconds) to avoid blocked goroutines.
+- **Hide the API key** behind environment variables and never log it.
+- **Track verify attempts** in your own DB so you can lock accounts after repeated failures — see  [OTP rate limiting guide](/blog/otp-rate-limiting-guide) .
+
+
+
+## FAQ
+
+Compare costs in our 
+        [OTP API pricing comparison](/blog/otp-api-pricing-comparison-india) 
+        or jump straight to [StartMessaging pricing](/pricing) 
+        at Rs 0.25 per OTP.
+

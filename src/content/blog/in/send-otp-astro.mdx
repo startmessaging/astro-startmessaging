@@ -1,0 +1,128 @@
+﻿---
+title: "How to Send OTP with Astro (2026)"
+description: "Astro OTP login tutorial using StartMessaging. Uses Astro Actions / API routes, server-only env, and a clean two-step phone verification flow."
+publishedAt: "2026-05-07"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp astro"
+  - "astro otp tutorial"
+  - "astro authentication"
+  - "astro sms otp"
+relatedSlugs:
+  - "send-otp-sveltekit"
+  - "send-otp-nextjs-app-router"
+  - "send-otp-remix"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+Astro is increasingly used for marketing-led SaaS sites that need a
+        thin auth layer. This tutorial adds OTP login with 
+        [StartMessaging](/otp-api) on top of Astro's
+        server output.
+
+
+## Project Setup
+      
+```bash
+pnpm create astro@latest otp-astro
+cd otp-astro && pnpm install
+pnpm astro add node
+# astro.config.mjs: output: 'server'
+```
+
+
+## Environment Variables
+      
+```bash
+# .env
+SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
+```
+
+
+## API Routes
+      
+```typescript
+// src/pages/api/send-otp.ts
+import type { APIRoute } from 'astro';
+import { randomUUID } from 'node:crypto';
+
+export const POST: APIRoute = async ({ request, cookies }) => {
+  const { phoneNumber } = await request.json();
+  const res = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': import.meta.env.SM_API_KEY },
+    body: JSON.stringify({ phoneNumber, idempotencyKey: randomUUID() }),
+  });
+  if (!res.ok) return new Response(JSON.stringify({ error: 'send failed' }), { status: res.status });
+  const { data } = await res.json();
+  cookies.set('otp_req', data.requestId, { httpOnly: true, sameSite: 'lax', secure: true, maxAge: 900 });
+  return new Response(JSON.stringify({ expiresAt: data.expiresAt }));
+};
+```
+
+      
+```typescript
+// src/pages/api/verify-otp.ts
+import type { APIRoute } from 'astro';
+
+export const POST: APIRoute = async ({ request, cookies }) => {
+  const { otpCode } = await request.json();
+  const requestId = cookies.get('otp_req')?.value;
+  if (!requestId) return new Response(JSON.stringify({ error: 'no active OTP' }), { status: 400 });
+
+  const res = await fetch('https://api.startmessaging.com/otp/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': import.meta.env.SM_API_KEY },
+    body: JSON.stringify({ requestId, otpCode }),
+  });
+  if (!res.ok) return new Response(JSON.stringify({ error: 'verify failed' }), { status: res.status });
+
+  cookies.delete('otp_req');
+  cookies.set('session', 'verified', { httpOnly: true, sameSite: 'lax', secure: true, maxAge: 1800 });
+  return new Response(JSON.stringify({ verified: true }));
+};
+```
+
+
+## Frontend Form
+      
+```typescript
+---
+// src/pages/login.astro
+---
+<form id="phone-form">
+  <input name="phoneNumber" placeholder="+919876543210" />
+  <button>Send OTP</button>
+</form>
+<form id="otp-form" hidden>
+  <input name="otpCode" placeholder="482910" />
+  <button>Verify</button>
+</form>
+
+<script>
+  document.getElementById('phone-form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target as HTMLFormElement);
+    await fetch('/api/send-otp', { method: 'POST', body: JSON.stringify(Object.fromEntries(fd)) });
+    document.getElementById('otp-form')!.hidden = false;
+  });
+</script>
+```
+
+
+## Session Cookie
+
+Astro's `cookies` API on `APIContext` 
+        handles signed cookies natively. Configure secrets through your
+        adapter settings.
+
+
+## FAQ
+
+Need the same flow in Next.js or SvelteKit? Browse our 
+        [tutorial library](/blog).
+

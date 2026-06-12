@@ -1,0 +1,133 @@
+﻿---
+title: "TRAI Message Scrubbing in India: PE, Header, Template Failures"
+description: "How TRAI message scrubbing works in India: the PE, header, and template checks every SMS goes through, common failure codes, and how to debug delivery loss."
+publishedAt: "2026-05-06"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "trai message scrubbing"
+  - "sms scrubbing india"
+  - "dlt scrubbing failure"
+  - "sms scrubbed india"
+  - "pe scrubbed sms"
+  - "header scrubbed sms"
+  - "template scrubbed sms"
+  - "sms delivery failed dlt"
+  - "why sms not delivered india"
+  - "trai sms compliance"
+relatedSlugs:
+  - "what-is-dlt-registration-india"
+  - "dlt-template-variables-rules-india"
+  - "otp-delivery-rates-india"
+featured: false
+---
+
+
+Scrubbing is the silent reason your "sent" SMS never
+        reaches the user. Every SMS to an Indian mobile number passes
+        through TRAI's scrubbing engine, which validates three things
+        before letting the message reach the carrier. If any check fails,
+        the carrier marks it "scrubbed" and the user never sees
+        it — but your provider's logs may say
+        "sent."
+
+
+## What is Scrubbing
+
+Scrubbing is the runtime enforcement layer of the DLT framework.
+        Where 
+        [DLT registration](/blog/what-is-dlt-registration-india) 
+        is one-time paperwork, scrubbing happens on every single message and
+        decides whether it actually goes out.
+
+
+## The Three Scrubbing Checks
+
+
+- **Principal Entity (PE) check.** Is the sender PE registered and active on this operator? Is the entity ID present in the request?
+- **Header (sender ID) check.** Is the alphanumeric header registered to this PE? Is it a valid category for this message (transactional vs promotional)?
+- **Template check.** Does the message body match an approved template byte-for-byte (after variable substitution)? Are the variables within their declared length limits?
+
+
+
+## Common Failure Codes
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Code (varies by operator)</th>
+              <th>Meaning</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PE_MISMATCH</td>
+              <td>PE not registered for this header</td>
+              <td>Re-link the header to the PE in the operator portal</td>
+            </tr>
+            <tr>
+              <td>HEADER_INACTIVE</td>
+              <td>Header expired or suspended</td>
+              <td>Re-activate or re-register the header</td>
+            </tr>
+            <tr>
+              <td>TEMPLATE_MISMATCH</td>
+              <td>Body doesn't match approved template</td>
+              <td>Submit a new template with the exact wording</td>
+            </tr>
+            <tr>
+              <td>VAR_LENGTH</td>
+              <td>One variable exceeded its declared max length</td>
+              <td>Truncate at the application layer or update the template</td>
+            </tr>
+            <tr>
+              <td>CATEGORY_MISMATCH</td>
+              <td>Promo content sent on transactional header</td>
+              <td>Move to a promotional header or rewrite the content</td>
+            </tr>
+            <tr>
+              <td>NDNC_BLOCKED</td>
+              <td>Recipient is on the do-not-disturb registry</td>
+              <td>Honor the NDNC list; don't resend</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+## Debugging Lost Messages
+
+If your delivery rate suddenly drops, walk through this checklist:
+
+
+
+- Pull the operator-specific delivery report from your provider (DLR webhook payload).
+- Look for a non-200 carrier error or a scrub code.
+- Compare the delivered SMS body against the approved template.
+- Check whether your template was edited or expired in the operator portal recently.
+- Test with a number on a different operator to isolate the issue.
+
+
+
+See our 
+        [OTP delivery rates article](/blog/otp-delivery-rates-india) 
+        for the broader troubleshooting flow.
+
+
+## How a DLT-Free Route Avoids This
+
+StartMessaging's standard route runs through pre-approved
+        templates and headers we maintain on every operator. You don't
+        get scrubbed because there's nothing in your message body that
+        differs from the registered template. See 
+        [DLT-free OTP](/dlt-free-otp) for the architectural
+        details.
+
+
+## FAQ
+
+Read our 
+        [DLT template variable rules](/blog/dlt-template-variables-rules-india) 
+        to keep your templates scrub-clean.
+

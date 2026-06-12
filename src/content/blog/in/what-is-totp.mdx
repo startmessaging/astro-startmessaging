@@ -1,0 +1,209 @@
+﻿---
+title: "What is TOTP? Time-Based OTP Explained for Developers"
+description: "TOTP — Time-Based One-Time Password — explained: how the RFC 6238 algorithm generates 6-digit codes, how it differs from SMS OTP, when to use it, and how to implement it."
+publishedAt: "2026-04-23"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is totp"
+  - "totp meaning"
+  - "time based otp"
+  - "rfc 6238"
+  - "totp algorithm"
+  - "totp vs sms otp"
+  - "authenticator app"
+relatedSlugs:
+  - "what-is-otp"
+  - "what-is-hotp"
+  - "what-is-2fa"
+  - "sms-otp-vs-email-magic-link-vs-totp"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+If you have ever scanned a QR code into Google Authenticator and
+        watched it spit out a fresh 6-digit code every 30 seconds, you have
+        used TOTP. It is the most widely deployed second factor on the
+        internet, the algorithm that powers virtually every authenticator app,
+        and a deserved alternative to SMS OTP for users who want a faster, free
+        and offline-capable verification step.
+
+
+This explainer answers **what TOTP is**, how the algorithm
+        actually generates codes, where it shines compared to SMS, and how to
+        implement it (or layer it on top of an existing SMS-OTP flow).
+
+
+## TOTP — Definition
+
+**TOTP (Time-based One-Time Password)** is an algorithm
+        that derives a short numeric code from a shared secret and the current
+        time. It is defined in 
+        [RFC 6238](https://datatracker.ietf.org/doc/html/rfc6238) 
+        and is a time-based variant of HOTP (RFC 4226).
+
+
+The defining properties:
+
+
+
+- A shared secret is exchanged once, at enrolment (usually via QR code).
+- Both server and client derive the current code by hashing  *secret + current_time_window*.
+- The code rotates automatically — typically every 30 seconds — without any further communication.
+
+
+
+## How TOTP is Generated
+
+The full RFC 6238 derivation, step by step:
+
+
+
+- Take the shared secret K (a base32-encoded byte string, usually 20 bytes).
+- Compute T = floor((current_unix_time - T0) / X), where T0 = 0 and X = 30 (the standard time-step).
+- Compute HMAC = HMAC-SHA1(K, T) — an 8-byte big-endian counter.
+- Take the last 4 bits of the HMAC as an offset; extract 31 bits starting at that offset.
+- Modulo by 10^d (where d is the desired digit count, usually 6) and zero-pad.
+
+
+      
+```
+// Pseudocode
+T = floor(unixTime / 30)
+HMAC = HMAC-SHA1(secret, T)
+offset = HMAC[19] & 0x0F
+truncated = (HMAC[offset] & 0x7F) << 24
+          | HMAC[offset+1] << 16
+          | HMAC[offset+2] << 8
+          | HMAC[offset+3]
+code = truncated % 1000000
+```
+
+
+Real implementations use battle-tested libraries — Python 
+        `pyotp`, Node `otplib`, Go `otp`, etc.
+        Roll your own only as a learning exercise.
+
+
+## TOTP vs SMS OTP
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>TOTP</th>
+              <th>SMS OTP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cost per code</td>
+              <td>Free</td>
+              <td>Rs 0.10–0.30</td>
+            </tr>
+            <tr>
+              <td>Latency</td>
+              <td>Instant</td>
+              <td>Seconds (carrier dependent)</td>
+            </tr>
+            <tr>
+              <td>Works offline</td>
+              <td>Yes</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>SIM swap risk</td>
+              <td>None</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>User onboarding</td>
+              <td>Needs app install + QR scan</td>
+              <td>Just enter phone</td>
+            </tr>
+            <tr>
+              <td>Lost-device recovery</td>
+              <td>Hard — need backup codes</td>
+              <td>Easy — re-issue OTP</td>
+            </tr>
+            <tr>
+              <td>Phishing resistance</td>
+              <td>Same as SMS (proxy-attackable)</td>
+              <td>Same as TOTP</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+## When to Choose TOTP
+
+Strong candidates for TOTP:
+
+
+
+- Internal admin dashboards.
+- B2B SaaS where users are technically inclined.
+- High-volume login flows where SMS cost dominates.
+- Markets with poor cellular coverage where SMS delivery is unreliable.
+
+
+
+Stick with SMS OTP when:
+
+
+
+- You serve mass-market consumer users in India.
+- Sign-up frequency is low and SMS cost is negligible.
+- Your users are unlikely to install an authenticator app or back up recovery codes.
+
+
+
+## Implementing TOTP
+
+The integration usually has three pieces:
+
+
+
+- **Enrolment.** Generate a random 20-byte secret, store it server-side, encode it in a  `otpauth://totp/...` URL, render the URL as a QR code, and have the user scan it with Google Authenticator / Authy.
+- **Verification.** Receive the 6-digit code, recompute the expected codes for time-windows T-1, T, and T+1 (to allow ±30s clock drift), and compare in constant time.
+- **Replay protection.** Store the highest accepted time-window per user; reject any code from the same or earlier window.
+
+
+
+For most teams, the right call is to keep using SMS OTP via 
+        [StartMessaging](/otp-api) for primary enrolment and
+        recovery, and add a TOTP enrolment screen as an optional speed-up. The
+        TOTP code itself is a few lines with a library; the harder problem is
+        always recovery.
+
+
+## Backup Codes and Recovery
+
+Lost phones break TOTP-only setups. The standard mitigations:
+
+
+
+- **Backup codes.** 10 single-use codes generated at enrolment, displayed once, encouraged to print or store in a password manager.
+- **SMS fallback.** Allow users to receive an SMS OTP if they lose their authenticator. This pulls security back to the weakest factor, but is the right UX trade-off for most consumer apps.
+- **Identity-bound recovery.** Manual support flow with KYC verification. Required by many regulators for fintech.
+
+
+
+## Pitfalls
+
+
+- **Server clock drift.** If your servers are off by more than 30s, every code will appear invalid. Run NTP.
+- **Storing the secret in plaintext.** Encrypt at rest using KMS or libsodium.
+- **No replay protection.** A code from window T can be replayed inside the 30s window unless you track the last accepted T.
+- **Logging the code.** Even a TOTP code in your access log is a 30-second window of vulnerability.
+
+
+
+## FAQ
+
+Want SMS OTP as your primary factor with TOTP as an upgrade later? 
+        [StartMessaging gets you sending OTPs in five minutes](/dlt-free-otp) 
+        — at Rs 0.25 each, with no DLT registration to deal with.
+

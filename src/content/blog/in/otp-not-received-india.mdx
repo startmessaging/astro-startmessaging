@@ -1,0 +1,152 @@
+﻿---
+title: "OTP Not Received? Common Causes and Fixes (India 2026)"
+description: "Diagnose why OTPs are not arriving in India. The full checklist: DND state, DLT mismatches, scrubbing, carrier-side filters, sender ID issues, network and device-side problems."
+publishedAt: "2026-04-28"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp not received"
+  - "otp not coming"
+  - "otp not received india"
+  - "sms otp not arriving"
+  - "fix otp delivery"
+  - "otp delay india"
+  - "why otp not delivered"
+relatedSlugs:
+  - "otp-delivery-rates-india"
+  - "otp-sms-deliverability-checklist"
+  - "trai-message-scrubbing-india"
+  - "dlt-template-approval-guide"
+  - "what-is-dnd-sms"
+featured: false
+---
+
+
+"OTP not received" is one of the top three support
+        complaints for any Indian product that uses phone-number authentication.
+        It is also the most ambiguous: the failure could be on the user's
+        device, on the carrier network, in DLT scrubbing, on your provider, or
+        in your own server code. Being able to triage which one is happening —
+        fast — is the difference between a five-minute fix and a four-hour
+        outage.
+
+
+This guide is an ordered checklist, starting with the fastest checks
+        and progressing to the deeper ones. Use it both in production triage
+        and in your support team's response macros.
+
+
+## First — 60-Second User-Side Checks
+
+Before debugging your stack, ask the user:
+
+
+
+- Phone has cellular signal? Aeroplane mode off? Roaming on if travelling?
+- Could the OTP be in the "Spam" or "Promotional" folder? Some Android skins and iOS auto-categorise commercial SMS.
+- Is the SIM blocked? Out-of-credit prepaid SIMs sometimes refuse inbound SMS.
+- Is the SIM new (recently swapped or ported)? There can be a 24-hour delay before SMS resumes.
+- Try voice OTP fallback if your provider supports it.
+
+
+
+## Server-Side Issues
+
+
+- **Did your code call `/otp/send`?** Check your application log for a successful 200 response with  `requestId`.
+- **Wallet balance.** 402 from your provider means you ran out of credit. Top up.
+- **Rate limited.** 429 means provider throttled you, or your own per-phone limiter blocked the send.
+- **Wrong phone format.** 400 means E.164 was malformed. Validate `+91` + 10 digits before calling.
+
+
+
+## DLT and Template Mismatches
+
+On Indian routes, DLT mismatch is the single most common cause of
+        invisible failures. Check:
+
+
+
+- The sender ID matches the registered ID for this category.
+- The template ID corresponds to a TRAI-approved template, exact variables included.
+- PE-ID is active (not suspended for previous violations).
+
+
+
+See our 
+        [DLT template approval guide](/blog/dlt-template-approval-guide) 
+        and 
+        [template variable rules](/blog/dlt-template-variables-rules-india) 
+        for the deep dives.
+
+
+## TRAI Message Scrubbing
+
+Operators run a scrubber that silently drops messages that fail
+        compliance checks. Reasons include:
+
+
+
+- Body deviates from the registered template (extra spaces count).
+- Template category is wrong (transactional vs service-implicit).
+- Sender ID is suspended or de-registered.
+- Body contains banned keywords for the category.
+
+
+
+See 
+        [our complete scrubbing breakdown](/blog/trai-message-scrubbing-india)
+        .
+
+
+## Carrier-Side Failures
+
+
+- Operator outage. Check carrier status pages and Twitter for similar complaints.
+- Single-route degradation. A multi-provider OTP API will retry on another route automatically.
+- Throttling on a sender ID flagged for previous abuse.
+- Recipient's number ported recently — there is a 24-hour stabilisation window.
+
+
+
+## Device-Side Issues
+
+
+- Truecaller / Hiya / similar apps marking the SMS as spam.
+- Inbox filtering — Indian Android skins (MIUI, OneUI) heavily auto-categorise commercial SMS.
+- Storage full — older Android phones drop new SMS when storage is exhausted.
+- Auto-delete by some battery-saver apps that mistake SMS for marketing.
+
+
+
+## A Production Triage Checklist
+
+
+- Find the request in your logs by phone or requestId.
+- Confirm `/otp/send` returned 200.
+- Check the DLR webhook or polling endpoint — submitted? delivered? failed? scrubbed?
+- If failed: read the failure code. Provider docs map codes to causes.
+- Run the same number through a different sender ID or different provider as a control.
+- If a single-number issue: ask the user to clear the SMS spam folder and retry, or fall back to voice OTP.
+- If a carrier-wide spike: failover routing should kick in automatically with a multi-provider API.
+
+
+
+## Tools That Help
+
+
+- A multi-provider OTP API (like  [StartMessaging](/dlt-free-otp)) — automatic failover when a route is degraded.
+- A status dashboard with P50 / P95 by carrier, surfaced in your own monitoring (Datadog, Grafana, etc.). See  [OTP monitoring & SLOs guide](/blog/otp-monitoring-slos-error-budgets) .
+- Voice OTP fallback for the &lt;5% of cases where SMS fails persistently.
+- A clear "resend" UX with a 30-second cooldown, not a spammable button.
+
+
+
+## FAQ
+
+Tired of fighting DLT and per-operator delivery quirks? 
+        [StartMessaging absorbs all of it](/dlt-free-otp) 
+        — multi-provider failover, voice fallback, real-time DLR — at Rs
+        0.25 per OTP, no monthly fees.
+

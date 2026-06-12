@@ -1,0 +1,77 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
+  "seo": {
+    "title": { "en": "API Limits & Rate Limiting — StartMessaging" },
+    "description": {
+      "en": "Understand StartMessaging API rate limits, throughput limits, and best practices for high-volume messaging."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge": { "en": "API Limits" },
+        "title": {
+          "en": "API Limits & Rate Limiting",
+          "pt": "Limites de API e Rate Limiting",
+          "es": "Límites de API y Rate Limiting",
+          "id": "Batas API dan Rate Limiting",
+          "ar": "حدود API والتحكم في السرعة",
+          "tr": "API Limitleri ve Hız Sınırlama"
+        },
+        "subtitle": {
+          "en": "Understand throughput limits, rate limiting policies, and best practices for handling high-volume messaging with StartMessaging's API.",
+          "pt": "Entenda limites de throughput, políticas de rate limiting e melhores práticas para mensagens de alto volume.",
+          "es": "Comprenda los límites de rendimiento, las políticas de limitación de tasa y las mejores prácticas para la mensajería de alto volumen.",
+          "id": "Pahami batas throughput, kebijakan rate limiting, dan praktik terbaik untuk menangani pesan volume tinggi.",
+          "ar": "فهم حدود السرعة وسياسات التحكم في المعدل وأفضل الممارسات للمراسلة عالية الحجم.",
+          "tr": "Verim sınırlarını, hız sınırlama politikalarını ve yüksek hacimli mesajlaşma için en iyi uygulamaları anlayın."
+        }
+      }
+    },
+    {
+      "type": "richText",
+      "props": {
+        "heading": { "en": "Rate Limits by Plan" },
+        "body": {
+          "en": "<h3>Free Plan</h3><ul><li>10 API requests per second</li><li>1,000 messages per month</li><li>100 contacts per broadcast</li></ul><h3>Premium Plan</h3><ul><li>100 API requests per second</li><li>10,000 free messages per month (then pay-as-you-go)</li><li>10,000 contacts per broadcast</li><li>Webhook delivery: real-time</li></ul><h3>Enterprise Plan</h3><ul><li>Custom rate limits (up to 1,000 req/s)</li><li>Unlimited messages (volume pricing)</li><li>100,000+ contacts per broadcast</li><li>Dedicated infrastructure</li><li>Custom SLA</li></ul><h3>WhatsApp Throughput (Set by Meta)</h3><p>WhatsApp message throughput is controlled by Meta based on your phone number's quality rating and messaging tier:</p><ul><li><strong>Tier 1:</strong> 1,000 unique users/24h</li><li><strong>Tier 2:</strong> 10,000 unique users/24h</li><li><strong>Tier 3:</strong> 100,000 unique users/24h</li><li><strong>Tier 4 (Unlimited):</strong> Unlimited unique users/24h</li></ul><p>New numbers start at Tier 1 and automatically upgrade as you send messages and maintain a good quality rating. Our system handles all throttling automatically.</p><h3>Best Practices</h3><ul><li>Use exponential backoff when you receive 429 (rate limit) responses</li><li>Batch contacts in broadcast calls instead of individual sends</li><li>Use webhooks instead of polling for message status</li><li>Contact us to increase limits for your account</li></ul>"
+        }
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "API Limits — FAQ" },
+        "items": [
+          {
+            "question": { "en": "What happens when I hit a rate limit?" },
+            "answer": {
+              "en": "You receive a 429 (Too Many Requests) HTTP response with a Retry-After header indicating when you can retry. We recommend implementing exponential backoff in your integration. For broadcast operations, our engine handles rate limiting automatically — you don't need to manage Meta's throughput limits yourself."
+            }
+          },
+          {
+            "question": { "en": "Can I increase my rate limits?" },
+            "answer": {
+              "en": "Yes. Premium plans have higher default limits (100 req/s), and Enterprise plans offer custom rate limits up to 1,000 req/s. Contact our sales team to discuss your volume requirements."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Need Higher Limits?" },
+        "subtext": {
+          "en": "Enterprise plans offer custom rate limits and dedicated infrastructure."
+        },
+        "primaryCta": { "en": "Contact Sales" },
+        "primaryHref": "/contact",
+        "secondaryCta": { "en": "View Pricing" },
+        "secondaryHref": "/pricing"
+      }
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+﻿---
+title: "Send OTP via SMS from Java and Spring Boot"
+description: "Spring Boot 3 + RestClient calling a TRAI-compliant OTP SMS API: JSON, env-based keys, and patterns for DLT-backed transactional SMS from JVM backends."
+publishedAt: "2026-04-17"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "Java OTP SMS"
+  - "Spring Boot OTP"
+  - "Send OTP Java"
+  - "RestClient OTP API"
+  - "StartMessaging Java"
+  - "SMS OTP Spring Security"
+  - "OTP SMS API India Java"
+  - "DLT SMS integration Java"
+  - "TRAI SMS API REST"
+  - "transactional SMS API Spring Boot"
+  - "bulk SMS OTP Java"
+  - "SMS gateway API Java India"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "idempotency-keys-otp"
+  - "sms-api-key-rotation-developers"
+featured: false
+---
+
+
+We already published hands-on guides for 
+        [Node.js](/blog/send-otp-nodejs)
+        , 
+        [Python](/blog/send-otp-python)
+        , and 
+        [PHP/Laravel](/blog/send-otp-php-laravel)
+        . This article is the **Java / Spring Boot** counterpart—new
+        code samples, not copy-pasted explanations of DLT or pricing.
+
+
+## Why This Guide Exists
+
+Enterprise and fintech teams in India often standardize on JVM backends.
+        They need a Spring-friendly shape: beans, properties, and HTTP clients
+        that fit existing patterns. See 
+        [API documentation](/otp-api) 
+        for exact paths and headers.
+
+
+## Configuration and Secrets
+
+Store the API key in environment variables or Spring Cloud Secret—not in
+        source control. Align with 
+        [key rotation](/blog/sms-api-key-rotation-developers) 
+        practices.
+```yaml
+# application.yml (example)
+startmessaging:
+  api-key: \${STARTMESSAGING_API_KEY}
+  base-url: https://api.startmessaging.com
+```
+
+
+## Send OTP Request
+
+Use Spring 6.1+ `RestClient` to POST JSON matching your
+        template. Replace placeholders with your template ID and variables.
+```java
+record OtpSendRequest(
+    String phoneNumber,
+    String templateId,
+    Map<String, String> variables
+) {}
+
+// RestClient bean
+public OtpSendResponse sendOtp(OtpSendRequest body) {
+  return restClient.post()
+      .uri("/otp/send")
+      .header("X-API-Key", apiKey)
+      .body(body)
+      .retrieve()
+      .body(OtpSendResponse.class);
+}
+```
+
+
+Map response fields to your persistence layer the same way you would in
+        Node or Python: store requestId for verification and status polling.
+
+
+## Verify and Status
+
+Follow the same verification sequence as in 
+        [the OTP verification flow](/blog/otp-verification-flow)
+        . Use 
+        [idempotency keys](/blog/idempotency-keys-otp) 
+        on send if your client retries POST requests.
+
+
+## Next Steps
+
+Add integration tests with mocks per 
+        [staging and testing OTP](/blog/testing-otp-flows-staging-sandboxes)
+        , then wire Spring Security so only authenticated admins can trigger
+        bulk test sends.
+
+
+## FAQ
+
+See FAQ above.
+

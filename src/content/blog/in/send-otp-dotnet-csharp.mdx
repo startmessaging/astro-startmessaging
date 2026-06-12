@@ -1,0 +1,154 @@
+﻿---
+title: "How to Send OTP in .NET / C# (ASP.NET Core 2026 Guide)"
+description: "Send and verify SMS OTPs from a .NET 8 / ASP.NET Core API using the StartMessaging REST API. Includes HttpClient, typed clients, controller actions, and DI setup."
+publishedAt: "2026-04-17"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp dotnet"
+  - "send otp c#"
+  - "asp.net core otp"
+  - ".net 8 sms otp api"
+  - "c# phone verification"
+  - "startmessaging .net"
+  - "httpclient otp"
+  - "otp api india c#"
+  - "csharp otp without dlt"
+  - "dotnet core sms otp india"
+relatedSlugs:
+  - "send-otp-nodejs"
+  - "send-otp-java-spring-boot"
+  - "idempotency-keys-otp"
+featured: false
+---
+
+
+Adding phone OTP to an ASP.NET Core API is a great fit for 
+        `HttpClient` and the typed-client pattern. This guide wires
+        up the [StartMessaging OTP API](/otp-api) from a .NET
+        8 minimal API in under 100 lines of code.
+
+
+## Prerequisites
+
+
+- .NET 6, 7, or 8 SDK installed.
+- A free  [StartMessaging account](https://app.startmessaging.com/register)  and an API key.
+
+
+
+Add the key to `appsettings.json` or user secrets:
+
+      
+```
+{
+  "StartMessaging": {
+    "ApiKey": "sm_live_xxxxxxxxxxxxxxxxxxxx",
+    "BaseUrl": "https://api.startmessaging.com"
+  }
+}
+```
+
+
+## Register a Typed HttpClient
+      
+```typescript
+// Program.cs
+builder.Services.AddHttpClient<StartMessagingClient>(client =>
+{
+    var cfg = builder.Configuration.GetSection("StartMessaging");
+    client.BaseAddress = new Uri(cfg["BaseUrl"]!);
+    client.DefaultRequestHeaders.Add("X-API-Key", cfg["ApiKey"]);
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+```
+
+
+## Send an OTP
+      
+```typescript
+public sealed class StartMessagingClient
+{
+    private readonly HttpClient _http;
+    public StartMessagingClient(HttpClient http) => _http = http;
+
+    public record SendOtpResult(string RequestId, DateTime ExpiresAt, int AttemptsLeft);
+    private record SendEnvelope(SendOtpResult Data);
+
+    public async Task<SendOtpResult> SendOtpAsync(string phoneNumber, CancellationToken ct = default)
+    {
+        var body = new { phoneNumber, idempotencyKey = Guid.NewGuid().ToString() };
+        var res = await _http.PostAsJsonAsync("/otp/send", body, ct);
+        res.EnsureSuccessStatusCode();
+        var env = await res.Content.ReadFromJsonAsync<SendEnvelope>(cancellationToken: ct);
+        return env!.Data;
+    }
+}
+```
+
+
+## Verify the OTP
+      
+```typescript
+public record VerifyResult(bool Verified);
+private record VerifyEnvelope(VerifyResult Data);
+
+public async Task<bool> VerifyOtpAsync(string requestId, string code, CancellationToken ct = default)
+{
+    var body = new { requestId, otpCode = code };
+    var res = await _http.PostAsJsonAsync("/otp/verify", body, ct);
+    if (!res.IsSuccessStatusCode) return false;
+    var env = await res.Content.ReadFromJsonAsync<VerifyEnvelope>(cancellationToken: ct);
+    return env!.Data.Verified;
+}
+```
+
+
+## Minimal API Endpoints
+      
+```typescript
+app.MapPost("/auth/send-otp", async (SendOtpRequest req, StartMessagingClient sm) =>
+{
+    var data = await sm.SendOtpAsync(req.PhoneNumber);
+    return Results.Ok(new { data.RequestId, data.ExpiresAt });
+});
+
+app.MapPost("/auth/verify-otp", async (VerifyOtpRequest req, StartMessagingClient sm) =>
+{
+    var ok = await sm.VerifyOtpAsync(req.RequestId, req.OtpCode);
+    return ok ? Results.Ok(new { verified = true }) : Results.Unauthorized();
+});
+
+public record SendOtpRequest(string PhoneNumber);
+public record VerifyOtpRequest(string RequestId, string OtpCode);
+```
+
+
+## Error Handling
+
+Wrap calls in `try/catch (HttpRequestException)` and handle
+        the common status codes: 400 invalid phone, 401 bad API key, 402
+        wallet empty, 429 rate limited. See our full 
+        [OTP rate limiting guide](/blog/otp-rate-limiting-guide) 
+        for production patterns.
+
+
+## Best Practices
+
+
+- **Use IHttpClientFactory.** Never `new HttpClient()` per request.
+- **Set a 10-second timeout** so a slow upstream cannot stall your thread pool.
+- **Validate phone numbers** using  `libphonenumber-csharp`.
+- **Add idempotency keys** to every send call — see  [why](/blog/idempotency-keys-otp).
+- **Cache the typed client's config** via DI; do not read appsettings on every request.
+
+
+
+## FAQ
+
+Compare against Twilio in our 
+        [Twilio vs StartMessaging](/blog/twilio-vs-startmessaging) 
+        breakdown, or check 
+        [pricing at Rs 0.25 per OTP](/pricing).
+

@@ -1,0 +1,89 @@
+﻿---
+title: "OTP Database Schema: Best Practices (2026)"
+description: "Database schema patterns for storing OTP request metadata: required columns, indexes, retention, hashing, and the columns you should never have."
+publishedAt: "2026-05-18"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp database schema"
+  - "store otp database"
+  - "otp table design"
+  - "sql otp storage"
+  - "otp data model"
+relatedSlugs:
+  - "otp-redis-vs-sql-storage"
+  - "should-you-hash-otp-in-database"
+  - "otp-security-best-practices"
+  - "otp-data-privacy-india"
+featured: false
+---
+
+
+If you use a managed OTP provider, you store metadata not codes.
+        This guide covers the schema pattern that satisfies audit, fraud
+        and DPDP requirements without leaking sensitive data.
+
+
+## Principles
+
+
+- Never store the plaintext OTP.
+- Bind OTP requests to your own user/session ID.
+- Index for the queries you actually run.
+- TTL or partition to control retention.
+
+
+
+## Recommended Schema
+      
+```
+CREATE TABLE otp_requests (
+  id            uuid PRIMARY KEY,
+  request_id    text NOT NULL,           -- from provider
+  user_id       uuid,
+  phone_hash    bytea NOT NULL,          -- sha256 of phone for indexing without PII leak
+  purpose       text NOT NULL,           -- 'login' | 'kyc' | 'order'
+  ip            inet,
+  device_id     text,
+  status        text NOT NULL,           -- 'sent' | 'verified' | 'expired' | 'failed'
+  attempts      smallint NOT NULL DEFAULT 0,
+  created_at    timestamptz NOT NULL DEFAULT now(),
+  verified_at   timestamptz,
+  expires_at    timestamptz NOT NULL
+);
+```
+
+
+## Indexes
+
+
+- `(phone_hash, created_at desc)` — rate-limit queries.
+- `(user_id, purpose, created_at desc)` — audit queries.
+- `(request_id)` — provider correlation.
+
+
+
+## Retention
+
+
+- Login OTP: 90 days hot, 7 years cold.
+- Financial OTP: 7+ years per RBI / SEBI.
+- Drop user data on account-deletion under DPDP right-to-erasure.
+
+
+
+## Columns You Should Never Store
+
+
+- Plaintext OTP code.
+- Raw phone number (use hash + last-4 if needed for support).
+- API key.
+
+
+
+## FAQ
+
+See [should you hash OTPs?](/blog/should-you-hash-otp-in-database) 
+        for the cryptographic side.
+

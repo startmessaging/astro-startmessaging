@@ -1,32 +1,62 @@
 ---
 /**
- * Recursive component dispatcher.
- * Reads `type` from props, looks it up in componentMap, renders it.
- * Handles locale restriction via optional `locales[]` on each section.
+ * Recursive component dispatcher (country-aware, theme + magic props).
+ * Per ASTRO_COUNTRY_PLAN.md §6.
+ *
+ * Magic props resolved per country:
+ *   $hasSms   → boolean (true for India)
+ *   $isIndia  → boolean
+ *   $country  → country code string
+ *   $currency → currency code string
  *
  * Usage:
- *   <ComponentRenderer type="hero" props={section.props} lang={lang} locales={section.locales} />
+ *   <ComponentRenderer type="hero" props={section.props} country={country}
+ *                      countries={section.countries} theme={section.theme ?? pageTheme} />
  */
 import { componentMap } from './componentMap';
+import { COUNTRY_CONFIG, hasSms, isIndia, type Country } from '@/config/countries';
 
 interface Props {
   type: string;
   props: Record<string, unknown>;
-  lang: string;
-  locales?: string[];
+  country: string;
+  countries?: string[];
+  theme?: string;
 }
 
-const { type, props, lang, locales } = Astro.props;
+const { type, props, country, countries } = Astro.props;
 
-const isAllowed = !locales || locales.includes(lang);
+// Determine theme dynamically based on country and url pathname / page content
+let theme = Astro.props.theme || 'sms';
+if (country !== 'in') {
+  theme = 'whatsapp';
+} else {
+  const path = Astro.url.pathname;
+  const isWhatsappPath = path.includes('/whatsapp');
+  theme = (theme === 'whatsapp' || isWhatsappPath) ? 'whatsapp' : 'sms';
+}
+
+const isAllowed = !countries || countries.includes(country);
 const Component = componentMap[type];
+const cfg = COUNTRY_CONFIG[country as Country];
+
+// Resolve magic prop values
+const resolved = Object.fromEntries(
+  Object.entries(props ?? {}).map(([k, v]) => {
+    if (v === '$hasSms')   return [k, hasSms(country as Country)];
+    if (v === '$isIndia')  return [k, isIndia(country as Country)];
+    if (v === '$country')  return [k, country];
+    if (v === '$currency') return [k, cfg?.currency ?? 'INR'];
+    return [k, v];
+  })
+);
 ---
 
 {isAllowed && Component && (
-  <Component {...props} lang={lang} />
+  <Component {...resolved} country={country} theme={theme} />
 )}
 {isAllowed && !Component && (
-  <div style="border:2px dashed red;padding:1rem;font-family:monospace;font-size:0.875rem;">
+  <div style="border:2px dashed var(--color-error);padding:1rem;font-family:monospace;font-size:0.875rem;">
     Unknown component type: <strong>{type}</strong>
   </div>
 )}

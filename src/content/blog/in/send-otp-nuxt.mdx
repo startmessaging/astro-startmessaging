@@ -1,0 +1,138 @@
+﻿---
+title: "How to Send OTP with Nuxt 3 (2026)"
+description: "Nuxt 3 OTP login tutorial using StartMessaging. Uses server routes, useRuntimeConfig for secrets, signed cookies and a clean two-step flow."
+publishedAt: "2026-05-07"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp nuxt"
+  - "nuxt 3 otp"
+  - "nuxt sms otp"
+  - "nuxt authentication"
+relatedSlugs:
+  - "send-otp-sveltekit"
+  - "send-otp-nextjs-app-router"
+  - "send-otp-remix"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+Nuxt 3 + Nitro gives you typed server routes with native cookie
+        helpers — a tidy match for OTP login. This tutorial wires 
+        [StartMessaging](/otp-api).
+
+
+## Setup
+      
+```bash
+pnpm create nuxt@latest otp-nuxt
+cd otp-nuxt && pnpm install
+pnpm add zod
+```
+
+
+## Runtime Config
+      
+```typescript
+// nuxt.config.ts
+export default defineNuxtConfig({
+  runtimeConfig: {
+    smApiKey: process.env.SM_API_KEY,
+    smBaseUrl: 'https://api.startmessaging.com',
+  },
+});
+```
+
+
+## Server Routes
+      
+```typescript
+// server/api/auth/send.post.ts
+import { randomUUID } from 'node:crypto';
+
+export default defineEventHandler(async (event) => {
+  const cfg = useRuntimeConfig();
+  const { phoneNumber } = await readBody(event);
+  const data = await $fetch<{ data: { requestId: string; expiresAt: string }}>(\`\${cfg.smBaseUrl}/otp/send\`, {
+    method: 'POST',
+    headers: { 'X-API-Key': cfg.smApiKey, 'Content-Type': 'application/json' },
+    body: { phoneNumber, idempotencyKey: randomUUID() },
+  });
+  setCookie(event, 'otp_req', data.data.requestId, {
+    httpOnly: true, sameSite: 'lax', secure: true, maxAge: 900,
+  });
+  return { expiresAt: data.data.expiresAt };
+});
+```
+
+      
+```typescript
+// server/api/auth/verify.post.ts
+export default defineEventHandler(async (event) => {
+  const cfg = useRuntimeConfig();
+  const { otpCode } = await readBody(event);
+  const requestId = getCookie(event, 'otp_req');
+  if (!requestId) throw createError({ statusCode: 400, message: 'No active OTP' });
+  await $fetch(\`\${cfg.smBaseUrl}/otp/verify\`, {
+    method: 'POST',
+    headers: { 'X-API-Key': cfg.smApiKey, 'Content-Type': 'application/json' },
+    body: { requestId, otpCode },
+  });
+  deleteCookie(event, 'otp_req');
+  setCookie(event, 'session', 'verified', { httpOnly: true, sameSite: 'lax', secure: true, maxAge: 1800 });
+  return { verified: true };
+});
+```
+
+
+## Auth Composable
+      
+```typescript
+// composables/useAuth.ts
+export function useAuth() {
+  return {
+    sendOtp: (phoneNumber: string) =>
+      $fetch('/api/auth/send', { method: 'POST', body: { phoneNumber }}),
+    verifyOtp: (otpCode: string) =>
+      $fetch('/api/auth/verify', { method: 'POST', body: { otpCode }}),
+  };
+}
+```
+
+
+## Login Page
+      
+```typescript
+<!-- pages/login.vue -->
+<script setup lang="ts">
+const { sendOtp, verifyOtp } = useAuth();
+const phone = ref('');
+const code = ref('');
+const stage = ref<'phone' | 'verify'>('phone');
+async function handleSend() {
+  await sendOtp(phone.value); stage.value = 'verify';
+}
+async function handleVerify() {
+  await verifyOtp(code.value); navigateTo('/dashboard');
+}
+</script>
+<template>
+  <form v-if="stage === 'phone'" @submit.prevent="handleSend">
+    <input v-model="phone" placeholder="+919876543210" />
+    <button>Send OTP</button>
+  </form>
+  <form v-else @submit.prevent="handleVerify">
+    <input v-model="code" placeholder="482910" />
+    <button>Verify</button>
+  </form>
+</template>
+```
+
+
+## FAQ
+
+Same flow in Next.js, SvelteKit, Remix? See our 
+        [tutorial library](/blog).
+

@@ -1,0 +1,55 @@
+---
+/**
+ * AccordionItem — Individual collapsible panel.
+ * Uses native <details>/<summary> and CSS grid for height transitions.
+ */
+interface Props {
+  title: string;
+  open?: boolean;
+  class?: string;
+  theme?: 'sms' | 'whatsapp';
+}
+const { title, open = false, class: className = '', theme } = Astro.props;
+
+// Dynamically resolve theme based on URL pathname or explicit prop
+const path = Astro.url.pathname;
+const isWhatsapp = theme === 'whatsapp' || path.includes('/whatsapp');
+
+const hoverBorderClass = isWhatsapp ? 'hover:border-accent-wa/20' : 'hover:border-primary/20';
+const activeTextClass = isWhatsapp ? 'group-open:text-accent-wa' : 'group-open:text-primary';
+const cardBgClass = isWhatsapp ? 'bg-white/60 border-accent-wa/10' : 'bg-surface-card border-hairline';
+---
+<details
+  class:list={[
+    "faq-item group rounded-lg overflow-hidden transition-all",
+    cardBgClass,
+    hoverBorderClass,
+    className
+  ]}
+  open={open ? true : undefined}
+>
+  <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
+    <span class:list={["text-title-md font-semibold text-ink transition-colors", activeTextClass]}>
+      {title}
+    </span>
+    <svg
+      class="faq-chevron w-5 h-5 text-muted shrink-0"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </summary>
+  <div class="faq-answer">
+    <div>
+      <div class="px-6 pb-5 pt-0">
+        <slot />
+      </div>
+    </div>
+  </div>
+</details>

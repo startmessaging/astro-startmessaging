@@ -1,0 +1,241 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
+  "seo": {
+    "title": {
+      "en": "WhatsApp for E-Commerce Use Case — StartMessaging",
+      "pt": "WhatsApp para E-Commerce e Vendas — StartMessaging",
+      "es": "WhatsApp para E-Commerce y Ventas — StartMessaging",
+      "id": "WhatsApp untuk E-Commerce & Retail — StartMessaging",
+      "ar": "واتساب للتجارة الإلكترونية والمبيعات — StartMessaging",
+      "tr": "E-Ticaret ve Satış İçin WhatsApp Kullanımı — StartMessaging",
+      "ng": "WhatsApp for E-Commerce Use Case — StartMessaging"
+    },
+    "description": {
+      "en": "Implement order tracking, checkouts, and abandoned cart recovery on WhatsApp. Boost store conversion ratios by 25%.",
+      "pt": "Automatize toda a jornada do cliente e-commerce no WhatsApp. Recupere carrinhos abandonados e envie atualizações.",
+      "es": "Automatice toda la jornada del cliente e-commerce en WhatsApp. Recupere carritos abandonados y envíe alertas.",
+      "id": "Otomatisasi seluruh perjalanan pelanggan e-commerce di WhatsApp. Pulihkan keranjang belanja dan kirim notifikasi.",
+      "ar": "أتمت رحلة عميل التجارة الإلكترونية بالكامل على واتساب. استعد السلال المهجورة وأرسل تنبيهات الشحن.",
+      "tr": "WhatsApp'ta e-ticaret müşteri yolculuğunu otomatikleştirin. Terk edilmiş sepetleri kurtarın ve kargo takibi gönderin."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "E-Commerce",
+          "pt": "E-Commerce",
+          "es": "E-Commerce",
+          "id": "E-Commerce",
+          "ar": "التجارة الإلكترونية",
+          "tr": "E-Ticaret"
+        },
+        "title": {
+          "en": "WhatsApp for E-Commerce",
+          "pt": "WhatsApp para E-Commerce",
+          "es": "WhatsApp para E-Commerce",
+          "id": "WhatsApp untuk E-Commerce",
+          "ar": "واتساب للتجارة الإلكترونية",
+          "tr": "E-Ticaret İçin WhatsApp"
+        },
+        "subtitle": {
+          "en": "Automate your entire e-commerce customer journey on WhatsApp — from order confirmation to delivery update to review request. Recover 15-25% of abandoned carts with timely WhatsApp reminders.",
+          "pt": "Automatize toda a jornada do cliente e-commerce no WhatsApp — da confirmação de pedido à solicitação de avaliação. Recupere 15-25% dos carrinhos abandonados.",
+          "es": "Automatice toda la jornada del cliente e-commerce en WhatsApp — desde confirmación de pedido hasta solicitud de reseña. Recupere 15-25% de carritos abandonados.",
+          "id": "Otomatisasi seluruh perjalanan pelanggan e-commerce di WhatsApp — dari konfirmasi pesanan hingga permintaan ulasan. Pulihkan 15-25% keranjang belanja yang ditinggalkan.",
+          "ar": "أتمت رحلة عميل التجارة الإلكترونية بالكامل على واتساب — من تأكيد الطلب إلى طلب المراجعة. استعد 15-25% من السلال المهجورة.",
+          "tr": "Sipariş onayından inceleme isteğine kadar tüm e-ticaret müşteri yolculuğunu WhatsApp'ta otomatikleştirin. Zamanında hatırlatmalarla terk edilmiş sepetlerin %15-25'ini kurtarın."
+        },
+        "primaryCta": { "en": "Boost Sales" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": { "en": "Solutions" },
+        "heading": { "en": "Complete E-Commerce Toolkit" },
+        "items": [
+          {
+            "icon": "broadcast",
+            "title": { "en": "Order Updates" },
+            "description": { "en": "Automated order confirmation, processing, shipped, out-for-delivery, and delivered notifications with tracking links." }
+          },
+          {
+            "icon": "template",
+            "title": { "en": "Abandoned Cart Recovery" },
+            "description": { "en": "Send WhatsApp reminders 1 hour after cart abandonment. Include product images, prices, and a direct checkout link." }
+          },
+          {
+            "icon": "analytics",
+            "title": { "en": "Review Requests" },
+            "description": { "en": "Automated post-delivery review requests with star rating buttons. Boost your product reviews and social proof." }
+          },
+          {
+            "icon": "shield",
+            "title": { "en": "Product Catalogs" },
+            "description": { "en": "Share product catalogs directly in WhatsApp with images, descriptions, and 'Add to Cart' quick-reply buttons." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "E-Commerce Integrations" },
+        "body": {
+          "en": "Connect your Shopify, WooCommerce, or Magento backend via webhooks. Automatically fire structured message dispatches to customer chats the moment actions occur on your store storefront database, retaining absolute control over message flow."
+        },
+        "bullets": [
+          { "en": "Plug-and-play webhook integrations" },
+          { "en": "Abandoned cart checkout shortcuts" },
+          { "en": "Direct user catalogs sharing" }
+        ],
+        "image": "/images/ecommerce-cart-recovery.webp",
+        "imageAlt": { "en": "Abandoned Cart Message Preview" },
+        "imageWidth": 320,
+        "imageHeight": 640,
+        "imageMaxWidth": "max-w-[320px]",
+        "reversed": true
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "Workflow" },
+        "heading": { "en": "Cart Recovery Automation Sequence" },
+        "steps": [
+          {
+            "title": { "en": "1. Event Trigger" },
+            "description": { "en": "Customer adds items to cart on your store database, inputting checkout contact detail but leaving without buying." }
+          },
+          {
+            "title": { "en": "2. Queued Timeout" },
+            "description": { "en": "Our API queues a cart recovery dispatch event, waiting 60 minutes for potential order completions." }
+          },
+          {
+            "title": { "en": "3. Direct Blast" },
+            "description": { "en": "If order is not placed, a personalized WhatsApp template fires with direct checkout links." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Channel Recovery" },
+        "heading": { "en": "WhatsApp Cart Recovery vs. Email Cart Recovery vs. Web Push Notifications" },
+        "subheading": { "en": "Compare checkout returns, client engagement rates, and unsubscribe ratios." },
+        "columns": [
+          { "label": { "en": "Parameter" } },
+          { "label": { "en": "WhatsApp Recovery" }, "highlight": true },
+          { "label": { "en": "Email Recovery" } },
+          { "label": { "en": "Web Push Alerts" } }
+        ],
+        "rows": [
+          [
+            { "en": "Recovery Success Rate" },
+            { "en": "15% - 25% (Extremely high)" },
+            { "en": "3% - 5% (Low conversion)" },
+            { "en": "1% - 2% (Rarely clicked)" }
+          ],
+          [
+            { "en": "Click-Through Rate" },
+            { "en": "45% - 55%" },
+            { "en": "8% - 12%" },
+            { "en": "3% - 5%" }
+          ],
+          [
+            { "en": "User Opt-out Friction" },
+            { "en": "Low (Opt-out templates support)" },
+            { "en": "High (Subscribed lists)" },
+            { "en": "Immediate blocker settings" }
+          ],
+          [
+            { "en": "Multimedia Catalogs" },
+            { "en": "✓ (Render image slide catalogs)" },
+            { "en": "✓ (Heavy static HTML)" },
+            { "en": "✗ (Static small icon)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Cart API" },
+        "heading": { "en": "Trigger Abandoned Cart Flows" },
+        "overlayText": { "en": "E-Commerce Integration API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/ecommerce/cart-abandoned \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"phoneNumber\": \"+919876543210\",\n    \"cartId\": \"cart_abc12345\",\n    \"customerName\": \"Rahul\",\n    \"cartTotal\": \"₹1,499.00\",\n    \"checkoutUrl\": \"https://yourstore.com/checkout?cart=abc12345\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/v1/ecommerce/cart-abandoned\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    phoneNumber: \"+919876543210\",\n    cartId: \"cart_abc12345\",\n    customerName: \"Rahul\",\n    cartTotal: \"₹1,499.00\",\n    checkoutUrl: \"https://yourstore.com/checkout?cart=abc12345\"\n  })\n});"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/ecommerce/cart-abandoned\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"phoneNumber\": \"+919876543210\",\n        \"cartId\": \"cart_abc12345\",\n        \"customerName\": \"Rahul\",\n        \"cartTotal\": \"₹1,499.00\",\n        \"checkoutUrl\": \"https://yourstore.com/checkout?cart=abc12345\"\n    }\n)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "E-Commerce Use Case — FAQ" },
+        "items": [
+          {
+            "question": {
+              "en": "How do I integrate WhatsApp with my e-commerce platform?"
+            },
+            "answer": {
+              "en": "StartMessaging integrates with all major e-commerce platforms through webhooks. When an order is placed, shipped, or delivered in your store, a webhook triggers our API to send the appropriate WhatsApp notification. We provide pre-built integration guides for Shopify, WooCommerce, Magento, and custom platforms."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I integrate WhatsApp with regional e-commerce and shipping gateways?",
+              "br": "Como posso integrar o WhatsApp com plataformas de e-commerce brasileiras como Nuvemshop ou VTEX?",
+              "id": "Apakah sistem mendukung pembaruan nomor resi otomatis untuk logistik lokal Indonesia?",
+              "ae": "Can I configure WhatsApp checkout updates in AED and cash-on-delivery in Dubai?"
+            },
+            "answer": {
+              "en": "Yes. Our webhook-driven API triggers order tracking notifications across global e-commerce systems.",
+              "br": "Sim. Você pode conectar nossa API a plataformas nacionais como Nuvemshop, VTEX e Loja Integrada por meio de webhooks (por exemplo, via Make ou Zapier). Quando o status do pedido mudar no seu painel administrativo, o WhatsApp correspondente é disparado em tempo real.",
+              "id": "Tentu saja. Anda dapat menghubungkan webhook logistik lokal seperti JNE, J&T, SiCepat, atau GoSend. Setiap kali nomor resi diperbarui atau kurir mengubah status pengiriman, sistem kami akan mengirimkan pesan konfirmasi beserta tautan pelacakan real-time ke WhatsApp pembeli.",
+              "ae": "Yes. StartMessaging supports international currencies including AED. You can easily configure templates for cash-on-delivery (COD) alerts, complete with interactive buttons allowing Dubai customers to confirm delivery address or schedule drops directly from chat."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "Customer Support Use" }, "href": "/use-cases/customer-support" },
+          { "label": { "en": "Transactional Alerts" }, "href": "/use-cases/notifications" },
+          { "label": { "en": "WhatsApp API Platform" }, "href": "/whatsapp" },
+          { "label": { "en": "Pricing Model" }, "href": "/pricing" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Boost Your E-Commerce with WhatsApp" },
+        "subtext": { "en": "Free plan. Start in 5 minutes." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

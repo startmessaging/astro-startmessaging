@@ -1,0 +1,212 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
+  "seo": {
+    "title": {
+      "en": "WhatsApp Marketing campaigns Use Case — StartMessaging",
+      "pt": "WhatsApp para Campanhas de Marketing — StartMessaging",
+      "es": "WhatsApp para Campañas de Marketing — StartMessaging",
+      "id": "WhatsApp untuk Kampanye Pemasaran — StartMessaging",
+      "ar": "واتساب لحملات التسويق وحالات الاستخدام — StartMessaging",
+      "tr": "Pazarlama Kampanyaları İçin WhatsApp Kullanımı — StartMessaging",
+      "ng": "WhatsApp Marketing campaigns Use Case — StartMessaging"
+    },
+    "description": {
+      "en": "Create targeted marketing campaigns on WhatsApp. Support product launches, seasonal sales, win-backs, and customer loyalty dispatches.",
+      "pt": "Execute campanhas de marketing promocional no WhatsApp com 98% de taxa de abertura e botões interativos.",
+      "es": "Cree campañas de marketing promocionales en WhatsApp con 98% de tasa de abertura y botones interactivos.",
+      "id": "Jalankan kampanye pemasaran promosi di WhatsApp dengan tingkat buka 98% dan tombol interaktif.",
+      "ar": "شغّل حملات تسويقية ترويجية على واتساب بمعدل فتح 98% وأزرار تفاعلية.",
+      "tr": "WhatsApp üzerinde %98 açılma oranı ve etkileşimli butonlarla pazarlama kampanyaları yürütün."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Marketing Campaigns",
+          "pt": "Campanhas de Marketing",
+          "es": "Campañas de Marketing",
+          "id": "Kampanye Marketing",
+          "ar": "حملات التسويق",
+          "tr": "Pazarlama Kampanyaları"
+        },
+        "title": {
+          "en": "Marketing Campaigns with 98% Open Rates",
+          "pt": "Campanhas de Marketing com 98% de Abertura",
+          "es": "Campañas de Marketing con 98% de Apertura",
+          "id": "Kampanye Marketing dengan 98% Tingkat Buka",
+          "ar": "حملات تسويقية بمعدل فتح 98%",
+          "tr": "%98 Açılma Oranıyla Pazarlama Kampanyaları"
+        },
+        "subtitle": {
+          "en": "Move beyond email's 20% open rate. WhatsApp marketing campaigns deliver 98% open rates, 45-60% click rates, and 3-5x higher conversion rates. Send rich media promotions with interactive buttons directly to your customers' phones.",
+          "pt": "Vá além dos 20% de abertura do email. Campanhas WhatsApp entregam 98% de abertura, 45-60% de cliques e conversões 3-5x maiores.",
+          "es": "Supere el 20% de apertura del email. Las campañas de WhatsApp entregan 98% de apertura, 45-60% de clics y conversiones 3-5x mayores.",
+          "id": "Melampaui 20% tingkat buka email. Kampanye WhatsApp memberikan 98% tingkat buka, 45-60% tingkat klik, dan konversi 3-5x lebih tinggi.",
+          "ar": "تجاوز معدل فتح البريد الإلكتروني 20%. حملات واتساب تحقق 98% فتح و45-60% نقرات وتحويلات أعلى 3-5 مرات.",
+          "tr": "E-postanın %20 açılma oranını aşın. WhatsApp pazarlama kampanyaları %98 açılma, %45-60 tıklanma ve 3-5 kat daha yüksek dönüşüm oranları sağlar."
+        },
+        "primaryCta": { "en": "Start Campaigning" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "Campaigns That Convert" },
+        "body": {
+          "en": "WhatsApp marketing messages support rich media (images, videos, carousels), interactive buttons (quick reply, CTA), and personalization variables. Combined with audience segmentation and A/B testing, you can create highly targeted campaigns that drive real revenue."
+        },
+        "bullets": [
+          { "en": "Rich media support: product catalogs, images, PDFs" },
+          { "en": "Interactive quick-reply & CTA buttons" },
+          { "en": "Timezone-aware queue scheduling & A/B testing" }
+        ],
+        "image": "/images/marketing-analytics.webp",
+        "imageAlt": { "en": "Marketing Campaigns Dashboard View" },
+        "imageWidth": 640,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-xl",
+        "reversed": true
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "A/B Flow" },
+        "heading": { "en": "Automated A/B Testing Workflow" },
+        "steps": [
+          {
+            "title": { "en": "1. Draft Variations" },
+            "description": { "en": "Create Template A (discount focus) and Template B (feature focus) inside our central templates dashboard." }
+          },
+          {
+            "title": { "en": "2. Send Test Split" },
+            "description": { "en": "Dispatch variants to a localized 10% test audience to measure engagement, clicks, and read success rates." }
+          },
+          {
+            "title": { "en": "3. Rollout Winner" },
+            "description": { "en": "The system determines the winning template variant after 3 hours and dispatches it to the remaining 90% queue." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Marketing Channels" },
+        "heading": { "en": "WhatsApp Campaigns vs. Traditional SMS Marketing vs. Email Newsletters" },
+        "subheading": { "en": "Analyze open rates, click-through performance, and media rich formatting." },
+        "columns": [
+          { "label": { "en": "Channel Feature" } },
+          { "label": { "en": "WhatsApp Campaigns" }, "highlight": true },
+          { "label": { "en": "Traditional SMS" } },
+          { "label": { "en": "Email Newsletters" } }
+        ],
+        "rows": [
+          [
+            { "en": "Average Open Rate" },
+            { "en": "98% (Within minutes)" },
+            { "en": "90% (often marked spam)" },
+            { "en": "15% - 22% (Delayed reads)" }
+          ],
+          [
+            { "en": "Average Click Ratio" },
+            { "en": "45% - 60%" },
+            { "en": "4% - 7% (Plain URL links)" },
+            { "en": "2% - 3%" }
+          ],
+          [
+            { "en": "Styled Rich Media" },
+            { "en": "✓ (Images, Videos, PDFs, Carousels)" },
+            { "en": "✗ (Plain text limits)" },
+            { "en": "✓ (HTML layout tags)" }
+          ],
+          [
+            { "en": "Direct Two-Way Chat" },
+            { "en": "✓ (Instant user replies)" },
+            { "en": "✗ (One-way dispatch shortcodes)" },
+            { "en": "✓ (Email responses)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Campaign API" },
+        "heading": { "en": "Schedule and Launch Marketing Campaigns" },
+        "overlayText": { "en": "Marketing Campaigns API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/marketing/campaigns \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"campaignName\": \"black_friday_2026\",\n    \"segmentId\": \"seg_sale_loyalists\",\n    \"templateName\": \"promo_offer_vip\",\n    \"scheduledTime\": \"2026-11-27T09:00:00Z\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/v1/marketing/campaigns\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    campaignName: \"black_friday_2026\",\n    segmentId: \"seg_sale_loyalists\",\n    templateName: \"promo_offer_vip\",\n    scheduledTime: \"2026-11-27T09:00:00Z\"\n  })\n});"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/marketing/campaigns\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"campaignName\": \"black_friday_2026\",\n        \"segmentId\": \"seg_sale_loyalists\",\n        \"templateName\": \"promo_offer_vip\",\n        \"scheduledTime\": \"2026-11-27T09:00:00Z\"\n    }\n)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "Marketing Campaigns — FAQ" },
+        "items": [
+          {
+            "question": {
+              "en": "What ROI can I expect from WhatsApp marketing?"
+            },
+            "answer": {
+              "en": "Businesses typically see 3-5x higher ROI from WhatsApp marketing compared to email campaigns. Key metrics: 98% open rate (vs 20% email), 45-60% click rate (vs 2-3% email), and 10-15% conversion rate for promotional offers. Abandoned cart recovery campaigns alone can recover 15-25% of lost sales."
+            }
+          },
+          {
+            "question": {
+              "en": "What are the local restrictions on sending marketing campaigns?",
+              "in": "How do pricing and templates work for WhatsApp marketing campaigns in India?",
+              "br": "Quais as regras da LGPD para campanhas de marketing promocionais no Brasil?",
+              "mx": "Existen restricciones de horario para enviar campañas de marketing en México?"
+            },
+            "answer": {
+              "en": "Marketing messages must always respect user opt-ins and be sent via official pre-approved templates.",
+              "in": "Meta charges a flat rate for marketing conversations in India, billed in Paise. There are no additional DLT charges or registration steps for WhatsApp marketing templates, unlike promotional SMS which are highly restricted.",
+              "br": "Sob a LGPD, campanhas promocionais exigem opt-in prévio e explícito do destinatário. Além disso, as mensagens devem incluir obrigatoriamente um botão claro de descadastramento (opt-out), permitindo que o usuário pare de receber ofertas com um único clique.",
+              "mx": "De acuerdo con las normativas de PROFECO en México, se recomienda programar y enviar campañas de marketing únicamente en horario comercial local (9:00 AM a 6:00 PM) para evitar reportes por spam y mantener la calidad del número."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "E-Commerce Use Case" }, "href": "/use-cases/ecommerce" },
+          { "label": { "en": "Transactional Alerts" }, "href": "/use-cases/notifications" },
+          { "label": { "en": "WhatsApp Campaigns" }, "href": "/whatsapp/campaigns" },
+          { "label": { "en": "Pricing Sheet" }, "href": "/pricing" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Launch Your First Campaign" },
+        "subtext": { "en": "Free plan. No credit card. 5-minute setup." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+﻿---
+title: "DLT Registration in India: Step-by-Step Guide (2026)"
+description: "Step-by-step DLT registration walkthrough for Indian businesses: PE-ID, sender-ID, template approval, operator portals, costs, timelines and how to skip it entirely."
+publishedAt: "2026-05-04"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "dlt registration step by step"
+  - "how to register on dlt india"
+  - "pe id registration"
+  - "jio dlt portal"
+  - "airtel dlt registration"
+  - "dlt approval process"
+relatedSlugs:
+  - "what-is-dlt-registration-india"
+  - "dlt-template-approval-guide"
+  - "dlt-template-variables-rules-india"
+  - "sms-sender-id-india-otp-guide"
+  - "peid-registration-india"
+featured: false
+---
+
+
+DLT (Distributed Ledger Technology) registration is India's
+        compliance scaffolding for commercial SMS. Every business that sends
+        bulk SMS — including OTPs — must register on the operator-run DLT
+        portals, declare their sender IDs, and pre-approve every distinct
+        message body. This guide walks through the end-to-end process.
+
+
+## Overview
+
+
+- Register your business as a Principal Entity (PE-ID).
+- Apply for sender IDs (headers).
+- Submit message templates for approval.
+- Repeat across all four operator portals (Jio, Airtel, Vi, BSNL).
+- Maintain — renew annually, refresh templates as messages change.
+
+
+
+## Who Needs DLT Registration
+
+Any entity sending commercial SMS to Indian numbers, including:
+
+
+
+- OTP / transactional SMS senders.
+- Promotional SMS senders.
+- Service-explicit notifications.
+- Bulk-SMS resellers and aggregators.
+
+
+
+Personal SMS via consumer phones, A2P testing under throttle, and
+        provider-managed delivery (where the provider owns the registration)
+        are exempt.
+
+
+## Documents Required
+
+
+- PAN of the business.
+- GST registration.
+- Business incorporation certificate / partnership deed.
+- Authorisation letter on letterhead.
+- Contact-person ID (Aadhaar / PAN).
+- Bank statement of business account.
+
+
+
+## Step 1 — PE-ID Registration
+
+Pick one operator portal as your primary (most teams start with Jio
+        or Airtel). Sign up, upload documents, pay the registration fee, wait
+        for approval (typically 3–7 working days). PE-ID is your principal
+        entity identifier — it is portable across operators but each operator
+        recognises it only after their own approval.
+
+
+## Step 2 — Sender ID
+
+Apply for a 6-character alphanumeric sender ID with the correct
+        operator-prefix for transactional / OTP. See our 
+        [sender ID guide](/blog/what-is-sms-sender-id).
+
+
+## Step 3 — Template Approval
+
+Submit each distinct message body. Variables must use 
+        `{#var#}` markers. See 
+        [our template guide](/blog/dlt-template-approval-guide) 
+        and 
+        [variable rules](/blog/dlt-template-variables-rules-india)
+        .
+
+
+## Step 4 — Multi-Operator
+
+Repeat the PE-ID + sender ID + template flow on each operator portal:
+        Jio, Airtel, Vi, BSNL. Expect 1–4 weeks total for first complete
+        approval. Some aggregators consolidate the multi-operator paperwork.
+
+
+## Costs and Timelines
+
+
+- Per-operator: Rs 5,000 one-time + Rs 1,000–2,000 / year.
+- Total first-year: Rs 25,000–35,000.
+- Initial approval: 7–28 days.
+- Per-template approval: 1–7 working days each.
+
+
+
+## How to Skip DLT Entirely
+
+Use a DLT-free OTP API. The provider runs the entire DLT layer — PE-ID,
+        sender IDs, templates — under their own registration. You call 
+        `/otp/send` and ship the same day. 
+        [StartMessaging](/dlt-free-otp) works exactly this
+        way.
+
+
+## FAQ
+
+DLT exists for valid compliance reasons but does not have to be your
+        problem. Pick a provider that absorbs it and spend your engineering
+        time on your actual product.
+

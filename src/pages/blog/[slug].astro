@@ -1,37 +1,39 @@
 ---
-// English blog posts: /blog/whatsapp-business-api-guide
+// India/English blog posts: /blog/whatsapp-business-api-guide
+// Per ASTRO_COUNTRY_PLAN.md §10.
 import { getCollection, render } from 'astro:content';
 import BlogLayout from '@/layouts/BlogLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const enPosts = posts.filter((p) => p.id.startsWith('en/'));
+  // India posts are under the 'in/' directory
+  const inPosts = posts.filter((p) => p.id.startsWith('in/'));
 
-  return enPosts.map((post) => {
-    const slug = post.id.replace(/^en\//, '');
+  return inPosts.map((post) => {
+    const slug = post.id.replace(/^in\//, '');
 
-    // Find which other locales have a matching post
-    const postLocales = posts
+    // Find which other countries have this same slug
+    const pageCountries = posts
       .filter((p) => p.id.endsWith(`/${slug}`))
       .map((p) => p.id.split('/')[0]);
 
     return {
       params: { slug },
-      props: { post, postLocales },
+      props: { post, pageCountries },
     };
   });
 }
 
-const { post, postLocales } = Astro.props;
+const { post, pageCountries } = Astro.props;
 const { Content, headings } = await render(post);
 const slug = Astro.params.slug;
 ---
 
 <BlogLayout
   frontmatter={post.data}
-  lang="en"
+  country="in"
   slug={slug}
-  postLocales={postLocales}
+  pageCountries={pageCountries}
   headings={headings}
 >
   <Content />

@@ -1,11 +1,20 @@
 ---
 /**
  * BaseLayout — <html> shell with full SEO <head>.
- * Used by all layout wrappers (MarketingLayout, BlogLayout, DocsLayout).
+ * Country-routed model per ASTRO_COUNTRY_PLAN.md §11.
+ * Supports dark mode via data-theme attribute + anti-FOUC inline script.
  */
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { r } from '@/i18n/r';
-import { HREFLANG, OG_LOCALE, type Locale } from '@/i18n/locales';
+import {
+  COUNTRY_CONFIG,
+  HREFLANG,
+  OG_LOCALE,
+  ALL_COUNTRIES,
+  DEFAULT_COUNTRY,
+  urlPrefix,
+  type Country,
+} from '@/config/countries';
+import CountryNotice from '@/components/CountryNotice.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -13,32 +22,47 @@ interface Props {
     title: any;
     description: any;
     ogImage?: string;
-    jsonLd?: Record<string, unknown>;
+    jsonLd?: any;
   };
-  lang: string;
-  pageLocales?: string[];   // locales this page is actually built for
-  slug?: string;            // e.g. "" for home, "pricing" for /pricing
+  country: string;
+  pageCountries?: string[];
+  slug?: string;
+  theme?: string;
 }
 
 const {
   seo,
-  lang,
-  pageLocales = ['en'],
+  country,
+  pageCountries = ALL_COUNTRIES as string[],
   slug = '',
+  theme = 'sms',
 } = Astro.props;
 
-const title       = r(seo.title, lang);
-const description = r(seo.description, lang);
+const c = country as Country;
+const cfg = COUNTRY_CONFIG[c];
+const lang = cfg?.lang ?? 'en';
+const dir = cfg?.dir ?? 'ltr';
+
+const title       = r(seo.title, c);
+const description = r(seo.description, c);
 const ogImage     = seo.ogImage ? new URL(seo.ogImage, Astro.site).href : undefined;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-// hreflang: only locales this page exists in
-const hreflangLinks = pageLocales.map((locale) => ({
-  hreflang: HREFLANG[locale as Locale] ?? locale,
-  href: new URL(getRelativeLocaleUrl(locale, slug || '/'), Astro.site).href,
-}));
+// hreflang: only countries this page exists in
+const hreflangLinks = pageCountries
+  .filter((pc) => pc in COUNTRY_CONFIG)
+  .map((pc) => {
+    const prefix = urlPrefix(pc as Country);
+    const pagePath = slug ? `${prefix}/${slug}` : (prefix || '/');
+    return {
+      hreflang: HREFLANG[pc as Country],
+      href: new URL(pagePath, Astro.site).href,
+    };
+  });
 
-const xDefaultHref = new URL(getRelativeLocaleUrl('en', slug || '/'), Astro.site).href;
+// x-default → India root
+const xDefaultPath = slug ? `/${slug}` : '/';
+const xDefaultHref = new URL(xDefaultPath, Astro.site).href;
 
 const orgSchema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -53,20 +77,32 @@ const webPageSchema = JSON.stringify({
   name: title,
   description,
   url: canonicalURL.href,
-  inLanguage: HREFLANG[lang as Locale] ?? lang,
+  inLanguage: HREFLANG[c] ?? lang,
 });
+
+// Anti-FOUC: inline script that sets theme before first paint
+const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`;
 ---
 
-<html lang={lang} dir="ltr">
+<html lang={lang} dir={dir} data-theme-brand={theme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Anti-FOUC: set theme before CSS loads -->
+    <script is:inline set:html={themeScript} />
+
+    <!-- Google Fonts: Inter (variable) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet" />
+
     <!-- Primary SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <meta name="country" content={cfg?.code ?? 'IN'} />
 
     <!-- hreflang alternates -->
     {hreflangLinks.map((l) => (
@@ -79,9 +115,9 @@ const webPageSchema = JSON.stringify({
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url"         content={canonicalURL} />
-    <meta property="og:locale"      content={OG_LOCALE[lang as Locale] ?? lang} />
+    <meta property="og:locale"      content={OG_LOCALE[c] ?? lang} />
     {hreflangLinks
-      .filter((l) => l.hreflang !== HREFLANG[lang as Locale])
+      .filter((l) => l.hreflang !== HREFLANG[c])
       .map((l) => (
         <meta property="og:locale:alternate" content={l.hreflang.replace('-', '_')} />
       ))
@@ -99,17 +135,18 @@ const webPageSchema = JSON.stringify({
     <!-- Sitemap discovery -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Favicon (placeholder) -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href={theme === 'whatsapp' ? '/favicon-wa.svg' : '/favicon.svg'} />
 
     <!-- JSON-LD structured data -->
-    <script type="application/ld+json" set:html={orgSchema} />
-    <script type="application/ld+json" set:html={webPageSchema} />
+    <script type="application/ld+json" is:inline set:html={orgSchema} />
+    <script type="application/ld+json" is:inline set:html={webPageSchema} />
     {seo.jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(seo.jsonLd)} />
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(seo.jsonLd)} />
     )}
   </head>
   <body>
     <slot />
+    <CountryNotice country={country} currentPath={Astro.url.pathname} />
   </body>
 </html>

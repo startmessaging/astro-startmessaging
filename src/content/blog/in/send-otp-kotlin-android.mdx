@@ -1,0 +1,136 @@
+﻿---
+title: "Send OTP from Kotlin (Android Backend / Ktor) — 2026 Guide"
+description: "Send and verify SMS OTPs from a Kotlin Ktor backend or Android app using the StartMessaging API. Includes Ktor client examples, retrofit option, and Android best practices."
+publishedAt: "2026-04-21"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp kotlin"
+  - "kotlin sms otp api"
+  - "android phone verification kotlin"
+  - "ktor otp api"
+  - "retrofit otp india"
+  - "startmessaging kotlin"
+  - "kotlin backend otp"
+  - "android otp without dlt"
+  - "kotlin coroutines otp"
+  - "sms otp api android india"
+relatedSlugs:
+  - "mobile-app-otp-backend-react-native-flutter"
+  - "otp-autofill-android-ios-sms-retriever"
+  - "send-otp-java-spring-boot"
+featured: false
+---
+
+
+Kotlin powers both Android apps and a growing share of JVM backends.
+        This guide shows how to wire phone OTP through a Kotlin Ktor server
+        that proxies to the 
+        [StartMessaging OTP API](/otp-api), and how to call
+        that backend from an Android app.
+
+
+## Where to Call StartMessaging From
+
+Always from your backend, never directly from the Android app. The
+        backend holds the API key, applies rate limiting, and stores the
+        request ID securely. For a deeper dive on mobile architecture see 
+        [mobile app OTP backend patterns](/blog/mobile-app-otp-backend-react-native-flutter)
+        .
+
+
+## Ktor Server: Send and Verify
+      
+```
+// build.gradle.kts (server)
+implementation("io.ktor:ktor-server-netty:2.3.12")
+implementation("io.ktor:ktor-client-okhttp:2.3.12")
+implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
+implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
+```
+
+      
+```typescript
+import io.ktor.client.*
+import io.ktor.client.engine.okhttp.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.Serializable
+import java.util.UUID
+
+@Serializable data class SendBody(val phoneNumber: String, val idempotencyKey: String)
+@Serializable data class VerifyBody(val requestId: String, val otpCode: String)
+@Serializable data class Envelope<T>(val data: T)
+@Serializable data class SendData(val requestId: String, val expiresAt: String, val attemptsLeft: Int)
+@Serializable data class VerifyData(val verified: Boolean)
+
+object StartMessaging {
+    private val key = System.getenv("STARTMESSAGING_API_KEY")
+    private val client = HttpClient(OkHttp) {
+        install(ContentNegotiation) { json() }
+    }
+
+    suspend fun sendOtp(phone: String): SendData =
+        client.post("https://api.startmessaging.com/otp/send") {
+            header("X-API-Key", key)
+            contentType(ContentType.Application.Json)
+            setBody(SendBody(phone, UUID.randomUUID().toString()))
+        }.body<Envelope<SendData>>().data
+
+    suspend fun verifyOtp(rid: String, code: String): Boolean =
+        client.post("https://api.startmessaging.com/otp/verify") {
+            header("X-API-Key", key)
+            contentType(ContentType.Application.Json)
+            setBody(VerifyBody(rid, code))
+        }.body<Envelope<VerifyData>>().data.verified
+}
+```
+
+
+## Calling Your Backend with Retrofit
+      
+```typescript
+interface AuthApi {
+    @POST("auth/send-otp")
+    suspend fun sendOtp(@Body req: SendOtpReq): SendOtpRes
+
+    @POST("auth/verify-otp")
+    suspend fun verifyOtp(@Body req: VerifyOtpReq): VerifyOtpRes
+}
+
+data class SendOtpReq(val phoneNumber: String)
+data class SendOtpRes(val requestId: String, val expiresAt: String)
+data class VerifyOtpReq(val requestId: String, val otpCode: String)
+data class VerifyOtpRes(val verified: Boolean)
+```
+
+
+## Auto-Read with SMS Retriever API
+
+Configure your StartMessaging template to include the 11-character app
+        hash and Google's SMS Retriever API can autofill the code with
+        zero SMS permissions. See our deep-dive on 
+        [OTP autofill on Android & iOS](/blog/otp-autofill-android-ios-sms-retriever)
+        .
+
+
+## Best Practices
+
+
+- Never embed the API key in the Android app.
+- Use OkHttp connection pooling on the server (Ktor + OkHttp engine).
+- Set a 10-second client timeout.
+- Reuse the HttpClient instance — do not create a new one per request.
+- Cancel verify coroutines on screen rotation with viewModelScope.
+
+
+
+## FAQ
+
+Curious about pricing? [Rs 0.25 per OTP](/pricing) 
+        with no DLT registration required.
+

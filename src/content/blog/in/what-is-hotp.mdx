@@ -1,0 +1,155 @@
+﻿---
+title: "What is HOTP? Counter-Based OTP Explained"
+description: "HOTP — HMAC-based One-Time Password — explained. The RFC 4226 algorithm, how it differs from TOTP, hardware-token use cases, and modern alternatives."
+publishedAt: "2026-04-23"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is hotp"
+  - "hmac otp"
+  - "rfc 4226"
+  - "hotp algorithm"
+  - "hotp vs totp"
+  - "counter based otp"
+relatedSlugs:
+  - "what-is-totp"
+  - "what-is-otp"
+  - "what-is-2fa"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+HOTP is the older, less famous cousin of TOTP. It is the original
+        HMAC-based OTP scheme defined in RFC 4226 and is the algorithm that
+        powered the early generation of hardware authentication tokens — the
+        small key-fobs with a button and an LCD that you might have used to log
+        into a corporate VPN in 2010.
+
+
+This guide covers **what HOTP is**, how the algorithm
+        works, when you would still pick it over TOTP today (rarely), and the
+        modern alternatives most teams should reach for.
+
+
+## HOTP — Definition
+
+**HOTP — HMAC-based One-Time Password** — derives a short
+        numeric code by hashing a shared secret with a monotonically increasing
+        counter. It was published as 
+        [RFC 4226](https://datatracker.ietf.org/doc/html/rfc4226) 
+        in 2005 and inspired TOTP three years later.
+
+
+Each press of the button on a HOTP token (or each call from a HOTP
+        software client) increments the counter and emits a new code. The code
+        does not change with time — it changes with use. A code printed on a
+        scratch card and left in a drawer for a year is still valid; a code
+        from yesterday's login is not, because both client and server
+        have moved on.
+
+
+## How HOTP Works
+      
+```
+// Inputs: secret K, counter C
+HMAC = HMAC-SHA1(K, C)            // 20 bytes
+offset = HMAC[19] & 0x0F           // last nibble
+truncated = (HMAC[offset]   & 0x7F) << 24
+          | (HMAC[offset+1] & 0xFF) << 16
+          | (HMAC[offset+2] & 0xFF) << 8
+          | (HMAC[offset+3] & 0xFF)
+code = truncated % 10^d           // d = 6, usually
+```
+
+
+On each verification, the server tries the expected counter value plus
+        a small look-ahead window (commonly 10) to forgive accidental
+        increments where the user pressed the button but never typed the code.
+        After a successful verification, the server's counter advances
+        past the last accepted value to prevent replay.
+
+
+## HOTP vs TOTP
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>HOTP (RFC 4226)</th>
+              <th>TOTP (RFC 6238)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Counter source</td>
+              <td>Per-use counter</td>
+              <td>Current 30-second window</td>
+            </tr>
+            <tr>
+              <td>Re-use prevention</td>
+              <td>Server tracks last counter</td>
+              <td>Server tracks last accepted window</td>
+            </tr>
+            <tr>
+              <td>Code rotation</td>
+              <td>On user action</td>
+              <td>Every 30s automatically</td>
+            </tr>
+            <tr>
+              <td>Out-of-sync risk</td>
+              <td>Yes — needs look-ahead</td>
+              <td>Yes — needs ±1 window for clock drift</td>
+            </tr>
+            <tr>
+              <td>Modern adoption</td>
+              <td>Legacy hardware tokens</td>
+              <td>Authenticator apps (default)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+For a deeper TOTP write-up see 
+        [our TOTP explainer](/blog/what-is-totp).
+
+
+## Where HOTP is Still Used
+
+
+- **Hardware tokens.** Many YubiKey and Feitian models have a HOTP button mode for legacy compatibility.
+- **Air-gapped environments.** Where you cannot rely on a synchronised clock, HOTP avoids the drift problem.
+- **Printed scratch-card OTPs.** A pre-generated list of HOTP codes printed in a passbook, used in some banking products.
+
+
+
+## Pitfalls
+
+
+- **Drift.** Counter desynchronisation is the #1 source of support tickets. Tune the look-ahead window carefully — too small and you lock users out, too large and you increase brute-force surface.
+- **Replay.** Always advance the server counter past the last accepted value.
+- **Hardware loss.** A HOTP key is single-purpose; users will lose them. Plan recovery flows up front.
+
+
+
+## Modern Alternatives
+
+Most products that would historically have picked HOTP now reach for
+        one of:
+
+
+
+- [TOTP](/blog/what-is-totp) — same crypto, no counter sync issues.
+- [SMS OTP](/blog/what-is-otp) — universal handset support, instant delivery via  [a managed OTP API](/dlt-free-otp).
+- **FIDO2 / passkeys** — phishing-resistant, no shared secret to leak.
+
+
+
+## FAQ
+
+For most Indian-market apps, the practical answer is 
+        [SMS OTP via StartMessaging](/blog/what-is-otp) for
+        primary auth and TOTP as an opt-in upgrade. HOTP rarely earns its slot
+        on the menu in 2026.
+

@@ -1,0 +1,53 @@
+---
+/**
+ * FaqSection — Accordion FAQ using native <details>/<summary>.
+ * Zero client JavaScript — CSS-only smooth open/close animation.
+ *
+ * Example JSON:
+ * {
+ *   "type": "faqSection",
+ *   "props": {
+ *     "badge":    { "en": "FAQ" },
+ *     "heading":  { "en": "Frequently Asked Questions" },
+ *     "items": [
+ *       {
+ *         "question": { "en": "What is StartMessaging?" },
+ *         "answer":   { "en": "StartMessaging is..." }
+ *       }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import AccordionItem from '@/components/ui/AccordionItem.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, items = [], country, theme = 'sms' } = Astro.props;
+---
+
+<Section variant="soft" theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-14 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <Accordion>
+      {items.map((item: any, idx: number) => (
+        <AccordionItem title={r(item.question, country)} open={idx === 0} theme={theme}>
+          <Text tone="body" size="body-md" class="leading-relaxed">
+            {r(item.answer, country)}
+          </Text>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  </Container>
+</Section>

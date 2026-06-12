@@ -1,0 +1,87 @@
+﻿---
+title: "RBI AFA Guidelines for OTP (2026 Update)"
+description: "RBI Additional Factor of Authentication guidelines summarised for OTP developers: scope, exemptions, alternative-factor allowances, and what changed in 2026."
+publishedAt: "2026-05-05"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "rbi afa otp"
+  - "rbi additional factor authentication"
+  - "rbi otp guidelines"
+  - "afa rbi 2026"
+  - "card not present otp"
+relatedSlugs:
+  - "rbi-2fa-2026-mandate"
+  - "otp-fintech-india"
+  - "otp-nbfc-loan-apps-india"
+  - "otp-stock-broking-apps-india"
+featured: false
+---
+
+
+RBI's AFA framework underpins the Indian online-payment
+        experience. OTP is the dominant AFA implementation. The 2026 update
+        clarifies several edges and recognises modern alternative factors.
+
+
+## Overview
+
+
+- AFA mandatory on card-not-present transactions.
+- Internet banking and mobile banking transactions covered.
+- UPI transactions above thresholds require AFA.
+- Specific e-mandate carve-outs.
+
+
+
+## Scope of AFA
+
+
+- Card payments (CVV is one factor; OTP is the second).
+- Mobile / internet banking logins and high-value transactions.
+- UPI transactions above thresholds.
+- NBFC loan disbursement and EMI changes.
+
+
+
+## Exemptions and Carve-Outs
+
+
+- Small-value e-mandates (within RBI thresholds).
+- Tokenised low-value payments at trusted merchants.
+- Some employer-sponsored corporate-card flows.
+
+
+
+## Alternative Factors RBI Permits
+
+
+- SMS OTP (default).
+- TOTP / authenticator apps.
+- Biometric in regulated mobile apps.
+- Push approvals on registered devices.
+- Hardware tokens for corporate banking.
+
+
+
+Read our broader 
+        [RBI 2FA mandate guide](/blog/rbi-2fa-2026-mandate).
+
+
+## Production Patterns
+
+
+- Default to SMS OTP for breadth.
+- Layer biometric for trusted devices.
+- Step-up to OTP on cross-device or cross-IP risk.
+- Audit retain 7–10 years.
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) handles
+        application-side OTPs at scale; you remain compliant with AFA on the
+        flows where you control authentication.
+

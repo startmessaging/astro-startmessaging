@@ -1,0 +1,50 @@
+---
+/**
+ * Non-India country non-home pages: /br/pricing  /mx/whatsapp  /ae/features  etc.
+ * Per ASTRO_COUNTRY_PLAN.md §3.
+ */
+import { getCollection } from 'astro:content';
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import ComponentRenderer from '@/components/ComponentRenderer.astro';
+import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+
+  return pages.flatMap((page) => {
+    if (page.id === 'home') return []; // home handled by [country]/index.astro
+
+    const slug = page.id.replace(/\/index$/, '');
+    // page.data.countries restricts which countries build this page (e.g. SMS = ['in'])
+    const allowedCountries = (page.data.countries ?? ALL_COUNTRIES) as string[];
+    const nonDefaultCountries = allowedCountries.filter((c) => c !== DEFAULT_COUNTRY);
+
+    return nonDefaultCountries.map((c) => ({
+      params: { country: c, slug },
+      props: { page, country: c, pageCountries: allowedCountries },
+    }));
+  });
+}
+
+const { page, country, pageCountries } = Astro.props;
+const slug = Astro.params.slug ?? '';
+const pageTheme = page.data.theme ?? 'sms';
+---
+
+<MarketingLayout
+  seo={page.data.seo}
+  country={country}
+  pageCountries={pageCountries}
+  slug={slug}
+  theme={pageTheme}
+>
+  {page.data.sections.map((section: any) => (
+    <ComponentRenderer
+      type={section.type}
+      props={section.props}
+      country={country}
+      countries={section.countries}
+      theme={section.theme ?? pageTheme}
+    />
+  ))}
+</MarketingLayout>

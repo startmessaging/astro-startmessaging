@@ -1,0 +1,105 @@
+﻿---
+title: "OTP for School and Coaching Apps in India"
+description: "OTP design for K-12 schools and coaching apps in India: parent-OTP for student attendance, fee-payment OTP, exam-day check-in OTP, and DPDP-aware data minimisation."
+publishedAt: "2026-04-30"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "school app otp"
+  - "coaching app otp india"
+  - "parent otp"
+  - "student attendance otp"
+  - "fee payment otp school"
+  - "exam day otp"
+relatedSlugs:
+  - "otp-edtech-student-verification"
+  - "otp-data-privacy-india"
+  - "otp-coworking-membership-india"
+  - "otp-gym-fitness-apps-india"
+featured: false
+---
+
+
+K-12 schools and coaching institutes operate consumer-grade apps with
+        institutional data. The OTP layer needs to reach parents (not always
+        the student), gate fee payments cleanly, and respect DPDP rules
+        around minor users.
+
+
+## Why Education Apps Need Careful OTP Design
+
+
+- Most users are minors; parents are the legal account-holder.
+- Fees flow real money and need RBI-grade auth.
+- DPDP Act has special protections for children's data.
+- Teachers and admin staff need separate role-based access.
+
+
+
+## OTP Flows in School / Coaching Apps
+
+
+- Parent sign-up OTP.
+- Student PIN linked to parent account.
+- Fee-payment OTP — bank-issued.
+- Exam-registration OTP.
+- Exam-day attendance OTP.
+- Report-card view OTP.
+- Teacher login OTP.
+
+
+
+## Parent-OTP for Minor Students
+
+DPDP Act requires verifiable parental consent for minors. The OTP
+        gives you that audit trail. Pattern:
+
+
+
+- Parent registers their phone at admission.
+- Student gets a PIN linked to the parent account.
+- Sensitive actions push fresh OTP to parent.
+
+
+
+## Fee-Payment OTP
+
+Standard payment-gateway OTP applies. Layer:
+
+
+
+- Application OTP to confirm parent identity.
+- Bank-issued OTP for the actual payment.
+- Receipt SMS to parent with UTR.
+
+
+
+## Exam-Day Check-In
+
+For coaching institutes running test series:
+
+
+
+- Issue exam-OTP at T-1 hour.
+- Centre admin scans student card; system asks for OTP.
+- Verified entry mark in attendance log.
+
+
+
+## DPDP and Minor-User Considerations
+
+
+- Minors' data must be processed only with verifiable parental consent.
+- OTP audit trail is the easiest way to prove this.
+- Right to erasure must be honoured for parent-deletion requests.
+- Read  [our DPDP / OTP guide](/blog/otp-data-privacy-india).
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) handles parent OTPs,
+        teacher OTPs and exam-day OTPs on a single API — DLT-cleared so your
+        institute can launch the app fully compliant on day one.
+

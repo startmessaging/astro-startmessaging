@@ -1,0 +1,70 @@
+﻿---
+title: "Storing OTPs: Redis vs SQL Database"
+description: "Trade-offs between Redis and SQL for OTP request data. Latency, durability, audit, retention, and a recommended hybrid pattern that uses both."
+publishedAt: "2026-05-18"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp redis"
+  - "otp database"
+  - "redis vs sql otp"
+  - "otp ttl storage"
+  - "otp cache"
+relatedSlugs:
+  - "otp-database-schema-best-practices"
+  - "should-you-hash-otp-in-database"
+  - "otp-rate-limiting-guide"
+featured: false
+---
+
+
+Redis and SQL serve different needs in OTP storage. Most production
+        systems use both: Redis for the active window, SQL for the audit.
+
+
+## Redis Pros
+
+
+- Sub-ms latency on read.
+- Native TTL — auto-expire after 10 min.
+- Atomic INCR for attempt counters.
+
+
+
+## SQL Pros
+
+
+- Durable — survives Redis crash.
+- Long-term retention for audit (7+ years).
+- Joinable with user / session tables.
+
+
+
+## Recommended Hybrid
+
+
+- Redis: active OTP request (10-min TTL), attempt counters, rate-limit buckets.
+- SQL: audit row written on send and updated on verify.
+
+
+
+## Patterns
+      
+```typescript
+// On send:
+await redis.set(\`otp:\${requestId}\`, JSON.stringify(meta), 'EX', 600);
+await db.insert('otp_audit').values({ requestId, status: 'sent', ... });
+
+// On verify:
+const meta = await redis.get(\`otp:\${requestId}\`);
+// ... verify with provider ...
+await redis.del(\`otp:\${requestId}\`);
+await db.update('otp_audit').set({ status: 'verified', verifiedAt: now }).where({ requestId });
+```
+
+
+## FAQ
+
+See [our schema guide](/blog/otp-database-schema-best-practices) for the SQL side.
+

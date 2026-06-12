@@ -1,0 +1,121 @@
+﻿---
+title: "DLT Template Variable Rules in India (with Examples)"
+description: "How DLT template variables work in India: allowed character classes, length limits, common rejection reasons, and copy-paste-ready examples that pass the first time."
+publishedAt: "2026-05-05"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "dlt template variables india"
+  - "dlt template rules"
+  - "dlt template rejected"
+  - "dlt template examples"
+  - "dlt variable length"
+  - "dlt template approval india"
+  - "sms template dlt india"
+  - "dlt template variable count"
+  - "dlt template alphanumeric"
+  - "dlt sms template approved"
+relatedSlugs:
+  - "what-is-dlt-registration-india"
+  - "dlt-template-approval-guide"
+  - "trai-message-scrubbing-india"
+featured: false
+---
+
+
+DLT (Distributed Ledger Technology) template variables are the part
+        of TRAI's SMS framework that trips up the most teams. You
+        register a template with placeholders, get it approved by your
+        operator, and then your runtime fills the placeholders before
+        sending. Get the variable rules wrong and the carrier will scrub
+        your message at the gateway.
+
+
+## Why DLT Templates Exist
+
+TRAI introduced DLT templates to stop spam and unsolicited
+        commercial communication. Every SMS body must match an
+        operator-approved template, and the carrier's scrubbing engine
+        checks the body at send time. See our companion guide on 
+        [how scrubbing works](/blog/trai-message-scrubbing-india)
+        .
+
+
+## Variable Types
+
+Operators support a small set of variable types — the exact
+        names differ by operator portal but the categories are:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Allowed characters</th>
+              <th>Typical max length</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Alphanumeric</td><td>A-Z, a-z, 0-9</td><td>30</td><td>Order ID</td></tr>
+            <tr><td>Numeric</td><td>0-9</td><td>15</td><td>OTP code, amount</td></tr>
+            <tr><td>Date</td><td>0-9, /, -</td><td>10</td><td>15-04-2026</td></tr>
+            <tr><td>Time</td><td>0-9, :</td><td>8</td><td>14:30:00</td></tr>
+            <tr><td>URL</td><td>Whitelisted domain</td><td>50</td><td>app.example.com/x</td></tr>
+            <tr><td>Free text</td><td>Restricted, often disallowed</td><td>30</td><td>Customer name</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+## Character and Length Rules
+
+
+- Variable placeholders use the syntax `{#var#}` in most operator portals.
+- The expanded message must fit one or two SMS segments (160 / 320 chars GSM).
+- Numeric variables must not contain alphabets — even "Rs" in front of an amount must be in the static text, not the variable.
+- Dates and times are validated against simple regex patterns.
+- URLs must come from a domain whitelist registered alongside the template.
+
+
+
+## Approved Template Examples
+      
+```bash
+# OTP login template
+Your OTP is {#var#}. Valid for 10 minutes. Do not share this with anyone. - YourBrand
+
+# Order confirmation
+Hi {#var#}, your order {#var#} of Rs {#var#} is confirmed. Track at {#var#}. - YourBrand
+
+# Appointment reminder
+Reminder: your appointment with {#var#} on {#var#} at {#var#}. Reschedule on {#var#}. - YourBrand
+```
+
+
+## Common Rejection Reasons
+
+
+- Promotional language in a transactional template ("Buy now", "Discount").
+- URL outside the approved whitelist.
+- Variable placeholder syntax wrong for the operator portal.
+- Header (sender ID) doesn't match the brand in the template body.
+- Expanded worst-case message exceeds segment limit.
+
+
+
+## How StartMessaging Skips This
+
+StartMessaging's standard route uses our pre-approved DLT
+        templates so you never see the variable rules. You just call 
+        `/otp/send` with a phone number and we handle template
+        selection. Skip this whole article if you're on 
+        [our DLT-free route](/dlt-free-otp).
+
+
+## FAQ
+
+See also our full 
+        [DLT template approval guide](/blog/dlt-template-approval-guide)
+        .
+

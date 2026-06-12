@@ -1,0 +1,82 @@
+﻿---
+title: "OTPs Failing on Jio / Airtel / Vi? Carrier-Specific Fixes"
+description: "When OTPs fail on a specific carrier — Jio, Airtel or Vi — diagnosis is different. Per-carrier failure patterns, sender-ID issues, and the failover logic that keeps you live."
+publishedAt: "2026-05-14"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp not working jio"
+  - "otp failing airtel"
+  - "vi otp not delivered"
+  - "otp carrier issue india"
+  - "jio sms not received"
+relatedSlugs:
+  - "otp-not-received-india"
+  - "otp-delivery-delay-fix"
+  - "otp-delivery-rates-india"
+  - "trai-message-scrubbing-india"
+featured: false
+---
+
+
+Carrier-specific OTP failures are common in India because each
+        operator runs an independent DLT registration. This guide covers
+        per-carrier patterns and the failover that keeps you live.
+
+
+## Per-Carrier Failure Patterns
+
+
+- One-carrier degradation — sender-ID or template not registered.
+- One-carrier outage — operator-side downtime.
+- Throttling — carrier de-prioritised your sender ID.
+- Roaming — international SIMs in India can be weird.
+
+
+
+## Jio Specifics
+
+
+- Largest user base — most fail-noise comes here first.
+- Strict template-match enforcement.
+- Fast renewal cycle.
+
+
+
+## Airtel Specifics
+
+
+- Tight scrubbing on financial templates.
+- Sender-ID approval typically 1–3 working days.
+
+
+
+## Vi Specifics
+
+
+- Smaller share but variable latency.
+- Aggregator coverage gaps in Tier-3 circles.
+
+
+
+## BSNL Specifics
+
+
+- Slowest scrubber.
+- Patchy DLR reporting.
+
+
+
+## Failover Strategy
+
+Multi-provider OTP API automatically reroutes when DLR rates drop on
+        a specific carrier path. Manual switch over a few minutes works too.
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) registers across
+        all four operators by default; per-carrier failures auto-route to
+        a healthy alternative.
+

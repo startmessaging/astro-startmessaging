@@ -1,0 +1,121 @@
+﻿---
+title: "OTP for Government & Citizen Services Apps in India"
+description: "How to add phone OTP to government, civic, and citizen-services apps in India: accessibility, multilingual support, audit trail, and procurement notes."
+publishedAt: "2026-05-11"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "government otp india"
+  - "citizen services otp"
+  - "civic app phone verification"
+  - "sarkari app otp"
+  - "g2c sms otp"
+  - "multilingual otp government"
+  - "aadhaar otp alternative"
+  - "accessibility otp india"
+  - "public sector sms api india"
+  - "government sms api"
+relatedSlugs:
+  - "unicode-regional-language-sms-india"
+  - "otp-data-privacy-india"
+  - "otp-edtech-student-verification"
+featured: false
+---
+
+
+Government and citizen-services apps reach the broadest possible
+        audience: multiple languages, multiple device classes, multiple
+        accessibility needs. Phone OTP is the most universal verification
+        method available because every Indian phone — smartphone or
+        feature phone — supports SMS.
+
+
+## Why OTP for Government Apps
+
+
+- Universal device support including KaiOS and feature phones.
+- No app install required for verification.
+- Works in low-bandwidth and offline-after-receipt scenarios.
+- Provides a tamper-evident audit trail for grievance redressal.
+
+
+
+## Accessibility Requirements
+
+Government digital services in India must comply with GIGW
+        (Guidelines for Indian Government Websites) and the Rights of
+        Persons with Disabilities Act. SMS OTP is screen-reader friendly
+        and works for users with low vision, motor difficulties, and
+        cognitive load.
+
+
+For visually impaired users, supplement SMS with voice OTP —
+        see our deep dive on 
+        [voice OTP vs SMS OTP](/blog/voice-otp-vs-sms-otp-india)
+        .
+
+
+## Multilingual SMS
+
+A pan-India service must support at least Hindi and the relevant
+        regional languages of every operating state. Detect the
+        user's preferred language from their profile and pick the
+        right 
+        [Unicode SMS template](/blog/unicode-regional-language-sms-india) 
+        at runtime.
+
+
+## Audit Trail and Retention
+
+Government applications often face RTI queries and grievance
+        redressal cases. Persist:
+
+
+
+- Phone number (encrypted at rest).
+- OTP request ID and timestamp.
+- Verification timestamp and outcome.
+- IP address and user agent.
+- Action that triggered the OTP (login, application, status check).
+
+
+
+Retain for the period mandated by the relevant department —
+        often 7 years for civic services.
+
+
+## Procurement Notes
+
+Public-sector procurement typically requires:
+
+
+
+- Indian-incorporated vendor with local data residency.
+- GST-compliant invoicing in INR.
+- SLA with named uptime and response targets.
+- Empanelment with one of the Indian operators or aggregators.
+
+
+
+StartMessaging meets the first two out of the box; for empanelment
+        questions on a specific tender, contact us through the 
+        [contact page](/contact).
+
+
+## Integration Patterns
+
+
+- Single OTP send endpoint behind your departmental WAF.
+- Server-side language selection from the user's profile, falling back to English.
+- Generous OTP expiry (15 minutes) since government users often switch SIMs in their device.
+- Voice OTP fallback after one failed SMS delivery for accessibility.
+
+
+
+## FAQ
+
+See our 
+        [OTP data privacy article](/blog/otp-data-privacy-india) 
+        for the DPDP Act perspective on storing phone numbers.
+

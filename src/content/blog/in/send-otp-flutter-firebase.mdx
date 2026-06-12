@@ -1,0 +1,125 @@
+﻿---
+title: "How to Send OTP in Flutter with Firebase Backend (2026)"
+description: "Flutter OTP tutorial using StartMessaging on a Firebase Functions backend. Riverpod state, http client, secure cookie session via Firebase Auth custom token."
+publishedAt: "2026-05-12"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "flutter otp tutorial"
+  - "flutter sms otp"
+  - "flutter firebase otp"
+  - "flutter india otp"
+relatedSlugs:
+  - "send-otp-react-native-expo"
+  - "send-otp-firebase-functions"
+  - "mobile-app-otp-backend-react-native-flutter"
+  - "otp-autofill-android-ios-sms-retriever"
+featured: false
+---
+
+
+Flutter apps in India typically front a Firebase backend. This
+        tutorial uses Firebase Functions (with 
+        [our backend guide](/blog/send-otp-firebase-functions))
+        and a Flutter front-end.
+
+
+## Overview
+
+
+- Backend: Firebase Functions calling StartMessaging.
+- Flutter: `cloud_functions` client to invoke callables.
+- On verify, sign in with Firebase Auth custom token.
+- SMS Retriever auto-fill on Android.
+
+
+
+## Flutter Setup
+      
+```
+flutter create otp_flutter
+cd otp_flutter
+flutter pub add firebase_core firebase_auth cloud_functions flutter_riverpod sms_autofill
+```
+
+
+## OtpService Class
+      
+```typescript
+// lib/services/otp_service.dart
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class OtpService {
+  final _fns = FirebaseFunctions.instance;
+
+  Future<({String requestId, DateTime expiresAt})> send(String phone) async {
+    final r = await _fns.httpsCallable('sendOtp').call({'phoneNumber': phone});
+    return (
+      requestId: r.data['requestId'] as String,
+      expiresAt: DateTime.parse(r.data['expiresAt'] as String),
+    );
+  }
+
+  Future<void> verifyAndSignIn(String requestId, String code, String phone) async {
+    final r = await _fns.httpsCallable('verifyOtp').call({
+      'requestId': requestId,
+      'otpCode': code,
+      'phoneNumber': phone,
+    });
+    final token = r.data['token'] as String;
+    await FirebaseAuth.instance.signInWithCustomToken(token);
+  }
+}
+```
+
+
+## Login UI with Riverpod
+      
+```typescript
+final otpServiceProvider = Provider((ref) => OtpService());
+
+class LoginScreen extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  String? requestId;
+  final phoneCtl = TextEditingController();
+  final codeCtl  = TextEditingController();
+
+  Future<void> _send() async {
+    final r = await ref.read(otpServiceProvider).send(phoneCtl.text);
+    setState(() => requestId = r.requestId);
+  }
+
+  Future<void> _verify() async {
+    await ref.read(otpServiceProvider).verifyAndSignIn(requestId!, codeCtl.text, phoneCtl.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return requestId == null
+      ? Column(children: [TextField(controller: phoneCtl), ElevatedButton(onPressed: _send, child: Text('Send OTP'))])
+      : Column(children: [TextField(controller: codeCtl), ElevatedButton(onPressed: _verify, child: Text('Verify'))]);
+  }
+}
+```
+
+
+## OTP Auto-Fill
+
+Use the `sms_autofill` package + Android SMS Retriever
+        API. See our 
+        [auto-fill guide](/blog/otp-autofill-android-ios-sms-retriever)
+        .
+
+
+## FAQ
+
+React Native equivalent in 
+        [our React Native guide](/blog/send-otp-react-native-expo)
+        .
+

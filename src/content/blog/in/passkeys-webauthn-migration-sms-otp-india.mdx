@@ -1,0 +1,96 @@
+﻿---
+title: "Passkeys (WebAuthn) vs SMS OTP for Indian Apps: Migration Notes"
+description: "A practical roadmap for Indian product teams adding FIDO2 passkeys alongside SMS OTP: user education, device coverage, RBI-style step-up, recovery, and when SMS remains mandatory."
+publishedAt: "2026-05-12"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "passkeys India"
+  - "WebAuthn India developers"
+  - "replace SMS OTP passkey"
+  - "FIDO2 migration India"
+  - "passkey vs OTP banking"
+  - "Android passkey WebAuthn"
+  - "passwordless login India"
+relatedSlugs:
+  - "sms-otp-vs-email-magic-link-vs-totp"
+  - "rbi-2fa-2026-mandate"
+  - "otp-smishing-phishing-prevention"
+  - "silent-authentication-vs-otp-india"
+featured: false
+---
+
+
+SMS OTP is universal in India but vulnerable to smishing and SIM
+        events. **Passkeys (FIDO2 / WebAuthn)** bind sign-in to
+        a device key pair and resist remote phishing. This guide is for
+        engineering managers planning a **migration**, not a
+        crypto tutorial — we focus on rollout sequencing and compliance
+        touchpoints.
+
+
+## Why Indian Teams Still Default to SMS
+
+
+- Works on every handset without app updates.
+- Aligns with user mental models built by banks and UPI apps.
+- Vendor-neutral — no Apple / Google passkey sync assumptions.
+
+
+
+## Threat Model: What Passkeys Fix
+
+SMS OTP can be intercepted by fake login pages that relay codes in
+        real time. Passkeys remove shared secrets from the authentication
+        ceremony. Read alongside 
+        [OTP strengths and weaknesses](/blog/is-otp-secure-strengths-weaknesses) 
+        to decide where passkeys belong in your stack (login vs payments vs
+        account recovery).
+
+
+## Phased Rollout Pattern
+
+
+- **Shadow mode:** Register passkeys for users who opt in; keep SMS OTP unchanged.
+- **Preferred factor:** Offer passkey-first login with SMS fallback behind the same risk engine used for  [lockouts](/blog/otp-failed-attempt-lockout-strategies) .
+- **Step-up:** Keep SMS or issuer push for high-risk actions even after passkeys win on primary login.
+
+
+
+## Regulated Flows and Step-Up Authentication
+
+Fintech teams should read 
+        [RBI AFA guidance](/blog/rbi-afa-guidelines-otp-2026) 
+        with counsel. Passkeys can satisfy "something you have"
+        for app login, but card-not-present and many wallet actions still
+        expect issuer-controlled factors. Document which journeys are
+        *in-app authentication* vs *regulated payment authentication*.
+
+
+## Recovery Without SMS-Only Weakness
+
+If passkey recovery is "send SMS OTP," you reintroduce the
+        same SIM risks. Stronger patterns include split knowledge with
+        in-branch verification, video KYC for high-value accounts, or
+        hardware security keys for admin roles.
+
+
+## Metrics That Prove the Migration
+
+
+- Login success rate by device cohort.
+- Median time-to-login before vs after passkeys.
+- Support tickets tagged smishing / OTP not received.
+- Chargeback or fraud loss rate on step-up flows.
+
+
+
+## FAQ
+
+Passkeys and SMS OTP can coexist for years. Most Indian apps will keep
+        SMS for reachability while passkeys absorb returning users on modern
+        devices. For SMS-only flows, providers like 
+        [StartMessaging](/otp-api) keep integration simple
+        while you migrate the login surface.
+

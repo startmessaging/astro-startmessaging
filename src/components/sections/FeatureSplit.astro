@@ -1,0 +1,131 @@
+---
+/**
+ * FeatureSplit — Alternating text/image split for feature deep-dives.
+ *
+ * Example JSON:
+ * {
+ *   "type": "featureSplit",
+ *   "props": {
+ *     "heading":   { "en": "Broadcast to Millions" },
+ *     "body":      { "en": "Send templated WhatsApp messages..." },
+ *     "bullets":   [{ "en": "99.9% delivery" }, { "en": "Sub-second speed" }],
+ *     "image":     "/images/broadcast-demo.png",
+ *     "imageAlt":  { "en": "Broadcast dashboard" },
+ *     "reversed":  false,
+ *     "ctaLabel":  { "en": "Learn more" },
+ *     "ctaHref":   "/whatsapp/broadcast"
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Button from '@/components/ui/Button.astro';
+import { r } from '@/i18n/r';
+
+const {
+  heading,
+  body,
+  bullets = [],
+  image,
+  imageAlt,
+  reversed = false,
+  ctaLabel,
+  ctaHref,
+  country,
+  imageWidth,
+  imageHeight,
+  imageMaxWidth = 'w-full',
+} = Astro.props;
+
+// Determine theme dynamically based on country and url pathname / page content
+let theme = Astro.props.theme || 'sms';
+if (country !== 'in') {
+  theme = 'whatsapp';
+} else {
+  const path = Astro.url.pathname;
+  const isWhatsappPath = path.includes('/whatsapp');
+  theme = (theme === 'whatsapp' || isWhatsappPath) ? 'whatsapp' : 'sms';
+}
+
+const isWhatsapp = theme === 'whatsapp';
+const accentClass = isWhatsapp ? 'text-accent-wa' : 'text-primary';
+const visualContainerClass = isWhatsapp
+  ? 'relative rounded-lg overflow-hidden bg-white/60 border border-accent-wa/10 shadow-sm hover:shadow-md transition-all duration-300'
+  : 'relative rounded-lg overflow-hidden bg-surface-card border border-hairline shadow-sm hover:shadow-md transition-all duration-300';
+---
+
+<Section theme={theme}>
+  <Container>
+    <div class:list={[
+      'grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center',
+      reversed && 'lg:[direction:rtl]',
+    ]}>
+      {/* Text Side */}
+      <div class:list={[reversed && 'lg:[direction:ltr]']}>
+        {heading && (
+          <Heading as="h2" size="display-sm" class="mb-4">
+            {r(heading, country)}
+          </Heading>
+        )}
+        {body && (
+          <Text tone="body" size="body-md" class="mb-6 leading-relaxed">
+            {r(body, country)}
+          </Text>
+        )}
+        {bullets.length > 0 && (
+          <ul class="flex flex-col gap-3 mb-8">
+            {bullets.map((bullet: any) => (
+              <li class="flex items-start gap-3">
+                <svg class:list={['w-5 h-5 mt-0.5 shrink-0', accentClass]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <Text as="span" size="body-sm" tone="body">{r(bullet, country)}</Text>
+              </li>
+            ))}
+          </ul>
+        )}
+        {ctaLabel && ctaHref && (
+          <Button 
+            href={ctaHref} 
+            variant="primary" 
+            size="md"
+            class={isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""}
+          >
+            {r(ctaLabel, country)} →
+          </Button>
+        )}
+      </div>
+
+      {/* Visual Side */}
+      <div class:list={[
+        visualContainerClass,
+        reversed && 'lg:[direction:ltr]',
+        imageMaxWidth,
+        'mx-auto w-full',
+      ]}>
+        {image ? (
+          <img
+            src={image}
+            alt={r(imageAlt, country)}
+            width={imageWidth}
+            height={imageHeight}
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <div class="aspect-[4/3] flex items-center justify-center">
+            <div class:list={['w-20 h-20 opacity-20', accentClass]}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,67 @@
+---
+/**
+ * StepFlow — Vertical numbered step flow for HowTo processes.
+ *
+ * Example JSON:
+ * {
+ *   "type": "stepFlow",
+ *   "props": {
+ *     "badge":    { "en": "How To" },
+ *     "heading":  { "en": "Get Started in 3 Steps" },
+ *     "steps": [
+ *       { "title": { "en": "Register" }, "description": { "en": "Sign up..." }, "icon": "user" }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, steps = [], country, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+const lineGradient = isWhatsapp ? 'from-accent-wa/40 via-accent-wa/20 to-transparent' : 'from-primary/40 via-primary/20 to-transparent';
+const circleBg = isWhatsapp ? 'bg-accent-wa text-on-accent-wa' : 'bg-primary text-on-primary';
+---
+
+<Section theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-14 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <div class="max-w-3xl mx-auto relative">
+      {/* Connecting vertical line */}
+      <div class:list={["absolute left-6 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b", lineGradient]} aria-hidden="true"></div>
+
+      <div class="flex flex-col gap-8">
+        {steps.map((step: any, idx: number) => (
+          <div class="relative flex gap-6 items-start group">
+            {/* Step number */}
+            <div class:list={["relative z-10 flex items-center justify-center w-12 h-12 rounded-full font-bold text-title-sm shrink-0 group-hover:scale-110 transition-transform", circleBg]}>
+              {String(idx + 1).padStart(2, '0')}
+            </div>
+
+            {/* Content */}
+            <div class="flex-1 pb-2 pt-1">
+              <Heading as="h3" size="title-md" class="mb-2">
+                {r(step.title, country)}
+              </Heading>
+              <Text size="body-md" tone="body" class="leading-relaxed">
+                {r(step.description, country)}
+              </Text>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+</Section>

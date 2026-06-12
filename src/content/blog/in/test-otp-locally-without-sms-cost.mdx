@@ -1,0 +1,80 @@
+﻿---
+title: "How to Test OTP Locally Without SMS Costs"
+description: "Free patterns to test your OTP integration end-to-end without burning real SMS credits: sandbox modes, mock providers, Mailhog-style local servers, and CI strategies."
+publishedAt: "2026-05-18"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "test otp locally"
+  - "mock otp api"
+  - "sandbox otp"
+  - "test sms without cost"
+  - "free otp testing"
+relatedSlugs:
+  - "testing-otp-flows-staging-sandboxes"
+  - "send-otp-nodejs"
+  - "idempotency-keys-otp"
+featured: false
+---
+
+
+Testing OTP integrations end-to-end without burning the wallet is
+        easy with the right pattern. This guide covers the three main
+        approaches.
+
+
+## Options Overview
+
+
+- Sandbox key — provider simulates delivery.
+- Mock provider — local HTTP service that mimics the API.
+- Fixed test phone — real OTPs sent to one staging number.
+
+
+
+## Provider Sandbox Mode
+
+Most providers ship a sandbox key. With 
+        [StartMessaging](/dlt-free-otp), sandbox mode
+        accepts any phone number and verifies any OTP code marked as the
+        test code.
+
+
+## Mock Provider
+      
+```typescript
+// tests/mock-sm.ts
+import { rest } from 'msw';
+export const handlers = [
+  rest.post('https://api.startmessaging.com/otp/send', (req, res, ctx) =>
+    res(ctx.json({ data: { requestId: 'mock_123', expiresAt: 'X', attemptsLeft: 3 }}))
+  ),
+  rest.post('https://api.startmessaging.com/otp/verify', (req, res, ctx) =>
+    res(ctx.json({ data: { verified: true }}))
+  ),
+];
+```
+
+
+## Fixed Test Phones
+
+Designate one phone you control as the staging recipient. Real OTPs
+        delivered, manual entry. Fine for human tests, painful in CI.
+
+
+## CI Strategy
+
+
+- Use mock provider in unit / integration tests.
+- Use sandbox key in nightly e2e.
+- Real provider only in pre-prod staging environment.
+
+
+
+## FAQ
+
+For the broader staging story see 
+        [OTP testing in staging guide](/blog/testing-otp-flows-staging-sandboxes)
+        .
+

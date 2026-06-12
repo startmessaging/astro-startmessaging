@@ -1,0 +1,85 @@
+﻿---
+title: "DLT Template Rejected? Common Reasons and Fixes"
+description: "When your DLT SMS template is rejected — the precise causes Indian operators flag, how to fix variable markers, category mismatches, and language issues, and how to skip DLT entirely."
+publishedAt: "2026-05-15"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "dlt template rejected"
+  - "jio template rejection"
+  - "airtel template approval"
+  - "dlt approval failed"
+  - "fix dlt template"
+relatedSlugs:
+  - "dlt-template-approval-guide"
+  - "dlt-template-variables-rules-india"
+  - "what-is-sms-sender-id"
+  - "dlt-registration-step-by-step-india"
+featured: false
+---
+
+
+DLT template rejection is the #1 reason Indian devs get blocked on
+        a launch. Most rejections trace to one of four predictable causes —
+        and almost all are fixable on resubmit.
+
+
+## Top Rejection Causes
+
+
+- Wrong variable markers.
+- Category mismatch (transactional template marked promotional).
+- Banned keywords (operator-name impersonation, etc.).
+- Body deviates from template format.
+
+
+
+## Variable Marker Issues
+
+
+- Use `{#var#}` exactly, no spaces.
+- Variables must be sequential — first `{#var#}`, then second, etc.
+- Don't embed variables inside other variables.
+
+
+
+## Category Mismatch
+
+OTP template under promotional category? Operator rejects it. Make
+        sure category matches use case. See 
+        [transactional vs promotional](/blog/transactional-vs-promotional-sms-india)
+        .
+
+
+## Wording / Keyword Issues
+
+
+- Avoid "RBI", "BANK" without proper authorisation.
+- No claims of guaranteed returns.
+- No ALL-CAPS spam wording.
+
+
+
+## How to Resubmit Successfully
+
+
+- Read the rejection reason carefully.
+- Fix exactly that — don't over-engineer the template.
+- Resubmit through the same portal.
+- Repeat across all operator portals if needed.
+
+
+
+## How to Skip DLT
+
+Use a DLT-free OTP API. [StartMessaging](/dlt-free-otp) 
+        absorbs template approvals on your behalf — no rejection, no
+        resubmission cycle.
+
+
+## FAQ
+
+DLT is solvable but tedious; outsourcing it to a managed provider
+        is the fastest path for most teams.
+

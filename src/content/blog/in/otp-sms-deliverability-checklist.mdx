@@ -1,0 +1,112 @@
+﻿---
+title: "OTP SMS Deliverability Checklist for Production Apps"
+description: "Improve OTP delivery: E.164 numbers, DLT template ID match, TRAI scrubbing awareness, timing, retries, and monitoring for transactional SMS in India."
+publishedAt: "2026-04-07"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "OTP deliverability"
+  - "SMS OTP delivery rate"
+  - "improve OTP delivery"
+  - "SMS not received OTP"
+  - "E.164 phone format India"
+  - "OTP retry best practices"
+  - "transactional SMS delivery"
+  - "DLT template approval SMS"
+  - "SMS template ID mismatch India"
+  - "TRAI SMS scrubbing"
+  - "service implicit SMS delivery"
+  - "DLT SMS variable tagging OTP"
+  - "OTP SMS API India reliability"
+relatedSlugs:
+  - "otp-delivery-rates-india"
+  - "otp-verification-flow"
+  - "best-otp-api-india"
+featured: false
+---
+
+
+Poor OTP deliverability shows up as login failures, abandoned carts, and
+        angry support tickets. Many issues are fixable with disciplined
+        formatting, compliant templates, and good instrumentation. Use this
+        checklist before you blame users or switch SMS providers.
+
+
+## Start With Clean Phone Data
+
+Normalize every phone number to E.164 before you call your SMS API. For
+        India, that typically means +91 followed by ten digits, with no
+        leading zero in the national portion. Reject or correct obviously
+        invalid input at signup instead of at send time.
+
+
+If you accept international numbers, maintain per-country rules and
+        test with real SIMs on major operators. Our 
+        [API documentation](/otp-api) 
+        describes the expected phone format for sends.
+
+
+## Template and Message Content
+
+On Indian routes, your OTP body must follow an approved DLT template.
+        Variables should map cleanly: OTP value, optional app name, and expiry
+        minutes if you include them. Avoid adding promotional sentences or
+        links that are not part of the registered pattern.
+
+
+If you manage templates yourself, budget time for approval churn. If
+        you use a 
+        [hosted OTP service](/)
+        , confirm which placeholders the provider expects and test end-to-end
+        in staging with production-like templates.
+
+
+## Timing and User Experience
+
+Users abandon flows when OTPs arrive late or when the UI does not
+        explain what to expect. Show clear copy that an SMS is coming, display a
+        visible cooldown before resend, and support paste from SMS where
+        platforms allow it.
+
+
+Align OTP validity with realistic delivery times: codes that expire in
+        under two minutes cause unnecessary failures on congested networks.
+        Refer to 
+        [expiry and attempt limits](/blog/otp-expiry-attempt-limits) 
+        for balanced defaults.
+
+
+## Retries and Provider Failover
+
+Implement exponential backoff for automatic retries on your side only
+        where your provider documents it; blind retries can duplicate messages
+        or violate rate limits. Prefer providers that offer multi-carrier
+        failover and transparent status codes so you can distinguish soft
+        failures from hard invalid numbers.
+
+
+For operational playbooks when delivery drops, see 
+        [OTP delivery rates in India](/blog/otp-delivery-rates-india) 
+        and our 
+        [provider migration checklist](/blog/migrate-sms-provider-checklist)
+        .
+
+
+## What to Measure
+
+Track at minimum: send acceptance rate, delivery success rate (where
+        available), time-to-deliver, verify success rate, and cost per successful
+        verification. Slice by carrier or region if your provider exposes it.
+
+
+When you compare vendors, use the same traffic profile and time window.
+        Our 
+        [OTP API pricing comparison for India](/blog/otp-api-pricing-comparison-india) 
+        explains how to compare total cost, not only per-SMS price.
+
+
+## FAQ
+
+Additional short answers appear in the FAQ section above.
+

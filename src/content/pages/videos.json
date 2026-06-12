@@ -1,0 +1,143 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
+  "seo": {
+    "title": {
+      "en": "Videos & Tutorials — StartMessaging",
+      "pt": "Vídeos e Tutoriais — StartMessaging",
+      "es": "Videos y Tutoriales — StartMessaging",
+      "id": "Video dan Tutorial — StartMessaging",
+      "ar": "فيديوهات وبرامج تعليمية — StartMessaging",
+      "tr": "Videolar ve Eğitimler — StartMessaging"
+    },
+    "description": {
+      "en": "Watch step-by-step video tutorials on WhatsApp API integration, OTP setup, chatbot building, and campaign management."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge": {
+          "en": "Video Tutorials",
+          "pt": "Tutoriais em Vídeo",
+          "es": "Tutoriales en Video",
+          "id": "Tutorial Video",
+          "ar": "دروس فيديو",
+          "tr": "Video Eğitimler"
+        },
+        "title": {
+          "en": "Learn by Watching",
+          "pt": "Aprenda Assistindo",
+          "es": "Aprenda Viendo",
+          "id": "Belajar dengan Menonton",
+          "ar": "تعلم بالمشاهدة",
+          "tr": "İzleyerek Öğrenin"
+        },
+        "subtitle": {
+          "en": "Step-by-step video tutorials covering API integration, OTP verification, chatbot building, broadcast campaigns, and more.",
+          "pt": "Tutoriais em vídeo passo a passo cobrindo integração de API, verificação OTP, construção de chatbot e campanhas de transmissão.",
+          "es": "Tutoriales paso a paso en video sobre integración de API, verificación OTP, creación de chatbots y campañas de difusión.",
+          "id": "Tutorial video langkah demi langkah mencakup integrasi API, verifikasi OTP, pembuatan chatbot, dan kampanye siaran.",
+          "ar": "دروس فيديو خطوة بخطوة تغطي تكامل API والتحقق من OTP وبناء الشات بوت وحملات البث.",
+          "tr": "API entegrasyonu, OTP doğrulama, chatbot oluşturma ve yayın kampanyalarını kapsayan adım adım video eğitimler."
+        }
+      }
+    },
+    {
+      "type": "videoEmbed",
+      "props": {
+        "heading": {
+          "en": "Video Guides & Walkthroughs",
+          "pt": "Guias de Vídeo e Tutoriais",
+          "es": "Guías de Video y Tutoriales",
+          "id": "Panduan Video & Tutorial",
+          "ar": "أدلة الفيديو والبرامج التعليمية",
+          "tr": "Video Kılavuzları ve Eğitimler"
+        },
+        "videos": [
+          {
+            "videoId": "QHa_dgwvbr4",
+            "title": {
+              "en": "Start Messaging API Integration Tutorial",
+              "pt": "Tutorial de Integração da API Start Messaging",
+              "es": "Tutorial de Integración de la API de Start Messaging",
+              "id": "Tutorial Integrasi API Start Messaging",
+              "ar": "برنامج تعليمي لتكامل واجهة Start Messaging API",
+              "tr": "Start Messaging API Entegrasyon Eğitimi"
+            },
+            "description": {
+              "en": "Detailed step-by-step guide on how to integrate the Start Messaging REST API to start sending SMS and OTPs from your own applications.",
+              "pt": "Guia detalhado passo a passo sobre como integrar a API REST do Start Messaging para começar a enviar SMS e OTPs a partir de seus próprios aplicativos.",
+              "es": "Guía detallada paso a paso sobre como integrar la API REST de Start Messaging para comenzar a enviar SMS y OTP desde sus propias aplicaciones.",
+              "id": "Panduan langkah demi langkah terperinci tentang cara mengintegrasikan REST API Start Messaging untuk mulai mengirim SMS dan OTP dari aplikasi Anda sendiri.",
+              "ar": "دليل مفصل خطوة بخطوة حول كيفية دمج واجهة برمجة تطبيقات REST الخاصة بـ Start Messaging لبدء إرسال رسائل SMS و OTP من تطبيقاتك الخاصة.",
+              "tr": "Kendi uygulamalarınızdan SMS ve OTP göndermeye başlamak için Start Messaging REST API'sini nasıl entegre edeceğinize dair ayrıntılı adım adım kılavuz."
+            }
+          },
+          {
+            "videoId": "yafofDkYzXA",
+            "title": {
+              "en": "Account Registration Tutorial (DLT-Free OTP)",
+              "pt": "Tutorial de Registro de Conta (OTP sem DLT)",
+              "es": "Tutorial de Registro de Cuenta (OTP sin DLT)",
+              "id": "Tutorial Registrasi Akun (OTP Bebas DLT)",
+              "ar": "برنامج تعليمي لتسجيل الحساب (OTP خالي من DLT)",
+              "tr": "Hesap Kaydı Eğitimi (DLT'siz OTP)"
+            },
+            "description": {
+              "en": "Learn how to register and set up your developer account, verify your email, and prepare your workspace to send OTPs without personal DLT registration.",
+              "pt": "Saiba como registrar e configurar sua conta de desenvolvedor, verificar seu e-mail e preparar seu espaço de trabalho para enviar OTPs sem registro DLT pessoal.",
+              "es": "Aprenda a registrar y configurar su cuenta de desarrollador, verificar su correo electrónico y preparar su espacio de trabajo para enviar OTP sin registro DLT personal.",
+              "id": "Pelajari cara mendaftar dan menyiapkan akun developer Anda, memverifikasi email Anda, dan menyiapkan ruang kerja Anda untuk mengirim OTP tanpa registrasi DLT pribadi.",
+              "ar": "تعرف على كيفية تسجيل وإعداد حساب المطور الخاص بك، والتحقق من بريدك الإلكتروني، وإعداد مساحة العمل الخاصة بك لإرسال رموز OTP دون تسجيل DLT شخصي.",
+              "tr": "Kişisel DLT kaydı olmadan OTP göndermek için geliştirici hesabınızı nasıl kaydedeceğinizi ve kuracağınızı, e-postanızı nasıl doğrulayacağınızı ve çalışma alanınızı nasıl hazırlayacağınızı öğrenin."
+            }
+          },
+          {
+            "videoId": "fXDInhle9Z0",
+            "title": {
+              "en": "Dashboard Tour & Console Walkthrough",
+              "pt": "Tour do Painel e Demonstração do Console",
+              "es": "Recorrido por el Panel de Control y Demostración de la Consola",
+              "id": "Tur Dasbor & Panduan Konsol",
+              "ar": "جولة في لوحة التحكم وعرض توضيحي للكونسول",
+              "tr": "Kontrol Paneli Turu ve Konsol Kılavuzu"
+            },
+            "description": {
+              "en": "Navigate projects, API credentials, template management, delivery logs, billing details, and wallet balance directly inside the StartMessaging console.",
+              "pt": "Navegue por projetos, credenciais de API, gerenciamento de modelos, logs de entrega, detalhes de faturamento e saldo da carteira diretamente no console StartMessaging.",
+              "es": "Navegue por proyectos, credenciales de API, administración de plantillas, registros de entrega, detalles de facturación y saldo de la billetera directamente dentro de la consola StartMessaging.",
+              "id": "Navigasikan proyek, kredensial API, manajemen template, log pengiriman, detail penagihan, dan saldo dompet langsung di dalam konsol StartMessaging.",
+              "ar": "قم بالتنقل بين المشاريع، واعتمادات API، وإدارة القوالب، وسجلات التسليم، وتفاصيل الفوترة، ورصيد المحفظة مباشرة داخل كونسول StartMessaging.",
+              "tr": "Projeler, API kimlik bilgileri, şablon yönetimi, teslimat günlükleri, faturalandırma ayrıntıları ve cüzdan bakiyesi arasında doğrudan StartMessaging konsolunda gezinin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Ready to Build?",
+          "pt": "Pronto para Construir?",
+          "es": "¿Listo para Construir?",
+          "id": "Siap Membangun?",
+          "ar": "هل أنت مستعد للبناء؟",
+          "tr": "Oluşturmaya Hazır mısınız?"
+        },
+        "subtext": {
+          "en": "Start with our free plan and follow along with the tutorials.",
+          "pt": "Comece com nosso plano gratuito e siga os tutoriais.",
+          "es": "Comience con nuestro plan gratuito y siga los tutoriales.",
+          "id": "Mulai dengan paket gratis kami dan ikuti tutorial.",
+          "ar": "ابدأ بخطتنا المجانية واتبع الدروس.",
+          "tr": "Ücretsiz planımızla başlayın ve eğitimleri takip edin."
+        },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

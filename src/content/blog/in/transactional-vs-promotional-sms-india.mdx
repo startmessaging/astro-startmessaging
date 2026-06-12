@@ -1,0 +1,401 @@
+﻿---
+title: "Transactional vs Promotional SMS in India"
+description: "Key differences between transactional and promotional SMS in India. Header types, timing restrictions, DLT templates, DND rules, consent, routing, and costs explained."
+publishedAt: "2026-02-11"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "transactional vs promotional SMS"
+  - "transactional SMS India"
+  - "promotional SMS India"
+  - "SMS header types India"
+  - "DND SMS India"
+  - "SMS timing restrictions India"
+  - "transactional SMS DLT"
+  - "promotional SMS rules"
+  - "OTP SMS category India"
+relatedSlugs:
+  - "what-is-dlt-registration-india"
+  - "dlt-template-approval-guide"
+featured: false
+---
+
+
+Every commercial SMS sent in India falls into one of two broad categories: transactional
+        or promotional. Getting this classification wrong can mean your messages are blocked,
+        delivered at the wrong time, or flagged as non-compliant. For developers building
+        OTP-based verification, understanding this distinction is critical.
+
+
+This guide breaks down the key differences between transactional and promotional SMS in
+        India, covering sender headers, delivery timing, DLT templates, DND rules, routing
+        paths, and costs.
+
+
+## Why Categories Matter
+
+India's telecom infrastructure treats transactional and promotional messages
+        fundamentally differently. They travel through different routing paths, are subject to
+        different regulations, and have different delivery guarantees. If you register an OTP
+        template as promotional instead of transactional, your OTPs will not be delivered to
+        DND-registered numbers and will be blocked outside the 9 AM – 9 PM window. For a
+        login flow, that is a critical failure.
+
+
+TRAI mandates this categorization through the DLT framework. Every registered header and
+        template is tagged with a category, and telecom operators enforce category-specific rules
+        at the network level. For a full explanation of the DLT system, see our 
+        [DLT registration guide](/blog/what-is-dlt-registration-india).
+
+
+## Header Types (AX vs BX)
+
+The most visible difference between transactional and promotional SMS is the sender
+        header — the alphanumeric name that appears as the sender on the recipient's
+        phone.
+
+
+### Transactional Headers
+
+Transactional headers are six-character alphanumeric sender IDs. On DLT portals, they
+        are registered under specific prefixes that vary by operator but are generally understood
+        as "AX" type headers (where the exact prefix code is assigned by the
+        operator). These headers look professional and identifiable, for example: 
+        `ACMECO`, `STRMSG`, `HDFC`.
+
+
+Characteristics:
+
+
+
+- Six alphanumeric characters
+- Custom to your brand name
+- Used for OTPs, alerts, confirmations, and service messages
+- Registered on DLT portal with transactional category
+
+
+
+### Promotional Headers
+
+Promotional messages use numeric sender IDs, typically random-looking numbers. These are
+        sometimes referred to as "BX" type headers. The recipient sees a number like 
+        `VM-884521` or a similar format rather than a recognizable brand name.
+
+
+Characteristics:
+
+
+
+- Numeric sender ID (not brand-identifiable)
+- Used for marketing, offers, promotions
+- Registered on DLT portal with promotional category
+- Lower trust perception from recipients
+
+
+
+### Comparison Table
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Transactional (AX)</th>
+            <th>Promotional (BX)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sender ID</td>
+            <td>Alphanumeric (e.g., ACMECO)</td>
+            <td>Numeric (e.g., VM-884521)</td>
+          </tr>
+          <tr>
+            <td>Brand visibility</td>
+            <td>High</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td>Delivery hours</td>
+            <td>24/7</td>
+            <td>9 AM – 9 PM IST</td>
+          </tr>
+          <tr>
+            <td>DND delivery</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Use cases</td>
+            <td>OTP, alerts, confirmations</td>
+            <td>Marketing, offers, sales</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+## Timing Restrictions
+
+One of the most impactful differences is the delivery timing window:
+
+
+### Transactional: No Restrictions
+
+Transactional messages, including OTPs, can be delivered at any time — 24 hours a
+        day, 7 days a week, including weekends and holidays. This is essential for OTP use cases
+        where users may need to verify their identity at 2 AM or on a Sunday.
+
+
+### Promotional: 9 AM to 9 PM Only
+
+Promotional SMS can only be delivered between **9:00 AM and 9:00 PM IST**.
+        Messages submitted outside this window are queued by telecom operators and delivered when
+        the window opens. Some operators discard queued promotional messages after 24 hours.
+
+
+This restriction exists to protect consumers from receiving marketing messages at
+        inconvenient hours. It is strictly enforced at the network level, so there is no
+        workaround. If your use case requires 24/7 delivery (like OTPs), you must use
+        transactional category.
+
+
+For the latest on timing rules and other regulatory changes, see our article on 
+        [TRAI SMS regulations in 2026](/blog/trai-sms-regulations-2026).
+
+
+## DLT Template Categories
+
+When you register templates on a DLT portal, you must assign each template to a
+        category. The main categories are:
+
+
+
+- **Transactional** — triggered by user action, essential for service. OTPs, order confirmations, payment alerts.
+- **Promotional** — marketing intent. Offers, discounts, product announcements.
+- **Service Implicit** — service messages to existing customers based on an existing relationship. Renewal reminders, account updates.
+- **Service Explicit** — service messages where the customer has given explicit consent. Similar to promotional but with documented consent.
+
+
+
+Miscategorizing a template is a common mistake. Registering an OTP as "promotional"
+        means it will be subject to DND blocking and timing restrictions, effectively breaking
+        your login flow for a large percentage of users. For detailed template guidance, read our 
+        [DLT template approval guide](/blog/dlt-template-approval-guide).
+
+
+## Consent Requirements
+
+The consent requirements differ significantly between categories:
+
+
+### Transactional Messages
+
+
+- Implied consent from the service relationship is sufficient
+- For OTPs, the user's action of requesting an OTP constitutes consent
+- No separate opt-in form required
+- Can be sent to DND numbers (consent overrides DND preference)
+
+
+
+### Promotional Messages
+
+
+- Explicit opt-in consent required from the recipient
+- Consent must be documented and auditable
+- Cannot be sent to DND-registered numbers
+- Must include opt-out instructions in every message
+- Consent can be revoked by the recipient at any time
+
+
+
+Under the DPDP Act, the consent requirements for promotional messages are even more
+        stringent. Read about the intersection of data privacy and OTP in our 
+        [DPDP Act compliance guide](/blog/otp-data-privacy-india).
+
+
+## DND Implications
+
+India's Do Not Disturb (DND) registry, managed by TRAI, allows consumers to opt out
+        of receiving commercial communications. As of recent data, a significant percentage of
+        Indian mobile numbers are registered on DND.
+
+
+The DND implications for each category:
+
+
+
+- **Transactional SMS**: delivered to DND numbers. TRAI recognizes that transactional messages are essential for service delivery and exempts them from DND blocking.
+- **Promotional SMS**: blocked for DND numbers. If a recipient is on the DND list, your promotional message will not be delivered. This can result in up to 30–40% of your target audience being unreachable through promotional SMS.
+- **Service Implicit**: delivered to DND numbers for categories the consumer has not specifically blocked. Consumers can selectively block categories (banking, real estate, health, etc.).
+- **Service Explicit**: delivered to DND numbers if documented consent exists.
+
+
+
+For OTP delivery, this is a non-issue as long as you categorize correctly. OTPs are
+        transactional and will always be delivered regardless of DND status.
+
+
+## Routing and Delivery
+
+Telecom operators route transactional and promotional messages through different
+        infrastructure:
+
+
+### Transactional Routing
+
+
+- Priority routing with lower latency
+- Higher delivery success rate (typically 95%+ for properly formatted messages)
+- Real-time delivery with no queuing (outside of network congestion)
+- Direct routing through enterprise SMS gateways
+
+
+
+### Promotional Routing
+
+
+- Lower priority routing
+- Higher latency, especially during peak hours
+- Subject to queuing during off-hours (delivered next morning)
+- Lower delivery rates due to DND blocking and timing restrictions
+- May be routed through aggregator pools, adding latency
+
+
+
+For OTP delivery where speed matters (users are waiting on a login screen), transactional
+        routing is essential. A 5–10 second delivery delay on a promotional route can feel
+        like an eternity to a user trying to log in.
+
+
+## Cost Differences
+
+The cost structure differs between transactional and promotional SMS:
+
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>Transactional</th>
+            <th>Promotional</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Per-SMS cost</td>
+            <td>Higher (Rs 0.15–0.30 typical)</td>
+            <td>Lower (Rs 0.10–0.20 typical)</td>
+          </tr>
+          <tr>
+            <td>DLT compliance cost</td>
+            <td>Entity + header + template registration time</td>
+            <td>Entity + header + template registration time</td>
+          </tr>
+          <tr>
+            <td>Effective delivery cost</td>
+            <td>Lower (higher success rate)</td>
+            <td>Higher (DND blocking wastes budget)</td>
+          </tr>
+          <tr>
+            <td>StartMessaging OTP price</td>
+            <td>Rs 0.25 flat (no DLT needed)</td>
+            <td>N/A (we handle OTPs only)</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+While the per-message cost for transactional SMS is higher, the effective cost is often
+        lower because nearly all messages are delivered. Promotional messages have a lower
+        per-unit cost but DND blocking means you pay for messages that never reach recipients.
+
+
+## Choosing the Right Category
+
+Here is a quick guide to categorizing your messages correctly:
+
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Message Type</th>
+            <th>Correct Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>OTP / verification code</td>
+            <td>Transactional</td>
+          </tr>
+          <tr>
+            <td>Order confirmation</td>
+            <td>Transactional</td>
+          </tr>
+          <tr>
+            <td>Payment receipt</td>
+            <td>Transactional</td>
+          </tr>
+          <tr>
+            <td>Delivery update</td>
+            <td>Transactional</td>
+          </tr>
+          <tr>
+            <td>Password reset</td>
+            <td>Transactional</td>
+          </tr>
+          <tr>
+            <td>Account activity alert</td>
+            <td>Transactional</td>
+          </tr>
+          <tr>
+            <td>Discount or offer</td>
+            <td>Promotional</td>
+          </tr>
+          <tr>
+            <td>Product announcement</td>
+            <td>Promotional</td>
+          </tr>
+          <tr>
+            <td>Sale notification</td>
+            <td>Promotional</td>
+          </tr>
+          <tr>
+            <td>Subscription renewal reminder</td>
+            <td>Service Implicit</td>
+          </tr>
+          <tr>
+            <td>Loyalty program update</td>
+            <td>Service Explicit</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+## StartMessaging Handles It
+
+If you are building OTP-based verification, you should not have to think about SMS
+        categories, headers, DND lists, or timing windows. That is infrastructure complexity,
+        not product development.
+
+
+[StartMessaging](/features) handles all of this for you:
+
+
+
+- All OTPs are sent through transactional routes for 24/7 delivery
+- DND-registered numbers receive OTPs without issues
+- Pre-registered transactional headers and templates via our DLT infrastructure
+- Priority routing for fast delivery (typically under 5 seconds)
+- No DLT registration, headers, or templates needed from your end
+
+
+
+Start sending OTPs at **Rs 0.25 per message** with zero DLT overhead. 
+        [Learn about our DLT-free OTP delivery](/dlt-free-otp), read the 
+        [no-DLT integration guide](/send-otp-without-dlt), or check 
+        [pricing](/pricing) for your volume. Explore the full 
+        [API documentation](/otp-api) to integrate in minutes.
+
+
+## Frequently Asked Questions

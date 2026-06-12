@@ -1,0 +1,201 @@
+﻿---
+title: "How to Send OTP with SvelteKit (2026)"
+description: "SvelteKit OTP tutorial using StartMessaging — uses form actions, server-only modules, hooks for session, and Zod for validation. Production-ready end-to-end flow."
+publishedAt: "2026-04-27"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp sveltekit"
+  - "sveltekit otp api"
+  - "svelte otp verification"
+  - "sveltekit form actions"
+  - "startmessaging sveltekit"
+relatedSlugs:
+  - "send-otp-nextjs-app-router"
+  - "send-otp-nodejs"
+  - "send-otp-express"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+SvelteKit's server-only modules + form actions are an excellent
+        pattern for OTP flows: every secret stays server-side, every state
+        change goes through a typed action, and progressive enhancement is
+        free. This guide builds an end-to-end OTP login on top of 
+        [StartMessaging](/otp-api).
+
+
+## Project Setup
+      
+```bash
+pnpm create svelte@latest otp-sveltekit
+cd otp-sveltekit
+pnpm install
+pnpm add zod
+pnpm add -D @types/node
+```
+
+
+## Environment Variables
+      
+```bash
+# .env
+SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
+SM_BASE_URL=https://api.startmessaging.com
+SESSION_SECRET=replace-with-a-real-secret
+```
+
+
+SvelteKit exposes these via `$env/static/private` — perfectly
+        unreachable from client code.
+
+
+## A Server-Only StartMessaging Module
+      
+```typescript
+// src/lib/server/sm.ts
+import { SM_API_KEY, SM_BASE_URL } from '$env/static/private';
+import { randomUUID } from 'node:crypto';
+
+async function smPost<T>(path: string, body: object): Promise<T> {
+  const res = await fetch(\`\${SM_BASE_URL}\${path}\`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': SM_API_KEY },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(10_000),
+  });
+  const json = await res.json().catch(() => ({} as any));
+  if (!res.ok) throw Object.assign(new Error(json.message ?? 'OTP API'), { status: res.status });
+  return json.data as T;
+}
+
+export interface SendData { requestId: string; expiresAt: string; attemptsLeft: number; }
+
+export const sm = {
+  send: (phoneNumber: string) =>
+    smPost<SendData>('/otp/send', { phoneNumber, idempotencyKey: randomUUID() }),
+  verify: (requestId: string, otpCode: string) =>
+    smPost<{ verified: true }>('/otp/verify', { requestId, otpCode }),
+};
+```
+
+
+## Send OTP — Form Action
+      
+```typescript
+// src/routes/login/+page.server.ts
+import { fail, redirect } from '@sveltejs/kit';
+import { z } from 'zod';
+import type { Actions } from './$types';
+import { sm } from '$lib/server/sm';
+
+const PhoneSchema = z.object({ phoneNumber: z.string().regex(/^\\+91\\d{10}$/) });
+const CodeSchema  = z.object({ otpCode: z.string().regex(/^\\d{4,8}$/) });
+
+export const actions: Actions = {
+  send: async ({ request, cookies }) => {
+    const data = Object.fromEntries(await request.formData());
+    const parsed = PhoneSchema.safeParse(data);
+    if (!parsed.success) return fail(400, { error: 'Invalid phone number' });
+
+    try {
+      const { requestId, expiresAt } = await sm.send(parsed.data.phoneNumber);
+      cookies.set('otp_req', requestId, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 15 * 60,
+      });
+      return { stage: 'verify', expiresAt };
+    } catch (e: any) {
+      return fail(e.status ?? 500, { error: e.message ?? 'Failed' });
+    }
+  },
+
+  verify: async ({ request, cookies }) => {
+    const data = Object.fromEntries(await request.formData());
+    const parsed = CodeSchema.safeParse(data);
+    if (!parsed.success) return fail(400, { error: 'Invalid OTP' });
+
+    const requestId = cookies.get('otp_req');
+    if (!requestId) return fail(400, { error: 'No active OTP request' });
+
+    try {
+      await sm.verify(requestId, parsed.data.otpCode);
+      cookies.delete('otp_req', { path: '/' });
+      cookies.set('session', 'verified-user', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 30 * 60,
+      });
+      throw redirect(303, '/dashboard');
+    } catch (e: any) {
+      return fail(e.status ?? 500, { error: e.message ?? 'Failed' });
+    }
+  },
+};
+```
+
+
+## Verify OTP — Form Action
+
+Already wired into the same actions object above (the 
+        `verify` action). The two actions read from cookies, never
+        from the browser, so a stolen requestId from the network does not let
+        an attacker complete the flow without the matching session.
+
+
+## Session via hooks.server.ts
+      
+```typescript
+// src/hooks.server.ts
+import type { Handle } from '@sveltejs/kit';
+
+export const handle: Handle = async ({ event, resolve }) => {
+  event.locals.user = event.cookies.get('session') ? { phone: 'verified' } : null;
+  if (event.url.pathname.startsWith('/dashboard') && !event.locals.user) {
+    return new Response(null, { status: 303, headers: { location: '/login' } });
+  }
+  return resolve(event);
+};
+```
+
+
+## The Login Forms
+      
+```typescript
+<!-- src/routes/login/+page.svelte -->
+<script lang="ts">
+  import type { ActionData } from './$types';
+  export let form: ActionData;
+</script>
+
+<form method="POST" action="?/send">
+  <label>Phone <input name="phoneNumber" placeholder="+919876543210" /></label>
+  <button type="submit">Send OTP</button>
+</form>
+
+{#if form?.stage === 'verify'}
+  <form method="POST" action="?/verify">
+    <label>OTP <input name="otpCode" placeholder="482910" /></label>
+    <button type="submit">Verify</button>
+  </form>
+{/if}
+
+{#if form?.error}
+  <p style="color: red">{form.error}</p>
+{/if}
+```
+
+
+## FAQ
+
+Looking for the same flow on Next.js, Nuxt or Remix? See 
+        [Next.js App Router](/blog/send-otp-nextjs-app-router) 
+        and the full [tutorials index](/blog).
+

@@ -1,0 +1,247 @@
+﻿---
+title: "OTP Data Privacy: DPDP Act Compliance"
+description: "How India's Digital Personal Data Protection Act affects OTP and SMS implementations. Phone numbers as personal data, consent, retention, and compliance checklist."
+publishedAt: "2026-02-09"
+category: compliance
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "DPDP Act OTP"
+  - "data privacy OTP India"
+  - "Digital Personal Data Protection Act"
+  - "phone number personal data India"
+  - "OTP consent requirements"
+  - "data retention OTP"
+  - "DPDP compliance SMS"
+  - "cross-border data transfer India"
+  - "OTP data protection"
+relatedSlugs:
+  - "trai-sms-regulations-2026"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+India's Digital Personal Data Protection (DPDP) Act has changed how businesses must
+        handle personal data, and that includes phone numbers used for OTP verification. If your
+        application sends OTPs to Indian phone numbers, you are processing personal data under
+        the DPDP Act, and you have specific obligations.
+
+
+This guide explains what the DPDP Act means for developers implementing OTP-based
+        verification, what you need to do to stay compliant, and how choosing the right OTP
+        provider can simplify your compliance posture.
+
+
+## DPDP Act Overview
+
+The Digital Personal Data Protection Act, 2023, is India's comprehensive data
+        protection legislation. It governs the processing of digital personal data within India
+        and applies to any entity that collects, stores, or processes personal data of
+        individuals in India, regardless of where the entity is incorporated.
+
+
+Key concepts defined by the Act:
+
+
+
+- **Data Principal** — the individual whose personal data is being processed (your end user)
+- **Data Fiduciary** — the entity that determines the purpose and means of processing (your company)
+- **Data Processor** — an entity that processes data on behalf of the Data Fiduciary (your OTP provider, like StartMessaging)
+- **Personal Data** — any data about an individual who is identifiable by or in relation to such data
+- **Consent** — free, specific, informed, unconditional, and unambiguous indication of the Data Principal's wishes
+
+
+
+The DPDP Act works alongside TRAI's existing telecom regulations. While TRAI
+        governs the mechanics of SMS delivery (DLT, templates, scrubbing), the DPDP Act governs
+        how you handle the personal data involved in that process. For current TRAI rules, see
+        our article on 
+        [TRAI SMS regulations in 2026](/blog/trai-sms-regulations-2026).
+
+
+## Phone Numbers as Personal Data
+
+Under the DPDP Act, phone numbers are classified as personal data. This is unambiguous:
+        a mobile number can identify an individual, making it personal data by definition. When
+        your application collects a phone number for OTP verification, you are collecting
+        personal data.
+
+
+This classification has several implications:
+
+
+
+- **Lawful purpose required** — you must have a legitimate reason to collect and process the phone number. OTP verification for authentication is a valid lawful purpose.
+- **Notice obligation** — you must inform the user about what data you collect, why you collect it, and how you process it, typically through a privacy policy.
+- **Purpose limitation** — if you collect a phone number for OTP verification, you cannot use it for marketing without separate consent.
+- **Storage limitation** — you must not retain the phone number longer than necessary for the purpose it was collected.
+- **Security safeguards** — you must implement reasonable security measures to protect stored phone numbers from breaches.
+
+
+
+### OTP Codes Themselves
+
+While the DPDP Act does not specifically address OTP codes, best practice is to treat
+        them with the same care as personal data. An OTP code, combined with a phone number,
+        provides access to an account. OTP codes should be hashed (never stored in plaintext),
+        time-limited, and deleted after use or expiry.
+
+
+StartMessaging follows this principle by bcrypt-hashing all OTP codes server-side. The
+        plaintext OTP exists only during the brief moment it is sent via SMS and never persists
+        in our systems.
+
+
+## Consent for OTP Delivery
+
+Consent under the DPDP Act must be free, specific, informed, and unambiguous. For OTP
+        delivery, the consent model depends on the context:
+
+
+### Registration and Login OTPs
+
+When a user enters their phone number on your signup or login page and clicks "Send
+        OTP," they are providing consent to receive an OTP message. This is generally
+        considered valid consent under the DPDP Act because:
+
+
+
+- The user initiated the action voluntarily (free)
+- The purpose is clear — phone verification (specific)
+- The user knows an SMS will be sent (informed)
+- The user clicked a button to trigger it (unambiguous)
+
+
+
+### Transaction OTPs
+
+OTPs sent for transaction verification (payment confirmation, bank transfers) are
+        generally covered under the "legitimate use" provisions. When a user initiates
+        a transaction, the OTP is part of the security mechanism they implicitly consent to by
+        using the service.
+
+
+### What Requires Separate Consent
+
+If you want to use the phone number collected for OTP verification to send marketing
+        messages, promotional offers, or other non-transactional communications, you need
+        separate, explicit consent. This consent must be:
+
+
+
+- Obtained through a separate action (not bundled with OTP consent)
+- Clearly documented and stored
+- Easy to withdraw at any time
+
+
+
+This is also where TRAI's regulations intersect: promotional messages require DLT
+        compliance and must respect DND preferences. See our 
+        [transactional vs promotional SMS guide](/blog/transactional-vs-promotional-sms-india) 
+        for more details on these categories.
+
+
+## Data Retention Requirements
+
+The DPDP Act requires that personal data be retained only as long as necessary to fulfill
+        the purpose for which it was collected. For OTP-related data, here are practical
+        guidelines:
+
+
+### OTP Codes
+
+OTP codes should be deleted or invalidated as soon as they are verified or expired. There
+        is no reason to retain an OTP code after it has served its purpose. Best practice is:
+
+
+
+- Set a short expiry window (5–10 minutes)
+- Delete or invalidate the OTP immediately after successful verification
+- Store only hashed versions during the active period
+- Purge expired OTPs from your database regularly
+
+
+
+### Phone Numbers
+
+If the phone number is part of the user's account, retention is justified for the
+        duration of the account relationship. If the phone number was collected solely for a
+        one-time verification (for example, verifying age or identity), it should be deleted once
+        verification is complete.
+
+
+### Message Logs
+
+Delivery logs (timestamps, delivery status, provider details) may be retained for
+        operational and debugging purposes, but they should be anonymized or pseudonymized where
+        possible. Avoid storing full phone numbers in logs; use hashed or truncated formats
+        instead.
+
+
+## Cross-Border Data Transfer
+
+The DPDP Act restricts the transfer of personal data outside India to countries that the
+        Indian government has not specifically restricted. This is relevant for OTP
+        implementations in several ways:
+
+
+
+- **SMS provider location** — if your OTP provider routes messages through infrastructure outside India, phone numbers are technically transferred cross-border. Ensure your provider processes data within India or in approved jurisdictions.
+- **Cloud infrastructure** — if your application stores phone numbers in a database hosted outside India, that constitutes cross-border transfer.
+- **Analytics and logging** — if delivery logs containing phone numbers are sent to analytics services hosted abroad, that is also a transfer.
+
+
+
+The government maintains and periodically updates a list of countries to which data
+        transfer is restricted. As of now, the implementation rules are still being finalized,
+        but the safest approach is to ensure all OTP-related data processing happens within
+        India.
+
+
+## Compliance Checklist
+
+Here is a practical checklist for ensuring your OTP implementation complies with the
+        DPDP Act:
+
+
+
+- **Privacy policy** — include phone number collection and OTP processing in your privacy policy. State the purpose, retention period, and user rights.
+- **Consent mechanism** — ensure the OTP request flow constitutes valid consent (user-initiated, informed, unambiguous).
+- **Purpose limitation** — do not use phone numbers collected for OTP for marketing without separate consent.
+- **Data minimization** — collect only the phone number needed for verification. Do not require additional personal data solely for OTP delivery.
+- **OTP hashing** — store OTP codes as hashes (bcrypt or equivalent), never in plaintext.
+- **Expiry and deletion** — set OTP expiry (5–10 minutes) and delete codes after verification or expiry.
+- **Secure transmission** — use HTTPS for all API calls to your OTP provider. Never send phone numbers over unencrypted connections.
+- **Access controls** — limit who in your organization can access phone numbers and OTP logs.
+- **Breach notification plan** — have a plan to notify the Data Protection Board and affected users within 72 hours of a data breach.
+- **Data processor agreement** — ensure your OTP provider has a data processing agreement that covers DPDP Act obligations.
+- **User rights** — implement mechanisms for users to request access to, correction of, or deletion of their personal data.
+- **Audit trail** — maintain logs of consent and data processing activities for accountability.
+
+
+
+## StartMessaging and DPDP Compliance
+
+When you use [StartMessaging](/features) as your OTP provider, several
+        DPDP compliance requirements are addressed by our infrastructure:
+
+
+
+- **OTP hashing** — all OTP codes are bcrypt-hashed at creation. The plaintext code exists only in the SMS message itself.
+- **Automatic expiry** — OTPs expire after the configured window and are automatically invalidated.
+- **India-based processing** — all OTP processing and SMS routing happens through infrastructure within India.
+- **Secure API** — all API communication is over HTTPS with SHA-256 hashed API key authentication.
+- **Minimal data retention** — we retain only the data necessary for delivery verification and billing, with configurable retention periods.
+- **DLT compliance included** — our  [DLT-free OTP delivery](/dlt-free-otp) means you skip the entire DLT registration process while remaining fully compliant with TRAI regulations.
+
+
+
+At **Rs 0.25 per OTP**, StartMessaging provides a compliant, secure, and
+        affordable OTP solution. 
+        [Get started without DLT registration](/send-otp-without-dlt), or
+        review our [API documentation](/otp-api) and 
+        [pricing](/pricing).
+
+
+## Frequently Asked Questions

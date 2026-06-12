@@ -1,0 +1,79 @@
+---
+/**
+ * TestimonialsSection — Customer testimonial cards.
+ *
+ * Example JSON:
+ * {
+ *   "type": "testimonials",
+ *   "props": {
+ *     "badge":    { "en": "Testimonials" },
+ *     "heading":  { "en": "Trusted by thousands" },
+ *     "items": [
+ *       {
+ *         "quote": { "en": "StartMessaging transformed our customer communication." },
+ *         "author": "Jane Doe",
+ *         "role":   { "en": "CTO" },
+ *         "company": "Acme Corp"
+ *       }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, items = [], country, theme = 'sms' } = Astro.props;
+
+const isWhatsapp = theme === 'whatsapp';
+const quoteMarkClass = isWhatsapp ? 'text-accent-wa/20 group-hover:text-accent-wa/40' : 'text-primary/20 group-hover:text-primary/40';
+const avatarClass = isWhatsapp ? 'bg-accent-wa/10 text-accent-wa' : 'bg-primary/10 text-primary';
+const cardBgClass = isWhatsapp ? 'bg-white/60 border border-accent-wa/10 shadow-sm' : 'bg-surface-card border border-hairline shadow-sm';
+---
+
+<Section theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-14 flex flex-col items-center text-center gap-4">
+        {badge    && <Badge tone="muted">{r(badge, country)}</Badge>}
+        {heading  && <Heading as="h2">{r(heading, country)}</Heading>}
+        {subheading && <Text tone="muted" class="max-w-2xl">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {items.map((item: any) => (
+        <div class:list={["relative flex flex-col p-8 rounded-lg hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 group", cardBgClass]}>
+          {/* Quote mark */}
+          <svg class:list={["w-10 h-10 mb-4 transition-colors", quoteMarkClass]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10H0z"/>
+          </svg>
+
+          {/* Quote text */}
+          <Text tone="body" class="flex-1 mb-6 leading-relaxed italic">
+            "{r(item.quote, country)}"
+          </Text>
+
+          {/* Author */}
+          <div class="flex items-center gap-3 pt-4 border-t border-hairline-soft">
+            {/* Avatar placeholder — initials */}
+            <div class:list={["w-10 h-10 rounded-full flex items-center justify-center font-semibold text-body-sm", avatarClass]}>
+              {(item.author || '?').split(' ').map((w: string) => w[0]).join('').slice(0, 2)}
+            </div>
+            <div>
+              <Text as="span" size="body-sm" tone="default" class="font-semibold block">
+                {item.author}
+              </Text>
+              <Text as="span" size="caption-sm" tone="muted">
+                {r(item.role, country)}{item.company ? `, ${item.company}` : ''}
+              </Text>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</Section>

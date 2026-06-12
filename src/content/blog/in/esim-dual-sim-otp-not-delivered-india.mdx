@@ -1,0 +1,88 @@
+﻿---
+title: "eSIM and Dual-SIM OTP Issues in India: A Developer Debugging Guide"
+description: "Why OTP SMS sometimes lands on the wrong subscription, disappears after eSIM migration, or fails on dual-SIM phones in India — with practical checks for support and engineering teams."
+publishedAt: "2026-05-13"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "eSIM OTP not received India"
+  - "dual SIM OTP wrong number"
+  - "OTP not coming secondary SIM"
+  - "eSIM porting OTP issue"
+  - "Jio eSIM OTP"
+  - "Airtel eSIM OTP problem"
+  - "SMS routing dual SIM India"
+relatedSlugs:
+  - "otp-not-received-india"
+  - "otp-failing-jio-airtel-vi"
+  - "international-otp-not-delivering"
+  - "otp-autofill-android-ios-sms-retriever"
+featured: false
+---
+
+
+"OTP not received" tickets spike whenever carriers push
+        eSIM self-service or users enable dual-SIM for work. The SMS often
+        delivered correctly — but to the 
+        **subscription the OS considers primary for SMS**, not
+        the line the user thinks they used. This article gives a debugging
+        lens for Indian apps on Jio, Airtel, Vi, and BSNL networks.
+
+
+## How Android and iOS Pick a Subscription
+
+Modern phones maintain separate **subscription IDs** per
+        SIM/eSIM profile. Your backend only sees the MSISDN the user typed.
+        The OS maps that MSISDN to a subscription for inbound SMS. If the
+        user has two Indian numbers, mis-taps, or has an old eSIM still
+        installed, your message can surface in a thread they are not watching.
+
+
+## eSIM Migration and Silent Profile Switches
+
+
+- **QR conversion flows:** After scanning an eSIM QR, some devices keep the physical SIM active until the user explicitly disables it — both lines can receive SMS during overlap windows.
+- **Profile redownload:** If a user deletes and re-adds an eSIM, HLR/VLR state can lag minutes behind UI state.
+- **Travel:** Inbound roamers can see delayed SMS when the visited network routes home-country SMS slowly; pair with  [international delivery guidance](/blog/international-otp-not-delivering) .
+
+
+
+## Dual-SIM Data vs SMS Default
+
+Many users set **Data = SIM A** but expect 
+        **SMS = SIM B**. Android exposes per-SIM SMS apps;
+        iMessage and filtering can hide unknown senders. Ask the user to
+        confirm: (1) which SIM shows your OTP sender in the native SMS app,
+        (2) whether spam filters or 
+        [Truecaller-style](/blog/otp-going-to-spam-fix) 
+        apps blocked the sender.
+
+
+## Support Playbook: Questions to Ask
+
+
+- Exact phone model + Android/iOS version.
+- Physical SIM, eSIM, or both installed?
+- Which SIM slot is default for SMS (screenshot settings page).
+- Any SMS forwarding / Google Messages web pairing enabled?
+- Timestamp of last successful OTP on this device.
+
+
+
+## Product Mitigations
+
+
+- Show the masked number you will SMS before send; let the user correct the line prefix (+91) early.
+- Offer  [voice OTP](/blog/voice-otp-vs-sms-otp-india) for high-friction cohorts where SMS routing is noisy.
+- Log delivery receipts (DLR) and map failure codes to user-facing hints — see  [webhook DLR patterns](/blog/webhooks-otp-delivery-status-guide) .
+
+
+
+## FAQ
+
+eSIM and dual-SIM issues are mostly **client-side routing** 
+        problems. Your provider can still show "delivered" to the
+        handset while the user looks at the wrong inbox. Train support to
+        verify subscription settings before escalating to carrier tickets.
+

@@ -1,0 +1,41 @@
+---
+// Non-India country blog posts: /br/blog/whatsapp-business-api-guide
+// Per ASTRO_COUNTRY_PLAN.md §10.
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '@/layouts/BlogLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  // Filter out India posts (handled at root /blog/[slug])
+  const nonInPosts = posts.filter((p) => !p.id.startsWith('in/'));
+
+  return nonInPosts.map((post) => {
+    const [country, ...slugParts] = post.id.split('/');
+    const slug = slugParts.join('/');
+
+    // Find which other countries have this same slug
+    const pageCountries = posts
+      .filter((p) => p.id.endsWith(`/${slug}`))
+      .map((p) => p.id.split('/')[0]);
+
+    return {
+      params: { country, slug },
+      props: { post, pageCountries },
+    };
+  });
+}
+
+const { post, pageCountries } = Astro.props;
+const { Content, headings } = await render(post);
+const { country, slug } = Astro.params;
+---
+
+<BlogLayout
+  frontmatter={post.data}
+  country={country!}
+  slug={slug!}
+  pageCountries={pageCountries}
+  headings={headings}
+>
+  <Content />
+</BlogLayout>

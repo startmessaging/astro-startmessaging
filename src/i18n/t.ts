@@ -1,21 +1,24 @@
-import type { Locale } from './locales';
-import { DEFAULT_LOCALE } from './locales';
-
-import en from './global/en.json';
-import ptBR from './global/pt-br.json';
-
-const dicts: Record<Locale, Record<string, string>> = {
-  'en':    en,
-  'pt-br': ptBR,
-};
-
 /**
- * Translate a global key for the given locale.
- * Falls back to English, then returns the raw key if not found.
+ * Global chrome string resolver.
+ * Reads from chrome.json (all languages inline) using dot-path traversal + r().
+ * Per ASTRO_COUNTRY_PLAN.md §2.
  *
- * Usage: t('nav.home', lang)
+ * Usage: t('nav.signup', 'br') → "Começar Grátis"
+ *        t('banner.notice', 'ae') → Arabic notice text
  */
-export function t(key: string, lang: string): string {
-  const dict = dicts[lang as Locale] ?? dicts[DEFAULT_LOCALE];
-  return dict[key] ?? dicts[DEFAULT_LOCALE][key] ?? key;
+import chrome from './chrome.json';
+import { r } from './r';
+import type { Country } from '@/config/countries';
+
+function get(obj: any, path: string): any {
+  return path.split('.').reduce((o, k) => o?.[k], obj);
+}
+
+export function t(key: string, country: Country): string {
+  const val = get(chrome, key);
+  if (val === undefined) {
+    console.warn(`[chrome] missing key "${key}"`);
+    return key;
+  }
+  return r(val, country);
 }

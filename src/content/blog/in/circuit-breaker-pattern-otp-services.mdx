@@ -1,0 +1,83 @@
+﻿---
+title: "Circuit Breaker Pattern for OTP Services"
+description: "Why and how to wrap OTP API calls in a circuit breaker. Failure thresholds, half-open probing, fallback voice OTP, and reference implementations."
+publishedAt: "2026-05-21"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "circuit breaker otp"
+  - "otp resilience"
+  - "sms api circuit breaker"
+  - "otp fallback pattern"
+  - "reliable otp"
+relatedSlugs:
+  - "multi-region-failover-otp-api"
+  - "otp-monitoring-slos-error-budgets"
+  - "otp-delivery-delay-fix"
+featured: false
+---
+
+
+OTP API outages cost you logins. A circuit breaker lets you fail
+        fast and route to a fallback rather than queueing requests behind a
+        slow upstream.
+
+
+## Why Circuit Breakers Matter for OTP
+
+
+- OTP send is on the user critical path.
+- Slow upstream = piled-up sessions.
+- Fast failure + fallback > slow success.
+
+
+
+## Closed → Open → Half-Open
+
+
+- Closed: normal traffic.
+- Open: skip calls, fail fast or fallback for N seconds.
+- Half-Open: probe with a small fraction; if probe succeeds, close.
+
+
+
+## Thresholds
+
+
+- Trip on > 50% failure rate over 30s window with at least 20 requests.
+- Open for 60s before half-open probe.
+- Half-open probe: 5 requests, < 50% failure to close.
+
+
+
+## Fallback Strategy
+
+
+- Voice OTP fallback.
+- Secondary provider.
+- Graceful degradation: queue with user-visible message.
+
+
+
+## Reference Implementation
+      
+```typescript
+import CircuitBreaker from 'opossum';
+
+const breaker = new CircuitBreaker(callOtpApi, {
+  errorThresholdPercentage: 50,
+  resetTimeout: 60_000,
+  rollingCountTimeout: 30_000,
+  rollingCountBuckets: 10,
+  volumeThreshold: 20,
+});
+breaker.fallback(() => callVoiceOtpFallback(phone));
+```
+
+
+## FAQ
+
+Combine with 
+        [multi-region failover](/blog/multi-region-failover-otp-api) for a complete resilience story.
+

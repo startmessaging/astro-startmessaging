@@ -1,0 +1,162 @@
+﻿---
+title: "What is MFA? Multi-Factor Authentication Explained"
+description: "Multi-Factor Authentication (MFA) explained: factor types, MFA vs 2FA, adaptive MFA, real-world deployment patterns, and how Indian regulators define MFA."
+publishedAt: "2026-04-23"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is mfa"
+  - "multi factor authentication"
+  - "mfa meaning"
+  - "mfa vs 2fa"
+  - "adaptive mfa"
+  - "mfa india"
+relatedSlugs:
+  - "what-is-2fa"
+  - "what-is-otp"
+  - "what-is-totp"
+  - "rbi-2fa-2026-mandate"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+Multi-Factor Authentication (MFA) is the formal name for what most
+        people call "turning on two-factor." It is also the
+        compliance term that auditors, regulators and security teams reach for
+        when they want a category that covers SMS OTP, TOTP, push approvals,
+        and hardware keys without singling any one out.
+
+
+This guide answers **what MFA is**, how it differs from
+        2FA, the kinds of factors that count, the modern adaptive variations,
+        and how to deploy MFA in an Indian-context product without making your
+        users miserable.
+
+
+## MFA — Definition
+
+**Multi-Factor Authentication** requires the user to
+        present *two or more* independent forms of evidence — drawn from
+        different categories — before access is granted. Independence is the
+        key word: a password and a security question are both knowledge, so
+        they do not count as MFA even though there are two of them.
+
+
+Independence matters because the threat model assumes any single factor
+        can be stolen. Combining factors from different categories means a
+        successful attack must compromise two different attack surfaces (your
+        memory *and* your phone, for instance), which is exponentially
+        harder.
+
+
+## MFA vs 2FA
+
+The difference is purely numeric:
+
+
+
+- **2FA = exactly two factors.** Most consumer products.
+- **MFA = two or more factors.** The umbrella that includes 2FA, 3FA, etc.
+
+
+
+In practice, "MFA" is the term you will see in compliance
+        documents, while "2FA" is what consumers see in the UI.
+        Read 
+        [our 2FA explainer](/blog/what-is-2fa) for the user-facing
+        equivalent.
+
+
+## Factor Types in MFA
+
+The widely accepted taxonomy is:
+
+
+
+- **Knowledge.** Passwords, PINs, secret questions.
+- **Possession.** SMS OTP to a registered phone, TOTP from an authenticator app, hardware key, push notification on a paired device.
+- **Inherence.** Biometrics — fingerprint, face, voice.
+- **Location / context.** Trusted device, trusted network, known geolocation. Rarely a primary factor on its own; more often a risk signal that gates the others.
+- **Behaviour.** Typing rhythm, gait, transaction patterns. Used by fraud teams; rarely user-visible.
+
+
+
+## Adaptive (Risk-Based) MFA
+
+Static MFA — "always require OTP after password" — is
+        annoying to users on trusted devices. Adaptive MFA evaluates risk
+        signals at login time and only escalates when something looks off:
+
+
+
+- New device or new IP range → require OTP.
+- Country change or impossible-travel → require OTP and email notification.
+- Known device, recent successful login, low-risk action → no second factor.
+- Sensitive action (large transfer, password change) → step-up to OTP regardless of risk.
+
+
+
+Adaptive MFA is the modern default in fintech and SaaS. The trade-off
+        is engineering complexity — you need a risk score, a policy engine,
+        and reliable device-fingerprinting.
+
+
+## Common MFA Patterns
+### Phone-first MFA (consumer Indian apps)
+
+Sign-up uses phone-number + OTP only. Password is optional. Every
+        sensitive action triggers a fresh OTP. This is the most common pattern
+        in Indian consumer apps because it works on any handset and avoids the
+        password-recovery support load.
+
+### Password + step-up MFA
+
+Default login is password. Sensitive flows (transfer money, change
+        beneficiary, export data) escalate to OTP or TOTP. Common in B2B SaaS.
+
+### Passwordless with passkey
+
+FIDO2 / WebAuthn replaces password entirely. The device's
+        biometric serves as the inherence factor; the device itself is the
+        possession factor. Phishing-resistant but requires modern OS support.
+
+### Hardware-key MFA (admin / corporate)
+
+YubiKey or equivalent for high-privilege accounts. Often paired with
+        TOTP fallback.
+
+
+## MFA in Indian Regulation
+
+
+- **RBI** — Additional Factor of Authentication is mandatory for card-not-present, internet banking, and UPI transactions over thresholds. See our  [RBI 2FA mandate breakdown](/blog/rbi-2fa-2026-mandate) .
+- **SEBI** — All stockbroking platforms must enforce 2FA on user logins.
+- **IRDAI** — Insurance portals require 2FA for policy changes.
+- **DPDP Act 2023** — Reasonable security obligations are increasingly being interpreted by data-protection officers to include MFA on accounts holding personal data.
+
+
+
+## How to Add MFA to Your App
+
+Concrete recipe for a typical Indian consumer / B2B SaaS product:
+
+
+
+- **Phase 1: SMS OTP everywhere.** Use  [StartMessaging's OTP API](/otp-api) to enrol phone numbers. Send OTP after password on every login. Five-day implementation including testing.
+- **Phase 2: Add TOTP enrolment.** Let power users opt into TOTP for faster, free, offline second factor.
+- **Phase 3: Add adaptive risk scoring.** Trusted-device cookie, IP reputation, geolocation. Suppress OTP on low-risk logins.
+- **Phase 4: Passkey / FIDO2 rollout.** Begin with web admin panels, expand to consumer flows as device support normalises.
+
+
+
+## FAQ
+
+Looking to add the SMS-OTP component of MFA today? 
+        [StartMessaging ships DLT-free OTP](/dlt-free-otp) 
+        — no template approvals, no PE-ID hoops, just an API key and a phone
+        number. 
+        [Get started for free](https://app.startmessaging.com/register)
+        .
+

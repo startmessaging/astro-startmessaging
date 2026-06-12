@@ -1,0 +1,393 @@
+﻿---
+title: "Idempotency Keys in OTP APIs Explained"
+description: "Learn what idempotency keys are, why they matter for OTP APIs, and how to implement them correctly to prevent duplicate SMS charges and improve reliability."
+publishedAt: "2026-01-28"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "idempotency key otp"
+  - "idempotent otp api"
+  - "prevent duplicate otp"
+  - "otp api reliability"
+  - "idempotency key explained"
+  - "duplicate sms prevention"
+  - "api idempotency pattern"
+relatedSlugs:
+  - "otp-verification-flow"
+  - "send-otp-nodejs"
+featured: false
+---
+
+
+If you have ever had a user receive the same OTP twice, or seen a
+        double charge on your SMS wallet after a network timeout, you have
+        experienced the problem that idempotency keys solve. In this guide, we
+        explain what idempotency keys are, why they are critical for OTP APIs,
+        and how to implement them correctly with the 
+        [StartMessaging API](/features).
+
+
+## What Is Idempotency?
+
+An operation is *idempotent* if performing it multiple times
+        produces the same result as performing it once. In the context of APIs,
+        an idempotent request means that if the same request is sent two or
+        more times (due to retries, timeouts, or bugs), the server processes
+        it only once and returns the same response each time.
+
+
+Some HTTP methods are naturally idempotent:
+
+
+
+- `GET /users/123` — reading the same resource multiple times always returns the same data.
+- `PUT /users/123` — setting a resource to a specific state is the same whether you do it once or ten times.
+- `DELETE /users/123` — deleting something that is already deleted has no further effect.
+
+
+
+But `POST` is **not** naturally idempotent.
+        Sending `POST /otp/send` twice creates two OTP requests,
+        sends two SMS messages, and charges your wallet twice. This is where
+        idempotency keys come in.
+
+
+## Why It Matters for OTP
+
+OTP sending has three properties that make idempotency especially
+        important:
+
+
+
+- **It has a real-world side effect.** An SMS is delivered to the user's phone. You cannot "unsend" an SMS.
+- **It costs money.** Each OTP sent through StartMessaging costs Rs 0.25. Duplicate sends mean duplicate charges.
+- **It confuses users.** Receiving two identical OTPs within seconds makes users wonder which one to use, whether something went wrong, or whether they are being spammed.
+
+
+
+Network failures are common in production. Your HTTP client may time
+        out after 10 seconds even though the server received and processed the
+        request. When the client retries, the server sees what looks like a
+        new request and sends another OTP. The user gets two messages, your
+        wallet is charged twice, and your logs show a confusing duplicate.
+
+
+This scenario is not rare. It happens daily in high-volume systems.
+
+
+## How Idempotency Keys Work
+
+The idempotency pattern works like this:
+
+
+
+- The client generates a unique key (typically a UUID) and includes it in the request body or headers.
+- The server receives the request and checks if it has seen this key before.
+- **If the key is new:** The server processes the request normally, stores the key and the response, and returns the response.
+- **If the key already exists:** The server skips processing and returns the stored response from the original request.
+
+
+
+Here is the flow visualized for an OTP send:
+
+      
+```
+First request (key = "abc-123"):
+  Client ── POST /otp/send { phoneNumber, idempotencyKey: "abc-123" } ──> Server
+  Server: Key "abc-123" not found. Send OTP. Store key + response.
+  Server ──> { requestId: "req_001", expiresAt: "..." }
+
+Retry request (same key = "abc-123"):
+  Client ── POST /otp/send { phoneNumber, idempotencyKey: "abc-123" } ──> Server
+  Server: Key "abc-123" found. Return stored response. No new OTP sent.
+  Server ──> { requestId: "req_001", expiresAt: "..." }  (same response)
+```
+
+
+The client receives the same response both times. No duplicate SMS is
+        sent. No duplicate charge occurs.
+
+
+## How StartMessaging Uses Idempotency Keys
+
+The StartMessaging `/otp/send` endpoint accepts an optional 
+        `idempotencyKey` field in the request body:
+
+      
+```
+POST https://api.startmessaging.com/otp/send
+Content-Type: application/json
+X-API-Key: sm_live_xxxxxxxxxxxxxxxxxxxx
+
+{
+  "phoneNumber": "+919876543210",
+  "idempotencyKey": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+}
+```
+
+
+Here is how StartMessaging handles it internally:
+
+
+
+- The `idempotencyKey` is stored in the database with a unique constraint on the `OtpRequest` entity.
+- If a request arrives with a key that already exists, the API returns the original response (same `requestId`,  `expiresAt`, etc.) without creating a new OTP or triggering SMS delivery.
+- If the key is new, the OTP is generated, SMS is sent, the wallet is debited, and the response is returned and stored against the key.
+- If you send a request with the same idempotency key but a different phone number, the API returns a `409 Conflict` error. The key is bound to the original request parameters.
+
+
+
+## Generating Idempotency Keys
+
+The key must be unique for each *intended* OTP send. Here are
+        the recommended approaches:
+
+### Option 1: UUID (recommended)
+
+Generate a random UUID for each send request. This is the simplest
+        and most reliable approach.
+
+      
+```typescript
+// Node.js
+import { randomUUID } from 'crypto';
+const idempotencyKey = randomUUID();
+// "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+
+# Python
+import uuid
+idempotency_key = str(uuid.uuid4())
+
+// PHP
+$idempotencyKey = bin2hex(random_bytes(16));
+// or in Laravel: Str::uuid()->toString()
+```
+
+
+### Option 2: Deterministic key
+
+Build the key from request parameters so that identical intentions
+        always produce the same key. This is useful when you want automatic
+        deduplication without tracking keys on the client side.
+
+      
+```typescript
+// Node.js example: hash of user ID + purpose + timestamp (rounded to minute)
+import { createHash } from 'crypto';
+
+function makeIdempotencyKey(userId, purpose) {
+  const minuteTimestamp = Math.floor(Date.now() / 60000);
+  const input = \`\${userId}:\${purpose}:\${minuteTimestamp}\`;
+  return createHash('sha256').update(input).digest('hex').slice(0, 32);
+}
+```
+
+
+This approach means that if the same user triggers the same OTP
+        purpose within the same minute, the second request is automatically
+        deduplicated. Choose the time window based on your use case.
+
+
+### Option 3: Frontend-generated key
+
+Generate the key on the frontend when the user clicks "Send
+        OTP" and send it to your backend. If the user clicks the button
+        twice before the first request completes, both requests carry the same
+        key, and only one OTP is sent.
+
+      
+```typescript
+// Frontend (React example)
+const handleSendOtp = async () => {
+  const idempotencyKey = crypto.randomUUID();
+  setLoading(true);
+
+  try {
+    const response = await fetch('/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber, idempotencyKey }),
+    });
+    const data = await response.json();
+    setRequestId(data.requestId);
+  } finally {
+    setLoading(false);
+  }
+};
+```
+
+
+Your backend then forwards the key to the StartMessaging API
+        unchanged.
+
+
+## Implementation Examples
+
+Here is how to include idempotency keys in each of our supported
+        language tutorials:
+
+### Node.js
+      
+```typescript
+import { randomUUID } from 'crypto';
+
+const response = await fetch('https://api.startmessaging.com/otp/send', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+  },
+  body: JSON.stringify({
+    phoneNumber: '+919876543210',
+    idempotencyKey: randomUUID(),
+  }),
+});
+```
+
+
+See the full [Node.js OTP tutorial](/blog/send-otp-nodejs) 
+        for a complete example with error handling and Express integration.
+
+
+### Python
+      
+```typescript
+import uuid
+import requests
+
+response = requests.post(
+    "https://api.startmessaging.com/otp/send",
+    json={
+        "phoneNumber": "+919876543210",
+        "idempotencyKey": str(uuid.uuid4()),
+    },
+    headers={
+        "Content-Type": "application/json",
+        "X-API-Key": API_KEY,
+    },
+    timeout=10,
+)
+```
+
+
+See the full [Python OTP tutorial](/blog/send-otp-python) 
+        for a reusable client class and Flask integration.
+
+
+### PHP
+      
+```typescript
+$payload = json_encode([
+    'phoneNumber'    => '+919876543210',
+    'idempotencyKey' => bin2hex(random_bytes(16)),
+]);
+
+// Use with cURL or Laravel Http::post()
+```
+
+
+See the full 
+        [PHP/Laravel OTP tutorial](/blog/send-otp-php-laravel) 
+        for service class and controller patterns.
+
+
+## Common Mistakes
+
+Idempotency keys are simple in concept but easy to misuse. Here are
+        the most common mistakes:
+
+### 1. Using the same key for different intentions
+
+If you hardcode a key or reuse the same key for multiple OTP sends to
+        the same user, the second and all subsequent sends will return the
+        cached response from the first request instead of sending a new OTP.
+        The user will never receive a new code.
+
+      
+```typescript
+// WRONG: Same key for every request
+const KEY = 'my-otp-key';
+await sendOtp('+919876543210', KEY); // Sends OTP
+await sendOtp('+919876543210', KEY); // Returns cached response, no new OTP
+
+// CORRECT: New key for each intentional send
+await sendOtp('+919876543210', randomUUID()); // Sends OTP
+await sendOtp('+919876543210', randomUUID()); // Sends new OTP
+```
+
+
+### 2. Generating a new key on every retry
+
+If your retry logic generates a new UUID on each attempt, you lose the
+        deduplication benefit entirely. The key must be generated once and
+        reused across all retries of the same logical request.
+
+      
+```typescript
+// WRONG: New key on each retry
+async function sendWithRetry(phone, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    await sendOtp(phone, randomUUID()); // Different key each time!
+  }
+}
+
+// CORRECT: Same key across retries
+async function sendWithRetry(phone, maxRetries = 3) {
+  const idempotencyKey = randomUUID(); // Generated once
+  for (let i = 0; i < maxRetries; i++) {
+    await sendOtp(phone, idempotencyKey); // Same key on retries
+  }
+}
+```
+
+
+### 3. Using sequential or predictable keys
+
+Keys like `otp-1`, `otp-2`, `otp-3` 
+        are predictable and could be exploited by an attacker to replay
+        requests. Always use cryptographically random values.
+
+
+### 4. Not including a key at all
+
+If you omit the idempotency key entirely, you have no protection
+        against duplicate sends. This is the most common mistake and the
+        easiest to fix.
+
+
+## When Not to Reuse Keys
+
+There are situations where you explicitly want a new OTP and must use
+        a new idempotency key:
+
+
+
+- **User clicks "Resend OTP":** This is an intentional new send. Use a new key.
+- **Different purpose:** An OTP for login and an OTP for password reset are separate requests, even for the same phone number. Use different keys.
+- **Previous OTP expired:** If the user's OTP has expired and they request a new one, this is a new intention. Use a new key.
+
+
+
+The rule is simple: one idempotency key per *user intention*.
+        Retries of the same intention reuse the key. New intentions get new
+        keys.
+
+
+> **Rule of thumb:** Generate the idempotency key at the
+> moment the user takes an action (clicks a button, submits a form).
+> Store it and reuse it for any network retries of that same action.
+> When the user takes the action again (clicks resend), generate a new
+> key.
+
+## FAQ
+
+
+Idempotency keys are a small addition to your OTP integration that
+        prevents real financial and UX problems. StartMessaging supports them
+        natively on the `/otp/send` endpoint at no extra cost. Get
+        started with [pay-as-you-go pricing](/pricing) at Rs
+        0.25 per OTP, or read our 
+        [complete OTP verification flow guide](/blog/otp-verification-flow) 
+        to see how idempotency fits into the bigger picture.
+

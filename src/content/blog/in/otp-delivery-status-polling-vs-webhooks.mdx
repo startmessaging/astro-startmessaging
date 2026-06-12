@@ -1,0 +1,80 @@
+﻿---
+title: "OTP Delivery Status: Polling APIs vs Webhooks in Production"
+description: "Operational patterns for tracking TRAI-compliant SMS delivery: polling vs webhooks for OTP, delivery receipts, and retries without duplicate sends."
+publishedAt: "2026-04-16"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "SMS delivery status API"
+  - "OTP delivery webhook"
+  - "poll SMS status"
+  - "message status callback"
+  - "SMS API idempotency"
+  - "delivery receipt OTP"
+  - "transactional SMS delivery status"
+  - "DLT SMS delivery receipt India"
+  - "TRAI SMS OTP tracking"
+  - "bulk SMS status API"
+  - "OTP SMS gateway India"
+relatedSlugs:
+  - "idempotency-keys-otp"
+  - "otp-verification-flow"
+  - "migrate-sms-provider-checklist"
+featured: false
+---
+
+
+Our 
+        [deliverability checklist](/blog/otp-sms-deliverability-checklist) 
+        focuses on templates, numbers, and carriers. This post covers a separate
+        topic: **how your backend learns whether an OTP SMS was delivered** 
+        and how to act on that signal—without re-explaining DLT or sender IDs.
+
+
+## Different From Deliverability Guides
+
+Deliverability asks "will the message arrive?" Status tracking
+        asks "did it arrive yet, and what state is it in?" You need
+        both for support tooling and for smart resend UX.
+
+
+## Polling the Messages API
+
+After you call send OTP, you receive an identifier. Polling means
+        calling a status endpoint on a schedule until the terminal state
+        (delivered, failed, expired) appears. Advantages: simple mental model,
+        works behind strict firewalls. Disadvantages: latency to learn failure,
+        wasted requests if you poll too often.
+
+
+Combine polling with 
+        [idempotency keys](/blog/idempotency-keys-otp) 
+        so a background job that rechecks status never accidentally triggers a
+        second billable send.
+
+
+## Webhooks and Event-Driven Flows
+
+Webhooks push status changes to your HTTPS endpoint. They reduce poll
+        traffic and speed up analytics when your provider supports them. Costs:
+        you must verify signatures, handle retries, and keep endpoints highly
+        available. Many teams use a queue: webhook handler enqueues an event,
+        workers update user-visible state.
+
+
+## Linking Status to User Experience
+
+When status is *failed*, your UI should offer resend—not silent
+        failure. When status is *delayed*, show honest timing copy. Align
+        with the state machine described in 
+        [our OTP verification flow guide](/blog/otp-verification-flow)
+        . If you switch providers, replay the same patterns using 
+        [migration practices](/blog/migrate-sms-provider-checklist)
+        .
+
+
+## FAQ
+
+See above.
+

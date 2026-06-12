@@ -1,0 +1,86 @@
+﻿---
+title: "Wi‑Fi Calling (VoWiFi) and OTP SMS Delivery in India"
+description: "How VoWiFi changes IMS registration, SMS routing, and delay symptoms Indian users see on Jio and Airtel — with debugging tips for developers and customer support."
+publishedAt: "2026-05-10"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "WiFi calling OTP issue India"
+  - "VoWiFi SMS not received"
+  - "OTP delayed WiFi calling"
+  - "Jio WiFi calling OTP"
+  - "Airtel vowifi SMS problem"
+  - "VoWiFi IMS SMS India"
+  - "OTP not received WiFi only phone"
+relatedSlugs:
+  - "esim-dual-sim-otp-not-delivered-india"
+  - "otp-not-received-india"
+  - "otp-delivery-delay-fix"
+  - "otp-failing-jio-airtel-vi"
+featured: false
+---
+
+
+**VoWiFi (Wi‑Fi Calling)** routes carrier voice (and some
+        IMS services) over broadband while the SIM stays registered. Indian
+        users on dense apartment Wi‑Fi sometimes blame apps when OTP SMS
+        arrives minutes late. This note separates handset/network effects from
+        SMS gateway issues.
+
+
+## What Changes With VoWiFi
+
+With VoWiFi enabled, the device maintains a parallel IMS registration.
+        When users move between LTE and Wi‑Fi, the handset can briefly
+        renegotiate bearers. SMS is not "voice," but the radio
+        stack still churns — users perceive it as "network
+        instability."
+
+
+## User-Visible Symptoms
+
+
+- OTP arrives after the code expired once, succeeds on resend.
+- OTP appears only after disabling Wi‑Fi or VoWiFi.
+- Duplicate threads if the user switched default SMS apps during the session.
+
+
+
+## Relation to RCS and Data-Only Networks
+
+Users on Wi‑Fi with poor indoor LTE may still get 
+        [RCS](/blog/rcs-rich-messaging-otp-india-developers) 
+        while SMS is queued on the cellular control channel. Dual-stack
+        debugging is messy — capture whether your DLR says delivered during
+        the delay window. If DLR is fast but the user sees slow UI, suspect
+        device-side queueing.
+
+
+## Mitigations for Product Teams
+
+
+- Extend OTP TTL slightly for cohorts with high late-delivery metrics (watch fraud trade-offs).
+- Offer resend with exponential backoff per  [cooldown guidance](/blog/otp-resend-cooldown-implementation) .
+- Surface network hints in support UI ("Try toggling airplane mode") to cut ticket volume.
+
+
+
+## Support Macros That Actually Help
+
+
+- Confirm VoWiFi on/off state and Wi‑Fi vs cellular data.
+- Ask for SMS timestamp vs your server send timestamp.
+- Compare with a test OTP to a known-good single-SIM handset to isolate account vs device issues.
+
+
+
+## FAQ
+
+When DLR shows delivered in under a second but the user complains,
+        attach 
+        [dual-SIM / eSIM](/blog/esim-dual-sim-otp-not-delivered-india) 
+        and VoWiFi questions before you open a carrier ticket. Most
+        "late" OTPs are access-layer jitter, not template
+        scrubbing.
+

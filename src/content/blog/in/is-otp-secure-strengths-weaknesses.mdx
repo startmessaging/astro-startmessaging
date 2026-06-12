@@ -1,0 +1,81 @@
+﻿---
+title: "Is OTP Secure? Strengths and Weaknesses Explained"
+description: "An honest assessment of OTP security in 2026: what attacks OTP defends against, what it doesn’t, and how to layer additional defences for high-risk flows."
+publishedAt: "2026-05-17"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "is otp secure"
+  - "otp security risks"
+  - "otp vulnerabilities"
+  - "sms otp security"
+  - "otp safety"
+relatedSlugs:
+  - "what-is-otp"
+  - "otp-vs-password-which-safer"
+  - "sim-swap-otp-protection-india"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+OTP is one of the most cost-effective security controls available
+        but it is not bulletproof. This guide gives an honest assessment of
+        where OTP shines and where it fails.
+
+
+## What OTP Defends Against
+
+
+- Credential stuffing — leaked password is no longer enough.
+- Brute-force attacks — attempt limits + expiry shut these down.
+- Casual session theft — possession of phone is required.
+
+
+
+## What OTP Does Not Defend Against
+
+
+- Real-time phishing proxies.
+- SIM swap.
+- Insider attacks at the SMS provider.
+- Compromised malware on the user phone.
+
+
+
+## SIM Swap
+
+Carrier social engineering ports a victim's number to a new
+        SIM. Defence: 
+        [SIM swap protection](/blog/sim-swap-otp-protection-india).
+
+
+## Real-Time Phishing
+
+Fake page captures username, password and OTP, replays them on
+        real site within validity. FIDO2 / passkeys are the only real
+        defence.
+
+
+## SS7 / Network Interception
+
+Possible but rare. Banks and high-value targets layer voice OTP +
+        biometric on top.
+
+
+## Layering Defences
+
+
+- OTP + device binding.
+- OTP + risk scoring.
+- OTP + biometric on registered devices.
+- OTP + step-up for high-value actions.
+
+
+
+## FAQ
+
+OTP is necessary but not always sufficient. Layer it appropriately
+        for the value of the action.
+

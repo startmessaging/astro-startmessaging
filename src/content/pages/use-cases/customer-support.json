@@ -1,0 +1,212 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
+  "seo": {
+    "title": {
+      "en": "WhatsApp Customer Support Use Case — StartMessaging",
+      "pt": "WhatsApp para Suporte ao Cliente — StartMessaging",
+      "es": "WhatsApp para Soporte al Cliente — StartMessaging",
+      "id": "WhatsApp untuk Dukungan Pelanggan — StartMessaging",
+      "ar": "واتساب لدعم العملاء وحالات الاستخدام — StartMessaging",
+      "tr": "Müşteri Desteği İçin WhatsApp Kullanımı — StartMessaging",
+      "ng": "WhatsApp Customer Support Use Case — StartMessaging"
+    },
+    "description": {
+      "en": "Automate up to 70% of customer support queries using WhatsApp chatbots. Deliver instant replies and route complex queries to live agents.",
+      "pt": "Automatize até 70% do suporte ao cliente com chatbots WhatsApp. Entregue respostas imediatas e encaminhe para agentes humanos.",
+      "es": "Automatice hasta el 70% del soporte al cliente con chatbots de WhatsApp. Entregue respuestas inmediatas y escale a agentes.",
+      "id": "Otomatisasi hingga 70% dukungan pelanggan dengan chatbot WhatsApp. Berikan jawaban instan dan teruskan ke agen live.",
+      "ar": "أتمت حتى 70% من دعم العملاء مع شات بوت واتساب. قدّم ردوداً فورية ووجّه الاستفسارات للموظفين.",
+      "tr": "WhatsApp chatbot'ları ile müşteri desteğinin %70'ini otomatikleştirin. Anında yanıtlar verin ve karmaşık sorguları canlı ajanlara yönlendirin."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Customer Support",
+          "pt": "Suporte ao Cliente",
+          "es": "Soporte al Cliente",
+          "id": "Dukungan Pelanggan",
+          "ar": "دعم العملاء",
+          "tr": "Müşteri Desteği"
+        },
+        "title": {
+          "en": "Automate Customer Support on WhatsApp",
+          "pt": "Automatize Suporte ao Cliente no WhatsApp",
+          "es": "Automatice el Soporte al Cliente en WhatsApp",
+          "id": "Otomatisasi Dukungan Pelanggan di WhatsApp",
+          "ar": "أتمت دعم العملاء على واتساب",
+          "tr": "Müşteri Desteğini WhatsApp'ta Otomatikleştirin"
+        },
+        "subtitle": {
+          "en": "Handle 70% of support queries automatically with WhatsApp chatbots. Route complex issues to human agents with full conversation context. Available 24/7.",
+          "pt": "Gerencie 70% das consultas automaticamente com chatbots WhatsApp. Direcione problemas complexos para agentes com contexto completo. Disponível 24/7.",
+          "es": "Gestione el 70% de las consultas automáticamente con chatbots. Dirija problemas complejos a agentes con contexto completo. Disponible 24/7.",
+          "id": "Tangani 70% pertanyaan dukungan secara otomatis dengan chatbot WhatsApp. Arahkan masalah kompleks ke agen dengan konteks lengkap. Tersedia 24/7.",
+          "ar": "تعامل مع 70% من استفسارات الدعم تلقائياً باستخدام شات بوت واتساب. وجّه المشكلات المعقدة للموظفين مع السياق الكامل. متاح 24/7.",
+          "tr": "Destek sorgularının %70'ini WhatsApp chatbot'larıyla otomatik olarak yönetin. Karmaşık sorunları tam konuşma bağlamıyla insan ajanlara yönlendirin."
+        },
+        "primaryCta": { "en": "Build Support Bot" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "Smart Support Automation" },
+        "body": {
+          "en": "Our chatbot builder lets you create intelligent support flows that understand customer intent, provide instant answers to FAQs, check order status, process returns, and escalate to human agents when needed — all without writing code."
+        },
+        "bullets": [
+          { "en": "No-code visual chatbot builder" },
+          { "en": "Automated FAQ matching & order tracking" },
+          { "en": "Intelligent live agent handoff routing" }
+        ],
+        "image": "/images/customer-support-dashboard.webp",
+        "imageAlt": { "en": "Support Automation Dashboard Preview" },
+        "imageWidth": 640,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-xl",
+        "reversed": false
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "Handoff Logic" },
+        "heading": { "en": "Seamless Bot-to-Human Handoff" },
+        "steps": [
+          {
+            "title": { "en": "1. Bot Resolution" },
+            "description": { "en": "The WhatsApp bot handles FAQs, user profiling, and simple transactional queries instantly." }
+          },
+          {
+            "title": { "en": "2. Agent Request" },
+            "description": { "en": "For complex requests, the user clicks 'Talk to Agent', triggering a handoff event hook." }
+          },
+          {
+            "title": { "en": "3. Live Takeover" },
+            "description": { "en": "The support dashboard routes the chat history to a live agent queue for immediate intervention." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Support Channels" },
+        "heading": { "en": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center" },
+        "subheading": { "en": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms." },
+        "columns": [
+          { "label": { "en": "Factor" } },
+          { "label": { "en": "WhatsApp Bot Support" }, "highlight": true },
+          { "label": { "en": "Email Queue Support" } },
+          { "label": { "en": "Live Call Center" } }
+        ],
+        "rows": [
+          [
+            { "en": "Average Response Speed" },
+            { "en": "< 1 second (Instant)" },
+            { "en": "2 - 24 hours" },
+            { "en": "5 - 30 minutes (Hold queue)" }
+          ],
+          [
+            { "en": "Support Availability" },
+            { "en": "24/7/365 (Unattended)" },
+            { "en": "Business hours queue" },
+            { "en": "Shift-work availability" }
+          ],
+          [
+            { "en": "Seat Costs" },
+            { "en": "Low flat API pricing" },
+            { "en": "Per-agent CRM licenses" },
+            { "en": "High telecom & staff overhead" }
+          ],
+          [
+            { "en": "CSAT (User Satisfaction)" },
+            { "en": "91% (High engagement)" },
+            { "en": "65% (Friction from delays)" },
+            { "en": "74% (Friction from hold times)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Handoff API" },
+        "heading": { "en": "Programmatic Support Handoff Trigger" },
+        "overlayText": { "en": "Support Bot Handoff API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/support/handoff \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"conversationId\": \"conv_987654\",\n    \"userId\": \"+919876543210\",\n    \"reason\": \"user_requested_agent\",\n    \"context\": {\n      \"lastIntent\": \"refund_query\",\n      \"botTurnCount\": 4\n    }\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/v1/support/handoff\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    conversationId: \"conv_987654\",\n    userId: \"+919876543210\",\n    reason: \"user_requested_agent\",\n    context: { lastIntent: \"refund_query\", botTurnCount: 4 }\n  })\n});"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/support/handoff\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"conversationId\": \"conv_987654\",\n        \"userId\": \"+919876543210\",\n        \"reason\": \"user_requested_agent\",\n        \"context\": {\"lastIntent\": \"refund_query\", \"botTurnCount\": 4}\n    }\n)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "Customer Support — FAQ" },
+        "items": [
+          {
+            "question": { "en": "Can the chatbot handle multiple languages?" },
+            "answer": {
+              "en": "Yes. You can create chatbot flows in multiple languages and our system automatically detects the user's preferred language based on their WhatsApp settings. You can also create separate flows per language for more nuanced responses."
+            }
+          },
+          {
+            "question": {
+              "en": "Are there specific localized regulations for customer support chatbots?",
+              "in": "Do support chatbot replies require DLT template approvals in India?",
+              "br": "Como garantir a conformidade com a LGPD no atendimento e suporte via chatbot?",
+              "id": "Apakah chatbot WhatsApp ini dapat diintegrasikan dengan gerbang pembayaran Indonesia seperti Xendit?"
+            },
+            "answer": {
+              "en": "No, user-initiated customer support chats are exempt from DLT template regulations, but standard data privacy rules apply.",
+              "in": "No. Under TRAI guidelines, customer-initiated support queries (called User-Initiated sessions) do not require DLT registration or template approvals. You can reply with free-form text or dynamic menus, making WhatsApp customer support highly flexible.",
+              "br": "Para atender à LGPD, as conversas de suporte coletadas pelo chatbot devem ser armazenadas com segurança, e o usuário deve ter a opção de solicitar a exclusão de seus dados de chat a qualquer momento. A StartMessaging oferece criptografia e ferramentas de exclusão nativas.",
+              "id": "Ya, Anda dapat menghubungkan chatbot dukungan Anda dengan webhook pembayaran lokal seperti Xendit atau Midtrans. Chatbot dapat secara otomatis memverifikasi status pembayaran pelanggan dan mengirimkan konfirmasi instan di dalam ruang obrolan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "E-Commerce Use Case" }, "href": "/use-cases/ecommerce" },
+          { "label": { "en": "Marketing Campaigns" }, "href": "/use-cases/marketing-campaigns" },
+          { "label": { "en": "WhatsApp Chatbot" }, "href": "/whatsapp/chatbot" },
+          { "label": { "en": "Technical Support" }, "href": "/contact" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Automate Your Support Today" },
+        "subtext": {
+          "en": "Chatbot builder available on Premium and Enterprise plans."
+        },
+        "primaryCta": { "en": "Get Premium" },
+        "primaryHref": "https://app.startmessaging.com/signup?plan=premium"
+      }
+    }
+  ]
+}

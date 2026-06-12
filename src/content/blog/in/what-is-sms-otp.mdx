@@ -1,0 +1,123 @@
+﻿---
+title: "What is SMS OTP? How It Works and When to Use It"
+description: "SMS OTP explained: full lifecycle from generation to verification, latency, cost and SIM-swap risks, India DLT context, and modern alternatives like TOTP and silent-auth."
+publishedAt: "2026-04-24"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "what is sms otp"
+  - "sms otp meaning"
+  - "sms one time password"
+  - "sms otp security"
+  - "sms otp india"
+  - "sms otp vs totp"
+relatedSlugs:
+  - "what-is-otp"
+  - "sms-otp-vs-whatsapp-otp"
+  - "sms-otp-vs-email-magic-link-vs-totp"
+  - "sim-swap-otp-protection-india"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+SMS OTP is the most-used verification mechanism on the internet today —
+        and overwhelmingly the most-used in India, where it underpins
+        UPI-payment confirmation, e-commerce checkout, food-delivery handoffs,
+        bank-account changes, and almost every consumer-app login. It is
+        familiar, universal, and well understood by end users. It is also
+        flawed in specific ways that every product team should know about.
+
+
+This explainer covers **what SMS OTP is**, the full
+        lifecycle of one OTP from generation to expiry, why it remains so
+        dominant, where it falls short, and the practical alternatives.
+
+
+## SMS OTP — Definition
+
+An **SMS OTP** is a one-time password delivered to the
+        user's phone via SMS. The defining characteristics — single use,
+        time-bound, out-of-band — are inherited from the more general OTP
+        concept (see 
+        [our OTP explainer](/blog/what-is-otp)); SMS OTP
+        specifically uses SMS as the delivery channel.
+
+
+## Lifecycle of an SMS OTP
+
+
+- **User triggers a flow** — types phone number, taps "Pay", or initiates a sensitive change.
+- **Backend calls the OTP API** with the phone number. The API generates a 4–6 digit code, computes a bcrypt hash, stores (hash, expiresAt, attemptsLeft) keyed by a request ID, and dispatches the SMS through a multi-provider gateway.
+- **SMS travels through the gateway → aggregator → telecom operator → handset.** In India this hop also passes through the DLT scrubber.
+- **User reads the code** from the SMS or — on Android and iOS — has it auto-filled by the OS.
+- **Backend calls /otp/verify** with (requestId, code). The API hashes and compares, decrements attempt count, returns verified=true or an error.
+- **Backend issues a session** or completes the high-stakes action.
+
+
+
+## Why SMS OTP Dominates in India
+
+
+- **Universal handset support.** SMS works on the cheapest feature phone. No app install required.
+- **Familiar UX.** Indian users have entered SMS OTPs into banking apps for over a decade.
+- **Compliance.** RBI's AFA mandate has been interpreted as "send SMS OTP" for so long that it is now industry default.
+- **Auto-fill.** Modern Android (SMS Retriever API) and iOS auto-fill the OTP without the user typing.
+
+
+
+## Known Limitations
+
+
+- **SIM swap.** An attacker convinces the telecom carrier to port the victim's number to a new SIM. See  [SIM swap protection](/blog/sim-swap-otp-protection-india) .
+- **Phishing.** A real-time phishing proxy captures both password and OTP and replays them within the validity window.
+- **Delivery dependence.** Carrier outages, scrubbing rules, and template mismatches all silently drop OTPs. A failover provider is mandatory.
+- **Cost.** Rs 0.15–0.30 per OTP adds up at scale. A login-burst attack can dent your budget.
+- **Bot-driven traffic pumping.** Attackers fire fake phone numbers at your endpoint to inflate your SMS bill — see  [our defence guide](/blog/otp-bot-attacks-traffic-pumping) .
+
+
+
+## Cost and Latency
+
+Indian SMS OTP economics in 2026:
+
+
+
+- Per-OTP cost: Rs 0.15–0.30 (Rs 0.25 with StartMessaging).
+- P50 latency: 2–6 seconds.
+- P95 latency: 10–20 seconds (good gateways), 30+ seconds (bad).
+- DLT registration overhead: Rs 5,000 one-time + Rs 1,000–2,000/year per PE-ID, plus 1–4 weeks of approval lag — *unless* you use a DLT-free provider.
+
+
+
+## When to Pick Something Else
+
+
+- **[TOTP](/blog/what-is-totp)** — for power users who want free, offline, faster auth.
+- **[Flash-call / silent auth](/blog/what-is-flash-call-auth)** — for quick verifications where the carrier can confirm possession without the user reading anything.
+- **WhatsApp OTP** — for app-installed users in India, cheaper and more visual. See  [our comparison](/blog/sms-otp-vs-whatsapp-otp).
+- **Voice OTP** — fallback when SMS is blocked or for users who cannot read SMS.
+- **Passkeys** — for tech-forward users on modern devices, phishing-resistant.
+
+
+
+## Best Practices
+
+
+- Hash OTPs server-side — never store plaintext.
+- Limit attempts per request and per phone per hour. See  [rate-limiting guide](/blog/otp-rate-limiting-guide).
+- Log only the request ID, never the OTP.
+- Use multi-provider failover.
+- Use [idempotency keys](/blog/idempotency-keys-otp) on the send endpoint.
+- Watch SIM-swap signals — recent port-out, "new device" on carrier — and require a step-up auth on those sessions.
+
+
+
+## FAQ
+
+Want a production SMS OTP API today, with no DLT registration, multi-
+        provider failover and Rs 0.25 per OTP? 
+        [StartMessaging](/dlt-free-otp) is built for exactly
+        this — sign up and ship in five minutes.
+

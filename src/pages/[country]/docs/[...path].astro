@@ -1,0 +1,65 @@
+---
+/**
+ * Country docs route: /br/docs/whatsapp/getting-started, etc.
+ * Per ASTRO_COUNTRY_PLAN.md §9.
+ * WhatsApp docs render for all countries. SMS/Auth-API docs are India-only.
+ */
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { ALL_COUNTRIES } from '@/config/countries';
+
+// Static imports for nav.json
+import whatsappNav from '@/content/docs/whatsapp/nav.json';
+
+const navMap: Record<string, any> = {
+  whatsapp: whatsappNav,
+};
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+  const nonInCountries = (ALL_COUNTRIES as string[]).filter((c) => c !== 'in');
+
+  const paths: {
+    params: { country: string; path: string };
+    props: { doc: any; product: string; slug: string };
+  }[] = [];
+
+  for (const doc of docs) {
+    const parts = doc.id.split('/');
+    const product = parts[0];
+    const slug = parts.slice(1).join('/');
+
+    // SMS and auth-api docs are India-only — skip country variants
+    if (product === 'sms' || product === 'auth-api') continue;
+
+    const docCountries = doc.data.countries;
+
+    for (const country of nonInCountries) {
+      if (docCountries && !docCountries.includes(country)) continue;
+      paths.push({
+        params: { country, path: `${product}/${slug}` },
+        props: { doc, product, slug },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { doc, product, slug } = Astro.props;
+const { country } = Astro.params;
+const { Content, headings } = await render(doc);
+const nav = navMap[product];
+---
+
+<DocsLayout
+  title={doc.data.title}
+  description={doc.data.description}
+  product={product}
+  country={country!}
+  slug={slug}
+  nav={nav}
+  headings={headings}
+>
+  <Content />
+</DocsLayout>

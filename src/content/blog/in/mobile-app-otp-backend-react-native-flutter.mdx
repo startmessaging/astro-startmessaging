@@ -1,0 +1,82 @@
+﻿---
+title: "Mobile App OTP: Keep Secrets on the Server (React Native & Flutter)"
+description: "Keep TRAI DLT-compliant SMS OTP on the server: React Native and Flutter clients call your API only—never ship SMS gateway keys for OTP SMS API India integrations."
+publishedAt: "2026-04-12"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "React Native OTP"
+  - "Flutter OTP SMS"
+  - "mobile app phone verification"
+  - "never put API key in app"
+  - "OTP backend architecture"
+  - "Expo OTP integration"
+  - "OTP SMS API India mobile"
+  - "send OTP without DLT in app"
+  - "DLT SMS API server side"
+  - "TRAI SMS OTP security"
+  - "transactional SMS React Native"
+  - "Flutter SMS OTP backend"
+relatedSlugs:
+  - "otp-autofill-android-ios-sms-retriever"
+  - "send-otp-nodejs"
+  - "sms-api-key-rotation-developers"
+featured: false
+---
+
+
+Framework tutorials like 
+        [Node.js OTP sends](/blog/send-otp-nodejs) 
+        assume a trusted server. Mobile teams sometimes ask whether to call an
+        SMS API straight from React Native or Flutter. The answer affects
+        security and compliance: this post is **only** about that
+        architecture split—not another language port of the same code samples.
+
+
+## Never Ship SMS Provider Keys in the App
+
+Anything in a mobile binary can be extracted. A leaked key means
+        someone else sends SMS on your wallet—see 
+        [API key rotation](/blog/sms-api-key-rotation-developers) 
+        and 
+        [fraud prevention](/blog/prevent-otp-fraud)
+        . Your mobile app should only talk to *your* backend with your
+        own session or JWT authentication.
+
+
+## Client vs Server Responsibilities
+
+**Mobile client:** collect phone number, show OTP field,
+        handle 
+        [autofill](/blog/otp-autofill-android-ios-sms-retriever)
+        , call *your* REST routes like POST /auth/request-otp and POST
+        /auth/verify-otp.
+
+
+**Backend:** validate user identity context, enforce 
+        [rate limits](/blog/otp-rate-limiting-guide)
+        , generate or delegate OTP storage, call StartMessaging with the server
+        API key, return generic success or error to the app without leaking
+        provider internals.
+
+
+## React Native and Flutter Notes
+
+Use your stack's standard HTTP client (fetch, Dio, etc.) only for
+        *your* API. Avoid adding native modules that embed third-party
+        SMS SDKs with secrets. For Expo, follow the same rule: server-side
+        integration, client-side UI only.
+
+
+## Pair With Autofill UX
+
+Once the pipeline is secure, invest in UX: the autofill article in this
+        blog covers platform APIs; your React Native or Flutter screens should
+        expose the right text field types so iOS and Android can suggest codes.
+
+
+## FAQ
+
+See FAQ above.
+

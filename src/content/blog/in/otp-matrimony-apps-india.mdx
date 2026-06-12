@@ -1,0 +1,89 @@
+﻿---
+title: "OTP for Matrimony Apps in India"
+description: "How matrimony apps in India use OTP for sign-up, profile verification, contact-unlock and family handover — with specific fraud patterns and DPDP-friendly defaults."
+publishedAt: "2026-04-29"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "matrimony app otp"
+  - "shaadi otp"
+  - "matchmaking otp india"
+  - "matrimony verification"
+  - "profile verification otp"
+relatedSlugs:
+  - "otp-dating-apps-india"
+  - "otp-classifieds-olx-india"
+  - "otp-data-privacy-india"
+  - "otp-bot-attacks-traffic-pumping"
+featured: false
+---
+
+
+Matrimony platforms are unusual in that they hold deeply personal
+        family data, often have a parent or sibling acting on behalf of the
+        primary user, and operate across India + NRI corridors. OTP design
+        carries higher stakes than most apps — a fraudulent profile is a
+        reputational disaster.
+
+
+## Why Matrimony Sites Need Strong Verification
+
+
+- Profile authenticity is the entire product proposition.
+- Fake profiles drive churn and brand damage.
+- NRI users span multiple country codes.
+- DPDP Act applies to family-shared sensitive data.
+
+
+
+## OTP Flows in Matrimony Apps
+
+
+- Sign-up OTP — phone of primary user.
+- Family-contact OTP — second number for parent / sibling.
+- Profile-publish OTP — re-verifies before listing goes live.
+- Contact-unlock OTP — when revealing contact info to a match.
+- Account-deletion OTP — DPDP right-to-erasure trigger.
+
+
+
+## Fraud Patterns and Defences
+
+
+- **Bulk-account creation** via virtual numbers — defend with per-IP and per-device rate limits.
+- **Romance-scam OTP harvesting** — never read OTPs aloud to support staff; never share OTPs in chat.
+- **Profile takeover via SIM swap** — flag accounts where phone has recently been ported, require step-up auth.
+
+
+
+## Family Handover and Multi-User Accounts
+
+Matrimony is one of the rare consumer apps where multiple people
+        legitimately use one account. Pattern:
+
+
+
+- Primary phone is always the source of truth.
+- Delegated sessions for family use a short-lived JWT, not stored credentials.
+- Every sensitive action (publish, contact unlock, delete) requires fresh OTP to the primary phone.
+
+
+
+## DPDP and DLT Compliance
+
+
+- OTP SMS — service-implicit / transactional.
+- Match-suggestion SMS — service-explicit, requires opt-in.
+- Promotional SMS — only with consent.
+- Personal data handling — minimal collection, purpose limitation. See  [OTP and DPDP Act](/blog/otp-data-privacy-india).
+
+
+
+## FAQ
+
+[StartMessaging](/dlt-free-otp) handles the
+        application OTP layer with multi-provider failover (essential for NRI
+        delivery) and per-phone idempotency to keep your wallet safe from
+        bulk-account bots.
+

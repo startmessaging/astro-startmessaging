@@ -1,0 +1,276 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "whatsapp",
+  "seo": {
+    "title": {
+      "en": "WhatsApp Auto-Trigger Messages — Event Triggers — StartMessaging",
+      "pt": "Mensagens Auto-Trigger WhatsApp — Disparos por Eventos — StartMessaging",
+      "es": "Mensajes Auto-Trigger WhatsApp — Disparos por Eventos — StartMessaging",
+      "id": "Pesan Auto-Trigger WhatsApp — Pemicu Otomatis — StartMessaging",
+      "ar": "رسائل التشغيل التلقائي واتساب — مشغلات الأحداث — StartMessaging",
+      "tr": "WhatsApp Otomatik Tetikleme Mesajları — Olay Tetikleyicileri — StartMessaging",
+      "ng": "WhatsApp Auto-Trigger Messages — Event Triggers — StartMessaging"
+    },
+    "description": {
+      "en": "Automate WhatsApp messages triggered by user actions — abandoned carts, sign-ups, purchase confirmations, and more.",
+      "pt": "Automatize mensagens WhatsApp disparadas por ações do usuário — carrinhos abandonados, cadastros, confirmações de compra e mais.",
+      "es": "Automatice mensajes de WhatsApp activados por acciones del usuario — carritos abandonados, registros, confirmaciones de compra y más.",
+      "id": "Otomatisasi pesan WhatsApp yang dipicu oleh tindakan pengguna — keranjang belanja, pendaftaran, konfirmasi pembelian, dan lainnya.",
+      "ar": "أتمت رسائل واتساب المُشغَّلة بإجراءات المستخدم — سلال مهجورة، تسجيلات، تأكيدات شراء، والمزيد.",
+      "tr": "Kullanıcı eylemleriyle tetiklenen WhatsApp mesajlarını otomatikleştirin — terk edilmiş sepetler, kayıtlar, satın alma onayları ve daha fazlası."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Auto-Trigger",
+          "pt": "Disparo Automático",
+          "es": "Disparo Automático",
+          "id": "Pemicu Otomatis",
+          "ar": "التشغيل التلقائي",
+          "tr": "Otomatik Tetikleme"
+        },
+        "title": {
+          "en": "Automate WhatsApp Messages by User Events",
+          "pt": "Automatize Mensagens WhatsApp por Eventos do Usuário",
+          "es": "Automatice Mensajes WhatsApp por Eventos del Usuario",
+          "id": "Otomatisasi Pesan WhatsApp Berdasarkan Aksi Pengguna",
+          "ar": "أتمت رسائل واتساب حسب أحداث المستخدم",
+          "tr": "Kullanıcı Olaylarına Göre WhatsApp Mesajlarını Otomatikleştirin"
+        },
+        "subtitle": {
+          "en": "Set up webhook-driven triggers that automatically send WhatsApp messages when users take specific actions — abandoned cart after 1 hour, welcome message on sign-up, review request after delivery.",
+          "pt": "Configure triggers baseados em webhook que enviam mensagens WhatsApp automaticamente quando usuários realizam ações específicas — carrinho abandonado após 1 hora, mensagem de boas-vindas no cadastro, pedido de avaliação após entrega.",
+          "es": "Configure triggers basados en webhook que envían mensagens automáticamente cuando los usuarios realizan acciones — carrito abandonado, mensaje de bienvenida, solicitud de reseña.",
+          "id": "Atur trigger berbasis webhook yang secara otomatis mengirim pesan WhatsApp saat pengguna melakukan tindakan tertentu — keranjang ditinggalkan setelah 1 jam, pesan selamat datang saat mendaftar, permintaan ulasan setelah pengiriman.",
+          "ar": "أعِد إعداد مشغلات قائمة على webhook ترسل رسائل واتساب تلقائياً عند إجراءات محددة — سلة مهجورة بعد ساعة، رسالة ترحيب عند التسجيل، طلب مراجعة بعد التسليم.",
+          "tr": "Kullanıcılar belirli eylemler gerçekleştirdiğinde otomatik olarak WhatsApp mesajları gönderen webhook tabanlı tetikleyiciler ayarlayın — 1 saat sonra terk edilmiş sepet, kayıtta hoş geldin mesajı, teslimattan sonra inceleme isteği."
+        },
+        "primaryCta": {
+          "en": "Set Up Auto-Triggers",
+          "pt": "Configurar Disparos Automáticos",
+          "es": "Configurar Auto-Triggers",
+          "id": "Atur Pemicu Otomatis",
+          "ar": "إعداد التشغيل التلقائي",
+          "tr": "Otomatik Tetikleyicileri Ayarla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Event-Driven Message Automation",
+          "pt": "Automação de Mensagens Baseada em Eventos",
+          "es": "Automatización de Mensajes Basada en Eventos",
+          "id": "Otomatisasi Pesan Berbasis Aksi Pengguna",
+          "ar": "أتمتة الرسائل القائمة على الأحداث",
+          "tr": "Olay Odaklı Mesaj Otomasyonu"
+        },
+        "body": {
+          "en": "Trigger highly personalized messages instantly based on user actions in your app or online store. Connect your webhooks to automate recovery flows for abandoned checkouts, dispatch transactional welcome messages on new sign-ups, and trigger feedback requests immediately after successful deliveries.",
+          "pt": "Dispare mensagens altamente personalizadas instantaneamente com base nas ações do usuário em seu aplicativo ou loja online. Conecte webhooks para automatizar carrinhos abandonados, boas-vindas e avaliações.",
+          "es": "Active mensajes altamente personalizados instantáneamente basados en las acciones del usuario en su aplicación o tienda en línea. Conecte webhooks para automatizar carritos abandonados.",
+          "id": "Picu pesan yang sangat dipersonalisasi secara instan berdasarkan tindakan pengguna di aplikasi atau toko online Anda. Hubungkan webhook Anda untuk otomatisasi keranjang belanja.",
+          "ar": "شغِّل رسائل مخصصة للغاية على الفور بناءً على إجراءات المستخدم في تطبيقك أو متجرك الإلكتروني. اربط الـ webhooks الخاصة بك لأتمتة عمليات الاسترداد.",
+          "tr": "Uygulamanızdaki veya çevrimiçi mağazanızdaki kullanıcı eylemlerine göre anında son derece kişiselleştirilmiş mesajları tetikleyin. Terk edilmiş sepetleri kurtarmak için webhook'larınızı bağlayın."
+        },
+        "bullets": [
+          {
+            "en": "Real-time webhook ingestion with automated retry queues",
+            "pt": "Ingestão de webhook em tempo real com filas de retentativa automáticas",
+            "es": "Ingesta de webhook en tiempo real con colas de reintento automatizadas",
+            "id": "Ingesti webhook waktu nyata dengan antrean coba ulang otomatis",
+            "ar": "استقبال webhook في الوقت الفعلي مع قوائم إعادة المحاولة التلقائية",
+            "tr": "Otomatik yeniden deneme kuyruklarıyla gerçek zamanlı webhook alımı"
+          },
+          {
+            "en": "Conditional delays and time-zone aware scheduling filters",
+            "pt": "Atrasos condicionais e filtros de agendamento cientes do fuso horário",
+            "es": "Retrasos condicionales y filtros de programación adaptados a la zona horaria",
+            "id": "Penundaan bersyarat dan filter penjadwalan peka zona waktu",
+            "ar": "تأخيرات مشروطة وفلاتر جدولة تراعي المناطق الزمنية",
+            "tr": "Koşullu gecikmeler ve saat dilimine duyarlı zamanlama filtreleri"
+          },
+          {
+            "en": "Seamless custom integrations with Shopify, WooCommerce, and custom backends",
+            "pt": "Integrações personalizadas perfeitas com Shopify, WooCommerce e backends próprios",
+            "es": "Integraciones personalizadas sin problemas con Shopify, WooCommerce y backends a medida",
+            "id": "Integrasi khusus yang lancar dengan Shopify, WooCommerce, dan backend kustom",
+            "ar": "تكاملات مخصصة سلسة مع Shopify و WooCommerce والأنظمة الخلفية الخاصة بك",
+            "tr": "Shopify, WooCommerce ve özel arka uçlarla sorunsuz entegrasyonlar"
+          }
+        ],
+        "image": "/images/trigger-engine.webp",
+        "imageAlt": {
+          "en": "WhatsApp Trigger Engine Diagram",
+          "pt": "Diagrama do Motor de Disparo WhatsApp",
+          "es": "Diagrama del Motor de Disparos de WhatsApp",
+          "id": "Diagram Pemicu WhatsApp",
+          "ar": "مخطط محرك التشغيل التلقائي لواتساب",
+          "tr": "WhatsApp Tetikleme Motoru Şeması"
+        },
+        "imageWidth": 640,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-xl",
+        "reversed": false
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": { "en": "How It Works" },
+        "heading": {
+          "en": "3 Steps to Automated Messaging",
+          "pt": "3 Passos para Mensagens Automatizadas",
+          "es": "3 Pasos para Mensajería Automatizada",
+          "id": "3 Langkah untuk Pesan Otomatis",
+          "ar": "3 خطوات للمراسلة الآلية",
+          "tr": "Otomatik Mesajlaşma İçin 3 Adım"
+        },
+        "steps": [
+          {
+            "title": { "en": "Define Your Trigger Event" },
+            "description": { "en": "Choose from pre-built events (abandoned cart, sign-up, purchase) or create custom webhook triggers from your backend systems." }
+          },
+          {
+            "title": { "en": "Configure Your Template & Delay" },
+            "description": { "en": "Select a pre-approved WhatsApp template, set personalization variables, and configure the delay (e.g., 1 hour after cart abandonment)." }
+          },
+          {
+            "title": { "en": "Activate & Monitor" },
+            "description": { "en": "Turn on your trigger and monitor performance in real-time. Track delivery, opens, clicks, and conversion rates from your dashboard." }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": { "en": "Integration Model" },
+        "heading": { "en": "Event Triggers vs. Polling Systems vs. Manual Webhooks" },
+        "subheading": { "en": "Compare setup overhead, network latency, and infrastructure resource costs for event automation." },
+        "columns": [
+          { "label": { "en": "Comparison Point" } },
+          { "label": { "en": "Real-time Event Triggers" }, "highlight": true },
+          { "label": { "en": "Cron Polling Systems" } },
+          { "label": { "en": "Manual Direct Webhooks" } }
+        ],
+        "rows": [
+          [
+            { "en": "Message Latency" },
+            { "en": "< 1 second (Direct push)" },
+            { "en": "Minutes to hours (Batch run)" },
+            { "en": "< 1 second (Direct hook)" }
+          ],
+          [
+            { "en": "Development Effort" },
+            { "en": "Low (Configure on UI/API)" },
+            { "en": "Medium (Write scheduler logic)" },
+            { "en": "High (Handle edge failures)" }
+          ],
+          [
+            { "en": "Server Load Overhead" },
+            { "en": "Minimal (Event-driven)" },
+            { "en": "High (Heavy periodic DB scans)" },
+            { "en": "Minimal (Push updates)" }
+          ],
+          [
+            { "en": "Error Fallback Handling" },
+            { "en": "✓ (Built-in retry queues)" },
+            { "en": "✗ (Manual correction needed)" },
+            { "en": "✗ (Requires custom script queues)" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Trigger API" },
+        "heading": { "en": "Register a Automated Message Trigger" },
+        "overlayText": { "en": "Auto-Trigger API Sandbox — Coming Soon" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/v1/triggers \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"trigger_name\": \"cart_abandoned_recovery\",\n    \"event_source\": \"shopify_checkout_abandoned\",\n    \"delay_seconds\": 3600,\n    \"template_name\": \"abandoned_cart_discount\",\n    \"fallback_channel\": \"sms\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "await fetch(\"https://api.startmessaging.com/v1/triggers\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    trigger_name: \"cart_abandoned_recovery\",\n    event_source: \"shopify_checkout_abandoned\",\n    delay_seconds: 3600,\n    template_name: \"abandoned_cart_discount\",\n    fallback_channel: \"sms\"\n  })\n});"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": {
+          "en": "Auto-Trigger — FAQ",
+          "pt": "Disparo Automático — FAQ",
+          "es": "Disparo Automático — FAQ",
+          "id": "Pemicu Otomatis — FAQ",
+          "ar": "التشغيل التلقائي — الأسئلة الشائعة",
+          "tr": "Otomatik Tetikleme — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "Can I set delays for triggered messages?"
+            },
+            "answer": {
+              "en": "Yes. You can configure delays from 0 seconds (instant) up to 72 hours after the trigger event. For example, send an abandoned cart reminder 1 hour after the user left your site, followed by a second reminder at 24 hours with a discount offer."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "Chatbot Builder" }, "href": "/whatsapp/chatbot" },
+          { "label": { "en": "Utility Notifications" }, "href": "/whatsapp/utility" },
+          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Technical Support" }, "href": "/contact" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Automate Your Customer Journeys",
+          "pt": "Automatize Suas Jornadas de Cliente",
+          "es": "Automatice Sus Journeys de Cliente",
+          "id": "Otomatisasi Perjalanan Pelanggan Anda",
+          "ar": "أتمت رحلات عملائك",
+          "tr": "Müşteri Yolculuklarınızı Otomatikleştirin"
+        },
+        "subtext": {
+          "en": "Free plan. No credit card required.",
+          "pt": "Plano grátis. Sem cartão.",
+          "es": "Plan gratis. Sin tarjeta.",
+          "id": "Paket gratis. Tanpa kartu.",
+          "ar": "خطة مجانية. بدون بطاقة.",
+          "tr": "Ücretsiz plan. Kredi kartı yok."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

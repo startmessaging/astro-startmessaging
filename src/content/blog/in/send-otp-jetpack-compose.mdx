@@ -1,0 +1,115 @@
+﻿---
+title: "How to Send OTP in Jetpack Compose (Android) — 2026"
+description: "Jetpack Compose OTP tutorial using StartMessaging. Retrofit/Ktor client, Compose state, Android SMS Retriever auto-fill, and a clean two-screen flow."
+publishedAt: "2026-05-13"
+category: tutorials
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "send otp jetpack compose"
+  - "jetpack compose otp"
+  - "compose android sms otp"
+  - "kotlin compose authentication"
+relatedSlugs:
+  - "send-otp-kotlin-android"
+  - "send-otp-flutter-firebase"
+  - "send-otp-react-native-expo"
+  - "otp-autofill-android-ios-sms-retriever"
+featured: false
+---
+
+
+Jetpack Compose is the modern Android UI stack. This tutorial wires 
+        [StartMessaging](/otp-api) with Ktor client +
+        Compose state.
+
+
+## Overview
+
+
+- Network layer hits your backend.
+- ViewModel holds phone / code / requestId.
+- Compose screens for phone and OTP entry.
+- SMS Retriever for auto-fill.
+
+
+
+## Network Layer (Ktor Client)
+      
+```typescript
+// data/AuthApi.kt
+class AuthApi(private val client: HttpClient) {
+  suspend fun sendOtp(phone: String): SendResp =
+    client.post("https://your-backend.example.com/auth/send-otp") {
+      contentType(ContentType.Application.Json)
+      setBody(mapOf("phoneNumber" to phone))
+    }.body()
+
+  suspend fun verifyOtp(requestId: String, code: String): VerifyResp =
+    client.post("https://your-backend.example.com/auth/verify-otp") {
+      contentType(ContentType.Application.Json)
+      setBody(mapOf("requestId" to requestId, "otpCode" to code))
+    }.body()
+}
+
+@Serializable data class SendResp(val requestId: String, val expiresAt: String)
+@Serializable data class VerifyResp(val verified: Boolean)
+```
+
+
+## AuthViewModel
+      
+```typescript
+class AuthViewModel(private val api: AuthApi) : ViewModel() {
+  var phone by mutableStateOf("")
+  var code  by mutableStateOf("")
+  var requestId by mutableStateOf<String?>(null)
+  var error by mutableStateOf<String?>(null)
+
+  fun sendOtp() = viewModelScope.launch {
+    runCatching { api.sendOtp(phone) }
+      .onSuccess { requestId = it.requestId }
+      .onFailure { error = it.message }
+  }
+  fun verifyOtp(onSuccess: () -> Unit) = viewModelScope.launch {
+    runCatching { api.verifyOtp(requestId!!, code) }
+      .onSuccess { onSuccess() }
+      .onFailure { error = it.message }
+  }
+}
+```
+
+
+## Compose Screens
+      
+```
+@Composable
+fun LoginScreen(vm: AuthViewModel = viewModel(), onAuthed: () -> Unit) {
+  if (vm.requestId == null) {
+    Column {
+      TextField(value = vm.phone, onValueChange = { vm.phone = it }, label = { Text("Phone") })
+      Button(onClick = { vm.sendOtp() }) { Text("Send OTP") }
+    }
+  } else {
+    Column {
+      TextField(value = vm.code, onValueChange = { vm.code = it }, label = { Text("OTP") })
+      Button(onClick = { vm.verifyOtp(onAuthed) }) { Text("Verify") }
+    }
+  }
+}
+```
+
+
+## SMS Retriever Auto-Fill
+
+Use Google's `SmsRetriever` client to listen for an
+        OTP SMS that ends with the app-hash. See our 
+        [auto-fill guide](/blog/otp-autofill-android-ios-sms-retriever)
+        .
+
+
+## FAQ
+
+Plain Kotlin (non-Compose) version at 
+        [our Kotlin Android guide](/blog/send-otp-kotlin-android).
+

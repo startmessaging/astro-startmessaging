@@ -1,0 +1,122 @@
+﻿---
+title: "OTP for Travel and Hotel Booking Apps in India (2026)"
+description: "How travel and hotel booking apps in India use OTP for sign-up, payment authentication, booking confirmation and check-in. Patterns, pitfalls, and a reference implementation."
+publishedAt: "2026-04-29"
+category: use-cases
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp travel app india"
+  - "hotel booking otp"
+  - "flight booking otp"
+  - "travel app authentication"
+  - "check in otp"
+  - "booking confirmation sms"
+relatedSlugs:
+  - "otp-event-ticketing-india"
+  - "otp-food-delivery-logistics"
+  - "otp-ecommerce-india"
+  - "send-otp-nodejs"
+  - "otp-verification-flow"
+featured: false
+---
+
+
+Indian travel and hospitality apps live on SMS OTP. From the first
+        sign-up at a discount fare to the chauffeur drop-OTP at the hotel
+        parking, OTP traffic peaks at multiple stages of the booking funnel.
+        Getting it right materially shifts conversion; getting it wrong burns
+        money in undelivered messages and lost bookings.
+
+
+## Why Travel Apps Lean So Hard on OTP
+
+
+- **One-shot bookings.** Most users buy a flight or hotel night through your app once and may never return. They will not memorise a password.
+- **RBI-mandated 2FA on payments.** Card-not-present transactions in India require AFA. OTP is the universal default.
+- **Trust-building.** Booking confirmation SMS doubles as proof of purchase the user can show at the hotel desk.
+- **Operational handoff.** Hotel check-in OTP, ride drop-off OTP, and luggage-locker OTP all chain off the original booking.
+
+
+
+## OTP Flows in Travel Apps
+
+
+- **Sign-up / login OTP.** Phone-first auth with  `/otp/send` + `/otp/verify`.
+- **Payment OTP.** Issued by the issuing bank (not your OTP provider) but you must redirect cleanly back into your app.
+- **Booking confirmation SMS.** Transactional, contains PNR / booking ID, hotel name, check-in date.
+- **Pre-trip reminders.** 24h before departure, with gate / bus stand details.
+- **Check-in OTP.** Issued at the property as proof of arrival (used in self-check-in hotels).
+
+
+
+## Cost Model and Burst Patterns
+
+Travel traffic is bursty: long-weekend sales, festival travel, IPL,
+        Bengaluru-Goa Friday spikes. Plan for 5–10× normal volume during
+        these windows and:
+
+
+
+- Use a provider with elastic capacity. StartMessaging has no monthly minimums, so spend tracks volume.
+- Top up your wallet ahead of major sale events.
+- Aggressively rate-limit per-phone to defend against bots.
+
+
+
+## India Compliance: RBI, IRDAI, DLT
+
+
+- Card payment OTPs follow RBI's AFA framework — see our  [RBI 2FA mandate guide](/blog/rbi-2fa-2026-mandate).
+- Travel insurance flows trigger IRDAI obligations.
+- Sign-up SMS must be DLT-approved templates with the right sender ID.
+
+
+
+## Production Patterns
+
+
+- **Single-tap login.** Auto-fill OTP via Android SMS Retriever and iOS keychain. See  [our auto-fill guide](/blog/otp-autofill-android-ios-sms-retriever) .
+- **Voice fallback.** If SMS doesn't arrive in 30 seconds, offer voice OTP — international travellers may have SMS blocked while roaming.
+- **Booking ID never repeats.** Make sure your idempotency key is per-booking-attempt, not per-user.
+- **WhatsApp parallel.** Many travel apps now send confirmation on both channels.
+
+
+
+## Common Pitfalls
+
+
+- OTP-pumping during sales — random phone numbers fired by bots.
+- Wrong DLT category — confirmation SMS sent under transactional but marketing mistakenly batched in.
+- OTP shared with wrong language locale — Indian travellers expect English-only OTPs even on regional-language UIs.
+- Hardcoded 10-minute expiry — global travellers in different time zones may need longer windows.
+
+
+
+## Reference Implementation
+      
+```
+POST /otp/send
+{ "phoneNumber": "+919876543210", "idempotencyKey": "<uuid>" }
+→ { requestId, expiresAt }
+
+// Booking confirmation (after payment success)
+POST /otp/send  // not actually OTP — your transactional SMS endpoint
+{ "phoneNumber": "+91...", "templateId": "BOOKING_CONFIRM_V2", "vars": { pnr: "..." } }
+```
+
+
+Tutorials in your stack: 
+        [Node.js](/blog/send-otp-nodejs), 
+        [Python](/blog/send-otp-python), 
+        [Django](/blog/send-otp-django), 
+        [PHP/Laravel](/blog/send-otp-php-laravel).
+
+
+## FAQ
+
+Building or scaling a travel app? 
+        [StartMessaging](/dlt-free-otp) handles bursty
+        sale-day traffic without monthly minimums and absorbs DLT compliance
+        so you can launch the same day.
+

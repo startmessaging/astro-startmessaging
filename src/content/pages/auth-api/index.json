@@ -1,0 +1,231 @@
+{
+  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "theme": "sms",
+  "seo": {
+    "title": {
+      "en": "Auth API & OTP Verification Toolkit — SMS & WhatsApp — StartMessaging",
+      "pt": "API de Auth e Toolkit de Verificação de OTP — SMS e WhatsApp — StartMessaging",
+      "es": "API de Auth y Toolkit de Verificación de OTP — SMS y WhatsApp — StartMessaging",
+      "id": "API Auth & Toolkit Verifikasi OTP — SMS & WhatsApp — StartMessaging",
+      "ar": "واجهة Auth ومجموعة أدوات التحقق من OTP — SMS وواتساب — StartMessaging",
+      "tr": "Auth API ve OTP Doğrulama Araç Seti — SMS ve WhatsApp — StartMessaging"
+    },
+    "description": {
+      "en": "Complete authentication API with OTP verification, phone number validation, and multi-channel delivery via SMS and WhatsApp."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "props": {
+        "badge": {
+          "en": "Auth API Docs",
+          "pt": "Docs da API de Auth",
+          "es": "Docs de la API de Auth",
+          "id": "Dokumentasi API Auth",
+          "ar": "وثائق واجهة Auth",
+          "tr": "Auth API Dokümanları"
+        },
+        "title": {
+          "en": "Authentication API — Verify Users Instantly",
+          "pt": "API de Autenticação — Verifique Usuários Instantaneamente",
+          "es": "API de Autenticación — Verifique Usuarios Instantáneamente",
+          "id": "API Autentikasi — Verifikasi Pengguna Secara Instan",
+          "ar": "واجهة المصادقة — تحقق من المستخدمين فوراً",
+          "tr": "Auth API — Kullanıcıları Anında Doğrulayın"
+        },
+        "subtitle": {
+          "en": "A complete user verification toolkit: send OTPs via SMS/WhatsApp, verify codes, and validate phone formats — all through a single REST API.",
+          "pt": "Kit completo de verificação: envie OTPs via SMS/WhatsApp, verifique códigos e valide números — tudo em uma única API REST.",
+          "es": "Kit completo de verificación: envíe OTPs vía SMS/WhatsApp, verifique códigos y valide números — todo en una única API REST.",
+          "id": "Toolkit verifikasi lengkap: kirim OTP via SMS/WhatsApp, verifikasi kode, dan validasi format nomor — semuanya melalui satu REST API.",
+          "ar": "مجموعة أدوات تحقق كاملة: إرسال OTP عبر SMS/واتساب والتحقق من الرموز والتحقق من صيغة الرقم — كل ذلك عبر واجهة REST API واحدة.",
+          "tr": "Eksiksiz doğrulama araç seti: SMS/WhatsApp ile OTP gönderin, kodları doğrulayın ve numara biçimini kontrol edin — hepsi tek bir REST API ile."
+        },
+        "primaryCta": { "en": "Try Auth API" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": { "en": "Multi-Channel Verification Routing" },
+        "body": {
+          "en": "Deliver OTP codes with smart failovers. Tries WhatsApp first for higher conversion rates and automatically falls back to transactional SMS if not delivered in 30 seconds."
+        },
+        "bullets": [
+          { "en": "WhatsApp-first with SMS fallback" },
+          { "en": "Real-time delivery analytics" },
+          { "en": "Global E.164 phone number formatting checks" }
+        ],
+        "image": "/images/auth-fallback.webp",
+        "imageAlt": { "en": "WhatsApp to SMS Fallback Timeline" },
+        "reversed": false
+      }
+    },
+    {
+      "type": "richText",
+      "props": {
+        "body": {
+          "en": "<div class=\"space-y-8\"><div><h2 class=\"text-2xl font-bold text-ink\">Authentication</h2><p class=\"mt-3 text-body-md text-muted\">All API requests require your secret API key passed in the <code class=\"rounded bg-surface-soft px-1.5 py-0.5 font-mono text-xs text-primary\">X-API-Key</code> header. You can generate keys inside your developer dashboard.</p><div class=\"mt-4 rounded-lg border border-hairline bg-surface-card p-4\"><pre class=\"text-sm\"><code class=\"font-mono text-ink\">X-API-Key: sm_live_your_api_key_here</code></pre></div></div><div class=\"mt-8\"><h2 class=\"text-2xl font-bold text-ink\">Base URL</h2><p class=\"mt-3 text-body-md text-muted\">Submit all API payloads to the following root address:</p><div class=\"mt-3 rounded-lg border border-hairline bg-surface-card p-4\"><pre class=\"text-sm\"><code class=\"font-mono text-ink\">https://api.startmessaging.com</code></pre></div></div></div>"
+        }
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": { "en": "Endpoints" },
+        "heading": {
+          "en": "API Capabilities",
+          "pt": "Recursos da API",
+          "es": "Recursos de la API",
+          "id": "Kemampuan API",
+          "ar": "إمكانيات واجهة برمجة التطبيقات",
+          "tr": "API Yetenekleri"
+        },
+        "items": [
+          {
+            "icon": "api",
+            "title": { "en": "POST /otp/send" },
+            "description": {
+              "en": "Generate and dispatch a one-time password code to a phone number. Customize template placeholders easily."
+            }
+          },
+          {
+            "icon": "shield",
+            "title": { "en": "POST /otp/verify" },
+            "description": {
+              "en": "Validate the code entered by the user. Simple 1-call verification that checks request expiration."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": { "en": "GET /messages/:id" },
+            "description": {
+              "en": "Fetch the real-time delivery status of the SMS or WhatsApp message."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": { "en": "Fraud Prevention" },
+            "description": {
+              "en": "Enforces rate-limits, carrier risk lookups, and device rules to mitigate fake signups."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Step 1: Send OTP" },
+        "heading": { "en": "Generate and Send OTP Code" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/otp/send \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"phoneNumber\": \"+919876543210\",\n    \"templateId\": \"YOUR_TEMPLATE_ID\",\n    \"variables\": {\n      \"otp\": \"123456\",\n      \"appName\": \"YourApp\"\n    }\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const response = await fetch(\"https://api.startmessaging.com/otp/send\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\",\n  },\n  body: JSON.stringify({\n    phoneNumber: \"+919876543210\",\n    templateId: \"YOUR_TEMPLATE_ID\",\n    variables: {\n      otp: \"123456\",\n      appName: \"YourApp\",\n    },\n  }),\n});\n\nconst data = await response.json();\nconsole.log(data);"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nresponse = requests.post(\n    \"https://api.startmessaging.com/otp/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\",\n    },\n    json={\n        \"phoneNumber\": \"+919876543210\",\n        \"templateId\": \"YOUR_TEMPLATE_ID\",\n        \"variables\": {\n            \"otp\": \"123456\",\n            \"appName\": \"YourApp\"\n        },\n    },\n)\n\ndata = response.json()\nprint(data)"
+          },
+          {
+            "lang": "PHP",
+            "code": "$ch = curl_init(\"https://api.startmessaging.com/otp/send\");\n\ncurl_setopt_array($ch, [\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_POST => true,\n    CURLOPT_HTTPHEADER => [\n        \"Content-Type: application/json\",\n        \"X-API-Key: sm_live_your_api_key_here\",\n    ],\n    CURLOPT_POSTFIELDS => json_encode([\n        \"phoneNumber\" => \"+919876543210\",\n        \"templateId\" => \"YOUR_TEMPLATE_ID\",\n        \"variables\" => [\n            \"otp\" => \"123456\",\n            \"appName\" => \"YourApp\"\n        ]\n    ]),\n]);\n\n$response = curl_exec($ch);\ncurl_close($ch);\n\n$data = json_decode($response, true);"
+          },
+          {
+            "lang": "Java",
+            "code": "import java.net.http.*;\nimport java.net.URI;\n\nHttpClient client = HttpClient.newHttpClient();\n\nString body = \"\"\"\n    {\n      \"phoneNumber\": \"+919876543210\",\n      \"templateId\": \"YOUR_TEMPLATE_ID\",\n      \"variables\": {\n        \"otp\": \"123456\",\n        \"appName\": \"YourApp\"\n      }\n    }\n    \"\"\";\n\nHttpRequest request = HttpRequest.newBuilder()\n    .uri(URI.create(\"https://api.startmessaging.com/otp/send\"))\n    .header(\"Content-Type\", \"application/json\")\n    .header(\"X-API-Key\", \"sm_live_your_api_key_here\")\n    .POST(HttpRequest.BodyPublishers.ofString(body))\n    .build();\n\nHttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());\nSystem.out.println(response.body());"
+          },
+          {
+            "lang": "Go",
+            "code": "package main\n\nimport (\n  \"bytes\"\n  \"encoding/json\"\n  \"fmt\"\n  \"net/http\"\n  \"io\"\n)\n\nfunc main() {\n  payload, _ := json.Marshal(map[string]interface{}{\n    \"phoneNumber\": \"+919876543210\",\n    \"templateId\":  \"YOUR_TEMPLATE_ID\",\n    \"variables\": map[string]string{\n      \"otp\":     \"123456\",\n      \"appName\": \"YourApp\",\n    },\n  })\n\n  req, _ := http.NewRequest(\"POST\", \"https://api.startmessaging.com/otp/send\", bytes.NewBuffer(payload))\n  req.Header.Set(\"Content-Type\", \"application/json\")\n  req.Header.Set(\"X-API-Key\", \"sm_live_your_api_key_here\")\n\n  resp, _ := http.DefaultClient.Do(req)\n  defer resp.Body.Close()\n\n  body, _ := io.ReadAll(resp.Body)\n  fmt.Println(string(body))\n}"
+          }
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": { "en": "Step 2: Verify OTP" },
+        "heading": { "en": "Confirm User Codes Instantly" },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST https://api.startmessaging.com/otp/verify \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"requestId\": \"req_abc123\",\n    \"otpCode\": \"123456\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const response = await fetch(\"https://api.startmessaging.com/otp/verify\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\",\n  },\n  body: JSON.stringify({\n    requestId: \"req_abc123\",\n    otpCode: \"123456\",\n  }),\n});\n\nconst data = await response.json();\nconsole.log(data);"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nresponse = requests.post(\n    \"https://api.startmessaging.com/otp/verify\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\",\n    },\n    json={\n        \"requestId\": \"req_abc123\",\n        \"otpCode\": \"123456\"\n    },\n)\n\ndata = response.json()\nprint(data)"
+          },
+          {
+            "lang": "PHP",
+            "code": "$ch = curl_init(\"https://api.startmessaging.com/otp/verify\");\n\ncurl_setopt_array($ch, [\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_POST => true,\n    CURLOPT_HTTPHEADER => [\n        \"Content-Type: application/json\",\n        \"X-API-Key: sm_live_your_api_key_here\",\n    ],\n    CURLOPT_POSTFIELDS => json_encode([\n        \"requestId\" => \"req_abc123\",\n        \"otpCode\" => \"123456\"\n    ]),\n]);\n\n$response = curl_exec($ch);\ncurl_close($ch);\n\n$data = json_decode($response, true);"
+          },
+          {
+            "lang": "Java",
+            "code": "import java.net.http.*;\nimport java.net.URI;\n\nHttpClient client = HttpClient.newHttpClient();\n\nString body = \"\"\"\n    {\n      \"requestId\": \"req_abc123\",\n      \"otpCode\": \"123456\"\n    }\n    \"\"\";\n\nHttpRequest request = HttpRequest.newBuilder()\n    .uri(URI.create(\"https://api.startmessaging.com/otp/verify\"))\n    .header(\"Content-Type\", \"application/json\")\n    .header(\"X-API-Key\", \"sm_live_your_api_key_here\")\n    .POST(HttpRequest.BodyPublishers.ofString(body))\n    .build();\n\nHttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());\nSystem.out.println(response.body());"
+          },
+          {
+            "lang": "Go",
+            "code": "package main\n\nimport (\n  \"bytes\"\n  \"encoding/json\"\n  \"fmt\"\n  \"net/http\"\n  \"io\"\n)\n\nfunc main() {\n  payload, _ := json.Marshal(map[string]interface{}{\n    \"requestId\": \"req_abc123\",\n    \"otpCode\":   \"123456\",\n  })\n\n  req, _ := http.NewRequest(\"POST\", \"https://api.startmessaging.com/otp/verify\", bytes.NewBuffer(payload))\n  req.Header.Set(\"Content-Type\", \"application/json\")\n  req.Header.Set(\"X-API-Key\", \"sm_live_your_api_key_here\")\n\n  resp, _ := http.DefaultClient.Do(req)\n  defer resp.Body.Close()\n\n  body, _ := io.ReadAll(resp.Body)\n  fmt.Println(string(body))\n}"
+          }
+        ]
+      }
+    },
+    {
+      "type": "richText",
+      "props": {
+        "body": {
+          "en": "<div class=\"space-y-8\"><div><h2 class=\"text-2xl font-bold text-ink\">Response Formats</h2><p class=\"mt-3 text-body-md text-muted\">The Send OTP response returns confirmation status and unique identifiers:</p><div class=\"mt-4 rounded-lg border border-hairline bg-surface-card p-4\"><pre class=\"overflow-x-auto text-sm\"><code class=\"font-mono text-ink\">{\n  \"success\": true,\n  \"statusCode\": 201,\n  \"requestId\": \"req_abc123\",\n  \"timestamp\": \"2026-02-15T10:30:00.000Z\",\n  \"data\": {\n    \"otpRequestId\": \"uuid-of-otp-request\",\n    \"messageId\": \"uuid-of-message\",\n    \"status\": \"queued\"\n  }\n}</code></pre></div></div><div class=\"mt-8\"><p class=\"text-body-md text-muted\">The Verification response returns boolean confirmation value:</p><div class=\"mt-4 rounded-lg border border-hairline bg-surface-card p-4\"><pre class=\"overflow-x-auto text-sm\"><code class=\"font-mono text-ink\">{\n  \"success\": true,\n  \"statusCode\": 200,\n  \"requestId\": \"req_xyz789\",\n  \"timestamp\": \"2026-02-15T10:31:00.000Z\",\n  \"data\": {\n    \"verified\": true\n  }\n}</code></pre></div></div></div>"
+        }
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": { "en": "FAQs" },
+        "heading": { "en": "Auth API — FAQ" },
+        "items": [
+          {
+            "question": {
+              "en": "What verification methods does the Auth API support?"
+            },
+            "answer": {
+              "en": "The Auth API supports: 1) OTP verification via SMS, 2) OTP verification via WhatsApp, 3) WhatsApp-first with SMS fallback, 4) Phone number format validation, and 5) Carrier/reachability lookup. All methods are available through a single unified API."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": { "en": "Related Pages" },
+        "links": [
+          { "label": { "en": "OTP API Docs" }, "href": "/otp-api" },
+          { "label": { "en": "WhatsApp Auth API" }, "href": "/whatsapp/authentication" },
+          { "label": { "en": "Pricing" }, "href": "/pricing" },
+          { "label": { "en": "Use Cases" }, "href": "/use-cases" }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": { "en": "Add User Verification to Your App" },
+        "subtext": { "en": "Free plan. API key in 30 seconds." },
+        "primaryCta": { "en": "Get Started Free" },
+        "primaryHref": "https://app.startmessaging.com/signup"
+      }
+    }
+  ]
+}

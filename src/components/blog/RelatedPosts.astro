@@ -1,0 +1,35 @@
+---
+/**
+ * RelatedPosts — shows up to 3 related blog posts at the bottom of a post.
+ * Ported from startmessaging-astro.
+ */
+import { getCollection } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+  slugs?: string[];
+  currentSlug: string;
+  country?: string;
+}
+
+const { slugs = [], currentSlug, country = 'in' } = Astro.props;
+
+const allPosts = await getCollection('blog');
+
+// Match related posts by slug (within the country folder)
+const related = allPosts
+  .filter((p) => {
+    const pSlug = p.id.replace(/^[a-z]{2}\//, '');
+    return slugs.includes(pSlug) && pSlug !== currentSlug && p.id.startsWith(`${country}/`);
+  })
+  .slice(0, 3);
+---
+
+{related.length > 0 && (
+  <section class="mt-16 border-t border-gray-200 dark:border-gray-800 pt-10">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Related posts</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {related.map((post) => <BlogCard post={post} country={country} />)}
+    </div>
+  </section>
+)}

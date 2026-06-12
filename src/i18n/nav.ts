@@ -1,18 +1,18 @@
 /**
- * Locale-specific navigation and footer configuration.
+ * Country-specific navigation and footer configuration.
+ * Per ASTRO_COUNTRY_PLAN.md §4 + §6.
  *
- * Only items listed for a locale are rendered.
- * Add a locale key here when a new page goes live in that locale.
- *
- * hrefs are relative path segments passed to getRelativeLocaleUrl(),
- * so do NOT include a leading slash.
+ * India (in) → show SMS + WhatsApp + Auth API
+ * Global countries → show WhatsApp only (no SMS)
+ * All nav/footer text resolved from chrome.json via t().
  */
-import type { Locale } from './locales';
+import { type Country, hasSms, urlPrefix } from '@/config/countries';
+import { t } from './t';
 
 export interface NavItem {
-  key: string;   // unique identifier — used as React key
-  label: string; // already localised — no t() needed
-  href: string;  // relative segment, e.g. "whatsapp/bulk-messaging"
+  key: string;
+  label: string;
+  href: string;
 }
 
 export interface FooterLink {
@@ -25,94 +25,139 @@ export interface FooterColumn {
   links: FooterLink[];
 }
 
-// ─── Top navigation ────────────────────────────────────────────────────────
+/**
+ * Build nav items for a given country.
+ * India gets SMS + WhatsApp + Pricing.
+ * Global gets WhatsApp + Pricing only.
+ */
+export function getNavItems(country: Country): NavItem[] {
+  const prefix = urlPrefix(country);
+  const items: NavItem[] = [
+    { key: 'whatsapp', label: t('nav.whatsapp', country), href: `${prefix}/whatsapp` },
+  ];
+  if (hasSms(country)) {
+    items.push({ key: 'sms', label: t('nav.sms', country), href: `${prefix}/sms` });
+  }
+  items.push(
+    { key: 'pricing', label: t('nav.pricing', country), href: `${prefix}/pricing` },
+    { key: 'blog',    label: t('nav.blog', country),    href: `${prefix}/blog` },
+  );
+  return items;
+}
 
-export const NAV_ITEMS: Record<Locale, NavItem[]> = {
-  en: [
-    { key: 'whatsapp', label: 'WhatsApp', href: 'whatsapp' },
-    { key: 'sms',      label: 'SMS',      href: 'sms' },
-    { key: 'pricing',  label: 'Pricing',  href: 'pricing' },
-    { key: 'blog',     label: 'Blog',     href: 'blog' },
-    { key: 'docs',     label: 'Docs',     href: 'docs' },
-  ],
-  'pt-br': [
-    // SMS and Docs pages not yet available in Portuguese
-    { key: 'whatsapp', label: 'WhatsApp', href: 'whatsapp' },
-    { key: 'pricing',  label: 'Preços',   href: 'pricing' },
-    { key: 'blog',     label: 'Blog',     href: 'blog' },
-  ],
-};
+export function getNavCta(country: Country): { login: string; cta: string } {
+  return {
+    login: t('nav.login', country),
+    cta:   t('nav.signup', country),
+  };
+}
 
-export const NAV_CTA: Record<Locale, { login: string; cta: string }> = {
-  en:    { login: 'Login',  cta: 'Get Started Free' },
-  'pt-br': { login: 'Entrar', cta: 'Começar Grátis' },
-};
+/**
+ * Build footer columns for a given country.
+ */
+export function getFooterColumns(country: Country): FooterColumn[] {
+  const prefix = urlPrefix(country);
+  const cols: FooterColumn[] = [];
 
-// ─── Footer ────────────────────────────────────────────────────────────────
+  // Column 1: Products
+  const productLinks: FooterLink[] = [
+    { label: t('nav.whatsapp', country), href: `${prefix}/whatsapp` },
+  ];
+  if (hasSms(country)) {
+    productLinks.push({ label: t('nav.sms', country), href: `${prefix}/sms` });
+    productLinks.push({ label: t('nav.authApi', country), href: `${prefix}/auth-api` });
+  }
+  productLinks.push(
+    { label: t('nav.features', country), href: `${prefix}/features` },
+    { label: t('nav.pricing', country), href: `${prefix}/pricing` },
+    { label: t('footer.limits', country), href: `${prefix}/limits` }
+  );
+  cols.push({ heading: t('footer.product', country), links: productLinks });
 
-export const FOOTER_BRAND_TAGLINE: Record<Locale, string> = {
-  en:    'The WhatsApp Business API platform built for growth.',
-  'pt-br': 'A plataforma de API WhatsApp Business feita para crescer.',
-};
+  // Column 2: WhatsApp Business
+  const waLinks: FooterLink[] = [
+    { label: t('footer.broadcast', country), href: `${prefix}/whatsapp/broadcast` },
+    { label: t('footer.campaigns', country), href: `${prefix}/whatsapp/campaigns` },
+    { label: t('footer.marketing', country), href: `${prefix}/whatsapp/marketing` },
+    { label: t('footer.chatbot', country), href: `${prefix}/whatsapp/chatbot` },
+    { label: t('footer.utility', country), href: `${prefix}/whatsapp/utility` },
+    { label: t('footer.authentication', country), href: `${prefix}/whatsapp/authentication` },
+    { label: t('footer.autoTrigger', country), href: `${prefix}/whatsapp/auto-trigger` },
+    { label: t('footer.bulkMessaging', country), href: `${prefix}/whatsapp/bulk-messaging` },
+  ];
+  cols.push({ heading: t('footer.whatsappApis', country), links: waLinks });
 
-export const FOOTER_COLUMNS: Record<Locale, FooterColumn[]> = {
-  en: [
-    {
-      heading: 'Product',
-      links: [
-        { label: 'WhatsApp API',   href: 'whatsapp' },
-        { label: 'Bulk Messaging', href: 'whatsapp/bulk-messaging' },
-        { label: 'Pricing',        href: 'pricing' },
-      ],
-    },
-    {
-      heading: 'Resources',
-      links: [
-        { label: 'Blog',  href: 'blog' },
-        { label: 'Docs',  href: 'docs' },
-      ],
-    },
-    {
-      heading: 'Company',
-      links: [
-        { label: 'About',   href: 'about' },
-        { label: 'Contact', href: 'contact' },
-      ],
-    },
-  ],
-  'pt-br': [
-    {
-      heading: 'Produto',
-      links: [
-        { label: 'WhatsApp API',     href: 'whatsapp' },
-        { label: 'Envio em Massa',   href: 'whatsapp/bulk-messaging' },
-        { label: 'Preços',           href: 'pricing' },
-      ],
-    },
-    {
-      heading: 'Recursos',
-      links: [
-        { label: 'Blog', href: 'blog' },
-      ],
-    },
-    {
-      heading: 'Empresa',
-      links: [
-        { label: 'Contato', href: 'contact' },
-      ],
-    },
-  ],
-};
+  // Column 3: Solutions / Use Cases
+  const solutionsLinks: FooterLink[] = [];
+  if (hasSms(country)) {
+    solutionsLinks.push(
+      { label: t('footer.smsDlt', country), href: `${prefix}/sms/dlt` },
+      { label: t('footer.smsNonDlt', country), href: `${prefix}/sms/non-dlt` },
+      { label: t('footer.dltFreeOtp', country), href: `${prefix}/dlt-free-otp` },
+      { label: t('footer.sendOtpWithoutDlt', country), href: `${prefix}/send-otp-without-dlt` },
+      { label: t('footer.otpApi', country), href: `${prefix}/otp-api` },
+      { label: t('footer.bulkOtpApi', country), href: `${prefix}/bulk-otp-api` }
+    );
+  }
+  solutionsLinks.push(
+    { label: t('footer.useCasesHub', country), href: `${prefix}/use-cases` },
+    { label: t('footer.ecommerce', country), href: `${prefix}/use-cases/ecommerce` },
+    { label: t('footer.customerSupport', country), href: `${prefix}/use-cases/customer-support` },
+    { label: t('footer.marketingCampaigns', country), href: `${prefix}/use-cases/marketing-campaigns` },
+    { label: t('footer.notifications', country), href: `${prefix}/use-cases/notifications` },
+    { label: t('footer.otpAuthentication', country), href: `${prefix}/use-cases/otp-authentication` }
+  );
+  cols.push({ heading: t('footer.solutions', country), links: solutionsLinks });
 
-export const FOOTER_LEGAL: Record<Locale, { copyright: string; privacy: string; terms: string }> = {
-  en: {
-    copyright: '© 2026 StartMessaging. All rights reserved.',
-    privacy:   'Privacy Policy',
-    terms:     'Terms of Service',
-  },
-  'pt-br': {
-    copyright: '© 2026 StartMessaging. Todos os direitos reservados.',
-    privacy:   'Política de Privacidade',
-    terms:     'Termos de Serviço',
-  },
-};
+  // Column 4: Company & Legal
+  const companyLinks: FooterLink[] = [
+    { label: t('footer.about', country), href: `${prefix}/about` },
+    { label: t('footer.contact', country), href: `${prefix}/contact` },
+    { label: t('footer.videos', country), href: `${prefix}/videos` },
+    { label: t('footer.blog', country), href: `${prefix}/blog` },
+    { label: t('footer.docsWhatsapp', country), href: `${prefix}/docs/whatsapp/getting-started` }
+  ];
+  if (hasSms(country)) {
+    companyLinks.push(
+      { label: t('footer.docsSms', country), href: `${prefix}/docs/sms/getting-started` },
+      { label: t('footer.docsAuth', country), href: `${prefix}/docs/auth-api/getting-started` }
+    );
+  }
+  companyLinks.push(
+    { label: t('footer.privacy', country), href: `${prefix}/privacy-policy` },
+    { label: t('footer.terms', country), href: `${prefix}/terms-of-use` },
+    { label: t('footer.refund', country), href: `${prefix}/refund-policy` },
+    { label: t('footer.accountDeletion', country), href: `${prefix}/account-deletion` }
+  );
+  cols.push({ heading: t('footer.company', country), links: companyLinks });
+
+  return cols;
+}
+
+export function getFooterTagline(country: Country): string {
+  return t('footer.tagline', country);
+}
+
+export function getFooterLegal(country: Country): {
+  copyright: string;
+  privacy: string;
+  terms: string;
+} {
+  const prefix = urlPrefix(country);
+  return {
+    copyright: t('footer.copyright', country),
+    privacy:   t('footer.privacy', country),
+    terms:     t('footer.terms', country),
+  };
+}
+
+export function getFooterLegalHrefs(country: Country): {
+  privacyHref: string;
+  termsHref: string;
+} {
+  const prefix = urlPrefix(country);
+  return {
+    privacyHref: `${prefix}/privacy-policy`,
+    termsHref:   `${prefix}/terms-of-use`,
+  };
+}

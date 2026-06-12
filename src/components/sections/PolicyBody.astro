@@ -1,0 +1,83 @@
+---
+/**
+ * PolicyBody — Legal/policy page body with styled sections and cross-links.
+ *
+ * Example JSON:
+ * {
+ *   "type": "policyBody",
+ *   "props": {
+ *     "heading": { "en": "Privacy Policy" },
+ *     "lastUpdated": "2026-01-01",
+ *     "body": { "en": "<h2>1. Information We Collect</h2><p>...</p>" },
+ *     "crossLinks": [
+ *       { "label": { "en": "Terms of Use" }, "href": "/terms-of-use" },
+ *       { "label": { "en": "Refund Policy" }, "href": "/refund-policy" }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Button from '@/components/ui/Button.astro';
+import { r } from '@/i18n/r';
+
+const { heading, lastUpdated, body: propBody, content: propContent, crossLinks = [], notice, country, theme } = Astro.props;
+const body = propBody || propContent;
+---
+
+<Section>
+  <Container>
+    <div class="max-w-3xl mx-auto">
+      {heading && (
+        <Heading as="h1" size="display-sm" class="mb-4 text-center">
+          {r(heading, country)}
+        </Heading>
+      )}
+
+      {lastUpdated && (
+        <Text tone="muted" size="body-sm" class="text-center mb-2">
+          Last updated: {lastUpdated}
+        </Text>
+      )}
+
+      {notice && (
+        <div class="mb-8 p-4 rounded-lg bg-surface-soft border border-hairline text-center">
+          <Text size="body-sm" tone="muted">{r(notice, country)}</Text>
+        </div>
+      )}
+
+      {body && (
+        <div
+          class="mt-8 text-body leading-relaxed
+                 [&_h2]:text-title-lg [&_h2]:font-bold [&_h2]:text-ink [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:border-b [&_h2]:border-hairline [&_h2]:pb-2
+                 [&_h3]:text-title-md [&_h3]:font-semibold [&_h3]:text-ink [&_h3]:mt-6 [&_h3]:mb-3
+                 [&_p]:mb-4 [&_p]:text-body-md
+                 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-2
+                 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-2
+                 [&_li]:text-body-sm
+                 [&_a]:text-primary [&_a]:underline [&_a]:hover:text-primary-active
+                 [&_strong]:font-semibold [&_strong]:text-ink
+                 [&_table]:w-full [&_table]:border-collapse [&_table]:mb-4
+                 [&_th]:text-left [&_th]:p-3 [&_th]:border-b [&_th]:border-hairline [&_th]:font-semibold [&_th]:text-ink [&_th]:bg-surface-soft
+                 [&_td]:p-3 [&_td]:border-b [&_td]:border-hairline [&_td]:text-body-sm"
+          set:html={r(body, country)}
+        />
+      )}
+
+      {crossLinks.length > 0 && (
+        <div class="mt-12 pt-8 border-t border-hairline">
+          <Text tone="muted" size="body-sm" class="mb-4 font-medium">Related Policies</Text>
+          <div class="flex flex-wrap gap-3">
+            {crossLinks.map((link: any) => (
+              <Button href={link.href} variant="ghost" size="sm">
+                {r(link.label, country)} →
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </Container>
+</Section>

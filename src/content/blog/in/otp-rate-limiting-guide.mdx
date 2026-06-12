@@ -1,0 +1,398 @@
+﻿---
+title: "How to Rate Limit OTP Requests Properly"
+description: "Learn proven rate limiting strategies for OTP APIs: per-phone, per-IP, and sliding window approaches to prevent SMS pumping and brute force attacks."
+publishedAt: "2026-01-24"
+category: guides
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "OTP rate limiting"
+  - "rate limit SMS"
+  - "SMS pumping prevention"
+  - "OTP abuse prevention"
+  - "sliding window rate limit"
+  - "OTP API rate limit"
+  - "India SMS rate limit"
+  - "throttle OTP requests"
+relatedSlugs:
+  - "prevent-otp-fraud"
+  - "otp-security-best-practices"
+featured: false
+---
+
+
+Rate limiting is the first line of defence against OTP abuse. Without it, your OTP system is
+        an open target for SMS pumping attacks, brute-force verification attempts, and runaway costs.
+        This guide covers every rate limiting strategy you need, with implementation patterns you can
+        deploy today.
+
+
+## Why Rate Limiting Matters
+
+OTP endpoints are unique among API surfaces because every request has a tangible cost: an SMS
+        message that you pay for. Unlike a database query that costs fractions of a paisa, each OTP
+        send can cost Rs 0.15 to Rs 0.50 depending on your provider. An attacker who can trigger
+        unlimited sends can drain your SMS budget in minutes.
+
+
+Beyond cost, unlimited OTP requests create security risks. An attacker can flood a phone
+        number with messages (a form of harassment), attempt to brute-force verification codes, or
+        use your system as a relay for 
+        [SMS pumping fraud](/blog/prevent-otp-fraud).
+
+
+Rate limiting addresses all three concerns: it caps your cost exposure, prevents user
+        harassment, and blocks brute-force attacks before they can succeed.
+
+
+## What Happens Without Rate Limiting
+
+Consider a real scenario. A fintech startup launches an OTP-based login system without rate
+        limiting. Within the first week, they notice:
+
+
+
+- **12,000 OTP messages sent in one hour** to phone numbers across multiple countries, none of which belong to real users.
+- **SMS bill of Rs 3,600** for a single hour of abuse (at Rs 0.30 per message).
+- **Provider throttling:** Their SMS provider detects the spike and temporarily suspends their account, blocking legitimate users from receiving OTPs.
+- **Customer complaints:** Real users who happen to receive multiple OTP messages during the attack report the app as spam.
+
+
+
+This is not hypothetical. SMS pumping is one of the most common attacks against OTP systems,
+        particularly in markets like India where SMS delivery is reliable and inexpensive. Without
+        rate limiting, you are paying attackers to abuse your infrastructure.
+
+
+## Rate Limiting Strategies
+
+Effective OTP rate limiting requires multiple layers. No single dimension of limiting is
+        sufficient, because attackers adapt: if you limit by phone number, they rotate numbers; if
+        you limit by IP, they use proxies. Layer your defences.
+
+
+## Per Phone Number Limiting
+
+The most essential rate limit is per phone number. No legitimate user needs to receive more
+        than a handful of OTP messages within a short window.
+
+
+Recommended thresholds:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Window</th>
+              <th>Max OTP Sends</th>
+              <th>Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 minute</td>
+              <td>1</td>
+              <td>Prevents rapid-fire sends; enforces resend cooldown</td>
+            </tr>
+            <tr>
+              <td>10 minutes</td>
+              <td>3</td>
+              <td>Allows for 1 initial send + 2 resends within a session</td>
+            </tr>
+            <tr>
+              <td>1 hour</td>
+              <td>5</td>
+              <td>Covers multiple sessions or retries with generous headroom</td>
+            </tr>
+            <tr>
+              <td>24 hours</td>
+              <td>10</td>
+              <td>Daily cap prevents sustained abuse against a single number</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+These thresholds cover the vast majority of legitimate use cases. A user who fails to receive
+        their OTP after 10 attempts in a day has a delivery problem that rate limiting will not
+        solve.
+
+
+## Per IP Address Limiting
+
+Per-IP limiting catches attackers who rotate through phone numbers from a single machine or
+        botnet node. The thresholds should be higher than per-phone limits because multiple
+        legitimate users may share an IP (e.g., behind a corporate NAT or mobile carrier gateway).
+
+
+Recommended thresholds:
+
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Window</th>
+              <th>Max OTP Sends</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 minute</td>
+              <td>5</td>
+              <td>Allows a small office to send OTPs simultaneously</td>
+            </tr>
+            <tr>
+              <td>10 minutes</td>
+              <td>20</td>
+              <td>Generous for shared IPs but blocks bulk abuse</td>
+            </tr>
+            <tr>
+              <td>1 hour</td>
+              <td>50</td>
+              <td>Hard cap on hourly volume from a single source</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+Be cautious with IP-based limiting on mobile networks. Indian telecom carriers frequently
+        assign the same public IP to thousands of users via CGNAT. If you see legitimate users being
+        blocked, increase the per-IP thresholds or add carrier IP range exceptions.
+
+
+## Sliding Window Implementation
+
+The sliding window algorithm is the preferred approach for OTP rate limiting. Unlike fixed
+        windows (which reset on clock boundaries), sliding windows provide consistent behaviour
+        regardless of when the request arrives.
+
+
+A Redis sorted set is the ideal data structure. Each OTP request is stored as a member with
+        its timestamp as the score. To check the rate limit, remove expired entries, count remaining
+        ones, and either allow or deny the new request.
+
+      
+```typescript
+import Redis from 'ioredis';
+
+const redis = new Redis();
+
+interface RateLimitResult {
+  allowed: boolean;
+  remaining: number;
+  retryAfterMs: number | null;
+}
+
+async function checkRateLimit(
+  key: string,
+  windowMs: number,
+  maxRequests: number
+): Promise<RateLimitResult> {
+  const now = Date.now();
+  const windowStart = now - windowMs;
+
+  // Atomic pipeline: clean expired, count, add if allowed
+  const pipeline = redis.pipeline();
+  pipeline.zremrangebyscore(key, 0, windowStart);
+  pipeline.zcard(key);
+  const results = await pipeline.exec();
+
+  const currentCount = results?.[1]?.[1] as number;
+
+  if (currentCount >= maxRequests) {
+    // Find the oldest entry to calculate retry-after
+    const oldest = await redis.zrange(key, 0, 0, 'WITHSCORES');
+    const oldestTimestamp = oldest.length >= 2 ? parseInt(oldest[1]) : now;
+    const retryAfterMs = oldestTimestamp + windowMs - now;
+
+    return {
+      allowed: false,
+      remaining: 0,
+      retryAfterMs: Math.max(retryAfterMs, 0),
+    };
+  }
+
+  // Add the current request
+  await redis.zadd(key, now, \`\${now}:\${Math.random()}\`);
+  await redis.expire(key, Math.ceil(windowMs / 1000));
+
+  return {
+    allowed: true,
+    remaining: maxRequests - currentCount - 1,
+    retryAfterMs: null,
+  };
+}
+
+// Usage for OTP send endpoint
+async function handleOtpSend(phoneNumber: string, clientIp: string) {
+  // Check per-phone limit (3 per 10 minutes)
+  const phoneLimit = await checkRateLimit(
+    \`ratelimit:otp:phone:\${phoneNumber}\`,
+    10 * 60 * 1000,
+    3
+  );
+  if (!phoneLimit.allowed) {
+    throw new Error('Too many OTP requests for this number. Try again later.');
+  }
+
+  // Check per-IP limit (20 per 10 minutes)
+  const ipLimit = await checkRateLimit(
+    \`ratelimit:otp:ip:\${clientIp}\`,
+    10 * 60 * 1000,
+    20
+  );
+  if (!ipLimit.allowed) {
+    throw new Error('Too many requests from this IP. Try again later.');
+  }
+
+  // Proceed with OTP generation and send
+}
+```
+
+
+## Global Rate Limits
+
+Global rate limits protect your overall system and budget. Set a ceiling on the total number
+        of OTP sends per minute across your entire application. This acts as a circuit breaker: if a
+        coordinated attack hits from multiple IPs targeting multiple phone numbers, the global limit
+        will trigger even if per-phone and per-IP limits are not individually exceeded.
+
+
+Recommended approach:
+
+
+
+- Calculate your baseline: if your application sends 100 OTPs per minute at peak, set a global limit of 300-500 per minute (3-5x headroom for growth).
+- When the global limit is hit, send an alert to your engineering or security team immediately.
+- Consider returning a 503 Service Unavailable rather than a 429 Too Many Requests at the global level, so clients know the issue is temporary.
+
+
+
+## Resend Cooldowns
+
+Resend cooldowns are a specialised form of rate limiting applied to the "resend
+        OTP" action. When a user clicks the resend button, enforce a minimum waiting period
+        before allowing a new OTP to be generated.
+
+
+A progressive cooldown schedule works well:
+
+
+
+- First resend: 30-second cooldown
+- Second resend: 60-second cooldown
+- Third resend: 120-second cooldown
+- Fourth resend and beyond: 300-second cooldown (5 minutes)
+
+
+
+Display the countdown timer in your UI so users know when they can retry. This reduces
+        support tickets from users who repeatedly tap the resend button and also limits your SMS
+        spend.
+
+      
+```typescript
+// Progressive cooldown calculation
+function getResendCooldownMs(resendCount: number): number {
+  const cooldowns = [0, 30000, 60000, 120000, 300000];
+  const index = Math.min(resendCount, cooldowns.length - 1);
+  return cooldowns[index];
+}
+
+// Check cooldown before allowing resend
+async function canResend(otpRequestId: string): Promise<{
+  allowed: boolean;
+  waitMs: number;
+}> {
+  const request = await db.otpRequests.findOne(otpRequestId);
+  const cooldownMs = getResendCooldownMs(request.resendCount);
+  const elapsed = Date.now() - request.lastSentAt.getTime();
+
+  if (elapsed < cooldownMs) {
+    return { allowed: false, waitMs: cooldownMs - elapsed };
+  }
+
+  return { allowed: true, waitMs: 0 };
+}
+```
+
+
+## Responding to Rate-Limited Requests
+
+How you respond to rate-limited requests matters for both security and user experience.
+
+
+For API responses, follow these conventions:
+
+
+
+- Return HTTP `429 Too Many Requests` with a `Retry-After` header indicating how many seconds the client should wait.
+- Include `X-RateLimit-Remaining` and `X-RateLimit-Reset` headers so well-behaved clients can self-throttle.
+- Do not reveal which specific limit was hit (per-phone vs per-IP). A generic "Rate limit exceeded" message prevents attackers from probing your thresholds.
+
+
+      
+```
+// Express/NestJS rate limit response
+if (!rateLimitResult.allowed) {
+  res.set('Retry-After', Math.ceil(rateLimitResult.retryAfterMs / 1000));
+  res.set('X-RateLimit-Remaining', '0');
+  return res.status(429).json({
+    success: false,
+    error: 'Too many requests. Please try again later.',
+  });
+}
+```
+
+
+For the user-facing experience, show a clear message with a countdown timer.
+        Avoid vague error messages like "Something went wrong" which lead users to retry
+        even more aggressively.
+
+
+## StartMessaging Built-in Protection
+
+[StartMessaging](/features) includes rate limiting as a core platform
+        feature. When you call the `/otp/send` endpoint, the following protections are
+        applied automatically:
+
+
+
+- **Per-phone rate limits** that match the thresholds described above, tuned for the Indian market.
+- **Per-IP rate limits** with CGNAT-aware thresholds to avoid false positives on mobile networks.
+- **Global rate limits** per API key, with configurable thresholds available on request.
+- **Automatic SMS pumping detection** that identifies suspicious patterns (random number sequences, high-rate international numbers) and blocks them before delivery.
+
+
+
+This means you can focus on building your application logic and let StartMessaging handle the
+        rate limiting infrastructure. Combined with 
+        [OTP security best practices](/blog/otp-security-best-practices) like
+        bcrypt hashing and attempt limiting, you get comprehensive protection at 
+        [Rs 0.25 per OTP](/pricing).
+
+
+## Implementation Checklist
+
+Review your OTP system against this checklist:
+
+
+
+- Per-phone number rate limit is enforced (max 3 sends per 10 minutes)
+- Per-IP address rate limit is enforced (max 20 sends per 10 minutes)
+- Global rate limit is set with 3-5x headroom above peak traffic
+- Sliding window algorithm is used (not fixed windows)
+- Resend cooldowns are progressive (30s, 60s, 120s, 300s)
+- 429 responses include Retry-After headers
+- Rate limit hit alerts are configured for the engineering team
+- IP-based limits account for mobile carrier CGNAT
+- Client UI shows countdown timers when rate-limited
+- Rate limit counters use Redis or equivalent in-memory store (not database queries)
+
+
+
+For the complete picture on OTP security, read our guides on 
+        [preventing OTP fraud and SMS pumping](/blog/prevent-otp-fraud) and 
+        [OTP security best practices](/blog/otp-security-best-practices).
+
