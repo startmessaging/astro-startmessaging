@@ -2,6 +2,7 @@
   "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
   "theme": "whatsapp",
   "seo": {
+    "ogImage": "/images/bulk-dashboard.webp",
     "title": {
       "en": "WhatsApp Bulk Messaging — Official High-Volume Sender — StartMessaging",
       "pt": "Envio de WhatsApp em Massa Oficial — Sem Risco de Ban — StartMessaging",
@@ -63,45 +64,50 @@
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Zero-Ban Risk Enterprise Throughput" },
+        "heading": { "en": "Zero-Ban Risk Enterprise Throughput", "pt": "Throughput Empresarial com Zero Risco de Banimento", "es": "Rendimiento Empresarial con Cero Riesgo de Bloqueo", "id": "Throughput Enterprise Bebas Risiko Blokir", "ar": "سرعة معالجة عالية للشركات بدون خطر الحظر", "tr": "Sıfır Ban Riskiyle Kurumsal Verim" },
         "body": {
-          "en": "Unlike unofficial browser-scraping tools that immediately trigger WhatsApp spam blocks, StartMessaging works directly with Meta's official Cloud API. You can safely send thousands of transactions simultaneously, backed by our smart scheduling engine that queues messages to match your account's quality rating."
+          "en": "Unlike unofficial browser-scraping tools that immediately trigger WhatsApp spam blocks, StartMessaging works directly with Meta's official Cloud API. You can safely send thousands of transactions simultaneously, backed by our smart scheduling engine that queues messages to match your account's quality rating.",
+          "pt": "Ao contrário das ferramentas não oficiais que causam bloqueios de spam, StartMessaging opera diretamente com a Cloud API oficial da Meta. Envie milhares de mensagens com segurança com nosso mecanismo de agendamento inteligente.",
+          "es": "A diferencia de las herramientas no oficiales que causan bloqueos de spam, StartMessaging opera directamente con la Cloud API oficial de Meta. Envíe miles de mensajes de forma segura con nuestro motor de programación inteligente.",
+          "id": "Tidak seperti alat scraping browser tidak resmi yang langsung memicu blokir spam WhatsApp, StartMessaging bekerja langsung dengan Cloud API resmi Meta. Kirim ribuan transaksi secara bersamaan dengan aman.",
+          "ar": "على عكس ãُأدوات الاستخلاص غير الرسمية التي تُطلق فوراً قيود البريد العشوائي في واتساب، تعمل StartMessaging مباشرةً مع Cloud API الرسمي من Meta.",
+          "tr": "Resmi olmayan scraping araçların aksine StartMessaging, Meta'nın resmi Cloud API'siyle doğrudan çalışır. Aklıllı planlama motorumuz desteklediğinde binlerce işlemi güvenle gönderebilirsiniz."
         },
         "bullets": [
-          { "en": "Supports Meta Tier 1 (1k/day) to Tier 4 (Unlimited/day)" },
-          { "en": "Automated fallback to DLT-compliant SMS when receiver lacks internet" },
-          { "en": "Comprehensive webhook tracking for delivery and read statistics" }
+          { "en": "Supports Meta Tier 1 (1k/day) to Tier 4 (Unlimited/day)", "pt": "Suporta Meta Nível 1 (1k/dia) a Nível 4 (Ilimitado/dia)", "es": "Admite Meta Nivel 1 (1k/día) a Nivel 4 (Ilimitado/día)", "id": "Mendukung Meta Tingkat 1 (1k/hari) hingga Tingkat 4 (Tak terbatas/hari)", "ar": "يدعم من Meta المستوى 1 (ألف/يوم) إلى المستوى 4 (غير محدود)", "tr": "Meta Katman 1'den (1k/gün) Katman 4'e (ŞSınırsız/gün) destek" },
+          { "en": "Automated fallback to DLT-compliant SMS when receiver lacks internet", "pt": "Fallback automático para SMS DLT quando o receptor não tem internet", "es": "Fallback automático a SMS DLT cuando el receptor no tiene internet", "id": "Fallback otomatis ke SMS sesuai DLT saat penerima tidak memiliki internet", "ar": "Fallback تلقائي إلى SMS متوافق DLT عند عدم اتصال المستقبل", "tr": "Alıcı internete bağlı değilken DLT uyumlu SMS'e otomatik geçiş" },
+          { "en": "Comprehensive webhook tracking for delivery and read statistics", "pt": "Rastreamento abrangente de webhook para estatísticas de entrega e leitura", "es": "Seguimiento completo de webhook para estadísticas de entrega y lectura", "id": "Pelacakan webhook lengkap untuk statistik pengiriman dan baca", "ar": "تتبع webhook شامل لإحصائيات التسليم والقراءة", "tr": "Teslimat ve okunma istatistikleri için kapsamlı webhook takibi" }
         ],
         "image": "/images/bulk-dashboard.webp",
-        "imageAlt": { "en": "Bulk Sending Dashboard Analytics View" },
+        "imageAlt": { "en": "Bulk Sending Dashboard Analytics View", "pt": "Visão Analítica do Painel de Envio em Massa", "es": "Vista Analítica del Panel de Envío Masivo", "id": "Tampilan Analitik Dasbor Pengiriman Massal", "ar": "عرض لوحة تحليلات الإرسال الجماعي", "tr": "Toplu Gönderim Panosu Analitik Görünümü" },
         "reversed": false
       }
     },
     {
       "type": "featuresGrid",
       "props": {
-        "badge": { "en": "Platform Details" },
-        "heading": { "en": "Engineered for Enterprise Performance" },
+        "badge": { "en": "Platform Details", "pt": "Detalhes da Plataforma", "es": "Detalles de la Plataforma", "id": "Detail Platform", "ar": "تفاصيل المنصة", "tr": "Platform Ayrıntıları" },
+        "heading": { "en": "Engineered for Enterprise Performance", "pt": "Projetado para Desempenho Empresarial", "es": "Diseñado para Rendimiento Empresarial", "id": "Dirancang untuk Kinerja Enterprise", "ar": "مهندس للأداء المؤسسي", "tr": "Kurumsal Performans İçin Mühendislenmiş" },
         "items": [
           {
             "icon": "broadcast",
-            "title": { "en": "Load Balancing" },
-            "description": { "en": "Distribute broadcast traffic across multiple verified sender numbers to maximize outbound throughput." }
+            "title": { "en": "Load Balancing", "pt": "Balanceamento de Carga", "es": "Equilibrio de Carga", "id": "Penyeimbangan Beban", "ar": "توزيع الحمل", "tr": "Yük Dengeleme" },
+            "description": { "en": "Distribute broadcast traffic across multiple verified sender numbers to maximize outbound throughput.", "pt": "Distribua o tráfego de transmissão em vários números de remetentes verificados para maximizar o throughput de saída.", "es": "Distribuya el tráfico de transmisión entre varios números de remitente verificados para maximizar el rendimiento saliente.", "id": "Distribusikan lalu lintas siaran di beberapa nomor pengirim terverifikasi untuk memaksimalkan throughput keluar.", "ar": "وزّع حركة مرور البث عبر أرقام مرسل متحقق منها لتعظيم معدل الإنتاجية", "tr": "Giden çıkışı maksimize etmek için yayın trafiğini birden fazla doğrulanmış gönderici numarasına dağıtın." }
           },
           {
             "icon": "shield",
-            "title": { "en": "Compliance Guards" },
-            "description": { "en": "Automatic unsubscribe opt-out link parsing to keep user report rates low and maintain number quality." }
+            "title": { "en": "Compliance Guards", "pt": "Proteções de Conformidade", "es": "Guardias de Cumplimiento", "id": "Penjaga Kepatuhan", "ar": "حواجز الامتثال", "tr": "Uyumluluk Koruyucuları" },
+            "description": { "en": "Automatic unsubscribe opt-out link parsing to keep user report rates low and maintain number quality.", "pt": "Processamento automático de link de opt-out para manter baixas as taxas de reclamacóes e a qualidade do número.", "es": "Análisis automático de enlace de opt-out para mantener bajas las tasas de reclamaciones y la calidad del número.", "id": "Pemrosesan tautan opt-out otomatis untuk menjaga tingkat laporan pengguna rendah dan mempertahankan kualitas nomor.", "ar": "تحليل آلي لروابط إلغاء الاشتراك للحفاظ على جودة الرقم.", "tr": "Kullanıcı şikayetlerini düşük tutmak ve numara kalitesini korumak için otomatik abonelikten çıkma bağlantısı işleme." }
           },
           {
             "icon": "analytics",
-            "title": { "en": "Smart Queueing" },
-            "description": { "en": "Throttles outgoing messages during peak traffic to maintain high delivery success ratios without server lag." }
+            "title": { "en": "Smart Queueing", "pt": "Fila Inteligente", "es": "Cola Inteligente", "id": "Antrean Cerdas", "ar": "صف ذكي", "tr": "Aklıllı Sıralama" },
+            "description": { "en": "Throttles outgoing messages during peak traffic to maintain high delivery success ratios without server lag.", "pt": "Limita as mensagens de saída durante o tráfego intenso para manter altas taxas de sucesso de entrega sem lag do servidor.", "es": "Limita los mensajes salientes durante el tráfico intenso para mantener altas tasas de éxito de entrega sin retraso del servidor.", "id": "Membatasi pesan keluar selama lalu lintas puncak untuk mempertahankan rasio keberhasilan pengiriman tinggi tanpa lag server.", "ar": "تحديد سرعة الرسائل الصادرة خلال الذروة للحفاظ على معدلات تسليم عالية.", "tr": "Yüksek trafik sırasında sunucu gecikmesi olmadan yüksek teslimat başarı oranlarını korumak için giden mesajları kısıtlar." }
           },
           {
             "icon": "template",
-            "title": { "en": "Visual Media Delivery" },
-            "description": { "en": "Include personalized image/video files, dynamic PDF receipt attachments, and quick-reply buttons." }
+            "title": { "en": "Visual Media Delivery", "pt": "Entrega de Mídia Visual", "es": "Entrega de Medios Visuales", "id": "Pengiriman Media Visual", "ar": "تسليم الوسائط المرئية", "tr": "Görsel Medya Teslimatı" },
+            "description": { "en": "Include personalized image/video files, dynamic PDF receipt attachments, and quick-reply buttons.", "pt": "Inclua arquivos de imagem/vídeo personalizados, anexos de recibo PDF dinâmicos e botões de resposta rápida.", "es": "Incluya archivos de imagen/vídeo personalizados, archivos adjuntos de recibo PDF dinámicos y botones de respuesta rápida.", "id": "Sertakan file gambar/video yang dipersonalisasi, lampiran tanda terima PDF dinamis, dan tombol balasan cepat.", "ar": "أدرج ملفات صور/فيديو مخصصة ومرفقات إيصال PDF ديناميكية وأزرار ردسريع.", "tr": "Kişiselletirilmiş görüntü/video dosyaları, dinamik PDF makbuz ekleri ve hızlı yanıt butonları ekleyin." }
           }
         ]
       }
@@ -109,39 +115,39 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Bulk Verification" },
-        "heading": { "en": "Official Bulk API vs. Unofficial Broadcasters vs. Traditional SMS Blasts" },
-        "subheading": { "en": "Compare features, ban rates, and delivery speeds to make the optimal decision for your enterprise scale." },
+        "badge": { "en": "Bulk Verification", "pt": "Verificação de Envio em Massa", "es": "Verificación de Envio Masivo", "id": "Verifikasi Massal", "ar": "تحقق الإرسال الجماعي", "tr": "Toplu Doğrulama" },
+        "heading": { "en": "Official Bulk API vs. Unofficial Broadcasters vs. Traditional SMS Blasts", "pt": "API em Massa Oficial vs. Transmissores Não Oficiais vs. Disparos SMS Tradicionais", "es": "API Masiva Oficial vs. Transmisores No Oficiales vs. Disparos SMS Tradicionales", "id": "API Massal Resmi vs. Penyiar Tidak Resmi vs. Blast SMS Tradisional", "ar": "API الجماعي الرسمي مقابل الباثين غير الرسميين مقابل البث SMS التقليدي", "tr": "Resmi Toplu API vs. Resmi Olmayan Yayıncılar vs. Geleneksel SMS Blast" },
+        "subheading": { "en": "Compare features, ban rates, and delivery speeds to make the optimal decision for your enterprise scale.", "pt": "Compare recursos, taxas de banimento e velocidades de entrega para tomar a decisão ideal para sua escala empresarial.", "es": "Compare características, tasas de bloqueo y velocidades de entrega para tomar la decisión óptima para su escala empresarial.", "id": "Bandingkan fitur, tingkat blokir, dan kecepatan pengiriman untuk membuat keputusan optimal untuk skala enterprise Anda.", "ar": "قارن الميزات ومعدلات الحظر وسرعات التسليم لاتخاذ القرار الأمثل.", "tr": "İşetmeniz ölçeği için en uygun kararı vermek amacıyla özellikleri, ban oranlarını ve teslimat hızlarını karşılaştırın." },
         "columns": [
-          { "label": { "en": "Comparison Point" } },
-          { "label": { "en": "StartMessaging Bulk API" }, "highlight": true },
-          { "label": { "en": "Unofficial Scraping Apps" } },
-          { "label": { "en": "Traditional SMS Blasts" } }
+          { "label": { "en": "Comparison Point", "pt": "Ponto de Comparação", "es": "Punto de Comparación", "id": "Titik Perbandingan", "ar": "نقطة المقارنة", "tr": "Karşılaştırma Noktası" } },
+          { "label": { "en": "StartMessaging Bulk API", "pt": "API em Massa StartMessaging", "es": "API Masiva StartMessaging", "id": "API Massal StartMessaging", "ar": "API الجماعي StartMessaging", "tr": "StartMessaging Toplu API" }, "highlight": true },
+          { "label": { "en": "Unofficial Scraping Apps", "pt": "Aplicativos de Scraping Não Oficiais", "es": "Aplicaciones de Scraping No Oficiales", "id": "Aplikasi Scraping Tidak Resmi", "ar": "تطبيقات استخلاص غير رسمية", "tr": "Resmi Olmayan Scraping Uygulamaları" } },
+          { "label": { "en": "Traditional SMS Blasts", "pt": "Disparos SMS Tradicionais", "es": "Disparos SMS Tradicionales", "id": "Blast SMS Tradisional", "ar": "بث SMS التقليدي", "tr": "Geleneksel SMS Blast" } }
         ],
         "rows": [
           [
-            { "en": "Account Ban Risk" },
-            { "en": "0% (Fully TRAI/Meta Compliant)" },
-            { "en": "99% (Highly vulnerable to bans)" },
-            { "en": "0% (Carrier regulated)" }
+            { "en": "Account Ban Risk", "pt": "Risco de Banimento de Conta", "es": "Riesgo de Bloqueo de Cuenta", "id": "Risiko Blokir Akun", "ar": "خطر حظر الحساب", "tr": "Hesap Yasaklanma Riski" },
+            { "en": "0% (Fully TRAI/Meta Compliant)", "pt": "0% (Totalmente Conforme TRAI/Meta)", "es": "0% (Totalmente Conforme TRAI/Meta)", "id": "0% (Sepenuhnya Sesuai TRAI/Meta)", "ar": "0% (متوافق تماماً مع TRAI/Meta)", "tr": "%0 (Tam TRAI/Meta Uyumlu)" },
+            { "en": "99% (Highly vulnerable to bans)", "pt": "99% (Altamente vulnerável a banimentos)", "es": "99% (Altamente vulnerable a bloqueos)", "id": "99% (Sangat rentan terhadap blokir)", "ar": "99% (عالي الخطورة للحظر)", "tr": "%99 (Yasaklara karşı son derece savunmasız)" },
+            { "en": "0% (Carrier regulated)", "pt": "0% (Regulado pela operadora)", "es": "0% (Regulado por operador)", "id": "0% (Diatur operator)", "ar": "0% (منظّم من قبل المشغل)", "tr": "%0 (Operatör tarafından düzenlenmiş)" }
           ],
           [
-            { "en": "Delivery Speeds" },
-            { "en": "Up to 250 messages/second" },
-            { "en": "Throttled to 1-2 per minute" },
-            { "en": "Slow network spikes" }
+            { "en": "Delivery Speeds", "pt": "Velocidades de Entrega", "es": "Velocidades de Entrega", "id": "Kecepatan Pengiriman", "ar": "سرعات التسليم", "tr": "Teslimat Hızları" },
+            { "en": "Up to 250 messages/second", "pt": "Até 250 mensagens/segundo", "es": "Hasta 250 mensajes/segundo", "id": "Hingga 250 pesan/detik", "ar": "حتى 250 رسالة/ثانية", "tr": "Saniyede 250 mesaja kadar" },
+            { "en": "Throttled to 1-2 per minute", "pt": "Limitado a 1-2 por minuto", "es": "Limitado a 1-2 por minuto", "id": "Dibatasi 1-2 per menit", "ar": "مقيد بـ 1-2 في الدقيقة", "tr": "Dakikada 1-2 ile sınırlı" },
+            { "en": "Slow network spikes", "pt": "Picos de rede lentos", "es": "Picos de red lentos", "id": "Lonjakan jaringan lambat", "ar": "تذبذبات شبكة بطيئة", "tr": "Yavaş ağ zirveleri" }
           ],
           [
-            { "en": "Interactive Rich Media" },
-            { "en": "✓ (Images, Videos, Buttons)" },
-            { "en": "✓ (Prone to flagging)" },
-            { "en": "✗ (Text only / MMS cost-prohibitive)" }
+            { "en": "Interactive Rich Media", "pt": "Mídia Rica Interativa", "es": "Medios Enriquecidos Interactivos", "id": "Media Kaya Interaktif", "ar": "وسائط التفاعلية الغنية", "tr": "Etkileşimli Zengin Medya" },
+            { "en": "✓ (Images, Videos, Buttons)", "pt": "✓ (Imagens, Vídeos, Botões)", "es": "✓ (Imágenes, Vídeos, Botones)", "id": "✓ (Gambar, Video, Tombol)", "ar": "✓ (صور وفيديو وأزرار)", "tr": "✓ (Resimler, Videolar, Butonlar)" },
+            { "en": "✓ (Prone to flagging)", "pt": "✓ (Propenso a sinalizacões)", "es": "✓ (Propenso a marcaciones)", "id": "✓ (Rawan ditandai)", "ar": "✓ (عرضة للإبلاغ)", "tr": "✓ (Bayrak çekmeye eğilimli)" },
+            { "en": "✗ (Text only / MMS cost-prohibitive)", "pt": "✗ (Somente texto / MMS proibitivo)", "es": "✗ (Solo texto / MMS prohibitivo)", "id": "✗ (Hanya teks / MMS mahal)", "ar": "✗ (نص فقط / MMS مكلف جداً)", "tr": "✗ (Yalnızca metin / MMS maliyet engelleyici)" }
           ],
           [
-            { "en": "Detailed Open Tracking" },
-            { "en": "✓ (Delivery & Read receipts)" },
-            { "en": "✗ (Manual log checks)" },
-            { "en": "✗ (No open indicators)" }
+            { "en": "Detailed Open Tracking", "pt": "Rastreamento Detalhado de Abertura", "es": "Seguimiento Detallado de Apertura", "id": "Pelacakan Buka Detail", "ar": "تتبع تفصيلي للفتح", "tr": "Ayrıntılı Açılış Takibi" },
+            { "en": "✓ (Delivery & Read receipts)", "pt": "✓ (Confirmação de entrega e leitura)", "es": "✓ (Confirmación de entrega y lectura)", "id": "✓ (Konfirmasi pengiriman dan baca)", "ar": "✓ (تأكيد التسليم والقراءة)", "tr": "✓ (Teslimat ve okundu bilgisi)" },
+            { "en": "✗ (Manual log checks)", "pt": "✗ (Verificações manuais de registro)", "es": "✗ (Comprobaciones manuales de registro)", "id": "✗ (Pemeriksaan log manual)", "ar": "✗ (فحص سجل يدوي)", "tr": "✗ (Manuel log kontrolleri)" },
+            { "en": "✗ (No open indicators)", "pt": "✗ (Sem indicadores de abertura)", "es": "✗ (Sin indicadores de apertura)", "id": "✗ (Tidak ada indikator buka)", "ar": "✗ (لا توجد مؤشرات فتح)", "tr": "✗ (Açılış göstergesi yok)" }
           ]
         ]
       }
@@ -149,9 +155,9 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "API Reference" },
-        "heading": { "en": "Trigger a Bulk Dispatch Programmatically" },
-        "overlayText": { "en": "Bulk Messaging API Sandbox — Coming Soon" },
+        "badge": { "en": "API Reference", "pt": "Referência da API", "es": "Referencia de la API", "id": "Referensi API", "ar": "مرجع API", "tr": "API Referansı" },
+        "heading": { "en": "Trigger a Bulk Dispatch Programmatically", "pt": "Disparar um Envio em Massa Programaticamente", "es": "Activar un Envío Masivo Programáticamente", "id": "Picu Pengiriman Massal Secara Programatik", "ar": "تشغيل إرسال جماعي برمجياً", "tr": "Toplu Gönderimi Programatik Olarak Tetikleyin" },
+        "overlayText": { "en": "Bulk Messaging API Sandbox — Coming Soon", "pt": "Sandbox API de Mensagens em Massa — Em Breve", "es": "Sandbox API de Mensajes Masivos — Próximamente", "id": "Sandbox API Pesan Massal — Segera Hadir", "ar": "بيئة تجريبية API الرسائل الجماعية — قريباً", "tr": "Toplu Mesajlaşma API Sanal Alanı — Çok Yakında" },
         "snippets": [
           {
             "lang": "cURL",
@@ -171,16 +177,16 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "Bulk Sending — Frequently Asked Questions" },
+        "badge": { "en": "FAQs", "pt": "Perguntas Frequentes", "es": "Preguntas Frecuentes", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS" },
+        "heading": { "en": "Bulk Sending — Frequently Asked Questions", "pt": "Envio em Massa — Perguntas Frequentes", "es": "Envío Masivo — Perguntas Frecuentes", "id": "Pengiriman Massal — Pertanyaan yang Sering Diajukan", "ar": "الإرسال الجماعي — الأسئلة الشائعة", "tr": "Toplu Gönderim — Sıkça Sorulan Sorular" },
         "items": [
           {
-            "question": { "en": "What is the daily sending limit on official WhatsApp Bulk API?" },
-            "answer": { "en": "Meta assigns numbers to tiers starting at Tier 1 (1,000 unique recipients/24h), moving to Tier 2 (10,000), Tier 3 (100,000), and Tier 4 (unlimited). Your tier automatically upgrades based on sending volume and number quality score." }
+            "question": { "en": "What is the daily sending limit on official WhatsApp Bulk API?", "pt": "Qual é o limite diário de envio na API em Massa oficial do WhatsApp?", "es": "¿Cuál es el límite de envío diario en la API Masiva oficial de WhatsApp?", "id": "Berapa batas pengiriman harian di API Massal WhatsApp resmi?", "ar": "ما هو حد الإرسال اليومي لـ WhatsApp Bulk API الرسمي?", "tr": "Resmi WhatsApp Bulk API'sinde günlük gönderim limiti nedir?" },
+            "answer": { "en": "Meta assigns numbers to tiers starting at Tier 1 (1,000 unique recipients/24h), moving to Tier 2 (10,000), Tier 3 (100,000), and Tier 4 (unlimited). Your tier automatically upgrades based on sending volume and number quality score.", "pt": "Meta atribui números a níveis começando pelo Nível 1 (1.000 destinatários únicos/24h), passando para Nível 2 (10.000), Nível 3 (100.000) e Nível 4 (ilimitado). Seu nível é atualizado automaticamente conforme o volume de envio.", "es": "Meta asigna números a niveles comenzando en el Nivel 1 (1.000 destinatarios únicos/24h), pasando al Nivel 2 (10.000), Nivel 3 (100.000) y Nivel 4 (ilimitado). Su nivel se actualiza automáticamente según el volumen de envío.", "id": "Meta menetapkan nomor ke tingkat mulai dari Tingkat 1 (1.000 penerima unik/24j), naik ke Tingkat 2 (10.000), Tingkat 3 (100.000), dan Tingkat 4 (tak terbatas). Tingkat Anda ditingkatkan secara otomatis berdasarkan volume pengiriman.", "ar": "تُخصّص Meta الأرقام لمستويات تبدأ من المستوى 1 (ألف مستلم فريد/24س) وتصل إلى المستوى 4 (غير محدود). يرتفع مستواك تلقائياً.", "tr": "Meta, numaralara Katman 1'den (1.000 benzersiz alıcı/24s) başlayan kademeler atar. Katmanınız gönderim hacmine göre otomatik yükseltilir." }
           },
           {
-            "question": { "en": "How do you protect the phone number from being banned?" },
-            "answer": { "en": "Because we use official WhatsApp Cloud API, you are completely compliant. However, if customers actively block or report your messages, your number score decreases. We recommend sending exclusively to opted-in clients, personalized templates, and offering a quick 'Stop' button." }
+            "question": { "en": "How do you protect the phone number from being banned?", "pt": "Como você protege o número de telefone de ser banido?", "es": "¿Cómo protege el número de teléfono de ser bloqueado?", "id": "Bagaimana Anda melindungi nomor telepon dari pemblokiran?", "ar": "كيف تحمي رقم الهاتف من الحظر?", "tr": "Telefon numarasını yasaklanmaktan nasıl korursunuz?" },
+            "answer": { "en": "Because we use official WhatsApp Cloud API, you are completely compliant. However, if customers actively block or report your messages, your number score decreases. We recommend sending exclusively to opted-in clients, personalized templates, and offering a quick 'Stop' button.", "pt": "Como usamos a Cloud API oficial do WhatsApp, você está completamente em conformidade. No entanto, se clientes bloquearem ou denunciarem suas mensagens ativamente, a pontuação do número diminui. Recomendamos enviar apenas para clientes opt-in.", "es": "Dado que usamos la Cloud API oficial de WhatsApp, está completamente en conformidad. Sin embargo, si los clientes bloquean o denuncian sus mensajes activamente, la puntuación del número disminuye. Recomendamos enviar exclusivamente a clientes opt-in.", "id": "Karena kami menggunakan Cloud API resmi WhatsApp, Anda sepenuhnya patuh. Namun, jika pelanggan secara aktif memblokir atau melaporkan pesan Anda, skor nomor menurun. Kami merekomendasikan pengiriman eksklusif ke klien opt-in.", "ar": "لأننا نستخدم Cloud API الرسمي لـWhatsApp، أنت متوافق تماماً. ومع ذلك نوصي بالإرسال للمشتركين الموافقين فقط.", "tr": "Resmi WhatsApp Cloud API kullandığımız için tamamen uyumlusunuz. Ancak müşteriler mesajlarınızı engellerse numara puani düşer. Yalnızca opt-in müşterilere gönderin." }
           },
           {
             "question": {
@@ -192,7 +198,7 @@
             "answer": {
               "en": "Yes, all bulk messaging must follow local opt-in rules and Meta BSP platform limits.",
               "ng": "Yes, we fully support CBN and local fintech transaction alert patterns. With optimized routing for low-bandwidth connections and instant SMS fallback, you are guaranteed that high-volume bank notifications reach customers even in areas with spotty network coverage.",
-              "tr": "Türkiye'de toplu WhatsApp mesajı göndermeden önce, KVKK uyumluluğu için alıcılardan açık rıza (opt-in) alınması ve rıza verilerinin saklanması zorunludur. StartMessaging altyapısı bu rıza süreçlerini yönetmenizi kolaylaştıracak abonelikten çıkma (opt-out) butonlarını destekler.",
+              "tr": "Türkiye'de toplu WhatsApp mesajı göndermeden önce, KVKK uyumluğu için alıcılardan açık rıza (opt-in) alınması ve rıza verilerinin saklanması zorunludur. StartMessaging altyapısı bu rıza süreçlerini yönetmenizi kolaylaştıracak abonelikten çıkma (opt-out) butonlarını destekler.",
               "ae": "In the UAE, TRA and Meta guidelines mandate that bulk promotional messages should only be delivered to clients who have explicitly opted in. Additionally, promotional broadcasts must be scheduled during local business hours to avoid being flagged as spam."
             }
           }
@@ -202,21 +208,21 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar" },
         "links": [
-          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
-          { "label": { "en": "Marketing Campaigns" }, "href": "/whatsapp/campaigns" },
-          { "label": { "en": "Utility Notifications" }, "href": "/whatsapp/utility" },
-          { "label": { "en": "Pricing Details" }, "href": "/pricing" }
+          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Marketing", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları" }, "href": "/whatsapp/campaigns" },
+          { "label": { "en": "Utility Notifications", "pt": "Notificações Utilitárias", "es": "Notificaciones Utilitarias", "id": "Notifikasi Utilitas", "ar": "إشعارات الخدمات", "tr": "Yardımcı Bildirimler" }, "href": "/whatsapp/utility" },
+          { "label": { "en": "Pricing Details", "pt": "Detalhes de Preços", "es": "Detalles de Precios", "id": "Detail Harga", "ar": "تفاصيل الأسعار", "tr": "Fiyatlandırma Ayrıntıları" }, "href": "/pricing" }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Ready for Enterprise Bulk Sending?" },
-        "subtext": { "en": "Get sandbox access and begin integrating within minutes." },
-        "primaryCta": { "en": "Sign Up Free" },
+        "heading": { "en": "Ready for Enterprise Bulk Sending?", "pt": "Pronto para Envio em Massa Empresarial?", "es": "¿Listo para el Envío Masivo Empresarial?", "id": "Siap untuk Pengiriman Massal Enterprise?", "ar": "هل أنت مستعد للإرسال الجماعي للشركات?", "tr": "Kurumsal Toplu Gönderim İçin Hazır mısınız?" },
+        "subtext": { "en": "Get sandbox access and begin integrating within minutes.", "pt": "Obtenha acesso ao sandbox e comece a integrar em minutos.", "es": "Obtenga acceso al sandbox y comience a integrarse en minutos.", "id": "Dapatkan akses sandbox dan mulai mengintegrasikan dalam hitungan menit.", "ar": "احصل على وصول sandbox وابدأ التكامل في دقائق.", "tr": "Sandbox erişimi alın ve dakikalar içinde entegrasyona başlayın." },
+        "primaryCta": { "en": "Sign Up Free", "pt": "Cadastrar Grátis", "es": "Registrarse Gratis", "id": "Daftar Gratis", "ar": "سجّل مجاناً", "tr": "Ücretsiz Kayıt Ol" },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

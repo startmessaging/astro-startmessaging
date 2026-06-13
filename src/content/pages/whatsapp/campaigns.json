@@ -18,60 +18,197 @@
       "id": "Jalankan kampanye marketing WhatsApp bertarget dengan segmentasi audiens, pengujian A/B, penjadwalan, dan pelacakan ROI.",
       "ar": "شغّل حملات تسويق واتساب مستهدفة مع تقسيم الجمهور واختبار A/B والجدولة وتتبع العائد على الاستثمار.",
       "tr": "Hedef kitle segmentasyonu, A/B testi ve detaylı ROI analitiği ile hedefli WhatsApp pazarlama kampanyaları yürütün."
-    }
+    },
+    "ogImage": "/images/campaign-flow.webp"
   },
   "sections": [
     {
       "type": "hero",
       "theme": "whatsapp",
       "props": {
-        "badge": { "en": "WhatsApp Campaigns" },
-        "title": { "en": "Run High-Converting WhatsApp Campaigns" },
-        "subtitle": {
-          "en": "Segment audiences, schedule sends, A/B test templates, and track ROI — all from a single dashboard. 98% open rates vs 20% for email."
+        "badge": {
+          "en": "WhatsApp Campaigns",
+          "pt": "Campanhas WhatsApp",
+          "es": "Campañas WhatsApp",
+          "id": "Kampanye WhatsApp",
+          "ar": "حملات واتساب",
+          "tr": "WhatsApp Kampanyaları"
         },
-        "primaryCta": { "en": "Launch Your Campaign" },
+        "title": {
+          "en": "Run High-Converting WhatsApp Campaigns",
+          "pt": "Execute Campanhas WhatsApp de Alta Conversão",
+          "es": "Ejecute Campañas WhatsApp de Alta Conversión",
+          "id": "Jalankan Kampanye WhatsApp Berkoversi Tinggi",
+          "ar": "شغّل حملات واتساب عالية التحويل",
+          "tr": "Yüksek Dönüşümlü WhatsApp Kampanyaları Yürütün"
+        },
+        "subtitle": {
+          "en": "Segment audiences, schedule sends, A/B test templates, and track ROI — all from a single dashboard. 98% open rates vs 20% for email.",
+          "pt": "Segmente audiências, agende envios, teste templates A/B e acompanhe ROI — tudo em um único painel. 98% de abertura vs 20% para e-mail.",
+          "es": "Segmente audiencias, programe envíos, pruebe plantillas A/B y realice seguimiento del ROI — todo desde un solo panel. 98% de apertura vs 20% para email.",
+          "id": "Segmentasikan audiens, jadwalkan pengiriman, uji template A/B, dan lacak ROI — semuanya dari satu dasbor. 98% tingkat buka vs 20% untuk email.",
+          "ar": "قسّم الجماهير وجدوِل الإرسال واختبر القوالب A/B وتتبع العائد — كل ذلك من لوحة تحكم واحدة. 98% معدل فتح مقابل 20% للبريد.",
+          "tr": "Kitleleri segmentlere ayırın, gönderimleri planlayın, A/B test yapın ve ROI takip edin — tek bir panelden. E-postada %20'ye karşı %98 açılma oranı."
+        },
+        "primaryCta": {
+          "en": "Launch Your Campaign",
+          "pt": "Lançar Sua Campanha",
+          "es": "Lanzar Su Campaña",
+          "id": "Luncurkan Kampanye Anda",
+          "ar": "أطلق حملتك",
+          "tr": "Kampanyanızı Başlatın"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Intelligent Automation and Retargeting" },
+        "heading": {
+          "en": "Intelligent Automation and Retargeting",
+          "pt": "Automação Inteligente e Retargeting",
+          "es": "Automatización Inteligente y Retargeting",
+          "id": "Otomatisasi Cerdas dan Retargeting",
+          "ar": "الأتمتة الذكية وإعادة الاستهداف",
+          "tr": "Akıllı Otomasyon ve Yeniden Hedefleme"
+        },
         "body": {
-          "en": "Create advanced marketing funnels on WhatsApp. Set up conditional rules (like 'if recipient clicks Button A, trigger follow-up message B after 2 hours'). Segment your contacts based on tags, custom fields, and past behaviors to maximize relevance and conversion rates."
+          "en": "Create advanced marketing funnels on WhatsApp. Set up conditional rules (like 'if recipient clicks Button A, trigger follow-up message B after 2 hours'). Segment your contacts based on tags, custom fields, and past behaviors to maximize relevance and conversion rates.",
+          "pt": "Crie funis de marketing avançados no WhatsApp. Configure regras condicionais (como 'se o destinatário clicar no Botão A, enviar mensagem B após 2 horas'). Segmente contatos por tags, campos personalizados e comportamentos para maximizar conversões.",
+          "es": "Cree embudos de marketing avanzados en WhatsApp. Configure reglas condicionales (como 'si el destinatario hace clic en el Botón A, enviar mensaje B después de 2 horas'). Segmente contactos por etiquetas, campos personalizados y comportamientos.",
+          "id": "Buat corong pemasaran canggih di WhatsApp. Atur aturan kondisional (seperti 'jika penerima mengklik Tombol A, kirim pesan B setelah 2 jam'). Segmentasikan kontak berdasarkan tag, kolom kustom, dan perilaku masa lalu.",
+          "ar": "أنشئ قمعاً تسويقية متقدمة على واتساب. أعِد قواعد شرطية (مثل 'إذا نقر المستلم على الزر A، فشغّل رسالة المتابعة B بعد ساعتين'). قسّم جهات الاتصال بناءً على العلامات والحقول المخصصة والسلوكيات.",
+          "tr": "WhatsApp'ta gelişmiş pazarlama hunileri oluşturun. Koşullu kurallar ayarlayın ('alıcı A Butonuna tıklarsa 2 saat sonra B takip mesajını tetikle' gibi). Etiketlere, özel alanlara ve geçmiş davranışlara göre kişileri segmentlere ayırın."
         },
         "bullets": [
-          { "en": "Audience segmentation by customer tags" },
-          { "en": "Interactive quick replies and call-to-action buttons" },
-          { "en": "Timezone-aware campaign scheduling" }
+          {
+            "en": "Audience segmentation by customer tags",
+            "pt": "Segmentação de audiência por tags de clientes",
+            "es": "Segmentación de audiencia por etiquetas de clientes",
+            "id": "Segmentasi audiens berdasarkan tag pelanggan",
+            "ar": "تقسيم الجمهور حسب علامات العملاء",
+            "tr": "Müşteri etiketlerine göre kitle segmentasyonu"
+          },
+          {
+            "en": "Interactive quick replies and call-to-action buttons",
+            "pt": "Respostas rápidas interativas e botões de chamada à ação",
+            "es": "Respuestas rápidas interactivas y botones de llamada a la acción",
+            "id": "Balasan cepat interaktif dan tombol ajakan bertindak",
+            "ar": "ردود سريعة تفاعلية وأزرار الدعوة إلى اتخاذ إجراء",
+            "tr": "Etkileşimli hızlı yanıtlar ve harekete geçirici mesaj butonları"
+          },
+          {
+            "en": "Timezone-aware campaign scheduling",
+            "pt": "Agendamento de campanha com reconhecimento de fuso horário",
+            "es": "Programación de campañas con reconocimiento de zona horaria",
+            "id": "Penjadwalan kampanye yang peka zona waktu",
+            "ar": "جدولة الحملات مع مراعاة المنطقة الزمنية",
+            "tr": "Saat dilimine duyarlı kampanya planlaması"
+          }
         ],
         "image": "/images/campaign-flow.webp",
-        "imageAlt": { "en": "WhatsApp Campaign Builder Diagram" },
+        "imageAlt": {
+          "en": "WhatsApp Campaign Builder Diagram",
+          "pt": "Diagrama do Construtor de Campanha WhatsApp",
+          "es": "Diagrama del Constructor de Campaña WhatsApp",
+          "id": "Diagram Pembuat Kampanye WhatsApp",
+          "ar": "مخطط منشئ حملة واتساب",
+          "tr": "WhatsApp Kampanya Oluşturucu Şeması"
+        },
         "reversed": false
       }
     },
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Workflow" },
-        "heading": { "en": "4 Steps to Launch a WhatsApp Campaign" },
+        "badge": {
+          "en": "Workflow",
+          "pt": "Fluxo de Trabalho",
+          "es": "Flujo de Trabajo",
+          "id": "Alur Kerja",
+          "ar": "سير العمل",
+          "tr": "İş Akışı"
+        },
+        "heading": {
+          "en": "4 Steps to Launch a WhatsApp Campaign",
+          "pt": "4 Passos para Lançar uma Campanha WhatsApp",
+          "es": "4 Pasos para Lanzar una Campaña WhatsApp",
+          "id": "4 Langkah untuk Meluncurkan Kampanye WhatsApp",
+          "ar": "4 خطوات لإطلاق حملة واتساب",
+          "tr": "WhatsApp Kampanyası Başlatmak İçin 4 Adım"
+        },
         "steps": [
           {
-            "title": { "en": "1. Import & Segment" },
-            "description": { "en": "Upload your opted-in customer lists and divide them by tags, tags history, or geographic location." }
+            "title": {
+              "en": "1. Import & Segment",
+              "pt": "1. Importar e Segmentar",
+              "es": "1. Importar y Segmentar",
+              "id": "1. Impor & Segmentasikan",
+              "ar": "1. استيراد وتقسيم",
+              "tr": "1. İçe Aktar ve Segmentlere Ayır"
+            },
+            "description": {
+              "en": "Upload your opted-in customer lists and divide them by tags, tags history, or geographic location.",
+              "pt": "Faça upload das suas listas de clientes com opt-in e divida-as por tags, histórico de tags ou localização geográfica.",
+              "es": "Cargue sus listas de clientes con opt-in y divídalas por etiquetas, historial de etiquetas o ubicación geográfica.",
+              "id": "Unggah daftar pelanggan yang telah memberikan persetujuan dan bagi berdasarkan tag, riwayat tag, atau lokasi geografis.",
+              "ar": "قم بتحميل قوائم عملائك المشتركين وقسّمهم حسب العلامات أو تاريخ العلامات أو الموقع الجغرافي.",
+              "tr": "Onaylı müşteri listelerinizi yükleyin ve etiketlere, etiket geçmişine veya coğrafi konuma göre bölün."
+            }
           },
           {
-            "title": { "en": "2. Draft Templates" },
-            "description": { "en": "Write message templates with dynamic placeholders and buttons, submitting them to Meta for instant approval." }
+            "title": {
+              "en": "2. Draft Templates",
+              "pt": "2. Rascunhar Templates",
+              "es": "2. Crear Plantillas",
+              "id": "2. Buat Draf Template",
+              "ar": "2. صياغة القوالب",
+              "tr": "2. Şablon Taslakları Hazırlayın"
+            },
+            "description": {
+              "en": "Write message templates with dynamic placeholders and buttons, submitting them to Meta for instant approval.",
+              "pt": "Escreva templates de mensagem com placeholders dinâmicos e botões, enviando-os para aprovação instantânea da Meta.",
+              "es": "Escriba plantillas de mensajes con marcadores dinámicos y botones, enviándolos a Meta para aprobación instantánea.",
+              "id": "Tulis template pesan dengan placeholder dinamis dan tombol, kirimkan ke Meta untuk persetujuan instan.",
+              "ar": "اكتب قوالب الرسائل مع عناصر نائبة ديناميكية وأزرار، وأرسلها إلى Meta للموافقة الفورية.",
+              "tr": "Dinamik yer tutucular ve butonlarla mesaj şablonları yazın ve anında onay için Meta'ya gönderin."
+            }
           },
           {
-            "title": { "en": "3. Schedule & Test" },
-            "description": { "en": "Perform an A/B test on a small test group first, then schedule the winning message variation." }
+            "title": {
+              "en": "3. Schedule & Test",
+              "pt": "3. Agendar e Testar",
+              "es": "3. Programar y Probar",
+              "id": "3. Jadwalkan & Uji",
+              "ar": "3. جدولة واختبار",
+              "tr": "3. Planlayın ve Test Edin"
+            },
+            "description": {
+              "en": "Perform an A/B test on a small test group first, then schedule the winning message variation.",
+              "pt": "Execute um teste A/B em um grupo de teste pequeno primeiro, depois agende a variação de mensagem vencedora.",
+              "es": "Realice una prueba A/B en un grupo de prueba pequeño primero, luego programe la variación de mensaje ganadora.",
+              "id": "Lakukan pengujian A/B pada kelompok kecil terlebih dahulu, kemudian jadwalkan variasi pesan yang menang.",
+              "ar": "قم بإجراء اختبار A/B على مجموعة اختبار صغيرة أولاً، ثم جدوِل التغييرة الفائزة في الرسالة.",
+              "tr": "Önce küçük bir test grubunda A/B testi yapın, ardından kazanan mesaj varyasyonunu planlayın."
+            }
           },
           {
-            "title": { "en": "4. Analyze Performance" },
-            "description": { "en": "Monitor delivery metrics, button clicks, and conversation read rates from your central dashboard." }
+            "title": {
+              "en": "4. Analyze Performance",
+              "pt": "4. Analisar Desempenho",
+              "es": "4. Analizar Rendimiento",
+              "id": "4. Analisis Kinerja",
+              "ar": "4. تحليل الأداء",
+              "tr": "4. Performansı Analiz Edin"
+            },
+            "description": {
+              "en": "Monitor delivery metrics, button clicks, and conversation read rates from your central dashboard.",
+              "pt": "Monitore métricas de entrega, cliques em botões e taxas de leitura de conversas no seu painel central.",
+              "es": "Monitoree métricas de entrega, clics en botones y tasas de lectura de conversaciones desde su panel central.",
+              "id": "Pantau metrik pengiriman, klik tombol, dan tingkat baca percakapan dari dasbor pusat Anda.",
+              "ar": "راقب مقاييس التسليم ونقرات الأزرار ومعدلات القراءة في المحادثات من لوحة التحكم المركزية.",
+              "tr": "Merkezi panelinizden teslimat metriklerini, buton tıklamalarını ve konuşma okunma oranlarını izleyin."
+            }
           }
         ]
       }
@@ -79,38 +216,96 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Campaign Strategy" },
-        "heading": { "en": "Campaigns vs. Broadcast vs. Auto-responders" },
-        "subheading": { "en": "Choose the optimal approach to scale customer engagement on WhatsApp." },
+        "badge": {
+          "en": "Campaign Strategy",
+          "pt": "Estratégia de Campanha",
+          "es": "Estrategia de Campaña",
+          "id": "Strategi Kampanye",
+          "ar": "استراتيجية الحملة",
+          "tr": "Kampanya Stratejisi"
+        },
+        "heading": {
+          "en": "Campaigns vs. Broadcast vs. Auto-responders",
+          "pt": "Campanhas vs. Transmissão vs. Respostas Automáticas",
+          "es": "Campañas vs. Difusión vs. Respuestas Automáticas",
+          "id": "Kampanye vs. Siaran vs. Auto-responder",
+          "ar": "الحملات مقابل البث مقابل الردود التلقائية",
+          "tr": "Kampanyalar vs. Yayın vs. Otomatik Yanıtlayıcılar"
+        },
+        "subheading": {
+          "en": "Choose the optimal approach to scale customer engagement on WhatsApp.",
+          "pt": "Escolha a abordagem ideal para escalar o engajamento do cliente no WhatsApp.",
+          "es": "Elija el enfoque óptimo para escalar la participación del cliente en WhatsApp.",
+          "id": "Pilih pendekatan optimal untuk meningkatkan keterlibatan pelanggan di WhatsApp.",
+          "ar": "اختر النهج الأمثل لتوسيع نطاق تفاعل العملاء على واتساب.",
+          "tr": "WhatsApp'ta müşteri etkileşimini ölçeklendirmek için en uygun yaklaşımı seçin."
+        },
         "columns": [
-          { "label": { "en": "Feature Set" } },
-          { "label": { "en": "WhatsApp Campaigns" }, "highlight": true },
-          { "label": { "en": "One-off Broadcast" } },
-          { "label": { "en": "Simple Auto-responder" } }
+          {
+            "label": {
+              "en": "Feature Set",
+              "pt": "Conjunto de Recursos",
+              "es": "Conjunto de Características",
+              "id": "Set Fitur",
+              "ar": "مجموعة الميزات",
+              "tr": "Özellik Seti"
+            }
+          },
+          {
+            "label": {
+              "en": "WhatsApp Campaigns",
+              "pt": "Campanhas WhatsApp",
+              "es": "Campañas WhatsApp",
+              "id": "Kampanye WhatsApp",
+              "ar": "حملات واتساب",
+              "tr": "WhatsApp Kampanyaları"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "One-off Broadcast",
+              "pt": "Transmissão Única",
+              "es": "Difusión Única",
+              "id": "Siaran Sekali",
+              "ar": "بث لمرة واحدة",
+              "tr": "Tek Seferlik Yayın"
+            }
+          },
+          {
+            "label": {
+              "en": "Simple Auto-responder",
+              "pt": "Resposta Automática Simples",
+              "es": "Respuesta Automática Simple",
+              "id": "Auto-responder Sederhana",
+              "ar": "مستجيب تلقائي بسيط",
+              "tr": "Basit Otomatik Yanıtlayıcı"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "A/B Template Testing" },
+            { "en": "A/B Template Testing", "pt": "Teste A/B de Templates", "es": "Prueba A/B de Plantillas", "id": "Pengujian A/B Template", "ar": "اختبار قوالب A/B", "tr": "A/B Şablon Testi" },
             "✓",
             "—",
             "—"
           ],
           [
-            { "en": "Timezone-Aware Scheduling" },
+            { "en": "Timezone-Aware Scheduling", "pt": "Agendamento por Fuso Horário", "es": "Programación por Zona Horaria", "id": "Penjadwalan Zona Waktu", "ar": "جدولة مع مراعاة المنطقة الزمنية", "tr": "Saat Dilimi Planlaması" },
             "✓",
             "✓",
             "—"
           ],
           [
-            { "en": "Sequence Fallback Logic" },
-            { "en": "✓ (Multi-step)" },
-            { "en": "—" },
-            { "en": "—" }
+            { "en": "Sequence Fallback Logic", "pt": "Lógica de Fallback em Sequência", "es": "Lógica de Fallback en Secuencia", "id": "Logika Fallback Urutan", "ar": "منطق الاحتياط المتسلسل", "tr": "Sıralı Yedek Mantığı" },
+            { "en": "✓ (Multi-step)", "pt": "✓ (Multi-etapa)", "es": "✓ (Multi-paso)", "id": "✓ (Multi-langkah)", "ar": "✓ (متعدد الخطوات)", "tr": "✓ (Çok adımlı)" },
+            { "en": "—", "pt": "—", "es": "—", "id": "—", "ar": "—", "tr": "—" },
+            { "en": "—", "pt": "—", "es": "—", "id": "—", "ar": "—", "tr": "—" }
           ],
           [
-            { "en": "Real-time Conversion ROI" },
+            { "en": "Real-time Conversion ROI", "pt": "ROI de Conversão em Tempo Real", "es": "ROI de Conversión en Tiempo Real", "id": "ROI Konversi Real-time", "ar": "عائد الاستثمار في الوقت الفعلي", "tr": "Gerçek Zamanlı Dönüşüm ROI" },
             "✓",
-            { "en": "Read receipts only" },
+            { "en": "Read receipts only", "pt": "Apenas confirmações de leitura", "es": "Solo confirmaciones de lectura", "id": "Hanya laporan dibaca", "ar": "مؤشرات القراءة فقط", "tr": "Yalnızca okundu bilgisi" },
             "—"
           ]
         ]
@@ -119,9 +314,30 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Campaigns API" },
-        "heading": { "en": "Launch and Schedule Campaigns via API" },
-        "overlayText": { "en": "Campaign API Sandbox — Coming Soon" },
+        "badge": {
+          "en": "Campaigns API",
+          "pt": "API de Campanhas",
+          "es": "API de Campañas",
+          "id": "API Kampanye",
+          "ar": "API الحملات",
+          "tr": "Kampanyalar API'si"
+        },
+        "heading": {
+          "en": "Launch and Schedule Campaigns via API",
+          "pt": "Lançar e Agendar Campanhas via API",
+          "es": "Lanzar y Programar Campañas vía API",
+          "id": "Luncurkan dan Jadwalkan Kampanye melalui API",
+          "ar": "إطلاق وجدولة الحملات عبر API",
+          "tr": "API Aracılığıyla Kampanyaları Başlatın ve Planlayın"
+        },
+        "overlayText": {
+          "en": "Campaign API Sandbox — Coming Soon",
+          "pt": "Sandbox da API de Campanhas — Em Breve",
+          "es": "Sandbox de API de Campañas — Próximamente",
+          "id": "Sandbox API Kampanye — Segera Hadir",
+          "ar": "بيئة تجريبية API الحملات — قريباً",
+          "tr": "Kampanya API Sanal Alanı — Çok Yakında"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -153,16 +369,58 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "Campaigns — Frequently Asked Questions" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "Campaigns — Frequently Asked Questions",
+          "pt": "Campanhas — Perguntas Frequentes",
+          "es": "Campañas — Preguntas Frecuentes",
+          "id": "Kampanye — Pertanyaan yang Sering Diajukan",
+          "ar": "الحملات — الأسئلة الشائعة",
+          "tr": "Kampanyalar — Sıkça Sorulan Sorular"
+        },
         "items": [
           {
-            "question": { "en": "What types of campaigns can I run on WhatsApp?" },
-            "answer": { "en": "You can run promotional campaigns (product launches, seasonal sales, event invitations), re-engagement campaigns (abandoned cart reminders, win-back offers), informational campaigns (product updates, feature announcements), and loyalty campaigns (rewards programs, VIP offers). All require opted-in contacts and pre-approved templates." }
+            "question": {
+              "en": "What types of campaigns can I run on WhatsApp?",
+              "pt": "Que tipos de campanhas posso executar no WhatsApp?",
+              "es": "¿Qué tipos de campañas puedo ejecutar en WhatsApp?",
+              "id": "Jenis kampanye apa yang bisa saya jalankan di WhatsApp?",
+              "ar": "ما أنواع الحملات التي يمكنني تشغيلها على واتساب؟",
+              "tr": "WhatsApp'ta hangi tür kampanyaları yürütebilirim?"
+            },
+            "answer": {
+              "en": "You can run promotional campaigns (product launches, seasonal sales, event invitations), re-engagement campaigns (abandoned cart reminders, win-back offers), informational campaigns (product updates, feature announcements), and loyalty campaigns (rewards programs, VIP offers). All require opted-in contacts and pre-approved templates.",
+              "pt": "Você pode executar campanhas promocionais (lançamentos, vendas sazonais, convites para eventos), campanhas de reengajamento (lembretes de carrinho abandonado, ofertas de recuperação), campanhas informacionais (atualizações de produto, anúncios de recursos) e campanhas de fidelidade. Todas requerem contatos com opt-in e templates pré-aprovados.",
+              "es": "Puede ejecutar campañas promocionales (lanzamientos, ventas estacionales, invitaciones), campañas de reenganche (recordatorios de carritos abandonados, ofertas de recuperación), campañas informativas (actualizaciones de productos, anuncios de características) y campañas de fidelización. Todas requieren contactos con opt-in y plantillas preaprobadas.",
+              "id": "Anda dapat menjalankan kampanye promosi (peluncuran produk, penjualan musiman, undangan acara), kampanye re-engagement (pengingat keranjang belanja, penawaran win-back), kampanye informasi (pembaruan produk, pengumuman fitur), dan kampanye loyalitas. Semua membutuhkan kontak dengan persetujuan dan template yang disetujui.",
+              "ar": "يمكنك تشغيل حملات ترويجية (إطلاق منتجات، مبيعات موسمية، دعوات فعاليات)، وحملات إعادة التفاعل (تذكيرات السلة المهجورة، عروض استعادة العملاء)، وحملات إعلامية (تحديثات المنتج، إعلانات الميزات)، وحملات الولاء (برامج المكافآت). كلها تتطلب جهات اتصال مشتركة وقوالب معتمدة.",
+              "tr": "Tanıtım kampanyaları (ürün lansmanları, sezonluk satışlar, etkinlik davetleri), yeniden etkileşim kampanyaları (terk edilmiş sepet hatırlatmaları, geri kazanma teklifleri), bilgilendirme kampanyaları (ürün güncellemeleri, özellik duyuruları) ve sadakat kampanyaları yürütebilirsiniz. Hepsi onaylı kişiler ve önceden onaylanmış şablonlar gerektirir."
+            }
           },
           {
-            "question": { "en": "How does A/B testing work?" },
-            "answer": { "en": "Create two or more template variations and split your audience. StartMessaging sends each variation to a test segment first, measures performance (delivery rate, open rate, click rate), then automatically sends the winning template to the remaining audience. You can test different copy, images, buttons, and CTAs." }
+            "question": {
+              "en": "How does A/B testing work?",
+              "pt": "Como funciona o teste A/B?",
+              "es": "¿Cómo funciona la prueba A/B?",
+              "id": "Bagaimana cara kerja pengujian A/B?",
+              "ar": "كيف يعمل اختبار A/B؟",
+              "tr": "A/B testi nasıl çalışır?"
+            },
+            "answer": {
+              "en": "Create two or more template variations and split your audience. StartMessaging sends each variation to a test segment first, measures performance (delivery rate, open rate, click rate), then automatically sends the winning template to the remaining audience. You can test different copy, images, buttons, and CTAs.",
+              "pt": "Crie duas ou mais variações de template e divida sua audiência. StartMessaging envia cada variação para um segmento de teste primeiro, mede o desempenho (taxa de entrega, abertura, clique), depois envia automaticamente o template vencedor para a audiência restante.",
+              "es": "Cree dos o más variaciones de plantilla y divida su audiencia. StartMessaging envía cada variación a un segmento de prueba primero, mide el rendimiento (tasa de entrega, apertura, clic), luego envía automáticamente la plantilla ganadora a la audiencia restante.",
+              "id": "Buat dua atau lebih variasi template dan bagi audiens Anda. StartMessaging mengirim setiap variasi ke segmen uji terlebih dahulu, mengukur kinerja (tingkat pengiriman, buka, klik), kemudian secara otomatis mengirim template pemenang ke audiens yang tersisa.",
+              "ar": "أنشئ تغييرتين أو أكثر للقالب وقسّم جمهورك. ترسل StartMessaging كل تغييرة إلى شريحة اختبار أولاً، وتقيس الأداء (معدل التسليم والفتح والنقر)، ثم ترسل تلقائياً القالب الفائز إلى الجمهور المتبقي.",
+              "tr": "İki veya daha fazla şablon varyasyonu oluşturun ve kitlenizi bölün. StartMessaging önce her varyasyonu bir test segmentine gönderir, performansı ölçer (teslimat, açılma, tıklama oranı), ardından kazanan şablonu otomatik olarak kalan kitleye gönderir."
+            }
           }
         ]
       }
@@ -170,21 +428,49 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar"
+        },
         "links": [
-          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
-          { "label": { "en": "Auto-Trigger Engine" }, "href": "/whatsapp/auto-trigger" },
-          { "label": { "en": "Marketing Solutions" }, "href": "/whatsapp/marketing" },
-          { "label": { "en": "Pricing" }, "href": "/pricing" }
+          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Auto-Trigger Engine", "pt": "Motor de Disparo Automático", "es": "Motor de Auto-Activación", "id": "Mesin Auto-Trigger", "ar": "محرك التشغيل التلقائي", "tr": "Otomatik Tetikleme Motoru" }, "href": "/whatsapp/auto-trigger" },
+          { "label": { "en": "Marketing Solutions", "pt": "Soluções de Marketing", "es": "Soluciones de Marketing", "id": "Solusi Marketing", "ar": "حلول التسويق", "tr": "Pazarlama Çözümleri" }, "href": "/whatsapp/marketing" },
+          { "label": { "en": "Pricing", "pt": "Preços", "es": "Precios", "id": "Harga", "ar": "الأسعار", "tr": "Fiyatlandırma" }, "href": "/pricing" }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Launch Your First WhatsApp Campaign" },
-        "subtext": { "en": "Free plan. No credit card. 5-minute setup." },
-        "primaryCta": { "en": "Get Started Free" },
+        "heading": {
+          "en": "Launch Your First WhatsApp Campaign",
+          "pt": "Lance Sua Primeira Campanha WhatsApp",
+          "es": "Lance Su Primera Campaña WhatsApp",
+          "id": "Luncurkan Kampanye WhatsApp Pertama Anda",
+          "ar": "أطلق أول حملة واتساب لك",
+          "tr": "İlk WhatsApp Kampanyanızı Başlatın"
+        },
+        "subtext": {
+          "en": "Free plan. No credit card. 5-minute setup.",
+          "pt": "Plano grátis. Sem cartão. Configuração em 5 minutos.",
+          "es": "Plan gratis. Sin tarjeta. Configuración en 5 minutos.",
+          "id": "Paket gratis. Tanpa kartu. Pengaturan 5 menit.",
+          "ar": "خطة مجانية. بدون بطاقة. إعداد في 5 دقائق.",
+          "tr": "Ücretsiz plan. Kredi kartı yok. 5 dakikalık kurulum."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

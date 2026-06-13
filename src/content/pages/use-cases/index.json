@@ -18,7 +18,8 @@
       "id": "Temukan bagaimana bisnis menggunakan StartMessaging untuk e-commerce, dukungan, pemasaran, notifikasi, dan verifikasi OTP.",
       "ar": "اكتشف كيف تستخدم الشركات StartMessaging للتجارة الإلكترونية والدعم والتسويق والإشعارات والتحقق من OTP.",
       "tr": "İşletmelerin e-ticaret, destek, pazarlama, bildirimler ve OTP doğrulaması için StartMessaging'i nasıl kullandığını keşfedin."
-    }
+    },
+    "ogImage": "/og.png?title=Business+Use+Cases&theme=sms"
   },
   "sections": [
     {
@@ -30,7 +31,8 @@
           "es": "Casos de Uso",
           "id": "Kasus Penggunaan",
           "ar": "حالات الاستخدام",
-          "tr": "Kullanım Örnekleri"
+          "tr": "Kullanım Örnekleri",
+          "ng": "Use Cases"
         },
         "title": {
           "en": "Built for Every Business Use Case",
@@ -38,7 +40,8 @@
           "es": "Construido para Cada Caso de Uso",
           "id": "Dibangun untuk Setiap Kasus Penggunaan Bisnis",
           "ar": "مصمم لكل حالة استخدام تجارية",
-          "tr": "Her İş Kullanım Durumu İçin Tasarlandı"
+          "tr": "Her İş Kullanım Durumu İçin Tasarlandı",
+          "ng": "Built for Every Business Use Case"
         },
         "subtitle": {
           "en": "From e-commerce order updates to healthcare reminders, see how businesses worldwide use StartMessaging to connect with customers.",
@@ -46,7 +49,8 @@
           "es": "Desde actualizaciones de pedidos hasta recordatorios de salud, vea cómo las empresas usan StartMessaging para conectar con clientes.",
           "id": "Dari pembaruan pesanan e-commerce hingga pengingat kesehatan, lihat bagaimana bisnis menggunakan StartMessaging untuk terhubung dengan pelanggan.",
           "ar": "من تحديثات طلبات التجارة الإلكترونية إلى تذكيرات الرعاية الصحية، شاهد كيف تستخدم الشركات StartMessaging للتواصل مع العملاء.",
-          "tr": "E-ticaret sipariş güncellemelerinden sağlık hatırlatmalarına, işletmelerin müşterilerle bağlantı kurmak için StartMessaging'i nasıl kullandığını görün."
+          "tr": "E-ticaret sipariş güncellemelerinden sağlık hatırlatmalarına, işletmelerin müşterilerle bağlantı kurmak için StartMessaging'i nasıl kullandığını görün.",
+          "ng": "From e-commerce order updates to healthcare reminders, see how businesses worldwide use StartMessaging to connect with customers."
         }
       }
     },
@@ -59,36 +63,77 @@
           "es": "Casos de Uso Populares",
           "id": "Kasus Penggunaan Populer",
           "ar": "حالات الاستخدام الشائعة",
-          "tr": "Popüler Kullanım Örnekleri"
+          "tr": "Popüler Kullanım Örnekleri",
+          "ng": "Popular Use Cases"
         },
         "cases": [
           {
-            "title": { "en": "E-Commerce" },
-            "description": { "en": "Order confirmations, shipping updates, abandoned cart recovery, and review requests via WhatsApp." },
+            "title": { "en": "E-Commerce", "pt": "E-Commerce", "es": "E-Commerce", "id": "E-Commerce", "ar": "التجارة الإلكترونية", "tr": "E-Ticaret", "ng": "E-Commerce" },
+            "description": {
+              "en": "Order confirmations, shipping updates, abandoned cart recovery, and review requests via WhatsApp.",
+              "pt": "Confirmações de pedido, atualizações de envio, recuperação de carrinho abandonado e avaliações via WhatsApp.",
+              "es": "Confirmaciones de pedido, actualizaciones de envío, recuperación de carrito abandonado y reseñas vía WhatsApp.",
+              "id": "Konfirmasi pesanan, pembaruan pengiriman, pemulihan keranjang belanja, dan ulasan melalui WhatsApp.",
+              "ar": "تأكيدات الطلبات، وتحديثات الشحن، واسترداد السلال المتروكة، وطلبات التقييم عبر واتساب.",
+              "tr": "WhatsApp üzerinden sipariş onayları, kargo güncellemeleri, terk edilmiş sepet kurtarma ve değerlendirme talepleri.",
+              "ng": "Order confirmations, shipping updates, abandoned cart recovery, and review requests via WhatsApp."
+            },
             "href": "/use-cases/ecommerce",
             "icon": "cart"
           },
           {
-            "title": { "en": "Customer Support" },
-            "description": { "en": "24/7 automated support with chatbots, ticket updates, and seamless agent handoff." },
+            "title": { "en": "Customer Support", "pt": "Suporte ao Cliente", "es": "Soporte al Cliente", "id": "Dukungan Pelanggan", "ar": "دعم العملاء", "tr": "Müşteri Desteği", "ng": "Customer Support" },
+            "description": {
+              "en": "24/7 automated support with chatbots, ticket updates, and seamless agent handoff.",
+              "pt": "Suporte automatizado 24/7 com chatbots, atualizações de chamados e transferência perfeita para agentes.",
+              "es": "Soporte automatizado 24/7 con chatbots, actualizaciones de tickets y transferencia a agentes.",
+              "id": "Dukungan otomatis 24/7 dengan chatbot, pembaruan tiket, dan serah terima agen yang mulus.",
+              "ar": "دعم مؤتمت على مدار الساعة طوال أيام الأسبوع مع الشات بوت وتحديثات التذاكر وتحويل سلس للموظف.",
+              "tr": "Chatbot'lar, bilet güncellemeleri ve sorunsuz temsilci devri ile 7/24 otomatik destek.",
+              "ng": "24/7 automated support with chatbots, ticket updates, and seamless agent handoff."
+            },
             "href": "/use-cases/customer-support",
             "icon": "headset"
           },
           {
-            "title": { "en": "Marketing Campaigns" },
-            "description": { "en": "Promotional broadcasts, product launches, seasonal sales, and re-engagement campaigns with 98% open rates." },
+            "title": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Pemasaran", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları", "ng": "Marketing Campaigns" },
+            "description": {
+              "en": "Promotional broadcasts, product launches, seasonal sales, and re-engagement campaigns with 98% open rates.",
+              "pt": "Transmissões promocionais, lançamentos de produtos e campanhas de reengajamento com taxa de abertura de 98%.",
+              "es": "Difusiones promocionales, lanzamientos de productos y campañas de reactivación con tasa de apertura del 98%.",
+              "id": "Siaran promosi, peluncuran produk, penjualan musiman, dan kampanye re-engagement dengan tingkat buka 98%.",
+              "ar": "رسائل بث ترويجية وإطلاق المنتجات والخصومات الموسمية وحملات إعادة التفاعل بمعدل فتح 98%.",
+              "tr": "%98 açılma oranıyla tanıtım yayınları, ürün lansmanları, sezonluk indirimler ve yeniden etkileşim kampanyaları.",
+              "ng": "Promotional broadcasts, product launches, seasonal sales, and re-engagement campaigns with 98% open rates."
+            },
             "href": "/use-cases/marketing-campaigns",
             "icon": "megaphone"
           },
           {
-            "title": { "en": "Notifications" },
-            "description": { "en": "Appointment reminders, payment alerts, account notifications, and service updates." },
+            "title": { "en": "Notifications", "pt": "Notificações", "es": "Notificaciones", "id": "Notifikasi", "ar": "الإشعارات", "tr": "Bildirimler", "ng": "Notifications" },
+            "description": {
+              "en": "Appointment reminders, payment alerts, account notifications, and service updates.",
+              "pt": "Lembretes de consulta, alertas de pagamento, notificações de conta e atualizações de serviço.",
+              "es": "Recordatorios de citas, alertas de pago, notificaciones de cuenta y actualizaciones de servicio.",
+              "id": "Pengingat janji temu, peringatan pembayaran, notifikasi akun, dan pembaruan layanan.",
+              "ar": "تذكيرات المواعيد، وتنبيهات الدفع، وإشعارات الحساب، وتحديثات الخدمة.",
+              "tr": "Randevu hatırlatıcıları, ödeme uyarıları, hesap bildirimleri ve hizmet güncellemeleri.",
+              "ng": "Appointment reminders, payment alerts, account notifications, and service updates."
+            },
             "href": "/use-cases/notifications",
             "icon": "bell"
           },
           {
-            "title": { "en": "OTP Authentication" },
-            "description": { "en": "User verification, two-factor authentication, and secure login via WhatsApp OTP with SMS fallback." },
+            "title": { "en": "OTP Authentication", "pt": "Autenticação OTP", "es": "Autenticación OTP", "id": "Autentikasi OTP", "ar": "مصادقة OTP", "tr": "OTP Kimlik Doğrulama", "ng": "OTP Authentication" },
+            "description": {
+              "en": "User verification, two-factor authentication, and secure login via WhatsApp OTP with SMS fallback.",
+              "pt": "Verificação de usuário, autenticação de dois fatores e login seguro via WhatsApp OTP com fallback para SMS.",
+              "es": "Verificación de usuario, autenticación de dos factores y login seguro vía WhatsApp OTP con respaldo de SMS.",
+              "id": "Verifikasi pengguna, autentikasi dua faktor, dan login aman melalui OTP WhatsApp dengan cadangan SMS.",
+              "ar": "التحقق من المستخدمين، والمصادقة الثنائية، وتسجيل الدخول الآمن عبر OTP واتساب مع رسائل SMS احتياطية.",
+              "tr": "WhatsApp OTP ve SMS yedekleme ile kullanıcı doğrulama, iki faktörlü kimlik doğrulama ve güvenli giriş.",
+              "ng": "User verification, two-factor authentication, and secure login via WhatsApp OTP with SMS fallback."
+            },
             "href": "/use-cases/otp-authentication",
             "icon": "lock"
           }
@@ -98,39 +143,39 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Platform Comparison" },
-        "heading": { "en": "StartMessaging vs. Legacy Systems vs. Custom Builds" },
-        "subheading": { "en": "Compare integration velocity, delivery speeds, and maintenance overhead for business communications." },
+        "badge": { "en": "Platform Comparison", "pt": "Comparação de Plataforma", "es": "Comparación de Plataforma", "id": "Perbandingan Platform", "ar": "مقارنة المنصات", "tr": "Platform Karşılaştırması", "ng": "Platform Comparison" },
+        "heading": { "en": "StartMessaging vs. Legacy Systems vs. Custom Builds", "pt": "StartMessaging vs. Sistemas Legados vs. Desenvolvimento Próprio", "es": "StartMessaging vs. Sistemas Heredados vs. Desarrollo Propio", "id": "StartMessaging vs. Sistem Warisan vs. Pembuatan Kustom", "ar": "StartMessaging مقابل الأنظمة القديمة مقابل البناء المخصص", "tr": "StartMessaging vs. Eski Sistemler vs. Özel Geliştirmeler", "ng": "StartMessaging vs. Legacy Systems vs. Custom Builds" },
+        "subheading": { "en": "Compare integration velocity, delivery speeds, and maintenance overhead for business communications.", "pt": "Compare velocidade de integração, entrega e custos de manutenção para comunicação corporativa.", "es": "Compare la velocidad de integración, la entrega y los costos de mantenimiento para la comunicación.", "id": "Bandingkan kecepatan integrasi, kecepatan pengiriman, dan biaya pemeliharaan untuk komunikasi bisnis.", "ar": "قارن سرعة التكامل وسرعات التسليم وتكاليف الصيانة للاتصالات التجارية.", "tr": "Kurumsal iletişim için entegrasyon hızını, teslimat hızlarını ve bakım maliyetlerini karşılaştırın.", "ng": "Compare integration velocity, delivery speeds, and maintenance overhead for business communications." },
         "columns": [
-          { "label": { "en": "Key Metrics" } },
-          { "label": { "en": "StartMessaging API" }, "highlight": true },
-          { "label": { "en": "Custom In-House Build" } },
-          { "label": { "en": "Legacy Aggregators" } }
+          { "label": { "en": "Key Metrics", "pt": "Métricas Chave", "es": "Métricas Clave", "id": "Metrik Utama", "ar": "المقاييس الرئيسية", "tr": "Temel Metrikler", "ng": "Key Metrics" } },
+          { "label": { "en": "StartMessaging API", "pt": "API StartMessaging", "es": "API StartMessaging", "id": "API StartMessaging", "ar": "API StartMessaging", "tr": "StartMessaging API'si", "ng": "StartMessaging API" }, "highlight": true },
+          { "label": { "en": "Custom In-House Build", "pt": "Desenvolvimento Próprio", "es": "Desarrollo Propio", "id": "Pembuatan Internal Kustom", "ar": "بناء مخصص داخلي", "tr": "Özel Dahili Yapı", "ng": "Custom In-House Build" } },
+          { "label": { "en": "Legacy Aggregators", "pt": "Agregadores Legados", "es": "Agregadores Heredados", "id": "Agregator Warisan", "ar": "المجمعون القدامى", "tr": "Eski Tip Toplayıcılar", "ng": "Legacy Aggregators" } }
         ],
         "rows": [
           [
-            { "en": "Integration Speed" },
-            { "en": "Minutes (Single unified API)" },
-            { "en": "Weeks (Complex provider setups)" },
-            { "en": "Days (Heavy SOAP/REST manuals)" }
+            { "en": "Integration Speed", "pt": "Velocidade de Integração", "es": "Velocidad de Integración", "id": "Kecepatan Integrasi", "ar": "سرعة التكامل", "tr": "Entegrasyon Hızı", "ng": "Integration Speed" },
+            { "en": "Minutes (Single unified API)", "pt": "Minutos (API única unificada)", "es": "Minutos (API única unificada)", "id": "Menit (Satu API terpadu)", "ar": "دقائق (واجهة برمجة موحدة واحدة)", "tr": "Dakikalar (Tek bir birleşik API)", "ng": "Minutes (Single unified API)" },
+            { "en": "Weeks (Complex provider setups)", "pt": "Semanas (Configuração complexa)", "es": "Semanas (Configuración compleja)", "id": "Semanas (Configuración compleja)", "ar": "أسابيع (إعدادات مزود الخدمة المعقدة)", "tr": "Haftalar (Karmaşık sağlayıcı kurulumları)", "ng": "Weeks (Complex provider setups)" },
+            { "en": "Days (Heavy SOAP/REST manuals)", "pt": "Dias (Manuais SOAP/REST extensos)", "es": "Días (Manuales SOAP/REST extensos)", "id": "Hari (Manual SOAP/REST yang rumit)", "ar": "أيام (كتيبات SOAP/REST ثقيلة)", "tr": "Günler (Ağır SOAP/REST kılavuzları)", "ng": "Days (Heavy SOAP/REST manuals)" }
           ],
           [
-            { "en": "Multi-Channel Fallback" },
-            { "en": "✓ (WhatsApp to SMS auto-fallback)" },
-            { "en": "✗ (Requires custom coding)" },
-            { "en": "✗ (Manual routing configurations)" }
+            { "en": "Multi-Channel Fallback", "pt": "Fallback Multicanal", "es": "Respaldo Multicanal", "id": "Fallback Multi-Saluran", "ar": "بدائل قنوات متعددة", "tr": "Çok Kanallı Yedekleme", "ng": "Multi-Channel Fallback" },
+            { "en": "✓ (WhatsApp to SMS auto-fallback)", "pt": "✓ (Fallback automático WhatsApp para SMS)", "es": "✓ (Respaldo automático de WhatsApp a SMS)", "id": "✓ (Fallback otomatis WhatsApp ke SMS)", "ar": "✓ (تحويل تلقائي من واتساب إلى SMS)", "tr": "✓ (WhatsApp'tan SMS'e otomatik yedekleme)", "ng": "✓ (WhatsApp to SMS auto-fallback)" },
+            { "en": "✗ (Requires custom coding)", "pt": "✗ (Exige programação personalizada)", "es": "✗ (Requiere programación personalizada)", "id": "✗ (Memerlukan coding kustom)", "ar": "✗ (يتطلب برمجة مخصصة)", "tr": "✗ (Özel kodlama gerektirir)", "ng": "✗ (Requires custom coding)" },
+            { "en": "✗ (Manual routing configurations)", "pt": "✗ (Configuração manual de rotas)", "es": "✗ (Configuración manual de rutas)", "id": "✗ (Konfigurasi perutean manual)", "ar": "✗ (تكوينات توجيه يدوية)", "tr": "✗ (Manuel yönlendirme yapılandırmaları)", "ng": "✗ (Manual routing configurations)" }
           ],
           [
-            { "en": "Compliance Guards" },
-            { "en": "✓ (Auto DLT & Opt-in check)" },
-            { "en": "✗ (User-maintained compliance)" },
-            { "en": "✗ (Basic template approvals)" }
+            { "en": "Compliance Guards", "pt": "Filtros de Conformidade", "es": "Filtros de Cumplimiento", "id": "Pelindung Kepatuhan", "ar": "حماية الامتثال", "tr": "Uyumluluk Korumaları", "ng": "Compliance Guards" },
+            { "en": "✓ (Auto DLT & Opt-in check)", "pt": "✓ (Verificação automática de DLT e Opt-in)", "es": "✓ (Verificación automática de DLT y Opt-in)", "id": "✓ (Verifikasi DLT & Opt-in otomatis)", "ar": "✓ (تحقق تلقائي من DLT والاشتراك)", "tr": "✓ (Otomatik DLT ve onay kontrolü)", "ng": "✓ (Auto DLT & Opt-in check)" },
+            { "en": "✗ (User-maintained compliance)", "pt": "✗ (Usuário gerencia conformidade)", "es": "✗ (Usuario gestiona el cumplimiento)", "id": "✗ (Kepatuhan dikelola pengguna)", "ar": "✗ (الامتثال يدار بواسطة المستخدم)", "tr": "✗ (Kullanıcı tarafından yönetilen uyumluluk)", "ng": "✗ (User-maintained compliance)" },
+            { "en": "✗ (Basic template approvals)", "pt": "✗ (Apenas aprovação básica)", "es": "✗ (Solo aprobaciones básicas)", "id": "✗ (Persetujuan templat dasar)", "ar": "✗ (موافقات أساسية على القوالب)", "tr": "✗ (Temel şablon onayları)", "ng": "✗ (Basic template approvals)" }
           ],
           [
-            { "en": "Ongoing Maintenance" },
-            { "en": "Zero (Managed API updates)" },
-            { "en": "High (API provider updates)" },
-            { "en": "Medium (Periodic server updates)" }
+            { "en": "Ongoing Maintenance", "pt": "Manutenção Contínua", "es": "Mantenimiento Continuo", "id": "Pemeliharaan Berkelanjutan", "ar": "الصيانة المستمرة", "tr": "Sürekli Bakım", "ng": "Ongoing Maintenance" },
+            { "en": "Zero (Managed API updates)", "pt": "Zero (Atualizações gerenciadas da API)", "es": "Cero (Actualizaciones gestionadas de API)", "id": "Nol (Pembaruan API yang dikelola)", "ar": "صفر (تحديثات واجهة برمجة مدارة)", "tr": "Sıfır (Yönetilen API güncellemeleri)", "ng": "Zero (Managed API updates)" },
+            { "en": "High (API provider updates)", "pt": "Alta (Atualizações do provedor)", "es": "Alta (Actualizaciones del proveedor)", "id": "Tinggi (Pembaruan penyedia API)", "ar": "عالية (تحديثات مزود واجهة البرمجة)", "tr": "Yüksek (API sağlayıcı güncellemeleri)", "ng": "High (API provider updates)" },
+            { "en": "Medium (Periodic server updates)", "pt": "Média (Atualizações periódicas)", "es": "Media (Actualizaciones periódicas)", "id": "Sedang (Pembaruan server berkala)", "ar": "متوسطة (تحديثات خادم دورية)", "tr": "Orta (Periyodik sunucu güncellemeleri)", "ng": "Medium (Periodic server updates)" }
           ]
         ]
       }
@@ -144,7 +189,8 @@
           "es": "¿No Ve Su Caso de Uso?",
           "id": "Tidak Menemukan Kasus Penggunaan Anda?",
           "ar": "لم تجد حالة الاستخدام الخاصة بك؟",
-          "tr": "Kullanım Durumunuzu Göremiyor musunuz?"
+          "tr": "Kullanım Durumunuzu Göremiyor musunuz?",
+          "ng": "Don't See Your Use Case?"
         },
         "subtext": {
           "en": "Contact us to discuss your specific requirements.",
@@ -152,9 +198,10 @@
           "es": "Contáctenos para discutir sus requisitos.",
           "id": "Hubungi kami untuk mendiskusikan kebutuhan Anda.",
           "ar": "تواصل معنا لمناقشة متطلباتك.",
-          "tr": "Gereksinimlerinizi tartışmak için bizimle iletişime geçin."
+          "tr": "Gereksinimlerinizi tartışmak için bizimle iletişime geçin.",
+          "ng": "Contact us to discuss your specific requirements."
         },
-        "primaryCta": { "en": "Contact Sales" },
+        "primaryCta": { "en": "Contact Sales", "pt": "Falar com Vendas", "es": "Contactar Ventas", "id": "Hubungi Sales", "ar": "تواصل مع المبيعات", "tr": "Satışla İletişim", "ng": "Contact Sales" },
         "primaryHref": "/contact"
       }
     }

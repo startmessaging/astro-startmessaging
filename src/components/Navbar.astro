@@ -39,47 +39,89 @@ const loginLinkClass = isWhatsapp ? 'text-ink hover:text-ink/80' : 'text-muted h
 
 const homeHref = prefix || '/';
 
-// WhatsApp Links
+// WhatsApp Links — all marked comingSoon
 const whatsappFeatures = [
-  { title: "WhatsApp Hub", desc: "Overview of our WhatsApp solutions", href: `${prefix}/whatsapp` },
-  { title: "Broadcast", desc: "Send bulk updates and announcements", href: `${prefix}/whatsapp/broadcast` },
-  { title: "Campaigns", desc: "Schedule and manage messaging templates", href: `${prefix}/whatsapp/campaigns` },
-  { title: "Chatbot & Agents", desc: "Automate support and sales chats", href: `${prefix}/whatsapp/chatbot` },
-  { title: "Marketing", desc: "Engage users and drive conversions", href: `${prefix}/whatsapp/marketing` },
-  { title: "Transactional Utility", desc: "Alerts, order receipts, and shipping updates", href: `${prefix}/whatsapp/utility` },
-  { title: "OTP Authentication", desc: "Secure multi-factor verify messages", href: `${prefix}/whatsapp/authentication` },
-  { title: "Automated Triggers", desc: "API driven event notifications", href: `${prefix}/whatsapp/auto-trigger` },
-  { title: "Bulk Messaging", desc: "Send bulk WhatsApp alerts at scale", href: `${prefix}/whatsapp/bulk-messaging` },
+  { title: "WhatsApp Hub", desc: "Overview of our WhatsApp solutions", href: `${prefix}/whatsapp`, comingSoon: true },
+  { title: "Broadcast", desc: "Send bulk updates and announcements", href: `${prefix}/whatsapp/broadcast`, comingSoon: true },
+  { title: "Campaigns", desc: "Schedule and manage messaging templates", href: `${prefix}/whatsapp/campaigns`, comingSoon: true },
+  { title: "Chatbot & Agents", desc: "Automate support and sales chats", href: `${prefix}/whatsapp/chatbot`, comingSoon: true },
+  { title: "Marketing", desc: "Engage users and drive conversions", href: `${prefix}/whatsapp/marketing`, comingSoon: true },
+  { title: "Transactional Utility", desc: "Alerts, order receipts, and shipping updates", href: `${prefix}/whatsapp/utility`, comingSoon: true },
+  { title: "OTP Authentication", desc: "Secure multi-factor verify messages", href: `${prefix}/whatsapp/authentication`, comingSoon: true },
+  { title: "Automated Triggers", desc: "API driven event notifications", href: `${prefix}/whatsapp/auto-trigger`, comingSoon: true },
+  { title: "Bulk Messaging", desc: "Send bulk WhatsApp alerts at scale", href: `${prefix}/whatsapp/bulk-messaging`, comingSoon: true },
 ];
 
 // Combined SMS & Auth API Links (India only)
 const smsAndAuthFeatures = [
-  { title: "SMS Hub", desc: "Comprehensive enterprise SMS API", href: `${prefix}/sms` },
-  { title: "Universal Auth API", desc: "Verify users via WhatsApp + SMS fallback", href: `${prefix}/auth-api` },
-  { title: "DLT Compliance", desc: "DLT template setup and registry help", href: `${prefix}/sms/dlt` },
-  { title: "Non-DLT OTP", desc: "Direct route delivery without DLT blocks", href: `${prefix}/sms/non-dlt` },
-  { title: "DLT-Free OTP", desc: "Bypass complex registration protocols", href: `${prefix}/dlt-free-otp` },
-  { title: "Send OTP Direct", desc: "Quick API deployment without registries", href: `${prefix}/send-otp-without-dlt` },
-  { title: "OTP SMS API", desc: "High priority transaction routes", href: `${prefix}/otp-api` },
-  { title: "Bulk OTP API", desc: "High-volume secure OTP delivery", href: `${prefix}/bulk-otp-api` },
+  { title: "SMS Hub", desc: "Comprehensive enterprise SMS API", href: `${prefix}/sms`, comingSoon: false },
+  { title: "Universal Auth API", desc: "Verify users via WhatsApp + SMS fallback", href: `${prefix}/auth-api`, comingSoon: true },
+  { title: "DLT Compliance", desc: "DLT template setup and registry help", href: `${prefix}/sms/dlt`, comingSoon: false },
+  { title: "Non-DLT OTP", desc: "Direct route delivery without DLT blocks", href: `${prefix}/sms/non-dlt`, comingSoon: false },
+  { title: "DLT-Free OTP", desc: "Bypass complex registration protocols", href: `${prefix}/dlt-free-otp`, comingSoon: false },
+  { title: "Send OTP Direct", desc: "Quick API deployment without registries", href: `${prefix}/send-otp-without-dlt`, comingSoon: false },
+  { title: "OTP SMS API", desc: "High priority transaction routes", href: `${prefix}/otp-api`, comingSoon: false },
+  { title: "Bulk OTP API", desc: "High-volume secure OTP delivery", href: `${prefix}/bulk-otp-api`, comingSoon: false },
 ];
 
 // Use Case Links
 const useCases = [
-  { title: "E-commerce", desc: "Abandoned carts and shipping alerts", href: `${prefix}/use-cases/ecommerce` },
-  { title: "Customer Support", desc: "Shared inbox, routing, and bot handoff", href: `${prefix}/use-cases/customer-support` },
-  { title: "Marketing Campaigns", desc: "Engaging broadcasts with link metrics", href: `${prefix}/use-cases/marketing-campaigns` },
-  { title: "Notifications", desc: "Reminders, alerts, and renewals", href: `${prefix}/use-cases/notifications` },
+  { title: "E-commerce", desc: "Abandoned carts and shipping alerts", href: `${prefix}/use-cases/ecommerce`, comingSoon: false },
+  { title: "Customer Support", desc: "Shared inbox, routing, and bot handoff", href: `${prefix}/use-cases/customer-support`, comingSoon: false },
+  { title: "Marketing Campaigns", desc: "Engaging broadcasts with link metrics", href: `${prefix}/use-cases/marketing-campaigns`, comingSoon: false },
+  { title: "Notifications", desc: "Reminders, alerts, and renewals", href: `${prefix}/use-cases/notifications`, comingSoon: false },
 ];
 
 if (isIndia) {
   useCases.push({
     title: "OTP Authentication",
     desc: "Verify users via WhatsApp + SMS backup",
-    href: `${prefix}/use-cases/otp-authentication`
+    href: `${prefix}/use-cases/otp-authentication`,
+    comingSoon: false
   });
 }
 ---
+
+<style>
+  /* Coming Soon badge — tilted pill */
+  .cs-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 5px;
+    border-radius: 3px;
+    transform: rotate(12deg);
+    transform-origin: top right;
+    pointer-events: none;
+    line-height: 1.2;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  /* Mobile / inline badge variant (no rotation in tight list) */
+  .cs-badge-inline {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    color: #fff;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+    line-height: 1.3;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+</style>
 
 <header class:list={["sticky top-0 z-50 border-b w-full", bgClass]} id="main-header">
   <div class="max-w-[80rem] mx-auto px-4 lg:px-8 h-16 lg:h-20 flex items-center justify-between gap-4">
@@ -104,9 +146,10 @@ if (isIndia) {
         <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[600px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
           <div class:list={["border rounded-md shadow-lg p-3 grid grid-cols-2 gap-1.5", dropdownBgClass, dropdownBorderClass]}>
             {whatsappFeatures.map((item) => (
-              <a href={item.href} class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
-                <span class="text-body-sm font-semibold text-ink">{item.title}</span>
+              <a href={item.href} class:list={["relative flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                <span class="text-body-sm font-semibold text-ink pr-12">{item.title}</span>
                 <span class:list={["text-xs leading-normal", dropdownDescClass]}>{item.desc}</span>
+                {item.comingSoon && <span class="cs-badge">Soon</span>}
               </a>
             ))}
           </div>
@@ -125,9 +168,10 @@ if (isIndia) {
           <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[600px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
             <div class:list={["border rounded-md shadow-lg p-3 grid grid-cols-2 gap-1.5", dropdownBgClass, dropdownBorderClass]}>
               {smsAndAuthFeatures.map((item) => (
-                <a href={item.href} class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
-                  <span class="text-body-sm font-semibold text-ink">{item.title}</span>
+                <a href={item.href} class:list={["relative flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                  <span class="text-body-sm font-semibold text-ink pr-12">{item.title}</span>
                   <span class:list={["text-xs leading-normal", dropdownDescClass]}>{item.desc}</span>
+                  {item.comingSoon && <span class="cs-badge">Soon</span>}
                 </a>
               ))}
             </div>
@@ -165,7 +209,7 @@ if (isIndia) {
         Blog
       </a>
 
-      <!-- Docs Dropdown (No dead /docs link) -->
+      <!-- Docs Dropdown -->
       <div class="group relative">
         <button class:list={["inline-flex items-center gap-1 px-3 py-2 rounded-sm text-body-sm font-medium transition-all cursor-pointer", navLinkHoverClass, navLinkTextClass]}>
           <span>Docs</span>
@@ -175,9 +219,10 @@ if (isIndia) {
         </button>
         <div class="absolute left-0 top-full pt-2 w-[280px] opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
           <div class:list={["border rounded-md shadow-lg p-2 flex flex-col gap-1", dropdownBgClass, dropdownBorderClass]}>
-            <a href={`${prefix}/docs/whatsapp/getting-started`} class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
-              <span class="text-body-sm font-semibold text-ink">WhatsApp API Docs</span>
+            <a href={`${prefix}/docs/whatsapp/getting-started`} class:list={["relative flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+              <span class="text-body-sm font-semibold text-ink pr-12">WhatsApp API Docs</span>
               <span class:list={["text-xs leading-normal", dropdownDescClass]}>Integration and Webhook guides.</span>
+              <span class="cs-badge">Soon</span>
             </a>
             {showSms && (
               <>
@@ -185,9 +230,10 @@ if (isIndia) {
                   <span class="text-body-sm font-semibold text-ink">SMS API Docs</span>
                   <span class:list={["text-xs leading-normal", dropdownDescClass]}>Transactional and DLT SMS setup.</span>
                 </a>
-                <a href="/docs/auth-api/getting-started" class:list={["flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
-                  <span class="text-body-sm font-semibold text-ink">Auth API Docs</span>
+                <a href="/docs/auth-api/getting-started" class:list={["relative flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
+                  <span class="text-body-sm font-semibold text-ink pr-12">Auth API Docs</span>
                   <span class:list={["text-xs leading-normal", dropdownDescClass]}>Multi-channel verification guide.</span>
+                  <span class="cs-badge">Soon</span>
                 </a>
               </>
             )}
@@ -286,7 +332,10 @@ if (isIndia) {
           <div class="pl-3 flex flex-col gap-1.5 pt-1 pb-2">
             {whatsappFeatures.map((item) => (
               <a href={item.href} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
-                <span class="text-body-sm font-medium text-ink">{item.title}</span>
+                <span class="text-body-sm font-medium text-ink flex items-center gap-1">
+                  {item.title}
+                  {item.comingSoon && <span class="cs-badge-inline">Soon</span>}
+                </span>
                 <span class:list={["text-xs", dropdownDescClass]}>{item.desc}</span>
               </a>
             ))}
@@ -305,7 +354,10 @@ if (isIndia) {
             <div class="pl-3 flex flex-col gap-1.5 pt-1 pb-2">
               {smsAndAuthFeatures.map((item) => (
                 <a href={item.href} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
-                  <span class="text-body-sm font-medium text-ink">{item.title}</span>
+                  <span class="text-body-sm font-medium text-ink flex items-center gap-1">
+                    {item.title}
+                    {item.comingSoon && <span class="cs-badge-inline">Soon</span>}
+                  </span>
                   <span class:list={["text-xs", dropdownDescClass]}>{item.desc}</span>
                 </a>
               ))}
@@ -349,7 +401,10 @@ if (isIndia) {
           </summary>
           <div class="pl-3 flex flex-col gap-1.5 pt-1 pb-2">
             <a href={`${prefix}/docs/whatsapp/getting-started`} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
-              <span class="text-body-sm font-medium text-ink">WhatsApp API Docs</span>
+              <span class="text-body-sm font-medium text-ink flex items-center gap-1">
+                WhatsApp API Docs
+                <span class="cs-badge-inline">Soon</span>
+              </span>
               <span class:list={["text-xs", dropdownDescClass]}>Integration and Webhook guides.</span>
             </a>
             {showSms && (
@@ -359,7 +414,10 @@ if (isIndia) {
                   <span class:list={["text-xs", dropdownDescClass]}>Transactional and DLT SMS setup.</span>
                 </a>
                 <a href="/docs/auth-api/getting-started" class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
-                  <span class="text-body-sm font-medium text-ink">Auth API Docs</span>
+                  <span class="text-body-sm font-medium text-ink flex items-center gap-1">
+                    Auth API Docs
+                    <span class="cs-badge-inline">Soon</span>
+                  </span>
                   <span class:list={["text-xs", dropdownDescClass]}>Multi-channel verification guide.</span>
                 </a>
               </>

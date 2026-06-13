@@ -57,7 +57,9 @@ const popularCardClass = isWhatsapp
 const regularCardClass = isWhatsapp
   ? 'bg-white/60 border border-accent-wa/10 shadow-sm hover:border-accent-wa/30 hover:shadow-card-hover hover:-translate-y-0.5'
   : 'bg-surface-card border border-hairline shadow-sm hover:border-primary/30 hover:shadow-card-hover hover:-translate-y-0.5';
-const badgeClass = isWhatsapp ? '!bg-accent-wa/10 !text-accent-wa' : '';
+const badgeClass = isWhatsapp
+  ? '!bg-accent-wa !text-on-accent-wa shadow-sm'
+  : '!bg-primary !text-on-primary shadow-sm';
 const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-wa' : '';
 ---
 
@@ -72,16 +74,16 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
     )}
 
     {/* Plan cards */}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10 overflow-visible">
       {plans.map((plan: any) => {
         const isPopular = plan.popular;
         return (
           <div class:list={[
-            'relative flex flex-col p-8 rounded-lg border transition-all duration-300',
+            'relative flex flex-col p-8 rounded-lg border transition-all duration-300 overflow-visible',
             isPopular ? popularCardClass : regularCardClass,
           ]}>
             {isPopular && (
-              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
                 <Badge tone="primary" class={badgeClass}>{r(plan.badge || { en: 'Most Popular' }, country)}</Badge>
               </div>
             )}
@@ -90,12 +92,32 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
               {r(plan.name, country)}
             </Heading>
 
-            <div class="mb-4">
+            {isWhatsapp && (
+              <div class="mb-3 bg-amber-500/10 text-amber-600 text-[11px] font-bold px-2.5 py-1 rounded inline-block border border-amber-500/20">
+                {r({
+                  en: "Pricing to be determined — launching soon",
+                  pt: "Preço a ser determinado — lançamento em breve",
+                  es: "Precio por determinar — lanzamiento muy pronto",
+                  id: "Harga belum ditentukan — segera hadir",
+                  ar: "سيتم تحديد الأسعار — قريباً",
+                  tr: "Fiyat belirleniyor — yakında yayında",
+                  ng: "Pricing to be determined — launching soon"
+                }, country)}
+              </div>
+            )}
+
+            <div class="mb-4 relative">
               {plan.price && (
-                <span class="text-display-sm font-bold text-ink">{r(plan.price, country)}</span>
+                <span class:list={[
+                  "text-display-sm font-bold text-ink",
+                  isWhatsapp && "blur-sm select-none"
+                ]}>{r(plan.price, country)}</span>
               )}
               {plan.period && (
-                <span class="text-body-sm text-muted ml-1">{r(plan.period, country)}</span>
+                <span class:list={[
+                  "text-body-sm text-muted ml-1",
+                  isWhatsapp && "blur-sm select-none"
+                ]}>{r(plan.period, country)}</span>
               )}
             </div>
 

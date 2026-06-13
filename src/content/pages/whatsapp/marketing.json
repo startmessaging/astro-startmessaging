@@ -2,6 +2,7 @@
   "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
   "theme": "whatsapp",
   "seo": {
+    "ogImage": "/images/marketing-analytics.webp",
     "title": {
       "en": "WhatsApp Marketing Messages — High-ROI Promos — StartMessaging",
       "pt": "Mensagens de Marketing WhatsApp — Campanhas de Alto ROI — StartMessaging",
@@ -64,10 +65,10 @@
       "type": "statsBar",
       "props": {
         "stats": [
-          { "value": "45%", "label": { "en": "Average Click-Through Rate" } },
-          { "value": "5x+", "label": { "en": "ROI vs. Traditional SMS" } },
-          { "value": "< 2s", "label": { "en": "Instant Dispatch Speed" } },
-          { "value": "10x", "label": { "en": "Customer Engagement Rate" } }
+          { "value": "45%", "label": { "en": "Average Click-Through Rate", "pt": "Taxa Média de Cliques", "es": "Tasa Promedio de Clics", "id": "Rata-rata Click-Through Rate", "ar": "متوسط معدل النقر", "tr": "Ortalama Tıklama Oranı" } },
+          { "value": "5x+", "label": { "en": "ROI vs. Traditional SMS", "pt": "ROI vs. SMS Tradicional", "es": "ROI vs. SMS Tradicional", "id": "ROI vs. SMS Tradisional", "ar": "العائد مقارنة بـ SMS التقليدي", "tr": "Geleneksel SMS'e Karşı ROI" } },
+          { "value": "< 2s", "label": { "en": "Instant Dispatch Speed", "pt": "Velocidade de Envio Instantâneo", "es": "Velocidad de Envío Instantáneo", "id": "Kecepatan Pengiriman Instan", "ar": "سرعة الإرسال الفوري", "tr": "Anlık Gönderim Hızı" } },
+          { "value": "10x", "label": { "en": "Customer Engagement Rate", "pt": "Taxa de Engajamento de Clientes", "es": "Tasa de Participación de Clientes", "id": "Tingkat Keterlibatan Pelanggan", "ar": "معدل مشاركة العملاء", "tr": "Müşteri Etkileşim Oranı" } }
         ]
       }
     },
@@ -75,38 +76,48 @@
       "type": "featureSplit",
       "props": {
         "heading": {
-          "en": "Send Promotions That Get Opened"
+          "en": "Send Promotions That Get Opened",
+          "pt": "Envie Promoções que São Abertas",
+          "es": "Envíe Promociones que se Abren",
+          "id": "Kirim Promosi yang Dibuka",
+          "ar": "أرسل عروضاً ترويجية تُفتح",
+          "tr": "Açılan Promosyonlar Gönderin"
         },
         "body": {
-          "en": "WhatsApp marketing messages support rich media including images, videos, carousels, documents, and interactive buttons. Personalize every message with dynamic variables for each contact — name, purchase history, preferences, and more."
+          "en": "WhatsApp marketing messages support rich media including images, videos, carousels, documents, and interactive buttons. Personalize every message with dynamic variables for each contact — name, purchase history, preferences, and more.",
+          "pt": "Mensagens de marketing WhatsApp suportam mídia rica incluindo imagens, vídeos, carrosséis, documentos e botões interativos. Personalize cada mensagem com variáveis dinâmicas para cada contato.",
+          "es": "Los mensajes de marketing de WhatsApp admiten medios enriquecidos incluyendo imágenes, videos, carruseles, documentos y botones interactivos. Personalice cada mensaje con variables dinámicas para cada contacto.",
+          "id": "Pesan marketing WhatsApp mendukung media kaya termasuk gambar, video, karusel, dokumen, dan tombol interaktif. Personalisasi setiap pesan dengan variabel dinamis untuk setiap kontak.",
+          "ar": "دعم رسائل تسويق واتساب الوسائط الغنية بما في ذلك الصور والفيديو والمستندات. خصص كل رسالة بمتغيرات ديناميكية.",
+          "tr": "WhatsApp pazarlama mesajları, resimler, videolar, karuseller, belgeler ve etkileşimli butonlar dahil zengin medyayı destekler. Her mesajı dinamik değişkenlerle kişiselleştirin."
         },
         "bullets": [
-          { "en": "Rich media support: images, product carousels, PDFs" },
-          { "en": "Personalized variables dynamically resolved per customer" },
-          { "en": "Interactive quick-reply and call-to-action buttons" }
+          { "en": "Rich media support: images, product carousels, PDFs", "pt": "Suporte a mídia rica: imagens, carrosséis de produtos, PDFs", "es": "Soporte de medios enriquecidos: imágenes, carruseles de productos, PDFs", "id": "Dukungan media kaya: gambar, karusel produk, PDF", "ar": "دعم الوسائط الغنية: صور وكاروسيلات منتجات وملفات PDF", "tr": "Zengin medya desteği: resimler, ürün karuselleri, PDF'ler" },
+          { "en": "Personalized variables dynamically resolved per customer", "pt": "Variáveis personalizadas resolvidas dinamicamente por cliente", "es": "Variables personalizadas resueltas dinámicamente por cliente", "id": "Variabel personal yang diselesaikan secara dinamis per pelanggan", "ar": "متغيرات مخصصة يتم حلها ديناميكياً لكل عميل", "tr": "Müşteri başına dinamik olarak çözülen kişisel değişkenler" },
+          { "en": "Interactive quick-reply and call-to-action buttons", "pt": "Botões interativos de resposta rápida e chamada à ação", "es": "Botones interactivos de respuesta rápida y llamada a la acción", "id": "Tombol balasan cepat dan ajakan bertindak interaktif", "ar": "أزرار الردالسريع والدعوة إلى الإجراء التفاعلية", "tr": "Etkileşimli hızlı yanıt ve harekete geçirici mesaj butonları" }
         ],
         "image": "/images/marketing-analytics.webp",
-        "imageAlt": { "en": "Marketing Analytics Dashboard Preview" },
+        "imageAlt": { "en": "Marketing Analytics Dashboard Preview", "pt": "Pré-visualização do Painel de Análise de Marketing", "es": "Vista Previa del Panel de Análisis de Marketing", "id": "Pratinjau Dasbor Analitik Marketing", "ar": "معاينة لوحة تحليلات التسويق", "tr": "Pazarlama Analitik Panosu Önizlemesi" },
         "reversed": false
       }
     },
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Strategy Flow" },
-        "heading": { "en": "Opt-In to Conversion Pipeline" },
+        "badge": { "en": "Strategy Flow", "pt": "Fluxo de Estratégia", "es": "Flujo de Estrategia", "id": "Alur Strategi", "ar": "تدفق الاستراتيجية", "tr": "Strateji Akışı" },
+        "heading": { "en": "Opt-In to Conversion Pipeline", "pt": "Pipeline de Opt-In a Conversão", "es": "Pipeline de Opt-In a Conversión", "id": "Pipeline Opt-In ke Konversi", "ar": "مسار من الاشتراك إلى التحويل", "tr": "Opt-In'den Dönüşüm Hattına" },
         "steps": [
           {
-            "title": { "en": "1. Collect Opt-Ins" },
-            "description": { "en": "Integrate opt-in checkbox triggers inside purchase forms, landing pages, or checkout channels." }
+            "title": { "en": "1. Collect Opt-Ins", "pt": "1. Coletar Opt-Ins", "es": "1. Recopilar Opt-Ins", "id": "1. Kumpulkan Opt-In", "ar": "1. جمع الاشتراكات", "tr": "1. Opt-In Toplayın" },
+            "description": { "en": "Integrate opt-in checkbox triggers inside purchase forms, landing pages, or checkout channels.", "pt": "Integre gatilhos de caixa de seleção de opt-in em formulários de compra, páginas de destino ou canais de checkout.", "es": "Integre activadores de casilla de verificación de opt-in en formularios de compra, páginas de destino o canales de pago.", "id": "Integrasikan pemicu kotak centang opt-in di dalam formulir pembelian, halaman arahan, atau saluran checkout.", "ar": "دمج محفزات خانة الاشتراك في نماذج الشراء وصفحات الهبوط.", "tr": "Satın alma formlarına, açılış sayfalarına veya ödeme kanallarına opt-in onay kutusu tetikleyicileri entegre edin." }
           },
           {
-            "title": { "en": "2. Welcome Broadcast" },
-            "description": { "en": "Deliver an immediate automated welcome notification containing onboarding discount parameters." }
+            "title": { "en": "2. Welcome Broadcast", "pt": "2. Transmissão de Boas-Vindas", "es": "2. Difusión de Bienvenida", "id": "2. Siaran Selamat Datang", "ar": "2. بث الترحيب", "tr": "2. Hoş Geldin Yayını" },
+            "description": { "en": "Deliver an immediate automated welcome notification containing onboarding discount parameters.", "pt": "Entregue uma notificação de boas-vindas automatizada imediata contendo parâmetros de desconto de integração.", "es": "Entregue una notificación de bienvenida automatizada inmediata que contenga parámetros de descuento de incorporación.", "id": "Kirimkan notifikasi selamat datang otomatis segera yang berisi parameter diskon orientasi.", "ar": "قدّم إشعار ترحيب آلياً فورياً يتضمن معاملات خصم التأهيل.", "tr": "Hemen otomatik hoş geldin bildirimi gönderin." }
           },
           {
-            "title": { "en": "3. Campaign Nurture" },
-            "description": { "en": "Automate recurring promotional broadcasts segmented based on past user conversion behaviors." }
+            "title": { "en": "3. Campaign Nurture", "pt": "3. Nutrição de Campanha", "es": "3. Cultivo de Campaña", "id": "3. Pemeliharaan Kampanye", "ar": "3. رعاية الحملة", "tr": "3. Kampanya Beslemesi" },
+            "description": { "en": "Automate recurring promotional broadcasts segmented based on past user conversion behaviors.", "pt": "Automatize transmissões promocionais recorrentes segmentadas com base nos comportamentos de conversão anteriores do usuário.", "es": "Automatice difusiones promocionales recurrentes segmentadas en función de los comportamientos de conversión anteriores del usuario.", "id": "Otomatisasi siaran promosi berulang yang tersegmentasi berdasarkan perilaku konversi pengguna sebelumnya.", "ar": "أتمتة البث الترويجي المتكرر المقسّم بناءً على سلوكيات التحويل السابقة.", "tr": "Geçmiş kullanıcı dönüşüm davranışlarına göre segmentlenmiş yinelenen tanıtım yayınlarını otomatikleştirin." }
           }
         ]
       }
@@ -114,39 +125,39 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Channel Comparison" },
-        "heading": { "en": "WhatsApp Marketing vs. SMS Marketing vs. Email Marketing" },
-        "subheading": { "en": "Choose the outreach channel with the highest conversions and customer engagement rates." },
+        "badge": { "en": "Channel Comparison", "pt": "Comparação de Canais", "es": "Comparación de Canales", "id": "Perbandingan Saluran", "ar": "مقارنة القنوات", "tr": "Kanal Karşılaştırması" },
+        "heading": { "en": "WhatsApp Marketing vs. SMS Marketing vs. Email Marketing", "pt": "Marketing WhatsApp vs. Marketing SMS vs. Marketing por Email", "es": "Marketing WhatsApp vs. Marketing SMS vs. Marketing por Email", "id": "Marketing WhatsApp vs. Marketing SMS vs. Marketing Email", "ar": "تسويق واتساب مقابل تسويق SMS مقابل تسويق البريد", "tr": "WhatsApp Pazarlama vs. SMS Pazarlama vs. E-posta Pazarlama" },
+        "subheading": { "en": "Choose the outreach channel with the highest conversions and customer engagement rates.", "pt": "Escolha o canal de alcance com as maiores taxas de conversão e engajamento do cliente.", "es": "Elija el canal de alcance con las tasas de conversión y participación del cliente más altas.", "id": "Pilih saluran penjangkauan dengan konversi dan tingkat keterlibatan pelanggan tertinggi.", "ar": "اختر قناة التواصل ذات أعلى معدلات التحويل ومشاركة العملاء.", "tr": "En yüksek dönüşüm ve müşteri katılım oranlarına sahip erişim kanalını seçin." },
         "columns": [
-          { "label": { "en": "Metric" } },
-          { "label": { "en": "WhatsApp Marketing" }, "highlight": true },
-          { "label": { "en": "SMS Marketing" } },
-          { "label": { "en": "Email Marketing" } }
+          { "label": { "en": "Metric", "pt": "Métrica", "es": "Métrica", "id": "Metrik", "ar": "مقياس", "tr": "Metrik" } },
+          { "label": { "en": "WhatsApp Marketing", "pt": "Marketing WhatsApp", "es": "Marketing WhatsApp", "id": "Marketing WhatsApp", "ar": "تسويق واتساب", "tr": "WhatsApp Pazarlama" }, "highlight": true },
+          { "label": { "en": "SMS Marketing", "pt": "Marketing SMS", "es": "Marketing SMS", "id": "Marketing SMS", "ar": "تسويق SMS", "tr": "SMS Pazarlama" } },
+          { "label": { "en": "Email Marketing", "pt": "Marketing por Email", "es": "Marketing por Email", "id": "Marketing Email", "ar": "تسويق بالبريد", "tr": "E-posta Pazarlama" } }
         ],
         "rows": [
           [
-            { "en": "Average Open Rate" },
-            { "en": "98% (Extremely high)" },
-            { "en": "90% (Often ignored as spam)" },
-            { "en": "15% - 22% (Spam folders)" }
+            { "en": "Average Open Rate", "pt": "Taxa Média de Abertura", "es": "Tasa Promedio de Apertura", "id": "Rata-rata Tingkat Buka", "ar": "متوسط معدل الفتح", "tr": "Ortalama Açılma Oranı" },
+            { "en": "98% (Extremely high)", "pt": "98% (Extremamente alto)", "es": "98% (Extremadamente alto)", "id": "98% (Sangat tinggi)", "ar": "98% (عالٍ جداً)", "tr": "%98 (Son derece yüksek)" },
+            { "en": "90% (Often ignored as spam)", "pt": "90% (Frequentemente ignorado como spam)", "es": "90% (A menudo ignorado como spam)", "id": "90% (Sering diabaikan sebagai spam)", "ar": "90% (غالباً يُتجاهل كبريد عشوائي)", "tr": "%90 (Sıklıkla spam olarak yoksayılır)" },
+            { "en": "15% - 22% (Spam folders)", "pt": "15% - 22% (Pastas de spam)", "es": "15% - 22% (Carpetas de spam)", "id": "15% - 22% (Folder spam)", "ar": "15% - 22% (مجلدات البريد العشوائي)", "tr": "%15 - %22 (Spam klasörleri)" }
           ],
           [
-            { "en": "Interactive CTAs" },
-            { "en": "✓ (Quick-reply / URL links)" },
-            { "en": "✗ (Raw hyperlinks only)" },
-            { "en": "✓ (Embedded styled buttons)" }
+            { "en": "Interactive CTAs", "pt": "CTAs Interativos", "es": "CTAs Interactivos", "id": "CTA Interaktif", "ar": "أزرار CTA التفاعلية", "tr": "Etkileşimli CTA'lar" },
+            { "en": "✓ (Quick-reply / URL links)", "pt": "✓ (Resposta rápida / links URL)", "es": "✓ (Respuesta rápida / enlaces URL)", "id": "✓ (Balasan cepat / tautan URL)", "ar": "✓ (ردود سريعة / روابط URL)", "tr": "✓ (Hızlı yanıt / URL bağlantıları)" },
+            { "en": "✗ (Raw hyperlinks only)", "pt": "✗ (Apenas hiperlinks brutos)", "es": "✗ (Solo hipervínculos sin formato)", "id": "✗ (Hanya tautan mentah)", "ar": "✗ (روابط تشعبية فقط)", "tr": "✗ (Yalnızca ham köprüler)" },
+            { "en": "✓ (Embedded styled buttons)", "pt": "✓ (Botões estilizados incorporados)", "es": "✓ (Botones con estilo incorporados)", "id": "✓ (Tombol bergaya tertanam)", "ar": "✓ (أزرار مضمّنة بأسلوب)", "tr": "✓ (Gömülü stillendirilmiş butonlar)" }
           ],
           [
-            { "en": "Rich Media Attachments" },
-            { "en": "✓ (Images, Videos, PDFs)" },
-            { "en": "✗ (Text only / MMS cost-prohibitive)" },
-            { "en": "✓ (HTML layout layout)" }
+            { "en": "Rich Media Attachments", "pt": "Anexos de Mídia Rica", "es": "Archivos Adjuntos de Medios Enriquecidos", "id": "Lampiran Media Kaya", "ar": "مرفقات الوسائط الغنية", "tr": "Zengin Medya Ekleri" },
+            { "en": "✓ (Images, Videos, PDFs)", "pt": "✓ (Imagens, Vídeos, PDFs)", "es": "✓ (Imágenes, Vídeos, PDFs)", "id": "✓ (Gambar, Video, PDF)", "ar": "✓ (صور وفيديو وملفات PDF)", "tr": "✓ (Resimler, Videolar, PDF'ler)" },
+            { "en": "✗ (Text only / MMS cost-prohibitive)", "pt": "✗ (Somente texto / MMS proibitivo)", "es": "✗ (Solo texto / MMS prohibitivo)", "id": "✗ (Hanya teks / MMS mahal)", "ar": "✗ (نص فقط / MMS مكلف جداً)", "tr": "✗ (Yalnızca metin / MMS maliyet engelleyici)" },
+            { "en": "✓ (HTML layout)", "pt": "✓ (Layout HTML)", "es": "✓ (Diseño HTML)", "id": "✓ (Tata letak HTML)", "ar": "✓ (تخطيط HTML)", "tr": "✓ (HTML düzeni)" }
           ],
           [
-            { "en": "Click-Through Rates" },
-            { "en": "35% - 45%" },
-            { "en": "5% - 8%" },
-            { "en": "2% - 3%" }
+            { "en": "Click-Through Rates", "pt": "Taxas de Cliques", "es": "Tasas de Clics", "id": "Tingkat Click-Through", "ar": "معدلات النقر", "tr": "Tıklama Oranları" },
+            { "en": "35% - 45%", "pt": "35% - 45%", "es": "35% - 45%", "id": "35% - 45%", "ar": "35% - 45%", "tr": "%35 - %45" },
+            { "en": "5% - 8%", "pt": "5% - 8%", "es": "5% - 8%", "id": "5% - 8%", "ar": "5% - 8%", "tr": "%5 - %8" },
+            { "en": "2% - 3%", "pt": "2% - 3%", "es": "2% - 3%", "id": "2% - 3%", "ar": "2% - 3%", "tr": "%2 - %3" }
           ]
         ]
       }
@@ -154,9 +165,9 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Marketing API" },
-        "heading": { "en": "Dispatch Marketing Campaigns Programmatically" },
-        "overlayText": { "en": "Marketing Templates API Sandbox — Coming Soon" },
+        "badge": { "en": "Marketing API", "pt": "API de Marketing", "es": "API de Marketing", "id": "API Marketing", "ar": "API التسويق", "tr": "Pazarlama API'si" },
+        "heading": { "en": "Dispatch Marketing Campaigns Programmatically", "pt": "Disparar Campanhas de Marketing Programaticamente", "es": "Enviar Campañas de Marketing Programáticamente", "id": "Kirim Kampanye Marketing Secara Programatik", "ar": "إطلاق حملات التسويق برمجياً", "tr": "Pazarlama Kampanyalarını Programatik Olarak Gönderin" },
+        "overlayText": { "en": "Marketing Templates API Sandbox — Coming Soon", "pt": "Sandbox API Templates de Marketing — Em Breve", "es": "Sandbox API Plantillas de Marketing — Próximamente", "id": "Sandbox API Template Marketing — Segera Hadir", "ar": "بيئة تجريبية API قوالب التسويق — قريباً", "tr": "Pazarlama Şablonları API Sanal Alanı — Çok Yakında" },
         "snippets": [
           {
             "lang": "cURL",
@@ -172,30 +183,115 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
+        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
         "heading": {
           "en": "Marketing Messages — FAQ",
           "pt": "Mensagens de Marketing — FAQ",
           "es": "Mensajes de Marketing — FAQ",
           "id": "Pesan Marketing — FAQ",
           "ar": "رسائل التسويق — الأسئلة الشائعة",
-          "tr": "Pazarlama Mesajları — SSS"
+          "tr": "Pazarlama Mesajları — SSS",
+          "ng": "Marketing Messages — FAQ"
         },
         "items": [
           {
             "question": {
-              "en": "Do contacts need to opt-in for marketing messages?"
+              "en": "Do contacts need to opt-in for marketing messages?",
+              "pt": "Os contatos precisam aceitar receber mensagens de marketing (opt-in)?",
+              "es": "¿Los contactos necesitan registrarse (opt-in) para recibir mensajes de marketing?",
+              "id": "Apakah kontak harus memilih (opt-in) untuk menerima pesan pemasaran?",
+              "ar": "هل يحتاج جهات الاتصال إلى الاشتراك لتلقي رسائل التسويق؟",
+              "tr": "Kişilerin pazarlama mesajlarını almak için onay vermesi (opt-in) gerekiyor mu?",
+              "ng": "Do contacts need to opt-in for marketing messages?"
             },
             "answer": {
-              "en": "Yes. WhatsApp requires explicit opt-in from contacts before you can send marketing messages. You can collect opt-ins through your website, app, or existing customer touchpoints. We provide opt-in tools and compliance documentation to help you stay compliant with Meta's policies and local regulations like GDPR and LGPD."
+              "en": "Yes. WhatsApp requires explicit opt-in from contacts before you can send marketing messages. You can collect opt-ins through your website, app, or existing customer touchpoints. We provide opt-in tools and compliance documentation to help you stay compliant with Meta's policies and local regulations like GDPR and LGPD.",
+              "pt": "Sim. O WhatsApp exige aceitação explícita dos contatos antes de enviar mensagens de marketing. Você pode coletar adesões por meio de seu site, aplicativo ou pontos de contato existentes. Fornecemos ferramentas de opt-in e documentação de conformidade para manter sua empresa alinhada com as políticas da Meta e regulamentações locais como LGPD.",
+              "es": "Sí. WhatsApp requiere el consentimiento explícito de los contactos antes de enviarles mensajes de marketing. Puede recopilar suscripciones a través de su sitio web, aplicación o puntos de contacto. Proporcionamos herramientas de suscripción y documentación para mantener su cumplimiento con las políticas de Meta y regulaciones como el RGPD.",
+              "id": "Ya. WhatsApp mewajibkan persetujuan (opt-in) eksplisit dari kontak sebelum Anda dapat mengirimkan pesan pemasaran. Anda dapat mengumpulkan persetujuan melalui situs web, aplikasi, atau titik kontak pelanggan yang ada. Kami menyediakan alat opt-in dan dokumentasi kepatuhan untuk membantu Anda mematuhi kebijakan Meta serta peraturan lokal seperti GDPR.",
+              "ar": "نعم. يتطلب واتساب موافقة صريحة من جهات الاتصال قبل إرسال رسائل تسويقية. يمكنك جمع الموافقات عبر موقعك أو تطبيقك أو قنوات الاتصال الحالية. نوفر أدوات الاشتراك ووثائق الامتثال لمساعدتك في الالتزام بسياسات Meta واللوائح المحلية.",
+              "tr": "Evet. WhatsApp, pazarlama mesajları gönderebilmeniz için kişilerden açık bir onay (opt-in) almanızı gerektirir. Onayları web siteniz, uygulamanız veya mevcut müşteri temas noktalarınız aracılığıyla toplayabilirsiniz. Meta politikaları ve yerel düzenlemelerle uyumlu kalmanıza yardımcı olacak onay araçları ve uyumluluk belgeleri sunuyoruz.",
+              "ng": "Yes. WhatsApp requires explicit opt-in from contacts before you can send marketing messages. You can collect opt-ins through your website, app, or existing customer touchpoints. We provide opt-in tools and compliance documentation to help you stay compliant with Meta's policies and local regulations like GDPR and LGPD."
             }
           },
           {
             "question": {
-              "en": "What is the pricing for marketing messages?"
+              "en": "What is the pricing for marketing messages?",
+              "pt": "Qual é o preço das mensagens de marketing?",
+              "es": "¿Cuál es el precio de los mensajes de marketing?",
+              "id": "Berapa harga untuk pesan pemasaran?",
+              "ar": "ما هو تسعير رسائل التسويق؟",
+              "tr": "Pazarlama mesajlarının fiyatı nedir?",
+              "ng": "What is the pricing for marketing messages?"
             },
             "answer": {
-              "en": "WhatsApp marketing message pricing is set by Meta and varies by country. It is typically higher than utility or authentication messages. View our full country-by-country pricing sheet for exact rates. Our Free plan includes 1,000 free messages of any category."
+              "en": "WhatsApp marketing message pricing is set by Meta and varies by country. It is typically higher than utility or authentication messages. View our pricing page or consult our team to get the current per-conversation rate sheet for your target markets.",
+              "pt": "O preço das mensagens de marketing do WhatsApp é definido pela Meta e varia de acordo com o país. Geralmente é mais alto do que mensagens de utilidade ou autenticação. Consulte nossa página de preços para obter a tabela de tarifas atualizada para seus mercados-alvo.",
+              "es": "Los precios de los mensajes de marketing de WhatsApp los define Meta y varían según el país. Suele ser más costoso que los mensajes de utilidad o autenticación. Consulte nuestra página de precios para obtener la lista de tarifas actual para sus mercados.",
+              "id": "Harga pesan pemasaran WhatsApp ditentukan oleh Meta dan bervariasi berdasarkan negara. Biasanya lebih tinggi daripada pesan utilitas atau autentikasi. Kunjungi halaman harga kami untuk mendapatkan daftar tarif saat ini untuk pasar target Anda.",
+              "ar": "يتم تحديد تسعير رسائل التسويق على واتساب بواسطة Meta ويختلف حسب البلد. وهو عادة أعلى من رسائل الخدمات أو المصادقة. راجع صفحة الأسعار الخاصة بنا للحصول على جدول الأسعار الحالي لأسواقك المستهدفة.",
+              "tr": "WhatsApp pazarlama mesajı ücretlendirmesi Meta tarafından belirlenir ve ülkeye göre değişiklik gösterir. Genellikle yardımcı program veya kimlik doğrulama mesajlarından daha yüksektir. Hedef pazarlarınız için güncel ücret tablosunu almak için fiyatlandırma sayfamızı inceleyin.",
+              "ng": "WhatsApp marketing message pricing is set by Meta and varies by country. It is typically higher than utility or authentication messages. View our pricing page or consult our team to get the current per-conversation rate sheet for your target markets."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I run A/B testing on WhatsApp marketing campaigns?",
+              "pt": "Posso realizar testes A/B em campanhas de marketing no WhatsApp?",
+              "es": "¿Puedo realizar pruebas A/B en campañas de marketing de WhatsApp?",
+              "id": "Apakah saya bisa menjalankan pengujian A/B pada kampanye pemasaran WhatsApp?",
+              "ar": "هل يمكنني إجراء اختبارات A/B على حملات التسويق عبر واتساب؟",
+              "tr": "WhatsApp pazarlama kampanyalarında A/B testi yapabilir miyim?",
+              "ng": "Can I run A/B testing on WhatsApp marketing campaigns?"
+            },
+            "answer": {
+              "en": "Yes. You can split-test different message templates, call-to-action buttons, and media files (images vs. videos) to optimize your read rates, click rates, and overall marketing conversion metrics.",
+              "pt": "Sim. Você pode testar diferentes modelos de mensagens, botões de chamada para ação (CTA) e arquivos de mídia (imagens vs. vídeos) para otimizar suas taxas de leitura, cliques e conversões de marketing.",
+              "es": "Sí. Puede realizar pruebas de división con diferentes plantillas de mensajes, botones de llamada a la acción (CTA) y archivos multimedia (imágenes versus videos) para optimizar las tasas de lectura, clics y conversiones.",
+              "id": "Ya. Anda dapat melakukan split-test pada templat pesan, tombol ajakan bertindak (CTA), dan file media (gambar vs. video) yang berbeda untuk mengoptimalkan tingkat keterbacaan, rasio klik, dan metrik konversi.",
+              "ar": "نعم. يمكنك اختبار قوالب رسائل مختلفة وأزرار اتخاذ إجراء وملفات وسائط (صور مقابل فيديوهات) لتحسين معدلات القراءة ونسب النقر ومقاييس التحويل الإجمالية.",
+              "tr": "Evet. Okunma oranlarınızı, tıklama oranlarınızı ve genel pazarlama dönüşüm metriklerinizi optimize etmek için farklı mesaj şablonlarını, harekete geçirici mesaj (CTA) butonlarını ve medya dosyalarını (resimler vs. videolar) bölüp test edebilirsiniz.",
+              "ng": "Yes. You can split-test different message templates, call-to-action buttons, and media files (images vs. videos) to optimize your read rates, click rates, and overall marketing conversion metrics."
+            }
+          },
+          {
+            "question": {
+              "en": "What media formats are supported in marketing messages?",
+              "pt": "Quais formatos de mídia são suportados nas mensagens de marketing?",
+              "es": "¿Qué formatos multimedia son compatibles con los mensajes de marketing?",
+              "id": "Format media apa saja yang didukung dalam pesan pemasaran?",
+              "ar": "ما هي تنسيقات الوسائط المدعومة في رسائل التسويق؟",
+              "tr": "Pazarlama mesajlarında hangi medya formatları destekleniyor?",
+              "ng": "What media formats are supported in marketing messages?"
+            },
+            "answer": {
+              "en": "WhatsApp templates support high-quality images (PNG, JPEG), PDF documents, videos (MP4), audio tracks, and interactive buttons (quick replies and call-to-action links) to make your messages more engaging.",
+              "pt": "Modelos do WhatsApp suportam imagens de alta qualidade (PNG, JPEG), documentos PDF, vídeos (MP4), faixas de áudio e botões interativos (respostas rápidas e links de CTA) para tornar suas mensagens mais envolventes.",
+              "es": "Las plantillas de WhatsApp admiten imágenes de alta calidad (PNG, JPEG), documentos PDF, videos (MP4), audio y botones interactivos (respuestas rápidas y enlaces de llamada a la acción) para que sus mensajes sean atractivos.",
+              "id": "Templat WhatsApp mendukung gambar berkualitas tinggi (PNG, JPEG), dokumen PDF, video (MP4), trek audio, dan tombol interaktif (balasan cepat dan tautan CTA) untuk membuat pesan Anda lebih menarik.",
+              "ar": "تدعم قوالب واتساب الصور عالية الجودة (PNG وJPEG) ومستندات PDF ومقاطع الفيديو (MP4) والمسارات الصوتية والأزرار التفاعلية (الردود السريعة وروابط اتخاذ الإجراء) لجعل رسائلك أكثر تفاعلاً.",
+              "tr": "WhatsApp şablonları, mesajlarınızı daha ilgi çekici hale getirmek için yüksek kaliteli görselleri (PNG, JPEG), PDF belgelerini, videoları (MP4), ses parçalarını ve etkileşimli butonları (hızlı yanıtlar ve CTA bağlantıları) destekler.",
+              "ng": "WhatsApp templates support high-quality images (PNG, JPEG), PDF documents, videos (MP4), audio tracks, and interactive buttons (quick replies and call-to-action links) to make your messages more engaging."
+            }
+          },
+          {
+            "question": {
+              "en": "How do I personalize marketing messages for each recipient?",
+              "pt": "Como personalizo mensagens de marketing para cada destinatário?",
+              "es": "¿Cómo personalizo los mensajes de marketing para cada destinatario?",
+              "id": "Bagaimana cara mempersonalisasi pesan pemasaran untuk setiap penerima?",
+              "ar": "كيف يمكنني تخصيص رسائل التسويق لكل مستلم؟",
+              "tr": "Pazarlama mesajlarını her alıcı için nasıl kişiselleştiririm?",
+              "ng": "How do I personalize marketing messages for each recipient?"
+            },
+            "answer": {
+              "en": "You can define dynamic placeholders (like {{1}}, {{2}}) in your templates. When sending a campaign via our dashboard or API, you can map these to customer data columns (e.g., First Name, Promo Code, or Appointment Time).",
+              "pt": "Você pode definir variáveis dinâmicas (como {{1}}, {{2}}) em seus modelos. Ao disparar uma campanha, você pode associar essas variáveis a colunas de dados do cliente (ex: Primeiro Nome, Código Promocional).",
+              "es": "Puede definir variables dinámicas (como {{1}}, {{2}}) en sus plantillas. Al enviar una campaña, puede mapearlas con columnas de datos de clientes (por ejemplo, primer nombre, código de promoción).",
+              "id": "Anda dapat menentukan variabel dinamis (seperti {{1}}, {{2}}) di templat Anda. Saat mengirim kampanye, Anda dapat memetakan ini ke kolom data pelanggan (seperti Nama Depan, Kode Promo).",
+              "ar": "يمكنك تحديد متغيرات ديناميكية (مثل {{1}} و {{2}}) في قوالب المحادثة الخاصة بك. عند إرسال حملة، يمكنك ربط هذه المتغيرات بأعمدة بيانات العملاء (مثل الاسم الأول أو كود الخصم).",
+              "tr": "Şablonlarınızda dinamik yer tutucular ({{1}}, {{2}} gibi) tanımlayabilirsiniz. Kampanya gönderirken bunları müşteri veri sütunlarıyla (örneğin Ad, Promosyon Kodu veya Randevu Saati) eşleştirebilirsiniz.",
+              "ng": "You can define dynamic placeholders (like {{1}}, {{2}}) in your templates. When sending a campaign via our dashboard or API, you can map these to customer data columns (e.g., First Name, Promo Code, or Appointment Time)."
             }
           }
         ]
@@ -204,12 +300,12 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar" },
         "links": [
-          { "label": { "en": "Marketing Campaigns" }, "href": "/whatsapp/campaigns" },
-          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
-          { "label": { "en": "Bulk Messaging API" }, "href": "/whatsapp/bulk-messaging" },
-          { "label": { "en": "Pricing Model" }, "href": "/pricing" }
+          { "label": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Marketing", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları" }, "href": "/whatsapp/campaigns" },
+          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Bulk Messaging API", "pt": "API de Mensagens em Massa", "es": "API de Mensajes Masivos", "id": "API Pesan Massal", "ar": "API الرسائل الجماعية", "tr": "Toplu Mesajlaşma API'si" }, "href": "/whatsapp/bulk-messaging" },
+          { "label": { "en": "Pricing Model", "pt": "Modelo de Preços", "es": "Modelo de Precios", "id": "Model Harga", "ar": "نموذج التسعير", "tr": "Fiyatlandırma Modeli" }, "href": "/pricing" }
         ]
       }
     },

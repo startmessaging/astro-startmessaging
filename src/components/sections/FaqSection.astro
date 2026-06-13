@@ -41,13 +41,15 @@ const { badge, heading, subheading, items = [], country, theme = 'sms' } = Astro
     )}
 
     <Accordion>
-      {items.map((item: any, idx: number) => (
-        <AccordionItem title={r(item.question, country)} open={idx === 0} theme={theme}>
-          <Text tone="body" size="body-md" class="leading-relaxed">
-            {r(item.answer, country)}
-          </Text>
-        </AccordionItem>
-      ))}
+      {items
+        .filter((item: any) => !item.countries || item.countries.includes(country))
+        .map((item: any, idx: number) => (
+          <AccordionItem title={r(item.question, country)} open={idx === 0} theme={theme}>
+            <Text tone="body" size="body-md" class="leading-relaxed">
+              {r(item.answer, country)}
+            </Text>
+          </AccordionItem>
+        ))}
     </Accordion>
   </Container>
 </Section>

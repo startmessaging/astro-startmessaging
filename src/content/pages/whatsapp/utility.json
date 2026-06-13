@@ -2,6 +2,7 @@
   "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
   "theme": "whatsapp",
   "seo": {
+    "ogImage": "/images/utility-preview.webp",
     "title": {
       "en": "WhatsApp Utility Messages — Transactional Updates — StartMessaging",
       "pt": "Mensagens Utilitárias WhatsApp — Atualizações Transacionais — StartMessaging",
@@ -114,9 +115,6 @@
           "ar": "معاينة رسالة معاملات واتساب",
           "tr": "WhatsApp İşlemsel Mesaj Önizlemesi"
         },
-        "imageWidth": 640,
-        "imageHeight": 400,
-        "imageMaxWidth": "max-w-xl",
         "reversed": false
       }
     },
@@ -136,29 +134,29 @@
           "pt": "Mantenha Seus Clientes Informados",
           "es": "Mantenga a Sus Clientes Informados",
           "id": "Jaga Pelanggan Anda Tetap Terinformasi",
-          "ar": "أبقِ عملاءك على اطلاع",
+          "ar": "أبقِ عملاؤك على اطلاع",
           "tr": "Müşterilerinizi Bilgilendirin"
         },
         "items": [
           {
             "icon": "broadcast",
-            "title": { "en": "Order Updates" },
-            "description": { "en": "Send order confirmations, processing status, and delivery notifications automatically." }
+            "title": { "en": "Order Updates", "pt": "Atualizações de Pedido", "es": "Actualizaciones de Pedido", "id": "Pembaruan Pesanan", "ar": "تحديثات الطلبات", "tr": "Sipariş Güncellemeleri" },
+            "description": { "en": "Send order confirmations, processing status, and delivery notifications automatically.", "pt": "Envie confirmações de pedido, status de processamento e notificações de entrega automaticamente.", "es": "Envíe confirmaciones de pedido, estado de procesamiento y notificaciones de entrega automáticamente.", "id": "Kirim konfirmasi pesanan, status pemrosesan, dan notifikasi pengiriman secara otomatis.", "ar": "أرسل تأكيدات الطلب وحالة المعالجة وإشعارات التسليم تلقائياً.", "tr": "Sipariş onaylarını, işleme durumunu ve teslimat bildirimlerini otomatik olarak gönderin." }
           },
           {
             "icon": "template",
-            "title": { "en": "Shipping Alerts" },
-            "description": { "en": "Real-time shipping tracking updates with live location links and estimated delivery times." }
+            "title": { "en": "Shipping Alerts", "pt": "Alertas de Envio", "es": "Alertas de Envío", "id": "Peringatan Pengiriman", "ar": "تنبيهات الشحن", "tr": "Kargo Uyarıları" },
+            "description": { "en": "Real-time shipping tracking updates with live location links and estimated delivery times.", "pt": "Atualizações de rastreamento de envio em tempo real com links de localização ao vivo e tempos estimados de entrega.", "es": "Actualizaciones de seguimiento de envio en tiempo real con enlaces de ubicación en vivo y tiempos de entrega estimados.", "id": "Pembaruan pelacakan pengiriman real-time dengan tautan lokasi langsung dan estimasi waktu pengiriman.", "ar": "تحديثات تتبع الشحن في الوقت الفعلي مع روابط الموقع وأوقات التسليم المتوقعة.", "tr": "Canlı konum bağlantıları ve tahmini teslimat süreleriyle gerçek zamanlı kargo takip güncellemeleri." }
           },
           {
             "icon": "analytics",
-            "title": { "en": "Appointment Reminders" },
-            "description": { "en": "Reduce no-shows with automated appointment reminders including confirm/reschedule buttons." }
+            "title": { "en": "Appointment Reminders", "pt": "Lembretes de Compromisso", "es": "Recordatorios de Cita", "id": "Pengingat Janji", "ar": "تذكيرات المواعيد", "tr": "Randevu Hatırlatmaları" },
+            "description": { "en": "Reduce no-shows with automated appointment reminders including confirm/reschedule buttons.", "pt": "Reduza ausências com lembretes automatizados de compromisso incluindo botões de confirmar/reagendar.", "es": "Reduzca ausencias con recordatorios automatizados de cita incluyendo botones de confirmar/reprogramar.", "id": "Kurangi ketidakhadiran dengan pengingat janji otomatis termasuk tombol konfirmasi/jadwal ulang.", "ar": "قلل من حالات الغياب باستخدام تذكيرات مواعيد آلية تتضمن أزرار التأكيد/إعادة الجدولة.", "tr": "Onayla/yeniden zamanla butonları dahil otomatik randevu hatırlatmalarıyla devamsızlığı azaltın." }
           },
           {
             "icon": "shield",
-            "title": { "en": "Payment Receipts" },
-            "description": { "en": "Send instant payment confirmations and digital receipts with transaction details." }
+            "title": { "en": "Payment Receipts", "pt": "Recibos de Pagamento", "es": "Recibos de Pago", "id": "Tanda Terima Pembayaran", "ar": "إيصالات الدفع", "tr": "Tahsilat Makbuzları" },
+            "description": { "en": "Send instant payment confirmations and digital receipts with transaction details.", "pt": "Envie confirmações de pagamento instantâneas e recibos digitais com detalhes da transação.", "es": "Envíe confirmaciones de pago instantáneas y recibos digitales con detalles de la transacción.", "id": "Kirim konfirmasi pembayaran instan dan tanda terima digital dengan detail transaksi.", "ar": "أرسل تأكيدات الدفع الفورية والإيصالات الرقمية مع تفاصيل المعاملة.", "tr": "Anlık ödeme onayları ve işlem ayrıntıları içeren dijital makbuzlar gönderin." }
           }
         ]
       }
@@ -166,39 +164,39 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Transactional Comparison" },
-        "heading": { "en": "WhatsApp Utility vs. SMS Transactions vs. Email Updates" },
-        "subheading": { "en": "Compare the delivery success and formatting capabilities for critical transactional messages." },
+        "badge": { "en": "Transactional Comparison", "pt": "Comparação Transacional", "es": "Comparación Transaccional", "id": "Perbandingan Transaksional", "ar": "مقارنة المعاملات", "tr": "İşlemsel Karşılaştırma" },
+        "heading": { "en": "WhatsApp Utility vs. SMS Transactions vs. Email Updates", "pt": "Utilitários WhatsApp vs. Transações SMS vs. Atualizações por Email", "es": "Utilidad WhatsApp vs. Transacciones SMS vs. Actualizaciones por Email", "id": "Utilitas WhatsApp vs. Transaksi SMS vs. Pembaruan Email", "ar": "خدمات واتساب مقابل معاملات SMS مقابل تحديثات البريد", "tr": "WhatsApp Yardımcı vs. SMS İşlemleri vs. E-posta Güncellemeleri" },
+        "subheading": { "en": "Compare the delivery success and formatting capabilities for critical transactional messages.", "pt": "Compare o sucesso de entrega e as capacidades de formatação para mensagens transacionais críticas.", "es": "Compare el éxito de entrega y las capacidades de formato para mensajes transaccionales críticos.", "id": "Bandingkan keberhasilan pengiriman dan kemampuan pemformatan untuk pesan transaksional kritis.", "ar": "قارن نجاح التسليم وقدرات التنسيق للرسائل المعاملاتية الحرجة.", "tr": "Kritik işlemsel mesajlar için teslimat başarısını ve biçimlendirme yeteneklerini karşılaştırın." },
         "columns": [
-          { "label": { "en": "Capability" } },
-          { "label": { "en": "WhatsApp Utility" }, "highlight": true },
-          { "label": { "en": "SMS Transactions" } },
-          { "label": { "en": "Email Updates" } }
+          { "label": { "en": "Capability", "pt": "Capacidade", "es": "Capacidad", "id": "Kemampuan", "ar": "القدرة", "tr": "Kapasite" } },
+          { "label": { "en": "WhatsApp Utility", "pt": "Utilitário WhatsApp", "es": "Utilidad WhatsApp", "id": "Utilitas WhatsApp", "ar": "خدمات واتساب", "tr": "WhatsApp Yardımcı" }, "highlight": true },
+          { "label": { "en": "SMS Transactions", "pt": "Transações SMS", "es": "Transacciones SMS", "id": "Transaksi SMS", "ar": "معاملات SMS", "tr": "SMS İşlemleri" } },
+          { "label": { "en": "Email Updates", "pt": "Atualizações por Email", "es": "Actualizaciones por Email", "id": "Pembaruan Email", "ar": "تحديثات البريد", "tr": "E-posta Güncellemeleri" } }
         ],
         "rows": [
           [
-            { "en": "Delivery Guarantee" },
-            { "en": "99%+ (Meta BSP high priority)" },
-            { "en": "85% - 90% (Carrier spam filters)" },
-            { "en": "70% - 80% (Promotional sorting)" }
+            { "en": "Delivery Guarantee", "pt": "Garantia de Entrega", "es": "Garantía de Entrega", "id": "Jaminan Pengiriman", "ar": "ضمان التسليم", "tr": "Teslimat Garantisi" },
+            { "en": "99%+ (Meta BSP high priority)", "pt": "99%+ (Alta prioridade BSP Meta)", "es": "99%+ (Alta prioridad BSP Meta)", "id": "99%+ (Prioritas tinggi BSP Meta)", "ar": "99%+ (أولوية عالية BSP Meta)", "tr": "%99+ (Meta BSP yüksek öncelik)" },
+            { "en": "85% - 90% (Carrier spam filters)", "pt": "85% - 90% (Filtros de spam da operadora)", "es": "85% - 90% (Filtros de spam del operador)", "id": "85% - 90% (Filter spam operator)", "ar": "85% - 90% (فلاتر بريد الناقل)", "tr": "%85 - %90 (Operatör spam filtreleri)" },
+            { "en": "70% - 80% (Promotional sorting)", "pt": "70% - 80% (Classificação promocional)", "es": "70% - 80% (Clasificación promocional)", "id": "70% - 80% (Pemilahan promosi)", "ar": "70% - 80% (تصنيف ترويجي)", "tr": "%70 - %80 (Tanıtım sıralaması)" }
           ],
           [
-            { "en": "Document Attachments" },
-            { "en": "✓ (PDF invoices, QR code tickets)" },
-            { "en": "✗ (Text links only)" },
-            { "en": "✓ (File attachments)" }
+            { "en": "Document Attachments", "pt": "Anexos de Documento", "es": "Archivos Adjuntos de Documento", "id": "Lampiran Dokumen", "ar": "مرفقات المستند", "tr": "Belge Ekleri" },
+            { "en": "✓ (PDF invoices, QR code tickets)", "pt": "✓ (Faturas PDF, ingressos QR)", "es": "✓ (Facturas PDF, tiquetes QR)", "id": "✓ (Faktur PDF, tiket QR)", "ar": "✓ (فواتير PDF وتذاكر QR)", "tr": "✓ (PDF faturalar, QR kod biletler)" },
+            { "en": "✗ (Text links only)", "pt": "✗ (Apenas links de texto)", "es": "✗ (Solo enlaces de texto)", "id": "✗ (Hanya tautan teks)", "ar": "✗ (روابط نصية فقط)", "tr": "✗ (Yalnızca metin bağlantıları)" },
+            { "en": "✓ (File attachments)", "pt": "✓ (Anexos de arquivo)", "es": "✓ (Adjuntos de archivo)", "id": "✓ (Lampiran file)", "ar": "✓ (ملفات مرفقة)", "tr": "✓ (Dosya ekleri)" }
           ],
           [
-            { "en": "Interactive Buttons" },
-            { "en": "✓ (Quick-reply / Track order)" },
-            { "en": "✗ (Static copy)" },
-            { "en": "✓ (HTML layout tags)" }
+            { "en": "Interactive Buttons", "pt": "Botões Interativos", "es": "Botones Interactivos", "id": "Tombol Interaktif", "ar": "أزرار تفاعلية", "tr": "Etkileşimli Butonlar" },
+            { "en": "✓ (Quick-reply / Track order)", "pt": "✓ (Resposta rápida / Rastrear pedido)", "es": "✓ (Respuesta rápida / Rastrear pedido)", "id": "✓ (Balasan cepat / Lacak pesanan)", "ar": "✓ (رد سريع / تتبع الطلب)", "tr": "✓ (Hızlı yanıt / Sipariş takibi)" },
+            { "en": "✗ (Static copy)", "pt": "✗ (Cópia estática)", "es": "✗ (Copia estática)", "id": "✗ (Salinan statis)", "ar": "✗ (نداء ثابت)", "tr": "✗ (Statik kopya)" },
+            { "en": "✓ (HTML layout tags)", "pt": "✓ (Tags de layout HTML)", "es": "✓ (Etiquetas de layout HTML)", "id": "✓ (Tag tata letak HTML)", "ar": "✓ (علامات HTML)", "tr": "✓ (HTML düzen etiketleri)" }
           ],
           [
-            { "en": "Cost Per Conversation" },
-            { "en": "Meta fixed utility rate" },
-            { "en": "Charged per SMS segment" },
-            { "en": "Varies by database size" }
+            { "en": "Cost Per Conversation", "pt": "Custo por Conversação", "es": "Costo por Conversación", "id": "Biaya per Percakapan", "ar": "تكلفة كل محادثة", "tr": "Konversasyon Başına Maliyet" },
+            { "en": "Meta fixed utility rate", "pt": "Taxa fixa de utilidade Meta", "es": "Tarifa fija de utilidad Meta", "id": "Tarif utilitas tetap Meta", "ar": "سعر تشغيل ثابت من Meta", "tr": "Meta sabit yardımcı tarifesi" },
+            { "en": "Charged per SMS segment", "pt": "Cobrado por segmento SMS", "es": "Cobrado por segmento SMS", "id": "Dikenai biaya per segmen SMS", "ar": "يُحتسب لكل مقطع SMS", "tr": "SMS segment başına ücretlendirilir" },
+            { "en": "Varies by database size", "pt": "Varia por tamanho do banco de dados", "es": "Varía según el tamaño de la base de datos", "id": "Bervariasi berdasarkan ukuran database", "ar": "يتفاوت حسب حجم قاعدة البيانات", "tr": "Veritabanı boyutuna göre değişir" }
           ]
         ]
       }
@@ -206,9 +204,9 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Utility API" },
-        "heading": { "en": "Dispatch Transactional Alerts Programmatically" },
-        "overlayText": { "en": "Utility API Sandbox — Coming Soon" },
+        "badge": { "en": "Utility API", "pt": "API de Utilidade", "es": "API de Utilidad", "id": "API Utilitas", "ar": "API الخدمات", "tr": "Yardımcı API" },
+        "heading": { "en": "Dispatch Transactional Alerts Programmatically", "pt": "Disparar Alertas Transacionais Programaticamente", "es": "Enviar Alertas Transaccionales Programáticamente", "id": "Kirim Peringatan Transaksional Secara Programatik", "ar": "إرسال تنبيهات المعاملات برمجياً", "tr": "Programatik Olarak İşlemsel Uyarılar Gönderin" },
+        "overlayText": { "en": "Utility API Sandbox — Coming Soon", "pt": "Sandbox API Utilitária — Em Breve", "es": "Sandbox API de Utilidad — Próximamente", "id": "Sandbox API Utilitas — Segera Hadir", "ar": "بيئة تجريبية API الخدمات — قريباً", "tr": "Yardımcı API Sanal Alanı — Çok Yakında" },
         "snippets": [
           {
             "lang": "cURL",
@@ -224,22 +222,115 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
+        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
         "heading": {
           "en": "Utility Messages — FAQ",
           "pt": "Mensagens Utilitárias — FAQ",
           "es": "Mensajes Utilitarios — FAQ",
           "id": "Pesan Utilitas — FAQ",
           "ar": "رسائل الخدمات — الأسئلة الشائعة",
-          "tr": "Yardımcı Mesajlar — SSS"
+          "tr": "Yardımcı Mesajlar — SSS",
+          "ng": "Utility Messages — FAQ"
         },
         "items": [
           {
             "question": {
-              "en": "What qualifies as a utility message on WhatsApp?"
+              "en": "What qualifies as a utility message on WhatsApp?",
+              "pt": "O que se qualifica como uma mensagem utilitária no WhatsApp?",
+              "es": "¿Qué califica como un mensaje utilitario en WhatsApp?",
+              "id": "Apa yang dikategorikan sebagai pesan utilitas di WhatsApp?",
+              "ar": "ما الذي يصنف كرسالة خدمات على واتساب؟",
+              "tr": "WhatsApp'ta ne yardımcı (utility) mesaj olarak kabul edilir?",
+              "ng": "What qualifies as a utility message on WhatsApp?"
             },
             "answer": {
-              "en": "Utility messages are transactional notifications directly related to an existing customer action or request. Examples include order confirmations, shipping updates, appointment reminders, payment receipts, account alerts, and booking confirmations. These messages must be sent using pre-approved templates. Utility messages are priced lower than marketing messages."
+              "en": "Utility messages are transactional notifications directly related to an existing customer action or request. Examples include order confirmations, shipping updates, appointment reminders, payment receipts, account alerts, and booking confirmations. These messages must be sent using pre-approved templates.",
+              "pt": "Mensagens utilitárias são notificações transacionais diretamente relacionadas a uma ação ou solicitação existente do cliente. Exemplos incluem confirmações de pedido, atualizações de envio, lembretes de consulta, recibos de pagamento e alertas de conta. Devem ser enviadas usando modelos pré-aprovados.",
+              "es": "Los mensajes utilitarios son notificaciones transaccionales directamente relacionadas con una acción o solicitud del cliente. Los ejemplos incluyen confirmaciones de pedidos, actualizaciones de envío, recordatorios de citas, recibos de pago y alertas de cuentas. Deben enviarse mediante plantillas preaprobadas.",
+              "id": "Pesan utilitas adalah notifikasi transaksional yang berhubungan langsung dengan tindakan atau permintaan pelanggan yang ada. Contohnya termasuk konfirmasi pesanan, pembaruan pengiriman, pengingat janji temu, tanda terima pembayaran, dan peringatan akun. Pesan ini harus dikirim menggunakan templat yang telah disetujui sebelumnya.",
+              "ar": "رسائل الخدمات هي إشعارات معاملاتية مرتبطة مباشرة بإجراء أو طلب عميل موجود. تشمل الأمثلة تأكيدات الطلبات، وتحديثات الشحن، وتذكيرات المواعيد، وإيصالات الدفع، وتنبيهات الحساب. يجب إرسال هذه الرسائل باستخدام قوالب معتمدة مسبقاً.",
+              "tr": "Yardımcı mesajlar, mevcut bir müşteri eylemi veya talebiyle doğrudan ilgili işlemsel bildirimlerdir. Örnekler arasında sipariş onayları, kargo güncellemeleri, randevu hatırlatıcıları, ödeme makbuzları ve hesap uyarıları yer alır. Bu mesajların önceden onaylanmış şablonlar kullanılarak gönderilmesi gerekir.",
+              "ng": "Utility messages are transactional notifications directly related to an existing customer action or request. Examples include order confirmations, shipping updates, appointment reminders, payment receipts, account alerts, and booking confirmations. These messages must be sent using pre-approved templates."
+            }
+          },
+          {
+            "question": {
+              "en": "How are utility message costs calculated?",
+              "pt": "Como são calculados os custos das mensagens utilitárias?",
+              "es": "¿Cómo se calculan los costos de los mensajes utilitarios?",
+              "id": "Bagaimana biaya pesan utilitas dihitung?",
+              "ar": "كيف يتم حساب تكalيف رسائل الخدمات؟",
+              "tr": "Yardımcı mesaj maliyetleri nasıl hesaplanır?",
+              "ng": "How are utility message costs calculated?"
+            },
+            "answer": {
+              "en": "WhatsApp charges for utility messages per 24-hour conversation window. Once a utility message is delivered, a 24-hour session starts, allowing you to send multiple updates in that category to the user without additional costs. Rates are determined by Meta based on the recipient's country code.",
+              "pt": "O WhatsApp cobra por mensagens utilitárias por janela de conversa de 24 horas. Assim que uma mensagem utilitária é entregue, uma sessão de 24 horas começa, permitindo que você envie várias atualizações nessa categoria sem custos adicionais. As tarifas variam de acordo com o código do país do destinatário.",
+              "es": "WhatsApp cobra por mensajes utilitarios por ventana de conversación de 24 horas. Una vez que se entrega un mensaje utilitario, comienza una sesión de 24 horas, lo que le permite enviar múltiples actualizaciones en esa categoría al usuario sin costos adicionales. Las tarifas son determinadas por Meta según el país del destinatario.",
+              "id": "WhatsApp mengenakan biaya untuk pesan utilitas per jendela percakapan 24 jam. Setelah pesan utilitas dikirim, sesi 24 jam dimulai, memungkinkan Anda mengirim beberapa pembaruan dalam kategori tersebut tanpa biaya tambahan. Tarif ditentukan oleh Meta berdasarkan kode negara penerima.",
+              "ar": "يحتسب واتساب رسوم رسائل الخدمات لكل نافذة محادثة مدتها 24 ساعة. بمجرد تسليم رسالة خدمات، تبدأ جلسة مدتها 24 ساعة، مما يتيح لك إرسال تحديثات متعددة في تلك الفئة إلى المستخدم دون تكاليف إضافية. تحدد Meta الأسعار بناءً على رمز البلد للمستلم.",
+              "tr": "Yardımcı mesajlar 24 saatlik konuşma penceresi başına ücretlendirilir. Bir yardımcı mesaj teslim edildiğinde, kullanıcıya ek maliyet olmadan o kategoride birden fazla güncelleme göndermenize olanak tanıyan 24 saatlik bir oturum başlar. Ücretler, alıcının ülke koduna göre Meta tarafından belirlenir.",
+              "ng": "WhatsApp charges for utility messages per 24-hour conversation window. Once a utility message is delivered, a 24-hour session starts, allowing you to send multiple updates in that category to the user without additional costs. Rates are determined by Meta based on the recipient's country code."
+            }
+          },
+          {
+            "question": {
+              "en": "Can utility messages include file attachments?",
+              "pt": "As mensagens utilitárias podem incluir anexos de arquivo?",
+              "es": "¿Los mensajes utilitarios pueden incluir archivos adjuntos?",
+              "id": "Apakah pesan utilitas dapat menyertakan lampiran file?",
+              "ar": "هل يمكن أن تتضمن رسائل الخدمات مرفقات ملفات؟",
+              "tr": "Yardımcı mesajlar dosya ekleri içerebilir mi?",
+              "ng": "Can utility messages include file attachments?"
+            },
+            "answer": {
+              "en": "Yes. You can attach PDFs (like invoices or receipts), images (like QR codes or tickets), and other document formats to your utility template messages. These files must be hosted online and passed as media parameters via our API or dashboard.",
+              "pt": "Sim. Você pode anexar PDFs (como faturas ou recibos), imagens (como códigos QR ou ingressos) e outros formatos de documentos às suas mensagens utilitárias. Esses arquivos devem estar hospedados online e passados como parâmetros de mídia.",
+              "es": "Sí. Puede adjuntar archivos PDF (como facturas o recibos), imágenes (como códigos QR o boletos) y otros formatos de documentos a sus mensajes utilitarios. Estos archivos deben estar alojados en línea y pasarse como parámetros multimedia.",
+              "id": "Ya. Anda dapat melampirkan PDF (seperti faktur atau tanda terima), gambar (seperti kode QR atau tiket), dan format dokumen lainnya ke pesan templat utilitas Anda. File-file ini harus di-host secara online dan diteruskan sebagai parameter media.",
+              "ar": "نعم. يمكنك إرفاق ملفات PDF (مثل الفواتير أو الإيصالات) والصور (مثل رموز QR أو التذاكر) وتنسيقات المستندات الأخرى برسائل قوالب الخدمات الخاصة بك. يجب أن تكون هذه الملفات مستضافة عبر الإنترنت وتمريرها كمعلمات وسائط.",
+              "tr": "Evet. Yardımcı şablon mesajlarınıza PDF'ler (fatura veya makbuz gibi), görseller (QR kodları veya biletler gibi) ve diğer belge formatlarını ekleyebilirsiniz. Bu dosyaların çevrimiçi olarak barındırılması ve API'miz veya panelimiz aracılığıyla medya parametreleri olarak iletilmesi gerekir.",
+              "ng": "Yes. You can attach PDFs (like invoices or receipts), images (like QR codes or tickets), and other document formats to your utility template messages. These files must be hosted online and passed as media parameters via our API or dashboard."
+            }
+          },
+          {
+            "question": {
+              "en": "How long does template approval take for utility messages?",
+              "pt": "Quanto tempo leva a aprovação do modelo para mensagens utilitárias?",
+              "es": "¿Cuánto tiempo toma la aprobación de la plantilla para los mensajes utilitarios?",
+              "id": "Berapa lama waktu persetujuan templat untuk pesan utilitas?",
+              "ar": "كم من الوقت يستغرق الموافقة على قالب رسائل الخدمات؟",
+              "tr": "Yardımcı mesajlar için şablon onayı ne kadar sürer?",
+              "ng": "How long does template approval take for utility messages?"
+            },
+            "answer": {
+              "en": "Utility template approvals are managed by Meta and are typically processed automatically within a few minutes. In rare cases, if manual review is triggered, it may take up to 24 hours. Once approved, the template is immediately available to use.",
+              "pt": "As aprovações de modelos utilitários são gerenciadas pela Meta e geralmente são processadas automaticamente em poucos minutos. Em casos raros, se for acionada uma revisão manual, pode levar até 24 horas.",
+              "es": "Las aprobaciones de plantillas utilitarias son gestionadas por Meta y normalmente se procesan automáticamente en unos minutos. En casos excepcionales, si se activa la revisión manual, puede tardar hasta 24 horas.",
+              "id": "Persetujuan templat utilitas dikelola oleh Meta dan biasanya diproses secara otomatis dalam beberapa menit. Dalam kasus yang jarang terjadi, jika peninjauan manual dipicu, prosesnya dapat memakan waktu hingga 24 jam.",
+              "ar": "تدار الموافقات على قوالب الخدمات بواسطة Meta ويتم معالجتها عادةً تلقائياً في غضون بضع دقائق. وفي حالات نادرة، إذا تم إطلاق مراجعة يدوية، فقد يستغرق الأمر ما يصل إلى 24 ساعة.",
+              "tr": "Yardımcı şablon onayları Meta tarafından yönetilir ve genellikle birkaç dakika içinde otomatik olarak işlenir. Nadir durumlarda, manuel inceleme tetiklenirse bu süre 24 saate kadar çıkabilir. Onaylandıktan sonra şablon hemen kullanıma hazır olur.",
+              "ng": "Utility template approvals are managed by Meta and are typically processed automatically within a few minutes. In rare cases, if manual review is triggered, it may take up to 24 hours. Once approved, the template is immediately available to use."
+            }
+          },
+          {
+            "question": {
+              "en": "What is the difference between a utility and service message?",
+              "pt": "Qual é a diferença entre uma mensagem utilitária e uma mensagem de serviço?",
+              "es": "¿Cuál es la diferencia entre un mensaje utilitario y uno de servicio?",
+              "id": "Apa perbedaan antara pesan utilitas dan pesan layanan?",
+              "ar": "ما الفرق بين رسائل الخدمات ورسائل الدعم الفني (Service)؟",
+              "tr": "Yardımcı (utility) mesaj ile hizmet (service) mesajı arasındaki fark nedir?",
+              "ng": "What is the difference between a utility and service message?"
+            },
+            "answer": {
+              "en": "Utility messages are business-initiated notifications templates used for transactional updates. Service messages are user-initiated conversations, where a customer messages your business first, starting a 24-hour window where you can reply with free-form messages without templates.",
+              "pt": "Mensagens utilitárias são modelos de notificação iniciados pela empresa para atualizações transacionais. Mensagens de serviço são conversas iniciadas pelo usuário, onde o cliente envia uma mensagem primeiro, abrindo uma janela de 24 horas para responder livremente.",
+              "es": "Los mensajes utilitarios son plantillas de notificación iniciadas por la empresa para actualizaciones transaccionales. Los mensajes de servicio son conversaciones iniciadas por el usuario, donde un cliente envía un mensaje primero, abriendo una ventana de 24 horas.",
+              "id": "Pesan utilitas adalah templat notifikasi yang diinisiasi oleh bisnis untuk pembaruan transaksional. Pesan layanan adalah percakapan yang diinisiasi oleh pengguna, di mana pelanggan mengirim pesan ke bisnis Anda terlebih dahulu, memulai jendela 24 jam di mana Anda dapat membalas secara bebas.",
+              "ar": "رسائل الخدمات هي قوالب إشعارات تبدأها الشركة للتحديثات المعاملاتية. ورسائل الدعم الفني (Service) هي محادثات يبدأها المستخدم، حيث يرسل العميل رسالة إلى شركتك أولاً، مما يفتح نافذة مدتها 24 ساعة للرد بحرية.",
+              "tr": "Yardımcı mesajlar, işlemsel güncellemeler için kullanılan, işletme tarafından başlatılan bildirim şablonlarıdır. Hizmet mesajları ise kullanıcının işletmenize ilk mesajı göndermesiyle başlayan, şablon kullanmadan serbest biçimli mesajlarla yanıt verebileceğiniz 24 saatlik bir penceredir.",
+              "ng": "Utility messages are business-initiated notifications templates used for transactional updates. Service messages are user-initiated conversations, where a customer messages your business first, starting a 24-hour window where you can reply with free-form messages without templates."
             }
           }
         ]
@@ -248,12 +339,12 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar" },
         "links": [
-          { "label": { "en": "Broadcast Messaging" }, "href": "/whatsapp/broadcast" },
-          { "label": { "en": "Auto-Trigger Engine" }, "href": "/whatsapp/auto-trigger" },
-          { "label": { "en": "SMS API Overview" }, "href": "/sms" },
-          { "label": { "en": "Help Desk Support" }, "href": "/contact" }
+          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması" }, "href": "/whatsapp/broadcast" },
+          { "label": { "en": "Auto-Trigger Engine", "pt": "Motor de Disparo Automático", "es": "Motor de Auto-Activación", "id": "Mesin Auto-Trigger", "ar": "محرك التشغيل التلقائي", "tr": "Otomatik Tetikleme Motoru" }, "href": "/whatsapp/auto-trigger" },
+          { "label": { "en": "SMS API Overview", "pt": "Visão Geral da API SMS", "es": "Resumen de la API SMS", "id": "Ikhtisar API SMS", "ar": "نظرة عامة على SMS API", "tr": "SMS API Genel Bakışı" }, "href": "/sms" },
+          { "label": { "en": "Help Desk Support", "pt": "Suporte ao Helpdesk", "es": "Soporte del Helpdesk", "id": "Dukungan Helpdesk", "ar": "دعم مكتب المساعدة", "tr": "Yardım Masası Desteği" }, "href": "/contact" }
         ]
       }
     },

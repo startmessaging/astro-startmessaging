@@ -2,59 +2,242 @@
   "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
   "theme": "sms",
   "seo": {
-    "title": { "en": "API Limits & Rate Limiting — StartMessaging" },
+    "title": {
+      "en": "API Limits & Usage Policies — StartMessaging",
+      "pt": "Limites de API e Políticas de Uso — StartMessaging",
+      "es": "Límites de API y Políticas de Uso — StartMessaging",
+      "id": "Batas API & Kebijakan Penggunaan — StartMessaging",
+      "ar": "حدود API وسياسات الاستخدام — StartMessaging",
+      "tr": "API Limitleri ve Kullanım Politikaları — StartMessaging"
+    },
     "description": {
-      "en": "Understand StartMessaging API rate limits, throughput limits, and best practices for high-volume messaging."
-    }
+      "en": "Detailed SMS API rate limits, per-number security limits, best practices to handle 429 errors, and WhatsApp API limits status.",
+      "pt": "Limites de SMS API, limites de segurança por número e boas práticas para lidar com erros 429 e status dos limites de WhatsApp API.",
+      "es": "Límites detallados de SMS API, límites de seguridad por número, mejores prácticas para manejar errores 429 y estado de límites de WhatsApp API.",
+      "id": "Batas rate SMS API, batas keamanan per nomor, praktik terbaik menangani error 429, dan status batas WhatsApp API.",
+      "ar": "حدود معدل SMS API التفصيلية وحدود الأمان لكل رقم وأفضل الممارسات للتعامل مع أخطاء 429 وحالة حدود WhatsApp API.",
+      "tr": "Ayrıntılı SMS API hız limitleri, numara başına güvenlik limitleri, 429 hatalarını yönetme için en iyi uygulamalar ve WhatsApp API limit durumu."
+    },
+    "ogImage": "/og.png?title=API+Limits&theme=sms"
   },
   "sections": [
     {
       "type": "hero",
       "props": {
-        "badge": { "en": "API Limits" },
+        "badge": {
+          "en": "API Limits",
+          "pt": "Limites de API",
+          "es": "Límites de API",
+          "id": "Batas API",
+          "ar": "حدود API",
+          "tr": "API Limitleri"
+        },
         "title": {
-          "en": "API Limits & Rate Limiting",
-          "pt": "Limites de API e Rate Limiting",
-          "es": "Límites de API y Rate Limiting",
-          "id": "Batas API dan Rate Limiting",
-          "ar": "حدود API والتحكم في السرعة",
-          "tr": "API Limitleri ve Hız Sınırlama"
+          "en": "API Limits & Usage Policies",
+          "pt": "Limites de API e Políticas de Uso",
+          "es": "Límites de API y Políticas de Uso",
+          "id": "Batas API & Kebijakan Penggunaan",
+          "ar": "حدود API وسياسات الاستخدام",
+          "tr": "API Limitleri ve Kullanım Politikaları"
         },
         "subtitle": {
-          "en": "Understand throughput limits, rate limiting policies, and best practices for handling high-volume messaging with StartMessaging's API.",
-          "pt": "Entenda limites de throughput, políticas de rate limiting e melhores práticas para mensagens de alto volume.",
-          "es": "Comprenda los límites de rendimiento, las políticas de limitación de tasa y las mejores prácticas para la mensajería de alto volumen.",
-          "id": "Pahami batas throughput, kebijakan rate limiting, dan praktik terbaik untuk menangani pesan volume tinggi.",
-          "ar": "فهم حدود السرعة وسياسات التحكم في المعدل وأفضل الممارسات للمراسلة عالية الحجم.",
-          "tr": "Verim sınırlarını, hız sınırlama politikalarını ve yüksek hacimli mesajlaşma için en iyi uygulamaları anlayın."
+          "en": "To ensure platform stability and protect against fraudulent activity such as SMS pumping, we enforce the following rate limits. Understanding these limits helps you build resilient integrations.",
+          "pt": "Para garantir a estabilidade da plataforma e proteger contra atividades fraudulentas como SMS pumping, aplicamos os seguintes limites de taxa. Compreender esses limites ajuda você a criar integrações resilientes.",
+          "es": "Para garantizar la estabilidad de la plataforma y protegerse contra actividades fraudulentas como el SMS pumping, aplicamos los siguientes límites de tasa. Comprender estos límites le ayuda a crear integraciones resilientes.",
+          "id": "Untuk memastikan stabilitas platform dan melindungi dari aktivitas penipuan seperti SMS pumping, kami menerapkan batas rate berikut. Memahami batas ini membantu Anda membangun integrasi yang tangguh.",
+          "ar": "لضمان استقرار المنصة والحماية من الأنشطة الاحتيالية مثل SMS pumping، نطبق حدود المعدل التالية. فهم هذه الحدود يساعدك على بناء تكاملات مرنة.",
+          "tr": "Platform kararlılığını sağlamak ve SMS pompalaması gibi hileli faaliyetlere karşı koruma sağlamak için aşağıdaki hız limitlerini uyguluyoruz. Bu limitleri anlamak, dayanıklı entegrasyonlar oluşturmanıza yardımcı olur."
+        }
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "countries": ["in"],
+      "props": {
+        "badge": {
+          "en": "SMS API Limits"
+        },
+        "heading": {
+          "en": "SMS API — Rate Limits"
+        },
+        "subheading": {
+          "en": "These limits apply to all SMS API endpoints including OTP, non-DLT, and transactional routes."
+        },
+        "columns": [
+          { "label": { "en": "Limit Type" } },
+          { "label": { "en": "Value" }, "highlight": true },
+          { "label": { "en": "Scope" } }
+        ],
+        "rows": [
+          [
+            { "en": "Global Throughput" },
+            { "en": "20 requests / second" },
+            { "en": "Per account (1,200 req/min)" }
+          ],
+          [
+            { "en": "Per-Number OTP Limit" },
+            { "en": "3 OTPs per 5 minutes" },
+            { "en": "Per unique mobile number" }
+          ],
+          [
+            { "en": "Idempotency Window" },
+            { "en": "24 hours" },
+            { "en": "Per idempotencyKey" }
+          ],
+          [
+            { "en": "Max Message Length" },
+            { "en": "160 chars (1 SMS segment)" },
+            { "en": "160+ chars counted as multi-part" }
+          ],
+          [
+            { "en": "Custom Limit Increase" },
+            { "en": "Available on request" },
+            { "en": "Contact support to apply" }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "richText",
+      "countries": ["in"],
+      "props": {
+        "heading": {
+          "en": "Why We Limit OTPs Per Number"
+        },
+        "body": {
+          "en": "<p>The 3 OTPs per 5 minutes per mobile number limit is a deliberate anti-fraud measure. Without this guard, malicious actors can flood any phone number with SMS messages — a practice known as <strong>SMS pumping</strong> or <strong>toll fraud</strong>. This protects both your users and your wallet from unexpected charges.</p><h4>Best Practices</h4><ul><li>Handle <code>429 Too Many Requests</code> responses gracefully in your integration with exponential backoff.</li><li>Implement a client-side \"Resend OTP\" timer of at least 30–60 seconds to prevent user-triggered spam.</li><li>Always pass an <code>idempotencyKey</code> (e.g., <code>userId + timestamp</code>) to avoid duplicate sends on network retries.</li><li>Contact our support team if your verified use case requires a higher throughput allowance.</li></ul>"
         }
       }
     },
     {
       "type": "richText",
       "props": {
-        "heading": { "en": "Rate Limits by Plan" },
+        "heading": {
+          "en": "WhatsApp API Limits — Coming Soon",
+          "pt": "Limites da API WhatsApp — Em Breve",
+          "es": "Límites de la API de WhatsApp — Próximamente",
+          "id": "Batas API WhatsApp — Segera Hadir",
+          "ar": "حدود API واتساب — قريباً",
+          "tr": "WhatsApp API Limitleri — Çok Yakında"
+        },
         "body": {
-          "en": "<h3>Free Plan</h3><ul><li>10 API requests per second</li><li>1,000 messages per month</li><li>100 contacts per broadcast</li></ul><h3>Premium Plan</h3><ul><li>100 API requests per second</li><li>10,000 free messages per month (then pay-as-you-go)</li><li>10,000 contacts per broadcast</li><li>Webhook delivery: real-time</li></ul><h3>Enterprise Plan</h3><ul><li>Custom rate limits (up to 1,000 req/s)</li><li>Unlimited messages (volume pricing)</li><li>100,000+ contacts per broadcast</li><li>Dedicated infrastructure</li><li>Custom SLA</li></ul><h3>WhatsApp Throughput (Set by Meta)</h3><p>WhatsApp message throughput is controlled by Meta based on your phone number's quality rating and messaging tier:</p><ul><li><strong>Tier 1:</strong> 1,000 unique users/24h</li><li><strong>Tier 2:</strong> 10,000 unique users/24h</li><li><strong>Tier 3:</strong> 100,000 unique users/24h</li><li><strong>Tier 4 (Unlimited):</strong> Unlimited unique users/24h</li></ul><p>New numbers start at Tier 1 and automatically upgrade as you send messages and maintain a good quality rating. Our system handles all throttling automatically.</p><h3>Best Practices</h3><ul><li>Use exponential backoff when you receive 429 (rate limit) responses</li><li>Batch contacts in broadcast calls instead of individual sends</li><li>Use webhooks instead of polling for message status</li><li>Contact us to increase limits for your account</li></ul>"
+          "en": "<p>Our WhatsApp API is currently in active development. Comprehensive documentation covering per-endpoint rate limits, message throughput tiers, burst allowances, and webhook delivery guarantees is being finalized and will be published here shortly.</p><p>In the meantime, here's what we can share:</p><ul><li><strong>Throughput tiers</strong> are managed by Meta and scale automatically based on your phone number's quality rating: Tier 1 (1,000 contacts/day), Tier 2 (10,000), Tier 3 (100,000), and Tier 4 (unlimited).</li><li><strong>Template messaging</strong> follows Meta's business policy — all templates must be pre-approved before sending.</li><li><strong>Session messaging</strong> is only allowed within 24 hours of the last inbound message from the user.</li></ul><p>For current limit specifics or to request early access, please <a href=\"/contact\">contact our team</a> — we're happy to walk you through the details.</p>",
+          "pt": "<p>Nossa API WhatsApp está em desenvolvimento ativo. Documentação completa cobrindo limites de taxa por endpoint, camadas de throughput de mensagens, permissões de burst e garantias de entrega de webhook está sendo finalizada e será publicada em breve.</p><p>Por enquanto, aqui está o que podemos compartilhar:</p><ul><li><strong>Camadas de throughput</strong> são gerenciadas pela Meta e escalam automaticamente com base na avaliação de qualidade do seu número: Nível 1 (1.000 contatos/dia), Nível 2 (10.000), Nível 3 (100.000) e Nível 4 (ilimitado).</li><li><strong>Mensagens de template</strong> seguem a política de negócios da Meta — todos os templates devem ser pré-aprovados antes do envio.</li><li><strong>Mensagens de sessão</strong> só são permitidas dentro de 24 horas da última mensagem recebida do usuário.</li></ul><p>Para detalhes específicos de limite ou para solicitar acesso antecipado, <a href=\"/contact\">entre em contato com nossa equipe</a>.</p>",
+          "es": "<p>Nuestra API de WhatsApp está actualmente en desarrollo activo. La documentación completa que cubre los límites de tasa por endpoint, los niveles de throughput de mensajes, las asignaciones de ráfaga y las garantías de entrega de webhook se está finalizando y se publicará pronto.</p><p>Mientras tanto, esto es lo que podemos compartir:</p><ul><li><strong>Los niveles de throughput</strong> son administrados por Meta y escalan automáticamente según la calificación de calidad de su número: Nivel 1 (1,000 contactos/día), Nivel 2 (10,000), Nivel 3 (100,000) y Nivel 4 (ilimitado).</li><li><strong>Los mensajes de plantilla</strong> siguen la política comercial de Meta — todas las plantillas deben aprobarse previamente antes de enviar.</li><li><strong>Los mensajes de sesión</strong> solo se permiten dentro de las 24 horas del último mensaje entrante del usuario.</li></ul><p>Para detalles específicos de límites o para solicitar acceso anticipado, <a href=\"/contact\">contacte a nuestro equipo</a>.</p>",
+          "id": "<p>API WhatsApp kami sedang dalam pengembangan aktif. Dokumentasi lengkap yang mencakup batas rate per endpoint, tingkat throughput pesan, izin burst, dan jaminan pengiriman webhook sedang diselesaikan dan akan diterbitkan segera.</p><p>Sementara itu, inilah yang dapat kami bagikan:</p><ul><li><strong>Tingkat throughput</strong> dikelola oleh Meta dan ditingkatkan secara otomatis berdasarkan rating kualitas nomor Anda: Tingkat 1 (1.000 kontak/hari), Tingkat 2 (10.000), Tingkat 3 (100.000), dan Tingkat 4 (tak terbatas).</li><li><strong>Pesan template</strong> mengikuti kebijakan bisnis Meta — semua template harus disetujui sebelum pengiriman.</li><li><strong>Pesan sesi</strong> hanya diizinkan dalam 24 jam setelah pesan masuk terakhir dari pengguna.</li></ul><p>Untuk detail limit saat ini atau meminta akses awal, silakan <a href=\"/contact\">hubungi tim kami</a>.</p>",
+          "ar": "<p>واجهة API واتساب لدينا قيد التطوير النشط حالياً. الوثائق الشاملة التي تغطي حدود معدل كل نقطة نهاية وطبقات إنتاجية الرسائل وبدلات الانفجار وضمانات تسليم webhook يجري إتمامها وستُنشر هنا قريباً.</p><p>في الوقت الحالي، إليك ما يمكننا مشاركته:</p><ul><li><strong>طبقات الإنتاجية</strong> تُدار بواسطة Meta وترتقي تلقائياً بناءً على تقييم جودة رقمك: الطبقة 1 (1,000 جهة اتصال/يوم)، الطبقة 2 (10,000)، الطبقة 3 (100,000)، والطبقة 4 (غير محدود).</li><li><strong>رسائل القوالب</strong> تتبع سياسة أعمال Meta — يجب الموافقة على جميع القوالب مسبقاً قبل الإرسال.</li><li><strong>رسائل الجلسة</strong> مسموح بها فقط خلال 24 ساعة من آخر رسالة واردة من المستخدم.</li></ul><p>للحصول على تفاصيل حدود محددة أو طلب الوصول المبكر، يرجى <a href=\"/contact\">التواصل مع فريقنا</a>.</p>",
+          "tr": "<p>WhatsApp API'miz şu anda aktif geliştirme aşamasındadır. Endpoint başına hız limitleri, mesaj iletim katmanları, anlık artış izinleri ve webhook teslimat garantilerini kapsayan kapsamlı belgeler hazırlanmakta olup kısa süre içinde burada yayınlanacaktır.</p><p>Bu arada paylaşabileceklerimiz şunlar:</p><ul><li><strong>Verim katmanları</strong> Meta tarafından yönetilir ve telefon numaranızın kalite puanına göre otomatik olarak yükseltilir: Katman 1 (1.000 kişi/gün), Katman 2 (10.000), Katman 3 (100.000) ve Katman 4 (sınırsız).</li><li><strong>Şablon mesajları</strong> Meta'nın iş politikasını takip eder — tüm şablonlar gönderilmeden önce önceden onaylanmalıdır.</li><li><strong>Oturum mesajlaşması</strong> yalnızca kullanıcıdan gelen son gelen mesajdan itibaren 24 saat içinde izinlidir.</li></ul><p>Mevcut limit ayrıntıları veya erken erişim talebinde bulunmak için <a href=\"/contact\">ekibimizle iletişime geçin</a>.</p>"
         }
       }
     },
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "API Limits — FAQ" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "API Limits — Frequently Asked Questions",
+          "pt": "Limites de API — Perguntas Frequentes",
+          "es": "Límites de API — Preguntas Frecuentes",
+          "id": "Batas API — Pertanyaan yang Sering Diajukan",
+          "ar": "حدود API — الأسئلة الشائعة",
+          "tr": "API Limitleri — Sıkça Sorulan Sorular"
+        },
         "items": [
           {
-            "question": { "en": "What happens when I hit a rate limit?" },
+            "question": {
+              "en": "What happens when I hit the rate limit?",
+              "pt": "O que acontece quando atinjo o limite de taxa?",
+              "es": "¿Qué sucede cuando alcanzo el límite de tasa?",
+              "id": "Apa yang terjadi ketika saya mencapai batas rate?",
+              "ar": "ماذا يحدث عندما أصل إلى حد المعدل؟",
+              "tr": "Hız limitine ulaştığımda ne olur?"
+            },
             "answer": {
-              "en": "You receive a 429 (Too Many Requests) HTTP response with a Retry-After header indicating when you can retry. We recommend implementing exponential backoff in your integration. For broadcast operations, our engine handles rate limiting automatically — you don't need to manage Meta's throughput limits yourself."
+              "en": "You receive a 429 (Too Many Requests) HTTP response. The response includes a Retry-After header indicating the number of seconds to wait before retrying. Implement exponential backoff in your integration to handle this gracefully. For broadcast operations, our engine manages Meta's throughput limits automatically on your behalf.",
+              "pt": "Você recebe uma resposta HTTP 429 (Too Many Requests). A resposta inclui um cabeçalho Retry-After indicando o número de segundos para aguardar antes de tentar novamente. Implemente backoff exponencial na sua integração para lidar com isso adequadamente. Para operações de transmissão, nosso motor gerencia automaticamente os limites de throughput da Meta em seu nome.",
+              "es": "Recibe una respuesta HTTP 429 (Too Many Requests). La respuesta incluye un encabezado Retry-After que indica el número de segundos a esperar antes de reintentar. Implemente backoff exponencial en su integración para manejar esto correctamente. Para operaciones de difusión, nuestro motor gestiona automáticamente los límites de throughput de Meta en su nombre.",
+              "id": "Anda menerima respons HTTP 429 (Too Many Requests). Respons tersebut menyertakan header Retry-After yang menunjukkan jumlah detik yang harus ditunggu sebelum mencoba lagi. Implementasikan exponential backoff dalam integrasi Anda untuk menangani ini dengan baik. Untuk operasi siaran, mesin kami secara otomatis mengelola batas throughput Meta atas nama Anda.",
+              "ar": "تتلقى استجابة HTTP 429 (Too Many Requests). تتضمن الاستجابة رأس Retry-After يشير إلى عدد الثواني التي يجب الانتظار فيها قبل إعادة المحاولة. قم بتطبيق التراجع الأسي في تكاملك للتعامل مع هذا بشكل صحيح. لعمليات البث، يدير محركنا حدود إنتاجية Meta تلقائياً نيابةً عنك.",
+              "tr": "429 (Too Many Requests) HTTP yanıtı alırsınız. Yanıt, yeniden denemeden önce beklenecek saniye sayısını gösteren bir Retry-After başlığı içerir. Bunu düzgün şekilde yönetmek için entegrasyonunuzda üstel geri çekilme uygulayın. Yayın işlemleri için motorumuz Meta'nın verim limitlerini sizin adınıza otomatik olarak yönetir."
             }
           },
           {
-            "question": { "en": "Can I increase my rate limits?" },
+            "question": {
+              "en": "Why is there a limit of 3 OTPs per number per 5 minutes?",
+              "pt": "Por que há um limite de 3 OTPs por número por 5 minutos?",
+              "es": "¿Por qué hay un límite de 3 OTPs por número por 5 minutos?",
+              "id": "Mengapa ada batas 3 OTP per nomor per 5 menit?",
+              "ar": "لماذا يوجد حد 3 OTPs لكل رقم كل 5 دقائق؟",
+              "tr": "5 dakikada numara başına neden 3 OTP limiti var?"
+            },
             "answer": {
-              "en": "Yes. Premium plans have higher default limits (100 req/s), and Enterprise plans offer custom rate limits up to 1,000 req/s. Contact our sales team to discuss your volume requirements."
+              "en": "This limit exists to protect against SMS pumping fraud — a scheme where bad actors use automated bots to flood phone numbers with OTP requests, generating fake carrier revenue at your expense. Without this limit, a single API key could cost you thousands of dollars in fraudulent charges overnight. The 3 OTP / 5 minute window is aligned with industry best practices and covers legitimate retry scenarios (initial send + 2 user retries) without enabling abuse.",
+              "pt": "Este limite existe para proteger contra fraude de SMS pumping — um esquema onde atores mal-intencionados usam bots automatizados para inundar números de telefone com solicitações de OTP. Sem esse limite, uma única chave API poderia custar milhares de reais em cobranças fraudulentas. A janela de 3 OTP / 5 minutos está alinhada com as melhores práticas do setor.",
+              "es": "Este límite existe para proteger contra el fraude de SMS pumping — un esquema donde actores maliciosos usan bots automatizados para inundar números de teléfono con solicitudes de OTP. Sin este límite, una sola clave API podría costarle miles de pesos en cargos fraudulentos. La ventana de 3 OTP / 5 minutos está alineada con las mejores prácticas de la industria.",
+              "id": "Batas ini ada untuk melindungi dari penipuan SMS pumping — skema di mana pelaku jahat menggunakan bot otomatis untuk membanjiri nomor telepon dengan permintaan OTP. Tanpa batas ini, satu kunci API dapat menghabiskan jutaan rupiah dalam biaya penipuan. Jendela 3 OTP / 5 menit selaras dengan praktik terbaik industri.",
+              "ar": "يوجد هذا الحد للحماية من احتيال SMS pumping — مخطط يستخدم فيه الجهات الخبيثة روبوتات آلية لإغراق أرقام الهاتف بطلبات OTP، مما يولد إيرادات وهمية للناقل على حسابك. بدون هذا الحد، يمكن لمفتاح API واحد أن يكلفك آلاف الدولارات في رسوم احتيالية. نافذة 3 OTP / 5 دقائق تتماشى مع أفضل ممارسات الصناعة.",
+              "tr": "Bu limit, SMS pompalama dolandırıcılığına karşı koruma sağlamak için mevcuttur — kötü aktörlerin otomatik botlar kullanarak telefon numaralarını OTP istekleriyle doldurduğu ve sizin pahasına sahte taşıyıcı geliri ürettiği bir plan. Bu limit olmadan, tek bir API anahtarı sizi bir gecede binlerce dolarlık sahte ücretlere maruz bırakabilir. 3 OTP / 5 dakika penceresi endüstri en iyi uygulamalarıyla örtüşür."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I request higher SMS API limits for my account?",
+              "pt": "Posso solicitar limites mais altos de SMS API para minha conta?",
+              "es": "¿Puedo solicitar límites más altos de SMS API para mi cuenta?",
+              "id": "Bisakah saya meminta batas SMS API yang lebih tinggi untuk akun saya?",
+              "ar": "هل يمكنني طلب حدود SMS API أعلى لحسابي؟",
+              "tr": "Hesabım için daha yüksek SMS API limitleri talep edebilir miyim?"
+            },
+            "answer": {
+              "en": "Yes. If your verified use case justifies higher throughput — for example, bulk OTP dispatch for enterprise-scale user onboarding — contact our support team with your use case details, expected volume, and account information. Custom limits are available on Enterprise plans.",
+              "pt": "Sim. Se seu caso de uso verificado justificar maior throughput, entre em contato com nossa equipe de suporte com os detalhes do seu caso de uso, volume esperado e informações da conta. Limites personalizados estão disponíveis nos planos Enterprise.",
+              "es": "Sí. Si su caso de uso verificado justifica mayor throughput, contacte a nuestro equipo de soporte con los detalles de su caso de uso, volumen esperado e información de cuenta. Los límites personalizados están disponibles en planes Enterprise.",
+              "id": "Ya. Jika kasus penggunaan Anda yang terverifikasi memerlukan throughput yang lebih tinggi, hubungi tim dukungan kami dengan detail kasus penggunaan, volume yang diharapkan, dan informasi akun. Batas kustom tersedia pada paket Enterprise.",
+              "ar": "نعم. إذا كانت حالة استخدامك المتحقق منها تبرر إنتاجية أعلى، تواصل مع فريق الدعم لدينا مع تفاصيل حالة الاستخدام والحجم المتوقع ومعلومات الحساب. الحدود المخصصة متاحة في خطط Enterprise.",
+              "tr": "Evet. Doğrulanmış kullanım durumunuz daha yüksek verim gerektiriyorsa, kullanım durumu ayrıntıları, beklenen hacim ve hesap bilgileriyle destek ekibimizle iletişime geçin. Özel limitler Enterprise planlarda mevcuttur."
+            }
+          },
+          {
+            "question": {
+              "en": "When will WhatsApp API rate limits be published?",
+              "pt": "Quando os limites de taxa da API do WhatsApp serão publicados?",
+              "es": "¿Cuándo se publicarán los límites de tasa de la API de WhatsApp?",
+              "id": "Kapan batas rate WhatsApp API akan dipublikasikan?",
+              "ar": "متى سيتم نشر حدود معدل API واتساب؟",
+              "tr": "WhatsApp API hız limitleri ne zaman yayınlanacak?"
+            },
+            "answer": {
+              "en": "Our WhatsApp API is actively in development. We are finalizing the technical specifications and comprehensive documentation for all endpoints. Detailed limits — including per-endpoint rate limits, conversation throughput tiers, and webhook delivery SLAs — will be published here as soon as the API reaches general availability. Contact us if you need current details or wish to join our early access program.",
+              "pt": "Nossa API WhatsApp está em desenvolvimento ativo. Estamos finalizando as especificações técnicas e a documentação completa para todos os endpoints. Limites detalhados serão publicados aqui assim que a API atingir disponibilidade geral. Entre em contato conosco se precisar de detalhes atuais ou desejar participar do nosso programa de acesso antecipado.",
+              "es": "Nuestra API de WhatsApp está en desarrollo activo. Estamos finalizando las especificaciones técnicas y la documentación completa para todos los endpoints. Los límites detallados se publicarán aquí tan pronto como la API alcance disponibilidad general. Contáctenos si necesita detalles actuales o desea unirse a nuestro programa de acceso anticipado.",
+              "id": "API WhatsApp kami sedang dalam pengembangan aktif. Kami sedang menyelesaikan spesifikasi teknis dan dokumentasi lengkap untuk semua endpoint. Batas detail akan diterbitkan di sini segera setelah API mencapai ketersediaan umum. Hubungi kami jika Anda membutuhkan detail saat ini atau ingin bergabung dengan program akses awal kami.",
+              "ar": "واجهة API واتساب الخاصة بنا قيد التطوير النشط. نحن بصدد الانتهاء من المواصفات التقنية والوثائق الشاملة لجميع نقاط النهاية. ستُنشر الحدود التفصيلية هنا بمجرد وصول API إلى التوفر العام. تواصل معنا إذا كنت بحاجة إلى تفاصيل حالية أو ترغب في الانضمام إلى برنامج الوصول المبكر.",
+              "tr": "WhatsApp API'miz aktif olarak geliştirilmektedir. Tüm endpoint'ler için teknik özellikleri ve kapsamlı belgeleri tamamlamaktayız. Ayrıntılı limitler, API genel kullanıma sunulur sunulmaz burada yayınlanacaktır. Mevcut ayrıntılara ihtiyaç duyuyorsanız veya erken erişim programımıza katılmak istiyorsanız bizimle iletişime geçin."
+            }
+          },
+          {
+            "question": {
+              "en": "What is an idempotency key and why should I use it?",
+              "pt": "O que é uma chave de idempotência e por que devo usá-la?",
+              "es": "¿Qué es una clave de idempotencia y por qué debería usarla?",
+              "id": "Apa itu kunci idempoten dan mengapa harus menggunakannya?",
+              "ar": "ما هو مفتاح idempotency ولماذا يجب استخدامه؟",
+              "tr": "Idempotency anahtarı nedir ve neden kullanmalıyım?"
+            },
+            "answer": {
+              "en": "An idempotency key is a unique identifier you pass with each API request (via the X-Idempotency-Key header). If your network request fails and you retry, our API will recognize the same key and return the original response instead of sending a duplicate SMS. This prevents users from receiving multiple OTPs due to network timeouts, and protects you from being billed twice for the same message. We recommend using a combination of your userId and a timestamp as the key.",
+              "pt": "Uma chave de idempotência é um identificador único que você passa com cada solicitação de API (via header X-Idempotency-Key). Se sua solicitação de rede falhar e você tentar novamente, nossa API reconhecerá a mesma chave e retornará a resposta original em vez de enviar um SMS duplicado. Isso evita que usuários recebam vários OTPs e protege você de ser cobrado duas vezes.",
+              "es": "Una clave de idempotencia es un identificador único que pasa con cada solicitud de API (mediante el header X-Idempotency-Key). Si su solicitud de red falla y vuelve a intentarlo, nuestra API reconocerá la misma clave y devolverá la respuesta original en lugar de enviar un SMS duplicado. Esto evita que los usuarios reciban múltiples OTPs y lo protege de ser cobrado dos veces.",
+              "id": "Kunci idempoten adalah pengenal unik yang Anda kirimkan dengan setiap permintaan API (melalui header X-Idempotency-Key). Jika permintaan jaringan Anda gagal dan Anda mencoba lagi, API kami akan mengenali kunci yang sama dan mengembalikan respons asli alih-alih mengirim SMS duplikat. Ini mencegah pengguna menerima beberapa OTP dan melindungi Anda dari tagihan ganda.",
+              "ar": "مفتاح idempotency هو معرف فريد تمرره مع كل طلب API (عبر رأس X-Idempotency-Key). إذا فشل طلب شبكتك وأعدت المحاولة، ستتعرف واجهة API الخاصة بنا على نفس المفتاح وترجع الاستجابة الأصلية بدلاً من إرسال SMS مكرر. يمنع هذا المستخدمين من تلقي OTPs متعددة ويحميك من الفوترة المزدوجة.",
+              "tr": "Idempotency anahtarı, her API isteğiyle (X-Idempotency-Key başlığı aracılığıyla) ilettiğiniz benzersiz bir tanımlayıcıdır. Ağ isteğiniz başarısız olursa ve yeniden denerseniz, API'miz aynı anahtarı tanır ve tekrarlı SMS göndermek yerine orijinal yanıtı döndürür. Bu, kullanıcıların birden fazla OTP almasını önler ve aynı mesaj için iki kez faturalandırılmanıza karşı sizi korur."
             }
           }
         ]
@@ -63,13 +246,39 @@
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Need Higher Limits?" },
-        "subtext": {
-          "en": "Enterprise plans offer custom rate limits and dedicated infrastructure."
+        "heading": {
+          "en": "Need Higher Limits or Early WhatsApp Access?",
+          "pt": "Precisa de Limites Maiores ou Acesso Antecipado ao WhatsApp?",
+          "es": "¿Necesita Límites Más Altos o Acceso Anticipado a WhatsApp?",
+          "id": "Butuh Batas Lebih Tinggi atau Akses WhatsApp Awal?",
+          "ar": "هل تحتاج إلى حدود أعلى أو وصول مبكر لواتساب؟",
+          "tr": "Daha Yüksek Limitler veya Erken WhatsApp Erişimi mi Gerekiyor?"
         },
-        "primaryCta": { "en": "Contact Sales" },
+        "subtext": {
+          "en": "Our team can walk you through current capabilities, custom limit arrangements, and WhatsApp API early access.",
+          "pt": "Nossa equipe pode explicar as capacidades atuais, acordos de limites personalizados e acesso antecipado à API do WhatsApp.",
+          "es": "Nuestro equipo puede explicarle las capacidades actuales, acuerdos de límites personalizados y acceso anticipado a la API de WhatsApp.",
+          "id": "Tim kami dapat memandu Anda melalui kemampuan saat ini, pengaturan batas khusus, dan akses awal API WhatsApp.",
+          "ar": "يمكن لفريقنا إرشادك عبر القدرات الحالية وترتيبات الحدود المخصصة والوصول المبكر لـ API واتساب.",
+          "tr": "Ekibimiz sizi mevcut özellikler, özel limit düzenlemeleri ve WhatsApp API erken erişimi konusunda bilgilendirebilir."
+        },
+        "primaryCta": {
+          "en": "Contact Our Team",
+          "pt": "Fale com Nossa Equipe",
+          "es": "Contacte a Nuestro Equipo",
+          "id": "Hubungi Tim Kami",
+          "ar": "تواصل مع فريقنا",
+          "tr": "Ekibimizle İletişime Geçin"
+        },
         "primaryHref": "/contact",
-        "secondaryCta": { "en": "View Pricing" },
+        "secondaryCta": {
+          "en": "View Pricing",
+          "pt": "Ver Preços",
+          "es": "Ver Precios",
+          "id": "Lihat Harga",
+          "ar": "عرض الأسعار",
+          "tr": "Fiyatları Görüntüle"
+        },
         "secondaryHref": "/pricing"
       }
     }

@@ -18,7 +18,8 @@
       "id": "Otomatisasi hingga 70% dukungan pelanggan dengan chatbot WhatsApp. Berikan jawaban instan dan teruskan ke agen live.",
       "ar": "أتمت حتى 70% من دعم العملاء مع شات بوت واتساب. قدّم ردوداً فورية ووجّه الاستفسارات للموظفين.",
       "tr": "WhatsApp chatbot'ları ile müşteri desteğinin %70'ini otomatikleştirin. Anında yanıtlar verin ve karmaşık sorguları canlı ajanlara yönlendirin."
-    }
+    },
+    "ogImage": "/images/customer-support-dashboard.webp"
   },
   "sections": [
     {
@@ -31,7 +32,8 @@
           "es": "Soporte al Cliente",
           "id": "Dukungan Pelanggan",
           "ar": "دعم العملاء",
-          "tr": "Müşteri Desteği"
+          "tr": "Müşteri Desteği",
+          "ng": "Customer Support"
         },
         "title": {
           "en": "Automate Customer Support on WhatsApp",
@@ -39,7 +41,8 @@
           "es": "Automatice el Soporte al Cliente en WhatsApp",
           "id": "Otomatisasi Dukungan Pelanggan di WhatsApp",
           "ar": "أتمت دعم العملاء على واتساب",
-          "tr": "Müşteri Desteğini WhatsApp'ta Otomatikleştirin"
+          "tr": "Müşteri Desteğini WhatsApp'ta Otomatikleştirin",
+          "ng": "Automate Customer Support on WhatsApp"
         },
         "subtitle": {
           "en": "Handle 70% of support queries automatically with WhatsApp chatbots. Route complex issues to human agents with full conversation context. Available 24/7.",
@@ -47,26 +50,48 @@
           "es": "Gestione el 70% de las consultas automáticamente con chatbots. Dirija problemas complejos a agentes con contexto completo. Disponible 24/7.",
           "id": "Tangani 70% pertanyaan dukungan secara otomatis dengan chatbot WhatsApp. Arahkan masalah kompleks ke agen dengan konteks lengkap. Tersedia 24/7.",
           "ar": "تعامل مع 70% من استفسارات الدعم تلقائياً باستخدام شات بوت واتساب. وجّه المشكلات المعقدة للموظفين مع السياق الكامل. متاح 24/7.",
-          "tr": "Destek sorgularının %70'ini WhatsApp chatbot'larıyla otomatik olarak yönetin. Karmaşık sorunları tam konuşma bağlamıyla insan ajanlara yönlendirin."
+          "tr": "Destek sorgularının %70'ini WhatsApp chatbot'larıyla otomatik olarak yönetin. Karmaşık sorunları tam konuşma bağlamıyla insan ajanlara yönlendirin.",
+          "ng": "Handle 70% of support queries automatically with WhatsApp chatbots. Route complex issues to human agents with full conversation context. Available 24/7."
         },
-        "primaryCta": { "en": "Build Support Bot" },
+        "primaryCta": {
+          "en": "Build Support Bot",
+          "pt": "Criar Bot de Suporte",
+          "es": "Crear Bot de Soporte",
+          "id": "Buat Bot Dukungan",
+          "ar": "أنشئ شات بوت دعم",
+          "tr": "Destek Botu Oluşturun",
+          "ng": "Build Support Bot"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Smart Support Automation" },
+        "heading": { "en": "Smart Support Automation", "pt": "Automação Inteligente de Suporte", "es": "Automatización Inteligente de Soporte", "id": "Otomatisasi Dukungan Cerdas", "ar": "أتمتة الدعم الذكي", "tr": "Akıllı Destek Otomasyonu", "ng": "Smart Support Automation" },
         "body": {
-          "en": "Our chatbot builder lets you create intelligent support flows that understand customer intent, provide instant answers to FAQs, check order status, process returns, and escalate to human agents when needed — all without writing code."
+          "en": "Our chatbot builder lets you create intelligent support flows that understand customer intent, provide instant answers to FAQs, check order status, process returns, and escalate to human agents when needed — all without writing code.",
+          "pt": "Nosso construtor de chatbot permite criar fluxos inteligentes que entendem a intenção do cliente, respondem FAQs, verificam status de pedidos e encaminham para humanos — sem programar.",
+          "es": "Nuestro creador de chatbot le permite crear flujos inteligentes que comprenden la intención del cliente, responden preguntas frecuentes, verifican el estado del pedido y escalan a humanos, todo sin código.",
+          "id": "Pembuat chatbot kami memungkinkan Anda membuat alur dukungan cerdas yang memahami maksud pelanggan, memberikan jawaban instan untuk FAQ, memeriksa status pesanan, dan meneruskan ke agen manusia.",
+          "ar": "يتيح لك منشئ الشات بوت إنشاء تدفقات دعم ذكية تفهم نية العملاء وتوفر ردوداً فورية للأسئلة الشائعة وتتحقق من حالة الطلبات وتحولها للموظفين دون برمجة.",
+          "tr": "Chatbot oluşturucumuz, müşteri amacını anlayan, SSS'lere anında yanıt veren, sipariş durumunu kontrol eden ve gerektiğinde insan ajanlara aktaran akıllı destek akışları oluşturmanızı sağlar; hepsi kod yazmadan."
         },
         "bullets": [
-          { "en": "No-code visual chatbot builder" },
-          { "en": "Automated FAQ matching & order tracking" },
-          { "en": "Intelligent live agent handoff routing" }
+          { "en": "No-code visual chatbot builder", "pt": "Construtor visual de chatbot no-code", "es": "Creador visual de chatbot sin código", "id": "Pembuat chatbot visual tanpa kode", "ar": "منشئ شات بوت مرئي بدون كود", "tr": "Kodsuz görsel chatbot oluşturucu", "ng": "No-code visual chatbot builder" },
+          { "en": "Automated FAQ matching & order tracking", "pt": "Busca automática em FAQs e rastreio", "es": "Búsqueda automática de FAQs y rastreo", "id": "Pencocokan FAQ & pelacakan pesanan otomatis", "ar": "مطابقة الأسئلة الشائعة وتتبع الطلبات تلقائياً", "tr": "Otomatik SSS eşleşmesi ve sipariş takibi", "ng": "Automated FAQ matching & order tracking" },
+          { "en": "Intelligent live agent handoff routing", "pt": "Encaminhamento inteligente para agente", "es": "Enrutamiento inteligente hacia agentes humanos", "id": "Perutean serah terima agen live yang cerdas", "ar": "توجيه ذكي لتحويل المحادثة للموظف البشري", "tr": "Akıllı canlı ajan devir yönlendirmesi", "ng": "Intelligent live agent handoff routing" }
         ],
         "image": "/images/customer-support-dashboard.webp",
-        "imageAlt": { "en": "Support Automation Dashboard Preview" },
+        "imageAlt": {
+          "en": "Support Automation Dashboard Preview",
+          "pt": "Pré-visualização do Painel de Suporte",
+          "es": "Vista Previa de Panel de Automatización de Soporte",
+          "id": "Pratinjau Dasbor Otomatisasi Dukungan",
+          "ar": "معاينة لوحة تحكم أتمتة الدعم",
+          "tr": "Destek Otomasyonu Gösterge Paneli Önizlemesi",
+          "ng": "Support Automation Dashboard Preview"
+        },
         "imageWidth": 640,
         "imageHeight": 400,
         "imageMaxWidth": "max-w-xl",
@@ -76,20 +101,44 @@
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Handoff Logic" },
-        "heading": { "en": "Seamless Bot-to-Human Handoff" },
+        "badge": { "en": "Handoff Logic", "pt": "Lógica de Transferência", "es": "Lógica de Transferencia", "id": "Logika Serah Terima", "ar": "منطق التحويل", "tr": "Devir Mantığı", "ng": "Handoff Logic" },
+        "heading": { "en": "Seamless Bot-to-Human Handoff", "pt": "Transferência Perfeita de Bot para Humano", "es": "Transferencia Perfecta de Bot a Humano", "id": "Serah Terima Bot-ke-Manusia yang Mulus", "ar": "تحويل سلس من البوت إلى الموظف البشري", "tr": "Bot'tan İnsana Sorunsuz Devir", "ng": "Seamless Bot-to-Human Handoff" },
         "steps": [
           {
-            "title": { "en": "1. Bot Resolution" },
-            "description": { "en": "The WhatsApp bot handles FAQs, user profiling, and simple transactional queries instantly." }
+            "title": { "en": "1. Bot Resolution", "pt": "1. Resolução pelo Bot", "es": "1. Resolución del Bot", "id": "1. Resolusi Bot", "ar": "1. حل البوت", "tr": "1. Bot Çözümü", "ng": "1. Bot Resolution" },
+            "description": {
+              "en": "The WhatsApp bot handles FAQs, user profiling, and simple transactional queries instantly.",
+              "pt": "O bot do WhatsApp gerencia FAQs, perfil do usuário e consultas transacionais simples instantaneamente.",
+              "es": "El bot de WhatsApp gestiona preguntas frecuentes, perfiles de usuario y consultas transaccionales simples al instante.",
+              "id": "Bot WhatsApp menangani FAQ, profil pengguna, dan pertanyaan transaksional sederhana secara instan.",
+              "ar": "يتعامل شات بوت واتساب مع الأسئلة الشائعة وملفات تعريف المستخدمين والمعاملات البسيطة فوراً.",
+              "tr": "WhatsApp botu, SSS'leri, kullanıcı profilini ve basit işlemsel sorguları anında yanıtlar.",
+              "ng": "The WhatsApp bot handles FAQs, user profiling, and simple transactional queries instantly."
+            }
           },
           {
-            "title": { "en": "2. Agent Request" },
-            "description": { "en": "For complex requests, the user clicks 'Talk to Agent', triggering a handoff event hook." }
+            "title": { "en": "2. Agent Request", "pt": "2. Solicitação de Agente", "es": "2. Solicitud de Agente", "id": "2. Permintaan Agen", "ar": "2. طلب الموظف", "tr": "2. Temsilci Talebi", "ng": "2. Agent Request" },
+            "description": {
+              "en": "For complex requests, the user clicks 'Talk to Agent', triggering a handoff event hook.",
+              "pt": "Para problemas complexos, o usuário clica em 'Falar com Agente', disparando a transferência.",
+              "es": "Para solicitudes complejas, el usuario hace clic en 'Hablar con agente', activando la transferencia.",
+              "id": "Untuk permintaan kompleks, pengguna mengklik 'Bicara dengan Agen', memicu peristiwa serah terima.",
+              "ar": "بالنسبة للطلبات المعقدة، ينقر المستخدم على 'التحدث مع موظف'، مما يطلق حدث التحويل.",
+              "tr": "Karmaşık talepler için kullanıcı 'Ajanla Konuş' seçeneğine tıklayarak bir devir işlemini tetikler.",
+              "ng": "For complex requests, the user clicks 'Talk to Agent', triggering a handoff event hook."
+            }
           },
           {
-            "title": { "en": "3. Live Takeover" },
-            "description": { "en": "The support dashboard routes the chat history to a live agent queue for immediate intervention." }
+            "title": { "en": "3. Live Takeover", "pt": "3. Assunção ao Vivo", "es": "3. Intervención en Vivo", "id": "3. Pengambilalihan Langsung", "ar": "3. الاستحواذ المباشر", "tr": "3. Canlı Devralma", "ng": "3. Live Takeover" },
+            "description": {
+              "en": "The support dashboard routes the chat history to a live agent queue for immediate intervention.",
+              "pt": "O painel de suporte envia o histórico da conversa para a fila de um agente humano para ajuda imediata.",
+              "es": "El panel de soporte dirige el historial del chat a la cola de agentes humanos para una ayuda inmediata.",
+              "id": "Dasbor dukungan mengarahkan riwayat obrolan ke antrean agen live untuk penanganan segera.",
+              "ar": "توجه لوحة تحكم الدعم سجل المحادثة إلى قائمة الموظفين للتدخل الفوري والمساعدة.",
+              "tr": "Destek paneli, anında müdahale için sohbet geçmişini canlı temsilci kuyruğuna yönlendirir.",
+              "ng": "The support dashboard routes the chat history to a live agent queue for immediate intervention."
+            }
           }
         ]
       }
@@ -97,39 +146,39 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Support Channels" },
-        "heading": { "en": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center" },
-        "subheading": { "en": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms." },
+        "badge": { "en": "Support Channels", "pt": "Canais de Suporte", "es": "Canales de Soporte", "id": "Saluran Dukungan", "ar": "قنوات الدعم", "tr": "Destek Kanalları", "ng": "Support Channels" },
+        "heading": { "en": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center", "pt": "Chatbot WhatsApp vs. Fila de Email vs. Call Center", "es": "Chatbot WhatsApp vs. Fila de Email vs. Call Center", "id": "WhatsApp Bot Support vs. Antrean Email vs. Call Center Langsung", "ar": "دعم شات بوت واتساب مقابل قائمة البريد الإلكتروني مقابل مركز الاتصال المباشر", "tr": "WhatsApp Bot Desteği vs. Geleneksel E-posta Kuyruğu vs. Canlı Çağrı Merkezi", "ng": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center" },
+        "subheading": { "en": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms.", "pt": "Compare velocidade de resolução, custos de licença e acessibilidade em plataformas de suporte.", "es": "Compare velocidad de resolución, costos de licencia y accesibilidad en plataformas de soporte.", "id": "Bandingkan kecepatan resolusi, biaya lisensi, dan aksesibilitas pelanggan di seluruh platform dukungan.", "ar": "قارن سرعات الحل وتكاليف ترخيص المقاعد وإمكانية وصول العملاء عبر منصات الدعم.", "tr": "Destek platformlarında çözüm hızlarını, lisans maliyetlerini ve müşteri erişilebilirliğini karşılaştırın.", "ng": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms." },
         "columns": [
-          { "label": { "en": "Factor" } },
-          { "label": { "en": "WhatsApp Bot Support" }, "highlight": true },
-          { "label": { "en": "Email Queue Support" } },
-          { "label": { "en": "Live Call Center" } }
+          { "label": { "en": "Factor", "pt": "Fator", "es": "Factor", "id": "Faktor", "ar": "العامل", "tr": "Faktör", "ng": "Factor" } },
+          { "label": { "en": "WhatsApp Bot Support", "pt": "Suporte Bot WhatsApp", "es": "Soporte Bot WhatsApp", "id": "Dukungan Bot WhatsApp", "ar": "دعم شات بوت واتساب", "tr": "WhatsApp Bot Desteği", "ng": "WhatsApp Bot Support" }, "highlight": true },
+          { "label": { "en": "Email Queue Support", "pt": "Suporte via Email", "es": "Soporte via Email", "id": "Dukungan Antrean Email", "ar": "دعم البريد الإلكتروني", "tr": "E-posta Kuyruk Desteği", "ng": "Email Queue Support" } },
+          { "label": { "en": "Live Call Center", "pt": "Central de Atendimento", "es": "Call Center en Vivo", "id": "Call Center Langsung", "ar": "مركز الاتصال المباشر", "tr": "Canlı Çağrı Merkezi", "ng": "Live Call Center" } }
         ],
         "rows": [
           [
-            { "en": "Average Response Speed" },
-            { "en": "< 1 second (Instant)" },
-            { "en": "2 - 24 hours" },
-            { "en": "5 - 30 minutes (Hold queue)" }
+            { "en": "Average Response Speed", "pt": "Tempo de Resposta", "es": "Velocidad de Respuesta", "id": "Kecepatan Respons Rata-rata", "ar": "متوسط سرعة الاستجابة", "tr": "Ortalama Yanıt Hızı", "ng": "Average Response Speed" },
+            { "en": "< 1 second (Instant)", "pt": "< 1 segundo (Instantâneo)", "es": "< 1 segundo (Instantáneo)", "id": "< 1 detik (Instan)", "ar": "< ثانية واحدة (فوري)", "tr": "< 1 saniye (Anında)", "ng": "< 1 second (Instant)" },
+            { "en": "2 - 24 hours", "pt": "2 - 24 horas", "es": "2 - 24 horas", "id": "2 - 24 jam", "ar": "2 - 24 ساعة", "tr": "2 - 24 saat", "ng": "2 - 24 hours" },
+            { "en": "5 - 30 minutes (Hold queue)", "pt": "5 - 30 min (Em espera)", "es": "5 - 30 minutos (En espera)", "id": "5 - 30 menit (Antrean tunggu)", "ar": "5 - 30 دقيقة (قائمة الانتظار)", "tr": "5 - 30 dakika (Bekleme kuyruğu)", "ng": "5 - 30 minutes (Hold queue)" }
           ],
           [
-            { "en": "Support Availability" },
-            { "en": "24/7/365 (Unattended)" },
-            { "en": "Business hours queue" },
-            { "en": "Shift-work availability" }
+            { "en": "Support Availability", "pt": "Disponibilidade", "es": "Disponibilidad", "id": "Ketersediaan Dukungan", "ar": "توفر الدعم", "tr": "Destek Kullanılabilirliği", "ng": "Support Availability" },
+            { "en": "24/7/365 (Unattended)", "pt": "24/7/365 (Sem interrupções)", "es": "24/7/365 (Sin interrupciones)", "id": "24/7/365 (Tanpa pengawasan)", "ar": "24/7/365 (دون توقف)", "tr": "7/24/365 (Gözetimsiz)", "ng": "24/7/365 (Unattended)" },
+            { "en": "Business hours queue", "pt": "Horário comercial", "es": "Horario comercial", "id": "Antrean jam bisnis", "ar": "ساعات العمل فقط", "tr": "Mesai saatleri kuyruğu", "ng": "Business hours queue" },
+            { "en": "Shift-work availability", "pt": "Escala de turnos", "es": "Disponibilidad de turnos", "id": "Ketersediaan kerja shift", "ar": "توفر بنظام الورديات", "tr": "Vardiyalı çalışma sistemi", "ng": "Shift-work availability" }
           ],
           [
-            { "en": "Seat Costs" },
-            { "en": "Low flat API pricing" },
-            { "en": "Per-agent CRM licenses" },
-            { "en": "High telecom & staff overhead" }
+            { "en": "Seat Costs", "pt": "Custos por Licença", "es": "Costos de Puesto", "id": "Biaya Lisensi", "ar": "تكاليف المقاعد", "tr": "Kullanıcı Maliyetleri", "ng": "Seat Costs" },
+            { "en": "Low flat API pricing", "pt": "Taxa fixa de API baixa", "es": "Precios de API planos y bajos", "id": "Harga API flat rendah", "ar": "تسعير واجهة برمجة منخفض وثابت", "tr": "Düşük sabit API fiyatlandırması", "ng": "Low flat API pricing" },
+            { "en": "Per-agent CRM licenses", "pt": "Licenças de CRM por agente", "es": "Licencias de CRM por agente", "id": "Lisensi CRM per agen", "ar": "تراخيص CRM لكل موظف", "tr": "Ajan başına CRM lisansları", "ng": "Per-agent CRM licenses" },
+            { "en": "High telecom & staff overhead", "pt": "Altos custos de equipe/telecom", "es": "Altos costos de personal y telecom", "id": "Biaya tim & telekomunikasi tinggi", "ar": "تكاليف اتصالات وموظفين مرتفعة", "tr": "Yüksek telekom ve personel giderleri", "ng": "High telecom & staff overhead" }
           ],
           [
-            { "en": "CSAT (User Satisfaction)" },
-            { "en": "91% (High engagement)" },
-            { "en": "65% (Friction from delays)" },
-            { "en": "74% (Friction from hold times)" }
+            { "en": "CSAT (User Satisfaction)", "pt": "Nível de Satisfação", "es": "Satisfacción de Usuario", "id": "Kepuasan Pengguna (CSAT)", "ar": "مستوى رضا المستخدمين", "tr": "Müşteri Memnuniyeti (CSAT)", "ng": "CSAT (User Satisfaction)" },
+            { "en": "91% (High engagement)", "pt": "91% (Alto engajamento)", "es": "91% (Alto compromiso)", "id": "91% (Keterlibatan tinggi)", "ar": "91% (تفاعل مرتفع)", "tr": "%91 (Yüksek etkileşim)", "ng": "91% (High engagement)" },
+            { "en": "65% (Friction from delays)", "pt": "65% (Fricção devido a atrasos)", "es": "65% (Fricción debido a retrasos)", "id": "65% (Friksi karena keterlambatan)", "ar": "65% (استياء بسبب التأخير)", "tr": "%65 (Gecikmelerden kaynaklanan memnuniyetsizlik)", "ng": "65% (Friction from delays)" },
+            { "en": "74% (Friction from hold times)", "pt": "74% (Fricção de espera)", "es": "74% (Fricción de espera)", "id": "74% (Friksi karena waktu tunggu)", "ar": "74% (استياء بسبب أوقات الانتظار)", "tr": "%74 (Bekleme sürelerinden kaynaklanan memnuniyetsizlik)", "ng": "74% (Friction from hold times)" }
           ]
         ]
       }
@@ -137,9 +186,9 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Handoff API" },
-        "heading": { "en": "Programmatic Support Handoff Trigger" },
-        "overlayText": { "en": "Support Bot Handoff API Sandbox — Coming Soon" },
+        "badge": { "en": "Handoff API", "pt": "API de Transferência", "es": "API de Transferencia", "id": "API Serah Terima", "ar": "API التحويل", "tr": "Devir API'si", "ng": "Handoff API" },
+        "heading": { "en": "Programmatic Support Handoff Trigger", "pt": "Disparar Transferência Programaticamente", "es": "Activar Transferencia Programáticamente", "id": "Picu Serah Terima Dukungan Programatik", "ar": "تشغيل تحويل الدعم برمجياً", "tr": "Programatik Destek Devrini Tetikleyin", "ng": "Programmatic Support Handoff Trigger" },
+        "overlayText": { "en": "Support Bot Handoff API Sandbox — Coming Soon", "pt": "Sandbox da API de Transferência — Em Breve", "es": "Sandbox de API de Transferencia — Próximamente", "id": "Support Bot Handoff API Sandbox — Segera Hadir", "ar": "بيئة تجريبية لتحويل دعم البوت — قريباً", "tr": "Destek Botu Devir API Sanal Alanı — Çok Yakında", "ng": "Support Bot Handoff API Sandbox — Coming Soon" },
         "snippets": [
           {
             "lang": "cURL",
@@ -159,27 +208,87 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "Customer Support — FAQ" },
+        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
+        "heading": { "en": "Customer Support — FAQ", "pt": "Suporte ao Cliente — FAQ", "es": "Soporte al Cliente — FAQ", "id": "Dukungan Pelanggan — FAQ", "ar": "دعم العملاء — الأسئلة الشائعة", "tr": "Müşteri Desteği — SSS", "ng": "Customer Support — FAQ" },
         "items": [
           {
-            "question": { "en": "Can the chatbot handle multiple languages?" },
+            "question": {
+              "en": "Can the chatbot handle multiple languages?",
+              "pt": "O chatbot pode lidar com vários idiomas?",
+              "es": "¿El chatbot puede manejar varios idiomas?",
+              "id": "Apakah chatbot dapat menangani beberapa bahasa?",
+              "ar": "هل يمكن للشات بوت التعامل مع لغات متعددة؟",
+              "tr": "Chatbot birden fazla dili destekleyebilir mi?",
+              "ng": "Can the chatbot handle multiple languages?"
+            },
             "answer": {
-              "en": "Yes. You can create chatbot flows in multiple languages and our system automatically detects the user's preferred language based on their WhatsApp settings. You can also create separate flows per language for more nuanced responses."
+              "en": "Yes. You can create chatbot flows in multiple languages and our system automatically detects the user's preferred language based on their WhatsApp settings. You can also create separate flows per language for more nuanced responses.",
+              "pt": "Sim. Você pode criar fluxos do chatbot em vários idiomas. O sistema detecta o idioma de preferência do usuário de acordo com as configs do WhatsApp dele.",
+              "es": "Sí. Puede crear flujos de chatbot en varios idiomas. El sistema detecta el idioma preferido del usuario de acuerdo con la configuración de su WhatsApp.",
+              "id": "Ya. Anda dapat membuat alur chatbot dalam beberapa bahasa dan sistem kami secara otomatis mendeteksi bahasa pilihan pengguna berdasarkan pengaturan WhatsApp mereka.",
+              "ar": "نعم. يمكنك إنشاء تدفقات شات بوت بلغات متعددة ويكتشف نظامنا تلقائياً لغة المستخدم المفضلة بناءً على إعدادات واتساب الخاصة به.",
+              "tr": "Evet. Birden fazla dilde chatbot akışları oluşturabilirsiniz. Sistemimiz kullanıcının WhatsApp ayarlarına göre tercih ettiği dili otomatik olarak algılar.",
+              "ng": "Yes. You can create chatbot flows in multiple languages and our system automatically detects the user's preferred language based on their WhatsApp settings. You can also create separate flows per language for more nuanced responses."
             }
           },
           {
             "question": {
               "en": "Are there specific localized regulations for customer support chatbots?",
-              "in": "Do support chatbot replies require DLT template approvals in India?",
-              "br": "Como garantir a conformidade com a LGPD no atendimento e suporte via chatbot?",
-              "id": "Apakah chatbot WhatsApp ini dapat diintegrasikan dengan gerbang pembayaran Indonesia seperti Xendit?"
+              "pt": "Existem regulamentações locais específicas para chatbots de suporte?",
+              "es": "¿Existen regulaciones locales específicas para los chatbots de soporte?",
+              "id": "Apakah ada peraturan lokal khusus untuk chatbot dukungan pelanggan?",
+              "ar": "هل هناك لوائح محلية محددة لشات بوت دعم العملاء؟",
+              "tr": "Müşteri desteği chatbot'ları için belirli yerel düzenlemeler var mı?",
+              "ng": "Are there specific localized regulations for customer support chatbots?"
             },
             "answer": {
               "en": "No, user-initiated customer support chats are exempt from DLT template regulations, but standard data privacy rules apply.",
-              "in": "No. Under TRAI guidelines, customer-initiated support queries (called User-Initiated sessions) do not require DLT registration or template approvals. You can reply with free-form text or dynamic menus, making WhatsApp customer support highly flexible.",
-              "br": "Para atender à LGPD, as conversas de suporte coletadas pelo chatbot devem ser armazenadas com segurança, e o usuário deve ter a opção de solicitar a exclusão de seus dados de chat a qualquer momento. A StartMessaging oferece criptografia e ferramentas de exclusão nativas.",
-              "id": "Ya, Anda dapat menghubungkan chatbot dukungan Anda dengan webhook pembayaran lokal seperti Xendit atau Midtrans. Chatbot dapat secara otomatis memverifikasi status pembayaran pelanggan dan mengirimkan konfirmasi instan di dalam ruang obrolan."
+              "pt": "Não. Conversas de suporte iniciadas pelo usuário são isentas de aprovação prévia de modelos da Meta, mas aplicam-se as regras padrão de privacidade de dados locais.",
+              "es": "No. Los chats de soporte iniciados por el usuario están exentos de aprobación previa de plantillas de Meta, pero se aplican las reglas estándar de privacidad de datos locales.",
+              "id": "Tidak. Obrolan dukungan pelanggan yang dimulai oleh pengguna dibebaskan dari peraturan templat DLT, tetapi aturan privasi data standar tetap berlaku.",
+              "ar": "لا، دردشات دعم العملاء التي يبدأها المستخدم معفاة من لوائح قوالب DLT، ولكن تطبق قواعد خصوصية البيانات القياسية.",
+              "tr": "Hayır, kullanıcı tarafından başlatılan müşteri desteği sohbetleri şablon onay kurallarından muaftır, ancak standart veri gizliliği kuralları geçerlidir.",
+              "ng": "No, user-initiated customer support chats are exempt from DLT template regulations, but standard data privacy rules apply."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I route customer chats to multiple support agents?",
+              "pt": "Posso direcionar conversas de clientes para múltiplos agentes de suporte?",
+              "es": "¿Puedo dirigir los chats de los clientes a varios agentes de soporte?",
+              "id": "Apakah saya bisa meneruskan obrolan pelanggan ke beberapa agen dukungan?",
+              "ar": "هل يمكنني توجيه دردشات العملاء إلى عدة موظفي دعم؟",
+              "tr": "Müşteri sohbetlerini birden fazla destek temsilcisine yönlendirebilir miyim?",
+              "ng": "Can I route customer chats to multiple support agents?"
+            },
+            "answer": {
+              "en": "Yes. Our team inbox allows you to distribute conversations evenly or route them to specific departments (sales, technical support, billing) based on chatbot inputs.",
+              "pt": "Sim. Nossa caixa de entrada compartilhada permite distribuir conversas uniformemente ou direcioná-las a departamentos específicos (vendas, suporte técnico) com base no bot.",
+              "es": "Sí. Nuestra bandeja de entrada compartida le permite distribuir conversaciones de manera uniforme o dirigirlas a departamentos específicos (ventas, soporte técnico) según el bot.",
+              "id": "Ya. Kotak masuk tim kami memungkinkan Anda mendistribusikan percakapan secara merata atau meneruskannya ke departemen tertentu (penjualan, dukungan teknis) berdasarkan input chatbot.",
+              "ar": "نعم. يتيح لك صندوق الوارد للفريق توزيع المحادثات بالتساوي أو توجيهها إلى أقسام محددة (المبيعات، الدعم الفني) بناءً على مدخلات الشات بوت.",
+              "tr": "Evet. Ekip ortak gelen kutumuz, konuşmaları eşit şekilde dağıtmanıza veya chatbot girdilerine göre belirli departmanlara (satış, teknik destek) yönlendirmenize olanak tanır.",
+              "ng": "Yes. Our team inbox allows you to distribute conversations evenly or route them to specific departments (sales, technical support, billing) based on chatbot inputs."
+            }
+          },
+          {
+            "question": {
+              "en": "Do you support customer support CRM integrations?",
+              "pt": "Vocês suportam integrações com CRMs de suporte?",
+              "es": "¿Admiten integraciones con CRM de soporte al cliente?",
+              "id": "Apakah Anda mendukung integrasi CRM dukungan pelanggan?",
+              "ar": "هل تدعمون تكاملات نظام إدارة علاقات العملاء (CRM) للدعم؟",
+              "tr": "Müşteri desteği CRM entegrasyonlarını destekliyor musunuz?",
+              "ng": "Do you support customer support CRM integrations?"
+            },
+            "answer": {
+              "en": "Yes. You can sync WhatsApp conversation logs and user profiles with Salesforce, HubSpot, Zendesk, and other popular CRMs via our webhook-driven API triggers.",
+              "pt": "Sim. Você pode sincronizar os registros do WhatsApp e perfis com Salesforce, HubSpot, Zendesk e outros CRMs por meio de nossos webhooks.",
+              "es": "Sí. Puede sincronizar los registros del chat y perfiles con Salesforce, HubSpot, Zendesk y otros CRM a través de nuestros webhooks.",
+              "id": "Ya. Anda dapat menyinkronkan riwayat percakapan WhatsApp dan profil pengguna dengan Salesforce, HubSpot, Zendesk, dan CRM populer lainnya melalui webhook kami.",
+              "ar": "نعم. يمكنك مزامنة سجلات محادثات واتساب وملفات تعريف المستخدمين مع Salesforce و HubSpot و Zendesk وأنظمة CRM الأخرى الشائعة عبر الويب هوك.",
+              "tr": "Evet. Webhook tetikleyicilerimiz aracılığıyla WhatsApp konuşma geçmişini ve kullanıcı profillerini Salesforce, HubSpot, Zendesk ve diğer popüler CRM'lerle senkronize edebilirsiniz.",
+              "ng": "Yes. You can sync WhatsApp conversation logs and user profiles with Salesforce, HubSpot, Zendesk, and other popular CRMs via our webhook-driven API triggers."
             }
           }
         ]
@@ -188,23 +297,29 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar", "ng": "Related Pages" },
         "links": [
-          { "label": { "en": "E-Commerce Use Case" }, "href": "/use-cases/ecommerce" },
-          { "label": { "en": "Marketing Campaigns" }, "href": "/use-cases/marketing-campaigns" },
-          { "label": { "en": "WhatsApp Chatbot" }, "href": "/whatsapp/chatbot" },
-          { "label": { "en": "Technical Support" }, "href": "/contact" }
+          { "label": { "en": "E-Commerce System", "pt": "Sistema de E-Commerce", "es": "Sistema de E-Commerce", "id": "Sistem E-Commerce", "ar": "نظام التجارة الإلكترونية", "tr": "E-Ticaret Sistemi", "ng": "E-Commerce System" }, "href": "/use-cases/ecommerce" },
+          { "label": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Marketing", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları", "ng": "Marketing Campaigns" }, "href": "/use-cases/marketing-campaigns" },
+          { "label": { "en": "WhatsApp Chatbot", "pt": "Chatbot WhatsApp", "es": "Chatbot WhatsApp", "id": "Chatbot WhatsApp", "ar": "شات بوت واتساب", "tr": "WhatsApp Chatbot'u", "ng": "WhatsApp Chatbot" }, "href": "/whatsapp/chatbot" },
+          { "label": { "en": "Technical Support", "pt": "Suporte Técnico", "es": "Soporte Técnico", "id": "Dukungan Teknis", "ar": "الدعم الفني", "tr": "Teknik Destek", "ng": "Technical Support" }, "href": "/contact" }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Automate Your Support Today" },
+        "heading": { "en": "Automate Your Support Today", "pt": "Automatize Seu Suporte Hoje", "es": "Automatice Su Soporte Hoy", "id": "Otomatisasi Dukungan Anda Hari Ini", "ar": "أتمت دعمك اليوم", "tr": "Desteğinizi Bugün Otomatikleştirin", "ng": "Automate Your Support Today" },
         "subtext": {
-          "en": "Chatbot builder available on Premium and Enterprise plans."
+          "en": "Chatbot builder available on Premium and Enterprise plans.",
+          "pt": "Construtor de chatbot disponível nos planos Premium e Enterprise.",
+          "es": "Creador de chatbot disponible en planes Premium y Enterprise.",
+          "id": "Pembuat chatbot tersedia pada paket Premium dan Enterprise.",
+          "ar": "منشئ الشات بوت متاح في خطط Premium و Enterprise.",
+          "tr": "Chatbot oluşturucu Premium ve Kurumsal planlarda mevcuttur.",
+          "ng": "Chatbot builder available on Premium and Enterprise plans."
         },
-        "primaryCta": { "en": "Get Premium" },
+        "primaryCta": { "en": "Get Premium", "pt": "Obter Premium", "es": "Obtener Premium", "id": "Dapatkan Premium", "ar": "احصل على Premium", "tr": "Premium'u Alın", "ng": "Get Premium" },
         "primaryHref": "https://app.startmessaging.com/signup?plan=premium"
       }
     }

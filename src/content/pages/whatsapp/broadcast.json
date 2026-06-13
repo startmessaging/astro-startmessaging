@@ -18,75 +18,228 @@
       "id": "Kirim siaran WhatsApp ke ribuan kontak resmi dengan dukungan media kaya, laporan baca real-time, dan bebas risiko blokir nomor.",
       "ar": "أرسل رسائل بث عبر واتساب لآلاف جهات الاتصال رسمياً مع دعم الوسائط وتتبع القراءة في الوقت الفعلي ودون خطر حظر الرقم.",
       "tr": "%98 açılma oranıyla, zengin medya desteği ve gerçek zamanlı okundu bilgileriyle yasal olarak binlerce kişiye WhatsApp yayını gönderin."
-    }
+    },
+    "ogImage": "/images/broadcast-dashboard.webp"
   },
   "sections": [
     {
       "type": "hero",
       "theme": "whatsapp",
       "props": {
-        "badge": { "en": "WhatsApp Broadcasts" },
-        "title": { "en": "Broadcast to Millions on WhatsApp" },
-        "subtitle": {
-          "en": "Send templated messages to thousands of opted-in contacts with real-time delivery tracking, rich media support, and intelligent throttling — all via a single API call."
+        "badge": {
+          "en": "WhatsApp Broadcasts",
+          "pt": "Transmissões WhatsApp",
+          "es": "Difusiones WhatsApp",
+          "id": "Siaran WhatsApp",
+          "ar": "بث واتساب",
+          "tr": "WhatsApp Yayınları"
         },
-        "primaryCta": { "en": "Start Broadcasting" },
+        "title": {
+          "en": "Broadcast to Millions on WhatsApp",
+          "pt": "Transmita para Milhões no WhatsApp",
+          "es": "Difunda a Millones en WhatsApp",
+          "id": "Siaran ke Jutaan Kontak di WhatsApp",
+          "ar": "أرسل بثاً لملايين عبر واتساب",
+          "tr": "WhatsApp'ta Milyonlara Yayın Yapın"
+        },
+        "subtitle": {
+          "en": "Send templated messages to thousands of opted-in contacts with real-time delivery tracking, rich media support, and intelligent throttling — all via a single API call.",
+          "pt": "Envie mensagens padronizadas para milhares de contatos com rastreamento de entrega em tempo real, suporte a mídia rica e limitação inteligente — tudo via uma única chamada de API.",
+          "es": "Envíe mensajes con plantillas a miles de contactos con seguimiento de entrega en tiempo real, soporte de medios enriquecidos y limitación inteligente — todo mediante una sola llamada de API.",
+          "id": "Kirim pesan template ke ribuan kontak dengan pelacakan pengiriman real-time, dukungan media kaya, dan pembatasan cerdas — semuanya melalui satu panggilan API.",
+          "ar": "أرسل رسائل مُنسَّقة لآلاف جهات الاتصال مع تتبع التسليم في الوقت الفعلي ودعم الوسائط الغنية والتحكم الذكي في السرعة — كل ذلك عبر استدعاء API واحد.",
+          "tr": "Tek bir API çağrısıyla gerçek zamanlı teslimat takibi, zengin medya desteği ve akıllı hız sınırlama ile binlerce onaylı kişiye şablonlu mesajlar gönderin."
+        },
+        "primaryCta": {
+          "en": "Start Broadcasting",
+          "pt": "Começar Transmissão",
+          "es": "Iniciar Difusión",
+          "id": "Mulai Siaran",
+          "ar": "ابدأ البث",
+          "tr": "Yayına Başla"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Official, Zero-Ban Risk Broadcasting" },
+        "heading": {
+          "en": "Official, Zero-Ban Risk Broadcasting",
+          "pt": "Transmissão Oficial, Sem Risco de Banimento",
+          "es": "Difusión Oficial, Sin Riesgo de Bloqueo",
+          "id": "Siaran Resmi, Bebas Risiko Blokir",
+          "ar": "بث رسمي بدون أي خطر للحظر",
+          "tr": "Resmi, Sıfır Ban Riskiyle Yayın"
+        },
         "body": {
-          "en": "StartMessaging utilizes Meta's official Cloud API structure. By sending pre-approved templates (Utility, Marketing, or Authentication) to opted-in audiences, you bypass the spam filters that trigger number bans. Our intelligent system manages delivery rates dynamically to keep your sender score high."
+          "en": "StartMessaging utilizes Meta's official Cloud API structure. By sending pre-approved templates (Utility, Marketing, or Authentication) to opted-in audiences, you bypass the spam filters that trigger number bans. Our intelligent system manages delivery rates dynamically to keep your sender score high.",
+          "pt": "StartMessaging utiliza a estrutura oficial da Cloud API da Meta. Ao enviar templates pré-aprovados para audiências com opt-in, você evita os filtros de spam que causam banimentos de número. Nosso sistema gerencia taxas de entrega dinamicamente.",
+          "es": "StartMessaging utiliza la estructura oficial de la Cloud API de Meta. Al enviar plantillas preaprobadas a audiencias con opt-in, evita los filtros de spam que causan bloqueos de número. Nuestro sistema gestiona las tasas de entrega dinámicamente.",
+          "id": "StartMessaging menggunakan struktur Cloud API resmi Meta. Dengan mengirim template yang disetujui kepada audiens yang telah memberikan persetujuan, Anda melewati filter spam yang memicu pemblokiran nomor. Sistem kami mengelola kecepatan pengiriman secara dinamis.",
+          "ar": "تستخدم StartMessaging هيكل Cloud API الرسمي لـ Meta. بإرسال القوالب المعتمدة مسبقاً للجماهير المشتركة، تتجاوز فلاتر البريد العشوائي التي تُحدث حظر الأرقام. نظامنا يدير معدلات التسليم ديناميكياً.",
+          "tr": "StartMessaging, Meta'nın resmi Cloud API yapısını kullanır. Önceden onaylanmış şablonları onaylı kitlelere göndererek, numara yasaklarını tetikleyen spam filtrelerini aşarsınız. Sistemimiz teslimat oranlarını dinamik olarak yönetir."
         },
         "bullets": [
-          { "en": "Supports up to 100K+ contacts per broadcast" },
-          { "en": "Rich media support: images, documents, interactive buttons" },
-          { "en": "Real-time delivery confirmation and read receipts" }
+          {
+            "en": "Supports up to 100K+ contacts per broadcast",
+            "pt": "Suporta mais de 100 mil contatos por transmissão",
+            "es": "Admite más de 100 mil contactos por difusión",
+            "id": "Mendukung hingga 100 ribu+ kontak per siaran",
+            "ar": "يدعم أكثر من 100 ألف جهة اتصال لكل بث",
+            "tr": "Yayın başına 100 bin+ kişiyi destekler"
+          },
+          {
+            "en": "Rich media support: images, documents, interactive buttons",
+            "pt": "Suporte a mídia rica: imagens, documentos, botões interativos",
+            "es": "Soporte de medios enriquecidos: imágenes, documentos, botones interactivos",
+            "id": "Dukungan media kaya: gambar, dokumen, tombol interaktif",
+            "ar": "دعم الوسائط الغنية: الصور والمستندات والأزرار التفاعلية",
+            "tr": "Zengin medya desteği: resimler, belgeler, etkileşimli butonlar"
+          },
+          {
+            "en": "Real-time delivery confirmation and read receipts",
+            "pt": "Confirmação de entrega e recibos de leitura em tempo real",
+            "es": "Confirmación de entrega y recibos de lectura en tiempo real",
+            "id": "Konfirmasi pengiriman dan laporan dibaca secara real-time",
+            "ar": "تأكيد التسليم وإيصالات القراءة في الوقت الفعلي",
+            "tr": "Gerçek zamanlı teslimat onayı ve okundu bilgisi"
+          }
         ],
         "image": "/images/broadcast-dashboard.webp",
-        "imageAlt": { "en": "WhatsApp Broadcast Dashboard UI" },
+        "imageAlt": {
+          "en": "WhatsApp Broadcast Dashboard UI",
+          "pt": "Interface do Painel de Transmissão WhatsApp",
+          "es": "Interfaz del Panel de Difusión WhatsApp",
+          "id": "UI Dasbor Siaran WhatsApp",
+          "ar": "واجهة لوحة بث واتساب",
+          "tr": "WhatsApp Yayın Paneli Arayüzü"
+        },
         "reversed": false
       }
     },
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Outreach Comparison" },
-        "heading": { "en": "Broadcast vs. Campaigns vs. Unofficial Spam Blasting" },
-        "subheading": { "en": "Why choosing official broadcasts protects your brand reputation and phone number." },
+        "badge": {
+          "en": "Outreach Comparison",
+          "pt": "Comparação de Alcance",
+          "es": "Comparación de Alcance",
+          "id": "Perbandingan Jangkauan",
+          "ar": "مقارنة التواصل",
+          "tr": "Erişim Karşılaştırması"
+        },
+        "heading": {
+          "en": "Broadcast vs. Campaigns vs. Unofficial Spam Blasting",
+          "pt": "Transmissão vs. Campanhas vs. Spam Não Oficial",
+          "es": "Difusión vs. Campañas vs. Spam Masivo No Oficial",
+          "id": "Siaran vs. Kampanye vs. Blast Spam Tidak Resmi",
+          "ar": "البث مقابل الحملات مقابل البريد العشوائي غير الرسمي",
+          "tr": "Yayın vs. Kampanyalar vs. Resmi Olmayan Spam"
+        },
+        "subheading": {
+          "en": "Why choosing official broadcasts protects your brand reputation and phone number.",
+          "pt": "Por que escolher transmissões oficiais protege a reputação da sua marca e seu número de telefone.",
+          "es": "Por qué elegir difusiones oficiales protege la reputación de su marca y su número de teléfono.",
+          "id": "Mengapa memilih siaran resmi melindungi reputasi merek dan nomor telepon Anda.",
+          "ar": "لماذا اختيار البث الرسمي يحمي سمعة علامتك التجارية ورقم هاتفك.",
+          "tr": "Neden resmi yayınları seçmek marka itibarınızı ve telefon numaranızı korur."
+        },
         "columns": [
-          { "label": { "en": "Comparison Metrics" } },
-          { "label": { "en": "StartMessaging Broadcast" }, "highlight": true },
-          { "label": { "en": "Sequence Campaigns" } },
-          { "label": { "en": "Unofficial Web Scrapers" } }
+          {
+            "label": {
+              "en": "Comparison Metrics",
+              "pt": "Métricas de Comparação",
+              "es": "Métricas de Comparación",
+              "id": "Metrik Perbandingan",
+              "ar": "مقاييس المقارنة",
+              "tr": "Karşılaştırma Metrikleri"
+            }
+          },
+          {
+            "label": {
+              "en": "StartMessaging Broadcast",
+              "pt": "Transmissão StartMessaging",
+              "es": "Difusión StartMessaging",
+              "id": "Siaran StartMessaging",
+              "ar": "بث StartMessaging",
+              "tr": "StartMessaging Yayını"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Sequence Campaigns",
+              "pt": "Campanhas em Sequência",
+              "es": "Campañas en Secuencia",
+              "id": "Kampanye Berurutan",
+              "ar": "حملات متسلسلة",
+              "tr": "Sıralı Kampanyalar"
+            }
+          },
+          {
+            "label": {
+              "en": "Unofficial Web Scrapers",
+              "pt": "Scrapers Web Não Oficiais",
+              "es": "Extractores Web No Oficiales",
+              "id": "Scraper Web Tidak Resmi",
+              "ar": "برامج استخلاص غير رسمية",
+              "tr": "Resmi Olmayan Web Kazıyıcıları"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Setup Time" },
-            { "en": "Instant (Direct API)" },
-            { "en": "Instant (Sequence Flow Builder)" },
-            { "en": "Requires manual web login" }
+            {
+              "en": "Setup Time",
+              "pt": "Tempo de Configuração",
+              "es": "Tiempo de Configuración",
+              "id": "Waktu Pengaturan",
+              "ar": "وقت الإعداد",
+              "tr": "Kurulum Süresi"
+            },
+            { "en": "Instant (Direct API)", "pt": "Instantâneo (API Direta)", "es": "Instantáneo (API Directa)", "id": "Instan (API Langsung)", "ar": "فوري (API مباشر)", "tr": "Anında (Doğrudan API)" },
+            { "en": "Instant (Sequence Flow Builder)", "pt": "Instantâneo (Construtor de Fluxo)", "es": "Instantáneo (Constructor de Flujo)", "id": "Instan (Pembuat Alur)", "ar": "فوري (منشئ تدفق متسلسل)", "tr": "Anında (Akış Oluşturucu)" },
+            { "en": "Requires manual web login", "pt": "Requer login web manual", "es": "Requiere inicio de sesión web manual", "id": "Memerlukan login web manual", "ar": "يتطلب تسجيل دخول ويب يدوي", "tr": "Manuel web girişi gerektirir" }
           ],
           [
-            { "en": "Opt-In Compliance Checks" },
-            { "en": "Required" },
-            { "en": "Required" },
-            { "en": "✗ (High spam rate)" }
+            {
+              "en": "Opt-In Compliance Checks",
+              "pt": "Verificações de Conformidade Opt-In",
+              "es": "Verificaciones de Cumplimiento de Opt-In",
+              "id": "Pemeriksaan Kepatuhan Opt-In",
+              "ar": "فحوصات الامتثال للاشتراك",
+              "tr": "Opt-In Uyumluluk Kontrolleri"
+            },
+            { "en": "Required", "pt": "Obrigatório", "es": "Requerido", "id": "Diperlukan", "ar": "مطلوب", "tr": "Gerekli" },
+            { "en": "Required", "pt": "Obrigatório", "es": "Requerido", "id": "Diperlukan", "ar": "مطلوب", "tr": "Gerekli" },
+            { "en": "✗ (High spam rate)", "pt": "✗ (Alta taxa de spam)", "es": "✗ (Alta tasa de spam)", "id": "✗ (Tingkat spam tinggi)", "ar": "✗ (معدل بريد عشوائي عالٍ)", "tr": "✗ (Yüksek spam oranı)" }
           ],
           [
-            { "en": "Delivery Speed" },
-            { "en": "Up to 80 messages/second" },
-            { "en": "Throttled based on trigger rules" },
-            { "en": "Very slow (manual delays)" }
+            {
+              "en": "Delivery Speed",
+              "pt": "Velocidade de Entrega",
+              "es": "Velocidad de Entrega",
+              "id": "Kecepatan Pengiriman",
+              "ar": "سرعة التسليم",
+              "tr": "Teslimat Hızı"
+            },
+            { "en": "Up to 80 messages/second", "pt": "Até 80 mensagens/segundo", "es": "Hasta 80 mensajes/segundo", "id": "Hingga 80 pesan/detik", "ar": "حتى 80 رسالة/ثانية", "tr": "Saniyede 80 mesaja kadar" },
+            { "en": "Throttled based on trigger rules", "pt": "Limitado conforme regras de disparo", "es": "Limitado según reglas de activación", "id": "Dibatasi berdasarkan aturan pemicu", "ar": "محدود بناءً على قواعد التشغيل", "tr": "Tetikleme kurallarına göre kısıtlı" },
+            { "en": "Very slow (manual delays)", "pt": "Muito lento (atrasos manuais)", "es": "Muy lento (retrasos manuales)", "id": "Sangat lambat (penundaan manual)", "ar": "بطيء جداً (تأخيرات يدوية)", "tr": "Çok yavaş (manuel gecikmeler)" }
           ],
           [
-            { "en": "Phone Number Ban Risk" },
-            { "en": "0% (TRAI/Meta Compliant)" },
-            { "en": "0% (TRAI/Meta Compliant)" },
-            { "en": "99% (Immediate number block)" }
+            {
+              "en": "Phone Number Ban Risk",
+              "pt": "Risco de Banimento de Número",
+              "es": "Riesgo de Bloqueo de Número",
+              "id": "Risiko Blokir Nomor",
+              "ar": "خطر حظر رقم الهاتف",
+              "tr": "Telefon Numarası Yasaklanma Riski"
+            },
+            { "en": "0% (TRAI/Meta Compliant)", "pt": "0% (Conforme TRAI/Meta)", "es": "0% (Conforme TRAI/Meta)", "id": "0% (Sesuai TRAI/Meta)", "ar": "0% (متوافق مع TRAI/Meta)", "tr": "%0 (TRAI/Meta Uyumlu)" },
+            { "en": "0% (TRAI/Meta Compliant)", "pt": "0% (Conforme TRAI/Meta)", "es": "0% (Conforme TRAI/Meta)", "id": "0% (Sesuai TRAI/Meta)", "ar": "0% (متوافق مع TRAI/Meta)", "tr": "%0 (TRAI/Meta Uyumlu)" },
+            { "en": "99% (Immediate number block)", "pt": "99% (Bloqueio imediato do número)", "es": "99% (Bloqueo inmediato del número)", "id": "99% (Blokir nomor segera)", "ar": "99% (حظر رقم فوري)", "tr": "%99 (Anlık numara engeli)" }
           ]
         ]
       }
@@ -94,9 +247,30 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Broadcast API" },
-        "heading": { "en": "Trigger a Broadcast Message Programmatically" },
-        "overlayText": { "en": "Broadcast API Sandbox — Coming Soon" },
+        "badge": {
+          "en": "Broadcast API",
+          "pt": "API de Transmissão",
+          "es": "API de Difusión",
+          "id": "API Siaran",
+          "ar": "API البث",
+          "tr": "Yayın API'si"
+        },
+        "heading": {
+          "en": "Trigger a Broadcast Message Programmatically",
+          "pt": "Disparar uma Mensagem de Transmissão Programaticamente",
+          "es": "Activar un Mensaje de Difusión Programáticamente",
+          "id": "Memicu Pesan Siaran Secara Programatik",
+          "ar": "تشغيل رسالة بث برمجياً",
+          "tr": "Programatik Olarak Yayın Mesajı Tetikleyin"
+        },
+        "overlayText": {
+          "en": "Broadcast API Sandbox — Coming Soon",
+          "pt": "Sandbox da API de Transmissão — Em Breve",
+          "es": "Sandbox de API de Difusión — Próximamente",
+          "id": "Sandbox API Siaran — Segera Hadir",
+          "ar": "بيئة تجريبية API البث — قريباً",
+          "tr": "Yayın API Sanal Alanı — Çok Yakında"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -128,29 +302,79 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "Broadcast — Frequently Asked Questions" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "Broadcast — Frequently Asked Questions",
+          "pt": "Transmissão — Perguntas Frequentes",
+          "es": "Difusión — Preguntas Frecuentes",
+          "id": "Siaran — Pertanyaan yang Sering Diajukan",
+          "ar": "البث — الأسئلة الشائعة",
+          "tr": "Yayın — Sıkça Sorulan Sorular"
+        },
         "items": [
           {
-            "question": { "en": "How many contacts can I send a broadcast to?" },
-            "answer": { "en": "There's no hard limit on our side. You can broadcast to 100,000+ contacts per campaign. Meta applies per-phone-number throughput limits (typically 80 messages/second for Tier 4 numbers). Our engine handles throttling automatically." }
+            "question": {
+              "en": "How many contacts can I send a broadcast to?",
+              "pt": "Para quantos contatos posso enviar uma transmissão?",
+              "es": "¿A cuántos contactos puedo enviar una difusión?",
+              "id": "Berapa banyak kontak yang bisa saya kirimi siaran?",
+              "ar": "كم عدد جهات الاتصال التي يمكنني إرسال بث إليها؟",
+              "tr": "Kaç kişiye yayın gönderebilirim?"
+            },
+            "answer": {
+              "en": "There's no hard limit on our side. You can broadcast to 100,000+ contacts per campaign. Meta applies per-phone-number throughput limits (typically 80 messages/second for Tier 4 numbers). Our engine handles throttling automatically.",
+              "pt": "Não há limite rígido do nosso lado. Você pode transmitir para mais de 100.000 contatos por campanha. A Meta aplica limites de throughput por número de telefone (tipicamente 80 mensagens/segundo para números Nível 4). Nosso motor gerencia a limitação automaticamente.",
+              "es": "No hay un límite rígido de nuestra parte. Puede difundir a más de 100.000 contactos por campaña. Meta aplica límites de throughput por número de teléfono (típicamente 80 mensajes/segundo para números de Nivel 4). Nuestro motor gestiona la limitación automáticamente.",
+              "id": "Tidak ada batas keras di pihak kami. Anda dapat menyiarkan ke lebih dari 100.000 kontak per kampanye. Meta menerapkan batas throughput per nomor telepon (biasanya 80 pesan/detik untuk nomor Tingkat 4). Mesin kami menangani pembatasan secara otomatis.",
+              "ar": "لا يوجد حد صارم من جانبنا. يمكنك البث لأكثر من 100,000 جهة اتصال لكل حملة. تطبق Meta حدود إنتاجية لكل رقم هاتف (عادةً 80 رسالة/ثانية لأرقام المستوى 4). محركنا يدير التحديد تلقائياً.",
+              "tr": "Bizim tarafımızda katı bir sınır yok. Kampanya başına 100.000'den fazla kişiye yayın yapabilirsiniz. Meta, telefon numarası başına verim sınırları uygular (Katman 4 numaraları için genellikle saniyede 80 mesaj). Motorumuz kısıtlamayı otomatik olarak yönetir."
+            }
           },
           {
-            "question": { "en": "Do I need to use pre-approved templates for broadcasts?" },
-            "answer": { "en": "Yes. WhatsApp requires all business-initiated messages to use pre-approved templates. You can create templates through our dashboard. Most templates are reviewed and approved by Meta within minutes." }
+            "question": {
+              "en": "Do I need to use pre-approved templates for broadcasts?",
+              "pt": "Preciso usar templates pré-aprovados para transmissões?",
+              "es": "¿Necesito usar plantillas preaprobadas para difusiones?",
+              "id": "Apakah saya perlu menggunakan template yang disetujui sebelumnya untuk siaran?",
+              "ar": "هل أحتاج إلى استخدام قوالب معتمدة مسبقاً للبث؟",
+              "tr": "Yayınlar için önceden onaylanmış şablonlar kullanmam gerekiyor mu?"
+            },
+            "answer": {
+              "en": "Yes. WhatsApp requires all business-initiated messages to use pre-approved templates. You can create templates through our dashboard. Most templates are reviewed and approved by Meta within minutes.",
+              "pt": "Sim. O WhatsApp exige que todas as mensagens iniciadas por empresas usem templates pré-aprovados. Você pode criar templates pelo nosso painel. A maioria dos templates é revisada e aprovada pela Meta em minutos.",
+              "es": "Sí. WhatsApp requiere que todos los mensajes iniciados por empresas utilicen plantillas preaprobadas. Puede crear plantillas a través de nuestro panel de control. La mayoría de las plantillas son revisadas y aprobadas por Meta en minutos.",
+              "id": "Ya. WhatsApp mengharuskan semua pesan yang dimulai oleh bisnis menggunakan template yang disetujui sebelumnya. Anda dapat membuat template melalui dasbor kami. Sebagian besar template ditinjau dan disetujui oleh Meta dalam hitungan menit.",
+              "ar": "نعم. يتطلب WhatsApp من جميع الرسائل التي تُبدأ من طرف الأعمال استخدام قوالب معتمدة مسبقاً. يمكنك إنشاء القوالب من خلال لوحة التحكم لدينا. معظم القوالب تُراجع وتُعتمد من Meta في دقائق.",
+              "tr": "Evet. WhatsApp, işletme tarafından başlatılan tüm mesajların önceden onaylanmış şablonları kullanmasını gerektirir. Şablonları panelimiz aracılığıyla oluşturabilirsiniz. Çoğu şablon dakikalar içinde Meta tarafından incelenir ve onaylanır."
+            }
           },
           {
             "question": {
               "en": "Is broadcasting on WhatsApp compliant with local anti-spam regulations?",
+              "pt": "As transmissões no WhatsApp estão em conformidade com as regulamentações locais de spam?",
+              "es": "¿La difusión en WhatsApp cumple con las regulaciones locales contra el spam?",
+              "id": "Apakah siaran WhatsApp mematuhi regulasi anti-spam lokal?",
+              "ar": "هل البث على واتساب متوافق مع لوائح مكافحة البريد العشوائي المحلية؟",
+              "tr": "WhatsApp'ta yayın yapmak yerel spam karşıtı düzenlemelere uygun mu?",
               "in": "Do I need TRAI DLT registration to send WhatsApp broadcasts in India?",
               "br": "Como funciona a conformidade com a LGPD nos disparos de transmissão no Brasil?",
               "id": "Apakah WhatsApp Blast Resmi ini mematuhi regulasi anti-spam Kominfo?"
             },
             "answer": {
               "en": "Yes, official broadcasts are fully compliant because they require recipient opt-in and utilize pre-approved templates.",
-              "in": "No, WhatsApp Business API broadcasts do not require TRAI DLT registration. DLT registration is only required for carrier SMS fallback messages. This makes WhatsApp broadcasts much easier to set up and manage.",
-              "br": "Sim, os disparos de transmissão oficiais via API da StartMessaging estão em total conformidade com a LGPD, desde que você obtenha e armazene o consentimento (opt-in) explícito do usuário final.",
-              "id": "Ya, WhatsApp Blast resmi menggunakan API Cloud resmi dari Meta. Hal ini mematuhi regulasi Kominfo karena mensyaratkan persetujuan (opt-in) pelanggan, berbeda dengan skrip spammer tidak resmi yang melanggar hukum."
+              "pt": "Sim, os disparos de transmissão oficiais via API da StartMessaging estão em total conformidade com a LGPD, desde que você obtenha e armazene o consentimento (opt-in) explícito do usuário final.",
+              "es": "Sí, las difusiones oficiales cumplen plenamente con las regulaciones porque requieren el opt-in del destinatario y utilizan plantillas preaprobadas.",
+              "id": "Ya, WhatsApp Blast resmi menggunakan API Cloud resmi dari Meta. Hal ini mematuhi regulasi Kominfo karena mensyaratkan persetujuan (opt-in) pelanggan.",
+              "ar": "نعم، البث الرسمي متوافق تماماً لأنه يتطلب اشتراك المستلم ويستخدم قوالب معتمدة مسبقاً.",
+              "tr": "Evet, resmi yayınlar alıcı opt-in'i gerektirdiğinden ve önceden onaylanmış şablonlar kullandığından tamamen uyumludur.",
+              "in": "No, WhatsApp Business API broadcasts do not require TRAI DLT registration. DLT registration is only required for carrier SMS fallback messages. This makes WhatsApp broadcasts much easier to set up and manage."
             }
           }
         ]
@@ -159,21 +383,49 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar"
+        },
         "links": [
-          { "label": { "en": "Marketing Campaigns" }, "href": "/whatsapp/campaigns" },
-          { "label": { "en": "Chatbot Builder" }, "href": "/whatsapp/chatbot" },
-          { "label": { "en": "Utility Notifications" }, "href": "/whatsapp/utility" },
-          { "label": { "en": "Pricing" }, "href": "/pricing" }
+          { "label": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Marketing", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları" }, "href": "/whatsapp/campaigns" },
+          { "label": { "en": "Chatbot Builder", "pt": "Construtor de Chatbot", "es": "Constructor de Chatbot", "id": "Pembuat Chatbot", "ar": "منشئ الشات بوت", "tr": "Chatbot Oluşturucu" }, "href": "/whatsapp/chatbot" },
+          { "label": { "en": "Utility Notifications", "pt": "Notificações Utilitárias", "es": "Notificaciones Utilitarias", "id": "Notifikasi Utilitas", "ar": "إشعارات الخدمات", "tr": "Yardımcı Bildirimler" }, "href": "/whatsapp/utility" },
+          { "label": { "en": "Pricing", "pt": "Preços", "es": "Precios", "id": "Harga", "ar": "الأسعار", "tr": "Fiyatlandırma" }, "href": "/pricing" }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Start Broadcasting on WhatsApp Today" },
-        "subtext": { "en": "Free plan includes 1,000 messages. No credit card required." },
-        "primaryCta": { "en": "Get Started Free" },
+        "heading": {
+          "en": "Start Broadcasting on WhatsApp Today",
+          "pt": "Comece a Transmitir no WhatsApp Hoje",
+          "es": "Empiece a Difundir en WhatsApp Hoy",
+          "id": "Mulai Siaran di WhatsApp Hari Ini",
+          "ar": "ابدأ البث على واتساب اليوم",
+          "tr": "WhatsApp'ta Yayına Bugün Başlayın"
+        },
+        "subtext": {
+          "en": "Free plan. No credit card required.",
+          "pt": "Plano grátis. Sem cartão de crédito.",
+          "es": "Plan gratis. Sin tarjeta de crédito.",
+          "id": "Paket gratis. Tidak perlu kartu kredit.",
+          "ar": "خطة مجانية. لا يلزم بطاقة ائتمان.",
+          "tr": "Ücretsiz plan. Kredi kartı gerekmiyor."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

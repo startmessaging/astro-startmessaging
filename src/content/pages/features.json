@@ -8,7 +8,8 @@
       "es": "Características — StartMessaging",
       "id": "Fitur — StartMessaging",
       "ar": "الميزات — StartMessaging",
-      "tr": "Özellikler — StartMessaging"
+      "tr": "Özellikler — StartMessaging",
+      "ng": "Features — StartMessaging"
     },
     "description": {
       "en": "Explore all features: bulk broadcasts, chatbots, REST API, analytics, message templates, and compliance tools for WhatsApp and SMS.",
@@ -16,7 +17,8 @@
       "es": "Explore todas las características: difusiones masivas, chatbots, API REST, análisis, plantillas de mensajes y herramientas de cumplimiento para WhatsApp y SMS.",
       "id": "Jelajahi semua fitur: siaran massal, chatbot, REST API, analitik, template pesan, dan alat kepatuhan untuk WhatsApp dan SMS.",
       "ar": "استكشف جميع الميزات: البث الجماعي والشات بوت وواجهة REST API والتحليلات وقوالب الرسائل وأدوات الامتثال لواتساب وSMS.",
-      "tr": "Tüm özellikleri keşfedin: toplu yayınlar, chatbot'lar, REST API, analitik, mesaj şablonları ve WhatsApp ile SMS için uyumluluk araçları."
+      "tr": "Tüm özellikleri keşfedin: toplu yayınlar, chatbot'lar, REST API, analitik, mesaj şablonları ve WhatsApp ile SMS için uyumluluk araçları.",
+      "ng": "Explore all features: bulk broadcasts, chatbots, REST API, analytics, message templates, and compliance tools for WhatsApp and SMS."
     },
     "ogImage": "/og.png?title=Features&theme=sms"
   },
@@ -151,7 +153,7 @@
             "title": {
               "en": "Real-time Analytics",
               "pt": "Análises em Tempo Real",
-              "es": "Análisis en Tiempo Real",
+              "es": "Análisis en Real Time",
               "id": "Analitik Real-time",
               "ar": "تحليلات في الوقت الفعلي",
               "tr": "Gerçek Zamanlı Analitik"
@@ -251,6 +253,18 @@
             "tr": "Gerçek zamanlı teslimat ve okundu bilgisi"
           }
         ],
+        "image": "/images/broadcast-dashboard.webp",
+        "imageAlt": {
+          "en": "WhatsApp Broadcast Campaign Manager Dashboard Mockup",
+          "pt": "Mockup do Painel de Transmissão de Campanhas WhatsApp",
+          "es": "Mockup del Panel del Gestor de Campañas de Difusión de WhatsApp",
+          "id": "Mockup Dasbor Pengelola Kampanye Siaran WhatsApp",
+          "ar": "نموذج لوحة تحكم مدير حملات بث واتساب",
+          "tr": "WhatsApp Yayın Kampanyası Yönetim Paneli Görseli"
+        },
+        "imageWidth": 600,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-[600px]",
         "reversed": false
       }
     },
@@ -262,7 +276,7 @@
           "pt": "Construtor de Chatbot Sem Código",
           "es": "Constructor de Chatbot Sin Código",
           "id": "Pembuat Chatbot Tanpa Kode",
-          "ar": "منشئ شات بوت بدون كود",
+          "ar": "منşئ شات بوت بدون كود",
           "tr": "Kodsuz Chatbot Oluşturucu"
         },
         "body": {
@@ -299,6 +313,18 @@
             "tr": "Çok dilli bot yanıtları"
           }
         ],
+        "image": "/images/chatbot-flow.webp",
+        "imageAlt": {
+          "en": "No-Code Visual Chatbot Flow Builder Mockup",
+          "pt": "Mockup do Construtor de Fluxo Visual do Chatbot Sem Código",
+          "es": "Mockup del Constructor de Flujos Visuales del Chatbot Sin Código",
+          "id": "Mockup Pembuat Alur Visual Chatbot Tanpa Kode",
+          "ar": "نموذج منشئ تدفق المحادثات البصري للشات بوت بدون كود",
+          "tr": "Kodsuz Görsel Chatbot Akış Oluşturucu Görseli"
+        },
+        "imageWidth": 600,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-[600px]",
         "reversed": true
       }
     },
@@ -316,6 +342,18 @@
           { "en": "Pre-registered compliant routes" },
           { "en": "99.9% delivery rate across all networks" }
         ],
+        "image": "/images/non-dlt-flow.webp",
+        "imageAlt": {
+          "en": "SMS OTP Delivery without DLT Registration Flow Chart",
+          "pt": "Fluxo de Entrega de SMS OTP sem Registro DLT",
+          "es": "Flujo de Entrega de SMS OTP sin Registro DLT",
+          "id": "Diagram Alur Pengiriman SMS OTP tanpa Registrasi DLT",
+          "ar": "مخطط تدفق تسليم رسائل SMS OTP دون تسجيل DLT",
+          "tr": "DLT Kaydı Olmadan SMS OTP Teslimat Akış Şeması"
+        },
+        "imageWidth": 600,
+        "imageHeight": 400,
+        "imageMaxWidth": "max-w-[600px]",
         "ctaLabel": { "en": "Explore SMS API" },
         "ctaHref": "/sms",
         "reversed": false
@@ -539,7 +577,7 @@
             "question": {
               "en": "How does the chatbot handle complex queries?",
               "pt": "Como o chatbot lida com consultas complexas?",
-              "es": "¿Cómo maneja el chatbot las consultas complejas?",
+              "es": "¿Como maneja el chatbot las consultas complejas?",
               "id": "Bagaimana chatbot menangani pertanyaan kompleks?",
               "ar": "كيف يتعامل الشات بوت مع الاستفسارات المعقدة؟",
               "tr": "Chatbot karmaşık sorguları nasıl yönetiyor?"

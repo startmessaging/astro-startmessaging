@@ -18,7 +18,8 @@
       "id": "Kirim pengingat janji, peringatan pembayaran, dan pembaruan transaksional melalui WhatsApp dan SMS.",
       "ar": "أرسل تذكيرات المواعيد وتنبيهات الدفع والتحديثات المعاملاتية عبر واتساب وSMS.",
       "tr": "WhatsApp ve SMS üzerinden randevu hatırlatmaları, ödeme uyarıları ve işlemsel bildirimler gönderin."
-    }
+    },
+    "ogImage": "/images/notifications-alerts.webp"
   },
   "sections": [
     {
@@ -30,7 +31,8 @@
           "es": "Notificaciones",
           "id": "Notifikasi",
           "ar": "الإشعارات",
-          "tr": "Bildirimler"
+          "tr": "Bildirimler",
+          "ng": "Notifications"
         },
         "title": {
           "en": "Notifications That Get Read",
@@ -38,44 +40,86 @@
           "es": "Notificaciones que Se Leen",
           "id": "Notifikasi yang Dibaca",
           "ar": "الإشعارات التي تُقرأ",
-          "tr": "Okunan Bildirimler"
+          "tr": "Okunan Bildirimler",
+          "ng": "Notifications That Get Read"
         },
         "subtitle": {
           "en": "Stop losing important notifications to spam folders. Send appointment reminders, payment alerts, and account updates via WhatsApp (98% open rate) with SMS fallback.",
           "pt": "Pare de perder notificações importantes em pastas de spam. Envie lembretes, alertas de pagamento e atualizações via WhatsApp (98% de abertura) com fallback SMS.",
-          "es": "Deje de perder notificaciones importantes en carpetas de spam. Envíe recordatorios, alertas de pago y actualizaciones vía WhatsApp (98% de apertura).",
+          "es": "Deje de perder notificaciones importantes en carpetas de spam. Envíe recordatorios, alertas de pago y actualizaciones vía WhatsApp (98% de apertura) con respaldo de SMS.",
           "id": "Berhenti kehilangan notifikasi penting di folder spam. Kirim pengingat, peringatan pembayaran, dan pembaruan via WhatsApp (98% tingkat buka) dengan fallback SMS.",
           "ar": "توقف عن فقدان الإشعارات المهمة في مجلدات البريد العشوائي. أرسل التذكيرات والتنبيهات والتحديثات عبر واتساب (98% فتح) مع احتياطي SMS.",
-          "tr": "Önemli bildirimleri spam klasörlerinde kaybetmeyi bırakın. Hatırlatmaları, uyarıları ve güncellemeleri WhatsApp (%98 açılma) ile SMS geri dönüşüyle gönderin."
+          "tr": "Önemli bildirimleri spam klasörlerinde kaybetmeyi bırakın. Hatırlatmaları, uyarıları ve güncellemeleri WhatsApp (%98 açılma) ile SMS geri dönüşüyle gönderin.",
+          "ng": "Stop losing important notifications to spam folders. Send appointment reminders, payment alerts, and account updates via WhatsApp (98% open rate) with SMS fallback."
         },
-        "primaryCta": { "en": "Start Sending" },
+        "primaryCta": {
+          "en": "Start Sending",
+          "pt": "Começar a Enviar",
+          "es": "Empezar a Enviar",
+          "id": "Mulai Mengirim",
+          "ar": "ابدأ الإرسال",
+          "tr": "Göndermeye Başlayın",
+          "ng": "Start Sending"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
       "type": "featuresGrid",
       "props": {
-        "heading": { "en": "Notification Types" },
+        "heading": { "en": "Notification Types", "pt": "Tipos de Notificações", "es": "Tipos de Notificaciones", "id": "Jenis Notifikasi", "ar": "أنواع الإشعارات", "tr": "Bildirim Türleri", "ng": "Notification Types" },
         "items": [
           {
             "icon": "broadcast",
-            "title": { "en": "Appointment Reminders" },
-            "description": { "en": "Reduce no-shows by 40% with automated appointment reminders including confirm/reschedule buttons." }
+            "title": { "en": "Appointment Reminders", "pt": "Lembretes de Consultas", "es": "Recordatorios de Citas", "id": "Pengingat Janji Temu", "ar": "تذكيرات المواعيد", "tr": "Randevu Hatırlatmaları", "ng": "Appointment Reminders" },
+            "description": {
+              "en": "Reduce no-shows by 40% with automated appointment reminders including confirm/reschedule buttons.",
+              "pt": "Reduza faltas em 40% com lembretes automáticos contendo botões de confirmar ou reagendar.",
+              "es": "Reduzca el ausentismo en un 40% con recordatorios automáticos que incluyen botones de confirmar/reprogramar.",
+              "id": "Kurangi ketidakhadiran sebesar 40% dengan pengingat janji temu otomatis termasuk tombol konfirmasi/penjadwalan ulang.",
+              "ar": "قلل من نسبة عدم الحضور بنسبة 40% مع تذكيرات المواعيد التلقائية التي تتضمن أزرار التأكيد أو إعادة الجدولة.",
+              "tr": "Onaylama/yeniden planlama butonları içeren otomatik randevu hatırlatıcıları ile randevuya gelmeme oranlarını %40 azaltın.",
+              "ng": "Reduce no-shows by 40% with automated appointment reminders including confirm/reschedule buttons."
+            }
           },
           {
             "icon": "shield",
-            "title": { "en": "Payment Alerts" },
-            "description": { "en": "Payment confirmations, invoice reminders, subscription renewals, and overdue payment notifications." }
+            "title": { "en": "Payment Alerts", "pt": "Alertas de Pagamento", "es": "Alertas de Pago", "id": "Peringatan Pembayaran", "ar": "تنبيهات الدفع", "tr": "Ödeme Uyarıları", "ng": "Payment Alerts" },
+            "description": {
+              "en": "Payment confirmations, invoice reminders, subscription renewals, and overdue payment notifications.",
+              "pt": "Confirmações de pagamento, lembretes de faturas, renovações de assinatura e alertas de atraso.",
+              "es": "Confirmaciones de pago, recordatorios de facturas, renovaciones de suscripción y alertas de retraso.",
+              "id": "Konfirmasi pembayaran, pengingat faktur, pembaruan langganan, dan notifikasi keterlambatan pembayaran.",
+              "ar": "تأكيدات الدفع، وتذكيرات الفواتير، وتجديد الاشتراكات، وإشعارات الدفع المتأخرة.",
+              "tr": "Ödeme onayları, fatura hatırlatıcıları, abonelik yenilemeleri ve vadesi geçmiş ödeme bildirimleri.",
+              "ng": "Payment confirmations, invoice reminders, subscription renewals, and overdue payment notifications."
+            }
           },
           {
             "icon": "template",
-            "title": { "en": "Account Notifications" },
-            "description": { "en": "Welcome messages, password resets, security alerts, and account activity notifications." }
+            "title": { "en": "Account Notifications", "pt": "Notificações de Conta", "es": "Notificaciones de Cuenta", "id": "Notifikasi Akun", "ar": "إشعارات الحساب", "tr": "Hesap Bildirimleri", "ng": "Account Notifications" },
+            "description": {
+              "en": "Welcome messages, password resets, security alerts, and account activity notifications.",
+              "pt": "Mensagens de boas-vindas, redefinições de senha, alertas de segurança e atividades de conta.",
+              "es": "Mensajes de bienvenida, restablecimiento de contraseñas, alertas de seguridad y actividad de la cuenta.",
+              "id": "Pesan selamat datang, reset kata sandi, peringatan keamanan, dan notifikasi aktivitas akun.",
+              "ar": "رسائل الترحيب، وإعادة تعيين كلمات المرور، والتنبيهات الأمنية، وإشعارات نشاط الحساب.",
+              "tr": "Hoş geldiniz mesajları, şifre sıfırlamaları, güvenlik uyarıları ve hesap etkinliği bildirimleri.",
+              "ng": "Welcome messages, password resets, security alerts, and account activity notifications."
+            }
           },
           {
             "icon": "analytics",
-            "title": { "en": "Service Updates" },
-            "description": { "en": "Maintenance windows, feature releases, policy changes, and system status notifications." }
+            "title": { "en": "Service Updates", "pt": "Atualizações de Serviço", "es": "Actualizaciones de Servicio", "id": "Pembaruan Layanan", "ar": "تحديثات الخدمة", "tr": "Hizmet Güncellemeleri", "ng": "Service Updates" },
+            "description": {
+              "en": "Maintenance windows, feature releases, policy changes, and system status notifications.",
+              "pt": "Janelas de manutenção, lançamentos de recursos, alterações de políticas e status do sistema.",
+              "es": "Ventanas de mantenimiento, lanzamientos de características, cambios de políticas y estado del sistema.",
+              "id": "Jadwal pemeliharaan, rilis fitur, perubahan kebijakan, dan notifikasi status sistem.",
+              "ar": "فترات الصيانة، وإصدارات الميزات، وتغييرات السياسة، وإشعارات حالة النظام.",
+              "tr": "Bakım zamanları, yeni özellik sürümleri, politika değişiklikleri ve sistem durumu bildirimleri.",
+              "ng": "Maintenance windows, feature releases, policy changes, and system status notifications."
+            }
           }
         ]
       }
@@ -83,17 +127,30 @@
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Smart Multi-Channel Dispatching" },
+        "heading": { "en": "Smart Multi-Channel Dispatching", "pt": "Envio Inteligente Multicanal", "es": "Envío Inteligente Multicanal", "id": "Pengiriman Multi-Saluran Cerdas", "ar": "إرسال ذكي متعدد القنوات", "tr": "Akıllı Çok Kanallı Gönderim", "ng": "Smart Multi-Channel Dispatching" },
         "body": {
-          "en": "Never miss a critical notification update. If a user is not online or active on WhatsApp, our system automatically detects it within a configured threshold and falls back to traditional transactional SMS instantly, ensuring 100% reach."
+          "en": "Never miss a critical notification update. If a user is not online or active on WhatsApp, our system automatically detects it within a configured threshold and falls back to traditional transactional SMS instantly, ensuring 100% reach.",
+          "pt": "Nunca perca uma notificação crítica. Se um usuário não estiver online no WhatsApp, nosso sistema detecta e faz o fallback para SMS transacional imediatamente.",
+          "es": "No pierda ninguna notificación crítica. Si un usuario no está activo en WhatsApp, nuestro sistema lo detecta y envía un SMS transaccional automáticamente.",
+          "id": "Jangan pernah melewatkan pembaruan notifikasi penting. Jika pengguna tidak online di WhatsApp, sistem kami secara otomatis mendeteksinya dan beralih ke SMS transaksional.",
+          "ar": "لا تفوت أي إشعار مهم. إذا لم يكن المستخدم متصلاً على واتساب، يكتشف نظامنا ذلك تلقائياً ويحولها إلى رسائل SMS لضمان الوصول بنسبة 100%.",
+          "tr": "Önemli bir bildirim güncellemesini asla kaçırmayın. Kullanıcı WhatsApp'ta çevrimiçi veya aktif değilse, sistemimiz bunu yapılandırılan eşik değerinde otomatik olarak algılar ve anında geleneksel işlemsel SMS'e geçerek %100 erişim sağlar."
         },
         "bullets": [
-          { "en": "WhatsApp-first routing with SMS fallback support" },
-          { "en": "Real-time delivery status receipts and webhook logs" },
-          { "en": "Support for localized DLT parameters in India" }
+          { "en": "WhatsApp-first routing with SMS fallback support", "pt": "Roteamento WhatsApp primeiro com fallback para SMS", "es": "Ruta WhatsApp primero con soporte de respaldo a SMS", "id": "Perutean WhatsApp-first dengan dukungan cadangan SMS", "ar": "توجيه واتساب أولاً مع دعم رسائل SMS الاحتياطية", "tr": "SMS yedekleme destekli öncelikli WhatsApp yönlendirmesi", "ng": "WhatsApp-first routing with SMS fallback support" },
+          { "en": "Real-time delivery status receipts and webhook logs", "pt": "Confirmação de entrega em tempo real e logs de webhook", "es": "Confirmación de entrega en tiempo real y registros de webhook", "id": "Laporan status pengiriman real-time dan log webhook", "ar": "إيصالات حالة التسليم في الوقت الفعلي وسجلات الويب هوك", "tr": "Gerçek zamanlı teslimat durumu raporları ve webhook günlükleri", "ng": "Real-time delivery status receipts and webhook logs" },
+          { "en": "Support for localized DLT parameters in India", "pt": "Suporte a parâmetros DLT localizados na Índia", "es": "Soporte para parámetros DLT localizados en India", "id": "Dukungan untuk parameter DLT lokal di India", "ar": "دعم معلمات DLT المحلية في الهند", "tr": "Hindistan'da yerelleştirilmiş DLT parametreleri desteği", "ng": "Support for localized DLT parameters in India" }
         ],
         "image": "/images/notifications-alerts.webp",
-        "imageAlt": { "en": "Multi-channel Notification Routing Preview" },
+        "imageAlt": {
+          "en": "Multi-channel Notification Routing Preview",
+          "pt": "Pré-visualização de Roteamento de Notificação Multicanal",
+          "es": "Vista Previa del Enrutamiento de Notificación Multicanal",
+          "id": "Pratinjau Perutean Notifikasi Multi-Saluran",
+          "ar": "معاينة توجيه الإشعارات متعددة القنوات",
+          "tr": "Çok Kanallı Bildirim Yönlendirme Önizlemesi",
+          "ng": "Multi-channel Notification Routing Preview"
+        },
         "imageWidth": 640,
         "imageHeight": 400,
         "imageMaxWidth": "max-w-xl",
@@ -103,20 +160,41 @@
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Routing Queue" },
-        "heading": { "en": "Notification Delivery Lifecycle" },
+        "badge": { "en": "Routing Queue", "pt": "Fila de Roteamento", "es": "Cola de Enrutamiento", "id": "Antrean Perutean", "ar": "طابور التوجيه", "tr": "Yönlendirme Kuyruğu", "ng": "Routing Queue" },
+        "heading": { "en": "Notification Delivery Lifecycle", "pt": "Ciclo de Vida de Entrega da Notificação", "es": "Ciclo de Vida de Entrega de Notificaciones", "id": "Siklus Hidup Pengiriman Notifikasi", "ar": "دورة حياة تسليم الإشعارات", "tr": "Bildirim Teslimat Yaşam Döngüsü", "ng": "Notification Delivery Lifecycle" },
         "steps": [
           {
-            "title": { "en": "1. Event Triggered" },
-            "description": { "en": "An event on your database (payment, reminder) triggers a POST request to our notifications API endpoint." }
+            "title": { "en": "1. Event Triggered", "pt": "1. Evento Disparado", "es": "1. Evento Disparado", "id": "1. Peristiwa Dipicu", "ar": "1. تشغيل الحدث", "tr": "1. Olay Tetiklendi", "ng": "1. Event Triggered" },
+            "description": {
+              "en": "An event on your database (payment, reminder) triggers a POST request to our notifications API endpoint.",
+              "pt": "Um evento no banco de dados (pagamento, lembrete) dispara uma requisição POST para nossa API.",
+              "es": "Un evento en la base de datos (pago, recordatorio) activa una solicitud POST a nuestra API.",
+              "id": "Peristiwa di database Anda (pembayaran, pengingat) memicu permintaan POST ke endpoint API notifikasi kami.",
+              "ar": "يؤدي حدث في قاعدة البيانات (دفع، تذكير) إلى تشغيل طلب POST إلى نقطة نهاية API الخاصة بالإشعارات.",
+              "tr": "Veritabanınızdaki bir olay (ödeme, hatırlatma), bildirim API uç noktamıza bir POST isteği tetikler."
+            }
           },
           {
-            "title": { "en": "2. WhatsApp Try" },
-            "description": { "en": "Our engine attempts delivery via WhatsApp, monitoring for read or delivery confirmation statuses." }
+            "title": { "en": "2. WhatsApp Try", "pt": "2. Tentativa via WhatsApp", "es": "2. Intento de WhatsApp", "id": "2. Mencoba WhatsApp", "ar": "2. محاولة واتساب", "tr": "2. WhatsApp Denemesi", "ng": "2. WhatsApp Try" },
+            "description": {
+              "en": "Our engine attempts delivery via WhatsApp, monitoring for read or delivery confirmation statuses.",
+              "pt": "Nosso motor tenta a entrega via WhatsApp, monitorando confirmações de leitura ou entrega.",
+              "es": "Nuestro motor intenta la entrega a través de WhatsApp, monitoreando los estados de entrega o lectura.",
+              "id": "Sistem kami mencoba pengiriman via WhatsApp, memantau status konfirmasi terkirim atau dibaca.",
+              "ar": "يحاول محركنا التسليم عبر واتساب، مع مراقبة حالات تأكيد التسليم أو القراءة.",
+              "tr": "Motorumuz, okundu veya teslim edildi onay durumlarını izleyerek WhatsApp üzerinden teslimat dener."
+            }
           },
           {
-            "title": { "en": "3. SMS Fallback" },
-            "description": { "en": "If not delivered within 30 seconds, a fallback SMS is triggered to ensure immediate delivery." }
+            "title": { "en": "3. SMS Fallback", "pt": "3. Fallback para SMS", "es": "3. Respaldo a SMS", "id": "3. Cadangan SMS", "ar": "3. احتياطي SMS", "tr": "3. SMS Yedekleme", "ng": "3. SMS Fallback" },
+            "description": {
+              "en": "If not delivered within 30 seconds, a fallback SMS is triggered to ensure immediate delivery.",
+              "pt": "Se não for entregue em 30 segundos, um SMS de fallback é enviado para garantir a entrega.",
+              "es": "Si no se entrega en 30 segundos, se envía un SMS automático para garantizar la entrega inmediata.",
+              "id": "Jika tidak terkirim dalam 30 detik, SMS cadangan dipicu untuk memastikan pengiriman segera.",
+              "ar": "إذا لم يتم التسليم في غضون 30 ثانية، يتم تشغيل رسالة SMS احتياطية لضمان التسليم الفوري.",
+              "tr": "30 saniye içinde teslim edilmezse, anında teslimatı sağlamak için yedek bir SMS tetiklenir."
+            }
           }
         ]
       }
@@ -124,39 +202,39 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Alert Comparisons" },
-        "heading": { "en": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications" },
-        "subheading": { "en": "Compare formatting capabilities, read speeds, and delivery reliability." },
+        "badge": { "en": "Alert Comparisons", "pt": "Comparações de Alertas", "es": "Comparaciones de Alertas", "id": "Perbandingan Peringatan", "ar": "مقارنات التنبيهات", "tr": "Bildirim Karşılaştırmaları", "ng": "Alert Comparisons" },
+        "heading": { "en": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications", "pt": "Alertas WhatsApp vs. SMS vs. Notificações por Email", "es": "Alertas WhatsApp vs. SMS vs. Notificaciones por Email", "id": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications", "ar": "تنبيهات واتساب المعاملاتية مقابل تنبيهات SMS مقابل إشعارات البريد الإلكتروني", "tr": "WhatsApp İşlemsel Uyarıları vs. SMS Uyarıları vs. E-posta Bildirimleri", "ng": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications" },
+        "subheading": { "en": "Compare formatting capabilities, read speeds, and delivery reliability.", "pt": "Compare formatação, velocidade de leitura e confiabilidade de entrega.", "es": "Compare formato, velocidad de lectura y confiabilidad de entrega.", "id": "Bandingkan kemampuan format, kecepatan baca, dan keandalan pengiriman.", "ar": "قارن إمكانيات التنسيق وسرعات القراءة وموثوقية التسليم.", "tr": "Biçimlendirme yeteneklerini, okunma hızlarını ve teslimat güvenilirliğini karşılaştırın.", "ng": "Compare formatting capabilities, read speeds, and delivery reliability." },
         "columns": [
-          { "label": { "en": "Outreach Factor" } },
-          { "label": { "en": "WhatsApp Alerts" }, "highlight": true },
-          { "label": { "en": "SMS Alerts" } },
-          { "label": { "en": "Email Notifications" } }
+          { "label": { "en": "Outreach Factor", "pt": "Fator de Alcance", "es": "Factor de Alcance", "id": "Faktor Jangkauan", "ar": "عامل الوصول", "tr": "Erişim Faktörü", "ng": "Outreach Factor" } },
+          { "label": { "en": "WhatsApp Alerts", "pt": "Alertas WhatsApp", "es": "Alertas WhatsApp", "id": "Peringatan WhatsApp", "ar": "تنبيهات واتساب", "tr": "WhatsApp Uyarıları", "ng": "WhatsApp Alerts" }, "highlight": true },
+          { "label": { "en": "SMS Alerts", "pt": "Alertas SMS", "es": "Alertas SMS", "id": "Peringatan SMS", "ar": "تنبيهات SMS", "tr": "SMS Uyarıları", "ng": "SMS Alerts" } },
+          { "label": { "en": "Email Notifications", "pt": "Notificações de Email", "es": "Notificaciones de Email", "id": "Notifikasi Email", "ar": "إشعارات البريد الإلكتروني", "tr": "E-posta Bildirimleri", "ng": "Email Notifications" } }
         ],
         "rows": [
           [
-            { "en": "Read Latency" },
-            { "en": "< 5 minutes (90% reads)" },
-            { "en": "< 15 minutes (Basic reads)" },
-            { "en": "Hours to days (Often delayed)" }
+            { "en": "Read Latency", "pt": "Latência de Leitura", "es": "Latencia de Lectura", "id": "Latensi Baca", "ar": "وقت القراءة", "tr": "Okunma Gecikmesi", "ng": "Read Latency" },
+            { "en": "< 5 minutes (90% reads)", "pt": "< 5 minutos (90% lido)", "es": "< 5 minutos (90% leído)", "id": "< 5 menit (90% dibaca)", "ar": "< 5 دقائق (90% قراءة)", "tr": "< 5 dakika (%90 okunma)", "ng": "< 5 minutes (90% reads)" },
+            { "en": "< 15 minutes (Basic reads)", "pt": "< 15 minutos (Leitura básica)", "es": "< 15 minutos (Leitura básica)", "id": "< 15 menit (Pembacaan biasa)", "ar": "< 15 دقيقة (قراءة أساسية)", "tr": "< 15 dakika (Temel okunma)", "ng": "< 15 minutes (Basic reads)" },
+            { "en": "Hours to days (Often delayed)", "pt": "Horas a dias (Atrasado)", "es": "Horas a días (Atrasado)", "id": "Jam hingga hari (Sering tertunda)", "ar": "ساعات إلى أيام (متأخر عادةً)", "tr": "Saatler ila günler (Genellikle gecikmeli)", "ng": "Hours to days (Often delayed)" }
           ],
           [
-            { "en": "Interactive Buttons" },
-            { "en": "✓ (Clickable CTAs / Quick replies)" },
-            { "en": "✗ (Raw hyperlinks only)" },
-            { "en": "✓ (HTML layout links)" }
+            { "en": "Interactive Buttons", "pt": "Botões Interativos", "es": "Botones Interactivos", "id": "Tombol Interaktif", "ar": "أزرار تفاعلية", "tr": "Etkileşimli Butonlar", "ng": "Interactive Buttons" },
+            { "en": "✓ (Clickable CTAs / Quick replies)", "pt": "✓ (CTAs clicáveis / Respostas rápidas)", "es": "✓ (CTAs clicables / Respuestas rápidas)", "id": "✓ (CTA yang dapat diklik / Balasan cepat)", "ar": "✓ (أزرار تفاعلية وروابط كليك)", "tr": "✓ (Tıklanabilir CTA'lar / Hızlı yanıtlar)", "ng": "✓ (Clickable CTAs / Quick replies)" },
+            { "en": "✗ (Raw hyperlinks only)", "pt": "✗ (Apenas links de URL brutos)", "es": "✗ (Solo enlaces de URL simples)", "id": "✗ (Hanya tautan mentah)", "ar": "✗ (روابط نصية فقط)", "tr": "✗ (Yalnızca ham köprüler)", "ng": "✗ (Raw hyperlinks only)" },
+            { "en": "✓ (HTML layout links)", "pt": "✓ (Links de layout HTML)", "es": "✓ (Enlaces de diseño HTML)", "id": "✓ (Tautan tata letak HTML)", "ar": "✓ (روابط تخطيط HTML)", "tr": "✓ (HTML düzen bağlantıları)", "ng": "✓ (HTML layout tags)" }
           ],
           [
-            { "en": "Delivery Priority" },
-            { "en": "High (Direct Meta BSP pipe)" },
-            { "en": "Medium (Subject to network congestion)" },
-            { "en": "Low (Sorted to promo inbox)" }
+            { "en": "Delivery Priority", "pt": "Prioridade de Entrega", "es": "Prioridad de Entrega", "id": "Prioritas Pengiriman", "ar": "أولوية التسليم", "tr": "Teslimat Önceliği", "ng": "Delivery Priority" },
+            { "en": "High (Direct Meta BSP pipe)", "pt": "Alta (Link direto Meta BSP)", "es": "Alta (Enlace directo Meta BSP)", "id": "Tinggi (Jalur langsung Meta BSP)", "ar": "مرتفعة (خط مباشر Meta BSP)", "tr": "Yüksek (Doğrudan Meta BSP hattı)", "ng": "High (Direct Meta BSP pipe)" },
+            { "en": "Medium (Subject to network congestion)", "pt": "Média (Sujeito a congestionamento)", "es": "Media (Sujeto a congestión de red)", "id": "Sedang (Tergantung kemacetan jaringan)", "ar": "متوسطة (تخضع للازدحام)", "tr": "Orta (Şebeke yoğunluğuna bağlı)", "ng": "Medium (Subject to network congestion)" },
+            { "en": "Low (Sorted to promo inbox)", "pt": "Baixa (Direcionado para aba promo)", "es": "Baja (Enviado a pestaña promo)", "id": "Rendah (Disaring ke kotak masuk promo)", "ar": "منخفضة (تذهب لبريد الترويج)", "tr": "Düşük (Tanıtım gelen kutusuna yönlendirilir)", "ng": "Low (Sorted to promo inbox)" }
           ],
           [
-            { "en": "Rich PDF Receipts" },
-            { "en": "✓ (Sent as direct file attachment)" },
-            { "en": "✗ (No files support)" },
-            { "en": "✓ (Standard attachments)" }
+            { "en": "Rich PDF Receipts", "pt": "Recibos em PDF Rico", "es": "Recibos PDF Completos", "id": "Tanda Terima PDF Kaya", "ar": "إيصالات PDF غنية", "tr": "Zengin PDF Makbuzları", "ng": "Rich PDF Receipts" },
+            { "en": "✓ (Sent as direct file attachment)", "pt": "✓ (Enviado como anexo de arquivo)", "es": "✓ (Enviado como archivo adjunto directo)", "id": "✓ (Dikirim sebagai lampiran file langsung)", "ar": "✓ (يُرسل كملف مرفق مباشر)", "tr": "✓ (Doğrudan dosya eki olarak gönderilir)", "ng": "✓ (Sent as direct file attachment)" },
+            { "en": "✗ (No files support)", "pt": "✗ (Sem suporte a arquivos)", "es": "✗ (Sin soporte a archivos)", "id": "✗ (Tidak mendukung file)", "ar": "✗ (لا يدعم الملفات)", "tr": "✗ (Dosya desteği yok)", "ng": "✗ (No files support)" },
+            { "en": "✓ (Standard attachments)", "pt": "✓ (Anexos padrão)", "es": "✓ (Adjuntos estándar)", "id": "✓ (Lampiran standar)", "ar": "✓ (مرفقات قياسية)", "tr": "✓ (Standart ekler)", "ng": "✓ (Standard attachments)" }
           ]
         ]
       }
@@ -164,9 +242,9 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Alert API" },
-        "heading": { "en": "Dispatch Transactional Alerts" },
-        "overlayText": { "en": "Transactional Alerts API Sandbox — Coming Soon" },
+        "badge": { "en": "Alert API", "pt": "API de Alerta", "es": "API de Alerta", "id": "API Peringatan", "ar": "API التنبيهات", "tr": "Bildirim API'si", "ng": "Alert API" },
+        "heading": { "en": "Dispatch Transactional Alerts", "pt": "Enviar Alertas Transacionais", "es": "Enviar Alertas Transaccionales", "id": "Kirim Peringatan Transaksional", "ar": "إرسال التنبيهات المعاملاتية", "tr": "İşlemsel Uyarılar Gönderin", "ng": "Dispatch Transactional Alerts" },
+        "overlayText": { "en": "Transactional Alerts API Sandbox — Coming Soon", "pt": "Sandbox de API de Alertas — Em Breve", "es": "Sandbox de API de Alertas — Próximamente", "id": "Transactional Alerts API Sandbox — Segera Hadir", "ar": "بيئة تجريبية لـ API الإشعارات — قريباً", "tr": "İşlemsel Uyarılar API Sanal Alanı — Çok Yakında", "ng": "Transactional Alerts API Sandbox — Coming Soon" },
         "snippets": [
           {
             "lang": "cURL",
@@ -186,29 +264,87 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "Notifications — FAQ" },
+        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
+        "heading": { "en": "Notifications — FAQ", "pt": "Notificações — FAQ", "es": "Notificaciones — FAQ", "id": "Notifikasi — FAQ", "ar": "الإشعارات — الأسئلة الشائعة", "tr": "Bildirimler — SSS", "ng": "Notifications — FAQ" },
         "items": [
           {
             "question": {
-              "en": "Can I send notifications via both WhatsApp and SMS?"
+              "en": "Can I send notifications via both WhatsApp and SMS?",
+              "pt": "Posso enviar notificações via WhatsApp e SMS?",
+              "es": "¿Puedo enviar notificaciones a través de WhatsApp y SMS?",
+              "id": "Apakah saya bisa mengirim notifikasi via WhatsApp dan SMS?",
+              "ar": "هل يمكنني إرسال إشعارات عبر كل من واتساب وSMS؟",
+              "tr": "Hem WhatsApp hem de SMS üzerinden bildirim gönderebilir miyim?",
+              "ng": "Can I send notifications via both WhatsApp and SMS?"
             },
             "answer": {
-              "en": "Yes. Our API supports multi-channel delivery. You can send notifications via WhatsApp-first with automatic SMS fallback, or choose a specific channel per notification type. This ensures maximum delivery regardless of whether the user has WhatsApp."
+              "en": "Yes. Our API supports multi-channel delivery. You can send notifications via WhatsApp-first with automatic SMS fallback, or choose a specific channel per notification type. This ensures maximum delivery regardless of whether the user has WhatsApp.",
+              "pt": "Sim. Nossa API suporta entrega multicanal. Envie via WhatsApp primeiro com fallback automático para SMS, ou selecione o canal específico por tipo de notificação.",
+              "es": "Sí. Nuestra API admite entrega multicanal. Puede enviar a través de WhatsApp primero con respaldo automático a SMS, o elegir el canal por tipo de notificación.",
+              "id": "Ya. API kami mendukung pengiriman multi-saluran. Anda dapat mengirim notifikasi via WhatsApp terlebih dahulu dengan cadangan SMS otomatis, atau memilih saluran khusus per jenis notifikasi.",
+              "ar": "نعم. تدعم واجهة البرمجة التسليم متعدد القنوات. يمكنك إرسال إشعارات عبر واتساب أولاً مع تحويل تلقائي إلى SMS احتياطية، أو اختيار قناة معينة لكل نوع إشعار.",
+              "tr": "Evet. API'miz çok kanallı teslimatı destekler. Bildirimleri otomatik SMS yedeklemesiyle önce WhatsApp üzerinden gönderebilir veya bildirim türü başına belirli bir kanal seçebilirsiniz. Bu, kullanıcının WhatsApp'ı olup olmadığına bakılmaksızın maksimum teslimat sağlar.",
+              "ng": "Yes. Our API supports multi-channel delivery. You can send notifications via WhatsApp-first with automatic SMS fallback, or choose a specific channel per notification type. This ensures maximum delivery regardless of whether the user has WhatsApp."
             }
           },
           {
             "question": {
               "en": "Are there local restrictions for sending transactional notifications?",
-              "in": "How do DLT headers and templates map for SMS fallback notifications in India?",
-              "ng": "Does the system comply with CBN guidelines for transactional alert delays in Nigeria?",
-              "tr": "İşlemsel bildirimler Türkiye'de KVKK kurallarına nasıl uyum sağlar?"
+              "pt": "Existem restrições locais para o envio de notificações transacionais?",
+              "es": "¿Existen restricciones locales para enviar notificaciones transaccionales?",
+              "id": "Apakah ada batasan lokal untuk mengirim notifikasi transaksional?",
+              "ar": "هل هناك قيود محلية لإرسال الإشعارات المعاملاتية؟",
+              "tr": "İşlemsel bildirimler göndermek için yerel kısıtlamalar var mı?",
+              "ng": "Are there local restrictions for sending transactional notifications?"
             },
             "answer": {
-              "en": "Transactional notifications must be directly related to customer actions and do not require promotional opt-ins.",
-              "in": "For Indian transactional SMS fallback, you must register your DLT Header (Sender ID) and Template. Our API maps the variables (such as order IDs or prices) automatically so the fallback SMS matches DLT registers exactly and delivers instantly.",
-              "ng": "Yes. CBN guidelines mandate immediate delivery for transactional alerts. StartMessaging's direct connections with Nigerian telcos (MTN, Airtel) trigger SMS fallback in less than 30 seconds if the data connection is inactive, meeting compliance standards.",
-              "tr": "Türkiye'de işlemlerle ilgili bilgilendirme (sipariş, kargo vb.) bildirimleri KVKK kapsamında rıza dışı sayılır ve doğrudan gönderilebilir. Ancak, bildirim verilerinin işlenmesi veri güvenliği standartlarına uygun olmalı ve sunucularımızda şifrelenmiş olarak saklanmalıdır."
+              "en": "Transactional notifications must be directly related to customer actions and do not require promotional opt-ins, though regional compliance formats (like DLT in India) may apply.",
+              "pt": "Notificações transacionais devem estar relacionadas a ações do cliente e não exigem opt-in promocional, embora regras locais (como DLT na Índia) se apliquem.",
+              "es": "Las notificaciones transaccionales deben estar directamente relacionadas con las acciones del cliente y no requieren consentimiento promocional, aunque se aplican las reglas de DLT en India.",
+              "id": "Notifikasi transaksional harus berhubungan langsung dengan tindakan pelanggan dan tidak memerlukan persetujuan promosi, meskipun format kepatuhan regional (seperti DLT di India) dapat berlaku.",
+              "ar": "يجب أن تكون الإشعارات المعاملاتية مرتبطة مباشرة بإجراءات العميل ولا تتطلب موافقة ترويجية، على الرغم من تطبيق متطلبات DLT في الهند.",
+              "tr": "İşlemsel bildirimler doğrudan müşteri eylemleriyle ilgili olmalıdır ve tanıtım onayları gerektirmez, ancak bölgesel uyumluluk formatları (Hindistan'da DLT gibi) geçerli olabilir.",
+              "ng": "Transactional notifications must be directly related to customer actions and do not require promotional opt-ins, though regional compliance formats (like DLT in India) may apply."
+            }
+          },
+          {
+            "question": {
+              "en": "How is the fallback delay configured?",
+              "pt": "Como é configurado o atraso do fallback?",
+              "es": "¿Cómo se configura el retraso del respaldo (fallback)?",
+              "id": "Bagaimana penundaan fallback dikonfigurasi?",
+              "ar": "كيف يتم تكوين تأخير الإرسال الاحتياطي؟",
+              "tr": "Yedekleme (fallback) gecikmesi nasıl yapılandırılır?",
+              "ng": "How is the fallback delay configured?"
+            },
+            "answer": {
+              "en": "You can specify the fallback_delay parameter (in seconds) in your API request. If the WhatsApp message status doesn't change to 'delivered' or 'read' within that timeframe, our engine automatically triggers the fallback SMS.",
+              "pt": "Você pode especificar o parâmetro fallback_delay (em segundos) na requisição da API. Se a mensagem do WhatsApp não for entregue no tempo definido, o SMS é enviado automaticamente.",
+              "es": "Puede especificar el parámetro fallback_delay (en segundos) en la API. Si el mensaje de WhatsApp no se entrega en ese plazo, se envía el SMS automático.",
+              "id": "Anda dapat menentukan parameter fallback_delay (dalam detik) di API. Jika pesan WhatsApp tidak berubah menjadi 'terkirim' dalam batas waktu tersebut, sistem kami akan mengirimkan SMS cadangan.",
+              "ar": "يمكنك تحديد معلمة fallback_delay (بالثواني) في طلب واجهة البرمجة. إذا لم تتغير حالة رسالة واتساب إلى 'تم التسليم' خلال تلك المدة، فسيتم إرسال رسالة SMS تلقائياً.",
+              "tr": "API isteğinizde fallback_delay parametresini (saniye cinsinden) belirtebilirsiniz. WhatsApp mesaj durumu bu süre içinde 'teslim edildi' olarak değişmezse, sistemimiz otomatik olarak yedek SMS'i tetikler.",
+              "ng": "You can specify the fallback_delay parameter (in seconds) in your API request. If the WhatsApp message status doesn't change to 'delivered' or 'read' within that timeframe, our engine automatically triggers the fallback SMS."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I attach PDF receipts to transactional notifications?",
+              "pt": "Posso anexar recibos PDF a notificações transacionais?",
+              "es": "¿Puedo adjuntar recibos PDF a las notificaciones transaccionales?",
+              "id": "Apakah saya bisa melampirkan tanda terima PDF ke notifikasi transaksional?",
+              "ar": "هل يمكنني إرفاق إيصالات PDF بالإشعارات المعاملاتية؟",
+              "tr": "İşlemsel bildirimlere PDF makbuzları ekleyebilir miyim?",
+              "ng": "Can I attach PDF receipts to transactional notifications?"
+            },
+            "answer": {
+              "en": "Yes. Our WhatsApp API supports document templates, allowing you to pass a public URL of a PDF invoice or receipt. The user will receive it directly as a downloadable file inside the chat.",
+              "pt": "Sim. Nossa API suporta modelos de documentos, permitindo enviar a URL pública de um PDF de fatura ou recibo. O usuário recebe o arquivo diretamente no chat.",
+              "es": "Sí. Nuestra API admite plantillas de documentos, lo que le permite enviar una URL pública de un recibo PDF. El usuario recibirá el archivo en su chat.",
+              "id": "Ya. API WhatsApp kami mendukung templat dokumen, memungkinkan Anda meneruskan URL publik dari faktur PDF. Pengguna akan menerimanya langsung di dalam obrolan.",
+              "ar": "نعم. تدعم واجهة واتساب الخاصة بنا قوالب المستندات، مما يتيح لك تمرير رابط URL عام لفاتورة أو إيصال PDF. سيتلقاه المستخدم كملف قابل للتنزيل مباشرة.",
+              "tr": "Evet. WhatsApp API'miz belge şablonlarını destekler ve bir PDF faturasının veya makbuzunun herkese açık URL'sini iletmenize olanak tanır. Kullanıcı bunu doğrudan sohbet içinde indirilebilir bir dosya olarak alır.",
+              "ng": "Yes. Our WhatsApp API supports document templates, allowing you to pass a public URL of a PDF invoice or receipt. The user will receive it directly as a downloadable file inside the chat."
             }
           }
         ]
@@ -217,21 +353,21 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar", "ng": "Related Pages" },
         "links": [
-          { "label": { "en": "E-Commerce System" }, "href": "/use-cases/ecommerce" },
-          { "label": { "en": "Customer Support" }, "href": "/use-cases/customer-support" },
-          { "label": { "en": "WhatsApp Utility" }, "href": "/whatsapp/utility" },
-          { "label": { "en": "Technical Limits" }, "href": "/limits" }
+          { "label": { "en": "E-Commerce System", "pt": "Sistema de E-Commerce", "es": "Sistema de E-Commerce", "id": "Sistem E-Commerce", "ar": "نظام التجارة الإلكترونية", "tr": "E-Ticaret Sistemi", "ng": "E-Commerce System" }, "href": "/use-cases/ecommerce" },
+          { "label": { "en": "Customer Support", "pt": "Suporte ao Cliente", "es": "Soporte al Cliente", "id": "Dukungan Pelanggan", "ar": "دعم العملاء", "tr": "Müşteri Desteği", "ng": "Customer Support" }, "href": "/use-cases/customer-support" },
+          { "label": { "en": "WhatsApp Utility", "pt": "Utilidade WhatsApp", "es": "Utilidad WhatsApp", "id": "Utilitas WhatsApp", "ar": "خدمات واتساب", "tr": "WhatsApp Yardımcı Programı", "ng": "WhatsApp Utility" }, "href": "/whatsapp/utility" },
+          { "label": { "en": "Technical Limits", "pt": "Limites Técnicos", "es": "Límites Técnicos", "id": "Batasan Teknis", "ar": "الحدود الفنية", "tr": "Teknik Limitler", "ng": "Technical Limits" }, "href": "/limits" }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Upgrade Your Notifications" },
-        "subtext": { "en": "Free plan. No credit card required." },
-        "primaryCta": { "en": "Get Started Free" },
+        "heading": { "en": "Upgrade Your Notifications", "pt": "Atualize Suas Notificações", "es": "Actualice Sus Notificaciones", "id": "Tingkatkan Notifikasi Anda", "ar": "ترقية إشعاراتك", "tr": "Bildirimlerinizi Yükseltin", "ng": "Upgrade Your Notifications" },
+        "subtext": { "en": "Start in 5 minutes. No credit card required.", "pt": "Comece em 5 minutos. Sem cartão de crédito.", "es": "Comience en 5 minutos. Sin tarjeta de crédito.", "id": "Mulai dalam 5 menit. Tanpa kartu kredit.", "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.", "tr": "5 dakikada başlayın. Kredi kartı gerekmez.", "ng": "Start in 5 minutes. No credit card required." },
+        "primaryCta": { "en": "Get Started Free", "pt": "Começar Grátis", "es": "Empieza Gratis", "id": "Mulai Gratis", "ar": "ابدأ مجاناً", "tr": "Ücretsiz Başla", "ng": "Get Started Free" },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

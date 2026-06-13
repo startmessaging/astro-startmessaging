@@ -8,15 +8,17 @@
       "es": "Precios — StartMessaging",
       "id": "Harga — StartMessaging",
       "ar": "الأسعار — StartMessaging",
-      "tr": "Fiyatlar — StartMessaging"
+      "tr": "Fiyatlar — StartMessaging",
+      "ng": "Pricing — StartMessaging"
     },
     "description": {
-      "en": "Simple, pay-as-you-go pricing for WhatsApp Business API and SMS. Free plan available. No hidden fees.",
-      "pt": "Preços simples e flexíveis para API WhatsApp Business e SMS. Plano gratuito disponível. Sem taxas ocultas.",
-      "es": "Precios simples y flexibles para la API de WhatsApp Business y SMS. Plan gratuito disponible. Sin tarifas ocultas.",
-      "id": "Harga sederhana dan bayar sesuai penggunaan untuk API WhatsApp Business dan SMS. Paket gratis tersedia. Tanpa biaya tersembunyi.",
-      "ar": "أسعار بسيطة وتدفع أولاً بأول لواجهة WhatsApp Business API وSMS. خطة مجانية متاحة. بدون رسوم خفية.",
-      "tr": "WhatsApp Business API ve SMS için basit, kullandıkça öde fiyatlandırması. Ücretsiz plan mevcut. Gizli ücret yok."
+      "en": "Simple, transparent pricing for WhatsApp Business API and SMS. Flexible plans, pay-as-you-go message rates. No setup fees.",
+      "pt": "Preços simples e transparentes para a API WhatsApp Business e SMS. Planos flexíveis e tarifas sob demanda. Sem taxas de instalação.",
+      "es": "Precios simples y transparentes para la API de WhatsApp Business y SMS. Planes flexibles y tarifas de pago por uso. Sin cargos de configuración.",
+      "id": "Harga sederhana dan transparan untuk API WhatsApp Business dan SMS. Paket fleksibel, tarif pesan bayar sesuai penggunaan. Tanpa biaya setup.",
+      "ar": "أسعار بسيطة وشفافة لواجهة WhatsApp Business API وSMS. خطط مرنة وأسعار رسائل بنظام الدفع حسب الاستخدام. بدون رسوم إعداد.",
+      "tr": "WhatsApp Business API ve SMS için basit, şeffaf fiyatlandırma. Esnek planlar, kullandıkça öde mesaj tarifeleri. Kurulum ücreti yok.",
+      "ng": "Simple, transparent pricing for WhatsApp Business API and SMS. Flexible plans, pay-as-you-go message rates. No setup fees."
     },
     "ogImage": "/og.png?title=Pricing&theme=sms"
   },
@@ -30,7 +32,8 @@
           "es": "Precios",
           "id": "Harga",
           "ar": "الأسعار",
-          "tr": "Fiyatlar"
+          "tr": "Fiyatlar",
+          "ng": "Pricing"
         },
         "title": {
           "en": "Simple, Transparent Pricing",
@@ -38,15 +41,17 @@
           "es": "Precios Simples y Transparentes",
           "id": "Harga Sederhana dan Transparan",
           "ar": "أسعار بسيطة وشفافة",
-          "tr": "Basit ve Şeffaf Fiyatlandırma"
+          "tr": "Basit ve Şeffaf Fiyatlandırma",
+          "ng": "Simple, Transparent Pricing"
         },
         "subtitle": {
-          "en": "No hidden setup fees. Start free and scale as you grow. Pay only for the messages you send.",
-          "pt": "Sem taxas de configuração ocultas. Comece grátis e escale conforme cresce. Pague apenas pelas mensagens enviadas.",
-          "es": "Sin tarifas de configuración ocultas. Empiece gratis y escale a medida que crece. Pague solo por los mensajes que envíe.",
-          "id": "Tidak ada biaya pengaturan tersembunyi. Mulai gratis dan skalakan sesuai pertumbuhan. Bayar hanya untuk pesan yang Anda kirim.",
-          "ar": "لا توجد رسوم إعداد مخفية. ابدأ مجاناً وتوسّع مع نموك. ادفع فقط مقابل الرسائل التي ترسلها.",
-          "tr": "Gizli kurulum ücreti yok. Ücretsiz başlayın ve büyüdükçe ölçeklendirin. Sadece gönderdiğiniz mesajlar için ödeme yapın."
+          "en": "No hidden setup fees. Choose between flexible WhatsApp plans and pay-as-you-go SMS options.",
+          "pt": "Sem taxas de configuração ocultas. Escolha entre planos flexíveis de WhatsApp e opções de SMS sob demanda.",
+          "es": "Sin tarifas de configuración ocultas. Elija entre planes flexibles de WhatsApp y opciones de SMS de pago por uso.",
+          "id": "Tanpa biaya setup tersembunyi. Pilih antara paket WhatsApp yang fleksibel dan pilihan SMS bayar sesuai penggunaan.",
+          "ar": "لا توجد رسوم إعداد مخفية. اختر بين خطط واتساب المرنة وخيارات رسائل SMS بنظام الدفع حسب الاستخدام.",
+          "tr": "Gizli kurulum ücreti yok. Esnek WhatsApp planları ile kullandıkça öde SMS seçenekleri arasında seçim yapın.",
+          "ng": "No hidden setup fees. Choose between flexible WhatsApp plans and pay-as-you-go SMS options."
         },
         "primaryCta": {
           "en": "Get Started Free",
@@ -54,42 +59,92 @@
           "es": "Empieza Gratis",
           "id": "Mulai Gratis",
           "ar": "ابدأ مجاناً",
-          "tr": "Ücretsiz Başla"
+          "tr": "Ücretsiz Başla",
+          "ng": "Get Started Free"
         },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
-      "type": "pricingTabs",
+      "type": "serviceCards",
+      "countries": ["in"],
       "props": {
         "badge": {
-          "en": "Plans",
-          "pt": "Planos",
-          "es": "Planes",
-          "id": "Paket",
-          "ar": "الخطط",
-          "tr": "Planlar"
+          "en": "SMS Pricing"
         },
         "heading": {
-          "en": "Choose Your Plan",
-          "pt": "Escolha Seu Plano",
-          "es": "Elija Su Plan",
-          "id": "Pilih Paket Anda",
-          "ar": "اختر خطتك",
-          "tr": "Planınızı Seçin"
+          "en": "India Transactional SMS"
         },
         "subheading": {
-          "en": "All plans include full API access. Upgrade or downgrade anytime.",
-          "pt": "Todos os planos incluem acesso completo à API. Faça upgrade ou downgrade a qualquer momento.",
-          "es": "Todos los planes incluyen acceso completo a la API. Actualice o degrade en cualquier momento.",
-          "id": "Semua paket mencakup akses API penuh. Upgrade atau downgrade kapan saja.",
-          "ar": "جميع الخطط تشمل وصولاً كاملاً لـ API. قم بالترقية أو التخفيض في أي وقت.",
-          "tr": "Tüm planlar tam API erişimi içerir. İstediğiniz zaman yükseltme veya düşürme yapın."
+          "en": "Truly pay-as-you-go SMS with carrier-grade reliability. No DLT registration overhead required."
         },
-        "showSms": "$hasSms",
-        "currency": "$currency",
-        "smsNote": {
-          "en": "SMS pricing: ₹0.25 per transactional SMS. No DLT registration required."
+        "cards": [
+          {
+            "title": {
+              "en": "Non-DLT SMS"
+            },
+            "description": {
+              "en": "Send high-delivery transactional alerts, notifications, and verification codes instantly. Fully compliant with carrier rules without PE-ID or DLT template overhead."
+            },
+            "price": {
+              "en": "₹0.25"
+            },
+            "period": {
+              "en": "/SMS"
+            },
+            "ctaLabel": {
+              "en": "Get Started"
+            },
+            "ctaHref": "https://app.startmessaging.com/signup",
+            "features": [
+              { "en": "Flat ₹0.25 per message" },
+              { "en": "Direct carrier routing (99%+ delivery)" },
+              { "en": "Zero setup fees or minimum commitments" },
+              { "en": "API key ready in 30 seconds" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "richText",
+      "countries": ["in"],
+      "props": {
+        "body": {
+          "en": "<h3>Auth API & DLT SMS Pricing</h3><p>Our <strong>Universal Auth API</strong> pricing and official carrier-approved <strong>DLT SMS rates</strong> are currently in active development. We are partnering with Tier-1 carriers in India to negotiate the absolute lowest per-message rates for secure verification.</p><ul><li><strong>Status:</strong> In Beta & Development</li><li><strong>Pricing Model:</strong> Volume-based tier discounts (TBD)</li><li><strong>Estimated Rates:</strong> Launching shortly</li></ul><p>Want to get early access to our developer sandbox and be notified of our official launch rates? <a href=\"/contact\">Contact our support team</a> to join the waitlist.</p>"
+        }
+      }
+    },
+    {
+      "type": "pricingTabs",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "WhatsApp API",
+          "pt": "API WhatsApp",
+          "es": "API WhatsApp",
+          "id": "API WhatsApp",
+          "ar": "واتساب API",
+          "tr": "WhatsApp API",
+          "ng": "WhatsApp API"
+        },
+        "heading": {
+          "en": "WhatsApp Business Plans",
+          "pt": "Planos WhatsApp Business",
+          "es": "Planes de WhatsApp Business",
+          "id": "Paket WhatsApp Business",
+          "ar": "خطط واتساب للأعمال",
+          "tr": "WhatsApp Business Planları",
+          "ng": "WhatsApp Business Plans"
+        },
+        "subheading": {
+          "en": "Choose the right tier for your support and marketing campaigns. Standard Meta message-category rates apply.",
+          "pt": "Escolha o nível ideal para seu suporte e campanhas de marketing. Aplicam-se as tarifas padrão de categoria da Meta.",
+          "es": "Elija el nivel ideal para su soporte y campañas de marketing. Se aplican las tarifas estándar de Meta.",
+          "id": "Pilih paket yang tepat untuk dukungan dan kampanye pemasaran Anda. Berlaku tarif kategori pesan standar Meta.",
+          "ar": "اختر الفئة المناسبة لخدمة العملاء وحملات التسويق. تطبق رسوم Meta القياسية للرسائل.",
+          "tr": "Destek ve pazarlama kampanyalarınız için doğru paketi seçin. Standart Meta mesaj kategorisi ücretleri geçerlidir.",
+          "ng": "Choose the right tier for your support and marketing campaigns. Standard Meta message-category rates apply."
         },
         "pricingLink": "#",
         "pricingLinkLabel": {
@@ -98,7 +153,8 @@
           "es": "Ver precios completos de WhatsApp por país (PDF)",
           "id": "Lihat harga WhatsApp lengkap per negara (PDF)",
           "ar": "عرض أسعار واتساب الكاملة حسب البلد (PDF)",
-          "tr": "Ülkelere göre tam WhatsApp fiyatlandırmasını görüntüleyin (PDF)"
+          "tr": "Ülkelere göre tam WhatsApp fiyatlandırmasını görüntüleyin (PDF)",
+          "ng": "View full WhatsApp pricing by country (PDF)"
         },
         "plans": [
           {
@@ -108,7 +164,8 @@
               "es": "Gratis",
               "id": "Gratis",
               "ar": "مجاني",
-              "tr": "Ücretsiz"
+              "tr": "Ücretsiz",
+              "ng": "Free"
             },
             "price": {
               "en": "$0",
@@ -116,7 +173,8 @@
               "es": "$0",
               "id": "Rp0",
               "ar": "مجاني",
-              "tr": "₺0"
+              "tr": "₺0",
+              "ng": "$0"
             },
             "period": {
               "en": "/month",
@@ -124,24 +182,27 @@
               "es": "/mes",
               "id": "/bulan",
               "ar": "/شهر",
-              "tr": "/ay"
+              "tr": "/ay",
+              "ng": "/month"
             },
             "description": {
-              "en": "Perfect for developers testing and building integrations. Pay-as-you-go for messages.",
-              "pt": "Perfeito para desenvolvedores testando e construindo integrações. Pague conforme o uso para mensagens.",
-              "es": "Perfecto para desarrolladores probando y construyendo integraciones. Pague por uso para mensajes.",
-              "id": "Sempurna untuk developer yang menguji dan membangun integrasi. Bayar sesuai penggunaan untuk pesan.",
-              "ar": "مثالي للمطورين الذين يختبرون ويبنون التكاملات. ادفع حسب الاستخدام للرسائل.",
-              "tr": "Entegrasyonları test eden ve oluşturan geliştiriciler için mükemmel. Mesajlar için kullandıkça öde."
+              "en": "Perfect for testing APIs and building initial flows. Pay-as-you-go per message.",
+              "pt": "Perfeito para testar APIs e construir fluxos iniciais. Mensagens pagas sob demanda.",
+              "es": "Perfecto para probar APIs y crear flujos iniciales. Mensajes de pago por uso.",
+              "id": "Sempurna untuk menguji API dan membangun alur awal. Bayar sesuai penggunaan per pesan.",
+              "ar": "مثالي لاختبار واجهات برمجة التطبيقات وبناء التدفقات الأولية. الدفع حسب الاستخدام لكل رسالة.",
+              "tr": "API'leri test etmek ve ilk akışları oluşturmak için mükemmel. Mesaj başına kullandıkça öde.",
+              "ng": "Perfect for testing APIs and building initial flows. Pay-as-you-go per message."
             },
             "features": [
               {
-                "en": "1,000 free messages/month",
-                "pt": "1.000 mensagens grátis/mês",
-                "es": "1.000 mensajes gratis/mes",
-                "id": "1.000 pesan gratis/bulan",
-                "ar": "1,000 رسالة مجانية/شهر",
-                "tr": "Aylık 1.000 ücretsiz mesaj"
+                "en": "Pay-as-you-go (no monthly free messages)",
+                "pt": "Pague pelo que usar (sem mensagens gratuitas)",
+                "es": "Pago por uso (sin mensajes gratuitos mensuales)",
+                "id": "Bayar sesuai penggunaan (tanpa pesan gratis)",
+                "ar": "الدفع حسب الاستخدام (لا توجد رسائل مجانية)",
+                "tr": "Kullandıkça öde (ücretsiz mesaj hakkı yoktur)",
+                "ng": "Pay-as-you-go (no monthly free messages)"
               },
               {
                 "en": "Full REST API access",
@@ -149,32 +210,45 @@
                 "es": "Acceso completo a la API REST",
                 "id": "Akses REST API penuh",
                 "ar": "وصول كامل لـ REST API",
-                "tr": "Tam REST API erişimi"
+                "tr": "Tam REST API erişimi",
+                "ng": "Full REST API access"
               },
               {
                 "en": "Sandbox testing environment",
-                "pt": "Ambiente de teste sandbox",
+                "pt": "Ambiente de testes sandbox",
                 "es": "Entorno de pruebas sandbox",
                 "id": "Lingkungan pengujian sandbox",
                 "ar": "بيئة اختبار تجريبية",
-                "tr": "Sandbox test ortamı"
+                "tr": "Sandbox test ortamı",
+                "ng": "Sandbox testing environment"
               },
               {
-                "en": "Community support",
-                "pt": "Suporte da comunidade",
-                "es": "Soporte de la comunidad",
-                "id": "Dukungan komunitas",
-                "ar": "دعم المجتمع",
-                "tr": "Topluluk desteği"
+                "en": "Basic Chatbot & Automation",
+                "pt": "Automação e Chatbot Básico",
+                "es": "Chatbot y Automatización Básica",
+                "id": "Chatbot & Otomatisasi Dasar",
+                "ar": "شات بوت وأتمتة أساسية",
+                "tr": "Temel Chatbot ve Otomasyon",
+                "ng": "Basic Chatbot & Automation"
+              },
+              {
+                "en": "1 Agent Seat",
+                "pt": "1 Assento de Agente",
+                "es": "1 Asiento de Agente",
+                "id": "1 Kursi Agen",
+                "ar": "مقعد وكيل واحد",
+                "tr": "1 Müşteri Temsilcisi Koltuğu",
+                "ng": "1 Agent Seat"
               }
             ],
             "ctaLabel": {
-              "en": "Start Free",
-              "pt": "Começar Grátis",
-              "es": "Empieza Gratis",
-              "id": "Mulai Gratis",
-              "ar": "ابدأ مجاناً",
-              "tr": "Ücretsiz Başla"
+              "en": "Start Free Sandbox",
+              "pt": "Começar Sandbox Grátis",
+              "es": "Iniciar Sandbox Gratis",
+              "id": "Mulai Sandbox Gratis",
+              "ar": "ابدأ البيئة التجريبية مجاناً",
+              "tr": "Ücretsiz Sandbox'ı Başlat",
+              "ng": "Start Free Sandbox"
             },
             "ctaHref": "https://app.startmessaging.com/signup"
           },
@@ -185,7 +259,8 @@
               "es": "Premium",
               "id": "Premium",
               "ar": "بريميوم",
-              "tr": "Premium"
+              "tr": "Premium",
+              "ng": "Premium"
             },
             "price": {
               "en": "$49",
@@ -193,7 +268,8 @@
               "es": "$899",
               "id": "Rp699.000",
               "ar": "179 د.إ",
-              "tr": "₺1.499"
+              "tr": "₺1.499",
+              "ng": "$49"
             },
             "period": {
               "en": "/month",
@@ -201,15 +277,17 @@
               "es": "/mes",
               "id": "/bulan",
               "ar": "/شهر",
-              "tr": "/ay"
+              "tr": "/ay",
+              "ng": "/month"
             },
             "description": {
-              "en": "For growing businesses with active campaigns and customer engagement.",
-              "pt": "Para empresas em crescimento com campanhas ativas e engajamento de clientes.",
-              "es": "Para empresas en crecimiento con campañas activas y compromiso con los clientes.",
-              "id": "Untuk bisnis yang berkembang dengan kampanye aktif dan keterlibatan pelanggan.",
-              "ar": "للشركات المتنامية التي لديها حملات نشطة وتفاعل مع العملاء.",
-              "tr": "Aktif kampanyaları ve müşteri etkileşimi olan büyüyen işletmeler için."
+              "en": "For growing businesses with active campaigns and automated workflows.",
+              "pt": "Para empresas em crescimento com campanhas ativas e fluxos automatizados.",
+              "es": "Para empresas en crecimiento con campañas activas y flujos de trabajo automatizados.",
+              "id": "Untuk bisnis berkembang dengan kampanye aktif dan alur kerja otomatis.",
+              "ar": "للشركات المتنامية التي تمتلك حملات نشطة وتدفقات عمل مؤتمتة.",
+              "tr": "Aktif kampanyaları ve otomatik iş akışları olan büyüyen işletmeler için.",
+              "ng": "For growing businesses with active campaigns and automated workflows."
             },
             "popular": true,
             "badge": {
@@ -218,48 +296,63 @@
               "es": "Más Popular",
               "id": "Paling Populer",
               "ar": "الأكثر شعبية",
-              "tr": "En Popüler"
+              "tr": "En Popüler",
+              "ng": "Most Popular"
             },
             "features": [
               {
-                "en": "10,000 free messages/month",
-                "pt": "10.000 mensagens grátis/mês",
-                "es": "10.000 mensajes gratis/mes",
-                "id": "10.000 pesan gratis/bulan",
-                "ar": "10,000 رسالة مجانية/شهر",
-                "tr": "Aylık 10.000 ücretsiz mesaj"
+                "en": "Pay-as-you-go per message",
+                "pt": "Pague por mensagem enviada",
+                "es": "Pago por uso por mensaje",
+                "id": "Bayar sesuai penggunaan per pesan",
+                "ar": "الدفع حسب الاستخدام لكل رسالة",
+                "tr": "Mesaj başına kullandıkça öde",
+                "ng": "Pay-as-you-go per message"
               },
               {
-                "en": "No-code chatbot builder",
-                "pt": "Construtor de chatbot sem código",
-                "es": "Constructor de chatbot sin código",
-                "id": "Pembuat chatbot tanpa kode",
-                "ar": "منشئ شات بوت بدون كود",
-                "tr": "Kodsuz chatbot oluşturucu"
+                "en": "No-code visual chatbot builder",
+                "pt": "Construtor visual de chatbot sem código",
+                "es": "Constructor visual de chatbot sin código",
+                "id": "Pembuat chatbot visual tanpa kode",
+                "ar": "منشئ شات بوت مرئي بدون كود",
+                "tr": "Kodsuz görsel chatbot oluşturucu",
+                "ng": "No-code visual chatbot builder"
               },
               {
-                "en": "Advanced analytics & reports",
-                "pt": "Análises e relatórios avançados",
-                "es": "Análisis e informes avanzados",
-                "id": "Analitik dan laporan lanjutan",
-                "ar": "تحليلات وتقارير متقدمة",
-                "tr": "Gelişmiş analitik ve raporlar"
+                "en": "Advanced analytics & campaign reports",
+                "pt": "Relatórios de campanha e análises avançadas",
+                "es": "Informes de campaña y análisis avanzados",
+                "id": "Analitik lanjutan & laporan kampanye",
+                "ar": "تحليلات وتقارير حملات متقدمة",
+                "tr": "Gelişmiş analitik ve kampanya raporları",
+                "ng": "Advanced analytics & campaign reports"
+              },
+              {
+                "en": "Multi-agent dashboard (up to 5 seats)",
+                "pt": "Painel multi-agente (até 5 assentos)",
+                "es": "Tablero multiagente (hasta 5 asientos)",
+                "id": "Dasbor multi-agen (hingga 5 kursi)",
+                "ar": "لوحة تحكم متعددة الوكلاء (حتى 5 مقاعد)",
+                "tr": "Çoklu temsilci paneli (5 temsilciye kadar)",
+                "ng": "Multi-agent dashboard (up to 5 seats)"
               },
               {
                 "en": "Priority email & WhatsApp support",
-                "pt": "Suporte prioritário por e-mail e WhatsApp",
-                "es": "Soporte prioritario por correo electrónico y WhatsApp",
-                "id": "Dukungan prioritas email dan WhatsApp",
-                "ar": "دعم أولوية عبر البريد الإلكتروني وواتساب",
-                "tr": "Öncelikli e-posta ve WhatsApp desteği"
+                "pt": "Suporte prioritário por email e WhatsApp",
+                "es": "Soporte prioritario por correo y WhatsApp",
+                "id": "Dukungan email & WhatsApp prioritas",
+                "ar": "دعم ذو أولوية عبر البريد الإلكتروني وواتساب",
+                "tr": "Öncelikli e-posta ve WhatsApp desteği",
+                "ng": "Priority email & WhatsApp support"
               },
               {
-                "en": "Webhook integrations",
-                "pt": "Integrações com webhooks",
-                "es": "Integraciones de webhooks",
-                "id": "Integrasi webhook",
-                "ar": "تكاملات الإشعارات",
-                "tr": "Webhook entegrasyonları"
+                "en": "Webhook & API Integrations",
+                "pt": "Integrações de Webhooks e APIs",
+                "es": "Integraciones de Webhook y API",
+                "id": "Integrasi Webhook & API",
+                "ar": "تكاملات API و Webhook",
+                "tr": "Webhook ve API entegrasyonları",
+                "ng": "Webhook & API Integrations"
               }
             ],
             "ctaLabel": {
@@ -268,18 +361,20 @@
               "es": "Obtener Premium",
               "id": "Dapatkan Premium",
               "ar": "احصل على بريميوم",
-              "tr": "Premium'u Alın"
+              "tr": "Premium Satın Al",
+              "ng": "Get Premium"
             },
             "ctaHref": "https://app.startmessaging.com/signup?plan=premium"
           },
           {
             "name": {
               "en": "Enterprise",
-              "pt": "Empresarial",
-              "es": "Empresarial",
+              "pt": "Corporativo",
+              "es": "Corporativo",
               "id": "Enterprise",
               "ar": "المؤسسات",
-              "tr": "Kurumsal"
+              "tr": "Kurumsal",
+              "ng": "Enterprise"
             },
             "price": {
               "en": "Custom",
@@ -287,66 +382,74 @@
               "es": "Personalizado",
               "id": "Kustom",
               "ar": "مخصص",
-              "tr": "Özel"
+              "tr": "Özel",
+              "ng": "Custom"
             },
             "period": "",
             "description": {
               "en": "For high-volume senders needing dedicated infrastructure and SLA guarantees.",
-              "pt": "Para remetentes de alto volume que precisam de infraestrutura dedicada e garantias de SLA.",
-              "es": "Para remitentes de alto volumen que necesitan infraestructura dedicada y garantías de SLA.",
+              "pt": "Para remetentes de alto volume que precisam de infraestrutura dedicada e SLA.",
+              "es": "Para remitentes de gran volumen con infraestructura dedicada y SLA garantizado.",
               "id": "Untuk pengirim volume tinggi yang membutuhkan infrastruktur khusus dan jaminan SLA.",
-              "ar": "للمرسلين ذوي الحجم الكبير الذين يحتاجون إلى بنية تحتية مخصصة وضمانات SLA.",
-              "tr": "Özel altyapı ve SLA garantisi gerektiren yüksek hacimli göndericiler için."
+              "ar": "لمرسلي الحجم الكبير الذين يحتاجون إلى بنية تحتية مخصصة وضمانات SLA.",
+              "tr": "Özel altyapı ve SLA garantisi gerektiren yüksek hacimli göndericiler için.",
+              "ng": "For high-volume senders needing dedicated infrastructure and SLA guarantees."
             },
             "features": [
               {
-                "en": "Unlimited messages (volume pricing)",
-                "pt": "Mensagens ilimitadas (preço por volume)",
-                "es": "Mensajes ilimitados (precios por volumen)",
-                "id": "Pesan tak terbatas (harga volume)",
-                "ar": "رسائل غير محدودة (تسعير حجمي)",
-                "tr": "Sınırsız mesaj (hacim fiyatlandırması)"
+                "en": "Unlimited messages (volume discounts)",
+                "pt": "Mensagens ilimitadas (descontos por volume)",
+                "es": "Mensajes ilimitados (descuentos por volumen)",
+                "id": "Pesan tak terbatas (diskon volume)",
+                "ar": "رسائل غير محدودة (خصومات حجمية)",
+                "tr": "Sınırsız mesaj (hacim indirimleri)",
+                "ng": "Unlimited messages (volume discounts)"
               },
               {
-                "en": "Dedicated account manager",
-                "pt": "Gerente de conta dedicado",
-                "es": "Gerente de cuenta dedicado",
-                "id": "Manajer akun khusus",
-                "ar": "مدير حساب مخصص",
-                "tr": "Özel hesap yöneticisi"
+                "en": "Dedicated account manager & onboarding",
+                "pt": "Gerente de conta dedicado e integração",
+                "es": "Administrador de cuenta dedicado y capacitación",
+                "id": "Manajer akun khusus & bantuan onboarding",
+                "ar": "مدير حساب مخصص ومساعدة في الإعداد",
+                "tr": "Özel hesap yöneticisi ve onboarding desteği",
+                "ng": "Dedicated account manager & onboarding"
               },
               {
-                "en": "Custom SLA & 99.99% uptime",
-                "pt": "SLA personalizado e 99,99% de disponibilidade",
-                "es": "SLA personalizado y 99,99% de disponibilidad",
-                "id": "SLA kustom dan 99,99% uptime",
-                "ar": "اتفاقية خدمة مخصصة و99.99% وقت تشغيل",
-                "tr": "Özel SLA ve %99,99 çalışma süresi"
+                "en": "Custom SLA & 99.99% uptime guarantee",
+                "pt": "SLA personalizado e garantia de 99,99% de atividade",
+                "es": "SLA a medida y garantía de 99.99% de tiempo de actividad",
+                "id": "SLA kustom & jaminan uptime 99,99%",
+                "ar": "اتفاقية مستوى الخدمة وضمان تشغيل 99.99%",
+                "tr": "Özel SLA ve %99,99 çalışma süresi garantisi",
+                "ng": "Custom SLA & 99.99% uptime guarantee"
               },
               {
                 "en": "24/7 phone & WhatsApp support",
-                "pt": "Suporte 24/7 por telefone e WhatsApp",
-                "es": "Soporte 24/7 por teléfono y WhatsApp",
-                "id": "Dukungan 24/7 telepon dan WhatsApp",
-                "ar": "دعم على مدار الساعة عبر الهاتف وواتساب",
-                "tr": "7/24 telefon ve WhatsApp desteği"
+                "pt": "Suporte por telefone e WhatsApp 24/7",
+                "es": "Soporte telefónico y por WhatsApp 24/7",
+                "id": "Dukungan telepon & WhatsApp 24/7",
+                "ar": "دعم عبر الهاتف وواتساب على مدار الساعة",
+                "tr": "7/24 telefon ve WhatsApp desteği",
+                "ng": "24/7 phone & WhatsApp support"
               },
               {
-                "en": "Custom integrations & onboarding",
-                "pt": "Integrações e onboarding personalizados",
-                "es": "Integraciones y onboarding personalizados",
-                "id": "Integrasi dan onboarding kustom",
-                "ar": "تكاملات وإعداد مخصص",
-                "tr": "Özel entegrasyonlar ve onboarding"
+                "en": "Custom integrations & SSO",
+                "pt": "Integrações personalizadas e SSO",
+                "es": "Integraciones personalizadas y SSO",
+                "id": "Integrasi kustom & SSO",
+                "ar": "تكاملات مخصصة ودخول موحد (SSO)",
+                "tr": "Özel entegrasyonlar ve SSO",
+                "ng": "Custom integrations & SSO"
               }
             ],
             "ctaLabel": {
               "en": "Contact Sales",
-              "pt": "Falar com Vendas",
+              "pt": "Contatar Vendas",
               "es": "Contactar Ventas",
               "id": "Hubungi Sales",
               "ar": "تواصل مع المبيعات",
-              "tr": "Satışla İletişim"
+              "tr": "Satışla İletişime Geç",
+              "ng": "Contact Sales"
             },
             "ctaHref": "/contact"
           }
@@ -354,219 +457,140 @@
       }
     },
     {
-      "type": "comparisonTable",
+      "type": "richText",
       "props": {
-        "heading": {
-          "en": "Plan Comparison",
-          "pt": "Comparação de Planos",
-          "es": "Comparación de Planes",
-          "id": "Perbandingan Paket",
-          "ar": "مقارنة الخطط",
-          "tr": "Plan Karşılaştırması"
-        },
-        "columns": [
-          {
-            "label": {
-              "en": "Feature",
-              "pt": "Recurso",
-              "es": "Característica",
-              "id": "Fitur",
-              "ar": "الميزة",
-              "tr": "Özellik"
-            }
-          },
-          { "label": { "en": "Free" }, "highlight": false },
-          { "label": { "en": "Premium" }, "highlight": true },
-          { "label": { "en": "Enterprise" }, "highlight": false }
-        ],
-        "rows": [
-          [
-            {
-              "en": "Monthly free messages",
-              "pt": "Mensagens gratuitas/mês",
-              "es": "Mensajes gratuitos/mes",
-              "id": "Pesan gratis/bulan",
-              "ar": "رسائل مجانية/شهر",
-              "tr": "Aylık ücretsiz mesaj"
-            },
-            "1,000",
-            "10,000",
-            {
-              "en": "Unlimited",
-              "pt": "Ilimitado",
-              "es": "Ilimitado",
-              "id": "Tak terbatas",
-              "ar": "غير محدود",
-              "tr": "Sınırsız"
-            }
-          ],
-          [
-            {
-              "en": "REST API access",
-              "pt": "Acesso REST API",
-              "es": "Acceso REST API",
-              "id": "Akses REST API",
-              "ar": "وصول REST API",
-              "tr": "REST API erişimi"
-            },
-            "✓",
-            "✓",
-            "✓"
-          ],
-          [
-            {
-              "en": "Chatbot builder",
-              "pt": "Construtor de chatbot",
-              "es": "Constructor de chatbot",
-              "id": "Pembuat chatbot",
-              "ar": "منشئ الشات بوت",
-              "tr": "Chatbot oluşturucu"
-            },
-            "✗",
-            "✓",
-            "✓"
-          ],
-          [
-            {
-              "en": "Advanced analytics",
-              "pt": "Análises avançadas",
-              "es": "Análisis avanzados",
-              "id": "Analitik lanjutan",
-              "ar": "تحليلات متقدمة",
-              "tr": "Gelişmiş analitik"
-            },
-            "✗",
-            "✓",
-            "✓"
-          ],
-          [
-            {
-              "en": "Dedicated account manager",
-              "pt": "Gerente de conta dedicado",
-              "es": "Gerente de cuenta dedicado",
-              "id": "Manajer akun khusus",
-              "ar": "مدير حساب مخصص",
-              "tr": "Özel hesap yöneticisi"
-            },
-            "✗",
-            "✗",
-            "✓"
-          ],
-          [
-            {
-              "en": "Custom SLA",
-              "pt": "SLA personalizado",
-              "es": "SLA personalizado",
-              "id": "SLA kustom",
-              "ar": "اتفاقية خدمة مخصصة",
-              "tr": "Özel SLA"
-            },
-            "✗",
-            "✗",
-            "✓"
-          ],
-          [
-            {
-              "en": "Support channel",
-              "pt": "Canal de suporte",
-              "es": "Canal de soporte",
-              "id": "Kanal dukungan",
-              "ar": "قناة الدعم",
-              "tr": "Destek kanalı"
-            },
-            {
-              "en": "Community",
-              "pt": "Comunidade",
-              "es": "Comunidad",
-              "id": "Komunitas",
-              "ar": "المجتمع",
-              "tr": "Topluluk"
-            },
-            {
-              "en": "Email + WhatsApp",
-              "pt": "Email + WhatsApp",
-              "es": "Email + WhatsApp",
-              "id": "Email + WhatsApp",
-              "ar": "البريد + واتساب",
-              "tr": "E-posta + WhatsApp"
-            },
-            {
-              "en": "24/7 Phone + WhatsApp",
-              "pt": "24/7 Telefone + WhatsApp",
-              "es": "24/7 Teléfono + WhatsApp",
-              "id": "24/7 Telepon + WhatsApp",
-              "ar": "24/7 هاتف + واتساب",
-              "tr": "7/24 Telefon + WhatsApp"
-            }
-          ]
-        ]
+        "body": {
+          "en": "<h3>WhatsApp Per-Category Message Pricing</h3><p>WhatsApp messages are billed on a pay-as-you-go basis according to their conversation category (Marketing, Utility, Authentication, and Service). These rates are determined by Meta and vary by destination country. Standard Meta charges apply dynamically to all plans. A complete list of country-specific message rates will be published here shortly.</p>",
+          "pt": "<h3>Preço por Categoria de Mensagem do WhatsApp</h3><p>As mensagens do WhatsApp são cobradas sob demanda de acordo com sua categoria (Marketing, Utilidade, Autenticação e Serviço). Essas tarifas são determinadas pela Meta e variam por país de destino. As cobranças padrão da Meta se aplicam dinamicamente a todos os planos. Uma tabela completa de tarifas por país estará disponível em breve.</p>",
+          "es": "<h3>Precios por Categoría de Mensaje de WhatsApp</h3><p>Los mensajes de WhatsApp se facturan según el uso de acuerdo con su categoría de conversación (Marketing, Utilidad, Autenticación y Servicio). Estas tarifas son determinadas por Meta y varían según el país de destino. Las tarifas estándar de Meta se aplican dinámicamente. Una lista completa de precios estará disponible pronto.</p>",
+          "id": "<h3>Harga Pesan WhatsApp per Kategori</h3><p>Pesan WhatsApp dikenakan biaya bayar sesuai penggunaan berdasarkan kategori percakapan (Pemasaran, Utilitas, Autentikasi, dan Layanan). Tarif ini ditentukan oleh Meta dan bervariasi berdasarkan negara tujuan. Biaya standar Meta berlaku secara dinamis. Daftar lengkap tarif per negara akan segera dipublikasikan di sini.</p>",
+          "ar": "<h3>تسعير رسائل واتساب حسب الفئة</h3><p>يتم احتساب تكلفة رسائل واتساب على أساس الدفع حسب الاستخدام وفقاً لفئة المحادثة (التسويق، الخدمات، التحقق، والخدمة العامة). تحدد شركة Meta هذه الأسعار وتختلف حسب بلد الوجهة. تطبق رسوم Meta القياسية ديناميكياً. ستتوفر قائمة كاملة بالأسعار قريباً.</p>",
+          "tr": "<h3>WhatsApp Kategori Bazlı Mesaj Fiyatlandırması</h3><p>WhatsApp mesajları konuşma kategorisine göre (Pazarlama, Hizmet, Kimlik Doğrulama ve Müşteri Destek) kullandıkça öde modeliyle ücretlendirilir. Bu tarifeler Meta tarafından belirlenir ve hedef ülkeye göre değişir. Standart Meta ücretleri dinamik olarak geçerlidir. Ülkelere göre tam fiyat listesi yakında burada yayınlanacaktır.</p>",
+          "ng": "<h3>WhatsApp Per-Category Message Pricing</h3><p>WhatsApp messages are billed on a pay-as-you-go basis according to their conversation category (Marketing, Utility, Authentication, and Service). These rates are determined by Meta and vary by destination country. Standard Meta charges apply dynamically to all plans. A complete list of country-specific message rates will be published here shortly.</p>"
+        }
       }
     },
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "Tanya Jawab",
+          "ar": "الأسئلة الشائعة",
+          "tr": "Sıkça Sorulan Sorular",
+          "ng": "FAQs"
+        },
         "heading": {
           "en": "Pricing — Frequently Asked Questions",
           "pt": "Preços — Perguntas Frequentes",
           "es": "Precios — Preguntas Frecuentes",
           "id": "Harga — Pertanyaan yang Sering Diajukan",
           "ar": "الأسعار — الأسئلة الشائعة",
-          "tr": "Fiyatlar — Sıkça Sorulan Sorular"
+          "tr": "Fiyatlar — Sıkça Sorulan Sorular",
+          "ng": "Pricing — Frequently Asked Questions"
         },
         "items": [
           {
             "question": {
-              "en": "What happens after I exhaust my free messages?",
-              "pt": "O que acontece depois de esgotar minhas mensagens gratuitas?",
-              "es": "¿Qué pasa después de agotar mis mensajes gratuitos?",
-              "id": "Apa yang terjadi setelah pesan gratis saya habis?",
-              "ar": "ماذا يحدث بعد استنفاد رسائلي المجانية؟",
-              "tr": "Ücretsiz mesajlarım bittiğinde ne olur?"
+              "en": "Is there a free message allowance for WhatsApp?",
+              "pt": "Existe um limite de mensagens gratuitas para o WhatsApp?",
+              "es": "¿Hay una cantidad de mensajes gratuitos para WhatsApp?",
+              "id": "Apakah ada jatah pesan gratis untuk WhatsApp?",
+              "ar": "هل هناك عدد رسائل مجانية مخصصة لواتساب؟",
+              "tr": "WhatsApp için ücretsiz mesaj hakkı var mı?",
+              "ng": "Is there a free message allowance for WhatsApp?"
             },
             "answer": {
-              "en": "You switch to pay-as-you-go pricing automatically. No service interruption. WhatsApp message pricing varies by country and message category — see our pricing sheet for full details. SMS pricing for India is ₹0.25 per transactional message.",
-              "pt": "Você muda automaticamente para preço pague-conforme-usa. Sem interrupção de serviço. O preço das mensagens do WhatsApp varia por país e categoria — consulte nossa tabela de preços para detalhes completos. O preço de SMS para a Índia é de ₹0,25 por mensagem transacional.",
-              "es": "Cambia automáticamente a precios de pago por uso. Sin interrupción del servicio. El precio de los mensajes de WhatsApp varía según el país y la categoría — consulte nuestra hoja de precios para más detalles.",
-              "id": "Anda secara otomatis beralih ke harga bayar-sesuai-penggunaan. Tidak ada gangguan layanan. Harga pesan WhatsApp bervariasi menurut negara dan kategori — lihat lembar harga kami untuk detail lengkap.",
-              "ar": "تنتقل تلقائياً إلى تسعير الدفع حسب الاستخدام. بدون انقطاع في الخدمة. تختلف أسعار رسائل واتساب حسب البلد وفئة الرسالة — راجع ورقة الأسعار الخاصة بنا للحصول على التفاصيل الكاملة.",
-              "tr": "Otomatik olarak kullandıkça öde fiyatlandırmasına geçersiniz. Hizmet kesintisi olmaz. WhatsApp mesaj fiyatlandırması ülkeye ve mesaj kategorisine göre değişir — tam ayrıntılar için fiyat tablomuza bakın."
+              "en": "No, WhatsApp messaging is strictly pay-as-you-go from day one. You only pay for what you use based on Meta's official category rates, allowing you to scale without artificial limits or pre-purchased packages.",
+              "pt": "Não, as mensagens do WhatsApp são estritamente pagas pelo que usar desde o primeiro dia. Você só paga pelas tarifas oficiais de categoria da Meta, permitindo que você escale sem limites artificiais.",
+              "es": "No, los mensajes de WhatsApp son estrictamente de pago por uso desde el primer día. Solo paga por lo que usa según las tarifas oficiales de categoría de Meta, lo que le permite escalar sin límites artificiales.",
+              "id": "Tidak, pengiriman pesan WhatsApp sepenuhnya menggunakan sistem bayar sesuai penggunaan sejak hari pertama. Anda hanya membayar apa yang Anda gunakan berdasarkan tarif kategori resmi Meta.",
+              "ar": "لا، رسائل واتساب تخضع تماماً لنظام الدفع حسب الاستخدام من اليوم الأول. أنت تدفع فقط مقابل ما تستخدمه بناءً على أسعار فئات Meta الرسمية.",
+              "tr": "Hayır, WhatsApp mesajlaşması ilk günden itibaren tamamen kullandıkça öde modeline tabidir. Sadece kullandığınız miktar için resmi Meta kategori ücretleri üzerinden ödeme yaparsınız.",
+              "ng": "No, WhatsApp messaging is strictly pay-as-you-go from day one. You only pay for what you use based on Meta's official category rates, allowing you to scale without artificial limits or pre-purchased packages."
             }
           },
           {
             "question": {
-              "en": "Can I switch plans anytime?",
-              "pt": "Posso trocar de plano a qualquer momento?",
-              "es": "¿Puedo cambiar de plan en cualquier momento?",
-              "id": "Bisakah saya berganti paket kapan saja?",
-              "ar": "هل يمكنني تبديل الخطة في أي وقت؟",
-              "tr": "Planları istediğim zaman değiştirebilir miyim?"
+              "en": "When will the official WhatsApp message pricing be public?",
+              "pt": "Quando os preços oficiais das mensagens do WhatsApp serão públicos?",
+              "es": "¿Cuándo serán públicos los precios oficiales de los mensajes de WhatsApp?",
+              "id": "Kapan harga resmi pesan WhatsApp akan dipublikasikan?",
+              "ar": "متى سيتم نشر أسعار رسائل واتساب الرسمية؟",
+              "tr": "Resmi WhatsApp mesaj fiyatları ne zaman açıklanacak?",
+              "ng": "When will the official WhatsApp message pricing be public?"
             },
             "answer": {
-              "en": "Yes, you can upgrade or downgrade your plan at any time from your dashboard. Changes take effect immediately. If you downgrade, you'll keep your current plan's benefits until the end of the billing cycle.",
-              "pt": "Sim, você pode fazer upgrade ou downgrade do seu plano a qualquer momento pelo painel. As alterações entram em vigor imediatamente. Se fizer downgrade, você manterá os benefícios do plano atual até o final do ciclo de faturamento.",
-              "es": "Sí, puede actualizar o degradar su plan en cualquier momento desde su panel. Los cambios entran en vigor inmediatamente. Si degrada, mantendrá los beneficios del plan actual hasta el final del ciclo de facturación.",
-              "id": "Ya, Anda dapat upgrade atau downgrade paket kapan saja dari dasbor. Perubahan berlaku segera. Jika downgrade, Anda akan mempertahankan manfaat paket saat ini hingga akhir siklus penagihan.",
-              "ar": "نعم، يمكنك ترقية أو تخفيض خطتك في أي وقت من لوحة التحكم. تسري التغييرات فوراً. إذا قمت بالتخفيض، ستحتفظ بمزايا خطتك الحالية حتى نهاية دورة الفوترة.",
-              "tr": "Evet, panelinizden istediğiniz zaman planınızı yükseltebilir veya düşürebilirsiniz. Değişiklikler anında geçerli olur. Düşürme yaparsanız, faturalandırma döneminin sonuna kadar mevcut planınızın avantajlarını korursunuz."
+              "en": "We are finalizing our country-by-country WhatsApp pricing portal. In the meantime, you can sign up for a free developer sandbox, or contact our sales team to receive our current Meta rate sheet for your target countries.",
+              "pt": "Estamos finalizando nosso portal de preços do WhatsApp por país. Enquanto isso, você pode se cadastrar em nossa sandbox gratuita ou entrar em contato com nossa equipe para receber as tarifas da Meta.",
+              "es": "Estamos finalizando nuestro portal de precios de WhatsApp por país. Mientras tanto, puede registrarse para obtener un sandbox de desarrollo gratuito o comunicarse con ventas para recibir las tarifas de Meta.",
+              "id": "Kami sedang menyelesaikan portal harga WhatsApp berdasarkan negara. Untuk saat ini, Anda dapat mendaftar sandbox pengujian gratis atau menghubungi sales untuk mendapatkan daftar tarif Meta terbaru.",
+              "ar": "نحن نضع اللمسات الأخيرة على بوابة أسعار واتساب لكل دولة. في هذه الأثناء، يمكنك التسجيل في البيئة التجريبية للمطورين، أو الاتصال بفريق المبيعات للحصول على ورقة أسعار Meta الحالية.",
+              "tr": "Ülkelere göre WhatsApp fiyatlandırma portalımızı tamamlamak üzereyiz. Bu süreçte ücretsiz geliştirici test ortamına (sandbox) kaydolabilir veya hedef ülkeleriniz için güncel Meta ücret listesini almak üzere satış ekibimizle iletişime geçebilirsiniz.",
+              "ng": "We are finalizing our country-by-country WhatsApp pricing portal. In the meantime, you can sign up for a free developer sandbox, or contact our sales team to receive our current Meta rate sheet for your target countries."
+            }
+          },
+          {
+            "countries": ["in"],
+            "question": {
+              "en": "What is the SMS pricing for India?",
+              "pt": "Qual é o preço do SMS para a Índia?",
+              "es": "¿Cuál es el precio de SMS para la India?",
+              "id": "Berapa harga SMS untuk India?",
+              "ar": "ما هو سعر رسائل SMS للهند؟",
+              "tr": "Hindistan için SMS fiyatlandırması nedir?",
+              "ng": "What is the SMS pricing for India?"
+            },
+            "answer": {
+              "en": "For India, non-DLT transactional SMS is priced at a flat rate of ₹0.25 per SMS. This is a fully managed service, which means you do not need to register templates or principal entities on DLT portals; we handle the delivery compliance for you.",
+              "pt": "Para a Índia, o SMS transacional não DLT custa um valor fixo de ₹0,25 por SMS. Este é um serviço totalmente gerenciado, o que significa que você não precisa lidar com o registro de DLT.",
+              "es": "Para la India, el SMS transaccional no DLT tiene un precio de tarifa plana de ₹0.25 por SMS. Este es un servicio completamente administrado, lo que significa que no necesita registrar plantillas en portales DLT.",
+              "id": "Untuk India, SMS transaksi non-DLT dikenakan tarif flat ₹0,25 per SMS. Ini adalah layanan yang dikelola penuh, artinya Anda tidak perlu mendaftarkan PE-ID atau template di portal DLT.",
+              "ar": "بالنسبة للهند، يتم تسعير رسائل SMS المعاملات غير الخاضعة لـ DLT بسعر ثابت قدره 0.25 روبية هندية لكل رسالة. هذه خدمة مدارة بالكامل، مما يعني أنك لا تحتاج إلى تسجيل قوالب على بوابات DLT.",
+              "tr": "Hindistan için DLT dışı işlemsel SMS ücreti SMS başına sabit ₹0,25'tir. Bu tamamen yönetilen bir hizmettir, yani DLT portallarında şablon veya PE-ID kaydı yapmanıza gerek kalmaz; uyumluluk süreçlerini sizin adınıza biz yönetiriz.",
+              "ng": "For India, non-DLT transactional SMS is priced at a flat rate of ₹0.25 per SMS. This is a fully managed service, which means you do not need to register templates or principal entities on DLT portals; we handle the delivery compliance for you."
             }
           },
           {
             "question": {
-              "en": "Is there a setup fee or long-term contract?",
-              "pt": "Há taxa de configuração ou contrato de longo prazo?",
-              "es": "¿Hay una tarifa de configuración o contrato a largo plazo?",
-              "id": "Apakah ada biaya setup atau kontrak jangka panjang?",
-              "ar": "هل هناك رسوم إعداد أو عقد طويل الأمد؟",
-              "tr": "Kurulum ücreti veya uzun vadeli sözleşme var mı?"
+              "en": "What is the status of the Auth API pricing?",
+              "pt": "Qual é o status dos preços da API de Autenticação?",
+              "es": "¿Cuál es el estado de los precios de la API de Autenticación?",
+              "id": "Bagaimana status harga API Autentikasi?",
+              "ar": "ما هي حالة تسعير واجهة Auth API؟",
+              "tr": "Kimlik Doğrulama (Auth) API fiyatlandırmasının durumu nedir?",
+              "ng": "What is the status of the Auth API pricing?"
             },
             "answer": {
-              "en": "No. All plans are month-to-month with no setup fees, no minimum commitments, and no cancellation penalties. You can cancel anytime.",
-              "pt": "Não. Todos os planos são mensais sem taxas de configuração, sem compromissos mínimos e sem penalidades de cancelamento. Você pode cancelar a qualquer momento.",
-              "es": "No. Todos los planes son mensuales sin tarifas de configuración, sin compromisos mínimos y sin penalizaciones por cancelación. Puede cancelar en cualquier momento.",
-              "id": "Tidak. Semua paket bulanan tanpa biaya setup, tanpa komitmen minimum, dan tanpa penalti pembatalan. Anda dapat membatalkan kapan saja.",
-              "ar": "لا. جميع الخطط شهرية بدون رسوم إعداد وبدون التزامات دنيا وبدون غرامات إلغاء. يمكنك الإلغاء في أي وقت.",
-              "tr": "Hayır. Tüm planlar aylıktır, kurulum ücreti, minimum taahhüt ve iptal cezası yoktur. İstediğiniz zaman iptal edebilirsiniz."
+              "en": "Auth API pricing is currently in development. We are building the most cost-effective verification engine in the market. Sign up for our newsletter or contact support to join the beta waitlist.",
+              "pt": "Os preços da API de Autenticação estão em desenvolvimento. Estamos construindo o mecanismo mais econômico do mercado. Cadastre-se ou fale com o suporte para entrar na lista de espera.",
+              "es": "Los precios de la API de Autenticación están en desarrollo. Estamos construyendo el motor más rentable del mercado. Regístrese o comuníquese con soporte para unirse a la lista de espera.",
+              "id": "Harga API Autentikasi saat ini sedang dalam pengembangan. Kami sedang membangun mesin verifikasi yang paling hemat biaya di pasar. Hubungi dukungan kami untuk bergabung dalam daftar tunggu.",
+              "ar": "تسعير واجهة Auth API قيد التطوير حالياً. نحن نبني محرك التحقق الأكثر فعالية من حيث التكلفة في السوق. اتصل بالدعم للانضمام إلى قائمة الانتظار التجريبية.",
+              "tr": "Auth API fiyatlandırması şu anda geliştirilme aşamasındadır. Piyasadaki en uygun maliyetli doğrulama altyapısını kuruyoruz. Beta bekleme listesine katılmak için desteğe başvurun.",
+              "ng": "Auth API pricing is currently in development. We are building the most cost-effective verification engine in the market. Sign up for our newsletter or contact support to join the beta waitlist."
+            }
+          },
+          {
+            "question": {
+              "en": "Are there setup fees or cancellation charges?",
+              "pt": "Há taxas de configuração ou tarifas de cancelamento?",
+              "es": "¿Existen tarifas de configuración o cargos por cancelación?",
+              "id": "Apakah ada biaya pengaturan atau biaya pembatalan?",
+              "ar": "هل هناك رسوم إعداد أو غرامات إلغاء؟",
+              "tr": "Kurulum ücreti veya iptal cezası var mı?",
+              "ng": "Are there setup fees or cancellation charges?"
+            },
+            "answer": {
+              "en": "None at all. All subscription plans are month-to-month. You can upgrade, downgrade, or cancel at any time directly from your dashboard with zero penalty fees.",
+              "pt": "De forma alguma. Todos os planos de assinatura são mensais. Você pode fazer upgrade, downgrade ou cancelar a qualquer momento sem qualquer multa.",
+              "es": "Ninguno en absoluto. Todos los planes de suscripción son mensuales. Puede actualizar, degradar o cancelar en cualquier momento sin cargos por penalización.",
+              "id": "Tidak ada sama sekali. Semua paket berlangganan bersifat bulanan. Anda dapat meningkatkan, menurunkan, atau membatalkan kapan saja tanpa biaya penalti.",
+              "ar": "لا توجد على الإطلاق. جميع خطط الاشتراك شهرية. يمكنك الترقية أو التخفيض أو الإلغاء في أي وقت مباشرة من لوحة التحكم دون أي رسوم إضافية.",
+              "tr": "Kesinlikle hayır. Tüm abonelik planları aylıktır. İstediğiniz zaman panelinizden ceza ödemeden yükseltme, düşürme veya iptal işlemleri yapabilirsiniz.",
+              "ng": "None at all. All subscription plans are month-to-month. You can upgrade, downgrade, or cancel at any time directly from your dashboard with zero penalty fees."
             }
           }
         ]
@@ -581,15 +605,17 @@
           "es": "Comience a Enviar Mensajes Hoy",
           "id": "Mulai Kirim Pesan Hari Ini",
           "ar": "ابدأ إرسال الرسائل اليوم",
-          "tr": "Bugün Mesaj Göndermeye Başlayın"
+          "tr": "Bugün Mesaj Göndermeye Başlayın",
+          "ng": "Start Sending Messages Today"
         },
         "subtext": {
-          "en": "Free plan available. No credit card required.",
-          "pt": "Plano gratuito disponível. Sem necessidade de cartão de crédito.",
-          "es": "Plan gratuito disponible. Sin necesidad de tarjeta de crédito.",
-          "id": "Paket gratis tersedia. Tidak perlu kartu kredit.",
-          "ar": "خطة مجانية متاحة. لا حاجة لبطاقة ائتمان.",
-          "tr": "Ücretsiz plan mevcut. Kredi kartı gerekmez."
+          "en": "No hidden fees. Create your account in seconds.",
+          "pt": "Sem taxas ocultas. Crie sua conta em segundos.",
+          "es": "Sin tarifas ocultas. Cree su cuenta en segundos.",
+          "id": "Tanpa biaya tersembunyi. Buat akun Anda dalam hitungan detik.",
+          "ar": "بدون رسوم خفية. أنشئ حسابك في ثوانٍ معدودة.",
+          "tr": "Gizli ücret yok. Saniyeler içinde hesabınızı oluşturun.",
+          "ng": "No hidden fees. Create your account in seconds."
         },
         "primaryCta": {
           "en": "Get Started Free",
@@ -597,7 +623,8 @@
           "es": "Empieza Gratis",
           "id": "Mulai Gratis",
           "ar": "ابدأ مجاناً",
-          "tr": "Ücretsiz Başla"
+          "tr": "Ücretsiz Başla",
+          "ng": "Get Started Free"
         },
         "primaryHref": "https://app.startmessaging.com/signup",
         "secondaryCta": {
@@ -606,7 +633,8 @@
           "es": "Contactar Ventas",
           "id": "Hubungi Sales",
           "ar": "تواصل مع المبيعات",
-          "tr": "Satışla İletişim"
+          "tr": "Satışla İletişim",
+          "ng": "Contact Sales"
         },
         "secondaryHref": "/contact"
       }

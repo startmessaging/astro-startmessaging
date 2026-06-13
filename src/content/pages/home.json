@@ -120,7 +120,7 @@
             "label": {
               "en": "99.9% Uptime SLA",
               "pt": "SLA de 99,9% de Disponibilidade",
-              "es": "SLA de 99,9% de Disponibilidad",
+              "es": "SLA de 99,9% de Disponibilidade",
               "id": "SLA Uptime 99,9%",
               "ar": "اتفاقية مستوى خدمة 99.9% وقت التشغيل",
               "tr": "%99,9 Çalışma Süresi SLA"
@@ -250,7 +250,7 @@
                 "es": "Chatbot y transferencia a agente",
                 "id": "Chatbot dan serah terima ke agen",
                 "ar": "شات بوت وتحويل إلى موظف",
-                "tr": "Chatbot ve ajan devri"
+                "tr": "Chatbot ve agen devri"
               },
               {
                 "en": "Rich media message templates",
@@ -342,7 +342,7 @@
             "description": {
               "en": "Build no-code conversation flows that handle support, sales, and bookings 24/7 with agent handoff.",
               "pt": "Crie fluxos de conversa sem código que gerenciam suporte, vendas e agendamentos 24/7 com passagem para agente.",
-              "es": "Cree flujos de conversación sin código para soporte, ventas y reservas 24/7 con transferencia a agente.",
+              "es": "Cree flujos de conversación sin código para soporte, vendas y reservas 24/7 con transferencia a agente.",
               "id": "Buat alur percakapan tanpa kode untuk menangani dukungan, penjualan, dan pemesanan 24/7 dengan serah terima agen.",
               "ar": "أنشئ تدفقات محادثة بدون كود لإدارة الدعم والمبيعات والحجوزات على مدار الساعة مع التحويل لموظف.",
               "tr": "Destek, satış ve rezervasyonları 7/24 yöneten kod gerektirmeyen konuşma akışları oluşturun."
@@ -449,7 +449,7 @@
         "subheading": {
           "en": "Four simple steps from signup to your first message.",
           "pt": "Quatro passos simples do cadastro à sua primeira mensagem.",
-          "es": "Cuatro pasos simples desde el registro hasta su primer mensaje.",
+          "es": "Cuatro passos simples desde el registro hasta su primer mensaje.",
           "id": "Empat langkah sederhana dari pendaftaran hingga pesan pertama Anda.",
           "ar": "أربع خطوات بسيطة من التسجيل إلى رسالتك الأولى.",
           "tr": "Kayıttan ilk mesajınıza kadar dört basit adım."
@@ -558,7 +558,7 @@
             "quote": {
               "en": "StartMessaging's WhatsApp API cut our customer response time by 70%. The chatbot handles 80% of queries automatically.",
               "pt": "A API do WhatsApp da StartMessaging reduziu nosso tempo de resposta em 70%. O chatbot lida com 80% das consultas automaticamente.",
-              "es": "La API de WhatsApp de StartMessaging redujo nuestro tiempo de respuesta en un 70%. El chatbot maneja el 80% de las consultas automáticamente.",
+              "es": "La API de WhatsApp de StartMessaging redujo nuestro tempo de respuesta en un 70%. El chatbot maneja el 80% de las consultas automáticamente.",
               "id": "API WhatsApp StartMessaging memangkas waktu respons pelanggan kami sebesar 70%. Chatbot menangani 80% pertanyaan secara otomatis.",
               "ar": "خفّضت واجهة واتساب من StartMessaging وقت استجابة العملاء بنسبة 70%. الشات بوت يتعامل مع 80% من الاستفسارات تلقائياً.",
               "tr": "StartMessaging'in WhatsApp API'si müşteri yanıt süremizi %70 azalttı. Chatbot sorguların %80'ini otomatik olarak yönetiyor."
@@ -615,14 +615,6 @@
       }
     },
     {
-      "type": "pricingTeaser",
-      "props": {
-        "showSms": "$hasSms",
-        "currency": "$currency",
-        "country": "$country"
-      }
-    },
-    {
       "type": "faqSection",
       "props": {
         "badge": {
@@ -670,19 +662,75 @@
               "tr": "Ücretsiz plan var mı?"
             },
             "answer": {
-              "en": "Yes! Our free plan includes 1,000 free messages per month with full API access, sandbox testing, and core features. No credit card required to start. Upgrade anytime as you grow.",
-              "pt": "Sim! Nosso plano gratuito inclui 1.000 mensagens gratuitas por mês com acesso completo à API, testes em sandbox e funcionalidades essenciais. Não é necessário cartão de crédito para começar. Faça upgrade a qualquer momento.",
-              "es": "¡Sí! Nuestro plan gratuito incluye 1.000 mensajes gratuitos al mes con acceso completo a la API, pruebas en sandbox y funciones básicas. No se requiere tarjeta de crédito para empezar. Actualice en cualquier momento.",
-              "id": "Ya! Paket gratis kami mencakup 1.000 pesan gratis per bulan dengan akses API penuh, pengujian sandbox, dan fitur inti. Tidak perlu kartu kredit untuk memulai. Upgrade kapan saja sesuai kebutuhan.",
-              "ar": "نعم! خطتنا المجانية تشمل 1,000 رسالة مجانية شهرياً مع وصول كامل لـ API واختبار في بيئة تجريبية وميزات أساسية. لا حاجة لبطاقة ائتمان للبدء. قم بالترقية في أي وقت.",
-              "tr": "Evet! Ücretsiz planımız aylık 1.000 ücretsiz mesaj, tam API erişimi, sandbox testi ve temel özellikler içerir. Başlamak için kredi kartı gerekmez. İstediğiniz zaman yükseltin."
+              "en": "Yes! We offer free testing credits to help you get started. For SMS API (India), you get 40 free SMS credits to test non-DLT OTP delivery instantly. For WhatsApp Business API, sandbox testing is free, while plans and pricing are currently being finalized. No credit card is required to sign up and start testing.",
+              "pt": "Sim! Oferecemos créditos de teste gratuitos para ajudar você a começar. Para a API de SMS (Índia), você recebe 40 créditos de SMS gratuitos para testar a entrega de OTP sem DLT instantaneamente. Para a API do WhatsApp Business, o teste em sandbox é gratuito, enquanto os planos e preços estão sendo finalizados. Não é necessário cartão de crédito para se cadastrar e começar a testar.",
+              "es": "¡Sí! Ofrecemos créditos de prueba gratuitos para ayudarle a comenzar. Para la API de SMS (India), obtiene 40 créditos de SMS gratuitos para probar la entrega de OTP sin DLT al instante. Para la API de WhatsApp Business, las pruebas en sandbox son gratuitas, mientras que los planes y precios se están finalizando. No se requiere tarjeta de crédito para registrarse y comenzar a probar.",
+              "id": "Ya! Kami menawarkan kredit uji coba gratis untuk membantu Anda memulai. Untuk API SMS (India), Anda mendapatkan 40 kredit SMS gratis untuk menguji pengiriman OTP bebas DLT secara instan. Untuk API WhatsApp Business, pengujian sandbox gratis, sementara paket dan harga sedang diselesaikan. Tidak perlu kartu kredit untuk mendaftar dan mulai menguji.",
+              "ar": "نعم! نحن نقدم أرصدة اختبار مجانية لمساعدتك على البدء. بالنسبة لواجهة برمجة تطبيقات رسائل SMS (الهند)، تحصل على 40 رصيد رسائل SMS مجانية لاختبار تسليم رموز OTP دون تسجيل DLT على الفور. بالنسبة لواجهة برمجة تطبيقات واتساب للأعمال، فإن الاختبار التجريبي مجاني، بينما يتم تحديد الباقات والأسعار حالياً. لا يلزم وجود بطاقة ائتمان للتسجيل وبدء الاختبار.",
+              "tr": "Evet! Başlamanıza yardımcı olmak için ücretsiz test kredileri sunuyoruz. SMS API (Hindistan) için, DLT'siz OTP teslimatını anında test etmek üzere 40 ücretsiz SMS kredisi alırsınız. WhatsApp Business API için sandbox testi ücretsizdir, planlar ve fiyatlandırma ise şu anda son aşamadadır. Kaydolmak ve test etmeye başlamak için kredi kartı gerekmez."
+            }
+          },
+          {
+            "countries": ["in"],
+            "question": {
+              "en": "Do you support SMS APIs in India?"
+            },
+            "answer": {
+              "en": "Yes! StartMessaging supports transactional SMS and OTP delivery in India at a flat rate of ₹0.25/SMS with sub-second delivery speed and high success rates."
+            }
+          },
+          {
+            "countries": ["in"],
+            "question": {
+              "en": "Do I need DLT registration to send SMS in India?"
+            },
+            "answer": {
+              "en": "No, you do not need DLT registration. StartMessaging routes your transactional OTPs and alerts through our own pre-approved templates and sender IDs, letting you send SMS instantly without any paperwork."
+            }
+          },
+          {
+            "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+            "question": {
+              "en": "Can I use SMS API outside India?",
+              "pt": "Posso usar a API de SMS fora da Índia?",
+              "es": "¿Puedo usar la API de SMS fuera de la India?",
+              "id": "Bisakah saya menggunakan API SMS di luar India?",
+              "ar": "هل يمكنني استخدام واجهة برمجة تطبيقات SMS خارج الهند؟",
+              "tr": "Hindistan dışında SMS API'sini kullanabilir miyim?"
+            },
+            "answer": {
+              "en": "Currently, our SMS API services are only available for delivery to Indian mobile numbers. For international destinations, we recommend using our official WhatsApp Business API, which supports broadcasts, notifications, and OTPs globally.",
+              "pt": "Atualmente, nossos serviços de API de SMS estão disponíveis apenas para entrega em números móveis indianos. Para destinos internacionais, recomendamos o uso da nossa API oficial do WhatsApp Business, que suporta transmissões, notificações e OTPs globalmente.",
+              "es": "Actualmente, nuestros servicios de API de SMS solo están disponibles para entrega a números móviles indios. Para destinos internacionales, recomendamos utilizar nuestra API oficial de WhatsApp Business, que admite difusiones, notificaciones y OTP a nivel global.",
+              "id": "Saat ini, layanan API SMS kami hanya tersedia untuk pengiriman ke nomor ponsel India. Untuk tujuan internasional, kami menyarankan Anda menggunakan API WhatsApp Business resmi kami yang mendukung siaran, notifikasi, dan OTP secara global.",
+              "ar": "في الوقت الحالي، تتوفر خدمات واجهة برمجة تطبيقات SMS الخاصة بنا فقط للتسليم إلى أرقام الهواتف المحمولة الهندية. بالنسبة للوجهات الدولية، نوصي باستخدام واجهة برمجة تطبيقات واتساب للأعمال الرسمية الخاصة بنا، والتي تدعم رسائل البث والإشعارات ورموز OTP على مستوى العالم.",
+              "tr": "Şu anda SMS API hizmetlerimiz yalnızca Hindistan cep telefonu numaralarına teslimat için kullanılabilir. Uluslararası hedefler için, dünya çapında yayınları, bildirimleri ve OTP'leri destekleyen resmi WhatsApp Business API'mizi kullanmanızı öneririz."
+            }
+          },
+          {
+            "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+            "question": {
+              "en": "What WhatsApp Business API capabilities are supported?",
+              "pt": "Quais recursos da API do WhatsApp Business são suportados?",
+              "es": "¿Qué capacidades de la API de WhatsApp Business son compatibles?",
+              "id": "Fitur API WhatsApp Business apa saja yang didukung?",
+              "ar": "ما الميزات المدعومة في واجهة برمجة تطبيقات واتساب للأعمال؟",
+              "tr": "Hangi WhatsApp Business API özellikleri destekleniyor?"
+            },
+            "answer": {
+              "en": "We support the full suite of WhatsApp Business API features: bulk broadcasting and marketing campaigns, interactive 24/7 chatbots, automated triggers via REST API, template management with rich media, and multi-agent shared team inboxes.",
+              "pt": "Suportamos o conjunto completo de recursos da API do WhatsApp Business: campanhas de transmissão e marketing em massa, chatbots interativos 24/7, gatilhos automáticos via API REST, gerenciamento de modelos com mídia rica e caixas de entrada compartilhadas para múltiplos agentes.",
+              "es": "Admitimos el conjunto completo de funciones de la API de WhatsApp Business: campañas de marketing y difusiones masivas, chatbots interactivos 24/7, disparadores automáticos a través de API REST, gestión de plantillas con medios enriquecidos y bandejas de entrada compartidas para múltiples agentes.",
+              "id": "Kami mendukung rangkaian lengkap fitur API WhatsApp Business: kampanye siaran & pemasaran massal, chatbot interaktif 24/7, pemicu otomatis melalui REST API, manajemen template dengan media kaya, dan kotak masuk tim bersama multi-agen.",
+              "ar": "نحن ندعم المجموعة الكاملة من ميزات واجهة برمجة تطبيقات واتساب للأعمال: البث الجماعي وحملات التسويق، روبوتات الدردشة التفاعلية على مدار الساعة طوال أيام الأسبوع، المحفزات التلقائية عبر REST API، إدارة القوالب مع الوسائط الغنية، وصناديق البريد الوارد المشتركة متعددة الموظفين.",
+              "tr": "WhatsApp Business API özelliklerinin tümünü destekliyoruz: toplu yayın ve pazarlama kampanyaları, 7/24 etkileşimli chatbot'lar, REST API üzerinden otomatik tetikleyiciler, zengin medya destekli şablon yönetimi ve çoklu temsilcili paylaşılan ekip gelen kutuları."
             }
           },
           {
             "question": {
               "en": "How quickly can I integrate?",
               "pt": "Quão rápido posso integrar?",
-              "es": "¿Qué tan rápido puedo integrar?",
+              "es": "¿Qué tan rápido posso integrar?",
               "id": "Seberapa cepat saya bisa mengintegrasikan?",
               "ar": "ما مدى سرعة التكامل؟",
               "tr": "Ne kadar hızlı entegre edebilirim?"
@@ -727,7 +775,7 @@
               "en": "Yes, StartMessaging is an official Meta Business Solution Provider (BSP). This means we have direct access to the WhatsApp Business API with guaranteed reliability, compliance, and enterprise-grade support.",
               "pt": "Sim, o StartMessaging é um Provedor Oficial de Soluções de Negócios da Meta (BSP). Isso significa que temos acesso direto à API do WhatsApp Business com confiabilidade, conformidade e suporte empresarial garantidos.",
               "es": "Sí, StartMessaging es un Proveedor Oficial de Soluciones de Negocio de Meta (BSP). Esto significa que tenemos acceso directo a la API de WhatsApp Business con fiabilidad, cumplimiento y soporte empresarial garantizados.",
-              "id": "Ya, StartMessaging adalah Penyedia Solusi Bisnis Meta resmi (BSP). Ini berarti kami memiliki akses langsung ke API WhatsApp Business dengan keandalan, kepatuhan, dan dukungan kelas enterprise yang terjamin.",
+              "id": "Ya, StartMessaging adalah Penyedia Solusi Bisnis Meta resmi (BSP). Ini berarti kami memiliki acesso langsung ke API WhatsApp Business dengan keandalan, kepatuhan, dan dukungan kelas enterprise yang terjamin.",
               "ar": "نعم، StartMessaging هو مزود حلول أعمال رسمي من Meta (BSP). هذا يعني أن لدينا وصولاً مباشراً إلى واجهة برمجة تطبيقات واتساب للأعمال مع موثوقية وامتثال ودعم مؤسسي مضمون.",
               "tr": "Evet, StartMessaging resmi bir Meta İş Çözümleri Sağlayıcısıdır (BSP). Bu, güvenilirlik, uyumluluk ve kurumsal düzey destekle WhatsApp Business API'ye doğrudan erişimimiz olduğu anlamına gelir."
             }
@@ -743,7 +791,7 @@
           "pt": "Pronto para Começar a Enviar Mensagens?",
           "es": "¿Listo para Comenzar a Enviar Mensajes?",
           "id": "Siap untuk Mulai Berkirim Pesan?",
-          "ar": "هل أنت مستعد لبدء المراسلة؟",
+          "ar": "هل أنت مستعد لبدء المراسلة?",
           "tr": "Mesajlaşmaya Başlamaya Hazır mısınız?"
         },
         "subtext": {
