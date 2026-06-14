@@ -1,6 +1,6 @@
 ---
 /**
- * Recursive component dispatcher (country-aware, theme + magic props).
+ * Recursive component dispatcher (country-aware, theme + magic props + URL localisation).
  * Per ASTRO_COUNTRY_PLAN.md §6.
  *
  * Magic props resolved per country:
@@ -9,12 +9,18 @@
  *   $country  → country code string
  *   $currency → currency code string
  *
+ * URL localisation (Step 5, seo_geo_analysis_report.md):
+ *   Any prop key ending in 'href' or 'url' (case-insensitive) whose value is a
+ *   relative path (e.g. "/pricing") is automatically prefixed with the country
+ *   segment (e.g. "/br/pricing"). External URLs and anchors are left unchanged.
+ *
  * Usage:
  *   <ComponentRenderer type="hero" props={section.props} country={country}
  *                      countries={section.countries} theme={section.theme ?? pageTheme} />
  */
 import { componentMap } from './componentMap';
 import { COUNTRY_CONFIG, hasSms, isIndia, type Country } from '@/config/countries';
+import { localizeUrl } from '@/lib/seo';
 
 interface Props {
   type: string;
@@ -40,16 +46,38 @@ const isAllowed = !countries || countries.includes(country);
 const Component = componentMap[type];
 const cfg = COUNTRY_CONFIG[country as Country];
 
-// Resolve magic prop values
-const resolved = Object.fromEntries(
-  Object.entries(props ?? {}).map(([k, v]) => {
-    if (v === '$hasSms')   return [k, hasSms(country as Country)];
-    if (v === '$isIndia')  return [k, isIndia(country as Country)];
-    if (v === '$country')  return [k, country];
-    if (v === '$currency') return [k, cfg?.currency ?? 'INR'];
-    return [k, v];
-  })
-);
+/**
+ * Recursively resolves magic placeholder values and localizes URL props.
+ * Handles nested objects and arrays so deeply-nested links are also covered.
+ */
+function localizeProps(obj: unknown): unknown {
+  if (obj === null || obj === undefined) return obj;
+  if (Array.isArray(obj)) return obj.map((item) => localizeProps(item));
+  if (typeof obj === 'object') {
+    return Object.fromEntries(
+      Object.entries(obj as Record<string, unknown>).map(([k, v]) => {
+        // Resolve magic placeholders first
+        if (v === '$hasSms')   return [k, hasSms(country as Country)];
+        if (v === '$isIndia')  return [k, isIndia(country as Country)];
+        if (v === '$country')  return [k, country];
+        if (v === '$currency') return [k, cfg?.currency ?? 'INR'];
+
+        // Localize relative URL strings (keys ending in 'href' or 'url')
+        if (typeof v === 'string' && (k.toLowerCase().endsWith('href') || k.toLowerCase().endsWith('url'))) {
+          return [k, localizeUrl(v, country as Country)];
+        }
+
+        // Recurse into nested objects/arrays
+        if (typeof v === 'object') return [k, localizeProps(v)];
+
+        return [k, v];
+      })
+    );
+  }
+  return obj;
+}
+
+const resolved = localizeProps(props ?? {}) as Record<string, unknown>;
 ---
 
 {isAllowed && Component && (

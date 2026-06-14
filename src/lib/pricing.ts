@@ -42,8 +42,7 @@ export const AUTH_PRICING = {
 };
 
 /** Plan tiers (all countries) */
-export function getPlanTiers(country: Country): { name: string; description: string }[] {
-  const cfg = COUNTRY_CONFIG[country];
+export function getPlanTiers(_country: Country): { name: string; description: string }[] {
   return [
     {
       name: 'Pay As You Go',

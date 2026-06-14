@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { IP_TO_COUNTRY } from '@/config/countries';
 
 export const prerender = false;
 

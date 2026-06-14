@@ -4,8 +4,7 @@
  * Per ASTRO_COUNTRY_PLAN.md §9.
  */
 import MarketingLayout from './MarketingLayout.astro';
-import { COUNTRY_CONFIG, HREFLANG, urlPrefix, type Country } from '@/config/countries';
-import { r } from '@/i18n/r';
+import { COUNTRY_CONFIG, ALL_COUNTRIES, urlPrefix, type Country } from '@/config/countries';
 
 interface NavItem {
   slug: string;
@@ -73,6 +72,15 @@ const prevHref = prevItem ? `${prefix}/docs/${product}/${prevItem.slug}` : '';
 const nextHref = nextItem ? `${prefix}/docs/${product}/${nextItem.slug}` : '';
 
 const tocItems = headings.filter((h) => h.depth <= 3);
+
+// Step 4 (seo_geo_analysis_report.md): Fix hreflang isolation on docs pages.
+// WhatsApp docs are global (all 7 countries share the same content).
+// SMS and Auth API docs are India-only products.
+// Using the correct pageCountries ensures cross-country alternate links are emitted
+// so e.g. /docs/whatsapp/getting-started → /br/docs/whatsapp/getting-started.
+const pageCountries = product === 'whatsapp'
+  ? (ALL_COUNTRIES as string[])
+  : ['in'];
 ---
 
 <MarketingLayout
@@ -81,7 +89,7 @@ const tocItems = headings.filter((h) => h.depth <= 3);
     description,
   }}
   country={country}
-  pageCountries={[country]}
+  pageCountries={pageCountries}
   slug={`docs/${product}/${slug}`}
   theme={theme}
 >

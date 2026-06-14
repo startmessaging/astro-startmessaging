@@ -3,6 +3,11 @@
  * BaseLayout — <html> shell with full SEO <head>.
  * Country-routed model per ASTRO_COUNTRY_PLAN.md §11.
  * Supports dark mode via data-theme attribute + anti-FOUC inline script.
+ *
+ * SEO/GEO fixes per seo_geo_analysis_report.md:
+ *  - Step 2a: canonical override via seo.canonical (for duplicate blog posts)
+ *  - Step 2b: generic language hreflang fallbacks (pt→/br, es→/mx, id→/id, ar→/ae, tr→/tr)
+ *  - Step 2c: optional <meta name="keywords"> for non-Google search engines
  */
 import { r } from '@/i18n/r';
 import {
@@ -10,7 +15,6 @@ import {
   HREFLANG,
   OG_LOCALE,
   ALL_COUNTRIES,
-  DEFAULT_COUNTRY,
   urlPrefix,
   type Country,
 } from '@/config/countries';
@@ -23,6 +27,17 @@ interface Props {
     description: any;
     ogImage?: string;
     jsonLd?: any;
+    /**
+     * Optional canonical URL override (relative path, e.g. "/blog/my-post").
+     * Used by BlogLayout for shared/duplicated posts (canonicalCountry frontmatter)
+     * so the duplicate points its canonical tag to the master copy.
+     */
+    canonical?: string;
+    /**
+     * Optional keywords array. Output as <meta name="keywords"> for non-Google
+     * search engines used in target markets (Yandex, Baidu, Naver, etc.).
+     */
+    keywords?: string[];
   };
   country: string;
   pageCountries?: string[];
@@ -46,9 +61,13 @@ const dir = cfg?.dir ?? 'ltr';
 const title       = r(seo.title, c);
 const description = r(seo.description, c);
 const ogImage     = seo.ogImage ? new URL(seo.ogImage, Astro.site).href : undefined;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-// hreflang: only countries this page exists in
+// Canonical: prefer explicit override (for duplicate blog posts), else self URL.
+const canonicalURL = seo.canonical
+  ? new URL(seo.canonical, Astro.site)
+  : new URL(Astro.url.pathname, Astro.site);
+
+// hreflang: region-specific alternates for every country this page is built for
 const hreflangLinks = pageCountries
   .filter((pc) => pc in COUNTRY_CONFIG)
   .map((pc) => {
@@ -60,7 +79,37 @@ const hreflangLinks = pageCountries
     };
   });
 
-// x-default → India root
+// Generic language hreflang fallbacks (e.g. hreflang="pt" → /br).
+// Catches users in markets outside our specific country targets (e.g. Portugal,
+// Argentina) and routes them to the best matching language instead of x-default.
+// Only emitted when the owning country is actually in pageCountries.
+const genericHreflangLinks: { hreflang: string; href: string }[] = [];
+const seenLanguages = new Set<string>();
+
+// Preferred generic-language owners — order is authoritative (first match wins)
+const genericLangOwner: Array<[string, Country]> = [
+  ['en', 'in'],   // India  → canonical English
+  ['pt', 'br'],   // Brazil → canonical Portuguese
+  ['es', 'mx'],   // Mexico → canonical Spanish
+  ['id', 'id'],   // Indonesia → canonical Indonesian
+  ['ar', 'ae'],   // UAE    → canonical Arabic
+  ['tr', 'tr'],   // Turkey → canonical Turkish
+];
+
+for (const [langCode, ownerCountry] of genericLangOwner) {
+  if (!pageCountries.includes(ownerCountry)) continue;  // page not built for this country
+  if (seenLanguages.has(langCode)) continue;             // already emitted
+
+  const prefix = urlPrefix(ownerCountry);
+  const pagePath = slug ? `${prefix}/${slug}` : (prefix || '/');
+  genericHreflangLinks.push({
+    hreflang: langCode,
+    href: new URL(pagePath, Astro.site).href,
+  });
+  seenLanguages.add(langCode);
+}
+
+// x-default → India root (no prefix)
 const xDefaultPath = slug ? `/${slug}` : '/';
 const xDefaultHref = new URL(xDefaultPath, Astro.site).href;
 
@@ -103,9 +152,15 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="country" content={cfg?.code ?? 'IN'} />
+    {seo.keywords && seo.keywords.length > 0 && (
+      <meta name="keywords" content={seo.keywords.join(', ')} />
+    )}
 
-    <!-- hreflang alternates -->
+    <!-- hreflang alternates: region-specific + generic language fallbacks -->
     {hreflangLinks.map((l) => (
+      <link rel="alternate" hreflang={l.hreflang} href={l.href} />
+    ))}
+    {genericHreflangLinks.map((l) => (
       <link rel="alternate" hreflang={l.hreflang} href={l.href} />
     ))}
     <link rel="alternate" hreflang="x-default" href={xDefaultHref} />

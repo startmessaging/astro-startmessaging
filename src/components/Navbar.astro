@@ -11,11 +11,12 @@ import { t } from '@/i18n/t';
 
 interface Props {
   country: string;
-  currentPath: string;
+  currentPath?: string;
   theme?: string;
 }
 
-const { country, currentPath, theme = 'sms' } = Astro.props;
+// currentPath is accepted but not used in the template (reserved for future active-link highlighting)
+const { country, theme = 'sms' } = Astro.props;
 const c = country as Country;
 const prefix = urlPrefix(c);
 const isIndia = country === 'in';

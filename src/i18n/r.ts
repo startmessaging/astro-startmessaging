@@ -1,4 +1,4 @@
-import { COUNTRY_CONFIG, DEFAULT_COUNTRY, type Country } from '@/config/countries';
+import { COUNTRY_CONFIG, type Country } from '@/config/countries';
 
 /**
  * Resolve a localized value for a given country.

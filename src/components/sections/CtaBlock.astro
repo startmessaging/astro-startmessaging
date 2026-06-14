@@ -29,7 +29,7 @@ const underlineColor = isWhatsapp ? 'text-accent-wa-light/70' : 'text-primary/70
 const logoTextClass = isWhatsapp ? 'gradient-text-wa inline-block' : 'gradient-text-primary inline-block';
 
 const text = r(heading, country);
-const highlightedText = text.replace(/(Start\s*)(Messaging)/gi, (match, p1, p2) => {
+const highlightedText = text.replace(/(Start\s*)(Messaging)/gi, (_match, p1, p2) => {
   return `<span class="relative inline-block group cursor-pointer whitespace-nowrap cta-animated-underline">` +
     `<span class="relative z-10">${p1}<span class="${logoTextClass}">${p2}</span></span>` +
     `<svg viewBox="0 0 300 20" preserveAspectRatio="none" class="absolute -bottom-2.5 left-0 w-full h-[12px] ${underlineColor} pointer-events-none fill-none stroke-current stroke-[3] overflow-visible">` +

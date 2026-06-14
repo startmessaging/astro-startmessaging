@@ -7,7 +7,6 @@ import {
   HREFLANG,
   OG_LOCALE,
   ALL_COUNTRIES,
-  DEFAULT_COUNTRY,
   urlPrefix,
   type Country,
 } from '@/config/countries';
@@ -41,6 +40,47 @@ export function buildCanonical(country: Country, slug: string): string {
 /** Build x-default URL (always India root) */
 export function buildXDefault(slug: string): string {
   return slug ? `${SITE}/${slug}` : SITE;
+}
+
+/**
+ * Localize a relative internal URL path to the current country's routing space.
+ * Prevents navigational leakage back to India root when JSON manifests contain
+ * hardcoded relative paths like "/pricing" or "/whatsapp".
+ *
+ * Rules:
+ *  - External URLs (http/https), anchors (#), mailto:, tel: → returned unchanged
+ *  - India (no prefix) → returned unchanged
+ *  - Already prefixed paths (e.g. /br/pricing on a /br page) → returned unchanged
+ *  - All other relative paths → prefixed with the country segment (e.g. /pricing → /br/pricing)
+ *
+ * Per seo_geo_analysis_report.md Step 5.
+ */
+export function localizeUrl(url: string, country: Country): string {
+  if (!url) return '';
+
+  // Pass through external links, fragments, and protocol handlers unchanged
+  if (
+    url.startsWith('http://') ||
+    url.startsWith('https://') ||
+    url.startsWith('mailto:') ||
+    url.startsWith('tel:') ||
+    url.startsWith('#')
+  ) {
+    return url;
+  }
+
+  const prefix = urlPrefix(country);
+  // India has no prefix — all paths are already at root
+  if (!prefix) return url;
+
+  const path = url.startsWith('/') ? url : `/${url}`;
+
+  // Guard against double-prefixing (e.g. if already /br/pricing)
+  if (path.startsWith(`${prefix}/`) || path === prefix) {
+    return path;
+  }
+
+  return `${prefix}${path}`;
 }
 
 /** Get og:locale for a country */

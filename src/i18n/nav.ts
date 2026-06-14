@@ -104,9 +104,14 @@ export function getFooterColumns(country: Country): FooterColumn[] {
     { label: t('footer.ecommerce', country), href: `${prefix}/use-cases/ecommerce` },
     { label: t('footer.customerSupport', country), href: `${prefix}/use-cases/customer-support` },
     { label: t('footer.marketingCampaigns', country), href: `${prefix}/use-cases/marketing-campaigns` },
-    { label: t('footer.notifications', country), href: `${prefix}/use-cases/notifications` },
-    { label: t('footer.otpAuthentication', country), href: `${prefix}/use-cases/otp-authentication` }
+    { label: t('footer.notifications', country), href: `${prefix}/use-cases/notifications` }
   );
+  // otpAuthentication use case only exists in India (SMS product) — Step 6 of seo_geo_analysis_report.md
+  if (hasSms(country)) {
+    solutionsLinks.push(
+      { label: t('footer.otpAuthentication', country), href: `${prefix}/use-cases/otp-authentication` }
+    );
+  }
   cols.push({ heading: t('footer.solutions', country), links: solutionsLinks });
 
   // Column 4: Company & Legal
@@ -143,7 +148,6 @@ export function getFooterLegal(country: Country): {
   privacy: string;
   terms: string;
 } {
-  const prefix = urlPrefix(country);
   return {
     copyright: t('footer.copyright', country),
     privacy:   t('footer.privacy', country),

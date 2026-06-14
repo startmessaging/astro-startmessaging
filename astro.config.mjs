@@ -40,17 +40,22 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: {
-        defaultLocale: 'en-IN',
+        // defaultLocale must match the URL path segment for the India root.
+        // India pages live at '/' (no prefix) — 'in' is the sentinel key.
+        defaultLocale: 'in',
         locales: {
-          'en-IN': 'en-IN',
-          'pt-BR': 'pt-BR',
-          'es-MX': 'es-MX',
-          'id-ID': 'id-ID',
-          'ar-AE': 'ar-AE',
-          'tr-TR': 'tr-TR',
-          'en-NG': 'en-NG',
+          // Keys = URL path segment (must match what Astro generates in /dist)
+          // Values = BCP-47 hreflang code Google uses
+          in: 'en-IN',   // India root  → /
+          br: 'pt-BR',   // Brazil      → /br/
+          mx: 'es-MX',   // Mexico      → /mx/
+          id: 'id-ID',   // Indonesia   → /id/
+          ae: 'ar-AE',   // UAE         → /ae/
+          tr: 'tr-TR',   // Turkey      → /tr/
+          ng: 'en-NG',   // Nigeria     → /ng/
         },
       },
+      /** @param {any} item */
       serialize(item) {
         if (/\/blog\//.test(item.url)) item.changefreq = 'weekly';
         else item.changefreq = 'monthly';

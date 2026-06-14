@@ -32,7 +32,7 @@ const slug = Astro.params.slug;
 <BlogLayout
   frontmatter={post.data}
   country="in"
-  slug={slug}
+  slug={slug!}
   pageCountries={pageCountries}
   headings={headings}
 >

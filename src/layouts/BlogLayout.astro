@@ -10,7 +10,7 @@ import AuthorCard from '@/components/blog/AuthorCard.astro';
 import RelatedPosts from '@/components/blog/RelatedPosts.astro';
 import Breadcrumbs from '@/components/blog/Breadcrumbs.astro';
 import TableOfContents from '@/components/react/TableOfContents';
-import { COUNTRY_CONFIG, HREFLANG, urlPrefix, type Country } from '@/config/countries';
+import { urlPrefix, type Country } from '@/config/countries';
 
 interface TocEntry {
   depth: number;
@@ -28,6 +28,15 @@ interface Props {
     tags?: string[];
     ogImage?: string;
     relatedSlugs?: string[];
+    /**
+     * When set, this post is a duplicate of a master post in another country.
+     * Value = the country code of the master (e.g. 'in' means /blog/<slug> is master).
+     * BlogLayout computes a canonical URL pointing to the master and passes it to BaseLayout.
+     * Per seo_geo_analysis_report.md Step 3.
+     */
+    canonicalCountry?: string;
+    /** SEO keywords from frontmatter — forwarded to <meta name="keywords"> via BaseLayout. */
+    keywords?: string[];
   };
   country: string;
   slug: string;
@@ -52,6 +61,18 @@ if (country !== 'in') {
 }
 const isWhatsapp = theme === 'whatsapp';
 const proseLinkColor = isWhatsapp ? 'prose-a:text-[var(--color-accent-wa)]' : 'prose-a:text-[var(--color-persian)]';
+
+// Step 3 (seo_geo_analysis_report.md): Compute canonical override for duplicate/shared posts.
+// When frontmatter.canonicalCountry is set, this post is a copy of a master in another country.
+// We build the path to the master so BaseLayout outputs the correct <link rel="canonical">.
+let canonicalOverride: string | undefined;
+if (frontmatter.canonicalCountry) {
+  const canonicalPrefix = urlPrefix(frontmatter.canonicalCountry as Country);
+  // India's canonical prefix is empty (root), all others have /xx prefix
+  canonicalOverride = frontmatter.canonicalCountry === 'in'
+    ? `/blog/${slug}`
+    : `${canonicalPrefix}/blog/${slug}`;
+}
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -88,6 +109,8 @@ const breadcrumbSchema = {
     description: frontmatter.description,
     ogImage: frontmatter.ogImage,
     jsonLd: [articleSchema, breadcrumbSchema],
+    canonical: canonicalOverride,
+    keywords: frontmatter.keywords,
   }}
   country={country}
   pageCountries={pageCountries}
