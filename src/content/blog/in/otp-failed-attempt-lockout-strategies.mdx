@@ -1,7 +1,8 @@
-﻿---
+---
 title: "OTP Failed Attempt Lockout Strategies"
 description: "How to design lockout after repeated failed OTP entries: per-request, per-account, exponential lockout, and unlock pathways. Balance security with user-experience."
 publishedAt: "2026-05-20"
+updatedAt: "2026-06-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -10,6 +11,7 @@ keywords:
   - "failed otp attempts"
   - "otp brute force protection"
   - "account lockout otp"
+  - "rate limiting login"
 relatedSlugs:
   - "otp-expiry-attempt-limits"
   - "otp-rate-limiting-guide"
@@ -17,44 +19,122 @@ relatedSlugs:
 featured: false
 ---
 
+One-Time Passwords (OTPs) are the primary defense for user authentication, online payments, and account creation, particularly in the mobile-first Indian market. However, because OTPs are short (usually 4 to 6 digits) for user convenience, they are vulnerable to brute-force attacks. Without limit controls, an attacker can write a simple script to cycle through all possible combinations and access an account within seconds.
 
-Lockouts protect against brute force but kill UX if too aggressive.
-        The right design uses tiers.
+An OTP lockout strategy prevents brute-force attempts by locking users or attackers out after repeated failed attempts. But security cannot exist in a vacuum; if your lockout rules are too aggressive, you will lock out legitimate users who make simple typing mistakes or face cellular delay. This guide analyzes how to design a multi-tiered lockout strategy that maximizes security while preserving a smooth user experience.
 
+## The Mathematical Risk: Why Lockouts are Mandatory
 
-## Three Lockout Levels
+To understand the necessity of lockout controls, consider the math behind OTP entropy. 
 
+- A **4-digit OTP** has only 10,000 possible combinations (0000–9999). A server processing 100 requests per second can brute-force a 4-digit code in less than 2 minutes.
+- A **6-digit OTP** has 1,000,000 combinations (000000–999999). While stronger, a distributed botnet making parallel API calls can brute-force it in under an hour without rate limits or lockouts.
 
-- Per-request: 3 failed attempts → invalidate the request.
-- Per-account hour: 10 failed verifications → 1-hour lockout.
-- Per-account day: 30 failed verifications → 24-hour lockout + alert.
+This low entropy is a deliberate trade-off: we use short codes because humans cannot easily read, remember, or type a 16-character alphanumeric string sent via SMS. Because we accept low entropy in the code itself, we must enforce strict security constraints on the verification engine. Lockouts are the primary mechanism to enforce these constraints.
 
+## The Three Tiers of a Lockout Strategy
 
+A resilient lockout architecture operates at three distinct levels: the individual verification request, the user account/phone number, and the global IP or device footprint.
 
-## Per-Request Lockout
+### Tier 1: Per-Request Lockout
 
-OTP API enforces this. After 3 wrong attempts, requestId
-        invalidates and the user must request a new OTP.
+The per-request level is the first line of defense. It limits how many verification attempts are allowed on a single generated OTP.
 
+- **Rule:** Allow a maximum of 3 incorrect entries per generated request ID.
+- **Action:** On the third failed entry, permanently invalidate the active request ID in your cache or database. The user must request a brand-new OTP.
+- **Why it matters:** This restricts the probability of guessing a 6-digit code to 3 in 1,000,000 (0.0003%), rendering automated guessing mathematically impossible for a single session.
 
-## Per-Account Lockout
+### Tier 2: Per-Account / Per-Phone Lockout
 
-Track per-user (or per-phone-hash) failures across requests.
-        Cross-request brute force is the attack mode.
+Attackers bypass per-request lockouts by triggering new OTP sends and guessing a few times per session. This is known as cross-request brute forcing or SMS bombing. To stop this, you must track cumulative failures on a specific phone number or user account.
 
+- **Hourly Lockout:** If a phone number accumulates 10 failed verifications across multiple sessions within 1 hour, lock the account from requesting or verifying OTPs for 60 minutes.
+- **Daily Lockout:** If a phone number accumulates 30 failed verifications within 24 hours, lock the account for 24 hours and trigger an alert.
+- **Persistent Storage:** Track these metrics in a fast in-memory datastore like Redis, using the phone number's hash as the key.
 
-## Unlock Pathways
+### Tier 3: Network / Device Lockout
 
+If an attacker targets multiple accounts from a single IP address or client device, you must block the source.
 
-- Time-based auto-unlock.
-- Email link to unlock with secondary verification.
-- Customer support manual unlock for verified KYC.
+- **Rule:** Track failures by IP address and device fingerprint.
+- **Action:** If an IP address accumulates 50 failed verifications across different accounts within a 15-minute window, block the IP from making authentication calls.
+- **UX Consideration:** Be careful in India, where many mobile users share dynamic IP addresses on carrier networks (Jio, Airtel). Enforce shorter IP bans (15 minutes) to avoid locking out unrelated users on the same tower.
 
+---
 
+## Designing the Lockout Flow: Caching and Database Schema
 
-## FAQ
+Enforcing these tiers requires a low-latency tracking layer. You should never query your main SQL database on every verification attempt, as this makes you vulnerable to Denial of Service (DoS) attacks. Instead, use Redis to store transient attempt counters.
 
-Pair lockouts with 
-        [rate-limiting](/blog/otp-rate-limiting-guide) 
-        for layered defence.
+Here is a conceptual schema of how to structure attempt tracking in Redis:
 
+```
+# Track verification attempts on a single request ID (Expires in 5 minutes)
+Key: "otp:request:attempts:{requestId}"
+Value: Integer (Init: 0, Max: 3)
+TTL: 300 seconds
+
+# Track total hourly failures on a phone number (Expires in 1 hour)
+Key: "otp:phone:failures:hourly:{phoneNumberHash}"
+Value: Integer (Init: 0, Max: 10)
+TTL: 3600 seconds
+
+# Track total daily failures on a phone number (Expires in 24 hours)
+Key: "otp:phone:failures:daily:{phoneNumberHash}"
+Value: Integer (Init: 0, Max: 30)
+TTL: 86400 seconds
+```
+
+When a user submits a code, your verification controller should follow this logic path:
+
+1. Check if the `phoneNumberHash` daily or hourly failure keys exist and exceed the thresholds. If yes, reject the request with a `423 Locked` status.
+2. Verify if the `requestId` is valid and active.
+3. Check if the request attempt counter exceeds 3. If yes, invalidate the request ID and reject.
+4. Increment the attempt counter for that request ID.
+5. If the submitted code is incorrect:
+   - Increment the hourly and daily failure counters for the phone number.
+   - If the request attempts reach 3, delete/invalidate the request.
+   - Return a `400 Bad Request` indicating the code is wrong and how many attempts remain.
+6. If the submitted code is correct:
+   - Reset the hourly and daily failure counters for the phone number.
+   - Authorize the session.
+
+---
+
+## India-Specific Regulatory Context: RBI, SEBI, and DPDP
+
+In India, secure authentication is not just a best practice; it is mandated by regulators:
+
+- **RBI (Reserve Bank of India) 2FA Mandate:** The RBI requires Additional Factor of Authentication (AFA) for all card-not-present transactions. Security guidelines state that merchant and banking nodes must restrict OTP attempts to prevent fraud.
+- **SEBI (Securities and Exchange Board of India) Guidelines:** For trading apps, SEBI requires strict multi-factor authentication. Stockbrokers must implement brute-force protections to secure demat accounts.
+- **DPDP Act (Digital Personal Data Protection Act, 2023):** Under the DPDP Act, organizations are legally responsible for implementing "reasonable security safeguards" to prevent personal data breaches. Allowing brute-force entry due to missing lockouts can be classified as negligence, leading to significant fines.
+
+---
+
+## Unlock and Account Recovery Pathways
+
+When a user is locked out, you must provide a clear path to recover access. Without this, your customer support desk will be overwhelmed with tickets.
+
+1. **Time-Based Auto-Unlock:** For minor lockouts (hourly tier), allow the system to auto-unlock when the Redis key expires. Inform the user: *"Too many failed attempts. Please try again in 1 hour."*
+2. **Alternative Channel Verification:** If a phone number is locked out due to SMS verification issues, allow the user to unlock the account by clicking a secure verification link sent to their registered email address.
+3. **Manual Support Escalation:** For daily or high-security lockouts, require manual verification by support agents. The agent should verify secondary identity proofs (such as video verification or KYC checks) before manually resetting the Redis failure keys.
+
+## Frequently Asked Questions
+
+**Q: Should a failed attempt reset the expiration timer of the OTP?**
+
+A: No. The expiration timer (usually 5 minutes) must remain fixed from the moment the OTP is generated. Resetting or extending the timer on failed attempts gives an attacker more time to conduct brute-force queries.
+
+**Q: Should we inform the user if their account is locked, or should we silently fail?**
+
+A: For user experience, you should inform the user that they are temporarily locked out due to too many failed entries and tell them when they can try again. Do not provide specific system details (like the exact attempt count remaining) to keep attackers guessing.
+
+**Q: Can we use CAPTCHAs instead of locking out accounts?**
+
+A: CAPTCHAs are a useful tool to prevent bot-driven automated attempts, but they do not replace lockouts. Advanced bots can solve basic CAPTCHAs, and a persistent human attacker can still brute-force accounts manually. Use CAPTCHAs as an entry gate and lockouts as the final defense.
+
+**Q: How do we prevent attackers from intentionally locking out legitimate users?**
+
+A: This is a classic Denial of Service (DoS) vulnerability. If an attacker knows a user's phone number, they can intentionally input wrong codes to lock them out. To mitigate this, combine lockouts with strict client IP limits and device cookies. If the lockout is triggered from a different IP and device than the user's active session, lock the untrusted device fingerprint while allowing the user to authenticate from their verified browser.
+
+If you want to simplify your security stack, consider using a managed API. StartMessaging's [OTP verification engine](/otp-api) handles per-request lockout tracking automatically, invalidating sessions after 3 incorrect entries and protecting your application from brute-force exploits. Sign up for a [StartMessaging account](https://app.startmessaging.com/register) to get started.

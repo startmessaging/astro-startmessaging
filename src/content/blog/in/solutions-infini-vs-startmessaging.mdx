@@ -1,7 +1,8 @@
-﻿---
+---
 title: "Solutions Infini vs StartMessaging for India OTP"
 description: "Solutions Infini (Kaleyra Now) vs StartMessaging compared for Indian OTP workloads: pricing, DLT, integration, monthly minimums and developer experience."
 publishedAt: "2026-05-03"
+updatedAt: "2026-06-15"
 category: comparisons
 country: "in"
 author: "StartMessaging Team"
@@ -10,6 +11,8 @@ keywords:
   - "kaleyra now alternative"
   - "solutions infini otp"
   - "solutions infini review"
+  - "legacy sms gateway alternatives"
+  - "dlt free sms gateway"
 relatedSlugs:
   - "kaleyra-vs-startmessaging"
   - "twilio-vs-startmessaging"
@@ -18,54 +21,142 @@ relatedSlugs:
 featured: false
 ---
 
+For developers and product teams building in India, finding a reliable SMS gateway to handle user verification is crucial. Solutions Infini (which was rebranded and consolidated into Kaleyra, and is now under the Tata Communications umbrella) was one of the early players in the Indian bulk SMS and CPaaS space. StartMessaging is a modern, developer-first platform built specifically for high-speed OTP delivery and simple integration.
 
-Solutions Infini was an early-mover Indian SMS provider, now folded
-        into Kaleyra. StartMessaging is a newer, OTP-specialised, DLT-free
-        provider. This guide compares them honestly.
+This guide provides an honest comparison between Solutions Infini (Kaleyra) and StartMessaging, focusing on pricing structures, DLT registration processes, developer onboarding, and platform capabilities.
 
+## Understanding the Landscape: Legacy CPaaS vs. Modern Verification APIs
 
-## Overview
+Solutions Infini was founded as a traditional bulk SMS and voice provider in India. Over the years, it expanded its features and was acquired by Kaleyra to serve enterprise clients. Because of this history, the platform is designed to handle multi-channel communications (such as large marketing campaigns, voice IVR systems, and RCS messaging) for large corporate clients.
 
+StartMessaging is a modern API platform built to simplify authentication. It does not offer general marketing or promotional bulk channels. Instead, it focuses entirely on transactional OTP delivery, using optimized routes and pre-registered DLT configurations to help developers implement secure authentication without administrative delays.
 
-- Solutions Infini — broad SMS / voice / WhatsApp under Kaleyra umbrella.
-- StartMessaging — OTP-focused, DLT-free, pay-as-you-go.
+## The Operational Reality of Legacy Platforms
 
+Using a legacy enterprise-focused platform like Solutions Infini (Kaleyra) for a modern web or mobile app introduces several operational hurdles:
 
+1. **Tedious Onboarding:** Legacy platforms are set up for sales-driven procurement. Gaining API access typically requires sales meetings, business verification documentation, contract signings, and monthly minimum spends.
+2. **Manual DLT Management:** Under TRAI regulations in India, you must register your business entity and every message template on operator DLT systems. Legacy gateways expect you to manage this process independently, which can take weeks to configure and approve.
+3. **Complex API Structures:** Because the APIs support many legacy channels and bulk configurations, the integration documentation is large, and building a simple verification flow requires significant custom backend logic.
 
-## Pricing
+StartMessaging offers a self-service model, allowing you to sign up, get API keys, and send codes instantly using pre-approved transactional routes.
 
+## Feature Comparison Matrix
 
-- Solutions Infini — variable, contract-driven, monthly minimums common.
-- StartMessaging — Rs 0.25 per OTP, no minimums.
+Here is how Solutions Infini (Kaleyra) and StartMessaging compare across core metrics:
 
+| Metric | Solutions Infini (Kaleyra) | StartMessaging |
+|---|---|---|
+| **Core Product Focus** | Broad CPaaS (SMS, Voice, WhatsApp, RCS) | Transactional OTP & Verification |
+| **Account Setup** | Sales-driven, manual onboarding | Instant self-service |
+| **India DLT Support** | Customer-managed DLT setup | Handled automatically (DLT-Free) |
+| **Billing Model** | Enterprise contract (monthly minimums) | Pay-as-you-go (prepaid wallet) |
+| **Security Features** | Raw delivery (No database hashing) | bcrypt-hashed storage on HSM nodes |
+| **Attempt Tracking** | Developer must implement manually | Built-in limits (invalidates after 3 fails) |
+| **Verification Logic** | None (Developer must write verification) | Built-in send and verify API endpoints |
+| **Fallback Channels** | Manual configuration | Automated voice and WhatsApp fallback |
+| **Developer Tools** | Standard REST APIs | OpenAPI specification & SDK support |
 
+## Cost Analysis and Procurement Barriers
 
-## DLT Handling
+Legacy providers use contract-based pricing structures that require high monthly commitments to access competitive rates. StartMessaging offers a predictable, flat rate of ₹0.25 per OTP with no setup fees or minimum billing thresholds.
 
-Solutions Infini routes under your DLT; StartMessaging absorbs DLT
-        compliance entirely.
+Here is a comparison of typical costs for a startup sending 30,000 verification OTPs per month:
 
+| Pricing Metric | Solutions Infini (Kaleyra) | StartMessaging |
+|---|---|---|
+| **Rate per SMS OTP** | Custom quote (Volume-dependent) | ₹0.25 (Flat Rate) |
+| **Monthly Minimums** | Common for non-enterprise contracts | None (Pay-as-you-go) |
+| **DLT Registry Cost** | ₹5,000 operator fee (paid locally) | ₹0 |
+| **Account Setup Fee** | None | None |
+| **Procurement Time** | 1 to 2 weeks | Instant (Under 5 minutes) |
 
-## Features
+For startups and scaling applications, StartMessaging's pay-as-you-go model removes the financial risk of long-term contract commitments.
 
+## When to Choose Solutions Infini (Kaleyra) vs. StartMessaging
 
-- Both: REST API, DLR, voice fallback.
-- Kaleyra/Solutions Infini: WhatsApp + voice + RCS.
-- StartMessaging: OTP-focused with hashed storage and idempotency.
+Choose **Solutions Infini (Kaleyra)** if:
+- You are a large enterprise that needs a single vendor to manage high-volume corporate voice IVR systems, RCS marketing, and global email blasts.
+- You have a dedicated regulatory team to handle local operator DLT registration and template compliance.
+- You require custom legal contracts, service level agreements (SLAs), and dedicated support representatives.
 
+Choose **StartMessaging** if:
+- You are a developer or product team that wants to implement fast, reliable OTP verification without administrative delays.
+- You want to launch your product immediately without waiting for DLT registration or template approvals.
+- You need secure code generation, verification tracking, and rate-limiting out of the box.
+- You prefer simple pay-as-you-go billing without contracts or minimum commitments.
 
+## API Integration: Legacy vs. Modern Verification Flow
 
-## Who Each Suits
+A legacy gateway requires you to generate a secure random code, save it in your database, track expiration times, and code validation logic on your servers.
 
+StartMessaging manages this entire lifecycle in two API calls:
 
-- Solutions Infini / Kaleyra — large enterprise contracts.
-- StartMessaging — agile teams, no procurement friction.
+```javascript
+// Step 1: Request OTP generation and delivery
+async function sendVerificationOtp(userMobileNumber) {
+  const response = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': process.env.STARTMESSAGING_API_KEY
+    },
+    body: JSON.stringify({
+      phoneNumber: userMobileNumber,
+      templateId: 'YOUR_TEMPLATE_ID',
+      variables: {
+        otp: '123456', // Generate a 4-6 digit code on your side
+        appName: 'YourApp'
+      }
+    })
+  });
 
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`Failed to dispatch OTP: ${data.message}`);
+  }
 
+  // Return the otpRequestId to use for verification
+  return data.data.otpRequestId;
+}
 
-## FAQ
+// Step 2: Validate the code entered by the user
+async function verifyUserCode(otpRequestId, inputCode) {
+  const response = await fetch('https://api.startmessaging.com/otp/verify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': process.env.STARTMESSAGING_API_KEY
+    },
+    body: JSON.stringify({
+      requestId: otpRequestId,
+      otpCode: inputCode
+    })
+  });
 
-For most India-first products, 
-        [StartMessaging](/dlt-free-otp) ships in five
-        minutes — no contract, no DLT.
+  const data = await response.json();
+  return data.data.verified; // Returns a boolean
+}
+```
 
+This simplified integration reduces backend development time, keeps your local database lightweight, and protects user codes from potential log leaks.
+
+## Frequently Asked Questions
+
+**Q: Is Solutions Infini still operating as an independent service?**
+
+A: No. Solutions Infini was acquired and rebranded as Kaleyra, which has since been acquired by Tata Communications. If you sign up for legacy Solutions Infini services, you will be routed through Kaleyra's enterprise platforms and contract processes.
+
+**Q: How does StartMessaging handle DLT regulatory scrubbing in India?**
+
+A: StartMessaging is integrated with telecom operator networks and routes OTPs through pre-approved DLT templates. This means your application does not need its own DLT registration or template setup to start sending verification codes.
+
+**Q: Do these platforms support voice-fallback options?**
+
+A: Yes. Both platforms support fallback routing. Legacy systems require you to construct a custom fallback flow using separate SMS and voice APIs. StartMessaging handles this automatically, shifting the verification attempt to a Voice OTP call or WhatsApp message if the SMS is not delivered within 30 seconds.
+
+**Q: Is it safe to store plain OTP codes in a database?**
+
+A: No, storing plaintext OTP codes is a security risk. If you use a legacy API, you should hash codes using bcrypt or scrypt before saving them. StartMessaging removes this database risk by generating and hashing codes on secure HSM nodes, returning only a reference `requestId` to your servers.
+
+For fast, secure, and hassle-free Indian verification, choose a dedicated modern solution. Sign up for a [StartMessaging account](https://app.startmessaging.com/register) to start sending OTPs immediately.

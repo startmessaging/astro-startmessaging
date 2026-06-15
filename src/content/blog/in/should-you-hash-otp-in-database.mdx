@@ -1,7 +1,8 @@
-﻿---
+---
 title: "Should You Hash OTPs in Your Database?"
 description: "Yes, always — and bcrypt or scrypt, not SHA-256. Why hashing OTPs matters even though they're short-lived, and concrete code patterns."
 publishedAt: "2026-05-19"
+updatedAt: "2026-06-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -11,6 +12,7 @@ keywords:
   - "should i hash otp"
   - "otp hashing best practice"
   - "sha256 otp"
+  - "secure database schema"
 relatedSlugs:
   - "otp-database-schema-best-practices"
   - "otp-redis-vs-sql-storage"
@@ -18,45 +20,171 @@ relatedSlugs:
 featured: false
 ---
 
+When building authentication systems, developers know that passwords must be hashed before being stored in a database. However, when it comes to One-Time Passwords (OTPs), many engineering teams choose to store codes in plain text. The typical justification is: *"It is an ephemeral code that expires in five minutes, so hashing it is an unnecessary overhead."*
 
-Even ephemeral codes deserve hashing. A database leak with hashed
-        OTPs gives you breathing room; with plaintext OTPs every active
-        session is at immediate risk.
+This is a dangerous misconception. Storing OTPs in plain text introduces significant security vulnerabilities and violates modern data protection regulations. This guide analyzes why you must hash OTPs, why standard algorithms like SHA-256 are insufficient, and how to implement a secure database storage pattern for your authentication system.
 
+## The Risks of Plaintext OTP Storage
 
-## Why Hash an Ephemeral Code?
+Even though an OTP is short-lived, storing it in plain text exposes your application to several security threats:
 
+1. **Database Replication and Backups:** Production databases are replicated to read-only instances and backed up daily. If an attacker accesses a backup file or a read replica, they can read active OTPs and hijack user accounts during the validity window.
+2. **Log Exposure:** Debugging tools and database query logging layers (like MySQL general logs or PostgreSQL slow query logs) often record SQL statements in plain text. Storing raw OTPs means these codes will leak into log aggregation services (such as Elasticsearch or Splunk) where access controls are generally weaker than the database itself.
+3. **Internal Data Access:** Database administrators, developers, and support teams often have direct access to database tables. Plaintext storage allows malicious insiders to read valid OTP codes as they are dispatched to log into user accounts.
+4. **Race Conditions:** An attacker monitoring your database queries in real time can read the active code and submit it before the legitimate user does.
 
-- Database leak protection during the validity window.
-- DPDP / PCI-DSS "reasonable security" obligations.
-- Defence-in-depth.
+By hashing the code immediately, you ensure that the database only holds a cryptographic representation, protecting the credentials even in the event of a total database leak.
 
+## Why Fast Hashes (MD5, SHA-256) are Insecure for OTPs
 
+For standard passwords, developers use slow, memory-hard hashing algorithms like bcrypt or Argon2 to prevent brute-force attacks. But for OTPs, teams often default to SHA-256 because it is computationally faster. 
 
-## Which Algorithm
+This speed is exactly why SHA-256 is insecure for OTPs.
 
+A typical 6-digit OTP has only 1,000,000 possible combinations (000000–999999). SHA-256 is designed to be highly efficient. A single modern GPU can compute billions of SHA-256 hashes per second. If an attacker steals your database table containing SHA-256 hashed OTPs, they can pre-calculate all 1,000,000 hashes in a fraction of a second. Even if you use a unique salt for each request, generating a custom lookup table for that salt takes less than 10 milliseconds.
 
-- Bcrypt cost 10–12.
-- Scrypt or Argon2 if you have Argon2 native bindings.
-- Never SHA-256 / MD5 / SHA-1.
+To protect low-entropy secrets like a 6-digit code, you must use a slow, adaptive hashing algorithm that forces CPU or memory constraints.
 
+- **Bcrypt (Cost 10–12):** Bcrypt uses a key-derivation process that can be configured to take ~50 to 100 milliseconds per hash. For an individual user logging in, a 70ms delay is imperceptible. But for an attacker running a brute-force script, it reduces their processing speed to less than 15 attempts per second, making cracking attempts useless within the 5-minute validity window.
+- **Argon2 / Scrypt:** These memory-hard algorithms require a configurable amount of RAM to compute the hash, making it extremely expensive to build hardware-accelerated cracking rigs (like ASICs or GPUs) to reverse the hashes.
 
+---
 
-## Cost Factor
+## Secure Database Schema Configuration
 
-Bcrypt cost 10 is ~70ms on modern hardware. The user can't
-        feel it; the attacker really can.
+To support secure verification, your database schema should only store the hash of the OTP and the metadata needed to track attempts and expiry.
 
+Here is an example SQL schema for an OTP storage table:
 
-## If You Use a Managed Provider
+```sql
+CREATE TABLE user_otp_sessions (
+    id VARCHAR(36) PRIMARY KEY,               -- Unique UUID request ID
+    phone_number_hash VARCHAR(64) NOT NULL,   -- SHA-256 hash of the phone number
+    otp_hash VARCHAR(255) NOT NULL,           -- Bcrypt hash of the OTP code
+    attempts_remaining INT DEFAULT 3,         -- Brute-force limit counter
+    expires_at TIMESTAMP NOT NULL,            -- Exact expiry timestamp
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_phone_expires (phone_number_hash, expires_at)
+);
+```
 
-StartMessaging hashes the OTP server-side with bcrypt cost 12 by
-        default. You never see plaintext on your servers; nothing to hash
-        on your side.
+Using a hash of the phone number (`phone_number_hash`) in the table instead of the raw number ensures compliance with data privacy regulations by preventing the storage of personally identifiable information (PII) in plain text.
 
+---
 
-## FAQ
+## Reference Implementation: Generating and Hashing in Node.js
 
-Even with managed provider, hash any locally-stored OTP-adjacent
-        data (PINs, recovery codes, etc.).
+Below is a complete, runnable example in Node.js showing how to generate a secure random 6-digit OTP, hash it with bcrypt, and verify it later.
 
+```javascript
+import crypto from 'crypto';
+import bcrypt from 'bcrypt';
+
+// Generate a cryptographically secure random 6-digit OTP
+function generateOtpCode() {
+  // Generates an integer between 100000 (inclusive) and 1000000 (exclusive)
+  return crypto.randomInt(100000, 1000000).toString();
+}
+
+// Hash the generated OTP with a bcrypt cost factor of 10
+async function createOtpSession(phoneNumber) {
+  const plainOtp = generateOtpCode();
+  
+  // Hash the plain code (bcrypt automatically generates a unique salt)
+  const saltRounds = 10;
+  const otpHash = await bcrypt.hash(plainOtp, saltRounds);
+  
+  const requestId = crypto.randomUUID();
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // Expires in 5 minutes
+
+  // Hash the phone number for database storage privacy
+  const phoneNumberHash = crypto.createHash('sha256').update(phoneNumber).digest('hex');
+
+  // In a real application, you would save these values to your database:
+  const session = {
+    requestId,
+    phoneNumberHash,
+    otpHash,
+    attemptsRemaining: 3,
+    expires_at: expiresAt
+  };
+
+  console.log(`[Database] Saved OTP session for request: ${requestId}`);
+  
+  // Return the plaintext code to send via SMS, and the requestId for the client
+  return {
+    requestId,
+    plainOtp
+  };
+}
+
+// Verify the user submitted code against the hashed database entry
+async function verifyOtpInput(sessionFromDb, userCodeInput) {
+  // Check if session has expired
+  if (new Date() > sessionFromDb.expires_at) {
+    throw new Error('OTP session has expired.');
+  }
+
+  // Check if attempts are exhausted
+  if (sessionFromDb.attemptsRemaining <= 0) {
+    throw new Error('Too many failed attempts. Session invalidated.');
+  }
+
+  // Use constant-time compare to check the user input against the hash
+  const isValid = await bcrypt.compare(userCodeInput, sessionFromDb.otpHash);
+
+  if (!isValid) {
+    // Decrement the attempts counter in your database
+    sessionFromDb.attemptsRemaining -= 1;
+    
+    // Invalidate session completely if attempts reach zero
+    if (sessionFromDb.attemptsRemaining <= 0) {
+      console.warn(`[Security] Session ${sessionFromDb.requestId} invalidated due to failed attempts.`);
+    }
+    
+    return false;
+  }
+
+  return true;
+}
+```
+
+The code above ensures that the plaintext code is only in memory during the generation phase and is immediately discarded. During verification, `bcrypt.compare()` compares the input directly to the hash using a constant-time algorithm to prevent timing attacks.
+
+## Regulatory Compliance: India's DPDP Act
+
+Under India's Digital Personal Data Protection Act (DPDP Act), 2023, organizations are legally classified as "Data Fiduciaries" and must protect personal data under their custody. Storing credentials (including temporary login codes) in plain text increases the risk of data breaches. 
+
+If a database dump is leaked containing plaintext OTPs, it is considered a failure to implement "reasonable security safeguards," exposing the organization to significant regulatory penalties and loss of customer trust. Hashing OTPs is a primary component of "privacy by design" compliance under the DPDP framework.
+
+## Managed Verification: The Safest Path
+
+If you do not want to manage databases, write hashing wrappers, or maintain background cron jobs to delete expired records, the safest path is to outsource storage.
+
+By using StartMessaging's [OTP API](/otp-api), you delegate the entire cryptography stack:
+- StartMessaging generates the code and immediately hashes it using bcrypt cost 12.
+- Your application database never stores OTP codes, hashes, or attempts.
+- You only store a reference `requestId`.
+- The verification happens on HSM-guarded nodes, and the API returns a simple Boolean response.
+
+This architecture removes the database risk entirely, keeping your local database compliant and lightweight.
+
+## Frequently Asked Questions
+
+**Q: If the code is only valid for 2 minutes, is hashing still necessary?**
+
+A: Yes. A database read replication or a query log entry is recorded in real time. If an attacker is sniffing your logs or has real-time read access to database streams, they can read the code the millisecond it is generated and log in before the user does. Hashing prevents real-time sniffing exploits.
+
+**Q: Does using bcrypt cost 10 slow down my database login performance?**
+
+A: No. A 70ms hashing operation is a tiny fraction of the overall network round-trip time (RTT) of an HTTP request. It does not cause database bottleneck issues under normal workloads, but it prevents attackers from using automated GPU arrays to crack codes.
+
+**Q: Should we also hash the request ID?**
+
+A: No. The request ID is a globally unique UUID (e.g., `36` characters) that has high entropy. It is safe to store in plain text because it cannot be brute-forced or guessed by attackers. The request ID acts as the key to look up the hashed OTP.
+
+**Q: How do we handle cleaning up expired hashes from the database?**
+
+A: If you use an SQL database, write a cron job or set up a database event scheduler to run every hour: `DELETE FROM user_otp_sessions WHERE expires_at < NOW()`. If you use Redis, simply configure the key TTL (Time To Live) to match the OTP expiry (e.g., 300 seconds), and Redis will automatically delete expired hashes for you.
+
+To secure your authentication layer without adding database overhead, try StartMessaging's [managed OTP verification API](/otp-api). You can sign up for a [StartMessaging account](https://app.startmessaging.com/register) and begin testing in minutes.

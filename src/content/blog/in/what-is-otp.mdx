@@ -1,7 +1,8 @@
-﻿---
+---
 title: "What is OTP? A Complete Guide for Developers and Users (2026)"
 description: "OTP (One-Time Password) explained: how it works, where it is used, the difference between SMS OTP, TOTP, HOTP, and Voice OTP, and how to add OTP to your app safely."
 publishedAt: "2026-04-22"
+updatedAt: "2026-06-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -216,10 +217,23 @@ StartMessaging absorbs this entirely:
         if you want to understand what is happening on our side.
 
 
-## FAQ
+## Frequently Asked Questions
 
-Ready to ship phone-number-based auth? 
-        [Sign up for a StartMessaging account](https://app.startmessaging.com/register) 
-        and send your first OTP in five minutes — at Rs 0.25 per OTP, no DLT
-        registration required.
+**Q: How long does a typical OTP remain valid?**
+
+A: Most OTPs are valid for 5 to 10 minutes. A shorter lifespan reduces the window of opportunity for an attacker to intercept and use the code. For high-security transactions, like banking or password resets, a 2 to 3-minute expiry is recommended.
+
+**Q: What is the difference between SMS OTP and TOTP?**
+
+A: SMS OTP delivers the code via a cellular network to the user's mobile phone, requiring network reception and incurring transaction fees. TOTP (Time-Based One-Time Password) is generated offline by an authenticator app using a shared secret key and the current time, making it free and immune to SIM-swapping.
+
+**Q: Is it safe to store OTPs in plain text in the database?**
+
+A: No, OTPs should never be stored in plain text. You should hash them using a secure hashing algorithm (like SHA-256) before saving them to your database, similar to how you store passwords. This prevents exposure in case of a database leak.
+
+**Q: What is the best length for an OTP?**
+
+A: A 6-digit OTP is the industry standard, offering a good balance between security (1 in a million guessing probability) and user convenience. 4-digit codes are sometimes used for low-risk actions but are easier to brute-force, while 8-digit codes can be frustrating for users to type.
+
+Ready to ship phone-number-based auth? [Sign up for a StartMessaging account](https://app.startmessaging.com/register) and send your first OTP in five minutes — at Rs 0.25 per OTP, no DLT registration required.
 

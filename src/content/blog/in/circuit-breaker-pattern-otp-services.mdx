@@ -1,7 +1,8 @@
-﻿---
+---
 title: "Circuit Breaker Pattern for OTP Services"
 description: "Why and how to wrap OTP API calls in a circuit breaker. Failure thresholds, half-open probing, fallback voice OTP, and reference implementations."
 publishedAt: "2026-05-21"
+updatedAt: "2026-06-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -11,6 +12,7 @@ keywords:
   - "sms api circuit breaker"
   - "otp fallback pattern"
   - "reliable otp"
+  - "opossum nodejs circuit breaker"
 relatedSlugs:
   - "multi-region-failover-otp-api"
   - "otp-monitoring-slos-error-budgets"
@@ -18,66 +20,200 @@ relatedSlugs:
 featured: false
 ---
 
+Third-party APIs are essential for modern software, but they introduce external failure points into your critical paths. If your SMS OTP gateway goes down or experiences severe routing latency, user login requests will hang. As threads and database connections pile up waiting for the network calls to timeout, your entire backend can crash. This cascade failure is what the Circuit Breaker pattern is designed to prevent.
 
-OTP API outages cost you logins. A circuit breaker lets you fail
-        fast and route to a fallback rather than queueing requests behind a
-        slow upstream.
+In this tutorial, you will learn how to wrap your OTP API calls in a resilient circuit breaker pattern using Node.js and the `opossum` library. We will configure failure thresholds, set up half-open state testing, and establish automated fallbacks to voice OTP or secondary channels so that your application remains responsive even during external network outages.
 
+## Prerequisites
 
-## Why Circuit Breakers Matter for OTP
+Before beginning this tutorial, ensure you have the following ready:
+- Node.js (version 18 or higher) installed on your system.
+- An application backend (like Express.js or NestJS) to handle OTP requests.
+- A StartMessaging API key to test external network requests.
+- The `opossum` library installed in your project.
 
+You can install the library using npm:
 
-- OTP send is on the user critical path.
-- Slow upstream = piled-up sessions.
-- Fast failure + fallback > slow success.
-
-
-
-## Closed → Open → Half-Open
-
-
-- Closed: normal traffic.
-- Open: skip calls, fail fast or fallback for N seconds.
-- Half-Open: probe with a small fraction; if probe succeeds, close.
-
-
-
-## Thresholds
-
-
-- Trip on > 50% failure rate over 30s window with at least 20 requests.
-- Open for 60s before half-open probe.
-- Half-open probe: 5 requests, < 50% failure to close.
-
-
-
-## Fallback Strategy
-
-
-- Voice OTP fallback.
-- Secondary provider.
-- Graceful degradation: queue with user-visible message.
-
-
-
-## Reference Implementation
-      
-```typescript
-import CircuitBreaker from 'opossum';
-
-const breaker = new CircuitBreaker(callOtpApi, {
-  errorThresholdPercentage: 50,
-  resetTimeout: 60_000,
-  rollingCountTimeout: 30_000,
-  rollingCountBuckets: 10,
-  volumeThreshold: 20,
-});
-breaker.fallback(() => callVoiceOtpFallback(phone));
+```bash
+npm install opossum
 ```
 
+## Understanding the States of a Circuit Breaker
 
-## FAQ
+The circuit breaker pattern mimics electrical circuit breakers. It wraps an asynchronous network function and monitors it for failures. The breaker operates in three main states:
 
-Combine with 
-        [multi-region failover](/blog/multi-region-failover-otp-api) for a complete resilience story.
+1. **Closed (Normal State):** Traffic flows normally. The breaker monitors the success and failure rates of calls. If the failure rate stays below a specified threshold, the circuit remains closed.
+2. **Open (Tripped State):** If the failure rate exceeds the threshold, the circuit trips. All subsequent calls to the wrapped function fail immediately, bypassing the network call entirely and triggering a fallback option. This gives the failing upstream service time to recover and prevents your application resources from lockup.
+3. **Half-Open (Testing State):** After a cooldown period, the circuit enters the half-open state. It allows a limited number of trial requests to go through. If these requests succeed, the breaker returns to the Closed state. If any fail, it trips back to the Open state.
 
+## Differentiating User Errors vs. System Failures
+
+An essential rule when implementing circuit breakers for authentication is filtering the errors that trip the circuit. If a user enters an incorrect OTP code, the API will return a `400 Bad Request` or `422 Unprocessable Entity` status. These are user input errors, not infrastructure failures. 
+
+If you count user errors as failures, a wave of users mistyping their codes will trip your circuit breaker and lock everyone out of logins. Your circuit breaker must only trip on:
+- Network timeouts or connectivity losses.
+- HTTP `5xx` Server Errors (e.g., 500, 502, 503, 504).
+- System-level rate limits (`429 Too Many Requests`) where the upstream service is overloaded.
+
+## Step-by-Step Implementation of the Breaker
+
+Let's implement a wrapper service in Node.js. The wrapper handles sending OTP codes and verifying them, wrapping the network calls with a circuit breaker configured via `opossum`.
+
+Here is the complete, runnable implementation:
+
+```javascript
+import CircuitBreaker from 'opossum';
+
+// Mock function representing the actual network call to the StartMessaging API
+async function callOtpApi(phoneNumber) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 4000); // 4-second timeout limit
+
+  try {
+    const response = await fetch('https://api.startmessaging.com/otp/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': process.env.STARTMESSAGING_API_KEY
+      },
+      body: JSON.stringify({
+        phoneNumber: phoneNumber,
+        templateId: 'YOUR_SMS_TEMPLATE_ID',
+        variables: {
+          otp: '123456', // Generate code locally
+          appName: 'YourApp'
+        }
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Create a custom error object carrying the HTTP status code
+      const apiError = new Error(data.message || 'API Error');
+      apiError.status = response.status;
+      throw apiError;
+    }
+
+    return data;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+}
+
+// Fallback logic executed when the circuit breaker is open or a call fails
+async function callVoiceOtpFallback(phoneNumber, originalError) {
+  console.warn(`SMS route failed or breaker is open. Falling back to Voice OTP for ${phoneNumber}. Reason: ${originalError.message}`);
+  
+  // Call the Voice OTP fallback endpoint (routes through Voice templates)
+  const response = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': process.env.STARTMESSAGING_API_KEY
+    },
+    body: JSON.stringify({
+      phoneNumber: phoneNumber,
+      templateId: 'YOUR_VOICE_TEMPLATE_ID',
+      variables: {
+        otp: '123456',
+        appName: 'YourApp'
+      }
+    })
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`Fallback channel failed: ${data.message}`);
+  }
+
+  return { ...data, usedFallback: true };
+}
+
+// Circuit Breaker Options Configuration
+const options = {
+  // Trip the breaker if 50% of requests fail within the window
+  errorThresholdPercentage: 50,
+  
+  // Cooldown time: keep the breaker open for 60 seconds before testing recovery
+  resetTimeout: 60000,
+  
+  // Rolling time window to measure failure rates (30 seconds)
+  rollingCountTimeout: 30000,
+  
+  // Divide the rolling window into 10 smaller time buckets
+  rollingCountBuckets: 10,
+  
+  // Minimum number of requests in the window before failure rate calculations trip
+  volumeThreshold: 20,
+  
+  // Filter function: return true if the error should NOT trip the breaker
+  errorFilter: (error) => {
+    // If the error has an HTTP status and it is a 4xx client error (except 429), ignore it
+    if (error.status && error.status >= 400 && error.status < 500 && error.status !== 429) {
+      return true; // Ignore client input validation failures
+    }
+    return false; // Trip on network timeouts, 5xx codes, and 429 rate limits
+  }
+};
+
+// Instantiate the Circuit Breaker
+const otpBreaker = new CircuitBreaker(callOtpApi, options);
+
+// Bind the fallback logic
+otpBreaker.fallback((phoneNumber, originalError) => callVoiceOtpFallback(phoneNumber, originalError));
+
+// Event listener loggers to trace state transitions for telemetry/monitoring
+otpBreaker.on('fire', () => console.log('Circuit breaker fired: calling wrapped function.'));
+otpBreaker.on('reject', () => console.warn('Circuit is OPEN: request rejected immediately, invoking fallback.'));
+otpBreaker.on('open', () => console.error('Circuit breaker has TRIPPED to OPEN.'));
+otpBreaker.on('halfOpen', () => console.log('Circuit breaker entering HALF-OPEN state, probing upstream.'));
+otpBreaker.on('close', () => console.log('Circuit breaker has CLOSED successfully. Upstream recovered.'));
+otpBreaker.on('fallback', (result) => console.log('Fallback executed successfully.'));
+
+export async function sendOtpSecurely(phoneNumber) {
+  try {
+    const result = await otpBreaker.fire(phoneNumber);
+    return result;
+  } catch (error) {
+    console.error('All authentication pathways failed:', error);
+    throw new Error('Verification services are temporarily unavailable. Please try again later.');
+  }
+}
+```
+
+The Node.js code block above wraps our connection-intensive API call in a safe sandbox. We define a 4-second timeout limit on individual network requests to prevent long-hanging connections from eating up memory threads. By filtering out standard `4xx` user input errors using the `errorFilter` hook, we guarantee that only genuine infrastructure breakdowns will trip the safety switch.
+
+## Testing and Simulating Failure Cases
+
+To verify that your circuit breaker works correctly, you can write a test harness that mocks network failures:
+
+1. **Test Normal Path:** Run 20 successful requests. Verify that the breaker remains in the `closed` state.
+2. **Simulate Outage:** Mock the fetch response to return a `503 Service Unavailable` status. Call the function 25 times. Monitor the logs: after the 20th request (meeting the `volumeThreshold`), the failure rate will exceed 50%, the breaker will trigger an `open` event, and subsequent calls will trigger the `reject` event, diverting immediately to the voice fallback channel.
+3. **Simulate Cooldown:** Wait for 60 seconds (matching the `resetTimeout`). Trigger another call. Verify that the breaker fires a `halfOpen` event, attempts a single probe call, and resets to `closed` if the endpoint returns a valid response.
+
+Tracing these state changes with logging events allows you to wire the breaker directly to your monitoring dashboards (like Prometheus or Datadog) to alert operations teams if the system stays open for too long.
+
+## Frequently Asked Questions
+
+**Q: Why should we use a circuit breaker instead of just retrying the network call?**
+
+A: When an upstream API is failing or overloaded, immediately retrying requests increases the burden on the system, making it harder to recover. This is known as a retry storm. A circuit breaker fails fast and stops calling the service, allowing it to recover while providing a fallback option to protect your app's performance.
+
+**Q: What is a safe rolling window volume threshold for production apps?**
+
+A: The volume threshold prevents the circuit from tripping prematurely on low traffic (e.g., if the very first request fails, that is a 100% failure rate but not a systemic outage). For production environments, a threshold of 20 to 50 requests over a 10-second window is recommended to verify failure rates before tripping.
+
+**Q: Should circuit breaker state metrics be stored globally in Redis?**
+
+A: While you can sync circuit breaker states across microservices using shared datastores like Redis, in-memory state tracking is usually faster and simpler. In a clustered setup, letting each node track its own circuit breaker state reduces internal network calls and handles failures gracefully on a per-node basis.
+
+**Q: How do we track verification statistics when fallback is triggered?**
+
+A: The callback function should return a distinct parameter (like `usedFallback: true`) so your telemetry layers can record how many OTP validations are coming from the main channel vs the fallback channels. This helps you track performance issues before they escalate.
+
+By implementing this circuit breaker pattern, you ensure that external network problems never compromise your application's uptime. For reliable transactional delivery, consider integrating your endpoints with StartMessaging's [resilient OTP gateway](/otp-api), built to support high-scale authentication flows natively.
