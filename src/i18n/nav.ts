@@ -128,11 +128,22 @@ export function getFooterColumns(country: Country): FooterColumn[] {
       { label: t('footer.docsAuth', country), href: `${prefix}/docs/auth-api/getting-started` }
     );
   }
+  const complianceAnchorMap: Record<Country, string> = {
+    in: 'dpdp',
+    br: 'lgpd',
+    mx: 'arco',
+    id: 'uupdp',
+    ae: 'pdpl',
+    tr: 'kvkk',
+    ng: 'ndpa',
+  };
+  const anchor = complianceAnchorMap[country];
   companyLinks.push(
     { label: t('footer.privacy', country), href: `${prefix}/privacy-policy` },
     { label: t('footer.terms', country), href: `${prefix}/terms-of-use` },
     { label: t('footer.refund', country), href: `${prefix}/refund-policy` },
-    { label: t('footer.accountDeletion', country), href: `${prefix}/account-deletion` }
+    { label: t('footer.accountDeletion', country), href: `${prefix}/account-deletion` },
+    { label: t('footer.compliance', country), href: `${prefix}/privacy-policy#${anchor}` }
   );
   cols.push({ heading: t('footer.company', country), links: companyLinks });
 
