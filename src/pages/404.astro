@@ -2,10 +2,26 @@
 /**
  * 404 page — custom error page.
  * Per ASTRO_COUNTRY_PLAN.md §8 H.
+ *
+ * Detects country from the URL path prefix so international 404s
+ * render the WhatsApp theme and India/root renders the SMS theme.
  */
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import Container from '@/components/ui/Container.astro';
 import Button from '@/components/ui/Button.astro';
+import { COUNTRY_CONFIG, DEFAULT_COUNTRY, urlPrefix, type Country } from '@/config/countries';
+
+// Detect country from the URL path prefix (e.g. /br/anything → 'br')
+const path = Astro.url.pathname;
+const segments = path.split('/').filter(Boolean);
+const firstSegment = segments[0] ?? '';
+const country: Country = (firstSegment in COUNTRY_CONFIG)
+  ? (firstSegment as Country)
+  : DEFAULT_COUNTRY;
+
+const prefix = urlPrefix(country);
+const homeHref = prefix || '/';
+const contactHref = `${prefix}/contact`;
 ---
 
 <MarketingLayout
@@ -13,7 +29,7 @@ import Button from '@/components/ui/Button.astro';
     title: 'Page Not Found — StartMessaging',
     description: 'The page you are looking for does not exist.',
   }}
-  country="in"
+  country={country}
   pageCountries={[]}
   slug=""
 >
@@ -25,9 +41,10 @@ import Button from '@/components/ui/Button.astro';
         Sorry, the page you are looking for doesn't exist or has been moved.
       </p>
       <div class="flex gap-4">
-        <Button href="/" variant="primary">Go Home</Button>
-        <Button href="/contact" variant="secondary">Contact Us</Button>
+        <Button href={homeHref} variant="primary">Go Home</Button>
+        <Button href={contactHref} variant="secondary">Contact Us</Button>
       </div>
     </div>
   </Container>
 </MarketingLayout>
+
