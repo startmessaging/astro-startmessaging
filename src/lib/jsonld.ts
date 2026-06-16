@@ -17,6 +17,7 @@ export function buildOrganization() {
     '@type': 'Organization',
     name: ORG_NAME,
     url: SITE,
+    logo: `${SITE}/favicon.svg`,
     sameAs: [
       'https://twitter.com/startmessaging',
       'https://linkedin.com/company/startmessaging',
@@ -28,21 +29,13 @@ export function buildOrganization() {
   };
 }
 
-/** WebSite schema with SearchAction — homepage only */
+/** WebSite schema — homepage only */
 export function buildWebSite() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: ORG_NAME,
     url: SITE,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE}/blog?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
   };
 }
 

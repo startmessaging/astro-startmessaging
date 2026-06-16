@@ -81,12 +81,23 @@ const tocItems = headings.filter((h) => h.depth <= 3);
 const pageCountries = product === 'whatsapp'
   ? (ALL_COUNTRIES as string[])
   : ['in'];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `https://startmessaging.com${prefix || '/'}` },
+    { '@type': 'ListItem', position: 2, name: `${navLabel} Docs`, item: `https://startmessaging.com${prefix}/docs/${product}/getting-started` },
+    { '@type': 'ListItem', position: 3, name: title, item: `https://startmessaging.com${prefix}/docs/${product}/${slug}` },
+  ],
+};
 ---
 
 <MarketingLayout
   seo={{
     title: `${title} — ${navLabel} Docs — StartMessaging`,
     description,
+    jsonLd: [breadcrumbSchema],
   }}
   country={country}
   pageCountries={pageCountries}

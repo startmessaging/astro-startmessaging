@@ -88,8 +88,15 @@ const articleSchema = {
     '@type': 'Organization',
     name: 'StartMessaging',
     url: 'https://startmessaging.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://startmessaging.com/favicon.svg'
+    }
   },
   url: `https://startmessaging.com${prefix}/blog/${slug}`,
+  image: frontmatter.ogImage 
+    ? new URL(frontmatter.ogImage, 'https://startmessaging.com').href 
+    : 'https://startmessaging.com/images/marketing-analytics.webp'
 };
 
 const breadcrumbSchema = {

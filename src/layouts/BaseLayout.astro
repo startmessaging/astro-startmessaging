@@ -19,6 +19,7 @@ import {
   type Country,
 } from '@/config/countries';
 import CountryNotice from '@/components/CountryNotice.astro';
+import { buildOrganization, buildWebSite } from '@/lib/jsonld';
 import '../styles/global.css';
 
 interface Props {
@@ -113,12 +114,8 @@ for (const [langCode, ownerCountry] of genericLangOwner) {
 const xDefaultPath = slug ? `/${slug}` : '/';
 const xDefaultHref = new URL(xDefaultPath, Astro.site).href;
 
-const orgSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'StartMessaging',
-  url: Astro.site?.href,
-});
+const orgSchema = JSON.stringify(buildOrganization());
+const webSiteSchema = slug === '' ? JSON.stringify(buildWebSite()) : null;
 
 const webPageSchema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -196,6 +193,9 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <!-- JSON-LD structured data -->
     <script type="application/ld+json" is:inline set:html={orgSchema} />
     <script type="application/ld+json" is:inline set:html={webPageSchema} />
+    {webSiteSchema && (
+      <script type="application/ld+json" is:inline set:html={webSiteSchema} />
+    )}
     {seo.jsonLd && (
       <script type="application/ld+json" is:inline set:html={JSON.stringify(seo.jsonLd)} />
     )}
