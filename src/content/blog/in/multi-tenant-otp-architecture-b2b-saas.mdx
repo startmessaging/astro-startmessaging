@@ -1,0 +1,197 @@
+---
+title: "Multi-Tenant OTP Architecture: Isolating SMS for B2B SaaS Platforms"
+description: "Build a robust multi tenant otp architecture for B2B SaaS in India. Learn code patterns in Node.js to isolate sender IDs, DLT templates, API keys, and logs."
+publishedAt: "2026-06-16"
+category: "tutorials"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "multi tenant otp architecture"
+  - "b2b saas otp isolation"
+  - "tenant sms otp india"
+  - "saas otp per tenant sender id"
+  - "multi tenant sms api"
+relatedSlugs:
+  - "how-to-send-transactional-sms-india"
+  - "sms-api-abstraction-layer-multiple-providers"
+  - "best-bulk-sms-api-india-2026"
+  - "otp-delivery-rates-india"
+featured: false
+---
+
+Building a B2B SaaS platform means designing for isolation. When multi-tenant applications onboard corporate clients, each client expects separate data storage, distinct user roles, and isolated brand representation. 
+
+For notification systems in India, this isolation extends to the SMS layer. A B2B e-commerce platform or school management SaaS cannot send OTPs using a single generic sender ID. Each tenant needs their own branded header (sender ID), custom DLT templates, and detailed cost tracking to bill back SMS consumption. This tutorial shows you how to design a multi tenant otp architecture in Node.js that isolates SMS configurations, handles dynamic credential resolution, and manages cost allocations at scale.
+
+## The B2B SaaS SMS Isolation Challenge
+
+In a standard single-tenant app, your backend uses one API key and routes all OTP requests through a default DLT-registered header. In a B2B SaaS context, this shared approach breaks down for three reasons:
+
+First, brand representation matters. If an enterprise customer uses your platform, their end-users expect to see an SMS header matching their brand (e.g., `MYCORP`), not your SaaS name. 
+
+Second, compliance boundaries are rigid. Under TRAI regulations, templates must align with the sending business entity. If Tenant A sends notifications using templates registered to Tenant B's Principal Entity ID (PE-ID), carriers will block the messages during the template scrubbing phase.
+
+Third, billing must be precise. SaaS operators need to track exactly how many messages each tenant sends. If you cannot measure usage per client account, you cannot calculate cost allocation or enforce monthly sending limits.
+
+## Architecture Options: Shared Key vs. Isolated Credentials
+
+When architecting multi-tenant SMS routing, developers generally choose between three patterns depending on the level of isolation required.
+
+### Shared API Key with Tenant Metadata
+In this model, your SaaS uses a single StartMessaging API key. When triggering the `/otp/send` request, you pass a tenant identifier inside the variables payload. While this is simple to implement, it requires you to parse and aggregate API logs on your backend to calculate costs.
+
+### Per-Tenant Subaccounts
+This is the most secure pattern. You provision a separate subaccount under your main StartMessaging developer dashboard for each B2B tenant. Each subaccount gets its own API key, isolated wallet balance, and dedicated log history.
+
+### Dynamic Tenant Configuration Resolver
+In this hybrid model, your application stores tenant-specific headers and template IDs in a metadata database. Before sending an OTP, the backend resolves the tenant's configuration from the database and forwards the custom credentials to the API.
+
+## Implementing Tenant-Aware OTP Routing in Node.js
+
+We will build a dynamic tenant configuration resolver in Node.js. This service queries a database to retrieve a tenant's specific sending headers and templates, formats the request, and dispatches the OTP through the gateway.
+
+First, let us define our database schema mock and tenant routing logic.
+
+```javascript
+// tenant-resolver.js
+
+// Mock database containing B2B tenant credentials and configurations
+const tenantDatabase = {
+  'tenant_alpha_99': {
+    name: 'Alpha Retail',
+    apiKey: 'sm_live_alpha_key_xyz123',
+    templateId: 'DLT_TEMP_ALPHA_883',
+    senderHeader: 'ALPHAR'
+  },
+  'tenant_beta_44': {
+    name: 'Beta logistics',
+    apiKey: 'sm_live_beta_key_abc789',
+    templateId: 'DLT_TEMP_BETA_992',
+    senderHeader: 'BETALOG'
+  }
+};
+
+export async function resolveTenantConfig(tenantId) {
+  const config = tenantDatabase[tenantId];
+  if (!config) {
+    throw new Error(`Tenant configuration not found for ID: ${tenantId}`);
+  }
+  return config;
+}
+```
+
+Now, we will implement the core dispatching service. This service resolves the tenant config, constructs the API call, and logs the consumption metrics for cost allocation.
+
+```javascript
+// tenant-otp-dispatcher.js
+import { resolveTenantConfig } from './tenant-resolver.js';
+
+const GATEWAY_URL = 'https://api.startmessaging.com/otp/send';
+
+export async function dispatchTenantOtp(tenantId, phoneNumber, otpCode) {
+  try {
+    // 1. Resolve tenant configurations dynamically
+    const tenantConfig = await resolveTenantConfig(tenantId);
+
+    const payload = {
+      phoneNumber: phoneNumber,
+      templateId: tenantConfig.templateId,
+      variables: {
+        otp: otpCode,
+        appName: tenantConfig.name
+      }
+    };
+
+    // 2. Execute the API request using the tenant's isolated API Key
+    const response = await fetch(GATEWAY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': tenantConfig.apiKey
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      return {
+        success: false,
+        tenantId,
+        error: result.message || 'Gateway dispatch failed'
+      };
+    }
+
+    // 3. Log usage data for internal cost allocation tracking
+    console.log(`[Billing Log] Tenant: ${tenantId} | SMS Sent to ${phoneNumber} | Message ID: ${result.data.messageId}`);
+    
+    return {
+      success: true,
+      tenantId,
+      messageId: result.data.messageId
+    };
+  } catch (error) {
+    console.error(`Failed to route OTP for tenant ${tenantId}:`, error.message);
+    return {
+      success: false,
+      tenantId,
+      error: error.message
+    };
+  }
+}
+
+// Example Execution
+const runDispatch = async () => {
+  const delivery = await dispatchTenantOtp('tenant_alpha_99', '+919876543210', '492811');
+  console.log('Result:', delivery);
+};
+
+runDispatch();
+```
+
+ free of hardcoded values, the dispatcher resolves configuration parameters on a per-request basis. If a B2B client updates their brand header or DLT templates, you update the metadata database without restarting the SaaS application servers.
+
+## DLT Implications for B2B SaaS Platforms
+
+When running a B2B SaaS platform in India, you must plan for DLT registry rules. If your tenants require their own sender headers, they must complete entity registration on DLT portals (like Jio DLT or Airtel DLT).
+
+During registration, the tenant obtains a Principal Entity ID (PE-ID). They must then register their 6-character sender ID under their PE-ID. When you call the StartMessaging API, the platform passes these parameters to carrier routers. If there is a mismatch between the PE-ID, header, and templates, operator scrubbing engines block the message.
+
+To streamline onboarding for smaller clients, you can offer a shared compliance path. StartMessaging provides pre-registered DLT routes, allowing you to bypass individual tenant registrations. Your clients can use these pre-approved channels, while your billing logic continues to track cost allocations.
+
+## Cost Allocation and Billing Computations
+
+Outbound messages incur delivery costs. For Indian routes, StartMessaging bills at exactly ₹0.25/OTP. Your SaaS must track usage to prevent tenants from exhausting your corporate wallet.
+
+To manage this, implement a ledger service in your database. Every successful dispatch returns a message ID, which you log to a `tenant_sms_ledger` table containing the columns: `id`, `tenant_id`, `message_id`, `cost` (0.25), and `created_at`.
+
+At the end of the billing cycle, running a SQL query calculates the usage invoice for each client:
+
+```sql
+SELECT tenant_id, COUNT(id) as total_sms, SUM(cost) as total_cost 
+FROM tenant_sms_ledger 
+WHERE created_at >= '2026-06-01' AND created_at < '2026-07-01'
+GROUP BY tenant_id;
+```
+
+You can also enforce safety caps. By checking a tenant's monthly usage count before calling the resolver, you can block outgoing requests if a tenant exceeds their allocated credit limit, protecting your SaaS from billing spikes.
+
+## Frequently Asked Questions
+
+**Q: Can multiple tenants share one DLT-registered sender ID?**
+
+A: Yes. Your tenants can share a generic sender ID (such as `STRMSG`). In this case, the SMS body will display the generic header, but you can customize the business name inside the message text variables (e.g., "Your OTP for Alpha Retail is...").
+
+**Q: How do you onboard a new tenant's SMS config without downtime?**
+
+A: By storing configurations in a metadata database instead of system environment variables. When a new tenant registers, your onboarding script inserts a config row into your database. The routing resolver fetches this configuration on the next API call, requiring no deployment cycle.
+
+**Q: Do I need separate API keys for every tenant?**
+
+A: It is not mandatory, but it is recommended for large enterprise tenants who require strict data isolation. For standard SMB tenants, using a single master API key and routing messages using separate dynamic `templateId` properties is more cost-effective.
+
+**Q: How does the system handle wallet depletion for a single tenant?**
+
+A: If you use the subaccount pattern, only that tenant's API calls will fail when their sub-wallet drops below the threshold. If you use a single master wallet, you must build credit-limit checks into your application code to pause routing for clients who have depleted their allocated balance.
+
+Ready to build a scalable B2B notification engine? Sign up for a developer account at [StartMessaging Dashboard](https://app.startmessaging.com) (minimum top-up ₹1,000) and start testing multi-tenant routing configurations.

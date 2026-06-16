@@ -1,0 +1,165 @@
+---
+title: "UPI Autopay + OTP: Authentication Flows for Subscription Apps in India (2026)"
+description: "Learn how upi autopay otp india works for subscription apps. Implement NPCI mandate authentication flows, first-debit verification, and SMS failover steps."
+publishedAt: "2026-06-16"
+category: "use-cases"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "upi autopay otp india"
+  - "upi mandate otp"
+  - "subscription app otp india"
+  - "upi recurring payment otp"
+  - "upi autopay authentication flow"
+relatedSlugs:
+  - "how-to-send-transactional-sms-india"
+  - "best-bulk-sms-api-india-2026"
+  - "promotional-vs-transactional-sms-india-decision-guide"
+  - "otp-delivery-rates-india"
+featured: false
+---
+
+Subscription business models are expanding rapidly in India. Streaming services, SaaS providers, newsletter publications, and utility operators rely on recurring billing. Before the launch of UPI Autopay by the National Payments Corporation of India (NPCI), subscription payments in India were restricted to credit cards or net banking mandates.
+
+Operating a recurring payment service requires strict customer verification. NPCI rules dictate that setting up a recurring mandate requires user confirmation. This is where upi autopay otp india comes in. Subscription apps must integrate SMS verification flows during mandate creation, first-debit verification, and high-value transactions. This guide details the payment mandate lifecycle and demonstrates how to integrate OTP validation points within your backend subscription flow.
+
+## The Mechanics of UPI Autopay Mandates and the Role of OTP
+
+A UPI Autopay transaction differs from a standard one-click UPI transfer. It is a structured contract (mandate) between a customer, their bank, and your subscription merchant account. The mandate authorizes your system to auto-debit a specific amount at predefined intervals (weekly, monthly, or yearly).
+
+The mandate lifecycle has three distinct authentication steps:
+
+### 1. Mandate Creation (The Verification Gate)
+When a customer selects a subscription plan, your app initiates a mandate creation request with your payment gateway (e.g., Razorpay or Cashfree). The customer approves the mandate inside their UPI app (like Google Pay, PhonePe, or BHIM) by entering their UPI PIN. To confirm the phone number linked to the billing profile, your backend triggers an SMS OTP verification.
+
+### 2. The First Debit Authentication
+Under NPCI guidelines, if the first debit occurs immediately during signup, it is bundled with the mandate registration. For delayed first debits, your system must trigger a pre-debit notification to the customer. This notification is sent via SMS at least 24 hours before the actual debit occurs, informing the user of the upcoming charge.
+
+### 3. High-Value Transaction Re-Authentication
+For recurring debits exceeding ₹15,000, regulations mandate an Additional Factor of Authentication (AFA). Your application cannot debit a customer's account for ₹20,000 automatically without sending a real-time OTP that the user must enter on your screen to authorize that specific payment cycle.
+
+## NPCI Guidelines for Mandate Execution and Verification
+
+NPCI regulations protect consumers from unauthorized recurring charges. The framework imposes clear boundaries on how merchants communicate with subscribers.
+
+When setting up a mandate, the merchant must register a unique Mandate Reference Number (UMRN). Every transaction notification sent to the customer must reference this UMRN. Telecom operator filters match transaction SMS bodies against approved template formats containing this UMRN identifier.
+
+The pre-debit SMS is not optional. If your system fails to deliver the pre-debit alert 24 hours in advance, the customer's bank will reject the auto-debit request. This makes SMS delivery speeds and routing reliability critical. If a carrier network queues your pre-debit alerts for 12 hours during peak periods, you risk missing the regulatory notification window.
+
+## Walking Through the Complete Mandate Lifecycle Flow
+
+A typical subscription registration and debit flow involves coordination between the user's browser, your backend server, the payment gateway, and the SMS route.
+
+```
+[User Browser]       [App Backend]       [Payment Gateway]       [StartMessaging]
+      |                    |                     |                     |
+      |-- 1. Select Plan ->|                     |                     |
+      |                    |-- 2. Create Mand ->|                     |
+      |                    |<-- 3. Return SDK ---|                     |
+      |<-- 4. Show UPI ----|                     |                     |
+      |-- 5. Enter PIN --->|                     |                     |
+      |   (UPI App Auth)   |-- 6. Trigger OTP ------------------------>|
+      |                    |                     |                     | (Send SMS)
+      |<-- 7. Enter OTP ---|                     |                     |
+      |-- 8. Verify OTP -->|                     |                     |
+      |                    |-- 9. Confirm Mand ->|                     |
+      |                    |<-- 10. Active Mand -|                     |
+```
+
+The user selects a plan, prompting your backend to initialize a mandate with the payment gateway. The SDK launches the UPI app where the user inputs their PIN. Once the gateway triggers a webhook indicating pending authorization, your backend calls StartMessaging to send a verification code, confirming the user's phone matches the UPI profile. Only after verifying the code does the backend confirm the mandate activation with the gateway.
+
+## Node.js Integration: Triggering OTPs at Lifecycle Events
+
+We will write a Node.js router implementation that handles the core lifecycle events: mandate registration, pre-debit alerting, and re-authentication.
+
+```javascript
+// subscription-flow.js
+
+const API_KEY = process.env.STARTMESSAGING_KEY || 'sm_live_your_key_here';
+const SMS_ENDPOINT = 'https://api.startmessaging.com/otp/send';
+
+// Helper: Dispatch transactional notifications
+async function sendSmsNotification(phone, variables, templateId = null) {
+  try {
+    const response = await fetch(SMS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': API_KEY
+      },
+      body: JSON.stringify({
+        phoneNumber: phone,
+        templateId: templateId,
+        variables: variables
+      })
+    });
+
+    const result = await response.json();
+    return response.ok ? { success: true, messageId: result.data.messageId } : { success: false, error: result.message };
+  } catch (err) {
+    return { success: false, error: err.message };
+  }
+}
+
+// Handler 1: Triggered during Mandate creation step
+export async function handleMandateCreation(userId, userPhone, mandateId) {
+  console.log(`[Mandate Setup] Initializing for User ${userId}. Mandate ID: ${mandateId}`);
+  
+  const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+  
+  // Store otpCode in database associated with userId and mandateId for validation
+  
+  const alertResult = await sendSmsNotification(userPhone, {
+    otp: otpCode,
+    appName: 'SubSpace India'
+  });
+
+  return alertResult;
+}
+
+// Handler 2: Triggered 24 hours prior to recurring debit
+export async function sendPreDebitAlert(userPhone, customerName, amount, debitDate, umrn) {
+  console.log(`[Pre-Debit Alert] Scheduling notification for UMRN: ${umrn}`);
+  
+  // Dynamic variables matching pre-approved DLT templates
+  const messageVars = {
+    otp: umrn, // We map the transaction ID/UMRN into the required otp parameter
+    appName: `SubSpace: Debit of Rs ${amount} scheduled on ${debitDate}`
+  };
+
+  const alertResult = await sendSmsNotification(userPhone, messageVars);
+  return alertResult;
+}
+```
+
+The script manages two distinct paths. First, during mandate creation, we dispatch an OTP code. Second, prior to execution, we format a pre-debit notification mapping the UMRN and debit amount into our variables.
+
+## Managing Mandate Delivery Edge Cases
+
+When running mandate notification flows, you will encounter telecom routing edge cases specific to India.
+
+If a user uses a dual-SIM setup, their active data connection might be on Jio while their bank-registered number is on Airtel. When your app triggers the pre-debit alert, signal delays or operator routing changes can delay delivery. If the pre-debit alert is delivered late (less than 24 hours before execution), bank engines will automatically reject your payment request.
+
+To mitigate this, configure your scheduler to trigger pre-debit notifications 28 to 30 hours before execution. You must also implement fallback routes. StartMessaging handles carrier-level routing, using multi-operator paths to keep SMS delivery times below 5 seconds. If a carrier's queue latency spikes, traffic shifts automatically to alternate routes.
+
+StartMessaging charges exactly ₹0.25/OTP for transactional messages sent to Indian numbers. With a minimum wallet top-up of ₹1,000, developers can implement these verification loops without upfront setup contracts.
+
+## Frequently Asked Questions
+
+**Q: Is OTP verification mandatory for all UPI Autopay amounts?**
+
+A: UPI Autopay mandate setup always requires UPI PIN authorization inside the customer's UPI app. For individual recurring payments, OTP verification is only mandatory for transaction amounts exceeding ₹15,000. Transactions under this limit are debited automatically without user intervention.
+
+**Q: What happens if a user misses the pre-debit OTP verification window?**
+
+A: For transactions over ₹15,000, if the user fails to input the OTP code before the validation window expires (usually 5–10 minutes), the auto-debit request fails. Your backend must listen for the gateway's payment failure webhook and prompt the user to re-authorize the payment inside your application.
+
+**Q: Can subscription apps send pre-debit alerts via WhatsApp instead of SMS?**
+
+A: NPCI and RBI rules state that pre-debit notifications must be sent via SMS to the customer's registered mobile number. While you can send duplicate notifications on WhatsApp or email to improve visibility, the SMS route remains the official compliance path.
+
+**Q: How does a subscription platform handle DLT registration for pre-debit messages?**
+
+A: Pre-debit messages contain transaction details and must use approved Service Implicit DLT templates. If you route through StartMessaging, you can leverage pre-approved transactional templates to dispatch these notifications instantly, eliminating the standard 2-week DLT setup phase.
+
+Ready to automate your recurring payment notifications? Register for a developer account at [StartMessaging Dashboard](https://app.startmessaging.com) and begin integrating mandate authentication flows.

@@ -1,0 +1,217 @@
+---
+title: "Queue-Based OTP Delivery: Using BullMQ and Redis for High-Volume SMS in India"
+description: "Implement queue otp delivery india with BullMQ & Redis in Node.js. Avoid API timeouts, handle carrier TPS limits, and build scalable retry notifications."
+publishedAt: "2026-06-16"
+category: "tutorials"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "queue otp delivery india"
+  - "bullmq sms otp"
+  - "redis queue otp india"
+  - "high volume otp delivery"
+  - "otp job queue node.js"
+relatedSlugs:
+  - "how-to-send-transactional-sms-india"
+  - "sms-api-abstraction-layer-multiple-providers"
+  - "best-bulk-sms-api-india-2026"
+  - "otp-delivery-rates-india"
+featured: false
+---
+
+In high-volume applications like e-commerce, banking, or logistics platforms, sending authentication codes synchronously within the client's HTTP request-response loop is a bottleneck. When a user requests an OTP, your API server must generate the code, construct an HTTP request, send it to the SMS gateway, and wait for the gateway's response before replying to the user.
+
+If the gateway takes three seconds to respond due to route congestion, your application server's process pool quickly fills up. During flash sales or login surges, this leads to connection timeouts and cascading backend failures. 
+
+Implementing a system for queue otp delivery india resolves this. By offloading SMS delivery to an asynchronous task queue using BullMQ and Redis, you decouple your API server from operator latency, enforce rate limits, and ensure reliable OTP delivery under heavy load.
+
+## Why Synchronous OTP Delivery Fails at Scale
+
+In a standard synchronous backend, code runs sequentially. When a signup route is hit, the thread is blocked until the SMS gateway returns an HTTP status code. If your service handles 100 registration requests per second and each request blocks a thread for 1 second, your application server will exhaust its socket pool and reject incoming user requests.
+
+Furthermore, direct API calls do not handle network failures elegantly. If the gateway endpoint is temporarily unavailable, your application throws an exception, the user sees an error, and the OTP is lost. Retrying the request synchronously from the client side often worsens network congestion.
+
+Finally, Indian telecom operators and SMS providers enforce strict Transactions Per Second (TPS) limits on sending accounts. If you send OTP calls directly to the gateway at a rate that exceeds your account's TPS cap, the provider responds with `429 Too Many Requests`. Without a queuing layer, your application must handle these rejections inside the user-facing request flow.
+
+## The Queue Architecture: BullMQ + Redis + Node.js
+
+A queue-based architecture splits the OTP workflow into two decoupled processes: the Producer and the Consumer.
+
+The API server acts as the Producer. When a user requests an OTP, the API server generates the code, inserts a job into the BullMQ queue hosted on Redis, and returns an immediate response (e.g., `202 Accepted`) to the user's browser. The user's screen updates immediately, showing the OTP verification input field.
+
+A separate pool of background worker processes acts as the Consumer. These workers listen to the Redis queue, pull jobs as they arrive, and make the outgoing HTTP requests to the StartMessaging API. If a worker encounters an operator rate limit or network timeout, the queue manages retries automatically using exponential backoff schedules.
+
+## Implementing the OTP Queue and Producer
+
+We will write a Node.js implementation using the `bullmq` and `ioredis` packages. First, install the required packages:
+
+```bash
+npm install bullmq ioredis
+```
+
+Now, create a file named `otp-queue.config.ts` to manage the Redis connection and initialize the BullMQ queue instance.
+
+```typescript
+// otp-queue.config.ts
+import { Queue, ConnectionOptions } from 'bullmq';
+import Redis from 'ioredis';
+
+const REDIS_HOST = process.env.REDIS_HOST || '127.0.0.1';
+const REDIS_PORT = parseInt(process.env.REDIS_PORT || '6379', 10);
+
+export const connectionOptions: ConnectionOptions = {
+  host: REDIS_HOST,
+  port: REDIS_PORT,
+  maxRetriesPerRequest: null // Required by BullMQ to prevent connection drop errors
+};
+
+export const redisConnection = new Redis(connectionOptions);
+
+// Initialize the queue named 'otp-delivery'
+export const otpQueue = new Queue('otp-delivery', {
+  connection: redisConnection,
+  defaultJobOptions: {
+    attempts: 3, // Retry failed sends up to 3 times
+    backoff: {
+      type: 'exponential',
+      delay: 2000 // Start retries after 2 seconds, then 4s, then 8s
+    },
+    removeOnComplete: true, // Clean up successful jobs to save Redis memory
+    removeOnFail: { count: 1000 } // Keep the last 1000 failures for debugging
+  }
+});
+```
+
+With the queue configuration established, we can write the code for our API router's handler. This script generates the OTP code and pushes the payload into the queue.
+
+```typescript
+// otp-producer.service.ts
+import { otpQueue } from './otp-queue.config';
+
+interface OtpJobPayload {
+  phoneNumber: string;
+  otpCode: string;
+  appName: string;
+}
+
+export async function requestOtpDelivery(phoneNumber: string): Promise<string> {
+  // Generate a random 6-digit OTP code
+  const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+  const applicationName = 'ShopKart India';
+
+  const jobPayload: OtpJobPayload = {
+    phoneNumber: phoneNumber,
+    otpCode: generatedCode,
+    appName: applicationName
+  };
+
+  // Add the job to the queue. BullMQ assigns a unique Job ID.
+  const job = await otpQueue.add('send-otp', jobPayload, {
+    // Prevent spamming the same phone number within a 30-second window
+    jobId: `otp:${phoneNumber}`
+  });
+
+  // Store the code in your database (e.g. hashed with expiry) to verify later
+  console.log(`Queued OTP job ${job.id} for phone number: ${phoneNumber}`);
+  return generatedCode;
+}
+```
+
+By specifying a custom `jobId` format like `otp:${phoneNumber}`, BullMQ prevents adding duplicate jobs for the same user if they click the "Resend OTP" button repeatedly. The second attempt will overwrite the existing queued job or fail to insert, preventing unnecessary SMS costs.
+
+## Implementing the Concurrent Worker Process
+
+The Worker process runs independently from your web server. It extracts jobs from Redis, formats the payload, and posts the data to StartMessaging's `/otp/send` endpoint.
+
+Create a file named `otp-worker.ts` to run the worker loop.
+
+```typescript
+// otp-worker.ts
+import { Worker, Job } from 'bullmq';
+import { connectionOptions } from './otp-queue.config';
+
+const STARTMESSAGING_API_URL = 'https://api.startmessaging.com/otp/send';
+const API_KEY = process.env.STARTMESSAGING_API_KEY || 'sm_live_your_api_key_here';
+
+interface OtpJobPayload {
+  phoneNumber: string;
+  otpCode: string;
+  appName: string;
+}
+
+const worker = new Worker<OtpJobPayload>(
+  'otp-delivery',
+  async (job: Job<OtpJobPayload>) => {
+    console.log(`Processing OTP delivery job ${job.id} for ${job.data.phoneNumber}`);
+
+    const response = await fetch(STARTMESSAGING_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': API_KEY,
+        'Idempotency-Key': `job-${job.id}` // Use the job ID to guarantee idempotency
+      },
+      body: JSON.stringify({
+        phoneNumber: job.data.phoneNumber,
+        variables: {
+          otp: job.data.otpCode,
+          appName: job.data.appName
+        }
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      // If the gateway throws a 429 Rate Limit error, throw an error to trigger queue retry
+      if (response.status === 429) {
+        throw new Error('StartMessaging rate limit hit. Queue worker will retry.');
+      }
+      throw new Error(`Gateway returned error status: ${response.status} - ${result.message}`);
+    }
+
+    console.log(`Job ${job.id} completed. Message ID: ${result.data.messageId}`);
+  },
+  {
+    connection: connectionOptions,
+    // Limit concurrency to stay within your account's TPS limits
+    concurrency: 5 
+  }
+);
+
+worker.on('failed', (job, err) => {
+  console.error(`Job ${job?.id} failed with error: ${err.message}`);
+});
+
+console.log('OTP Queue Worker started and listening for jobs...');
+```
+
+Setting `concurrency: 5` inside the Worker configuration ensures that a single worker process only executes a maximum of 5 parallel outbound requests. If your SMS account is configured for a limit of 20 TPS, running 4 worker processes with concurrency 5 guarantees your application will never exceed your operator throughput caps.
+
+## Monitoring Queue Health and Failures
+
+A background job queue requires monitoring. If your Redis instance runs out of memory or your API keys expire, jobs will pile up in the queue without delivering OTPs to users.
+
+To visualize queue health, integrate `bull-board` into your admin panel. Bull Board is a dashboard that plugs directly into BullMQ queues and displays active, waiting, completed, and failed jobs.
+
+Failed jobs are routed to the Dead Letter Queue (DLQ) after they exhaust their retry attempts (configured as `attempts: 3` in our setup). When a job fails permanently, you should configure an alert (via Slack, Discord, or email) to notify your on-call team. This alert indicates a systemic failure, such as an API credit depletion or changes in telecom provider routes.
+
+## Frequently Asked Questions
+
+**Q: Can this pattern work with serverless functions like AWS Lambda?**
+
+A: Yes, but with adjustments. Serverless functions are stateless and run on-demand, making it difficult to run persistent queue worker processes. If you deploy on Lambda, use a managed queue service like Amazon SQS instead of Redis, and configure SQS to trigger your worker Lambda function concurrently.
+
+**Q: How many Redis instances do I need for 10,000 OTPs per minute?**
+
+A: A single Redis instance is highly efficient and can easily process 10,000 operations per second. For high-volume OTP flows (10,000/minute is roughly 166 jobs/second), a standard Redis cluster node with 1GB of RAM is more than sufficient.
+
+**Q: Does using a queue delay the delivery of the OTP to the user?**
+
+A: The latency added by adding a job to Redis is less than 2 milliseconds. Because Redis runs in-memory, the transition from producer to worker is nearly instantaneous. The overall delivery speed remains faster than synchronous routing because the web thread is freed immediately.
+
+**Q: What is exponential backoff?**
+
+A: When an outbound API call fails, retrying immediately can overload the destination server. Exponential backoff schedules retries with progressively longer delays (e.g., waiting 2 seconds for the first retry, then 4 seconds, then 8 seconds). This gives the destination server time to recover.
+
+Ready to secure your backend with high-volume queuing? Register for a developer account at [StartMessaging](https://app.startmessaging.com) and test your queue workers with our flat-rate API.
