@@ -1,0 +1,282 @@
+---
+title: "Integrating Paystack Payment Links with WhatsApp Business API"
+description: "Learn how to integrate Paystack payment links with WhatsApp Business API. Automate payment requests, send invoices via WhatsApp, and confirm with webhooks."
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+category: "tutorials"
+country: "ng"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp paystack integration"
+  - "paystack payment links nigeria"
+  - "automate whatsapp payments"
+  - "whatsapp invoicing paystack"
+  - "paystack webhook notification"
+  - "whatsapp payment link generator"
+relatedSlugs:
+  - "whatsapp-fintech-nigeria-onboarding-alerts"
+  - "whatsapp-social-commerce-nigeria"
+  - "ndpa-whatsapp-business-api-compliance-nigeria"
+  - "whatsapp-chatbot-customer-service-nigeria"
+featured: true
+---
+
+Automating customer transactions is a critical capability for any business operating in the Nigerian digital commerce space. By using a whatsapp paystack integration, you can programmatically send dynamic payment links directly to customers within their chat screens. This minimises payment friction and replaces slower email or SMS invoicing methods that suffer from low conversion rates. In this tutorial, we will show you how to generate these payment links on your backend and deliver them using WhatsApp templates.
+
+Before writing the integration, please note that the StartMessaging WhatsApp API is currently in active development. While the production endpoints will be available soon, you can use the standard `/v1/messages` endpoint outlined in this guide to build your prototype. All authentication for these endpoints uses the same `X-API-Key` header scheme that powers our existing SMS and verification services.
+
+---
+
+## Understanding the Flow: Paystack Links and WhatsApp API
+
+For Nigerian businesses, collecting payments directly via messaging solves a major user experience hurdle. Instead of asking a user to exit WhatsApp, open a web browser, navigate to a store page, and checkout, you deliver a single, clickable checkout link. When the customer clicks the link, they are redirected to a secure Paystack checkout page where they can pay via direct bank transfer, USSD, or debit card. Once the transaction completes, a webhook notifies your backend, allowing you to trigger a real-time receipt message back to the customer on WhatsApp.
+
+The architecture relies on three distinct operations:
+1. **Link Generation:** Your backend communicates with the Paystack API to initialize a transaction and retrieve a unique payment URL.
+2. **Message Delivery:** Your backend sends a structured WhatsApp message containing the payment link to the customer via the StartMessaging API.
+3. **Status Syncing:** Paystack sends a POST request (webhook) to your server when the customer pays, which triggers a confirmation message.
+
+This model is highly scalable and fits various business sizes, from informal retail shops managing orders to automated fintech platforms.
+
+---
+
+## Generating Paystack Payment Links Programmatically
+
+To start the process, we must build a backend service to request a payment link from Paystack. For this tutorial, we will use Node.js and the `axios` library to call the Paystack Transaction API. 
+
+Ensure you have your Paystack Secret Key set in your environment variables. In Nigeria, local transactions incur a fee of 1.5% + ₦100, capped at ₦2,000 per transaction, which is helpful to keep in mind when calculating order values.
+
+Here is the code to initialize a payment link:
+
+```javascript
+const axios = require('axios');
+
+/**
+ * Generates a dynamic Paystack payment link
+ * @param {string} email - Customer's billing email
+ * @param {number} amountInKobo - Transaction amount in Kobo (e.g. ₦1,000 = 100000 Kobo)
+ * @param {string} reference - Unique transaction reference code
+ * @returns {Promise<string>} - Returns the checkout URL
+ */
+async function generatePaystackPaymentLink(email, amountInKobo, reference) {
+  try {
+    const response = await axios.post(
+      'https://api.paystack.co/transaction/initialize',
+      {
+        email: email,
+        amount: amountInKobo,
+        reference: reference,
+        callback_url: 'https://yourdomain.com/payment/callback'
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    if (response.data && response.data.status) {
+      return response.data.data.authorization_url;
+    } else {
+      throw new Error('Paystack initialization failed');
+    }
+  } catch (error) {
+    console.error('Error generating Paystack link:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+}
+```
+
+This helper function receives the customer's email, the amount, and a unique reference. Paystack accepts amounts in Kobo (the sub-unit of Naira), so a payment of ₦5,000 must be sent as `500000`. The function returns the authorization URL that we will send to the user's WhatsApp account.
+
+---
+
+## Automating Invoices via the WhatsApp Business API
+
+Now that we can generate payment links, the next step is sending them via the WhatsApp Business API. Because the API endpoints are in development and will be available soon, we use the temporary endpoint `/v1/messages` for the integration code.
+
+We must authenticate using the `X-API-Key` header, passing our StartMessaging API key. In our request, we specify a WhatsApp template that has been approved by Meta. Using templates is mandatory for initiating messages to users outside the 24-hour customer service window.
+
+```javascript
+const axios = require('axios');
+
+/**
+ * Sends a Paystack payment link to a customer via WhatsApp
+ * @param {string} phoneNumber - Customer's WhatsApp phone number in international format (e.g. 2348030000000)
+ * @param {string} customerName - First name of the customer
+ * @param {string} invoiceId - The internal invoice or order ID
+ * @param {string} paymentLink - The authorization URL generated from Paystack
+ */
+async function sendWhatsAppPaymentRequest(phoneNumber, customerName, invoiceId, paymentLink) {
+  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
+  const endpoint = 'https://api.startmessaging.com/v1/messages';
+  
+  const payload = {
+    to: phoneNumber,
+    type: 'template',
+    template: {
+      name: 'invoice_payment_request',
+      language: {
+        code: 'en_US'
+      },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            { type: 'text', text: customerName },
+            { type: 'text', text: invoiceId }
+          ]
+        },
+        {
+          type: 'button',
+          index: '0',
+          sub_type: 'url',
+          parameters: [
+            { type: 'text', text: paymentLink.replace('https://checkout.paystack.com/', '') }
+          ]
+        }
+      ]
+    }
+  };
+
+  try {
+    const response = await axios.post(endpoint, payload, {
+      headers: {
+        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (response.data && response.data.success) {
+      console.log(`Payment link successfully sent to ${phoneNumber}. Message ID: ${response.data.message_id}`);
+    } else {
+      console.error('Failed to send WhatsApp message:', response.data);
+    }
+  } catch (error) {
+    console.error('Error invoking WhatsApp API:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+}
+```
+
+In this code snippet, we parse the payment link and inject it into a dynamic URL button template. The placeholder values are populated with the customer's name, invoice ID, and the unique checkout slug. This delivers a rich message on the user's phone, complete with a call-to-action button that reads "Pay Now".
+
+---
+
+## Confirming Successful Payments in Real Time via Webhooks
+
+After the customer receives the message and processes the transaction, Paystack sends a webhook notification to your server. It is essential to configure an endpoint to listen for these events, verify their authenticity, and automatically confirm the order.
+
+Below is an Express route showing how to verify the Paystack signature and trigger a payment confirmation message back on WhatsApp:
+
+```javascript
+const express = require('express');
+const crypto = require('crypto');
+const axios = require('axios');
+const router = express.Router();
+
+// Webhook endpoint for Paystack events
+router.post('/paystack-webhook', async (req, res) => {
+  const signature = req.headers['x-paystack-signature'];
+  const webhookSecret = process.env.PAYSTACK_WEBHOOK_SECRET;
+
+  // Verify signature to prevent fake events
+  const hash = crypto
+    .createHmac('sha256', webhookSecret)
+    .update(JSON.stringify(req.body))
+    .digest('hex');
+
+  if (hash !== signature) {
+    return res.status(401).send('Invalid webhook signature');
+  }
+
+  // Acknowledge receipt of the webhook immediately
+  res.status(200).send('Webhook Received');
+
+  const event = req.body;
+
+  // Process completed charges
+  if (event.event === 'charge.success') {
+    const transactionData = event.data;
+    const amountPaid = transactionData.amount / 100; // Convert back to Naira
+    const customerPhone = transactionData.metadata.phone; // Passed during initialize
+    const customerName = transactionData.metadata.name;
+    const reference = transactionData.reference;
+
+    console.log(`Payment of ₦${amountPaid} verified for reference: ${reference}`);
+
+    // Trigger confirmation message on WhatsApp
+    await sendWhatsAppPaymentConfirmation(customerPhone, customerName, reference, amountPaid);
+  }
+});
+
+/**
+ * Sends a payment confirmation message via WhatsApp
+ */
+async function sendWhatsAppPaymentConfirmation(phoneNumber, customerName, reference, amountPaid) {
+  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
+  const endpoint = 'https://api.startmessaging.com/v1/messages';
+
+  const payload = {
+    to: phoneNumber,
+    type: 'template',
+    template: {
+      name: 'payment_confirmation',
+      language: {
+        code: 'en_US'
+      },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            { type: 'text', text: customerName },
+            { type: 'text', text: `₦${amountPaid.toFixed(2)}` },
+            { type: 'text', text: reference }
+          ]
+        }
+      ]
+    }
+  };
+
+  try {
+    await axios.post(endpoint, payload, {
+      headers: {
+        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(`Confirmation message sent to ${phoneNumber}`);
+  } catch (error) {
+    console.error('Error sending confirmation message:', error.response ? error.response.data : error.message);
+  }
+}
+
+module.exports = router;
+```
+
+This controller verifies that the request originates from Paystack, processes the payload to extract customer details, and sends a transaction confirmation message. This ensures the customer knows their payment went through instantly, increasing trust.
+
+---
+
+## Frequently Asked Questions
+
+**Q: Do customers need to have a registered card to pay via WhatsApp payment links?**
+
+A: No, Paystack supports multiple payment options including direct bank transfers, USSD codes (such as *737#), and card payments. This is highly beneficial in Nigeria, where bank transfers are the preferred transaction method for most digital shoppers.
+
+**Q: Are there additional fees when integrating Paystack with StartMessaging?**
+
+A: There are no extra setup charges. You only pay Paystack's standard transaction fee (1.5% + ₦100, capped at ₦2,000 for local payments) and StartMessaging's standard flat rate for WhatsApp Business API utility and service conversation templates.
+
+**Q: Can I send dynamic payment links without a website or web server?**
+
+A: You will need a simple backend server or cloud function to handle the API calls to Paystack and StartMessaging. If you do not run a traditional server, you can deploy these functions serverless using platforms like AWS Lambda or Vercel Serverless Functions.
+
+**Q: How do I handle transaction failures on Paystack?**
+
+A: Paystack handles the checkout interface and shows failure states directly to the customer. However, you can configure your webhook to listen for `charge.failed` events and automatically send a helpful WhatsApp reminder message to assist the customer.
+
+---
+
+Automating your payment flows using a whatsapp paystack integration minimises friction and optimises your invoicing process. By generating links on the fly, delivering them within chat, and verifying via webhooks, you create a seamless transaction experience for your customers. Start building your implementation today by setting up your backend credentials and creating your test WhatsApp message templates. For more details on message formatting, see our [broadcast API documentation](/ng/docs/whatsapp/broadcast-api).

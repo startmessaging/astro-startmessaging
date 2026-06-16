@@ -1,0 +1,231 @@
+---
+title: "WhatsApp Social Commerce in Nigeria: Sell Without a Website"
+description: "Learn how to sell on WhatsApp in Nigeria without a website. Set up WhatsApp Catalogue, automate order confirmations, and integrate Paystack payment links."
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+category: "use-cases"
+country: "ng"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp social commerce nigeria"
+  - "sell on whatsapp nigeria"
+  - "whatsapp catalogue nigeria"
+  - "whatsapp business for small business nigeria"
+  - "cash on delivery flows nigeria"
+  - "whatsapp automated payment request"
+relatedSlugs:
+  - "whatsapp-paystack-integration"
+  - "whatsapp-fintech-nigeria-onboarding-alerts"
+  - "ndpa-whatsapp-business-api-compliance-nigeria"
+  - "whatsapp-chatbot-customer-service-nigeria"
+featured: false
+---
+
+For many micro-enterprises and retail brands in Lagos, Abuja, and other commercial hubs, building a traditional web store is not a priority. Instead, businesses use Instagram feeds, WhatsApp Status updates, and direct messaging to display products, negotiate prices, and close transactions. This shift towards whatsapp social commerce nigeria is driven by user preferences. Nigerian shoppers expect direct communication and personal trust before transferring funds. Moving your store operations onto WhatsApp allows you to engage customers in a conversational space while automating order entry.
+
+Please note that the StartMessaging WhatsApp API is currently in active development. While the endpoints are being finalised and will be available soon, you can prototype your integrations using the standard `/v1/messages` endpoint outlined in this guide. Our services use the same `X-API-Key` header authentication that powers our SMS and verification endpoints.
+
+---
+
+## The Reality of Nigerian Social Commerce: Chat over Websites
+
+Traditional e-commerce platforms often struggle to gain traction with Nigerian consumers due to a lack of trust. Shoppers are hesitant to enter debit card details on unknown websites. They prefer to speak with a seller, verify product availability, confirm delivery times, and negotiate shipping fees. This high-touch behavior has turned messaging apps into the primary marketplace for retail.
+
+For informal merchants operating in markets like Balogun, Computer Village, or Yaba, WhatsApp functions as a digital storefront. It requires no complex coding, hosting fees, or design skills. Sellers upload photos of their goods (such as clothes, electronics, or home decor) to their WhatsApp Status. Interested buyers reply to the status, negotiate the price in the chat, send delivery details, and pay via direct bank transfer.
+
+```
++----------------------------+
+| Buyer views WhatsApp Status|
++----------------------------+
+              |
+              v
++----------------------------+
+| Chat negotiation & checkout|
++----------------------------+
+              |
+              v
++----------------------------+
+|   Bank Transfer / COD Info |
++----------------------------+
+              |
+              v
++----------------------------+
+| Order dispatch via dispatch|
++----------------------------+
+```
+
+While this manual process is effective for micro-businesses starting out, it becomes difficult to manage as order volumes grow. Manually sending bank details, confirming payments, and booking dispatch riders eats up hours of administrative time. When handling dozens of enquiries daily, merchants risk missing messages, leading to lost revenue. This is where automation helps, allowing small businesses to scale without losing the personal touch of conversational sales.
+
+---
+
+## WhatsApp Catalogue: Setting It Up and Understanding Its Limits
+
+To transition from informal chats to structured sales, merchants should set up a WhatsApp Catalogue. If you use the free WhatsApp Business app, you can create a digital catalog directly inside the app.
+
+To set up a catalog on the free app:
+1. Open the WhatsApp Business app and tap **Settings → Business Tools → Catalog**.
+2. Tap **Add New Item** and upload images of your product.
+3. Input the product name, price in Nigerian Naira (₦), and a description.
+4. Add a link (such as a Paystack Payment Link) and a unique item code for tracking.
+5. Tap **Save**. Once Meta approves the item, it is visible to your customers.
+
+When a customer visits your business profile, they can browse your catalog, add items to a cart, and send the cart to you as a single chat message.
+
+However, the free WhatsApp Business app catalog has limitations for growing enterprises. It is limited to a single device (or up to four linked web screens), making it hard for multi-agent support teams to manage chats. It does not integrate with inventory management databases, meaning you must manually update items when stock runs out. Additionally, it cannot process payments automatically. The merchant must still manually verify bank transfers or generate billing invoices for each buyer.
+
+---
+
+## Using the WhatsApp Business API to Automate Checkout and Payment
+
+To overcome these scaling limits, growing merchants use the WhatsApp Business API to automate order verification and payment collection. By connecting your inventory database to the API, you can send automated messages when a user selects a product.
+
+When a customer submits their cart, your backend processes the order and sends a template message containing a secure payment link (via Paystack or Flutterwave) using the StartMessaging API.
+
+```javascript
+const axios = require('axios');
+
+/**
+ * Sends an automated order checkout notification with a payment link
+ * @param {string} customerPhone - Customer's WhatsApp phone number (e.g. 2348030000000)
+ * @param {string} orderId - Unique order identifier
+ * @param {number} totalAmount - Total order value in Naira (₦)
+ * @param {string} checkoutUrl - Dynamic Paystack/Flutterwave link
+ */
+async function sendAutomatedCheckout(customerPhone, orderId, totalAmount, checkoutUrl) {
+  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
+  const endpoint = 'https://api.startmessaging.com/v1/messages';
+  
+  const payload = {
+    to: customerPhone,
+    type: 'template',
+    template: {
+      name: 'order_checkout_payment',
+      language: {
+        code: 'en_NG'
+      },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            { type: 'text', text: orderId },
+            { type: 'text', text: `₦${totalAmount.toFixed(2)}` }
+          ]
+        },
+        {
+          type: 'button',
+          index: '0',
+          sub_type: 'url',
+          parameters: [
+            { type: 'text', text: checkoutUrl.replace('https://checkout.paystack.com/', '') }
+          ]
+        }
+      ]
+    }
+  };
+
+  try {
+    await axios.post(endpoint, payload, {
+      headers: {
+        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(`Checkout link sent to ${customerPhone} for order ${orderId}`);
+  } catch (error) {
+    console.error('Error sending order checkout:', error.response ? error.response.data : error.message);
+  }
+}
+```
+
+This automated flow reduces manual work. The customer clicks the button, pays via transfer or card on the secure page, and your system processes the webhook to mark the order as paid.
+
+---
+
+## Cash on Delivery (COD) Confirmation and Delivery Tracking
+
+Cash on Delivery (COD) remains a common payment method in Nigerian e-commerce. Due to historical delivery delays and online fraud concerns, many shoppers refuse to pay before they can inspect the item. 
+
+While COD helps build trust and drive sales, it introduces logistical risks. Merchants often face high delivery failure rates when customers are unavailable to pay on arrival or cancel orders without notice. Each failed delivery incurs dispatch fees (typically between ₦1,500 and ₦3,500 depending on the location in Lagos), cutting into merchant profits.
+
+You can minimise COD losses by using the WhatsApp API to run delivery confirmation flows. Before dispatching a package, your system sends an interactive message with quick-reply buttons. The package is only handed to the dispatch rider once the buyer confirms.
+
+```json
+{
+  "to": "2348030000000",
+  "type": "interactive",
+  "interactive": {
+    "type": "button",
+    "body": {
+      "text": "Hello! Your order #ORD-9876 is scheduled for delivery today. Please confirm you have ₦12,500 cash or are ready to do a bank transfer on arrival."
+    },
+    "action": {
+      "buttons": [
+        {
+          "type": "reply",
+          "reply": {
+            "id": "confirm_cod_delivery",
+            "title": "Confirm Order"
+          }
+        },
+        {
+          "type": "reply",
+          "reply": {
+            "id": "cancel_cod_order",
+            "title": "Cancel Order"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+If the customer taps "Confirm Order", your backend updates the status to "Dispatched" and notifies your logistics provider. If they tap "Cancel Order", you save on return shipping fees and return the item to inventory, preventing delivery failures.
+
+---
+
+## Scaling Up: Moving from the Free App to the Business API
+
+Many retail brands start with the free WhatsApp Business app. While it is suitable for solo operations, growing teams often face bottlenecks as message volumes increase.
+
+Signs that your business has outgrown the free WhatsApp Business app:
+* **Response Delays:** Customers experience long waits because only one agent can access messages at a time.
+* **Lost Leads:** Important sales enquiries go unanswered as messages get pushed down the inbox list.
+* **Lack of Data:** You cannot track response times, customer service quality, or conversation analytics.
+* **Manual Tasks:** Employees spend hours copying customer addresses from chats into shipping tools and sending manual payment links.
+
+Transitioning to the WhatsApp Business API allows you to link your chat channel to multi-agent helpdesks. This enables multiple sales agents to manage chats simultaneously. It also lets you integrate CRM databases, automate notifications, and build custom chatbots to handle routine FAQs.
+
+---
+
+## Integrating WhatsApp with Jumia and Konga Marketplaces
+
+Many Nigerian merchants operate multi-channel businesses, listing on marketplaces like Jumia or Konga while selling via their own social channels. Managing customer communication across these platforms can be challenging.
+
+You can use the WhatsApp Business API to integrate your marketplace order feeds. When a buyer purchases an item on Jumia or Konga, your system can trigger a WhatsApp alert to confirm the order and provide delivery tracking details.
+
+Using WhatsApp for these alerts helps build direct relationships with customers. The delivery notice can include a discount code (e.g. 10% off their next purchase) redeemable directly via your WhatsApp store, encouraging repeat sales outside of marketplace commissions.
+
+---
+
+## Frequently Asked Questions
+
+**Q: Do I need an active website to get approved for the WhatsApp Business API?**
+
+A: No. You do not need a functional website to use the WhatsApp API. You can link your API account to a business landing page, a social media profile, or a Paystack storefront page, provided you have a verified Facebook Business Manager account.
+
+**Q: Can we collect card payments directly inside the WhatsApp chat screen?**
+
+A: Currently, native in-chat payments are only available in select regions. For Nigerian businesses, the most effective approach is sending dynamic payment links (such as Paystack or Flutterwave checkout links). The customer taps the button in WhatsApp, completes the transaction on the checkout page, and is redirected back to the chat.
+
+**Q: How do we prevent fake cash on delivery (COD) orders?**
+
+A: The most effective method is sending an automated confirmation request on WhatsApp 24 hours before dispatch. If the customer does not tap the confirmation button, place the order on hold and contact them via phone before booking the dispatch rider.
+
+**Q: Can multiple sales agents use the same WhatsApp phone number?**
+
+A: Yes. By upgrading to the WhatsApp Business API, you can connect your business number to a multi-agent dashboard or customer support tool. This allows dozens of support and sales representatives to manage conversations from different devices at the same time.
+
+---
+
+Adopting a whatsapp social commerce nigeria strategy enables micro-enterprises to automate operations while keeping communications personal. By using catalogs, automating payment collections, and verifying cash-on-delivery orders, you can scale sales and reduce failed delivery costs. To begin setting up your integration, review our guide on [configuring webhook events](/ng/docs/whatsapp/webhooks) and managing API keys.

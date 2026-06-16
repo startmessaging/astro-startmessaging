@@ -9,7 +9,7 @@ import BlogHeader from '@/components/blog/BlogHeader.astro';
 import AuthorCard from '@/components/blog/AuthorCard.astro';
 import RelatedPosts from '@/components/blog/RelatedPosts.astro';
 import Breadcrumbs from '@/components/blog/Breadcrumbs.astro';
-import TableOfContents from '@/components/react/TableOfContents';
+import TableOfContents from '@/components/blog/TableOfContents.astro';
 import { urlPrefix, type Country } from '@/config/countries';
 
 interface TocEntry {
@@ -60,7 +60,7 @@ if (country !== 'in') {
   theme = isWhatsappPath ? 'whatsapp' : 'sms';
 }
 const isWhatsapp = theme === 'whatsapp';
-const proseLinkColor = isWhatsapp ? 'prose-a:text-[var(--color-accent-wa)]' : 'prose-a:text-[var(--color-persian)]';
+const proseLinkColor = 'prose-a:text-primary hover:prose-a:text-primary-active';
 
 // Step 3 (seo_geo_analysis_report.md): Compute canonical override for duplicate/shared posts.
 // When frontmatter.canonicalCountry is set, this post is a copy of a master in another country.
@@ -126,7 +126,7 @@ const breadcrumbSchema = {
       homeHref={prefix || '/'}
     />
     <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-12 mt-8">
-      <article>
+      <article class="min-w-0">
         <BlogHeader
           post={{
             title: frontmatter.title,
@@ -144,7 +144,7 @@ const breadcrumbSchema = {
       </article>
       <aside class="hidden lg:block">
         <div class="sticky top-24">
-          <TableOfContents headings={headings} client:load />
+          <TableOfContents headings={headings} />
         </div>
       </aside>
     </div>

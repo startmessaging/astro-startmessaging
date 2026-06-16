@@ -1,0 +1,86 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings = [] } = Astro.props;
+const filtered = headings.filter((h) => h.depth <= 3);
+---
+
+{filtered.length > 0 && (
+  <nav aria-label="Table of contents">
+    <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">On this page</p>
+    <ul class="space-y-1">
+      {filtered.map((h) => (
+        <li style={{ paddingLeft: `${(h.depth - 2) * 12}px` }}>
+          <a
+            href={`#${h.slug}`}
+            data-slug={h.slug}
+            class="toc-link block text-sm py-0.5 transition-colors text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+          >
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<script>
+  function setupTOC() {
+    const links = document.querySelectorAll('.toc-link');
+    if (links.length === 0) return;
+
+    // Disconnect any existing observer on this window instance
+    if (window.__tocObserver) {
+      window.__tocObserver.disconnect();
+    }
+
+    const observerOptions = {
+      rootMargin: '0px 0px -70% 0px',
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const activeSlug = entry.target.id;
+          links.forEach((link) => {
+            if (link.getAttribute('data-slug') === activeSlug) {
+              link.classList.add('text-primary', 'font-medium');
+              link.classList.remove('text-gray-500', 'dark:text-gray-400');
+            } else {
+              link.classList.remove('text-primary', 'font-medium');
+              link.classList.add('text-gray-500', 'dark:text-gray-400');
+            }
+          });
+          break;
+        }
+      }
+    }, observerOptions);
+
+    window.__tocObserver = observer;
+
+    links.forEach((link) => {
+      const slug = link.getAttribute('data-slug');
+      if (slug) {
+        const el = document.getElementById(slug);
+        if (el) observer.observe(el);
+      }
+    });
+  }
+
+  // Extend Window interface for tracking the observer
+  interface Window {
+    __tocObserver?: IntersectionObserver;
+  }
+
+  // Initialize TOC highlight
+  setupTOC();
+</script>

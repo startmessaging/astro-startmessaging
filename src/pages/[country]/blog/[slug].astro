@@ -27,6 +27,7 @@ export async function getStaticPaths() {
 
 const { post, pageCountries } = Astro.props;
 const { Content, headings } = await render(post);
+console.log("DEBUG HEADINGS FOR", post.id, headings);
 const { country, slug } = Astro.params;
 ---
 

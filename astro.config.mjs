@@ -9,7 +9,6 @@ import vercel from '@astrojs/vercel';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import mdx from '@astrojs/mdx';
-import react from '@astrojs/react';
 
 /**
  * Country-routed Astro config.
@@ -63,7 +62,6 @@ export default defineConfig({
       },
     }),
     mdx(),
-    react(),
   ],
 
   // No i18n config — country routing is handled by [country]/ path param

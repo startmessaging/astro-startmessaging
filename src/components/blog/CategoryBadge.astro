@@ -26,18 +26,22 @@ const label = labels[category] ?? category;
 {href ? (
   <a
     href={href}
-    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-persian/10 text-persian hover:bg-persian/20 transition-colors"
+    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium badge-theme hover:badge-theme-hover transition-colors"
   >
     {label}
   </a>
 ) : (
-  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-persian/10 text-persian">
+  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium badge-theme">
     {label}
   </span>
 )}
 
 <style>
-  .bg-persian\/10 { background-color: rgba(39, 24, 126, 0.10); }
-  .bg-persian\/20 { background-color: rgba(39, 24, 126, 0.20); }
-  .text-persian { color: var(--color-persian); }
+  .badge-theme {
+    background-color: var(--color-hairline);
+    color: var(--color-primary);
+  }
+  .badge-theme-hover:hover {
+    background-color: var(--color-border-strong);
+  }
 </style>

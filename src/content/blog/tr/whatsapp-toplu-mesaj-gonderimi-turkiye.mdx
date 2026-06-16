@@ -1,0 +1,143 @@
+---
+title: "WhatsApp Toplu Mesaj Gönderimi Türkiye: Kurallar ve En İyi Pratikler"
+description: "Hesabınız kapanmadan WhatsApp üzerinden toplu mesaj nasıl gönderilir? Numara kalite puanı, onaylı şablonlar, opt-out kuralları ve kampanya analitiği."
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+category: "guides"
+country: "tr"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp toplu mesaj türkiye"
+  - "whatsapp broadcast api türkiye"
+  - "whatsapp pazarlama kampanyası türkiye"
+  - "whatsapp kitlesel mesaj türkiye"
+  - "quality rating numara whatsapp"
+  - "opt-out toplu mesaj whatsapp"
+relatedSlugs:
+  - "whatsapp-business-api-turkiye-kurulum-rehberi"
+  - "whatsapp-eticaret-turkiye-siparis-kargo-sepet"
+  - "kvkk-whatsapp-business-api-uyum-turkiye"
+featured: false
+---
+
+Türkiye'deki perakende, e-ticaret ve hizmet sektörlerinde faaliyet gösteren markalar için doğrudan hedef kitleye ulaşan pazarlama kampanyaları kurgulamak satışları artırmanın en etkili yollarından biridir. WhatsApp, yüksek okunma oranları ve zengin medya desteği ile geleneksel SMS ve e-posta kampanyalarına kıyasla çok daha yüksek geri dönüş oranları sunar. Ancak, resmi olmayan yöntemlerle kontrolsüz gönderiler yapmak numaranızın Meta tarafından kalıcı olarak engellenmesine yol açar. Bu nedenle resmi whatsapp toplu mesaj türkiye altyapısı (WhatsApp Business API) üzerinden yasal çerçevelere uyarak kampanya yürütmek, hattınızın güvenliğini sağlarken reklam bütçenizin karşılığını almanızı sağlar.
+
+StartMessaging'in WhatsApp API altyapısı mühendislik ekiplerimiz tarafından aktif bir şekilde geliştirilmektedir. Nihai ve kararlı üretim (production) API bağlantı adreslerimiz yakında duyurulacakken, toplu gönderim süreçlerinizin veritabanı entegrasyonlarını test etmek ve kampanya mantığını kurgulamak için geçici olarak tahsis edilen `/v1/messages` endpoint yolunu kullanabilirsiniz. Servisimiz üzerinden yapılacak tüm entegrasyon istekleri HTTP `X-API-Key` kimlik doğrulama başlığı ile korunmaktadır.
+
+---
+
+## Resmi API ile Toplu Gönderim Yapmanın İllegal Araçlardan Farkı
+
+Birçok pazarlama yöneticisi, düşük maliyetli olduğu düşüncesiyle internetten indirdikleri onaylanmamış toplu mesaj gönderme programlarını veya tarayıcı eklentilerini kullanmayı dener. Bu araçlar, kişisel bir telefonu bilgisayara bağlayıp WhatsApp Web ara yüzünü taklit ederek sırayla hızlı mesaj atmaya çalışır.
+
+Bu yöntemler, işletmenizin iletişim altyapısı için son derece büyük riskler barındırır:
+* **Engelleme Algoritması:** Meta, hesapların mesaj gönderme hızlarını, alıcıların bu numarayı rehbere kaydedip kaydetmediğini ve en önemlisi "spam şikayet" oranlarını yapay zeka ile izler. İllegal araçlarla yapılan gönderimlerde numaranız birkaç saat içinde kalıcı olarak banlanır ve numaranın tekrar açılması mümkün olmaz.
+* **Resmi API Güvenliği:** Resmi WhatsApp Business API (WhatsApp Broadcast) ise Meta sunucuları üzerinden doğrudan kampanya çıkmanızı sağlar. Şablon onay mekanizmaları sayesinde gönderdiğiniz içerikler baştan onaylanır, teslim oranları garanti edilir ve yasal sınırlar içinde güvenle toplu tanıtım yapabilirsiniz.
+
+---
+
+## Meta Numara Kalite Puanı (Quality Rating) Sistemi Nasıl Çalışır?
+
+Resmi API kullansanız dahi, alıcıların mesajlarınızı spam olarak işaretleme hakkı her zaman saklıdır. Meta, bu şikayetleri izlemek için **Quality Rating** (Numara Kalite Puanı) adını verdiği bir itibar kontrol mekanizması uygular. Bu durum Meta Business Manager panelinizde canlı olarak raporlanır.
+
+Numara kalite durumları üç ana renkle ifade edilir:
+
+- **Yeşil (Yüksek Kalite):** Kampanyalarınız hedef kitlenize hitap ediyor, şikayet oranlarınız son derece düşük ve Meta kurallarına tam uyum sağlıyorsunuz demektir.
+- **Sarı (Orta Kalite):** Alıcılar arasında mesajınızı "spam" veya "engelle" olarak işaretleyenlerin oranında artış var demektir. Gönderim sıklığınızı ve hedef kitle segmentasyonunuzu acilen gözden geçirmeniz gerekir.
+- **Kırmızı (Düşük Kalite):** Hattınız çok yüksek şikayet oranına ulaşmıştır. Bu durumda Meta yeni şablon onay isteklerinizi dondurabilir veya günlük gönderim kapasitenizi bir alt limite düşürebilir.
+
+Kalite puanınız sürekli düşük kalırsa, hattınız geçici veya kalıcı olarak askıya alınabilir. Kaliteli içerikler üretmek ve sadece açık rıza vermiş müşterilere gönderim yapmak yeşil renkte kalmanın temel kuralıdır.
+
+---
+
+## Onaylı Şablonlar (Templates): Meta Onay Süreci ve Gönderim Mantığı
+
+API üzerinden kullanıcılara ilk mesajı (tanıtım, kampanya vb.) gönderebilmek için mutlaka önceden onaylanmış şablonlar (Message Templates) kullanılması gerekir. Bu şablonlar Meta onay sürecine gönderilir ve genellikle birkaç dakika içinde sistem tarafından onaylanır.
+
+Aşağıdaki Node.js kod örneği, Axios kullanarak onaylı bir Türkçe pazarlama şablonunu toplu listedeki bir müşteriye nasıl tetikleyeceğinizi göstermektedir:
+
+```javascript
+const axios = require('axios');
+
+/**
+ * Belirlenen bir müşteriye onaylı pazarlama şablonunu gönderir.
+ * 
+ * @param {string} customerPhone - Alıcı telefon numarası (örnek: "905559876543")
+ * @param {string} name - Müşterinin adı
+ * @param {string} promoCode - Müşteriye özel üretilen indirim kodu
+ */
+async function gonderKampanyaMesaji(customerPhone, name, promoCode) {
+  // TODO: WhatsApp API resmi yayına alındığında nihai API adresi ile güncelleyin
+  const apiEndpointUrl = 'https://api.startmessaging.com/v1/messages';
+
+  const payload = {
+    to: customerPhone,
+    type: 'template',
+    template: {
+      name: 'yaz_sezonu_indirimi',
+      language: {
+        code: 'tr'
+      },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            { type: 'text', text: name },
+            { type: 'text', text: promoCode }
+          ]
+        }
+      ]
+    }
+  };
+
+  try {
+    const response = await axios.post(apiEndpointUrl, payload, {
+      headers: {
+        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    console.log(`Kampanya mesajı ${name} için başarıyla gönderildi. ID: ${response.data.messageId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Kampanya gönderimi sırasında teknik hata oluştu:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+}
+
+// Kampanya döngüsünden tetiklenen örnek çağrı
+gonderKampanyaMesaji('905559876543', 'Ahmet Yılmaz', 'YAZ2026');
+```
+
+Bu kod bloğu, veritabanınızdan çektiğiniz müşteri listesi üzerinde dönerek her bir kullanıcı için özelleştirilmiş parametrelerle (ad, indirim kodu) StartMessaging API sunucularına POST istekleri gönderir. İstekler `X-API-Key` ile güvenli şekilde imzalanır.
+
+---
+
+## Türkiye Pazarında Toplu Gönderim Zamanlaması ve En İyi Pratikler
+
+Toplu kampanya gönderimlerinde doğru zamanlama, Türk tüketicisinin mesaja göstereceği reaksiyon ve şikayet oranları üzerinde doğrudan belirleyicidir. Mesajların açılma oranlarını artırmak ve rahatsızlık uyandırmamak için şu kurallara dikkat edilmelidir:
+
+* **Gönderim Saatleri:** Pazarlama içerikli toplu mesajların sabah saat 10:00'dan önce ve akşam 19:30'dan sonra gönderilmemesi önerilir. İnsanların dinlenme saatlerinde veya işe gidiş yoğunluğunda gelen ticari mesajlar daha yüksek oranda engellenme riski taşır.
+* **Gönderim Sıklığı:** Bir müşteriye haftada en fazla 1 veya 2 tanıtım mesajı gönderilmelidir. Sıklık arttığında mesajlarınızın "değeri" düşer ve engellenme oranlarınız hızla yükselir.
+* **Kolay Çıkış Seçeneği (Opt-out):** Müşterilerinize her mesajın altında listeden kolayca çıkabilmelerini sağlayacak bir buton sunun (örnek: "Kampanyalardan çıkmak için RED yazın"). Çıkış taleplerini webhook üzerinden otomatik işleyip numarayı gönderim listelerinizden çıkarmanız KVKK uyumluluğu açısından da zorunludur.
+
+---
+
+## Sıkça Sorulan Sorular
+
+**Q: İzin almadan toplu mesaj göndermek hattımızın kapatılmasına neden olur mu?**
+
+A: Evet. Kişisel veri koruma kuralları gereği aydınlatma yapılmadan ve açık rıza (opt-in) alınmadan yapılan ticari gönderimler yasal şikayetlere yol açar. Ayrıca Meta'nın yapay zeka denetimleri, alıcıların numaranızı spam olarak işaretleme sıklığı arttığında hattınızı önce kısıtlar, reenkarnasyon durumunda ise hesabınızı kalıcı olarak kapatır.
+
+**Q: Meta Business API üzerinden mesaj başına gönderim maliyeti ne kadardır?**
+
+A: Ücretlendirme mesaj başına değil, 24 saatlik konuşma oturumu (session) başına hesaplanır. Şirket tarafından başlatılan Pazarlama (Marketing) kategorisindeki bir şablon mesajının oturum ücreti yaklaşık 0.90 TL ile 1.30 TL bandındadır. Bu ücret Meta'nın kur güncellemelerine göre periyodik olarak revize edilmektedir.
+
+**Q: Günlük toplu gönderim limiti nasıl artırılır?**
+
+A: Başlangıçta günlük 1.000 benzersiz kullanıcı limitiniz (Tier 1) bulunur. Gönderim hacminiz bu limite yaklaştıkça ve mesaj kalite puanınız yeşil renkte kaldıkça, Meta sistemleri limitinizi otomatik olarak sırasıyla 10.000, 100.000 ve sınırsız (unlimited) gönderim seviyelerine yükseltir. Limit artışı için manuel başvuruya gerek yoktur.
+
+---
+
+Türkiye'deki pazarlama faaliyetlerinizi WhatsApp toplu mesaj altyapısına taşıyarak dönüşüm oranlarınızı artırabilir, onaylı şablonlar ve KVKK uyumlu opt-out kurgularıyla hattınızı güvenle büyütebilirsiniz. StartMessaging'in sunduğu güvenli `X-API-Key` yapısı ile kampanya entegrasyonlarınızı hızla devreye alabilirsiniz. Webhook üzerinden opt-out yanıtlarını dinlemek ve iptal işlemlerini otomatik veritabanına işlemek için dökümanlarımızda bulunan [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızı ziyaret edebilirsiniz.

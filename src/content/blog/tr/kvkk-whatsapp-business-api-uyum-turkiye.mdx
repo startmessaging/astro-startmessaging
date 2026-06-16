@@ -1,0 +1,189 @@
+---
+title: "KVKK ve WhatsApp Business API: Türk İşletmeler İçin Uyum Rehberi"
+description: "WhatsApp Business API kullanırken KVKK uyumluluğunu nasıl sağlarsınız? Açık rıza (opt-in), veri saklama süreleri ve veri silme hakları adımları."
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+category: "compliance"
+country: "tr"
+author: "StartMessaging Team"
+keywords:
+  - "kvkk whatsapp business api türkiye"
+  - "kvkk whatsapp mesajlaşma"
+  - "whatsapp api kvkk uyum"
+  - "kisisel veri koruma whatsapp turkiye"
+  - "kvkk acik riza whatsapp"
+  - "veri imha kvkk whatsapp"
+relatedSlugs:
+  - "whatsapp-business-api-turkiye-kurulum-rehberi"
+  - "whatsapp-eticaret-turkiye-siparis-kargo-sepet"
+featured: false
+---
+
+Müşteri iletişimini dijital kanallara taşıyan Türk işletmeleri için veri güvenliği ve yasal mevzuatlara uyum en kritik öncelikler arasında yer almaktadır. WhatsApp Business API altyapısı, şirketlerin müşterileriyle hızlı ve interaktif bağ kurmasını sağlarken, toplanan verilerin işlenmesi bazı yasal kuralları beraberinde getirir. 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca, telefon numaraları, ad soyad bilgileri ve sohbet geçmişleri kişisel veri kapsamındadır. Dijital sistemlerinizi kvkk whatsapp business api türkiye gereksinimlerine tam uyumlu hale getirmek, hem müşterilerinizin güvenini kazanmak hem de yüksek idari para cezası yaptırımlarından korunmak adına yasal bir zorunluluktur.
+
+StartMessaging'in WhatsApp API hizmetleri mühendislik ekiplerimiz tarafından geliştirilmeye devam etmektedir. İlgili entegrasyon süreçlerinizi kurgulamak, testlerinizi gerçekleştirmek ve veri akış altyapınızı hazırlamak için geçici olarak sunulan `/v1/messages` endpoint yolunu kullanabilirsiniz. Servisimiz üzerinden yapılacak tüm API istekleri, HTTP `X-API-Key` kimlik doğrulama başlığı ile korunmaktadır.
+
+---
+
+## Kişisel Verilerin Korunması Kanunu (KVKK) ve WhatsApp İlişkisi
+
+KVKK, Türkiye sınırları içerisinde kişisel verileri işleyen gerçek ve tüzel kişilerin uyması gereken yükümlülükleri düzenler. WhatsApp üzerinden müşterilerinize sipariş durum mesajı, kampanya duyurusu veya fatura detayı gönderiyorsanız, şirketiniz bu veri işleme faaliyetinde "Veri Sorumlusu" konumundadır.
+
+Bu kapsamda, müşterinin telefon numarası ve mesaj içeriğindeki veriler doğrudan kişisel veri niteliğindedir. Meta, iletilen mesajları kendi sunucuları üzerinde uçtan uca şifreli olarak taşır; ancak bu verilerin sizin tarafınızda entegre edilen CRM, veritabanı veya müşteri destek panellerinde nasıl saklandığı, kimlerin erişebildiği ve ne amaçla kullanıldığı konuları doğrudan şirketinizin yasal sorumluluğundadır.
+
+Yasal bir veri sorumlusu olarak, KVKK'nın temel ilkelerinden olan "hukuka ve dürüstlük kurallarına uygun olma", "belirli, açık ve meşru amaçlar için işlenme" prensiplerine sadık kalmalı ve her veri işleme faaliyeti için yasal bir dayanak sunabilmelisiniz.
+
+---
+
+## Açık Rıza (Opt-in) Almanın Yasal ve Teknik Standartları
+
+KVKK'nın 5. maddesi uyarınca, kişisel verilerin işlenebilmesi için ilgili kişinin açık rızasının alınması temel kuraldır. Müşterilerinize WhatsApp üzerinden ticari içerikli, reklam veya pazarlama amaçlı mesajlar göndermek istiyorsanız, bu işlemi yapmadan önce yasal olarak geçerli bir açık rıza (opt-in) almalısınız.
+
+KVKK uyumlu ve yasal denetimlerde kanıt olarak sunabileceğiniz bir açık rıza süreci için şu üç adımı uygulayın:
+
+1. **Aktif Tercih Mekanizması:** Açık rıza beyanı, kullanıcının kendi iradesiyle yapacağı aktif bir harekete dayanmalıdır. Web sitenizdeki kayıt veya ödeme formlarında yer alan "WhatsApp üzerinden kampanya mesajı almak istiyorum" kutucuğu önceden işaretlenmiş (pre-ticked) olmamalıdır. Kutucuğun boş bırakılması ve işaretleme işleminin doğrudan kullanıcı tarafından yapılması gerekir.
+2. **Aydınlatma Yükümlülüğünün Önce Gerçekleşmesi:** Açık rıza alınmadan hemen önce veya aynı anda kullanıcıya aydınlatma metni sunulmalıdır. Aydınlatma metninde verilerin hangi amaçla işleneceği, kimlere aktarılacağı ve kullanıcının hakları net bir dille açıklanmalıdır.
+3. **Özgür İradeyle Onay:** WhatsApp açık rızası, sunulan hizmetin bir ön koşulu haline getirilmemelidir. Yani kullanıcıya "WhatsApp izni vermezseniz sipariş oluşturamazsınız" şeklinde bir zorunluluk dayatılamaz.
+
+Sistemlerinizde açık rızayı kayıt altına almak için kullanabileceğiniz standart akış şeması şu şekildedir:
+
+```
++-------------------------------------------------------------+
+| Kullanıcı web sitesi üyelik formunu doldurur                |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| Kullanıcı "WhatsApp aydınlatma metnini okudum" kutusunu seçer|
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| Sistem veritabanına kayıt atar:                             |
+| - Telefon No, Tarih/Saat, IP Adresi ve Açık Rıza Metin ID   |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| İlk onay mesajı ve kolay üyelikten çıkış (opt-out) butonu   |
++-------------------------------------------------------------+
+```
+
+Olası bir şikayet durumunda Kişisel Verileri Koruma Kurulu'na sunabilmek için bu açık rıza kayıt metadatalarını (IP, zaman damgası vb.) veritabanınızda güvenli ve değiştirilemez şekilde saklamalısınız.
+
+---
+
+## Veri Saklama Süreleri (Data Retention) ve Depolama Kısıtlamaları
+
+KVKK'nın 4. maddesi kişisel verilerin işlendikleri amaç için gerekli olan süre kadar muhafaza edilmesi gerektiğini söyler. Müşteri destek ekiplerinizin yaptığı geçmiş WhatsApp yazışmalarını sonsuza kadar veritabanınızda tutamazsınız.
+
+İşletmeniz için net bir veri imha politikası belirlemelisiniz. Örneğin:
+- Tamamlanmış ve kapanmış destek taleplerine ait sohbet günlüklerini (chat logs) 180 gün sonra otomatik olarak arşivleyin.
+- 1 yıl boyunca hiçbir etkileşime girilmemiş pasif müşterilere ait verileri veritabanından kalıcı olarak silin veya anonim hale getirin.
+
+Diğer kritik konu ise verilerin yurt dışına aktarılması sınırıdır. Meta sunucuları yurt dışında bulunduğundan, WhatsApp API kullanılması teknik olarak yurt dışına veri aktarımı anlamına gelebilir. Müşterilerinizden alacağınız açık rıza metninde yurt dışı veri aktarımı konusunu açıkça belirtmeli veya kurulun yayınladığı güncel taahhütname/veri aktarım kurallarına uygun hareket etmelisiniz.
+
+---
+
+## Kod Örneği: Express.js ile KVKK Veri Silme ve İmha Talebi İşleme
+
+KVKK'nın 11. maddesi ilgili kişilere (müşterilere) kendileriyle ilgili verilerin silinmesini veya yok edilmesini talep etme hakkı tanır. Geliştiriciler, bu talebi karşılamak için veritabanındaki kayıtları silen teknik bir uç nokta (endpoint) geliştirmelidir.
+
+Aşağıdaki Express.js kod örneği, bir müşterinin başvurusu doğrultusunda WhatsApp verilerini sistemden kalıcı olarak temizleyen bir yapıyı göstermektedir:
+
+```javascript
+const express = require('express');
+const router = express.Router();
+const db = require('../models'); // ORM veritabanı modelleriniz
+
+/**
+ * KVKK Madde 7 uyarınca kişisel verilerin silinmesi ve yok edilmesi taleplerini işler.
+ * Müşteriyi aktif gönderim listelerinden çıkarır ve sohbet geçmişini temizler.
+ */
+router.post('/compliance/kvkk-imha', async (req, res) => {
+  const { telefonNumarasi, imhaOnayi } = req.body;
+
+  if (!telefonNumarasi || !imhaOnayi) {
+    return res.status(400).json({ error: 'Eksik veya hatalı istek parametresi.' });
+  }
+
+  try {
+    // 1. Veritabanında müşteriyi telefon numarasından sorgula
+    const musteri = await db.Musteri.findOne({ where: { telefon: telefonNumarasi } });
+    if (!musteri) {
+      return res.status(404).json({ error: 'İlgili telefon numarasına ait kayıt bulunamadı.' });
+    }
+
+    // 2. Açık rıza tablosundan müşteriye ait kayıtları kaldır (opt-in iptali)
+    await db.AcikRizaKaydi.destroy({ where: { telefon: telefonNumarasi } });
+
+    // 3. Yerel sunucuda saklanan WhatsApp mesaj geçmişini ve loglarını temizle
+    await db.MesajGecmisi.destroy({ where: { musteriId: musteri.id } });
+
+    // 4. Müşteri profil kartını kalıcı olarak sil
+    await musteri.destroy();
+
+    console.log(`KVKK veri imha talebi başarıyla uygulandı: ${telefonNumarasi}`);
+    return res.status(200).json({ 
+      success: true, 
+      message: 'Kişisel verileriniz KVKK hükümleri doğrultusunda sistemlerimizden kalıcı olarak silinmiştir.' 
+    });
+  } catch (error) {
+    console.error('KVKK imha işlemi sırasında teknik hata oluştu:', error);
+    return res.status(500).json({ error: 'Veri imha işlemi gerçekleştirilemedi.' });
+  }
+});
+
+module.exports = router;
+```
+
+Bu backend entegrasyonu, veri silme talebi alındığında kullanıcının açık rıza kayıtlarını ve mesaj geçmişini veritabanından kalıcı olarak silerek işletmenizi yasal uyumluluk sınırları içinde tutar.
+
+---
+
+## KVKK İdari Para Cezaları ve Kurul Kararları
+
+Kişisel Verileri Koruma Kurulu, izinsiz mesaj gönderimi ve veri güvenliği ihlalleri konusunda oldukça katı kararlar almaktadır. Türkiye'de faaliyet gösteren birçok büyük perakende ve e-ticaret markası, açık rıza almadan yaptıkları toplu WhatsApp ve SMS gönderimleri nedeniyle milyonlarca lirayı bulan idari para cezalarıyla karşı karşıya kalmıştır.
+
+KVKK kapsamında uygulanan idari para cezaları ihlalin niteliğine göre her yıl yeniden değerleme oranında artırılmaktadır:
+
+| İhlal Türü | Yasal Karşılığı | Ceza Limitleri (Yaklaşık TL) |
+|---|---|---|
+| **Aydınlatma Yükümlülüğüne Aykırılık** | Müşteriyi bilgilendirmeden numarayı işleme | 20.000 TL - 400.000 TL arası |
+| **Veri Güvenliğine İlişkin Yükümlülükler** | Sohbet geçmişinin şifresiz depolanması/sızması | 50.000 TL - 3.500.000 TL arası |
+| **Kurul Kararlarının Yerine Getirilmemesi** | İnceleme sonrasında uyarılara uymama | 100.000 TL - 5.000.000 TL arası |
+
+Ayrıca, izinsiz gönderilen pazarlama mesajları Ticari Elektronik İleti Yönetim Sistemi (İYS) kuralları ve Elektronik Ticaretin Düzenlenmesi Hakkında Kanun kapsamında da ayrı cezalara tabidir. Bu nedenle izin yönetim mekanizmalarını doğru kurmak hayati önem taşır.
+
+---
+
+## Türk İşletmeleri İçin KVKK Uyum Kontrol Listesi
+
+WhatsApp Business API üzerinden yürüttüğünüz müşteri iletişim süreçlerinin KVKK'ya uygun olup olmadığını denetlemek için bu kontrol listesini kullanabilirsiniz:
+
+- [ ] **Aydınlatma Metni Sunumu:** Numarayı kaydettiğiniz her noktada aydınlatma metnini kullanıcının erişebileceği şekilde yayınladınız mı?
+- [ ] **Açık Rıza Kanıtı:** İleride kurul tarafından istenmesi ihtimaline karşı her rıza kaydının zaman damgasını ve IP adresini veritabanında saklıyor musunuz?
+- [ ] **Opt-out (Çıkış) Desteği:** Gönderdiğiniz tanıtım şablonlarında kullanıcının listeden çıkmasını sağlayacak buton veya kelime komutları (örneğin "RED" yazarak çıkış) tanımlı mı?
+- [ ] **Veri Minimizasyonu:** Mesaj içeriklerinde şifre, T.C. Kimlik Numarası, kredi kartı CVV kodu gibi hassas kişisel verileri paylaşmaktan kaçınıyor musunuz?
+- [ ] **Veri Aktarım Açık Rızası:** İletişim altyapısının Meta bulut sunucuları üzerinden yurt dışına aktarıldığını açık rıza metinlerinde belirttiniz mi?
+- [ ] **Veri İmha Rutinleri:** Veritabanınızda biriken eski logları silmek için otomatik çalışan cron servisleriniz tanımlı mı?
+
+---
+
+## Sıkça Sorulan Sorular
+
+**Q: Müşterinin web sitemizden alışveriş yapması, ona WhatsApp'tan reklam gönderebileceğimiz anlamına gelir mi?**
+
+A: Kesinlikle hayır. Bir müşterinin alışveriş yapması, sadece o alışverişle ilgili işlemsel mesajları (sipariş onayı, kargo kodu) göndermenize izin verir. Ancak bu işlem, müşteriye daha sonra yeni ürün tanıtımları veya genel kampanya duyuruları yapma hakkı vermez. Kampanya mesajları için ayrıca pazarlama açık rızası almanız zorunludur.
+
+**Q: WhatsApp yazışmalarını Türkiye'deki yerel sunucularımızda saklamak KVKK uyumunu kolaylaştırır mı?**
+
+A: Evet. Kişisel verilerin yurt dışı sunucularında saklanması KVKK kapsamında ek izin süreçlerine tabidir. Sohbet günlüklerini ve müşteri telefon listelerini yurt içindeki veri merkezlerinde (örnek: Turkcell Veri Merkezi, Radore vb.) barındırmanız yasal denetimlerde uyumluluğunuzu kanıtlamanızı kolaylaştırır.
+
+**Q: Ticari Elektronik İleti Yönetim Sistemi (İYS) kaydı WhatsApp API için de geçerli midir?**
+
+A: Evet. Türkiye'de faaliyet gösteren ve ticari ileti gönderen tüm hizmet sağlayıcıların İYS sistemine kayıt olması gerekir. Müşterilerinizden WhatsApp üzerinden ticari ileti almak için aldığınız açık rızaları ve ret bildirimlerini İYS sistemiyle senkronize etmeli ve güncel onay durumlarını İYS sorguları üzerinden denetlemelisiniz.
+
+---
+
+KVKK yönergelerine uygun şekilde yapılandırılmış bir WhatsApp Business API altyapısı, müşterilerinizle güvenli bir bağ kurmanızı sağlarken işletmenizi yasal risklerden ve ağır para cezalarından korur. StartMessaging'in sunduğu güvenli `X-API-Key` yapısı ile entegrasyon süreçlerinizi hızla devreye alabilirsiniz. Webhook verilerini yasal aydınlatma kuralları çerçevesinde işlemek ve veri tabanınızda saklamak için [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızdan detayları inceleyebilirsiniz.

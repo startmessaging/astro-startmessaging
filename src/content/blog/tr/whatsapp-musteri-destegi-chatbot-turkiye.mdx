@@ -1,0 +1,250 @@
+---
+title: "WhatsApp ile Müşteri Desteği Otomasyonu: Chatbot Kurma Rehberi"
+description: "Türk işletmeleri için adım adım WhatsApp chatbot tasarımı. Menü bazlı akışlar, müşteri hizmetleri otomasyonu ve Node.js webhook kod örnekleri."
+publishedAt: "2026-06-16"
+updatedAt: "2026-06-16"
+category: "guides"
+country: "tr"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp chatbot türkiye"
+  - "whatsapp musteri hizmetleri otomasyonu türkiye"
+  - "whatsapp bot turkiye"
+  - "whatsapp otomatik mesaj türkiye"
+  - "webhook chatbot whatsapp nodejs"
+  - "musteri temsilcisi aktarim whatsapp"
+relatedSlugs:
+  - "whatsapp-business-api-turkiye-kurulum-rehberi"
+  - "whatsapp-eticaret-turkiye-siparis-kargo-sepet"
+  - "kvkk-whatsapp-business-api-uyum-turkiye"
+featured: false
+---
+
+Müşteri hizmetlerinde anında yanıt alabilmek, Türkiye'deki tüketicilerin en çok önem verdiği kriterlerin başında yer almaktadır. Türk tüketicisi, bir sorun yaşadığında veya bilgi almak istediğinde saatlerce e-posta yanıtı beklemekten ya da çağrı merkezi sıralarında vakit kaybetmekten hoşlanmaz; doğrudan günlük hayatta sürekli kullandığı WhatsApp üzerinden markaya ulaşmayı tercih eder. Ancak, artan talep karşısında tüm sorulara temsilciler aracılığıyla manuel yanıt vermek ciddi operasyonel yük oluşturur. Müşteri ilişkilerinizi geliştirmek ve operasyon maliyetlerinizi düşürmek adına resmi bir whatsapp chatbot türkiye yapısı kurmak bu soruna mükemmel bir çözümdür.
+
+StartMessaging'in WhatsApp API hizmetleri mühendislik ekibimiz tarafından aktif geliştirme aşamasındadır. Resmi ve kararlı üretim (production) API adreslerimiz yakında kullanıma sunulacakken, destek süreçlerinizin altyapısını kurmak ve test etmek için geçici olarak tahsis edilen `/v1/messages` endpoint yolunu kullanabilirsiniz. Servisimiz üzerinden yapılacak tüm istekler, HTTP `X-API-Key` kimlik doğrulama başlığı ile korunmaktadır.
+
+---
+
+## Menü Tabanlı Chatbot ile Yapay Zeka (NLP) Tabanlı Chatbot Karşılaştırması
+
+WhatsApp üzerinde otomatik destek süreçleri kurgularken vermeniz gereken ilk mimari karar, botunuzun kullanacağı etkileşim yöntemidir. İş süreçleriniz için en uygun chatbot modelini seçerken şu iki yaklaşım değerlendirilir:
+
+* **Menü Tabanlı (Düğmeli) Chatbotlar:** Kullanıcıyı yönlendirmek için hızlı yanıt butonları (quick reply) veya listeler kullanır. Teknik olarak programlanması basittir, hata payı yoktur ve kullanıcının sohbet içinde kaybolmasını engeller (örnek: "Sipariş takibi için 1'e, şube adresleri için 2'ye basın"). Basit ve işlemsel talepler için en kararlı yöntemdir.
+* **Yapay Zeka (NLP) Tabanlı Chatbotlar:** Kullanıcının yazdığı serbest metinleri anlamlandırmak için Natural Language Processing (NLP) motorlarını kullanır. Daha esnek bir konuşma deneyimi sunsa da, Türkçe dil yapısının getirdiği çekim ekleri, kelime türetmeleri ve Türk internet kullanıcılarının sıkça kullandığı yazım hataları veya gülücük içeren konuşma kalıplarını anlamak için sürekli eğitim ve optimizasyon gerektirir.
+
+Büyüyen ve hızlı sonuç almak isteyen Türk işletmeleri için en iyi pratik, hibrit bir model kurmaktır: İlk karşılama ve temel veri çekme (kargo bilgisi vb.) işlemlerini butonlu menülerle çözün; serbest yazışmaları ise bilet oluşturma aşamalarında kullanın.
+
+---
+
+## Başarılı Bir Müşteri Destek Akışının Anatomisi
+
+İyi tasarlanmış bir müşteri destek botu, kullanıcının sorununu en az etkileşimle çözmeli ve müşteriyi sürekli aynı yanıtların döndüğü bir kısır döngüye sokmamalıdır. Doğru yapılandırılmış bir destek akışı dört temel adımdan oluşur:
+
+1. **Karşılama ve Tanıtım:** Bot, gelen kullanıcıyı karşılar, kendisini asistan olarak tanıtır ve menü seçeneklerini butonlarla sunar.
+2. **Talep Sınıflandırılması:** Kullanıcı ilgili butona basarak (Vuru, Ödeme Sorusu vb.) talebinin hangi kategoriye ait olduğunu belirler.
+3. **Otomatik Çözüm (Self-Service):** Sistem veritabanına sorgu atarak kargo takip linki paylaşmak veya Troy ödeme bilgisi sunmak gibi çözümleri saniyeler içinde iletir.
+4. **Temsilciye Aktarım:** Botun yanıtlayamadığı durumlarda ya da kullanıcı "Temsilciye bağlan" butonuna bastığında, sistem otomatik olarak yazışmayı canlı temsilciye devreder.
+
+Aşağıdaki akış diyagramı, hibrit yapılı bir destek yönlendirme şemasını göstermektedir:
+
+```
++-------------------------------------------------------------+
+| Kullanıcıdan gelen mesaj webhook sunucusuna ulaşır         |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+| Bot Yanıtı: Karşılama ve Hızlı Seçim Butonları              |
++-------------------------------------------------------------+
+            /                 |                 \
+           /                  |                  \
+          v                   v                   v
++------------------+  +------------------+  +-----------------+
+| Kargo Sorgulama  |  |  Ödeme Seçenek   |  | Temsilciye Bağlan|
++------------------+  +------------------+  +-----------------+
+          |                   |                   |
+          v                   v                   v
+[Kargo Datası Çek]    [Taksit Detay İlet]   [Canlı Desteğe Al]
+```
+
+Sohbetin canlı temsilciye aktarıldığı anda, botun otomatik yanıt verme mekanizması devre dışı bırakılmalıdır ki müşteri ile temsilcinin arasına bot girmesin.
+
+---
+
+## Kod Örneği: Express.js ile Butonlu WhatsApp Chatbot Webhook Yönetimi
+
+Müşterilerinizin anlık mesajlarına otomatik cevap verebilmek için backend uygulamanızda bir webhook dinleyicisi tanımlamanız ve gelen buton seçimlerine göre API üzerinden cevap dönmeniz gerekir.
+
+Aşağıdaki Node.js/Express kodu, butona basıldığında sipariş durumunu sorgulayıp dönen örnek bir webhook altyapısını göstermektedir:
+
+```javascript
+const express = require('express');
+const axios = require('axios');
+const app = express();
+
+app.use(express.json());
+
+// StartMessaging konsolunda tanımlayacağınız webhook rota adresi
+app.post('/webhook-chatbot', async (req, res) => {
+  const { event, data } = req.body;
+
+  // Sadece yeni gelen metin mesajlarını işleme al
+  if (event === 'message.received' && data.type === 'text') {
+    const musteriTelefon = data.from;
+    const gelenMetin = data.text.body.trim().toLowerCase();
+
+    console.log(`Mesaj Alındı (${musteriTelefon}): ${gelenMetin}`);
+
+    // Temel menü yönlendirme mantığı
+    if (gelenMetin === 'merhaba' || gelenMetin === 'selam' || gelenMetin === 'menu') {
+      await gonderSecimMenusu(musteriTelefon);
+    } else if (gelenMetin === 'temsilci') {
+      await baglaCanliDestek(musteriTelefon);
+    } else if (gelenMetin.startsWith('siparis-')) {
+      const siparisKodu = gelenMetin.toUpperCase();
+      await sorgulaKargoDurumu(musteriTelefon, siparisKodu);
+    } else {
+      await gonderVarsayilanYanit(musteriTelefon);
+    }
+  }
+
+  // İstek alındı onayını Meta sunucularına hızlıca dön (HTTP 200)
+  res.sendStatus(200);
+});
+
+/**
+ * Hızlı yanıt butonları içeren karşılama menüsünü gönderir
+ */
+async function gonderSecimMenusu(phone) {
+  // TODO: WhatsApp API resmi yayına alındığında nihai adresle güncelleyin
+  const apiUrl = 'https://api.startmessaging.com/v1/messages';
+
+  const payload = {
+    to: phone,
+    type: 'interactive',
+    interactive: {
+      type: 'button',
+      body: {
+        text: "Merhaba! Müşteri destek kanalımıza hoş geldiniz. Size nasıl yardımcı olabiliriz?\n\n- Kargonuzu sorgulamak için 'siparis-KODU' yazın\n- Temsilciye bağlanmak için 'temsilci' yazın"
+      },
+      action: {
+        buttons: [
+          { type: 'reply', reply: { id: 'btn_kargo', title: 'Kargo Sorgula' } },
+          { type: 'reply', reply: { id: 'btn_temsilci', title: 'Canlı Destek' } }
+        ]
+      }
+    }
+  };
+
+  await apiAramaPost(apiUrl, payload);
+}
+
+/**
+ * Canlı desteğe aktarım bilgilendirmesi gönderir
+ */
+async function baglaCanliDestek(phone) {
+  // TODO: Nihai API adresi ile güncelleyin
+  const apiUrl = 'https://api.startmessaging.com/v1/messages';
+
+  const payload = {
+    to: phone,
+    type: 'text',
+    text: {
+      body: "Sizi en yakın canlı destek temsilcimize aktarıyorum. Lütfen sohbet ekranından ayrılmayın..."
+    }
+  };
+
+  await apiAramaPost(apiUrl, payload);
+  // Burada veritabanınızda ilgili kullanıcının bot kilidini açmalısınız
+}
+
+/**
+ * Sahte veritabanından sipariş durumunu çeker
+ */
+async function sorgulaKargoDurumu(phone, kod) {
+  // TODO: Nihai API adresi ile güncelleyin
+  const apiUrl = 'https://api.startmessaging.com/v1/messages';
+  const kargoMesaji = `${kod} nolu siparişiniz dün kargoya teslim edilmiştir.\nKargo Firması: Yurtiçi Kargo\nTakip No: 1234567890`;
+
+  const payload = {
+    to: phone,
+    type: 'text',
+    text: {
+      body: kargoMesaji
+    }
+  };
+
+  await apiAramaPost(apiUrl, payload);
+}
+
+/**
+ * Anlaşılmayan mesajlarda varsayılan yardım metni döner
+ */
+async function gonderVarsayilanYanit(phone) {
+  // TODO: Nihai API adresi ile güncelleyin
+  const apiUrl = 'https://api.startmessaging.com/v1/messages';
+
+  const payload = {
+    to: phone,
+    type: 'text',
+    text: {
+      body: "Üzgünüm, yazdığınız kelimeyi tam olarak anlayamadım. Menüyü görmek için 'menu' yazabilirsiniz."
+    }
+  };
+
+  await apiAramaPost(apiUrl, payload);
+}
+
+/**
+ * API isteklerini atan yardımcı fonksiyon
+ */
+async function apiAramaPost(url, veri) {
+  try {
+    await axios.post(url, veri, {
+      headers: {
+        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+  } catch (error) {
+    console.error('API gönderim hatası:', error.response ? error.response.data : error.message);
+  }
+}
+
+app.listen(3000, () => console.log('Chatbot Webhook dinleyici port 3000 üzerinde aktif'));
+```
+
+Bu backend entegrasyonu, gelen mesajları Express uygulamasında dinleyerek iş akışına göre butonlu menüleri veya kargo bilgilerini API üzerinden yanıtlar. Kimlik doğrulama işlemleri `X-API-Key` başlığıyla güvenli şekilde tamamlanır.
+
+---
+
+## Türkçe Müşteri Yazışmalarında Dil ve Hitap Dengesi
+
+Otomatik yanıt sistemlerinde kurulacak dilin tonu, Türkiye pazarında marka algısını etkileyen kritik unsurlardan biridir. Çok soğuk ve mekanik bir dil müşteriyi markadan uzaklaştırırken, aşırı ciddiyetsiz bir üslup güvensizlik yaratır.
+
+Türkçe chatbot akışlarınızda şu dil kurallarına dikkat edilmelidir:
+
+* **Resmi / Kurumsal Hitap:** Bankacılık, sigortacılık, finans ve kurumsal B2B hizmet sunan alanlarda "Siz/Biz" dili kullanılmalı, müşteriye "Sayın [Ad Soyad]" veya "Bedi Bey / Buse Hanım" şeklinde hitap edilmelidir (örnek: "Sayın müşterimiz, talebiniz alınmıştır").
+* **Samimi / Canlı Hitap:** Genç kitleye hitap eden e-ticaret siteleri, yemek sipariş servisleri veya eğlence uygulamalarında daha dinamik bir dil tercih edilebilir. "Merhaba Kakak" gibi sıcak hitaplar yerine nötr ve samimi olan "Merhaba Hakan, sana nasıl yardımcı olabilirim?" dili kullanılabilir.
+* **Türkçe Kelime Kısaltmalarından Kaçınma:** Mesaj metinlerinde `mrb`, `tşk`, `lfn`, `slm` gibi kısaltmalar kesinlikle yer almamalıdır. Tüm kelimeler dil bilgisi kurallarına uygun ve imla kurallarına dikkat edilerek yazılmalıdır.
+
+---
+
+## Sıkça Sorulan Sorular
+
+**Q: Chatbot oluşturmak için mutlaka pahalı yapay zeka (AI) sistemlerine yatırım yapmak gerekir mi?**
+
+A: Hayır. Türkiye'deki müşteri taleplerinin yaklaşık %80'i kargo takibi, iade adresi, çalışma saatleri veya hesap bilgileri gibi sık tekrarlanan temel sorulardan oluşur. Bu soruları cevaplamak için pahalı AI motorlarına ihtiyaç yoktur; buton tabanlı karar ağaçları sunan bir chatbot entegrasyonu hem düşük maliyetlidir hem de daha stabil çalışır.
+
+**Q: WhatsApp botunu kendi CRM veya yerel bilet (ticket) sistemimize entegre edebilir miyiz?**
+
+A: Evet. Webhook üzerinden gelen mesajları Express.js veya Python backend sisteminizde yakaladıktan sonra, ilgili verileri kendi yerel CRM veritabanınıza veya kullandığınız helpdesk servislerine (Zendesk, Freshdesk gibi) API çağrılarıyla ileterek anlık biletler açabilir ve bot ile bilet durumunu eşzamanlı güncelleyebilirsiniz.
+
+**Q: Müşteri canlı destek temsilcisine bağlandığında botun otomatik mesaj göndermesini nasıl durdurabiliriz?**
+
+A: Kullanıcı canlı destek talebinde bulunduğunda, veritabanınızda ilgili kullanıcının durumunu `bot_active: false` olarak güncelleyin. Webhook route kodunuzda, gelen mesajları işlemeden önce kullanıcının veritabanındaki durumunu kontrol edin; eğer bot pasif ise gelen mesajları doğrudan temsilci paneline yönlendirin ve otomatik yanıt fonksiyonlarını çalıştırmayın.
+
+---
+
+Türkiye pazarındaki operasyonel süreçlerinize WhatsApp chatbot entegrasyonu ekleyerek yanıt sürelerinizi sıfıra indirebilir ve müşteri hizmetleri maliyetlerinizi optimize edebilirsiniz. StartMessaging'in sunduğu güvenli `X-API-Key` yapısı ile entegrasyonlarınızı hızla devreye alabilirsiniz. Webhook verilerini işlemek, veritabanı sorgularını entegre etmek ve sohbet durumlarını anlık yönetmek hakkında daha detaylı bilgi için [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızı inceleyebilirsiniz.

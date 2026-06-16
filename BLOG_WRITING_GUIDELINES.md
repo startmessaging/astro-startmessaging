@@ -215,6 +215,20 @@ title: "Your H1 Title Here"   ← H1 — from frontmatter ONLY, never in body
 | `## FAQ` | `## Frequently Asked Questions About DLT Registration in India` |
 | `## Conclusion` | `## Which OTP Provider Should You Choose?` |
 
+### Table of Contents Sidebar ("On this page")
+
+Every blog post layout includes a sticky **"On this page"** Table of Contents (TOC) sidebar on the right side.
+- **TOC Requirement:** The TOC is compiled dynamically from the post's H2 (`##`) and H3 (`###`) headings.
+- **Why it might be missing:** If a post does not contain any H2 or H3 headings, or if they are improperly formatted, the sidebar will return null and will not render.
+- **Layout Integrity:** Wide content like code blocks, preformatted text, or tables can stretch the main grid column and push the sidebar off the screen. To prevent this, the article container uses `min-w-0`, and code blocks must be cleanly enclosed in standard markdown code fences (e.g. ` ```javascript `) to trigger horizontal scrollbars (`overflow-x-auto`) instead of expanding.
+- **Standardisation:** To ensure a consistent user experience, **every single blog post** must contain at least 4 H2 headings and relevant H3 sub-headings to guarantee that the TOC sidebar renders. Never publish a blog post without H2/H3 headings.
+
+### Dual-Theme Support (SMS vs. WhatsApp)
+
+All blog pages (both list views and individual post layouts) must dynamically support the brand theme based on their routing country (SMS/India = Persian Blue, Global/WhatsApp = Cyprus Teal).
+- **No Hardcoded Brand Colors:** Never use `var(--color-persian)` or specific hex codes for theme components in blog templates or post layouts. Always use dynamic classes like `text-primary`, `bg-primary`, `border-primary`, and their hover/opacity variants.
+- **Dynamic Variable Resolution:** The system automatically maps `--color-primary` and related variables in the `html` root element depending on the active country. This guarantees a complete, seamless dual-theme experience.
+
 ---
 
 ## 6. Page Structure Template
@@ -551,6 +565,15 @@ The `hreflang` tags are auto-generated from the country folder. Google uses thes
 | `this link` | `how to send OTP with Node.js` |
 | Exact keyword stuffed | Natural phrase that includes keyword |
 
+### Country-Specific Link Formatting (Localized Prefixes)
+
+> [!IMPORTANT]
+> Every internal relative link (such as `/docs/...`, `/pricing`, `/features`, `/whatsapp/...`) in blog posts from non-India folders (e.g., `br`, `mx`, `ng`, etc.) MUST be prefixed with their country code to avoid cross-border routing mismatch.
+> - **India (`in/`):** Links remain default (e.g., `/docs/whatsapp/webhooks`, `/pricing`).
+> - **Brazil (`br/`):** Prepend `/br` (e.g., `/br/docs/whatsapp/webhooks`, `/br/pricing`).
+> - **Mexico (`mx/`):** Prepend `/mx` (e.g., `/mx/docs/whatsapp/webhooks`, `/mx/pricing`).
+> - **Nigeria (`ng/`):** Prepend `/ng` (e.g., `/ng/docs/whatsapp/webhooks`, `/ng/pricing`).
+
 ---
 
 ## 11. Tone, Voice & Human Writing Rules
@@ -751,6 +774,14 @@ After reviewing the existing blog corpus, these patterns were identified as prob
 
 > This section is specifically for AI models (Claude, Gemini, GPT-4, etc.) generating blog content for this project. Follow these instructions exactly.
 
+### WhatsApp API Development Status (Global/Nigeria)
+
+- **Status:** The WhatsApp Business API is currently in active development.
+- **API Endpoints:** Because exact production endpoints are not finalised, use `/v1/messages` (e.g. `https://api.startmessaging.com/v1/messages`) in code examples and text.
+- **In-Development Mention:** In the prose, add a brief mention that the WhatsApp API endpoints are currently in active development and will be available soon.
+- **TODO Comments:** You MUST include clear `TODO` comments in all code snippets (e.g. `// TODO: Update to the final production endpoint and process once the WhatsApp API is officially released`) to ensure they are updated later.
+- **Authentication:** WhatsApp authentication uses the same header as the India SMS API: `X-API-Key: <your_key>`, **NOT** Bearer tokens (which may be referenced in older internal docs). Ensure all headers in code snippets use `X-API-Key`.
+
 ### Before You Write Anything
 
 1. **Read this entire document first.** Not just this section — all of it.
@@ -758,7 +789,7 @@ After reviewing the existing blog corpus, these patterns were identified as prob
 3. **Confirm the category** — which of the six categories applies? Apply all category-specific rules.
 4. **Count your keywords** — decide on 1 primary keyword and 5–9 secondary keywords before writing.
 5. **Count the post length target** — what is the target word count for this category? Write to meet it.
-6. **Verify API Endpoints and Headers** — Always check and confirm the exact documentation (under `src/content/docs/`) before including any API endpoints, request bodies, or integration code snippets in blog posts. Never assume endpoints (e.g. do not invent `/v1` prefixes or custom header schemes like `Authorization: Bearer` if the API expects `X-API-Key`).
+6. **Verify API Endpoints and Headers** — Always check and confirm the exact documentation (under `src/content/docs/`) before including any API endpoints, request bodies, or integration code snippets in blog posts. Never assume endpoints, and remember that WhatsApp API uses `X-API-Key` authentication.
 
 ### Mandatory Writing Constraints
 
@@ -850,7 +881,7 @@ AI agents must self-check against this list before finalising:
 [ ] Post meets minimum word count for its category?
 [ ] No AI clichés ("delve", "leverage", "Furthermore", etc.)?
 [ ] Country-specific requirements (local currency, native context, regulations, languages) met?
-[ ] All internal links use relative paths (/blog/slug, /pricing, /otp-api)?
+[ ] All internal links use relative paths with country-specific prefixes (e.g. /mx/docs/whatsapp/webhooks for Mexico) unless default routing is required?
 [ ] No raw `tags:` field in frontmatter?
 [ ] Line endings are LF (Unix)?
 ```
@@ -888,7 +919,7 @@ Use this before every post goes live.
 - [ ] No H1 (`#`) in the body
 - [ ] Primary keyword appears in first 100 words
 - [ ] At least 2 H2 headings contain secondary keywords naturally
-- [ ] Internal links use relative paths, not absolute URLs (except for app.startmessaging.com)
+- [ ] Internal links use relative paths, not absolute URLs, and include country-specific routing prefixes (e.g. /mx/docs/whatsapp/webhooks) for non-India posts
 - [ ] All internal links resolve (test them)
 - [ ] Tables use markdown syntax (not raw HTML) unless absolutely necessary
 - [ ] File saved with LF line endings
