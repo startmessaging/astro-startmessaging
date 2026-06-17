@@ -39,6 +39,16 @@ interface Props {
      * search engines used in target markets (Yandex, Baidu, Naver, etc.).
      */
     keywords?: string[];
+    /**
+     * Open Graph type override. Defaults to 'website'.
+     * Blog posts should pass 'article'.
+     */
+    ogType?: 'website' | 'article';
+    /**
+     * When true, outputs <meta name="robots" content="noindex, nofollow">.
+     * Use on 404, category listing, and other non-indexable pages.
+     */
+    noindex?: boolean;
   };
   country: string;
   pageCountries?: string[];
@@ -61,7 +71,13 @@ const dir = cfg?.dir ?? 'ltr';
 
 const title       = r(seo.title, c);
 const description = r(seo.description, c);
-const ogImage     = seo.ogImage ? new URL(seo.ogImage, Astro.site).href : undefined;
+
+// OG Image: use explicit ogImage, fall back to default branded image
+const resolvedOgImage = seo.ogImage ?? '/og/default.png';
+const ogImage = new URL(resolvedOgImage, Astro.site).href;
+
+// OG type: configurable — 'article' for blog posts, 'website' for everything else
+const ogType = seo.ogType ?? 'website';
 
 // Canonical: prefer explicit override (for duplicate blog posts), else self URL.
 const canonicalURL = seo.canonical
@@ -126,6 +142,11 @@ const webPageSchema = JSON.stringify({
   inLanguage: HREFLANG[c] ?? lang,
 });
 
+// Normalize jsonLd to always be an array for consistent rendering
+const jsonLdItems: any[] = seo.jsonLd
+  ? (Array.isArray(seo.jsonLd) ? seo.jsonLd : [seo.jsonLd])
+  : [];
+
 // Anti-FOUC: inline script that sets theme before first paint
 const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`;
 ---
@@ -139,16 +160,14 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <!-- Anti-FOUC: set theme before CSS loads -->
     <script is:inline set:html={themeScript} />
 
-    <!-- Google Fonts: Inter (variable) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet" />
+    <!-- Google Fonts loaded locally from global.css -->
 
     <!-- Primary SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="country" content={cfg?.code ?? 'IN'} />
+    {seo.noindex && <meta name="robots" content="noindex, nofollow" />}
     {seo.keywords && seo.keywords.length > 0 && (
       <meta name="keywords" content={seo.keywords.join(', ')} />
     )}
@@ -163,7 +182,8 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
     <!-- Open Graph -->
-    <meta property="og:type"        content="website" />
+    <meta property="og:type"        content={ogType} />
+    <meta property="og:site_name"   content="StartMessaging" />
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url"         content={canonicalURL} />
@@ -174,21 +194,31 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
         <meta property="og:locale:alternate" content={l.hreflang.replace('-', '_')} />
       ))
     }
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    {ogImage && <meta property="og:image:width"  content="1200" />}
-    {ogImage && <meta property="og:image:height" content="630" />}
+    <meta property="og:image"        content={ogImage} />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type"   content="image/png" />
 
     <!-- Twitter / X card -->
     <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:site"        content="@startmessaging" />
     <meta name="twitter:title"       content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image"       content={ogImage} />
 
     <!-- Sitemap discovery -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Favicon -->
+    <!-- RSS / Atom feed autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="StartMessaging Blog" href={new URL('/feed.xml', Astro.site).href} />
+    <link rel="alternate" type="application/atom+xml" title="StartMessaging Blog" href={new URL('/atom.xml', Astro.site).href} />
+
+    <!-- Favicon + PWA -->
     <link rel="icon" type="image/svg+xml" href={theme === 'whatsapp' ? '/favicon-wa.svg' : '/favicon.svg'} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content={theme === 'whatsapp' ? '#004643' : '#27187e'} />
 
     <!-- JSON-LD structured data -->
     <script type="application/ld+json" is:inline set:html={orgSchema} />
@@ -196,9 +226,9 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     {webSiteSchema && (
       <script type="application/ld+json" is:inline set:html={webSiteSchema} />
     )}
-    {seo.jsonLd && (
-      <script type="application/ld+json" is:inline set:html={JSON.stringify(seo.jsonLd)} />
-    )}
+    {jsonLdItems.map((item) => (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(item)} />
+    ))}
     <!-- Clarity tag -->
     <script is:inline>
     (function(c,l,a,r,i,t,y){
@@ -209,6 +239,8 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
 </script>
   </head>
   <body>
+    <!-- Skip-to-content link for keyboard/screen-reader accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <slot />
     <CountryNotice country={country} currentPath={Astro.url.pathname} />
   </body>

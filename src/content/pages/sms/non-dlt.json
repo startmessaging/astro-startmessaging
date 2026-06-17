@@ -1,5 +1,7 @@
 {
-  "countries": ["in"],
+  "countries": [
+    "in"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -7,59 +9,86 @@
     },
     "description": {
       "en": "Send transactional SMS in India without your own DLT registration. Use pre-registered compliant routes at just ₹0.25/SMS. Get API keys and start sending in 5 minutes."
-    }
+    },
+    "ogImage": "/og/sms-non-dlt.jpg"
   },
   "sections": [
     {
       "type": "hero",
       "theme": "sms",
       "props": {
-        "badge": { "en": "Non-DLT SMS" },
-        "title": { "en": "Send SMS Without DLT Registration" },
+        "badge": {
+          "en": "Non-DLT SMS"
+        },
+        "title": {
+          "en": "Send SMS Without DLT Registration"
+        },
         "subtitle": {
           "en": "StartMessaging uses pre-registered DLT compliant routes for transactional SMS. No entity registration, no header approvals, no template submissions — just sign up and start sending at ₹0.25/SMS."
         },
-        "primaryCta": { "en": "Start Sending Now" },
+        "primaryCta": {
+          "en": "Start Sending Now"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Bypass DLT Hassles Instantly" },
+        "heading": {
+          "en": "Bypass DLT Hassles Instantly"
+        },
         "body": {
           "en": "Traditional SMS pathways require complex portal registrations and manual template hashing. StartMessaging routes your alerts through pre-registered templates seamlessly, maintaining compliance while providing developers with instant setup capabilities."
         },
         "bullets": [
-          { "en": "Instant API access" },
-          { "en": "Pre-approved templates" },
-          { "en": "Fully TRAI-compliant execution" }
+          {
+            "en": "Instant API access"
+          },
+          {
+            "en": "Pre-approved templates"
+          },
+          {
+            "en": "Fully TRAI-compliant execution"
+          }
         ],
         "image": "/images/non-dlt-flow.webp",
-        "imageAlt": { "en": "StartMessaging Non-DLT Flow Diagram" },
+        "imageAlt": {
+          "en": "StartMessaging Non-DLT Flow Diagram"
+        },
         "reversed": false
       }
     },
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "How It Works" },
-        "heading": { "en": "3 Steps to Send SMS Without DLT" },
+        "badge": {
+          "en": "How It Works"
+        },
+        "heading": {
+          "en": "3 Steps to Send SMS Without DLT"
+        },
         "steps": [
           {
-            "title": { "en": "Sign Up for Free" },
+            "title": {
+              "en": "Sign Up for Free"
+            },
             "description": {
               "en": "Create your account in 30 seconds. No DLT registration needed. Get your API key instantly from the dashboard."
             }
           },
           {
-            "title": { "en": "Integrate Our API" },
+            "title": {
+              "en": "Integrate Our API"
+            },
             "description": {
               "en": "Use our simple REST API with code samples in cURL, Node.js, Python, PHP, Java, and Go. Send your first test message in under 5 minutes."
             }
           },
           {
-            "title": { "en": "Send at Scale" },
+            "title": {
+              "en": "Send at Scale"
+            },
             "description": {
               "en": "Send transactional SMS (OTPs, alerts, confirmations) at ₹0.25/message across all Indian networks with 99.9% delivery and sub-second speed."
             }
@@ -70,34 +99,46 @@
     {
       "type": "featuresGrid",
       "props": {
-        "badge": { "en": "Benefits" },
-        "heading": { "en": "Developer Features" },
+        "badge": {
+          "en": "Benefits"
+        },
+        "heading": {
+          "en": "Developer Features"
+        },
         "columns": 2,
         "items": [
           {
             "icon": "shield",
-            "title": { "en": "TRAI Compliant" },
+            "title": {
+              "en": "TRAI Compliant"
+            },
             "description": {
               "en": "Sent through legally approved transactional templates registered on the national DLT blockchain. Fully compliant with all telecom directives."
             }
           },
           {
             "icon": "broadcast",
-            "title": { "en": "Direct Operator Bindings" },
+            "title": {
+              "en": "Direct Operator Bindings"
+            },
             "description": {
               "en": "Bypass virtual operators. We connect directly to Tier-1 telecom gateways for maximum speed and deliverability."
             }
           },
           {
             "icon": "api",
-            "title": { "en": "Simple REST API" },
+            "title": {
+              "en": "Simple REST API"
+            },
             "description": {
               "en": "Integrate in minutes. Features simple JSON request and response models, robust headers authentication, and detailed logs."
             }
           },
           {
             "icon": "analytics",
-            "title": { "en": "Delivery Tracking" },
+            "title": {
+              "en": "Delivery Tracking"
+            },
             "description": {
               "en": "Monitor and verify every single message status via our real-time delivery tracking endpoint."
             }
@@ -108,8 +149,12 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Code Integration" },
-        "heading": { "en": "Send Transactional SMS in Minutes" },
+        "badge": {
+          "en": "Code Integration"
+        },
+        "heading": {
+          "en": "Send Transactional SMS in Minutes"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -141,8 +186,12 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "Non-DLT SMS — FAQ" },
+        "badge": {
+          "en": "FAQs"
+        },
+        "heading": {
+          "en": "Non-DLT SMS — FAQ"
+        },
         "items": [
           {
             "question": {
@@ -166,23 +215,49 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages"
+        },
         "links": [
-          { "label": { "en": "DLT SMS Guide" }, "href": "/sms/dlt" },
-          { "label": { "en": "SMS API Docs" }, "href": "/sms" },
-          { "label": { "en": "No DLT Setup" }, "href": "/send-otp-without-dlt" },
-          { "label": { "en": "Pricing" }, "href": "/pricing" }
+          {
+            "label": {
+              "en": "DLT SMS Guide"
+            },
+            "href": "/sms/dlt"
+          },
+          {
+            "label": {
+              "en": "SMS API Docs"
+            },
+            "href": "/sms"
+          },
+          {
+            "label": {
+              "en": "No DLT Setup"
+            },
+            "href": "/send-otp-without-dlt"
+          },
+          {
+            "label": {
+              "en": "Pricing"
+            },
+            "href": "/pricing"
+          }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Start Sending SMS in 5 Minutes" },
+        "heading": {
+          "en": "Start Sending SMS in 5 Minutes"
+        },
         "subtext": {
           "en": "No DLT registration. ₹0.25/SMS. Free plan available."
         },
-        "primaryCta": { "en": "Get Started Free" },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

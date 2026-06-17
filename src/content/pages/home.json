@@ -16,12 +16,14 @@
       "ar": "أرسل رسائل واتساب وSMS على نطاق واسع. البث والشات بوت والتحقق من OTP والأتمتة للشركات التي تصل إلى العملاء في جميع أنحاء العالم.",
       "tr": "WhatsApp mesajlarını ve SMS'leri ölçekli olarak gönderin. Yayınlar, chatbot'lar, OTP doğrulama ve dünya çapında müşterilere ulaşan işletmeler için otomasyon."
     },
-    "ogImage": "/og/home.png"
+    "ogImage": "/og/home.jpg"
   },
   "sections": [
     {
       "type": "hero",
-      "countries": ["in"],
+      "countries": [
+        "in"
+      ],
       "theme": "sms",
       "props": {
         "badge": {
@@ -47,7 +49,14 @@
     },
     {
       "type": "hero",
-      "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+      "countries": [
+        "br",
+        "mx",
+        "id",
+        "ae",
+        "tr",
+        "ng"
+      ],
       "theme": "whatsapp",
       "props": {
         "badge": {
@@ -151,7 +160,9 @@
     },
     {
       "type": "serviceCards",
-      "countries": ["in"],
+      "countries": [
+        "in"
+      ],
       "props": {
         "badge": {
           "en": "Our Services"
@@ -163,33 +174,57 @@
           {
             "theme": "sms",
             "icon": "sms",
-            "title": { "en": "SMS API" },
+            "title": {
+              "en": "SMS API"
+            },
             "description": {
               "en": "Transactional OTPs at ₹0.25/SMS. No DLT registration required. 99.9% delivery rate with sub-second speed across all Indian networks."
             },
             "features": [
-              { "en": "DLT-free OTP delivery" },
-              { "en": "₹0.25 per transactional SMS" },
-              { "en": "99.9% delivery rate" },
-              { "en": "Automatic network routing" }
+              {
+                "en": "DLT-free OTP delivery"
+              },
+              {
+                "en": "₹0.25 per transactional SMS"
+              },
+              {
+                "en": "99.9% delivery rate"
+              },
+              {
+                "en": "Automatic network routing"
+              }
             ],
-            "ctaLabel": { "en": "Explore SMS API" },
+            "ctaLabel": {
+              "en": "Explore SMS API"
+            },
             "ctaHref": "/sms"
           },
           {
             "theme": "whatsapp",
             "icon": "whatsapp",
-            "title": { "en": "WhatsApp Business API" },
+            "title": {
+              "en": "WhatsApp Business API"
+            },
             "description": {
               "en": "Official Meta BSP. Send broadcasts, build chatbots, and automate customer journeys on WhatsApp with 98% open rates."
             },
             "features": [
-              { "en": "Official Meta BSP partner" },
-              { "en": "Bulk broadcasts & campaigns" },
-              { "en": "Chatbot & agent handoff" },
-              { "en": "Rich media templates" }
+              {
+                "en": "Official Meta BSP partner"
+              },
+              {
+                "en": "Bulk broadcasts & campaigns"
+              },
+              {
+                "en": "Chatbot & agent handoff"
+              },
+              {
+                "en": "Rich media templates"
+              }
             ],
-            "ctaLabel": { "en": "Explore WhatsApp" },
+            "ctaLabel": {
+              "en": "Explore WhatsApp"
+            },
             "ctaHref": "/whatsapp"
           }
         ]
@@ -197,7 +232,14 @@
     },
     {
       "type": "serviceCards",
-      "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+      "countries": [
+        "br",
+        "mx",
+        "id",
+        "ae",
+        "tr",
+        "ng"
+      ],
       "props": {
         "badge": {
           "en": "Our Platform",
@@ -671,7 +713,9 @@
             }
           },
           {
-            "countries": ["in"],
+            "countries": [
+              "in"
+            ],
             "question": {
               "en": "Do you support SMS APIs in India?"
             },
@@ -680,7 +724,9 @@
             }
           },
           {
-            "countries": ["in"],
+            "countries": [
+              "in"
+            ],
             "question": {
               "en": "Do I need DLT registration to send SMS in India?"
             },
@@ -689,7 +735,14 @@
             }
           },
           {
-            "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+            "countries": [
+              "br",
+              "mx",
+              "id",
+              "ae",
+              "tr",
+              "ng"
+            ],
             "question": {
               "en": "Can I use SMS API outside India?",
               "pt": "Posso usar a API de SMS fora da Índia?",
@@ -708,7 +761,14 @@
             }
           },
           {
-            "countries": ["br", "mx", "id", "ae", "tr", "ng"],
+            "countries": [
+              "br",
+              "mx",
+              "id",
+              "ae",
+              "tr",
+              "ng"
+            ],
             "question": {
               "en": "What WhatsApp Business API capabilities are supported?",
               "pt": "Quais recursos da API do WhatsApp Business são suportados?",
@@ -823,5 +883,13 @@
       }
     }
   ],
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"]
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ]
 }

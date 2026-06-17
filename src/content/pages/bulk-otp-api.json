@@ -1,58 +1,79 @@
 {
-  "countries": ["in"],
+  "countries": [
+    "in"
+  ],
   "theme": "sms",
   "seo": {
-    "title": { "en": "Bulk OTP API - Send OTPs at Scale" },
+    "title": {
+      "en": "Bulk OTP API - Send OTPs at Scale"
+    },
     "description": {
       "en": "Send thousands of OTPs with StartMessaging bulk OTP API. Idempotent sends, multi-provider failover, and real-time tracking for high-volume OTP delivery."
-    }
+    },
+    "ogImage": "/og/bulk-otp-api.jpg"
   },
   "sections": [
     {
       "type": "hero",
       "props": {
-        "badge": { "en": "Bulk OTP" },
+        "badge": {
+          "en": "Bulk OTP"
+        },
         "title": {
           "en": "Bulk OTP API"
         },
         "subtitle": {
           "en": "Send OTPs at scale with reliable delivery, idempotent sends, and real-time tracking. Perfect for applications with thousands of daily verifications."
         },
-        "primaryCta": { "en": "Get Started Free" },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
       "type": "featuresGrid",
       "props": {
-        "badge": { "en": "Scale & Reliability" },
-        "heading": { "en": "Built for High-Volume OTP Delivery" },
+        "badge": {
+          "en": "Scale & Reliability"
+        },
+        "heading": {
+          "en": "Built for High-Volume OTP Delivery"
+        },
         "columns": 2,
         "items": [
           {
             "icon": "api",
-            "title": { "en": "Built for Scale" },
+            "title": {
+              "en": "Built for Scale"
+            },
             "description": {
               "en": "Our API handles high throughput with wallet-based billing. Top up your wallet and send as many OTPs as you need without per-request payment friction."
             }
           },
           {
             "icon": "broadcast",
-            "title": { "en": "Fast Delivery" },
+            "title": {
+              "en": "Fast Delivery"
+            },
             "description": {
               "en": "Multi-provider routing ensures fast delivery even at high volumes. If one provider is slow or overloaded, we automatically route through an alternative."
             }
           },
           {
             "icon": "analytics",
-            "title": { "en": "Track Every Message" },
+            "title": {
+              "en": "Track Every Message"
+            },
             "description": {
               "en": "Full delivery tracking for every OTP sent. Monitor delivery rates, identify failures, and get complete audit trails via the Messages API."
             }
           },
           {
             "icon": "shield",
-            "title": { "en": "Idempotent at Scale" },
+            "title": {
+              "en": "Idempotent at Scale"
+            },
             "description": {
               "en": "Idempotency keys prevent duplicates even during bulk operations. Safe to retry failed requests without worrying about double-sends."
             }
@@ -63,8 +84,12 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Send an OTP in One API Call" },
-        "heading": { "en": "Works with every language. Just a single POST request." },
+        "badge": {
+          "en": "Send an OTP in One API Call"
+        },
+        "heading": {
+          "en": "Works with every language. Just a single POST request."
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -96,23 +121,33 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQ" },
-        "heading": { "en": "Bulk OTP FAQ" },
+        "badge": {
+          "en": "FAQ"
+        },
+        "heading": {
+          "en": "Bulk OTP FAQ"
+        },
         "items": [
           {
-            "question": { "en": "Is there a rate limit for bulk sending?" },
+            "question": {
+              "en": "Is there a rate limit for bulk sending?"
+            },
             "answer": {
               "en": "The API supports high throughput for production use. If you need very high volume (100,000+ OTPs/month), contact us for optimized rate limits and volume pricing."
             }
           },
           {
-            "question": { "en": "Can I send OTPs to multiple numbers in one API call?" },
+            "question": {
+              "en": "Can I send OTPs to multiple numbers in one API call?"
+            },
             "answer": {
               "en": "Each API call sends one OTP to one phone number. For bulk sending, make parallel API calls with unique idempotency keys for each request."
             }
           },
           {
-            "question": { "en": "How do I handle failures in bulk sends?" },
+            "question": {
+              "en": "How do I handle failures in bulk sends?"
+            },
             "answer": {
               "en": "Each request returns a unique otpRequestId and messageId. Track delivery status per message. Failed sends can be safely retried using the same idempotency key."
             }
@@ -123,18 +158,26 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages"
+        },
         "links": [
           {
-            "label": { "en": "OTP API Docs" },
+            "label": {
+              "en": "OTP API Docs"
+            },
             "href": "/otp-api"
           },
           {
-            "label": { "en": "Pricing" },
+            "label": {
+              "en": "Pricing"
+            },
             "href": "/pricing"
           },
           {
-            "label": { "en": "DLT Free OTP" },
+            "label": {
+              "en": "DLT Free OTP"
+            },
             "href": "/dlt-free-otp"
           }
         ]
@@ -143,11 +186,19 @@
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Send OTPs at Scale" },
-        "subtext": { "en": "Top up your wallet and start sending. No rate limit negotiations, no contracts." },
-        "primaryCta": { "en": "Get Started Free" },
+        "heading": {
+          "en": "Send OTPs at Scale"
+        },
+        "subtext": {
+          "en": "Top up your wallet and start sending. No rate limit negotiations, no contracts."
+        },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup",
-        "secondaryCta": { "en": "View Pricing" },
+        "secondaryCta": {
+          "en": "View Pricing"
+        },
         "secondaryHref": "/pricing"
       }
     }

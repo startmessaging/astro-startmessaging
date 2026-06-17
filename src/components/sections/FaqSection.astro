@@ -2,6 +2,7 @@
 /**
  * FaqSection — Accordion FAQ using native <details>/<summary>.
  * Zero client JavaScript — CSS-only smooth open/close animation.
+ * Automatically injects FAQPage JSON-LD schema for rich results.
  *
  * Example JSON:
  * {
@@ -26,8 +27,21 @@ import Badge from '@/components/ui/Badge.astro';
 import Accordion from '@/components/ui/Accordion.astro';
 import AccordionItem from '@/components/ui/AccordionItem.astro';
 import { r } from '@/i18n/r';
+import { buildFaqPage } from '@/lib/jsonld';
 
 const { badge, heading, subheading, items = [], country, theme = 'sms' } = Astro.props;
+
+// Filter items by country and resolve i18n for JSON-LD
+const resolvedItems = items
+  .filter((item: any) => !item.countries || item.countries.includes(country))
+  .map((item: any) => ({
+    question: r(item.question, country),
+    answer: r(item.answer, country),
+  }));
+
+const faqSchema = resolvedItems.length > 0
+  ? JSON.stringify(buildFaqPage(resolvedItems))
+  : null;
 ---
 
 <Section variant="soft" theme={theme}>
@@ -41,15 +55,19 @@ const { badge, heading, subheading, items = [], country, theme = 'sms' } = Astro
     )}
 
     <Accordion>
-      {items
-        .filter((item: any) => !item.countries || item.countries.includes(country))
-        .map((item: any, idx: number) => (
-          <AccordionItem title={r(item.question, country)} open={idx === 0} theme={theme}>
-            <Text tone="body" size="body-md" class="leading-relaxed">
-              {r(item.answer, country)}
-            </Text>
-          </AccordionItem>
-        ))}
+      {resolvedItems.map((item: any, idx: number) => (
+        <AccordionItem title={item.question} open={idx === 0} theme={theme}>
+          <Text tone="body" size="body-md" class="leading-relaxed">
+            {item.answer}
+          </Text>
+        </AccordionItem>
+      ))}
     </Accordion>
   </Container>
+
+  {/* FAQPage structured data for Google rich results */}
+  {faqSchema && (
+    <script type="application/ld+json" is:inline set:html={faqSchema} />
+  )}
 </Section>
+

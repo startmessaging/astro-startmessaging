@@ -7,6 +7,7 @@ import { getEntry } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES } from '@/config/countries';
+import { buildSoftwareApplication } from '@/lib/jsonld';
 
 const country = 'in';
 const page = await getEntry('pages', 'home');
@@ -18,7 +19,7 @@ const pageTheme = page.data.theme ?? 'sms';
 ---
 
 <MarketingLayout
-  seo={page.data.seo}
+  seo={{ ...page.data.seo, jsonLd: buildSoftwareApplication() }}
   country={country}
   pageCountries={pageCountries}
   slug=""

@@ -7,6 +7,8 @@ import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
+import { buildService } from '@/lib/jsonld';
+import { r } from '@/i18n/r';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -32,10 +34,26 @@ export async function getStaticPaths() {
 const { page, country, pageCountries } = Astro.props;
 const slug = Astro.params.slug ?? '';
 const pageTheme = page.data.theme ?? 'sms';
+
+// Inject Service schema for WhatsApp and SMS product pages
+const isServicePage = slug.startsWith('whatsapp') || slug.startsWith('sms');
+const serviceType = slug.startsWith('whatsapp') ? 'WhatsApp Business API' : 'SMS API';
+const seoWithSchema = isServicePage
+  ? {
+      ...page.data.seo,
+      jsonLd: buildService(
+        r(page.data.seo.title, country),
+        serviceType,
+        r(page.data.seo.description, country),
+        `https://startmessaging.com/${slug}`,
+        pageCountries as any[]
+      ),
+    }
+  : page.data.seo;
 ---
 
 <MarketingLayout
-  seo={page.data.seo}
+  seo={seoWithSchema}
   country={country}
   pageCountries={pageCountries}
   slug={slug}

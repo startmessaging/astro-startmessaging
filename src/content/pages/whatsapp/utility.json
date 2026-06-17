@@ -1,8 +1,16 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
-    "ogImage": "/images/utility-preview.webp",
+    "ogImage": "/og/whatsapp-utility.jpg",
     "title": {
       "en": "WhatsApp Utility Messages — Transactional Updates — StartMessaging",
       "pt": "Mensagens Utilitárias WhatsApp — Atualizações Transacionais — StartMessaging",
@@ -140,23 +148,79 @@
         "items": [
           {
             "icon": "broadcast",
-            "title": { "en": "Order Updates", "pt": "Atualizações de Pedido", "es": "Actualizaciones de Pedido", "id": "Pembaruan Pesanan", "ar": "تحديثات الطلبات", "tr": "Sipariş Güncellemeleri" },
-            "description": { "en": "Send order confirmations, processing status, and delivery notifications automatically.", "pt": "Envie confirmações de pedido, status de processamento e notificações de entrega automaticamente.", "es": "Envíe confirmaciones de pedido, estado de procesamiento y notificaciones de entrega automáticamente.", "id": "Kirim konfirmasi pesanan, status pemrosesan, dan notifikasi pengiriman secara otomatis.", "ar": "أرسل تأكيدات الطلب وحالة المعالجة وإشعارات التسليم تلقائياً.", "tr": "Sipariş onaylarını, işleme durumunu ve teslimat bildirimlerini otomatik olarak gönderin." }
+            "title": {
+              "en": "Order Updates",
+              "pt": "Atualizações de Pedido",
+              "es": "Actualizaciones de Pedido",
+              "id": "Pembaruan Pesanan",
+              "ar": "تحديثات الطلبات",
+              "tr": "Sipariş Güncellemeleri"
+            },
+            "description": {
+              "en": "Send order confirmations, processing status, and delivery notifications automatically.",
+              "pt": "Envie confirmações de pedido, status de processamento e notificações de entrega automaticamente.",
+              "es": "Envíe confirmaciones de pedido, estado de procesamiento y notificaciones de entrega automáticamente.",
+              "id": "Kirim konfirmasi pesanan, status pemrosesan, dan notifikasi pengiriman secara otomatis.",
+              "ar": "أرسل تأكيدات الطلب وحالة المعالجة وإشعارات التسليم تلقائياً.",
+              "tr": "Sipariş onaylarını, işleme durumunu ve teslimat bildirimlerini otomatik olarak gönderin."
+            }
           },
           {
             "icon": "template",
-            "title": { "en": "Shipping Alerts", "pt": "Alertas de Envio", "es": "Alertas de Envío", "id": "Peringatan Pengiriman", "ar": "تنبيهات الشحن", "tr": "Kargo Uyarıları" },
-            "description": { "en": "Real-time shipping tracking updates with live location links and estimated delivery times.", "pt": "Atualizações de rastreamento de envio em tempo real com links de localização ao vivo e tempos estimados de entrega.", "es": "Actualizaciones de seguimiento de envio en tiempo real con enlaces de ubicación en vivo y tiempos de entrega estimados.", "id": "Pembaruan pelacakan pengiriman real-time dengan tautan lokasi langsung dan estimasi waktu pengiriman.", "ar": "تحديثات تتبع الشحن في الوقت الفعلي مع روابط الموقع وأوقات التسليم المتوقعة.", "tr": "Canlı konum bağlantıları ve tahmini teslimat süreleriyle gerçek zamanlı kargo takip güncellemeleri." }
+            "title": {
+              "en": "Shipping Alerts",
+              "pt": "Alertas de Envio",
+              "es": "Alertas de Envío",
+              "id": "Peringatan Pengiriman",
+              "ar": "تنبيهات الشحن",
+              "tr": "Kargo Uyarıları"
+            },
+            "description": {
+              "en": "Real-time shipping tracking updates with live location links and estimated delivery times.",
+              "pt": "Atualizações de rastreamento de envio em tempo real com links de localização ao vivo e tempos estimados de entrega.",
+              "es": "Actualizaciones de seguimiento de envio en tiempo real con enlaces de ubicación en vivo y tiempos de entrega estimados.",
+              "id": "Pembaruan pelacakan pengiriman real-time dengan tautan lokasi langsung dan estimasi waktu pengiriman.",
+              "ar": "تحديثات تتبع الشحن في الوقت الفعلي مع روابط الموقع وأوقات التسليم المتوقعة.",
+              "tr": "Canlı konum bağlantıları ve tahmini teslimat süreleriyle gerçek zamanlı kargo takip güncellemeleri."
+            }
           },
           {
             "icon": "analytics",
-            "title": { "en": "Appointment Reminders", "pt": "Lembretes de Compromisso", "es": "Recordatorios de Cita", "id": "Pengingat Janji", "ar": "تذكيرات المواعيد", "tr": "Randevu Hatırlatmaları" },
-            "description": { "en": "Reduce no-shows with automated appointment reminders including confirm/reschedule buttons.", "pt": "Reduza ausências com lembretes automatizados de compromisso incluindo botões de confirmar/reagendar.", "es": "Reduzca ausencias con recordatorios automatizados de cita incluyendo botones de confirmar/reprogramar.", "id": "Kurangi ketidakhadiran dengan pengingat janji otomatis termasuk tombol konfirmasi/jadwal ulang.", "ar": "قلل من حالات الغياب باستخدام تذكيرات مواعيد آلية تتضمن أزرار التأكيد/إعادة الجدولة.", "tr": "Onayla/yeniden zamanla butonları dahil otomatik randevu hatırlatmalarıyla devamsızlığı azaltın." }
+            "title": {
+              "en": "Appointment Reminders",
+              "pt": "Lembretes de Compromisso",
+              "es": "Recordatorios de Cita",
+              "id": "Pengingat Janji",
+              "ar": "تذكيرات المواعيد",
+              "tr": "Randevu Hatırlatmaları"
+            },
+            "description": {
+              "en": "Reduce no-shows with automated appointment reminders including confirm/reschedule buttons.",
+              "pt": "Reduza ausências com lembretes automatizados de compromisso incluindo botões de confirmar/reagendar.",
+              "es": "Reduzca ausencias con recordatorios automatizados de cita incluyendo botones de confirmar/reprogramar.",
+              "id": "Kurangi ketidakhadiran dengan pengingat janji otomatis termasuk tombol konfirmasi/jadwal ulang.",
+              "ar": "قلل من حالات الغياب باستخدام تذكيرات مواعيد آلية تتضمن أزرار التأكيد/إعادة الجدولة.",
+              "tr": "Onayla/yeniden zamanla butonları dahil otomatik randevu hatırlatmalarıyla devamsızlığı azaltın."
+            }
           },
           {
             "icon": "shield",
-            "title": { "en": "Payment Receipts", "pt": "Recibos de Pagamento", "es": "Recibos de Pago", "id": "Tanda Terima Pembayaran", "ar": "إيصالات الدفع", "tr": "Tahsilat Makbuzları" },
-            "description": { "en": "Send instant payment confirmations and digital receipts with transaction details.", "pt": "Envie confirmações de pagamento instantâneas e recibos digitais com detalhes da transação.", "es": "Envíe confirmaciones de pago instantáneas y recibos digitales con detalles de la transacción.", "id": "Kirim konfirmasi pembayaran instan dan tanda terima digital dengan detail transaksi.", "ar": "أرسل تأكيدات الدفع الفورية والإيصالات الرقمية مع تفاصيل المعاملة.", "tr": "Anlık ödeme onayları ve işlem ayrıntıları içeren dijital makbuzlar gönderin." }
+            "title": {
+              "en": "Payment Receipts",
+              "pt": "Recibos de Pagamento",
+              "es": "Recibos de Pago",
+              "id": "Tanda Terima Pembayaran",
+              "ar": "إيصالات الدفع",
+              "tr": "Tahsilat Makbuzları"
+            },
+            "description": {
+              "en": "Send instant payment confirmations and digital receipts with transaction details.",
+              "pt": "Envie confirmações de pagamento instantâneas e recibos digitais com detalhes da transação.",
+              "es": "Envíe confirmaciones de pago instantáneas y recibos digitales con detalles de la transacción.",
+              "id": "Kirim konfirmasi pembayaran instan dan tanda terima digital dengan detail transaksi.",
+              "ar": "أرسل تأكيدات الدفع الفورية والإيصالات الرقمية مع تفاصيل المعاملة.",
+              "tr": "Anlık ödeme onayları ve işlem ayrıntıları içeren dijital makbuzlar gönderin."
+            }
           }
         ]
       }
@@ -164,39 +228,209 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Transactional Comparison", "pt": "Comparação Transacional", "es": "Comparación Transaccional", "id": "Perbandingan Transaksional", "ar": "مقارنة المعاملات", "tr": "İşlemsel Karşılaştırma" },
-        "heading": { "en": "WhatsApp Utility vs. SMS Transactions vs. Email Updates", "pt": "Utilitários WhatsApp vs. Transações SMS vs. Atualizações por Email", "es": "Utilidad WhatsApp vs. Transacciones SMS vs. Actualizaciones por Email", "id": "Utilitas WhatsApp vs. Transaksi SMS vs. Pembaruan Email", "ar": "خدمات واتساب مقابل معاملات SMS مقابل تحديثات البريد", "tr": "WhatsApp Yardımcı vs. SMS İşlemleri vs. E-posta Güncellemeleri" },
-        "subheading": { "en": "Compare the delivery success and formatting capabilities for critical transactional messages.", "pt": "Compare o sucesso de entrega e as capacidades de formatação para mensagens transacionais críticas.", "es": "Compare el éxito de entrega y las capacidades de formato para mensajes transaccionales críticos.", "id": "Bandingkan keberhasilan pengiriman dan kemampuan pemformatan untuk pesan transaksional kritis.", "ar": "قارن نجاح التسليم وقدرات التنسيق للرسائل المعاملاتية الحرجة.", "tr": "Kritik işlemsel mesajlar için teslimat başarısını ve biçimlendirme yeteneklerini karşılaştırın." },
+        "badge": {
+          "en": "Transactional Comparison",
+          "pt": "Comparação Transacional",
+          "es": "Comparación Transaccional",
+          "id": "Perbandingan Transaksional",
+          "ar": "مقارنة المعاملات",
+          "tr": "İşlemsel Karşılaştırma"
+        },
+        "heading": {
+          "en": "WhatsApp Utility vs. SMS Transactions vs. Email Updates",
+          "pt": "Utilitários WhatsApp vs. Transações SMS vs. Atualizações por Email",
+          "es": "Utilidad WhatsApp vs. Transacciones SMS vs. Actualizaciones por Email",
+          "id": "Utilitas WhatsApp vs. Transaksi SMS vs. Pembaruan Email",
+          "ar": "خدمات واتساب مقابل معاملات SMS مقابل تحديثات البريد",
+          "tr": "WhatsApp Yardımcı vs. SMS İşlemleri vs. E-posta Güncellemeleri"
+        },
+        "subheading": {
+          "en": "Compare the delivery success and formatting capabilities for critical transactional messages.",
+          "pt": "Compare o sucesso de entrega e as capacidades de formatação para mensagens transacionais críticas.",
+          "es": "Compare el éxito de entrega y las capacidades de formato para mensajes transaccionales críticos.",
+          "id": "Bandingkan keberhasilan pengiriman dan kemampuan pemformatan untuk pesan transaksional kritis.",
+          "ar": "قارن نجاح التسليم وقدرات التنسيق للرسائل المعاملاتية الحرجة.",
+          "tr": "Kritik işlemsel mesajlar için teslimat başarısını ve biçimlendirme yeteneklerini karşılaştırın."
+        },
         "columns": [
-          { "label": { "en": "Capability", "pt": "Capacidade", "es": "Capacidad", "id": "Kemampuan", "ar": "القدرة", "tr": "Kapasite" } },
-          { "label": { "en": "WhatsApp Utility", "pt": "Utilitário WhatsApp", "es": "Utilidad WhatsApp", "id": "Utilitas WhatsApp", "ar": "خدمات واتساب", "tr": "WhatsApp Yardımcı" }, "highlight": true },
-          { "label": { "en": "SMS Transactions", "pt": "Transações SMS", "es": "Transacciones SMS", "id": "Transaksi SMS", "ar": "معاملات SMS", "tr": "SMS İşlemleri" } },
-          { "label": { "en": "Email Updates", "pt": "Atualizações por Email", "es": "Actualizaciones por Email", "id": "Pembaruan Email", "ar": "تحديثات البريد", "tr": "E-posta Güncellemeleri" } }
+          {
+            "label": {
+              "en": "Capability",
+              "pt": "Capacidade",
+              "es": "Capacidad",
+              "id": "Kemampuan",
+              "ar": "القدرة",
+              "tr": "Kapasite"
+            }
+          },
+          {
+            "label": {
+              "en": "WhatsApp Utility",
+              "pt": "Utilitário WhatsApp",
+              "es": "Utilidad WhatsApp",
+              "id": "Utilitas WhatsApp",
+              "ar": "خدمات واتساب",
+              "tr": "WhatsApp Yardımcı"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "SMS Transactions",
+              "pt": "Transações SMS",
+              "es": "Transacciones SMS",
+              "id": "Transaksi SMS",
+              "ar": "معاملات SMS",
+              "tr": "SMS İşlemleri"
+            }
+          },
+          {
+            "label": {
+              "en": "Email Updates",
+              "pt": "Atualizações por Email",
+              "es": "Actualizaciones por Email",
+              "id": "Pembaruan Email",
+              "ar": "تحديثات البريد",
+              "tr": "E-posta Güncellemeleri"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Delivery Guarantee", "pt": "Garantia de Entrega", "es": "Garantía de Entrega", "id": "Jaminan Pengiriman", "ar": "ضمان التسليم", "tr": "Teslimat Garantisi" },
-            { "en": "99%+ (Meta BSP high priority)", "pt": "99%+ (Alta prioridade BSP Meta)", "es": "99%+ (Alta prioridad BSP Meta)", "id": "99%+ (Prioritas tinggi BSP Meta)", "ar": "99%+ (أولوية عالية BSP Meta)", "tr": "%99+ (Meta BSP yüksek öncelik)" },
-            { "en": "85% - 90% (Carrier spam filters)", "pt": "85% - 90% (Filtros de spam da operadora)", "es": "85% - 90% (Filtros de spam del operador)", "id": "85% - 90% (Filter spam operator)", "ar": "85% - 90% (فلاتر بريد الناقل)", "tr": "%85 - %90 (Operatör spam filtreleri)" },
-            { "en": "70% - 80% (Promotional sorting)", "pt": "70% - 80% (Classificação promocional)", "es": "70% - 80% (Clasificación promocional)", "id": "70% - 80% (Pemilahan promosi)", "ar": "70% - 80% (تصنيف ترويجي)", "tr": "%70 - %80 (Tanıtım sıralaması)" }
+            {
+              "en": "Delivery Guarantee",
+              "pt": "Garantia de Entrega",
+              "es": "Garantía de Entrega",
+              "id": "Jaminan Pengiriman",
+              "ar": "ضمان التسليم",
+              "tr": "Teslimat Garantisi"
+            },
+            {
+              "en": "99%+ (Meta BSP high priority)",
+              "pt": "99%+ (Alta prioridade BSP Meta)",
+              "es": "99%+ (Alta prioridad BSP Meta)",
+              "id": "99%+ (Prioritas tinggi BSP Meta)",
+              "ar": "99%+ (أولوية عالية BSP Meta)",
+              "tr": "%99+ (Meta BSP yüksek öncelik)"
+            },
+            {
+              "en": "85% - 90% (Carrier spam filters)",
+              "pt": "85% - 90% (Filtros de spam da operadora)",
+              "es": "85% - 90% (Filtros de spam del operador)",
+              "id": "85% - 90% (Filter spam operator)",
+              "ar": "85% - 90% (فلاتر بريد الناقل)",
+              "tr": "%85 - %90 (Operatör spam filtreleri)"
+            },
+            {
+              "en": "70% - 80% (Promotional sorting)",
+              "pt": "70% - 80% (Classificação promocional)",
+              "es": "70% - 80% (Clasificación promocional)",
+              "id": "70% - 80% (Pemilahan promosi)",
+              "ar": "70% - 80% (تصنيف ترويجي)",
+              "tr": "%70 - %80 (Tanıtım sıralaması)"
+            }
           ],
           [
-            { "en": "Document Attachments", "pt": "Anexos de Documento", "es": "Archivos Adjuntos de Documento", "id": "Lampiran Dokumen", "ar": "مرفقات المستند", "tr": "Belge Ekleri" },
-            { "en": "✓ (PDF invoices, QR code tickets)", "pt": "✓ (Faturas PDF, ingressos QR)", "es": "✓ (Facturas PDF, tiquetes QR)", "id": "✓ (Faktur PDF, tiket QR)", "ar": "✓ (فواتير PDF وتذاكر QR)", "tr": "✓ (PDF faturalar, QR kod biletler)" },
-            { "en": "✗ (Text links only)", "pt": "✗ (Apenas links de texto)", "es": "✗ (Solo enlaces de texto)", "id": "✗ (Hanya tautan teks)", "ar": "✗ (روابط نصية فقط)", "tr": "✗ (Yalnızca metin bağlantıları)" },
-            { "en": "✓ (File attachments)", "pt": "✓ (Anexos de arquivo)", "es": "✓ (Adjuntos de archivo)", "id": "✓ (Lampiran file)", "ar": "✓ (ملفات مرفقة)", "tr": "✓ (Dosya ekleri)" }
+            {
+              "en": "Document Attachments",
+              "pt": "Anexos de Documento",
+              "es": "Archivos Adjuntos de Documento",
+              "id": "Lampiran Dokumen",
+              "ar": "مرفقات المستند",
+              "tr": "Belge Ekleri"
+            },
+            {
+              "en": "✓ (PDF invoices, QR code tickets)",
+              "pt": "✓ (Faturas PDF, ingressos QR)",
+              "es": "✓ (Facturas PDF, tiquetes QR)",
+              "id": "✓ (Faktur PDF, tiket QR)",
+              "ar": "✓ (فواتير PDF وتذاكر QR)",
+              "tr": "✓ (PDF faturalar, QR kod biletler)"
+            },
+            {
+              "en": "✗ (Text links only)",
+              "pt": "✗ (Apenas links de texto)",
+              "es": "✗ (Solo enlaces de texto)",
+              "id": "✗ (Hanya tautan teks)",
+              "ar": "✗ (روابط نصية فقط)",
+              "tr": "✗ (Yalnızca metin bağlantıları)"
+            },
+            {
+              "en": "✓ (File attachments)",
+              "pt": "✓ (Anexos de arquivo)",
+              "es": "✓ (Adjuntos de archivo)",
+              "id": "✓ (Lampiran file)",
+              "ar": "✓ (ملفات مرفقة)",
+              "tr": "✓ (Dosya ekleri)"
+            }
           ],
           [
-            { "en": "Interactive Buttons", "pt": "Botões Interativos", "es": "Botones Interactivos", "id": "Tombol Interaktif", "ar": "أزرار تفاعلية", "tr": "Etkileşimli Butonlar" },
-            { "en": "✓ (Quick-reply / Track order)", "pt": "✓ (Resposta rápida / Rastrear pedido)", "es": "✓ (Respuesta rápida / Rastrear pedido)", "id": "✓ (Balasan cepat / Lacak pesanan)", "ar": "✓ (رد سريع / تتبع الطلب)", "tr": "✓ (Hızlı yanıt / Sipariş takibi)" },
-            { "en": "✗ (Static copy)", "pt": "✗ (Cópia estática)", "es": "✗ (Copia estática)", "id": "✗ (Salinan statis)", "ar": "✗ (نداء ثابت)", "tr": "✗ (Statik kopya)" },
-            { "en": "✓ (HTML layout tags)", "pt": "✓ (Tags de layout HTML)", "es": "✓ (Etiquetas de layout HTML)", "id": "✓ (Tag tata letak HTML)", "ar": "✓ (علامات HTML)", "tr": "✓ (HTML düzen etiketleri)" }
+            {
+              "en": "Interactive Buttons",
+              "pt": "Botões Interativos",
+              "es": "Botones Interactivos",
+              "id": "Tombol Interaktif",
+              "ar": "أزرار تفاعلية",
+              "tr": "Etkileşimli Butonlar"
+            },
+            {
+              "en": "✓ (Quick-reply / Track order)",
+              "pt": "✓ (Resposta rápida / Rastrear pedido)",
+              "es": "✓ (Respuesta rápida / Rastrear pedido)",
+              "id": "✓ (Balasan cepat / Lacak pesanan)",
+              "ar": "✓ (رد سريع / تتبع الطلب)",
+              "tr": "✓ (Hızlı yanıt / Sipariş takibi)"
+            },
+            {
+              "en": "✗ (Static copy)",
+              "pt": "✗ (Cópia estática)",
+              "es": "✗ (Copia estática)",
+              "id": "✗ (Salinan statis)",
+              "ar": "✗ (نداء ثابت)",
+              "tr": "✗ (Statik kopya)"
+            },
+            {
+              "en": "✓ (HTML layout tags)",
+              "pt": "✓ (Tags de layout HTML)",
+              "es": "✓ (Etiquetas de layout HTML)",
+              "id": "✓ (Tag tata letak HTML)",
+              "ar": "✓ (علامات HTML)",
+              "tr": "✓ (HTML düzen etiketleri)"
+            }
           ],
           [
-            { "en": "Cost Per Conversation", "pt": "Custo por Conversação", "es": "Costo por Conversación", "id": "Biaya per Percakapan", "ar": "تكلفة كل محادثة", "tr": "Konversasyon Başına Maliyet" },
-            { "en": "Meta fixed utility rate", "pt": "Taxa fixa de utilidade Meta", "es": "Tarifa fija de utilidad Meta", "id": "Tarif utilitas tetap Meta", "ar": "سعر تشغيل ثابت من Meta", "tr": "Meta sabit yardımcı tarifesi" },
-            { "en": "Charged per SMS segment", "pt": "Cobrado por segmento SMS", "es": "Cobrado por segmento SMS", "id": "Dikenai biaya per segmen SMS", "ar": "يُحتسب لكل مقطع SMS", "tr": "SMS segment başına ücretlendirilir" },
-            { "en": "Varies by database size", "pt": "Varia por tamanho do banco de dados", "es": "Varía según el tamaño de la base de datos", "id": "Bervariasi berdasarkan ukuran database", "ar": "يتفاوت حسب حجم قاعدة البيانات", "tr": "Veritabanı boyutuna göre değişir" }
+            {
+              "en": "Cost Per Conversation",
+              "pt": "Custo por Conversação",
+              "es": "Costo por Conversación",
+              "id": "Biaya per Percakapan",
+              "ar": "تكلفة كل محادثة",
+              "tr": "Konversasyon Başına Maliyet"
+            },
+            {
+              "en": "Meta fixed utility rate",
+              "pt": "Taxa fixa de utilidade Meta",
+              "es": "Tarifa fija de utilidad Meta",
+              "id": "Tarif utilitas tetap Meta",
+              "ar": "سعر تشغيل ثابت من Meta",
+              "tr": "Meta sabit yardımcı tarifesi"
+            },
+            {
+              "en": "Charged per SMS segment",
+              "pt": "Cobrado por segmento SMS",
+              "es": "Cobrado por segmento SMS",
+              "id": "Dikenai biaya per segmen SMS",
+              "ar": "يُحتسب لكل مقطع SMS",
+              "tr": "SMS segment başına ücretlendirilir"
+            },
+            {
+              "en": "Varies by database size",
+              "pt": "Varia por tamanho do banco de dados",
+              "es": "Varía según el tamaño de la base de datos",
+              "id": "Bervariasi berdasarkan ukuran database",
+              "ar": "يتفاوت حسب حجم قاعدة البيانات",
+              "tr": "Veritabanı boyutuna göre değişir"
+            }
           ]
         ]
       }
@@ -204,9 +438,30 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Utility API", "pt": "API de Utilidade", "es": "API de Utilidad", "id": "API Utilitas", "ar": "API الخدمات", "tr": "Yardımcı API" },
-        "heading": { "en": "Dispatch Transactional Alerts Programmatically", "pt": "Disparar Alertas Transacionais Programaticamente", "es": "Enviar Alertas Transaccionales Programáticamente", "id": "Kirim Peringatan Transaksional Secara Programatik", "ar": "إرسال تنبيهات المعاملات برمجياً", "tr": "Programatik Olarak İşlemsel Uyarılar Gönderin" },
-        "overlayText": { "en": "Utility API Sandbox — Coming Soon", "pt": "Sandbox API Utilitária — Em Breve", "es": "Sandbox API de Utilidad — Próximamente", "id": "Sandbox API Utilitas — Segera Hadir", "ar": "بيئة تجريبية API الخدمات — قريباً", "tr": "Yardımcı API Sanal Alanı — Çok Yakında" },
+        "badge": {
+          "en": "Utility API",
+          "pt": "API de Utilidade",
+          "es": "API de Utilidad",
+          "id": "API Utilitas",
+          "ar": "API الخدمات",
+          "tr": "Yardımcı API"
+        },
+        "heading": {
+          "en": "Dispatch Transactional Alerts Programmatically",
+          "pt": "Disparar Alertas Transacionais Programaticamente",
+          "es": "Enviar Alertas Transaccionales Programáticamente",
+          "id": "Kirim Peringatan Transaksional Secara Programatik",
+          "ar": "إرسال تنبيهات المعاملات برمجياً",
+          "tr": "Programatik Olarak İşlemsel Uyarılar Gönderin"
+        },
+        "overlayText": {
+          "en": "Utility API Sandbox — Coming Soon",
+          "pt": "Sandbox API Utilitária — Em Breve",
+          "es": "Sandbox API de Utilidad — Próximamente",
+          "id": "Sandbox API Utilitas — Segera Hadir",
+          "ar": "بيئة تجريبية API الخدمات — قريباً",
+          "tr": "Yardımcı API Sanal Alanı — Çok Yakında"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -222,7 +477,15 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS",
+          "ng": "FAQs"
+        },
         "heading": {
           "en": "Utility Messages — FAQ",
           "pt": "Mensagens Utilitárias — FAQ",
@@ -339,12 +602,59 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar"
+        },
         "links": [
-          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması" }, "href": "/whatsapp/broadcast" },
-          { "label": { "en": "Auto-Trigger Engine", "pt": "Motor de Disparo Automático", "es": "Motor de Auto-Activación", "id": "Mesin Auto-Trigger", "ar": "محرك التشغيل التلقائي", "tr": "Otomatik Tetikleme Motoru" }, "href": "/whatsapp/auto-trigger" },
-          { "label": { "en": "SMS API Overview", "pt": "Visão Geral da API SMS", "es": "Resumen de la API SMS", "id": "Ikhtisar API SMS", "ar": "نظرة عامة على SMS API", "tr": "SMS API Genel Bakışı" }, "href": "/sms" },
-          { "label": { "en": "Help Desk Support", "pt": "Suporte ao Helpdesk", "es": "Soporte del Helpdesk", "id": "Dukungan Helpdesk", "ar": "دعم مكتب المساعدة", "tr": "Yardım Masası Desteği" }, "href": "/contact" }
+          {
+            "label": {
+              "en": "Broadcast Messaging",
+              "pt": "Mensagens de Transmissão",
+              "es": "Mensajes de Difusión",
+              "id": "Pesan Siaran",
+              "ar": "رسائل البث",
+              "tr": "Yayın Mesajlaşması"
+            },
+            "href": "/whatsapp/broadcast"
+          },
+          {
+            "label": {
+              "en": "Auto-Trigger Engine",
+              "pt": "Motor de Disparo Automático",
+              "es": "Motor de Auto-Activación",
+              "id": "Mesin Auto-Trigger",
+              "ar": "محرك التشغيل التلقائي",
+              "tr": "Otomatik Tetikleme Motoru"
+            },
+            "href": "/whatsapp/auto-trigger"
+          },
+          {
+            "label": {
+              "en": "SMS API Overview",
+              "pt": "Visão Geral da API SMS",
+              "es": "Resumen de la API SMS",
+              "id": "Ikhtisar API SMS",
+              "ar": "نظرة عامة على SMS API",
+              "tr": "SMS API Genel Bakışı"
+            },
+            "href": "/sms"
+          },
+          {
+            "label": {
+              "en": "Help Desk Support",
+              "pt": "Suporte ao Helpdesk",
+              "es": "Soporte del Helpdesk",
+              "id": "Dukungan Helpdesk",
+              "ar": "دعم مكتب المساعدة",
+              "tr": "Yardım Masası Desteği"
+            },
+            "href": "/contact"
+          }
         ]
       }
     },

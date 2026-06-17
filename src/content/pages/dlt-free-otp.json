@@ -1,22 +1,33 @@
 {
-  "countries": ["in"],
+  "countries": [
+    "in"
+  ],
   "theme": "sms",
   "seo": {
-    "title": { "en": "DLT Free OTP - Send OTP Without DLT Registration" },
+    "title": {
+      "en": "DLT Free OTP - Send OTP Without DLT Registration"
+    },
     "description": {
       "en": "Send OTPs in India without DLT registration. No entity registration, no template approval, no sender ID setup. Start sending OTPs in 5 minutes with our simple API."
-    }
+    },
+    "ogImage": "/og/dlt-free-otp.jpg"
   },
   "sections": [
     {
       "type": "hero",
       "props": {
-        "badge": { "en": "DLT-Free OTP" },
-        "title": { "en": "OTP Delivery Without DLT Registration" },
+        "badge": {
+          "en": "DLT-Free OTP"
+        },
+        "title": {
+          "en": "OTP Delivery Without DLT Registration"
+        },
         "subtitle": {
           "en": "Send OTP verification codes via SMS at ₹0.25/message. No DLT registration, no template approvals, no waiting. Our pre-registered routes deliver OTPs in under 2 seconds across all Indian networks."
         },
-        "primaryCta": { "en": "Start Sending OTPs" },
+        "primaryCta": {
+          "en": "Start Sending OTPs"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
@@ -31,40 +42,67 @@
     {
       "type": "comparisonTable",
       "props": {
-        "heading": { "en": "StartMessaging DLT-Free vs. Traditional SMS" },
+        "heading": {
+          "en": "StartMessaging DLT-Free vs. Traditional SMS"
+        },
         "columns": [
-          { "label": { "en": "Feature" } },
-          { "label": { "en": "StartMessaging DLT-Free" }, "highlight": true },
-          { "label": { "en": "Traditional SMS" } }
+          {
+            "label": {
+              "en": "Feature"
+            }
+          },
+          {
+            "label": {
+              "en": "StartMessaging DLT-Free"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Traditional SMS"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Setup Time" },
+            {
+              "en": "Setup Time"
+            },
             "5 Minutes",
             "2 to 4 Weeks"
           ],
           [
-            { "en": "Entity Registration" },
+            {
+              "en": "Entity Registration"
+            },
             "Not Required",
             "Required (GST, PAN, Docs)"
           ],
           [
-            { "en": "Template Approvals" },
+            {
+              "en": "Template Approvals"
+            },
             "Not Required",
             "Required for every template"
           ],
           [
-            { "en": "Sender ID (Header)" },
+            {
+              "en": "Sender ID (Header)"
+            },
             "Instant (Shared)",
             "Required (takes 3-5 days)"
           ],
           [
-            { "en": "Upfront Costs" },
+            {
+              "en": "Upfront Costs"
+            },
             "Free to start",
             "₹5,000+ operator fees"
           ],
           [
-            { "en": "Complexity" },
+            {
+              "en": "Complexity"
+            },
             "Simple REST API",
             "Complex operator portals"
           ]
@@ -74,25 +112,41 @@
     {
       "type": "howItWorks",
       "props": {
-        "badge": { "en": "How It Works" },
-        "heading": { "en": "Simple DLT-Free Delivery" },
+        "badge": {
+          "en": "How It Works"
+        },
+        "heading": {
+          "en": "Simple DLT-Free Delivery"
+        },
         "steps": [
           {
             "number": "01",
-            "title": { "en": "Sign Up & Generate Key" },
-            "description": { "en": "Create your free account and get your API key instantly. No paperwork required." },
+            "title": {
+              "en": "Sign Up & Generate Key"
+            },
+            "description": {
+              "en": "Create your free account and get your API key instantly. No paperwork required."
+            },
             "icon": "user"
           },
           {
             "number": "02",
-            "title": { "en": "Call the API" },
-            "description": { "en": "POST to /v1/otp/send. We route the OTP through our pre-registered DLT templates." },
+            "title": {
+              "en": "Call the API"
+            },
+            "description": {
+              "en": "POST to /v1/otp/send. We route the OTP through our pre-registered DLT templates."
+            },
             "icon": "code"
           },
           {
             "number": "03",
-            "title": { "en": "Instant Delivery" },
-            "description": { "en": "Operators receive a compliant SMS. Your user gets the code in under 2 seconds." },
+            "title": {
+              "en": "Instant Delivery"
+            },
+            "description": {
+              "en": "Operators receive a compliant SMS. Your user gets the code in under 2 seconds."
+            },
             "icon": "zap"
           }
         ]
@@ -101,8 +155,12 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Send an OTP in One API Call" },
-        "heading": { "en": "Works with every language. Just a single POST request." },
+        "badge": {
+          "en": "Send an OTP in One API Call"
+        },
+        "heading": {
+          "en": "Works with every language. Just a single POST request."
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -134,41 +192,57 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQ" },
-        "heading": { "en": "DLT Free OTP — Frequently Asked Questions" },
+        "badge": {
+          "en": "FAQ"
+        },
+        "heading": {
+          "en": "DLT Free OTP — Frequently Asked Questions"
+        },
         "items": [
           {
-            "question": { "en": "What is DLT registration?" },
+            "question": {
+              "en": "What is DLT registration?"
+            },
             "answer": {
               "en": "DLT (Distributed Ledger Technology) is a framework mandated by TRAI (Telecom Regulatory Authority of India) for all commercial SMS senders in India. It requires businesses to register their entity, sender IDs, and message templates on a DLT platform before sending any SMS."
             }
           },
           {
-            "question": { "en": "Is it legal to send OTPs without DLT registration?" },
+            "question": {
+              "en": "Is it legal to send OTPs without DLT registration?"
+            },
             "answer": {
               "en": "Yes. StartMessaging is a registered entity on the DLT platform. When you use our API, your OTPs are sent through our pre-approved DLT-registered channels. You are essentially using our infrastructure, which is fully compliant."
             }
           },
           {
-            "question": { "en": "Why is DLT registration difficult?" },
+            "question": {
+              "en": "Why is DLT registration difficult?"
+            },
             "answer": {
               "en": "DLT registration involves multiple steps: entity registration with documents, sender ID (header) registration, and template approval for every unique message. The process takes 2-4 weeks, and any errors require resubmission."
             }
           },
           {
-            "question": { "en": "How does StartMessaging handle DLT compliance?" },
+            "question": {
+              "en": "How does StartMessaging handle DLT compliance?"
+            },
             "answer": {
               "en": "We are registered on the DLT platform ourselves. When you send an OTP through our API, it goes through our pre-registered templates and sender IDs, so you do not need to do any DLT setup yourself."
             }
           },
           {
-            "question": { "en": "Will my OTPs be delivered reliably without my own DLT registration?" },
+            "question": {
+              "en": "Will my OTPs be delivered reliably without my own DLT registration?"
+            },
             "answer": {
               "en": "Yes. Since we use our own DLT-registered templates, your OTPs are treated as legitimate transactional messages by telecom operators. We also use multi-provider failover to maximize delivery rates."
             }
           },
           {
-            "question": { "en": "Can I customize the OTP message text?" },
+            "question": {
+              "en": "Can I customize the OTP message text?"
+            },
             "answer": {
               "en": "Currently, OTPs are sent using our pre-approved templates optimized for delivery. The templates include your OTP code and are designed to be clear and professional."
             }
@@ -179,22 +253,32 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages"
+        },
         "links": [
           {
-            "label": { "en": "Send OTP Without DLT" },
+            "label": {
+              "en": "Send OTP Without DLT"
+            },
             "href": "/send-otp-without-dlt"
           },
           {
-            "label": { "en": "OTP API Docs" },
+            "label": {
+              "en": "OTP API Docs"
+            },
             "href": "/otp-api"
           },
           {
-            "label": { "en": "Pricing" },
+            "label": {
+              "en": "Pricing"
+            },
             "href": "/pricing"
           },
           {
-            "label": { "en": "Use Cases" },
+            "label": {
+              "en": "Use Cases"
+            },
             "href": "/use-cases"
           }
         ]
@@ -203,9 +287,15 @@
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Start Sending DLT-Free OTPs Today" },
-        "subtext": { "en": "No registration, no paperwork. Sign up and send your first OTP in under 5 minutes." },
-        "primaryCta": { "en": "Get Started Free" },
+        "heading": {
+          "en": "Start Sending DLT-Free OTPs Today"
+        },
+        "subtext": {
+          "en": "No registration, no paperwork. Sign up and send your first OTP in under 5 minutes."
+        },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

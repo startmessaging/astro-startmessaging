@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "ogImage": "/images/chatbot-flow.webp",
   "seo": {
@@ -19,7 +27,8 @@
       "id": "Buat chatbot WhatsApp tanpa kode untuk dukungan pelanggan, lead generation, dan otomatisasi penjualan dengan serah terima agen.",
       "ar": "أنشئ شات بوت واتساب بدون كود لدعم العملاء وتوليد العملاء المحتملين وأتمتة المبيعات مع تحويل الموظف.",
       "tr": "Müşteri desteği, lead oluşturma ve satış otomasyonu için kod gerektirmeyen WhatsApp chatbot'ları oluşturun."
-    }
+    },
+    "ogImage": "/og/whatsapp-chatbot.jpg"
   },
   "sections": [
     {
@@ -107,27 +116,85 @@
           }
         ],
         "image": "/images/chatbot-flow.webp",
-        "imageAlt": { "en": "WhatsApp Visual Chatbot Flow Diagram" },
+        "imageAlt": {
+          "en": "WhatsApp Visual Chatbot Flow Diagram"
+        },
         "reversed": false
       }
     },
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Agent Handoff", "pt": "Transferência para Agente", "es": "Transferencia al Agente", "id": "Serah Terima Agen", "ar": "تحويل للموظف", "tr": "Ajan Devri" },
-        "heading": { "en": "Seamless Bot-to-Human Agent Handoff", "pt": "Transferência Perfeita do Bot para Agente Humano", "es": "Transferencia Perfecta de Bot a Agente Humano", "id": "Serah Terima Bot-ke-Agen Manusia yang Mulus", "ar": "تحويل سلس من البوت إلى الموظف البشري", "tr": "Bot'tan İnsan Ajana Sorunsuz Devir" },
+        "badge": {
+          "en": "Agent Handoff",
+          "pt": "Transferência para Agente",
+          "es": "Transferencia al Agente",
+          "id": "Serah Terima Agen",
+          "ar": "تحويل للموظف",
+          "tr": "Ajan Devri"
+        },
+        "heading": {
+          "en": "Seamless Bot-to-Human Agent Handoff",
+          "pt": "Transferência Perfeita do Bot para Agente Humano",
+          "es": "Transferencia Perfecta de Bot a Agente Humano",
+          "id": "Serah Terima Bot-ke-Agen Manusia yang Mulus",
+          "ar": "تحويل سلس من البوت إلى الموظف البشري",
+          "tr": "Bot'tan İnsan Ajana Sorunsuz Devir"
+        },
         "steps": [
           {
-            "title": { "en": "1. Bot Resolution Try", "pt": "1. Tentativa de Resolução pelo Bot", "es": "1. Intento de Resolución del Bot", "id": "1. Percobaan Resolusi Bot", "ar": "1. محاولة حل البوت", "tr": "1. Bot Çözüm Denemesi" },
-            "description": { "en": "The chatbot addresses FAQs, collects primary details, and processes queries using visual logic rules.", "pt": "O chatbot responde FAQs, coleta detalhes primários e processa consultas usando regras de lógica visual.", "es": "El chatbot responde FAQs, recopila detalles primarios y procesa consultas usando reglas de lógica visual.", "id": "Chatbot menjawab FAQ, mengumpulkan detail utama, dan memproses pertanyaan menggunakan aturan logika visual.", "ar": "يعالج الشات بوت الأسئلة الشائعة ويجمع التفاصيل الأولية ويعالج الاستفسارات باستخدام قواعد المنطق المرئي.", "tr": "Chatbot, SSS'leri yanıtlar, temel ayrıntıları toplar ve görsel mantık kurallarını kullanarak sorguları işler." }
+            "title": {
+              "en": "1. Bot Resolution Try",
+              "pt": "1. Tentativa de Resolução pelo Bot",
+              "es": "1. Intento de Resolución del Bot",
+              "id": "1. Percobaan Resolusi Bot",
+              "ar": "1. محاولة حل البوت",
+              "tr": "1. Bot Çözüm Denemesi"
+            },
+            "description": {
+              "en": "The chatbot addresses FAQs, collects primary details, and processes queries using visual logic rules.",
+              "pt": "O chatbot responde FAQs, coleta detalhes primários e processa consultas usando regras de lógica visual.",
+              "es": "El chatbot responde FAQs, recopila detalles primarios y procesa consultas usando reglas de lógica visual.",
+              "id": "Chatbot menjawab FAQ, mengumpulkan detail utama, dan memproses pertanyaan menggunakan aturan logika visual.",
+              "ar": "يعالج الشات بوت الأسئلة الشائعة ويجمع التفاصيل الأولية ويعالج الاستفسارات باستخدام قواعد المنطق المرئي.",
+              "tr": "Chatbot, SSS'leri yanıtlar, temel ayrıntıları toplar ve görsel mantık kurallarını kullanarak sorguları işler."
+            }
           },
           {
-            "title": { "en": "2. Transfer Request", "pt": "2. Solicitação de Transferência", "es": "2. Solicitud de Transferencia", "id": "2. Permintaan Transfer", "ar": "2. طلب التحويل", "tr": "2. Transfer Talebi" },
-            "description": { "en": "If a user chooses 'Speak to Agent' or triggers complex inputs, a webhook notification fires.", "pt": "Se um usuário escolhe 'Falar com Agente' ou aciona entradas complexas, uma notificação de webhook é disparada.", "es": "Si un usuario elige 'Hablar con Agente' o activa entradas complejas, se dispara una notificación webhook.", "id": "Jika pengguna memilih 'Bicara dengan Agen' atau memicu input kompleks, notifikasi webhook dikirim.", "ar": "إذا اختار المستخدم 'التحدث مع موظف' أو أطلق مدخلات معقدة، يُرسَل إشعار webhook.", "tr": "Kullanıcı 'Ajanla Konuş'u seçerse veya karmaşık girdiler tetiklerse, bir webhook bildirimi gönderilir." }
+            "title": {
+              "en": "2. Transfer Request",
+              "pt": "2. Solicitação de Transferência",
+              "es": "2. Solicitud de Transferencia",
+              "id": "2. Permintaan Transfer",
+              "ar": "2. طلب التحويل",
+              "tr": "2. Transfer Talebi"
+            },
+            "description": {
+              "en": "If a user chooses 'Speak to Agent' or triggers complex inputs, a webhook notification fires.",
+              "pt": "Se um usuário escolhe 'Falar com Agente' ou aciona entradas complexas, uma notificação de webhook é disparada.",
+              "es": "Si un usuario elige 'Hablar con Agente' o activa entradas complejas, se dispara una notificación webhook.",
+              "id": "Jika pengguna memilih 'Bicara dengan Agen' atau memicu input kompleks, notifikasi webhook dikirim.",
+              "ar": "إذا اختار المستخدم 'التحدث مع موظف' أو أطلق مدخلات معقدة، يُرسَل إشعار webhook.",
+              "tr": "Kullanıcı 'Ajanla Konuş'u seçerse veya karmaşık girdiler tetiklerse, bir webhook bildirimi gönderilir."
+            }
           },
           {
-            "title": { "en": "3. Direct Takeover", "pt": "3. Assunção Direta", "es": "3. Asunción Directa", "id": "3. Pengambilalihan Langsung", "ar": "3. الاستحواذ المباشر", "tr": "3. Doğrudan Devralma" },
-            "description": { "en": "Live human agents receive the full conversational transcripts in their dashboard chat interface instantly.", "pt": "Agentes humanos ao vivo recebem as transcrições completas das conversas em sua interface de chat instantaneamente.", "es": "Los agentes humanos en vivo reciben las transcripciones completas de las conversaciones en su interfaz de chat instantáneamente.", "id": "Agen manusia langsung menerima transkrip percakapan lengkap di antarmuka chat dasbor mereka secara instan.", "ar": "يتلقى الموظفون البشريون المباشرون النصوص الكاملة للمحادثات في واجهة الدردشة بلوحة التحكم فوراً.", "tr": "Canlı insan ajanlar, tam konuşma dökümlerini anında gösterge paneli sohbet arayüzünde alır." }
+            "title": {
+              "en": "3. Direct Takeover",
+              "pt": "3. Assunção Direta",
+              "es": "3. Asunción Directa",
+              "id": "3. Pengambilalihan Langsung",
+              "ar": "3. الاستحواذ المباشر",
+              "tr": "3. Doğrudan Devralma"
+            },
+            "description": {
+              "en": "Live human agents receive the full conversational transcripts in their dashboard chat interface instantly.",
+              "pt": "Agentes humanos ao vivo recebem as transcrições completas das conversas em sua interface de chat instantaneamente.",
+              "es": "Los agentes humanos en vivo reciben las transcripciones completas de las conversaciones en su interfaz de chat instantáneamente.",
+              "id": "Agen manusia langsung menerima transkrip percakapan lengkap di antarmuka chat dasbor mereka secara instan.",
+              "ar": "يتلقى الموظفون البشريون المباشرون النصوص الكاملة للمحادثات في واجهة الدردشة بلوحة التحكم فوراً.",
+              "tr": "Canlı insan ajanlar, tam konuşma dökümlerini anında gösterge paneli sohbet arayüzünde alır."
+            }
           }
         ]
       }
@@ -135,39 +202,209 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Automation Comparison", "pt": "Comparação de Automação", "es": "Comparación de Automatización", "id": "Perbandingan Otomatisasi", "ar": "مقارنة الأتمتة", "tr": "Otomasyon Karşılaştırması" },
-        "heading": { "en": "Chatbot Automation vs. Interactive Menu vs. Live Support", "pt": "Automação de Chatbot vs. Menu Interativo vs. Suporte ao Vivo", "es": "Automatización de Chatbot vs. Menú Interactivo vs. Soporte en Vivo", "id": "Otomatisasi Chatbot vs. Menu Interaktif vs. Dukungan Langsung", "ar": "أتمتة الشات بوت مقابل القائمة التفاعلية مقابل الدعم المباشر", "tr": "Chatbot Otomasyonu vs. Etkileşimli Menü vs. Canlı Destek" },
-        "subheading": { "en": "Understand the response efficiency, setup complexity, and cost differences.", "pt": "Compreenda a eficiência de resposta, complexidade de configuração e diferenças de custo.", "es": "Comprenda la eficiencia de respuesta, la complejidad de configuración y las diferencias de costo.", "id": "Pahami efisiensi respons, kompleksitas pengaturan, dan perbedaan biaya.", "ar": "افهم كفاءة الاستجابة وتعقيد الإعداد والاختلافات في التكلفة.", "tr": "Yanıt verimliliğini, kurulum karmaşıklığını ve maliyet farklılıklarını anlayın." },
+        "badge": {
+          "en": "Automation Comparison",
+          "pt": "Comparação de Automação",
+          "es": "Comparación de Automatización",
+          "id": "Perbandingan Otomatisasi",
+          "ar": "مقارنة الأتمتة",
+          "tr": "Otomasyon Karşılaştırması"
+        },
+        "heading": {
+          "en": "Chatbot Automation vs. Interactive Menu vs. Live Support",
+          "pt": "Automação de Chatbot vs. Menu Interativo vs. Suporte ao Vivo",
+          "es": "Automatización de Chatbot vs. Menú Interactivo vs. Soporte en Vivo",
+          "id": "Otomatisasi Chatbot vs. Menu Interaktif vs. Dukungan Langsung",
+          "ar": "أتمتة الشات بوت مقابل القائمة التفاعلية مقابل الدعم المباشر",
+          "tr": "Chatbot Otomasyonu vs. Etkileşimli Menü vs. Canlı Destek"
+        },
+        "subheading": {
+          "en": "Understand the response efficiency, setup complexity, and cost differences.",
+          "pt": "Compreenda a eficiência de resposta, complexidade de configuração e diferenças de custo.",
+          "es": "Comprenda la eficiencia de respuesta, la complejidad de configuración y las diferencias de costo.",
+          "id": "Pahami efisiensi respons, kompleksitas pengaturan, dan perbedaan biaya.",
+          "ar": "افهم كفاءة الاستجابة وتعقيد الإعداد والاختلافات في التكلفة.",
+          "tr": "Yanıt verimliliğini, kurulum karmaşıklığını ve maliyet farklılıklarını anlayın."
+        },
         "columns": [
-          { "label": { "en": "Capability", "pt": "Capacidade", "es": "Capacidad", "id": "Kemampuan", "ar": "القدرة", "tr": "Kapasite" } },
-          { "label": { "en": "Automated Chatbot", "pt": "Chatbot Automatizado", "es": "Chatbot Automatizado", "id": "Chatbot Otomatis", "ar": "شات بوت مؤتمت", "tr": "Otomatik Chatbot" }, "highlight": true },
-          { "label": { "en": "Interactive Button Menu", "pt": "Menu de Botões Interativos", "es": "Menú de Botones Interactivos", "id": "Menu Tombol Interaktif", "ar": "قائمة أزرار تفاعلية", "tr": "Etkileşimli Buton Menüsü" } },
-          { "label": { "en": "Pure Live Support", "pt": "Suporte ao Vivo Puro", "es": "Soporte en Vivo Puro", "id": "Dukungan Langsung Murni", "ar": "دعم مباشر بحت", "tr": "Saf Canlı Destek" } }
+          {
+            "label": {
+              "en": "Capability",
+              "pt": "Capacidade",
+              "es": "Capacidad",
+              "id": "Kemampuan",
+              "ar": "القدرة",
+              "tr": "Kapasite"
+            }
+          },
+          {
+            "label": {
+              "en": "Automated Chatbot",
+              "pt": "Chatbot Automatizado",
+              "es": "Chatbot Automatizado",
+              "id": "Chatbot Otomatis",
+              "ar": "شات بوت مؤتمت",
+              "tr": "Otomatik Chatbot"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Interactive Button Menu",
+              "pt": "Menu de Botões Interativos",
+              "es": "Menú de Botones Interactivos",
+              "id": "Menu Tombol Interaktif",
+              "ar": "قائمة أزرار تفاعلية",
+              "tr": "Etkileşimli Buton Menüsü"
+            }
+          },
+          {
+            "label": {
+              "en": "Pure Live Support",
+              "pt": "Suporte ao Vivo Puro",
+              "es": "Soporte en Vivo Puro",
+              "id": "Dukungan Langsung Murni",
+              "ar": "دعم مباشر بحت",
+              "tr": "Saf Canlı Destek"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Response Latency", "pt": "Latência de Resposta", "es": "Latencia de Respuesta", "id": "Latensi Respons", "ar": "وقت استجابة", "tr": "Yanıt Gecikmesi" },
-            { "en": "< 1 second (Instant)", "pt": "< 1 segundo (Instantâneo)", "es": "< 1 segundo (Instantáneo)", "id": "< 1 detik (Instan)", "ar": "< ثانية واحدة (فوري)", "tr": "< 1 saniye (Anında)" },
-            { "en": "< 1 second (Fixed options)", "pt": "< 1 segundo (Opções fixas)", "es": "< 1 segundo (Opciones fijas)", "id": "< 1 detik (Opsi tetap)", "ar": "< ثانية واحدة (خيارات ثابتة)", "tr": "< 1 saniye (Sabit seçenekler)" },
-            { "en": "Minutes to hours (Queue dependent)", "pt": "Minutos a horas (Dependente de fila)", "es": "Minutos a horas (Dependiente de cola)", "id": "Menit hingga jam (Bergantung antrean)", "ar": "دقائق إلى ساعات (يعتمد على الطابور)", "tr": "Dakikalar ila saatler (Kuyruğa bağlı)" }
+            {
+              "en": "Response Latency",
+              "pt": "Latência de Resposta",
+              "es": "Latencia de Respuesta",
+              "id": "Latensi Respons",
+              "ar": "وقت استجابة",
+              "tr": "Yanıt Gecikmesi"
+            },
+            {
+              "en": "< 1 second (Instant)",
+              "pt": "< 1 segundo (Instantâneo)",
+              "es": "< 1 segundo (Instantáneo)",
+              "id": "< 1 detik (Instan)",
+              "ar": "< ثانية واحدة (فوري)",
+              "tr": "< 1 saniye (Anında)"
+            },
+            {
+              "en": "< 1 second (Fixed options)",
+              "pt": "< 1 segundo (Opções fixas)",
+              "es": "< 1 segundo (Opciones fijas)",
+              "id": "< 1 detik (Opsi tetap)",
+              "ar": "< ثانية واحدة (خيارات ثابتة)",
+              "tr": "< 1 saniye (Sabit seçenekler)"
+            },
+            {
+              "en": "Minutes to hours (Queue dependent)",
+              "pt": "Minutos a horas (Dependente de fila)",
+              "es": "Minutos a horas (Dependiente de cola)",
+              "id": "Menit hingga jam (Bergantung antrean)",
+              "ar": "دقائق إلى ساعات (يعتمد على الطابور)",
+              "tr": "Dakikalar ila saatler (Kuyruğa bağlı)"
+            }
           ],
           [
-            { "en": "Complexity Level", "pt": "Nível de Complexidade", "es": "Nivel de Complejidad", "id": "Tingkat Kompleksitas", "ar": "مستوى التعقيد", "tr": "Karmaşıklık Seviyesi" },
-            { "en": "High (AI & Dynamic routing)", "pt": "Alto (IA e roteamento dinâmico)", "es": "Alto (IA y enrutamiento dinámico)", "id": "Tinggi (AI & Perutean dinamis)", "ar": "عالٍ (ذكاء اصطناعي وتوجيه ديناميكي)", "tr": "Yüksek (AI ve Dinamik yönlendirme)" },
-            { "en": "Low (Fixed static routes)", "pt": "Baixo (Rotas estáticas fixas)", "es": "Bajo (Rutas estáticas fijas)", "id": "Rendah (Rute statis tetap)", "ar": "منخفض (مسارات ثابتة)", "tr": "Düşük (Sabit statik rotalar)" },
-            { "en": "High (Human capacity dependent)", "pt": "Alto (Dependente de capacidade humana)", "es": "Alto (Dependiente de capacidad humana)", "id": "Tinggi (Bergantung kapasitas manusia)", "ar": "عالٍ (يعتمد على الطاقة البشرية)", "tr": "Yüksek (İnsan kapasitesine bağlı)" }
+            {
+              "en": "Complexity Level",
+              "pt": "Nível de Complexidade",
+              "es": "Nivel de Complejidad",
+              "id": "Tingkat Kompleksitas",
+              "ar": "مستوى التعقيد",
+              "tr": "Karmaşıklık Seviyesi"
+            },
+            {
+              "en": "High (AI & Dynamic routing)",
+              "pt": "Alto (IA e roteamento dinâmico)",
+              "es": "Alto (IA y enrutamiento dinámico)",
+              "id": "Tinggi (AI & Perutean dinamis)",
+              "ar": "عالٍ (ذكاء اصطناعي وتوجيه ديناميكي)",
+              "tr": "Yüksek (AI ve Dinamik yönlendirme)"
+            },
+            {
+              "en": "Low (Fixed static routes)",
+              "pt": "Baixo (Rotas estáticas fixas)",
+              "es": "Bajo (Rutas estáticas fijas)",
+              "id": "Rendah (Rute statis tetap)",
+              "ar": "منخفض (مسارات ثابتة)",
+              "tr": "Düşük (Sabit statik rotalar)"
+            },
+            {
+              "en": "High (Human capacity dependent)",
+              "pt": "Alto (Dependente de capacidade humana)",
+              "es": "Alto (Dependiente de capacidad humana)",
+              "id": "Tinggi (Bergantung kapasitas manusia)",
+              "ar": "عالٍ (يعتمد على الطاقة البشرية)",
+              "tr": "Yüksek (İnsan kapasitesine bağlı)"
+            }
           ],
           [
-            { "en": "Operating Hours", "pt": "Horas de Operação", "es": "Horas de Operación", "id": "Jam Operasional", "ar": "ساعات التشغيل", "tr": "Çalışma Saatleri" },
-            { "en": "24/7/365 (Unattended)", "pt": "24/7/365 (Sem supervisão)", "es": "24/7/365 (Sin supervisión)", "id": "24/7/365 (Tanpa pengawasan)", "ar": "24/7/365 (بدون إشراف)", "tr": "24/7/365 (Gözetimsiz)" },
-            { "en": "24/7/365 (Unattended)", "pt": "24/7/365 (Sem supervisão)", "es": "24/7/365 (Sin supervisión)", "id": "24/7/365 (Tanpa pengawasan)", "ar": "24/7/365 (بدون إشراف)", "tr": "24/7/365 (Gözetimsiz)" },
-            { "en": "Business hours only", "pt": "Apenas horário comercial", "es": "Solo horario comercial", "id": "Hanya jam bisnis", "ar": "خلال ساعات العمل فقط", "tr": "Yalnızca iş saatlerinde" }
+            {
+              "en": "Operating Hours",
+              "pt": "Horas de Operação",
+              "es": "Horas de Operación",
+              "id": "Jam Operasional",
+              "ar": "ساعات التشغيل",
+              "tr": "Çalışma Saatleri"
+            },
+            {
+              "en": "24/7/365 (Unattended)",
+              "pt": "24/7/365 (Sem supervisão)",
+              "es": "24/7/365 (Sin supervisión)",
+              "id": "24/7/365 (Tanpa pengawasan)",
+              "ar": "24/7/365 (بدون إشراف)",
+              "tr": "24/7/365 (Gözetimsiz)"
+            },
+            {
+              "en": "24/7/365 (Unattended)",
+              "pt": "24/7/365 (Sem supervisão)",
+              "es": "24/7/365 (Sin supervisión)",
+              "id": "24/7/365 (Tanpa pengawasan)",
+              "ar": "24/7/365 (بدون إشراف)",
+              "tr": "24/7/365 (Gözetimsiz)"
+            },
+            {
+              "en": "Business hours only",
+              "pt": "Apenas horário comercial",
+              "es": "Solo horario comercial",
+              "id": "Hanya jam bisnis",
+              "ar": "خلال ساعات العمل فقط",
+              "tr": "Yalnızca iş saatlerinde"
+            }
           ],
           [
-            { "en": "Operational Costs", "pt": "Custos Operacionais", "es": "Costos Operacionales", "id": "Biaya Operasional", "ar": "التكاليف التشغيلية", "tr": "Operasyonel Maliyetler" },
-            { "en": "Lowest (Fraction of a cent)", "pt": "Mais baixo (Fração de centavo)", "es": "Más bajo (Fracción de centavo)", "id": "Terendah (Sebagian sen)", "ar": "الأقل (جزء من سنت)", "tr": "En düşük (Bir kuruşun kesiri)" },
-            { "en": "Low (Fixed pricing)", "pt": "Baixo (Preço fixo)", "es": "Bajo (Precio fijo)", "id": "Rendah (Harga tetap)", "ar": "منخفض (تسعير ثابت)", "tr": "Düşük (Sabit fiyat)" },
-            { "en": "Highest (Per agent seat costs)", "pt": "Mais alto (Custo por assento de agente)", "es": "Más alto (Costo por puesto de agente)", "id": "Tertinggi (Biaya per kursi agen)", "ar": "الأعلى (تكاليف لكل مقعد موظف)", "tr": "En yüksek (Ajan başına maliyet)" }
+            {
+              "en": "Operational Costs",
+              "pt": "Custos Operacionais",
+              "es": "Costos Operacionales",
+              "id": "Biaya Operasional",
+              "ar": "التكاليف التشغيلية",
+              "tr": "Operasyonel Maliyetler"
+            },
+            {
+              "en": "Lowest (Fraction of a cent)",
+              "pt": "Mais baixo (Fração de centavo)",
+              "es": "Más bajo (Fracción de centavo)",
+              "id": "Terendah (Sebagian sen)",
+              "ar": "الأقل (جزء من سنت)",
+              "tr": "En düşük (Bir kuruşun kesiri)"
+            },
+            {
+              "en": "Low (Fixed pricing)",
+              "pt": "Baixo (Preço fixo)",
+              "es": "Bajo (Precio fijo)",
+              "id": "Rendah (Harga tetap)",
+              "ar": "منخفض (تسعير ثابت)",
+              "tr": "Düşük (Sabit fiyat)"
+            },
+            {
+              "en": "Highest (Per agent seat costs)",
+              "pt": "Mais alto (Custo por assento de agente)",
+              "es": "Más alto (Costo por puesto de agente)",
+              "id": "Tertinggi (Biaya per kursi agen)",
+              "ar": "الأعلى (تكاليف لكل مقعد موظف)",
+              "tr": "En yüksek (Ajan başına maliyet)"
+            }
           ]
         ]
       }
@@ -175,9 +412,30 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Webhook API", "pt": "API de Webhook", "es": "API de Webhook", "id": "API Webhook", "ar": "API الويب هوك", "tr": "Webhook API'si" },
-        "heading": { "en": "Receive Customer Messages in Real-Time", "pt": "Receba Mensagens de Clientes em Tempo Real", "es": "Reciba Mensajes de Clientes en Tiempo Real", "id": "Terima Pesan Pelanggan secara Real-Time", "ar": "استقبل رسائل العملاء في الوقت الفعلي", "tr": "Müşteri Mesajlarını Gerçek Zamanlı Alın" },
-        "overlayText": { "en": "Chatbot Webhook API Sandbox — Coming Soon", "pt": "Sandbox API Webhook Chatbot — Em Breve", "es": "Sandbox API Webhook Chatbot — Próximamente", "id": "Sandbox API Webhook Chatbot — Segera Hadir", "ar": "بيئة تجريبية API Webhook الشات بوت — قريباً", "tr": "Chatbot Webhook API Sanal Alanı — Çok Yakında" },
+        "badge": {
+          "en": "Webhook API",
+          "pt": "API de Webhook",
+          "es": "API de Webhook",
+          "id": "API Webhook",
+          "ar": "API الويب هوك",
+          "tr": "Webhook API'si"
+        },
+        "heading": {
+          "en": "Receive Customer Messages in Real-Time",
+          "pt": "Receba Mensagens de Clientes em Tempo Real",
+          "es": "Reciba Mensajes de Clientes en Tiempo Real",
+          "id": "Terima Pesan Pelanggan secara Real-Time",
+          "ar": "استقبل رسائل العملاء في الوقت الفعلي",
+          "tr": "Müşteri Mesajlarını Gerçek Zamanlı Alın"
+        },
+        "overlayText": {
+          "en": "Chatbot Webhook API Sandbox — Coming Soon",
+          "pt": "Sandbox API Webhook Chatbot — Em Breve",
+          "es": "Sandbox API Webhook Chatbot — Próximamente",
+          "id": "Sandbox API Webhook Chatbot — Segera Hadir",
+          "ar": "بيئة تجريبية API Webhook الشات بوت — قريباً",
+          "tr": "Chatbot Webhook API Sanal Alanı — Çok Yakında"
+        },
         "snippets": [
           {
             "lang": "JSON",
@@ -197,7 +455,15 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS",
+          "ng": "FAQs"
+        },
         "heading": {
           "en": "Chatbot — FAQ",
           "pt": "Chatbot — FAQ",
@@ -314,12 +580,59 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar"
+        },
         "links": [
-          { "label": { "en": "Auto-Trigger Engine", "pt": "Motor de Disparo Automático", "es": "Motor de Auto-Activación", "id": "Mesin Auto-Trigger", "ar": "محرك التشغيل التلقائي", "tr": "Otomatik Tetikleme Motoru" }, "href": "/whatsapp/auto-trigger" },
-          { "label": { "en": "Utility Notifications", "pt": "Notificações Utilitárias", "es": "Notificaciones Utilitarias", "id": "Notifikasi Utilitas", "ar": "إشعارات الخدمات", "tr": "Yardımcı Bildirimler" }, "href": "/whatsapp/utility" },
-          { "label": { "en": "Marketing Solutions", "pt": "Soluções de Marketing", "es": "Soluciones de Marketing", "id": "Solusi Marketing", "ar": "حلول التسويق", "tr": "Pazarlama Çözümleri" }, "href": "/whatsapp/marketing" },
-          { "label": { "en": "Contact Sales", "pt": "Contato Comercial", "es": "Contactar Ventas", "id": "Hubungi Sales", "ar": "تواصل مع المبيعات", "tr": "Satışla İletişim" }, "href": "/contact" }
+          {
+            "label": {
+              "en": "Auto-Trigger Engine",
+              "pt": "Motor de Disparo Automático",
+              "es": "Motor de Auto-Activación",
+              "id": "Mesin Auto-Trigger",
+              "ar": "محرك التشغيل التلقائي",
+              "tr": "Otomatik Tetikleme Motoru"
+            },
+            "href": "/whatsapp/auto-trigger"
+          },
+          {
+            "label": {
+              "en": "Utility Notifications",
+              "pt": "Notificações Utilitárias",
+              "es": "Notificaciones Utilitarias",
+              "id": "Notifikasi Utilitas",
+              "ar": "إشعارات الخدمات",
+              "tr": "Yardımcı Bildirimler"
+            },
+            "href": "/whatsapp/utility"
+          },
+          {
+            "label": {
+              "en": "Marketing Solutions",
+              "pt": "Soluções de Marketing",
+              "es": "Soluciones de Marketing",
+              "id": "Solusi Marketing",
+              "ar": "حلول التسويق",
+              "tr": "Pazarlama Çözümleri"
+            },
+            "href": "/whatsapp/marketing"
+          },
+          {
+            "label": {
+              "en": "Contact Sales",
+              "pt": "Contato Comercial",
+              "es": "Contactar Ventas",
+              "id": "Hubungi Sales",
+              "ar": "تواصل مع المبيعات",
+              "tr": "Satışla İletişim"
+            },
+            "href": "/contact"
+          }
         ]
       }
     },

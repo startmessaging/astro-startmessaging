@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
     "title": {
@@ -19,7 +27,7 @@
       "ar": "أرسل رسائل بث عبر واتساب لآلاف جهات الاتصال رسمياً مع دعم الوسائط وتتبع القراءة في الوقت الفعلي ودون خطر حظر الرقم.",
       "tr": "%98 açılma oranıyla, zengin medya desteği ve gerçek zamanlı okundu bilgileriyle yasal olarak binlerce kişiye WhatsApp yayını gönderin."
     },
-    "ogImage": "/images/broadcast-dashboard.webp"
+    "ogImage": "/og/whatsapp-broadcast.jpg"
   },
   "sections": [
     {
@@ -198,9 +206,30 @@
               "ar": "وقت الإعداد",
               "tr": "Kurulum Süresi"
             },
-            { "en": "Instant (Direct API)", "pt": "Instantâneo (API Direta)", "es": "Instantáneo (API Directa)", "id": "Instan (API Langsung)", "ar": "فوري (API مباشر)", "tr": "Anında (Doğrudan API)" },
-            { "en": "Instant (Sequence Flow Builder)", "pt": "Instantâneo (Construtor de Fluxo)", "es": "Instantáneo (Constructor de Flujo)", "id": "Instan (Pembuat Alur)", "ar": "فوري (منشئ تدفق متسلسل)", "tr": "Anında (Akış Oluşturucu)" },
-            { "en": "Requires manual web login", "pt": "Requer login web manual", "es": "Requiere inicio de sesión web manual", "id": "Memerlukan login web manual", "ar": "يتطلب تسجيل دخول ويب يدوي", "tr": "Manuel web girişi gerektirir" }
+            {
+              "en": "Instant (Direct API)",
+              "pt": "Instantâneo (API Direta)",
+              "es": "Instantáneo (API Directa)",
+              "id": "Instan (API Langsung)",
+              "ar": "فوري (API مباشر)",
+              "tr": "Anında (Doğrudan API)"
+            },
+            {
+              "en": "Instant (Sequence Flow Builder)",
+              "pt": "Instantâneo (Construtor de Fluxo)",
+              "es": "Instantáneo (Constructor de Flujo)",
+              "id": "Instan (Pembuat Alur)",
+              "ar": "فوري (منشئ تدفق متسلسل)",
+              "tr": "Anında (Akış Oluşturucu)"
+            },
+            {
+              "en": "Requires manual web login",
+              "pt": "Requer login web manual",
+              "es": "Requiere inicio de sesión web manual",
+              "id": "Memerlukan login web manual",
+              "ar": "يتطلب تسجيل دخول ويب يدوي",
+              "tr": "Manuel web girişi gerektirir"
+            }
           ],
           [
             {
@@ -211,9 +240,30 @@
               "ar": "فحوصات الامتثال للاشتراك",
               "tr": "Opt-In Uyumluluk Kontrolleri"
             },
-            { "en": "Required", "pt": "Obrigatório", "es": "Requerido", "id": "Diperlukan", "ar": "مطلوب", "tr": "Gerekli" },
-            { "en": "Required", "pt": "Obrigatório", "es": "Requerido", "id": "Diperlukan", "ar": "مطلوب", "tr": "Gerekli" },
-            { "en": "✗ (High spam rate)", "pt": "✗ (Alta taxa de spam)", "es": "✗ (Alta tasa de spam)", "id": "✗ (Tingkat spam tinggi)", "ar": "✗ (معدل بريد عشوائي عالٍ)", "tr": "✗ (Yüksek spam oranı)" }
+            {
+              "en": "Required",
+              "pt": "Obrigatório",
+              "es": "Requerido",
+              "id": "Diperlukan",
+              "ar": "مطلوب",
+              "tr": "Gerekli"
+            },
+            {
+              "en": "Required",
+              "pt": "Obrigatório",
+              "es": "Requerido",
+              "id": "Diperlukan",
+              "ar": "مطلوب",
+              "tr": "Gerekli"
+            },
+            {
+              "en": "✗ (High spam rate)",
+              "pt": "✗ (Alta taxa de spam)",
+              "es": "✗ (Alta tasa de spam)",
+              "id": "✗ (Tingkat spam tinggi)",
+              "ar": "✗ (معدل بريد عشوائي عالٍ)",
+              "tr": "✗ (Yüksek spam oranı)"
+            }
           ],
           [
             {
@@ -224,9 +274,30 @@
               "ar": "سرعة التسليم",
               "tr": "Teslimat Hızı"
             },
-            { "en": "Up to 80 messages/second", "pt": "Até 80 mensagens/segundo", "es": "Hasta 80 mensajes/segundo", "id": "Hingga 80 pesan/detik", "ar": "حتى 80 رسالة/ثانية", "tr": "Saniyede 80 mesaja kadar" },
-            { "en": "Throttled based on trigger rules", "pt": "Limitado conforme regras de disparo", "es": "Limitado según reglas de activación", "id": "Dibatasi berdasarkan aturan pemicu", "ar": "محدود بناءً على قواعد التشغيل", "tr": "Tetikleme kurallarına göre kısıtlı" },
-            { "en": "Very slow (manual delays)", "pt": "Muito lento (atrasos manuais)", "es": "Muy lento (retrasos manuales)", "id": "Sangat lambat (penundaan manual)", "ar": "بطيء جداً (تأخيرات يدوية)", "tr": "Çok yavaş (manuel gecikmeler)" }
+            {
+              "en": "Up to 80 messages/second",
+              "pt": "Até 80 mensagens/segundo",
+              "es": "Hasta 80 mensajes/segundo",
+              "id": "Hingga 80 pesan/detik",
+              "ar": "حتى 80 رسالة/ثانية",
+              "tr": "Saniyede 80 mesaja kadar"
+            },
+            {
+              "en": "Throttled based on trigger rules",
+              "pt": "Limitado conforme regras de disparo",
+              "es": "Limitado según reglas de activación",
+              "id": "Dibatasi berdasarkan aturan pemicu",
+              "ar": "محدود بناءً على قواعد التشغيل",
+              "tr": "Tetikleme kurallarına göre kısıtlı"
+            },
+            {
+              "en": "Very slow (manual delays)",
+              "pt": "Muito lento (atrasos manuais)",
+              "es": "Muy lento (retrasos manuales)",
+              "id": "Sangat lambat (penundaan manual)",
+              "ar": "بطيء جداً (تأخيرات يدوية)",
+              "tr": "Çok yavaş (manuel gecikmeler)"
+            }
           ],
           [
             {
@@ -237,9 +308,30 @@
               "ar": "خطر حظر رقم الهاتف",
               "tr": "Telefon Numarası Yasaklanma Riski"
             },
-            { "en": "0% (TRAI/Meta Compliant)", "pt": "0% (Conforme TRAI/Meta)", "es": "0% (Conforme TRAI/Meta)", "id": "0% (Sesuai TRAI/Meta)", "ar": "0% (متوافق مع TRAI/Meta)", "tr": "%0 (TRAI/Meta Uyumlu)" },
-            { "en": "0% (TRAI/Meta Compliant)", "pt": "0% (Conforme TRAI/Meta)", "es": "0% (Conforme TRAI/Meta)", "id": "0% (Sesuai TRAI/Meta)", "ar": "0% (متوافق مع TRAI/Meta)", "tr": "%0 (TRAI/Meta Uyumlu)" },
-            { "en": "99% (Immediate number block)", "pt": "99% (Bloqueio imediato do número)", "es": "99% (Bloqueo inmediato del número)", "id": "99% (Blokir nomor segera)", "ar": "99% (حظر رقم فوري)", "tr": "%99 (Anlık numara engeli)" }
+            {
+              "en": "0% (TRAI/Meta Compliant)",
+              "pt": "0% (Conforme TRAI/Meta)",
+              "es": "0% (Conforme TRAI/Meta)",
+              "id": "0% (Sesuai TRAI/Meta)",
+              "ar": "0% (متوافق مع TRAI/Meta)",
+              "tr": "%0 (TRAI/Meta Uyumlu)"
+            },
+            {
+              "en": "0% (TRAI/Meta Compliant)",
+              "pt": "0% (Conforme TRAI/Meta)",
+              "es": "0% (Conforme TRAI/Meta)",
+              "id": "0% (Sesuai TRAI/Meta)",
+              "ar": "0% (متوافق مع TRAI/Meta)",
+              "tr": "%0 (TRAI/Meta Uyumlu)"
+            },
+            {
+              "en": "99% (Immediate number block)",
+              "pt": "99% (Bloqueio imediato do número)",
+              "es": "99% (Bloqueo inmediato del número)",
+              "id": "99% (Blokir nomor segera)",
+              "ar": "99% (حظر رقم فوري)",
+              "tr": "%99 (Anlık numara engeli)"
+            }
           ]
         ]
       }
@@ -360,12 +452,11 @@
               "en": "Is broadcasting on WhatsApp compliant with local anti-spam regulations?",
               "pt": "As transmissões no WhatsApp estão em conformidade com as regulamentações locais de spam?",
               "es": "¿La difusión en WhatsApp cumple con las regulaciones locales contra el spam?",
-              "id": "Apakah siaran WhatsApp mematuhi regulasi anti-spam lokal?",
+              "id": "Apakah WhatsApp Blast Resmi ini mematuhi regulasi anti-spam Kominfo?",
               "ar": "هل البث على واتساب متوافق مع لوائح مكافحة البريد العشوائي المحلية؟",
               "tr": "WhatsApp'ta yayın yapmak yerel spam karşıtı düzenlemelere uygun mu?",
               "in": "Do I need TRAI DLT registration to send WhatsApp broadcasts in India?",
-              "br": "Como funciona a conformidade com a LGPD nos disparos de transmissão no Brasil?",
-              "id": "Apakah WhatsApp Blast Resmi ini mematuhi regulasi anti-spam Kominfo?"
+              "br": "Como funciona a conformidade com a LGPD nos disparos de transmissão no Brasil?"
             },
             "answer": {
               "en": "Yes, official broadcasts are fully compliant because they require recipient opt-in and utilize pre-approved templates.",
@@ -392,10 +483,50 @@
           "tr": "İlgili Sayfalar"
         },
         "links": [
-          { "label": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Marketing", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları" }, "href": "/whatsapp/campaigns" },
-          { "label": { "en": "Chatbot Builder", "pt": "Construtor de Chatbot", "es": "Constructor de Chatbot", "id": "Pembuat Chatbot", "ar": "منشئ الشات بوت", "tr": "Chatbot Oluşturucu" }, "href": "/whatsapp/chatbot" },
-          { "label": { "en": "Utility Notifications", "pt": "Notificações Utilitárias", "es": "Notificaciones Utilitarias", "id": "Notifikasi Utilitas", "ar": "إشعارات الخدمات", "tr": "Yardımcı Bildirimler" }, "href": "/whatsapp/utility" },
-          { "label": { "en": "Pricing", "pt": "Preços", "es": "Precios", "id": "Harga", "ar": "الأسعار", "tr": "Fiyatlandırma" }, "href": "/pricing" }
+          {
+            "label": {
+              "en": "Marketing Campaigns",
+              "pt": "Campanhas de Marketing",
+              "es": "Campañas de Marketing",
+              "id": "Kampanye Marketing",
+              "ar": "حملات التسويق",
+              "tr": "Pazarlama Kampanyaları"
+            },
+            "href": "/whatsapp/campaigns"
+          },
+          {
+            "label": {
+              "en": "Chatbot Builder",
+              "pt": "Construtor de Chatbot",
+              "es": "Constructor de Chatbot",
+              "id": "Pembuat Chatbot",
+              "ar": "منشئ الشات بوت",
+              "tr": "Chatbot Oluşturucu"
+            },
+            "href": "/whatsapp/chatbot"
+          },
+          {
+            "label": {
+              "en": "Utility Notifications",
+              "pt": "Notificações Utilitárias",
+              "es": "Notificaciones Utilitarias",
+              "id": "Notifikasi Utilitas",
+              "ar": "إشعارات الخدمات",
+              "tr": "Yardımcı Bildirimler"
+            },
+            "href": "/whatsapp/utility"
+          },
+          {
+            "label": {
+              "en": "Pricing",
+              "pt": "Preços",
+              "es": "Precios",
+              "id": "Harga",
+              "ar": "الأسعار",
+              "tr": "Fiyatlandırma"
+            },
+            "href": "/pricing"
+          }
         ]
       }
     },

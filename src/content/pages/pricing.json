@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -20,7 +28,7 @@
       "tr": "WhatsApp Business API ve SMS için basit, şeffaf fiyatlandırma. Esnek planlar, kullandıkça öde mesaj tarifeleri. Kurulum ücreti yok.",
       "ng": "Simple, transparent pricing for WhatsApp Business API and SMS. Flexible plans, pay-as-you-go message rates. No setup fees."
     },
-    "ogImage": "/og.png?title=Pricing&theme=sms"
+    "ogImage": "/og/pricing.jpg"
   },
   "sections": [
     {
@@ -67,7 +75,9 @@
     },
     {
       "type": "serviceCards",
-      "countries": ["in"],
+      "countries": [
+        "in"
+      ],
       "props": {
         "badge": {
           "en": "SMS Pricing"
@@ -97,10 +107,18 @@
             },
             "ctaHref": "https://app.startmessaging.com/signup",
             "features": [
-              { "en": "Flat ₹0.25 per message" },
-              { "en": "Direct carrier routing (99%+ delivery)" },
-              { "en": "Zero setup fees or minimum commitments" },
-              { "en": "API key ready in 30 seconds" }
+              {
+                "en": "Flat ₹0.25 per message"
+              },
+              {
+                "en": "Direct carrier routing (99%+ delivery)"
+              },
+              {
+                "en": "Zero setup fees or minimum commitments"
+              },
+              {
+                "en": "API key ready in 30 seconds"
+              }
             ]
           }
         ]
@@ -108,7 +126,9 @@
     },
     {
       "type": "richText",
-      "countries": ["in"],
+      "countries": [
+        "in"
+      ],
       "props": {
         "body": {
           "en": "<h3>Auth API & DLT SMS Pricing</h3><p>Our <strong>Universal Auth API</strong> pricing and official carrier-approved <strong>DLT SMS rates</strong> are currently in active development. We are partnering with Tier-1 carriers in India to negotiate the absolute lowest per-message rates for secure verification.</p><ul><li><strong>Status:</strong> In Beta & Development</li><li><strong>Pricing Model:</strong> Volume-based tier discounts (TBD)</li><li><strong>Estimated Rates:</strong> Launching shortly</li></ul><p>Want to get early access to our developer sandbox and be notified of our official launch rates? <a href=\"/contact\">Contact our support team</a> to join the waitlist.</p>"
@@ -533,7 +553,9 @@
             }
           },
           {
-            "countries": ["in"],
+            "countries": [
+              "in"
+            ],
             "question": {
               "en": "What is the SMS pricing for India?",
               "pt": "Qual é o preço do SMS para a Índia?",

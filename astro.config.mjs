@@ -56,6 +56,8 @@ export default defineConfig({
       },
       /** @param {any} item */
       serialize(item) {
+        // Add build-time lastmod to every URL
+        item.lastmod = new Date().toISOString();
         if (/\/blog\//.test(item.url)) item.changefreq = 'weekly';
         else item.changefreq = 'monthly';
         return item;

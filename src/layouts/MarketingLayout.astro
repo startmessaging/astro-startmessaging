@@ -25,6 +25,10 @@ interface Props {
     canonical?: string;
     /** Keywords array — forwarded to BaseLayout for <meta name="keywords">. */
     keywords?: string[];
+    /** Open Graph type override — forwarded to BaseLayout. */
+    ogType?: 'website' | 'article';
+    /** When true, outputs noindex — forwarded to BaseLayout. */
+    noindex?: boolean;
   };
   country: string;
   pageCountries?: string[];

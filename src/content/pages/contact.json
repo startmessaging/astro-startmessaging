@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -18,7 +26,7 @@
       "ar": "تواصل مع StartMessaging عبر البريد الإلكتروني أو الهاتف أو واتساب. نحن هنا للمساعدة في التكامل والدعم واستفسارات المبيعات.",
       "tr": "E-posta, telefon veya WhatsApp aracılığıyla StartMessaging ile iletişime geçin. Entegrasyon, destek ve satış sorularında yardımcı olmak için buradayız."
     },
-    "ogImage": "/og.png?title=Contact+Us&theme=sms"
+    "ogImage": "/og/contact.jpg"
   },
   "sections": [
     {
@@ -136,7 +144,9 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
+        "badge": {
+          "en": "FAQs"
+        },
         "heading": {
           "en": "Contact — Frequently Asked Questions",
           "pt": "Contato — Perguntas Frequentes",

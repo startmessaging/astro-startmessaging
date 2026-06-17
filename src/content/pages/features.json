@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -20,7 +28,7 @@
       "tr": "Tüm özellikleri keşfedin: toplu yayınlar, chatbot'lar, REST API, analitik, mesaj şablonları ve WhatsApp ile SMS için uyumluluk araçları.",
       "ng": "Explore all features: bulk broadcasts, chatbots, REST API, analytics, message templates, and compliance tools for WhatsApp and SMS."
     },
-    "ogImage": "/og.png?title=Features&theme=sms"
+    "ogImage": "/og/features.jpg"
   },
   "sections": [
     {
@@ -330,17 +338,29 @@
     },
     {
       "type": "featureSplit",
-      "countries": ["in"],
+      "countries": [
+        "in"
+      ],
       "props": {
-        "heading": { "en": "SMS OTPs Without DLT Registration" },
+        "heading": {
+          "en": "SMS OTPs Without DLT Registration"
+        },
         "body": {
           "en": "India-exclusive: send transactional OTPs at just ₹0.25/SMS without the hassle of DLT registration. Our pre-registered routes handle compliance automatically so you can focus on building your product."
         },
         "bullets": [
-          { "en": "₹0.25 per transactional SMS" },
-          { "en": "No DLT registration required" },
-          { "en": "Pre-registered compliant routes" },
-          { "en": "99.9% delivery rate across all networks" }
+          {
+            "en": "₹0.25 per transactional SMS"
+          },
+          {
+            "en": "No DLT registration required"
+          },
+          {
+            "en": "Pre-registered compliant routes"
+          },
+          {
+            "en": "99.9% delivery rate across all networks"
+          }
         ],
         "image": "/images/non-dlt-flow.webp",
         "imageAlt": {
@@ -354,7 +374,9 @@
         "imageWidth": 600,
         "imageHeight": 400,
         "imageMaxWidth": "max-w-[600px]",
-        "ctaLabel": { "en": "Explore SMS API" },
+        "ctaLabel": {
+          "en": "Explore SMS API"
+        },
         "ctaHref": "/sms",
         "reversed": false
       }

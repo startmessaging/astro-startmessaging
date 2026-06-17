@@ -23,6 +23,7 @@ interface Props {
     title: string;
     description: string;
     publishedAt: Date | string;
+    updatedAt?: Date | string;
     category?: string;
     author?: string;
     tags?: string[];
@@ -59,7 +60,6 @@ if (country !== 'in') {
   const isWhatsappPath = path.includes('/whatsapp');
   theme = isWhatsappPath ? 'whatsapp' : 'sms';
 }
-const isWhatsapp = theme === 'whatsapp';
 const proseLinkColor = 'prose-a:text-primary hover:prose-a:text-primary-active';
 
 // Step 3 (seo_geo_analysis_report.md): Compute canonical override for duplicate/shared posts.
@@ -74,12 +74,18 @@ if (frontmatter.canonicalCountry) {
     : `${canonicalPrefix}/blog/${slug}`;
 }
 
+// Compute dynamic blog post OG image URL when frontmatter does not define a custom static one
+const computedOgImage = frontmatter.ogImage ?? (prefix ? `/og${prefix}/blog/${slug}.png` : `/og/blog/${slug}.png`);
+
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: frontmatter.title,
   description: frontmatter.description,
   datePublished: new Date(frontmatter.publishedAt).toISOString(),
+  ...(frontmatter.updatedAt
+    ? { dateModified: new Date(frontmatter.updatedAt).toISOString() }
+    : { dateModified: new Date(frontmatter.publishedAt).toISOString() }),
   author: {
     '@type': 'Person',
     name: frontmatter.author ?? 'StartMessaging Team',
@@ -94,9 +100,7 @@ const articleSchema = {
     }
   },
   url: `https://startmessaging.com${prefix}/blog/${slug}`,
-  image: frontmatter.ogImage 
-    ? new URL(frontmatter.ogImage, 'https://startmessaging.com').href 
-    : 'https://startmessaging.com/images/marketing-analytics.webp'
+  image: new URL(computedOgImage, 'https://startmessaging.com').href
 };
 
 const breadcrumbSchema = {
@@ -114,7 +118,8 @@ const breadcrumbSchema = {
   seo={{
     title: `${frontmatter.title} | StartMessaging Blog`,
     description: frontmatter.description,
-    ogImage: frontmatter.ogImage,
+    ogImage: computedOgImage,
+    ogType: 'article',
     jsonLd: [articleSchema, breadcrumbSchema],
     canonical: canonicalOverride,
     keywords: frontmatter.keywords,
@@ -139,6 +144,7 @@ const breadcrumbSchema = {
             title: frontmatter.title,
             description: frontmatter.description,
             publishedAt: new Date(frontmatter.publishedAt),
+            updatedAt: frontmatter.updatedAt ? new Date(frontmatter.updatedAt) : undefined,
             category: frontmatter.category ?? 'guides',
             author: frontmatter.author,
           }}

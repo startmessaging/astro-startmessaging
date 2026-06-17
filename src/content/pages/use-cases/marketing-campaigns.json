@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
     "title": {
@@ -19,7 +27,7 @@
       "ar": "شغّل حملات تسويقية ترويجية على واتساب بمعدل فتح 98% وأزرار تفاعلية.",
       "tr": "WhatsApp üzerinde %98 açılma oranı ve etkileşimli butonlarla pazarlama kampanyaları yürütün."
     },
-    "ogImage": "/images/marketing-analytics.webp"
+    "ogImage": "/og/whatsapp-api.jpg"
   },
   "sections": [
     {
@@ -68,7 +76,15 @@
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Campaigns That Convert", "pt": "Campanhas Que Convertem", "es": "Campañas Que Convierten", "id": "Kampanye yang Berkonversi", "ar": "الحملات التي تحقق تحويلات", "tr": "Dönüşüm Sağlayan Kampanyalar", "ng": "Campaigns That Convert" },
+        "heading": {
+          "en": "Campaigns That Convert",
+          "pt": "Campanhas Que Convertem",
+          "es": "Campañas Que Convierten",
+          "id": "Kampanye yang Berkonversi",
+          "ar": "الحملات التي تحقق تحويلات",
+          "tr": "Dönüşüm Sağlayan Kampanyalar",
+          "ng": "Campaigns That Convert"
+        },
         "body": {
           "en": "WhatsApp marketing messages support rich media (images, videos, carousels), interactive buttons (quick reply, CTA), and personalization variables. Combined with audience segmentation and A/B testing, you can create highly targeted campaigns that drive real revenue.",
           "pt": "As mensagens de marketing suportam mídia rica (imagens, vídeos), botões interativos (respostas rápidas, CTA) e personalização. Combinado com segmentação de público e testes A/B.",
@@ -78,9 +94,33 @@
           "tr": "WhatsApp pazarlama mesajları zengin medyayı (resimler, videolar, karuseller), etkileşimli butonları (hızlı yanıt, CTA) ve kişiselleştirme değişkenlerini destekler. Kitle segmentasyonu ve A/B testi ile birleştiğinde, gerçek gelir getiren yüksek hedefli kampanyalar oluşturabilirsiniz."
         },
         "bullets": [
-          { "en": "Rich media support: product catalogs, images, PDFs", "pt": "Mídia rica: catálogos de produtos, imagens e PDFs", "es": "Multimedia: catálogos de productos, imágenes y PDFs", "id": "Dukungan media kaya: katalog produk, gambar, PDF", "ar": "دعم الوسائط الغنية: كتالوجات المنتجات والصور وملفات PDF", "tr": "Zengin medya desteği: ürün katalogları, görseller, PDF'ler", "ng": "Rich media support: product catalogs, images, PDFs" },
-          { "en": "Interactive quick-reply & CTA buttons", "pt": "Botões interativos de resposta rápida e CTA", "es": "Botones interactivos de respuesta rápida y CTA", "id": "Tombol interaktif balasan cepat & CTA", "ar": "أزرار رد سريع تفاعلية وأزرار اتخاذ إجراء", "tr": "Etkileşimli hızlı yanıt ve CTA butonları", "ng": "Interactive quick-reply & CTA buttons" },
-          { "en": "Timezone-aware queue scheduling & A/B testing", "pt": "Agendamento por fuso horário e testes A/B", "es": "Programación por huso horario y pruebas A/B", "id": "Penjadwalan antrean berbasis zona waktu & pengujian A/B", "ar": "جدولة قائمة الانتظار حسب المناطق الزمنية واختبار A/B", "tr": "Saat dilimine duyarlı kuyruk planlaması ve A/B testi", "ng": "Timezone-aware queue scheduling & A/B testing" }
+          {
+            "en": "Rich media support: product catalogs, images, PDFs",
+            "pt": "Mídia rica: catálogos de produtos, imagens e PDFs",
+            "es": "Multimedia: catálogos de productos, imágenes y PDFs",
+            "id": "Dukungan media kaya: katalog produk, gambar, PDF",
+            "ar": "دعم الوسائط الغنية: كتالوجات المنتجات والصور وملفات PDF",
+            "tr": "Zengin medya desteği: ürün katalogları, görseller, PDF'ler",
+            "ng": "Rich media support: product catalogs, images, PDFs"
+          },
+          {
+            "en": "Interactive quick-reply & CTA buttons",
+            "pt": "Botões interativos de resposta rápida e CTA",
+            "es": "Botones interactivos de respuesta rápida y CTA",
+            "id": "Tombol interaktif balasan cepat & CTA",
+            "ar": "أزرار رد سريع تفاعلية وأزرار اتخاذ إجراء",
+            "tr": "Etkileşimli hızlı yanıt ve CTA butonları",
+            "ng": "Interactive quick-reply & CTA buttons"
+          },
+          {
+            "en": "Timezone-aware queue scheduling & A/B testing",
+            "pt": "Agendamento por fuso horário e testes A/B",
+            "es": "Programación por huso horario y pruebas A/B",
+            "id": "Penjadwalan antrean berbasis zona waktu & pengujian A/B",
+            "ar": "جدولة قائمة الانتظار حسب المناطق الزمنية واختبار A/B",
+            "tr": "Saat dilimine duyarlı kuyruk planlaması ve A/B testi",
+            "ng": "Timezone-aware queue scheduling & A/B testing"
+          }
         ],
         "image": "/images/marketing-analytics.webp",
         "imageAlt": {
@@ -101,11 +141,35 @@
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "A/B Flow", "pt": "Fluxo A/B", "es": "Flujo A/B", "id": "Alur A/B", "ar": "تدفق A/B", "tr": "A/B Akışı", "ng": "A/B Flow" },
-        "heading": { "en": "Automated A/B Testing Workflow", "pt": "Fluxo de Trabalho de Teste A/B Automatizado", "es": "Flujo de Trabajo de Prueba A/B Automatizado", "id": "Alur Kerja Pengujian A/B Otomatis", "ar": "تدفق عمل اختبار A/B المؤتمت", "tr": "Otomatik A/B Testi İş Akışı", "ng": "Automated A/B Testing Workflow" },
+        "badge": {
+          "en": "A/B Flow",
+          "pt": "Fluxo A/B",
+          "es": "Flujo A/B",
+          "id": "Alur A/B",
+          "ar": "تدفق A/B",
+          "tr": "A/B Akışı",
+          "ng": "A/B Flow"
+        },
+        "heading": {
+          "en": "Automated A/B Testing Workflow",
+          "pt": "Fluxo de Trabalho de Teste A/B Automatizado",
+          "es": "Flujo de Trabajo de Prueba A/B Automatizado",
+          "id": "Alur Kerja Pengujian A/B Otomatis",
+          "ar": "تدفق عمل اختبار A/B المؤتمت",
+          "tr": "Otomatik A/B Testi İş Akışı",
+          "ng": "Automated A/B Testing Workflow"
+        },
         "steps": [
           {
-            "title": { "en": "1. Draft Variations", "pt": "1. Rascunhar Variações", "es": "1. Crear Variaciones", "id": "1. Draf Variasi", "ar": "1. صياغة المتغيرات", "tr": "1. Varyasyonları Hazırlayın", "ng": "1. Draft Variations" },
+            "title": {
+              "en": "1. Draft Variations",
+              "pt": "1. Rascunhar Variações",
+              "es": "1. Crear Variaciones",
+              "id": "1. Draf Variasi",
+              "ar": "1. صياغة المتغيرات",
+              "tr": "1. Varyasyonları Hazırlayın",
+              "ng": "1. Draft Variations"
+            },
             "description": {
               "en": "Create Template A (discount focus) and Template B (feature focus) inside our templates dashboard.",
               "pt": "Crie o Modelo A (foco em desconto) e o Modelo B (foco em recursos) no painel de modelos.",
@@ -117,7 +181,15 @@
             }
           },
           {
-            "title": { "en": "2. Send Test Split", "pt": "2. Enviar Teste", "es": "2. Enviar Prueba", "id": "2. Kirim Uji Coba", "ar": "2. إرسال عينة الاختبار", "tr": "2. Test Dağıtımı Yapın", "ng": "2. Send Test Split" },
+            "title": {
+              "en": "2. Send Test Split",
+              "pt": "2. Enviar Teste",
+              "es": "2. Enviar Prueba",
+              "id": "2. Kirim Uji Coba",
+              "ar": "2. إرسال عينة الاختبار",
+              "tr": "2. Test Dağıtımı Yapın",
+              "ng": "2. Send Test Split"
+            },
             "description": {
               "en": "Dispatch variants to a localized 10% test audience to measure engagement, clicks, and read success rates.",
               "pt": "Envie variantes para 10% do público de teste para medir engajamento, cliques e taxas de leitura.",
@@ -129,7 +201,15 @@
             }
           },
           {
-            "title": { "en": "3. Rollout Winner", "pt": "3. Lançar Vencedor", "es": "3. Lanzar Ganador", "id": "3. Kirim Pemenang", "ar": "3. إطلاق الفائز", "tr": "3. Kazananı Dağıtın", "ng": "3. Rollout Winner" },
+            "title": {
+              "en": "3. Rollout Winner",
+              "pt": "3. Lançar Vencedor",
+              "es": "3. Lanzar Ganador",
+              "id": "3. Kirim Pemenang",
+              "ar": "3. إطلاق الفائز",
+              "tr": "3. Kazananı Dağıtın",
+              "ng": "3. Rollout Winner"
+            },
             "description": {
               "en": "The system determines the winning template variant after 3 hours and dispatches it to the remaining 90% queue.",
               "pt": "O sistema determina o modelo vencedor após 3 horas e envia para os 90% restantes da fila.",
@@ -146,39 +226,232 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Marketing Channels", "pt": "Canais de Marketing", "es": "Canales de Marketing", "id": "Saluran Pemasaran", "ar": "قنوات التسويق", "tr": "Pazarlama Kanalları", "ng": "Marketing Channels" },
-        "heading": { "en": "WhatsApp Campaigns vs. Traditional SMS Marketing vs. Email Newsletters", "pt": "Campanhas WhatsApp vs. SMS Marketing vs. Newsletters por Email", "es": "Campañas WhatsApp vs. SMS Marketing vs. Boletines por Email", "id": "Kampanye WhatsApp vs. Pemasaran SMS Tradisional vs. Newsletter Email", "ar": "حملات واتساب مقابل رسائل SMS التسويقية مقابل النشرات الإخبارية بالبريد الإلكتروني", "tr": "WhatsApp Kampanyaları vs. Geleneksel SMS Pazarlaması vs. E-posta Bültenleri", "ng": "WhatsApp Campaigns vs. Traditional SMS Marketing vs. Email Newsletters" },
-        "subheading": { "en": "Analyze open rates, click-through performance, and media rich formatting.", "pt": "Analise taxas de abertura, desempenho de cliques e formatos de mídia rica.", "es": "Analice tasas de apertura, rendimiento de clics y formatos multimedia.", "id": "Analisis tingkat buka, kinerja rasio klik, dan format kaya media.", "ar": "حلل معدلات الفتح وأداء نسب النقر وتنسيق الوسائط الغنية.", "tr": "Açılma oranlarını, tıklama performansını ve zengin medya biçimlendirmesini analiz edin.", "ng": "Analyze open rates, click-through performance, and media rich formatting." },
+        "badge": {
+          "en": "Marketing Channels",
+          "pt": "Canais de Marketing",
+          "es": "Canales de Marketing",
+          "id": "Saluran Pemasaran",
+          "ar": "قنوات التسويق",
+          "tr": "Pazarlama Kanalları",
+          "ng": "Marketing Channels"
+        },
+        "heading": {
+          "en": "WhatsApp Campaigns vs. Traditional SMS Marketing vs. Email Newsletters",
+          "pt": "Campanhas WhatsApp vs. SMS Marketing vs. Newsletters por Email",
+          "es": "Campañas WhatsApp vs. SMS Marketing vs. Boletines por Email",
+          "id": "Kampanye WhatsApp vs. Pemasaran SMS Tradisional vs. Newsletter Email",
+          "ar": "حملات واتساب مقابل رسائل SMS التسويقية مقابل النشرات الإخبارية بالبريد الإلكتروني",
+          "tr": "WhatsApp Kampanyaları vs. Geleneksel SMS Pazarlaması vs. E-posta Bültenleri",
+          "ng": "WhatsApp Campaigns vs. Traditional SMS Marketing vs. Email Newsletters"
+        },
+        "subheading": {
+          "en": "Analyze open rates, click-through performance, and media rich formatting.",
+          "pt": "Analise taxas de abertura, desempenho de cliques e formatos de mídia rica.",
+          "es": "Analice tasas de apertura, rendimiento de clics y formatos multimedia.",
+          "id": "Analisis tingkat buka, kinerja rasio klik, dan format kaya media.",
+          "ar": "حلل معدلات الفتح وأداء نسب النقر وتنسيق الوسائط الغنية.",
+          "tr": "Açılma oranlarını, tıklama performansını ve zengin medya biçimlendirmesini analiz edin.",
+          "ng": "Analyze open rates, click-through performance, and media rich formatting."
+        },
         "columns": [
-          { "label": { "en": "Channel Feature", "pt": "Recurso do Canal", "es": "Característica del Canal", "id": "Fitur Saluran", "ar": "ميزة القناة", "tr": "Kanal Özelliği", "ng": "Channel Feature" } },
-          { "label": { "en": "WhatsApp Campaigns", "pt": "Campanhas WhatsApp", "es": "Campañas WhatsApp", "id": "Kampanye WhatsApp", "ar": "حملات واتساب", "tr": "WhatsApp Kampanyaları", "ng": "WhatsApp Campaigns" }, "highlight": true },
-          { "label": { "en": "Traditional SMS", "pt": "SMS Tradicional", "es": "SMS Tradicional", "id": "SMS Tradisional", "ar": "SMS التقليدي", "tr": "Geleneksel SMS", "ng": "Traditional SMS" } },
-          { "label": { "en": "Email Newsletters", "pt": "Newsletters de Email", "es": "Boletines de Email", "id": "Newsletter Email", "ar": "نشرات البريد الإلكتروني", "tr": "E-posta Bültenleri", "ng": "Email Newsletters" } }
+          {
+            "label": {
+              "en": "Channel Feature",
+              "pt": "Recurso do Canal",
+              "es": "Característica del Canal",
+              "id": "Fitur Saluran",
+              "ar": "ميزة القناة",
+              "tr": "Kanal Özelliği",
+              "ng": "Channel Feature"
+            }
+          },
+          {
+            "label": {
+              "en": "WhatsApp Campaigns",
+              "pt": "Campanhas WhatsApp",
+              "es": "Campañas WhatsApp",
+              "id": "Kampanye WhatsApp",
+              "ar": "حملات واتساب",
+              "tr": "WhatsApp Kampanyaları",
+              "ng": "WhatsApp Campaigns"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Traditional SMS",
+              "pt": "SMS Tradicional",
+              "es": "SMS Tradicional",
+              "id": "SMS Tradisional",
+              "ar": "SMS التقليدي",
+              "tr": "Geleneksel SMS",
+              "ng": "Traditional SMS"
+            }
+          },
+          {
+            "label": {
+              "en": "Email Newsletters",
+              "pt": "Newsletters de Email",
+              "es": "Boletines de Email",
+              "id": "Newsletter Email",
+              "ar": "نشرات البريد الإلكتروني",
+              "tr": "E-posta Bültenleri",
+              "ng": "Email Newsletters"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Average Open Rate", "pt": "Taxa Média de Abertura", "es": "Tasa Media de Apertura", "id": "Rasio Buka Rata-rata", "ar": "متوسط معدل الفتح", "tr": "Ortalama Açılma Oranı", "ng": "Average Open Rate" },
-            { "en": "98% (Within minutes)", "pt": "98% (Em poucos minutos)", "es": "98% (En pocos minutos)", "id": "98% (Dalam hitungan menit)", "ar": "98% (في غضون دقائق)", "tr": "%98 (Dakikalar içinde)", "ng": "98% (Within minutes)" },
-            { "en": "90% (often marked spam)", "pt": "90% (frequentemente spam)", "es": "90% (frecuentemente spam)", "id": "90% (sering ditandai spam)", "ar": "90% (غالباً ما يصنف كسبام)", "tr": "%90 (çoğunlukla spam olarak işaretlenir)", "ng": "90% (often marked spam)" },
-            { "en": "15% - 22% (Delayed reads)", "pt": "15% - 22% (Leitura demorada)", "es": "15% - 22% (Lectura demorada)", "id": "15% - 22% (Pembacaan tertunda)", "ar": "15% - 22% (قراءات متأخرة)", "tr": "%15 - %22 (Gecikmeli okumalar)", "ng": "15% - 22% (Delayed reads)" }
+            {
+              "en": "Average Open Rate",
+              "pt": "Taxa Média de Abertura",
+              "es": "Tasa Media de Apertura",
+              "id": "Rasio Buka Rata-rata",
+              "ar": "متوسط معدل الفتح",
+              "tr": "Ortalama Açılma Oranı",
+              "ng": "Average Open Rate"
+            },
+            {
+              "en": "98% (Within minutes)",
+              "pt": "98% (Em poucos minutos)",
+              "es": "98% (En pocos minutos)",
+              "id": "98% (Dalam hitungan menit)",
+              "ar": "98% (في غضون دقائق)",
+              "tr": "%98 (Dakikalar içinde)",
+              "ng": "98% (Within minutes)"
+            },
+            {
+              "en": "90% (often marked spam)",
+              "pt": "90% (frequentemente spam)",
+              "es": "90% (frecuentemente spam)",
+              "id": "90% (sering ditandai spam)",
+              "ar": "90% (غالباً ما يصنف كسبام)",
+              "tr": "%90 (çoğunlukla spam olarak işaretlenir)",
+              "ng": "90% (often marked spam)"
+            },
+            {
+              "en": "15% - 22% (Delayed reads)",
+              "pt": "15% - 22% (Leitura demorada)",
+              "es": "15% - 22% (Lectura demorada)",
+              "id": "15% - 22% (Pembacaan tertunda)",
+              "ar": "15% - 22% (قراءات متأخرة)",
+              "tr": "%15 - %22 (Gecikmeli okumalar)",
+              "ng": "15% - 22% (Delayed reads)"
+            }
           ],
           [
-            { "en": "Average Click Ratio", "pt": "Racio de Cliques", "es": "Tasa de Clics Media", "id": "Rasio Klik Rata-rata", "ar": "متوسط نسبة النقر", "tr": "Ortalama Tıklama Oranı", "ng": "Average Click Ratio" },
-            { "en": "45% - 60%", "pt": "45% - 60%", "es": "45% - 60%", "id": "45% - 60%", "ar": "45% - 60%", "tr": "%45 - %60", "ng": "45% - 60%" },
-            { "en": "4% - 7% (Plain URL links)", "pt": "4% - 7% (Links URL simples)", "es": "4% - 7% (Enlaces URL simples)", "id": "4% - 7% (Tautan URL biasa)", "ar": "4% - 7% (روابط نصية فقط)", "tr": "%4 - %7 (Düz URL bağlantıları)", "ng": "4% - 7% (Plain URL links)" },
-            { "en": "2% - 3%", "pt": "2% - 3%", "es": "2% - 3%", "id": "2% - 3%", "ar": "2% - 3%", "tr": "%2 - %3", "ng": "2% - 3%" }
+            {
+              "en": "Average Click Ratio",
+              "pt": "Racio de Cliques",
+              "es": "Tasa de Clics Media",
+              "id": "Rasio Klik Rata-rata",
+              "ar": "متوسط نسبة النقر",
+              "tr": "Ortalama Tıklama Oranı",
+              "ng": "Average Click Ratio"
+            },
+            {
+              "en": "45% - 60%",
+              "pt": "45% - 60%",
+              "es": "45% - 60%",
+              "id": "45% - 60%",
+              "ar": "45% - 60%",
+              "tr": "%45 - %60",
+              "ng": "45% - 60%"
+            },
+            {
+              "en": "4% - 7% (Plain URL links)",
+              "pt": "4% - 7% (Links URL simples)",
+              "es": "4% - 7% (Enlaces URL simples)",
+              "id": "4% - 7% (Tautan URL biasa)",
+              "ar": "4% - 7% (روابط نصية فقط)",
+              "tr": "%4 - %7 (Düz URL bağlantıları)",
+              "ng": "4% - 7% (Plain URL links)"
+            },
+            {
+              "en": "2% - 3%",
+              "pt": "2% - 3%",
+              "es": "2% - 3%",
+              "id": "2% - 3%",
+              "ar": "2% - 3%",
+              "tr": "%2 - %3",
+              "ng": "2% - 3%"
+            }
           ],
           [
-            { "en": "Styled Rich Media", "pt": "Mídia Rica Estilizada", "es": "Multimedia Estilizada", "id": "Media Kaya Bergaya", "ar": "وسائط غنية منسقة", "tr": "Biçimlendirilmiş Zengin Medya", "ng": "Styled Rich Media" },
-            { "en": "✓ (Images, Videos, PDFs, Carousels)", "pt": "✓ (Imagens, Vídeos, PDFs, Carrosséis)", "es": "✓ (Imágenes, Videos, PDFs, Carruseles)", "id": "✓ (Gambar, Video, PDF, Karusel)", "ar": "✓ (الصور، الفيديو، ملفات PDF، الكاروسيل)", "tr": "✓ (Görseller, Videolar, PDF'ler, Karuseller)", "ng": "✓ (Images, Videos, PDFs, Carousels)" },
-            { "en": "✗ (Plain text limits)", "pt": "✗ (Apenas texto simples)", "es": "✗ (Solo texto simple)", "id": "✗ (Batasan teks biasa)", "ar": "✗ (حدود النص فقط)", "tr": "✗ (Düz metin sınırları)", "ng": "✗ (Plain text limits)" },
-            { "en": "✓ (HTML layout tags)", "pt": "✓ (Layouts HTML)", "es": "✓ (Layouts HTML)", "id": "✓ (Tag tata letak HTML)", "ar": "✓ (علامات HTML)", "tr": "✓ (HTML düzen etiketleri)", "ng": "✓ (HTML layout tags)" }
+            {
+              "en": "Styled Rich Media",
+              "pt": "Mídia Rica Estilizada",
+              "es": "Multimedia Estilizada",
+              "id": "Media Kaya Bergaya",
+              "ar": "وسائط غنية منسقة",
+              "tr": "Biçimlendirilmiş Zengin Medya",
+              "ng": "Styled Rich Media"
+            },
+            {
+              "en": "✓ (Images, Videos, PDFs, Carousels)",
+              "pt": "✓ (Imagens, Vídeos, PDFs, Carrosséis)",
+              "es": "✓ (Imágenes, Videos, PDFs, Carruseles)",
+              "id": "✓ (Gambar, Video, PDF, Karusel)",
+              "ar": "✓ (الصور، الفيديو، ملفات PDF، الكاروسيل)",
+              "tr": "✓ (Görseller, Videolar, PDF'ler, Karuseller)",
+              "ng": "✓ (Images, Videos, PDFs, Carousels)"
+            },
+            {
+              "en": "✗ (Plain text limits)",
+              "pt": "✗ (Apenas texto simples)",
+              "es": "✗ (Solo texto simple)",
+              "id": "✗ (Batasan teks biasa)",
+              "ar": "✗ (حدود النص فقط)",
+              "tr": "✗ (Düz metin sınırları)",
+              "ng": "✗ (Plain text limits)"
+            },
+            {
+              "en": "✓ (HTML layout tags)",
+              "pt": "✓ (Layouts HTML)",
+              "es": "✓ (Layouts HTML)",
+              "id": "✓ (Tag tata letak HTML)",
+              "ar": "✓ (علامات HTML)",
+              "tr": "✓ (HTML düzen etiketleri)",
+              "ng": "✓ (HTML layout tags)"
+            }
           ],
           [
-            { "en": "Direct Two-Way Chat", "pt": "Conversa Direta Bidirecional", "es": "Conversación Bidireccional", "id": "Obrolan Dua Arah Langsung", "ar": "محادثة مباشرة ثنائية الاتجاه", "tr": "Doğrudan İki Yönlü Sohbet", "ng": "Direct Two-Way Chat" },
-            { "en": "✓ (Instant user replies)", "pt": "✓ (Respostas instantâneas do usuário)", "es": "✓ (Respuestas instantáneas de usuarios)", "id": "✓ (Balasan instan pengguna)", "ar": "✓ (ردود مستخدمين فورية)", "tr": "✓ (Anında kullanıcı yanıtları)", "ng": "✓ (Instant user replies)" },
-            { "en": "✗ (One-way dispatch shortcodes)", "pt": "✗ (Envio apenas de ida)", "es": "✗ (Envíos unidireccionales)", "id": "✗ (Shortcode pengiriman satu arah)", "ar": "✗ (إرسال أحادي الاتجاه فقط)", "tr": "✗ (Tek yönlü gönderim kısa kodları)", "ng": "✗ (One-way dispatch shortcodes)" },
-            { "en": "✓ (Email responses)", "pt": "✓ (Respostas por email)", "es": "✓ (Respuestas por email)", "id": "✓ (Respons email)", "ar": "✓ (ردود البريد الإلكتروني)", "tr": "✓ (E-posta yanıtları)", "ng": "✓ (Email responses)" }
+            {
+              "en": "Direct Two-Way Chat",
+              "pt": "Conversa Direta Bidirecional",
+              "es": "Conversación Bidireccional",
+              "id": "Obrolan Dua Arah Langsung",
+              "ar": "محادثة مباشرة ثنائية الاتجاه",
+              "tr": "Doğrudan İki Yönlü Sohbet",
+              "ng": "Direct Two-Way Chat"
+            },
+            {
+              "en": "✓ (Instant user replies)",
+              "pt": "✓ (Respostas instantâneas do usuário)",
+              "es": "✓ (Respuestas instantáneas de usuarios)",
+              "id": "✓ (Balasan instan pengguna)",
+              "ar": "✓ (ردود مستخدمين فورية)",
+              "tr": "✓ (Anında kullanıcı yanıtları)",
+              "ng": "✓ (Instant user replies)"
+            },
+            {
+              "en": "✗ (One-way dispatch shortcodes)",
+              "pt": "✗ (Envio apenas de ida)",
+              "es": "✗ (Envíos unidireccionales)",
+              "id": "✗ (Shortcode pengiriman satu arah)",
+              "ar": "✗ (إرسال أحادي الاتجاه فقط)",
+              "tr": "✗ (Tek yönlü gönderim kısa kodları)",
+              "ng": "✗ (One-way dispatch shortcodes)"
+            },
+            {
+              "en": "✓ (Email responses)",
+              "pt": "✓ (Respostas por email)",
+              "es": "✓ (Respuestas por email)",
+              "id": "✓ (Respons email)",
+              "ar": "✓ (ردود البريد الإلكتروني)",
+              "tr": "✓ (E-posta yanıtları)",
+              "ng": "✓ (Email responses)"
+            }
           ]
         ]
       }
@@ -186,9 +459,33 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Campaign API", "pt": "API de Campanhas", "es": "API de Campañas", "id": "API Kampanye", "ar": "API الحملات", "tr": "Kampanya API'si", "ng": "Campaign API" },
-        "heading": { "en": "Schedule and Launch Marketing Campaigns", "pt": "Agendar e Lançar Campanhas de Marketing", "es": "Programar y Lanzar Campañas de Marketing", "id": "Jadwalkan dan Luncurkan Kampanye Marketing", "ar": "جدولة وإطلاق حملات التسويق", "tr": "Pazarlama Kampanyalarını Planlayın ve Başlatın", "ng": "Schedule and Launch Marketing Campaigns" },
-        "overlayText": { "en": "Marketing Campaigns API Sandbox — Coming Soon", "pt": "Sandbox da API de Campanhas — Em Breve", "es": "Sandbox de API de Campañas — Próximamente", "id": "Marketing Campaigns API Sandbox — Segera Hadir", "ar": "بيئة تجريبية لـ API حملات التسويق — قريباً", "tr": "Pazarlama Kampanyaları API Sanal Alanı — Çok Yakında", "ng": "Marketing Campaigns API Sandbox — Coming Soon" },
+        "badge": {
+          "en": "Campaign API",
+          "pt": "API de Campanhas",
+          "es": "API de Campañas",
+          "id": "API Kampanye",
+          "ar": "API الحملات",
+          "tr": "Kampanya API'si",
+          "ng": "Campaign API"
+        },
+        "heading": {
+          "en": "Schedule and Launch Marketing Campaigns",
+          "pt": "Agendar e Lançar Campanhas de Marketing",
+          "es": "Programar y Lanzar Campañas de Marketing",
+          "id": "Jadwalkan dan Luncurkan Kampanye Marketing",
+          "ar": "جدولة وإطلاق حملات التسويق",
+          "tr": "Pazarlama Kampanyalarını Planlayın ve Başlatın",
+          "ng": "Schedule and Launch Marketing Campaigns"
+        },
+        "overlayText": {
+          "en": "Marketing Campaigns API Sandbox — Coming Soon",
+          "pt": "Sandbox da API de Campanhas — Em Breve",
+          "es": "Sandbox de API de Campañas — Próximamente",
+          "id": "Marketing Campaigns API Sandbox — Segera Hadir",
+          "ar": "بيئة تجريبية لـ API حملات التسويق — قريباً",
+          "tr": "Pazarlama Kampanyaları API Sanal Alanı — Çok Yakında",
+          "ng": "Marketing Campaigns API Sandbox — Coming Soon"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -208,8 +505,24 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
-        "heading": { "en": "Marketing Campaigns — FAQ", "pt": "Campanhas de Marketing — FAQ", "es": "Campañas de Marketing — FAQ", "id": "Kampanye Marketing — FAQ", "ar": "حملات التسويق — الأسئلة الشائعة", "tr": "Pazarlama Kampanyaları — SSS", "ng": "Marketing Campaigns — FAQ" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS",
+          "ng": "FAQs"
+        },
+        "heading": {
+          "en": "Marketing Campaigns — FAQ",
+          "pt": "Campanhas de Marketing — FAQ",
+          "es": "Campañas de Marketing — FAQ",
+          "id": "Kampanye Marketing — FAQ",
+          "ar": "حملات التسويق — الأسئلة الشائعة",
+          "tr": "Pazarlama Kampanyaları — SSS",
+          "ng": "Marketing Campaigns — FAQ"
+        },
         "items": [
           {
             "question": {
@@ -297,21 +610,97 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar", "ng": "Related Pages" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar",
+          "ng": "Related Pages"
+        },
         "links": [
-          { "label": { "en": "E-Commerce Use Case", "pt": "Caso de Uso E-Commerce", "es": "Uso de E-Commerce", "id": "Dukungan E-Commerce", "ar": "دعم التجارة الإلكترونية", "tr": "E-Ticaret Kullanımı", "ng": "E-Commerce Use Case" }, "href": "/use-cases/ecommerce" },
-          { "label": { "en": "Transactional Alerts", "pt": "Alertas Transacionais", "es": "Alertas Transaccionales", "id": "Peringatan Transaksional", "ar": "الإشعارات المعاملاتية", "tr": "İşlemsel Uyarılar", "ng": "Transactional Alerts" }, "href": "/use-cases/notifications" },
-          { "label": { "en": "WhatsApp Campaigns", "pt": "Campanhas WhatsApp", "es": "Campañas de WhatsApp", "id": "Kampanye WhatsApp", "ar": "حملات واتساب", "tr": "WhatsApp Kampanyaları", "ng": "WhatsApp Campaigns" }, "href": "/whatsapp/campaigns" },
-          { "label": { "en": "Pricing Sheet", "pt": "Tabela de Preços", "es": "Hoja de Precios", "id": "Lembar Harga", "ar": "جدول الأسعار", "tr": "Fiyat Tablosu", "ng": "Pricing Sheet" }, "href": "/pricing" }
+          {
+            "label": {
+              "en": "E-Commerce Use Case",
+              "pt": "Caso de Uso E-Commerce",
+              "es": "Uso de E-Commerce",
+              "id": "Dukungan E-Commerce",
+              "ar": "دعم التجارة الإلكترونية",
+              "tr": "E-Ticaret Kullanımı",
+              "ng": "E-Commerce Use Case"
+            },
+            "href": "/use-cases/ecommerce"
+          },
+          {
+            "label": {
+              "en": "Transactional Alerts",
+              "pt": "Alertas Transacionais",
+              "es": "Alertas Transaccionales",
+              "id": "Peringatan Transaksional",
+              "ar": "الإشعارات المعاملاتية",
+              "tr": "İşlemsel Uyarılar",
+              "ng": "Transactional Alerts"
+            },
+            "href": "/use-cases/notifications"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Campaigns",
+              "pt": "Campanhas WhatsApp",
+              "es": "Campañas de WhatsApp",
+              "id": "Kampanye WhatsApp",
+              "ar": "حملات واتساب",
+              "tr": "WhatsApp Kampanyaları",
+              "ng": "WhatsApp Campaigns"
+            },
+            "href": "/whatsapp/campaigns"
+          },
+          {
+            "label": {
+              "en": "Pricing Sheet",
+              "pt": "Tabela de Preços",
+              "es": "Hoja de Precios",
+              "id": "Lembar Harga",
+              "ar": "جدول الأسعار",
+              "tr": "Fiyat Tablosu",
+              "ng": "Pricing Sheet"
+            },
+            "href": "/pricing"
+          }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Launch Your First Campaign", "pt": "Lance Sua Primeira Campanha", "es": "Lance Su Primer Campaña", "id": "Luncurkan Kampanye Pertama Anda", "ar": "أطلق حملتك الأولى", "tr": "İlk Kampanyanızı Başlatın", "ng": "Launch Your First Campaign" },
-        "subtext": { "en": "Start in 5 minutes. No credit card required.", "pt": "Comece em 5 minutos. Sem cartão de crédito.", "es": "Comience en 5 minutos. Sin tarjeta de crédito.", "id": "Mulai dalam 5 menit. Tanpa kartu kredit.", "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.", "tr": "5 dakikada başlayın. Kredi kartı gerekmez.", "ng": "Start in 5 minutes. No credit card required." },
-        "primaryCta": { "en": "Get Started Free", "pt": "Começar Grátis", "es": "Empieza Gratis", "id": "Mulai Gratis", "ar": "ابدأ مجاناً", "tr": "Ücretsiz Başla", "ng": "Get Started Free" },
+        "heading": {
+          "en": "Launch Your First Campaign",
+          "pt": "Lance Sua Primeira Campanha",
+          "es": "Lance Su Primer Campaña",
+          "id": "Luncurkan Kampanye Pertama Anda",
+          "ar": "أطلق حملتك الأولى",
+          "tr": "İlk Kampanyanızı Başlatın",
+          "ng": "Launch Your First Campaign"
+        },
+        "subtext": {
+          "en": "Start in 5 minutes. No credit card required.",
+          "pt": "Comece em 5 minutos. Sem cartão de crédito.",
+          "es": "Comience en 5 minutos. Sin tarjeta de crédito.",
+          "id": "Mulai dalam 5 menit. Tanpa kartu kredit.",
+          "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.",
+          "tr": "5 dakikada başlayın. Kredi kartı gerekmez.",
+          "ng": "Start in 5 minutes. No credit card required."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla",
+          "ng": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

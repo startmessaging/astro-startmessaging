@@ -150,3 +150,24 @@ export function buildArticle(
     ...(ogImage ? { image: ogImage } : {}),
   };
 }
+
+/** SoftwareApplication schema — for pricing/home pages */
+export function buildSoftwareApplication() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'StartMessaging',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description:
+      'WhatsApp Business API and SMS platform for broadcasts, chatbots, OTP verification, and automation.',
+    url: SITE,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      description: 'Free tier available with 1,000 messages/month',
+    },
+    provider: { '@type': 'Organization', name: ORG_NAME, url: SITE },
+  };
+}

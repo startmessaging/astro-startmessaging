@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
     "title": {
@@ -20,7 +28,7 @@
       "tr": "Resmi Meta BSP. WhatsApp üzerinden %98 açılma oranıyla yayınlar, kampanyalar, chatbot'lar ve OTP doğrulamaları gönderin.",
       "ng": "Official Meta Business Service Provider. Send broadcasts, campaigns, chatbots, and OTP verification on WhatsApp with 98% open rates."
     },
-    "ogImage": "/og.png?title=WhatsApp+Business+API&theme=whatsapp"
+    "ogImage": "/og/whatsapp-api.jpg"
   },
   "sections": [
     {
@@ -96,7 +104,15 @@
           {
             "theme": "whatsapp",
             "icon": "whatsapp",
-            "title": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması", "ng": "Broadcast Messaging" },
+            "title": {
+              "en": "Broadcast Messaging",
+              "pt": "Mensagens de Transmissão",
+              "es": "Mensajes de Difusión",
+              "id": "Pesan Siaran",
+              "ar": "رسائل البث",
+              "tr": "Yayın Mesajlaşması",
+              "ng": "Broadcast Messaging"
+            },
             "description": {
               "en": "Send transactional or marketing templates to thousands of opted-in contacts instantly with full delivery tracking.",
               "pt": "Envie modelos transacionais ou de marketing para milhares de contatos com rastreamento completo de entrega.",
@@ -107,13 +123,29 @@
               "ng": "Send transactional or marketing templates to thousands of opted-in contacts instantly with full delivery tracking."
             },
             "features": [],
-            "ctaLabel": { "en": "Learn More", "pt": "Saiba Mais", "es": "Saber Más", "id": "Pelajari Selengkapnya", "ar": "تعرف على المزيد", "tr": "Daha Fazla Bilgi", "ng": "Learn More" },
+            "ctaLabel": {
+              "en": "Learn More",
+              "pt": "Saiba Mais",
+              "es": "Saber Más",
+              "id": "Pelajari Selengkapnya",
+              "ar": "تعرف على المزيد",
+              "tr": "Daha Fazla Bilgi",
+              "ng": "Learn More"
+            },
             "ctaHref": "/whatsapp/broadcast"
           },
           {
             "theme": "whatsapp",
             "icon": "whatsapp",
-            "title": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Pemasaran", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları", "ng": "Marketing Campaigns" },
+            "title": {
+              "en": "Marketing Campaigns",
+              "pt": "Campanhas de Marketing",
+              "es": "Campañas de Marketing",
+              "id": "Kampanye Pemasaran",
+              "ar": "حملات التسويق",
+              "tr": "Pazarlama Kampanyaları",
+              "ng": "Marketing Campaigns"
+            },
             "description": {
               "en": "Design targeted customer sequences with smart segmentation, scheduling, and built-in A/B testing.",
               "pt": "Desenhe sequências de clientes direcionadas com segmentação inteligente, agendamento e testes A/B integrados.",
@@ -124,13 +156,29 @@
               "ng": "Design targeted customer sequences with smart segmentation, scheduling, and built-in A/B testing."
             },
             "features": [],
-            "ctaLabel": { "en": "Learn More", "pt": "Saiba Mais", "es": "Saber Más", "id": "Pelajari Selengkapnya", "ar": "تعرف على المزيد", "tr": "Daha Fazla Bilgi", "ng": "Learn More" },
+            "ctaLabel": {
+              "en": "Learn More",
+              "pt": "Saiba Mais",
+              "es": "Saber Más",
+              "id": "Pelajari Selengkapnya",
+              "ar": "تعرف على المزيد",
+              "tr": "Daha Fazla Bilgi",
+              "ng": "Learn More"
+            },
             "ctaHref": "/whatsapp/campaigns"
           },
           {
             "theme": "whatsapp",
             "icon": "whatsapp",
-            "title": { "en": "Chatbot Builder", "pt": "Construtor de Chatbot", "es": "Constructor de Chatbot", "id": "Pembuat Chatbot", "ar": "منشئ الشات بوت", "tr": "Chatbot Oluşturucu", "ng": "Chatbot Builder" },
+            "title": {
+              "en": "Chatbot Builder",
+              "pt": "Construtor de Chatbot",
+              "es": "Constructor de Chatbot",
+              "id": "Pembuat Chatbot",
+              "ar": "منشئ الشات بوت",
+              "tr": "Chatbot Oluşturucu",
+              "ng": "Chatbot Builder"
+            },
             "description": {
               "en": "Build automated conversation flows for customer support, lead capturing, and direct sales with agent handoffs.",
               "pt": "Crie fluxos de conversa automatizados para suporte ao cliente, captura de leads e vendas diretas com transferência para agentes.",
@@ -141,13 +189,29 @@
               "ng": "Build automated conversation flows for customer support, lead capturing, and direct sales with agent handoffs."
             },
             "features": [],
-            "ctaLabel": { "en": "Learn More", "pt": "Saiba Mais", "es": "Saber Más", "id": "Pelajari Selengkapnya", "ar": "تعرف على المزيد", "tr": "Daha Fazla Bilgi", "ng": "Learn More" },
+            "ctaLabel": {
+              "en": "Learn More",
+              "pt": "Saiba Mais",
+              "es": "Saber Más",
+              "id": "Pelajari Selengkapnya",
+              "ar": "تعرف على المزيد",
+              "tr": "Daha Fazla Bilgi",
+              "ng": "Learn More"
+            },
             "ctaHref": "/whatsapp/chatbot"
           },
           {
             "theme": "whatsapp",
             "icon": "whatsapp",
-            "title": { "en": "OTP Authentication", "pt": "Autenticação OTP", "es": "Autenticación OTP", "id": "Autentikasi OTP", "ar": "مصادقة OTP", "tr": "OTP Kimlik Doğrulama", "ng": "OTP Authentication" },
+            "title": {
+              "en": "OTP Authentication",
+              "pt": "Autenticação OTP",
+              "es": "Autenticación OTP",
+              "id": "Autentikasi OTP",
+              "ar": "مصادقة OTP",
+              "tr": "OTP Kimlik Doğrulama",
+              "ng": "OTP Authentication"
+            },
             "description": {
               "en": "Verify user logins and identity securely using official high-speed WhatsApp verification API endpoints.",
               "pt": "Verifique logins e identidades de usuários com segurança usando endpoints oficiais da API do WhatsApp.",
@@ -158,13 +222,29 @@
               "ng": "Verify user logins and identity securely using official high-speed WhatsApp verification API endpoints."
             },
             "features": [],
-            "ctaLabel": { "en": "Learn More", "pt": "Saiba Mais", "es": "Saber Más", "id": "Pelajari Selengkapnya", "ar": "تعرف على المزيد", "tr": "Daha Fazla Bilgi", "ng": "Learn More" },
+            "ctaLabel": {
+              "en": "Learn More",
+              "pt": "Saiba Mais",
+              "es": "Saber Más",
+              "id": "Pelajari Selengkapnya",
+              "ar": "تعرف على المزيد",
+              "tr": "Daha Fazla Bilgi",
+              "ng": "Learn More"
+            },
             "ctaHref": "/whatsapp/authentication"
           },
           {
             "theme": "whatsapp",
             "icon": "whatsapp",
-            "title": { "en": "Auto-Trigger Engine", "pt": "Motor de Disparo Automático", "es": "Motor de Auto-Activación", "id": "Mesin Auto-Trigger", "ar": "محرك التشغيل التلقائي", "tr": "Otomatik Tetikleme Motoru", "ng": "Auto-Trigger Engine" },
+            "title": {
+              "en": "Auto-Trigger Engine",
+              "pt": "Motor de Disparo Automático",
+              "es": "Motor de Auto-Activación",
+              "id": "Mesin Auto-Trigger",
+              "ar": "محرك التشغيل التلقائي",
+              "tr": "Otomatik Tetikleme Motoru",
+              "ng": "Auto-Trigger Engine"
+            },
             "description": {
               "en": "Trigger automated WhatsApp messages dynamically from database edits, webhooks, or CRM system events.",
               "pt": "Dispare mensagens do WhatsApp dinamicamente a partir de edições no banco de dados, webhooks ou eventos do CRM.",
@@ -175,13 +255,29 @@
               "ng": "Trigger automated WhatsApp messages dynamically from database edits, webhooks, or CRM system events."
             },
             "features": [],
-            "ctaLabel": { "en": "Learn More", "pt": "Saiba Mais", "es": "Saber Más", "id": "Pelajari Selengkapnya", "ar": "تعرف على المزيد", "tr": "Daha Fazla Bilgi", "ng": "Learn More" },
+            "ctaLabel": {
+              "en": "Learn More",
+              "pt": "Saiba Mais",
+              "es": "Saber Más",
+              "id": "Pelajari Selengkapnya",
+              "ar": "تعرف على المزيد",
+              "tr": "Daha Fazla Bilgi",
+              "ng": "Learn More"
+            },
             "ctaHref": "/whatsapp/auto-trigger"
           },
           {
             "theme": "whatsapp",
             "icon": "whatsapp",
-            "title": { "en": "Utility Notifications", "pt": "Notificações Utilitárias", "es": "Notificaciones Utilitarias", "id": "Notifikasi Utilitas", "ar": "إشعارات الخدمات", "tr": "Yardımcı Bildirimler", "ng": "Utility Notifications" },
+            "title": {
+              "en": "Utility Notifications",
+              "pt": "Notificações Utilitárias",
+              "es": "Notificaciones Utilitarias",
+              "id": "Notifikasi Utilitas",
+              "ar": "إشعارات الخدمات",
+              "tr": "Yardımcı Bildirimler",
+              "ng": "Utility Notifications"
+            },
             "description": {
               "en": "Dispatch receipts, shipping alerts, flight updates, and booking confirmations automatically to customer chats.",
               "pt": "Envie recibos, alertas de envio, atualizações de voos e confirmações de reserva automaticamente para os chats.",
@@ -192,7 +288,15 @@
               "ng": "Dispatch receipts, shipping alerts, flight updates, and booking confirmations automatically to customer chats."
             },
             "features": [],
-            "ctaLabel": { "en": "Learn More", "pt": "Saiba Mais", "es": "Saber Más", "id": "Pelajari Selengkapnya", "ar": "تعرف على المزيد", "tr": "Daha Fazla Bilgi", "ng": "Learn More" },
+            "ctaLabel": {
+              "en": "Learn More",
+              "pt": "Saiba Mais",
+              "es": "Saber Más",
+              "id": "Pelajari Selengkapnya",
+              "ar": "تعرف على المزيد",
+              "tr": "Daha Fazla Bilgi",
+              "ng": "Learn More"
+            },
             "ctaHref": "/whatsapp/utility"
           }
         ]
@@ -201,45 +305,269 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Messaging Modes", "pt": "Modos de Mensagens", "es": "Modos de Mensajes", "id": "Mode Pesan", "ar": "أنماط المراسلة", "tr": "Mesajlaşma Modları", "ng": "Messaging Modes" },
-        "heading": { "en": "Broadcast vs Campaigns vs Bulk Blasting", "pt": "Transmissão vs Campanhas vs Disparos em Massa", "es": "Difusión vs Campañas vs Envíos Masivos", "id": "Siaran vs Kampanye vs Pesan Massal", "ar": "البث مقابل الحملات مقابل الإرسال الجماعي", "tr": "Yayın vs Kampanyalar vs Toplu Mesaj Gönderimi", "ng": "Broadcast vs Campaigns vs Bulk Blasting" },
-        "subheading": { "en": "Understand the differences in mechanics, compliance, and suitability on the official WhatsApp Cloud API.", "pt": "Compreenda as diferenças de mecânica, conformidade e adequação na API oficial do WhatsApp Cloud.", "es": "Comprenda las diferencias en mecánica, cumplimiento y adecuación en la API oficial de WhatsApp Cloud.", "id": "Pahami perbedaan mekanika, kepatuhan, dan kesesuaian pada API WhatsApp Cloud resmi.", "ar": "افهم الاختلافات في الآليات والامتثال والملاءمة على واجهة واتساب السحابية الرسمية.", "tr": "Resmi WhatsApp Cloud API üzerindeki mekanik, uyumluluk ve uygunluk farklarını anlayın.", "ng": "Understand the differences in mechanics, compliance, and suitability on the official WhatsApp Cloud API." },
+        "badge": {
+          "en": "Messaging Modes",
+          "pt": "Modos de Mensagens",
+          "es": "Modos de Mensajes",
+          "id": "Mode Pesan",
+          "ar": "أنماط المراسلة",
+          "tr": "Mesajlaşma Modları",
+          "ng": "Messaging Modes"
+        },
+        "heading": {
+          "en": "Broadcast vs Campaigns vs Bulk Blasting",
+          "pt": "Transmissão vs Campanhas vs Disparos em Massa",
+          "es": "Difusión vs Campañas vs Envíos Masivos",
+          "id": "Siaran vs Kampanye vs Pesan Massal",
+          "ar": "البث مقابل الحملات مقابل الإرسال الجماعي",
+          "tr": "Yayın vs Kampanyalar vs Toplu Mesaj Gönderimi",
+          "ng": "Broadcast vs Campaigns vs Bulk Blasting"
+        },
+        "subheading": {
+          "en": "Understand the differences in mechanics, compliance, and suitability on the official WhatsApp Cloud API.",
+          "pt": "Compreenda as diferenças de mecânica, conformidade e adequação na API oficial do WhatsApp Cloud.",
+          "es": "Comprenda las diferencias en mecánica, cumplimiento y adecuación en la API oficial de WhatsApp Cloud.",
+          "id": "Pahami perbedaan mekanika, kepatuhan, dan kesesuaian pada API WhatsApp Cloud resmi.",
+          "ar": "افهم الاختلافات في الآليات والامتثال والملاءمة على واجهة واتساب السحابية الرسمية.",
+          "tr": "Resmi WhatsApp Cloud API üzerindeki mekanik, uyumluluk ve uygunluk farklarını anlayın.",
+          "ng": "Understand the differences in mechanics, compliance, and suitability on the official WhatsApp Cloud API."
+        },
         "columns": [
-          { "label": { "en": "Features", "pt": "Recursos", "es": "Características", "id": "Fitur", "ar": "الميزات", "tr": "Özellikler", "ng": "Features" } },
-          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması", "ng": "Broadcast Messaging" } },
-          { "label": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Pemasaran", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları", "ng": "Marketing Campaigns" } },
-          { "label": { "en": "Bulk Messaging (Official)", "pt": "Mensagens em Massa (Oficial)", "es": "Mensajería Masiva (Oficial)", "id": "Pesan Massal (Resmi)", "ar": "الرسائل الجماعية (الرسمية)", "tr": "Toplu Mesajlaşma (Resmi)", "ng": "Bulk Messaging (Official)" } }
+          {
+            "label": {
+              "en": "Features",
+              "pt": "Recursos",
+              "es": "Características",
+              "id": "Fitur",
+              "ar": "الميزات",
+              "tr": "Özellikler",
+              "ng": "Features"
+            }
+          },
+          {
+            "label": {
+              "en": "Broadcast Messaging",
+              "pt": "Mensagens de Transmissão",
+              "es": "Mensajes de Difusión",
+              "id": "Pesan Siaran",
+              "ar": "رسائل البث",
+              "tr": "Yayın Mesajlaşması",
+              "ng": "Broadcast Messaging"
+            }
+          },
+          {
+            "label": {
+              "en": "Marketing Campaigns",
+              "pt": "Campanhas de Marketing",
+              "es": "Campañas de Marketing",
+              "id": "Kampanye Pemasaran",
+              "ar": "حملات التسويق",
+              "tr": "Pazarlama Kampanyaları",
+              "ng": "Marketing Campaigns"
+            }
+          },
+          {
+            "label": {
+              "en": "Bulk Messaging (Official)",
+              "pt": "Mensagens em Massa (Oficial)",
+              "es": "Mensajería Masiva (Oficial)",
+              "id": "Pesan Massal (Resmi)",
+              "ar": "الرسائل الجماعية (الرسمية)",
+              "tr": "Toplu Mesajlaşma (Resmi)",
+              "ng": "Bulk Messaging (Official)"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Targeting", "pt": "Direcionamento", "es": "Segmentación", "id": "Penargetan", "ar": "الاستهداف", "tr": "Hedefleme", "ng": "Targeting" },
-            { "en": "Static user lists", "pt": "Listas estáticas de usuários", "es": "Listas estáticas de usuarios", "id": "Daftar pengguna statis", "ar": "قوائم مستخدمين ثابتة", "tr": "Statik kullanıcı listeleri", "ng": "Static user lists" },
-            { "en": "Dynamic segmented funnels", "pt": "Funis segmentados dinâmicos", "es": "Embudos segmentados dinámicos", "id": "Corong tersegmentasi dinamis", "ar": "قنوات تقسيم ديناميكية", "tr": "Dinamik segmentli huniler", "ng": "Dynamic segmented funnels" },
-            { "en": "Mass database dispatches", "pt": "Envios massivos de banco de dados", "es": "Envíos masivos de base de datos", "id": "Pengiriman database massal", "ar": "إرسال جماعي من قواعد البيانات", "tr": "Toplu veritabanı gönderimleri", "ng": "Mass database dispatches" }
+            {
+              "en": "Targeting",
+              "pt": "Direcionamento",
+              "es": "Segmentación",
+              "id": "Penargetan",
+              "ar": "الاستهداف",
+              "tr": "Hedefleme",
+              "ng": "Targeting"
+            },
+            {
+              "en": "Static user lists",
+              "pt": "Listas estáticas de usuários",
+              "es": "Listas estáticas de usuarios",
+              "id": "Daftar pengguna statis",
+              "ar": "قوائم مستخدمين ثابتة",
+              "tr": "Statik kullanıcı listeleri",
+              "ng": "Static user lists"
+            },
+            {
+              "en": "Dynamic segmented funnels",
+              "pt": "Funis segmentados dinâmicos",
+              "es": "Embudos segmentados dinámicos",
+              "id": "Corong tersegmentasi dinamis",
+              "ar": "قنوات تقسيم ديناميكية",
+              "tr": "Dinamik segmentli huniler",
+              "ng": "Dynamic segmented funnels"
+            },
+            {
+              "en": "Mass database dispatches",
+              "pt": "Envios massivos de banco de dados",
+              "es": "Envíos masivos de base de datos",
+              "id": "Pengiriman database massal",
+              "ar": "إرسال جماعي من قواعد البيانات",
+              "tr": "Toplu veritabanı gönderimleri",
+              "ng": "Mass database dispatches"
+            }
           ],
           [
-            { "en": "Scheduling / Automation", "pt": "Agendamento / Automação", "es": "Programación / Automatización", "id": "Penjadwalan / Otomatisasi", "ar": "الجدولة / الأتمتة", "tr": "Planlama / Otomasyon", "ng": "Scheduling / Automation" },
-            { "en": "Immediate or one-off", "pt": "Imediato ou pontual", "es": "Inmediato o único", "id": "Segera atau satu kali", "ar": "فوري أو لمرة واحدة", "tr": "Anında veya tek seferlik", "ng": "Immediate or one-off" },
-            { "en": "Multi-step automated triggers", "pt": "Disparos automáticos em várias etapas", "es": "Activadores automáticos de múltiples pasos", "id": "Pemicu otomatis multi-langkah", "ar": "مشغلات تلقائية متعددة الخطوات", "tr": "Çok adımlı otomatik tetikleyiciler", "ng": "Multi-step automated triggers" },
-            { "en": "Batched high-speed queues", "pt": "Filas em lote de alta velocidade", "es": "Colas de alta velocidad por lotes", "id": "Antrean batch kecepatan tinggi", "ar": "طوابير دفعات عالية السرعة", "tr": "Toplu yüksek hızlı kuyruklar", "ng": "Batched high-speed queues" }
+            {
+              "en": "Scheduling / Automation",
+              "pt": "Agendamento / Automação",
+              "es": "Programación / Automatización",
+              "id": "Penjadwalan / Otomatisasi",
+              "ar": "الجدولة / الأتمتة",
+              "tr": "Planlama / Otomasyon",
+              "ng": "Scheduling / Automation"
+            },
+            {
+              "en": "Immediate or one-off",
+              "pt": "Imediato ou pontual",
+              "es": "Inmediato o único",
+              "id": "Segera atau satu kali",
+              "ar": "فوري أو لمرة واحدة",
+              "tr": "Anında veya tek seferlik",
+              "ng": "Immediate or one-off"
+            },
+            {
+              "en": "Multi-step automated triggers",
+              "pt": "Disparos automáticos em várias etapas",
+              "es": "Activadores automáticos de múltiples pasos",
+              "id": "Pemicu otomatis multi-langkah",
+              "ar": "مشغلات تلقائية متعددة الخطوات",
+              "tr": "Çok adımlı otomatik tetikleyiciler",
+              "ng": "Multi-step automated triggers"
+            },
+            {
+              "en": "Batched high-speed queues",
+              "pt": "Filas em lote de alta velocidade",
+              "es": "Colas de alta velocidad por lotes",
+              "id": "Antrean batch kecepatan tinggi",
+              "ar": "طوابير دفعات عالية السرعة",
+              "tr": "Toplu yüksek hızlı kuyruklar",
+              "ng": "Batched high-speed queues"
+            }
           ],
           [
-            { "en": "Opt-In Compliance", "pt": "Conformidade de Opt-In", "es": "Cumplimiento de Consentimiento", "id": "Kepatuhan Opt-In", "ar": "الامتثال للاشتراك", "tr": "Onay Uyum Kriterleri", "ng": "Opt-In Compliance" },
-            { "en": "Required", "pt": "Obrigatório", "es": "Requerido", "id": "Wajib", "ar": "مطلوب", "tr": "Gerekli", "ng": "Required" },
-            { "en": "Required", "pt": "Obrigatório", "es": "Requerido", "id": "Wajib", "ar": "مطلوب", "tr": "Gerekli", "ng": "Required" },
-            { "en": "Strictly Required", "pt": "Rigorosamente Obrigatório", "es": "Estrictamente Requerido", "id": "Sangat Wajib", "ar": "مطلوب بشدة", "tr": "Kesinlikle Gerekli", "ng": "Strictly Required" }
+            {
+              "en": "Opt-In Compliance",
+              "pt": "Conformidade de Opt-In",
+              "es": "Cumplimiento de Consentimiento",
+              "id": "Kepatuhan Opt-In",
+              "ar": "الامتثال للاشتراك",
+              "tr": "Onay Uyum Kriterleri",
+              "ng": "Opt-In Compliance"
+            },
+            {
+              "en": "Required",
+              "pt": "Obrigatório",
+              "es": "Requerido",
+              "id": "Wajib",
+              "ar": "مطلوب",
+              "tr": "Gerekli",
+              "ng": "Required"
+            },
+            {
+              "en": "Required",
+              "pt": "Obrigatório",
+              "es": "Requerido",
+              "id": "Wajib",
+              "ar": "مطلوب",
+              "tr": "Gerekli",
+              "ng": "Required"
+            },
+            {
+              "en": "Strictly Required",
+              "pt": "Rigorosamente Obrigatório",
+              "es": "Estrictamente Requerido",
+              "id": "Sangat Wajib",
+              "ar": "مطلوب بشدة",
+              "tr": "Kesinlikle Gerekli",
+              "ng": "Strictly Required"
+            }
           ],
           [
-            { "en": "A/B Testing Content", "pt": "Conteúdo de Teste A/B", "es": "Contenido de Pruebas A/B", "id": "Konten Pengujian A/B", "ar": "محتوى اختبار A/B", "tr": "A/B Test İçeriği", "ng": "A/B Testing Content" },
-            { "en": "✗", "pt": "✗", "es": "✗", "id": "✗", "ar": "✗", "tr": "✗", "ng": "✗" },
-            { "en": "✓", "pt": "✓", "es": "✓", "id": "✓", "ar": "✓", "tr": "✓", "ng": "✓" },
-            { "en": "✗", "pt": "✗", "es": "✗", "id": "✗", "ar": "✗", "tr": "✗", "ng": "✗" }
+            {
+              "en": "A/B Testing Content",
+              "pt": "Conteúdo de Teste A/B",
+              "es": "Contenido de Pruebas A/B",
+              "id": "Konten Pengujian A/B",
+              "ar": "محتوى اختبار A/B",
+              "tr": "A/B Test İçeriği",
+              "ng": "A/B Testing Content"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗",
+              "ng": "✗"
+            },
+            {
+              "en": "✓",
+              "pt": "✓",
+              "es": "✓",
+              "id": "✓",
+              "ar": "✓",
+              "tr": "✓",
+              "ng": "✓"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗",
+              "ng": "✗"
+            }
           ],
           [
-            { "en": "Risk of Number Ban", "pt": "Risco de Banimento de Número", "es": "Riesgo de Bloqueo de Número", "id": "Risiko Pemblokiran Nomor", "ar": "مخاطر حظر الرقم", "tr": "Numara Engellenme Riski", "ng": "Risk of Number Ban" },
-            { "en": "Zero (TRAI / Meta approved)", "pt": "Zero (Aprovado pela Meta)", "es": "Cero (Aprobado por Meta)", "id": "Nol (Disetujui Meta)", "ar": "صفر (معتمد من Meta)", "tr": "Sıfır (Meta onaylı)", "ng": "Zero (TRAI / Meta approved)" },
-            { "en": "Zero (TRAI / Meta approved)", "pt": "Zero (Aprovado pela Meta)", "es": "Cero (Aprobado por Meta)", "id": "Nol (Disetujui Meta)", "ar": "صفر (معتمد من Meta)", "tr": "Sıfır (Meta onaylı)", "ng": "Zero (TRAI / Meta approved)" },
-            { "en": "Zero (If Opt-In is verified)", "pt": "Zero (Se o Opt-In for verificado)", "es": "Cero (Si se verifica el Opt-In)", "id": "Nol (Jika Opt-In diverifikasi)", "ar": "صفر (إذا تم التحقق من الاشتراك)", "tr": "Sıfır (Onay doğrulanmışsa)", "ng": "Zero (If Opt-In is verified)" }
+            {
+              "en": "Risk of Number Ban",
+              "pt": "Risco de Banimento de Número",
+              "es": "Riesgo de Bloqueo de Número",
+              "id": "Risiko Pemblokiran Nomor",
+              "ar": "مخاطر حظر الرقم",
+              "tr": "Numara Engellenme Riski",
+              "ng": "Risk of Number Ban"
+            },
+            {
+              "en": "Zero (TRAI / Meta approved)",
+              "pt": "Zero (Aprovado pela Meta)",
+              "es": "Cero (Aprobado por Meta)",
+              "id": "Nol (Disetujui Meta)",
+              "ar": "صفر (معتمد من Meta)",
+              "tr": "Sıfır (Meta onaylı)",
+              "ng": "Zero (TRAI / Meta approved)"
+            },
+            {
+              "en": "Zero (TRAI / Meta approved)",
+              "pt": "Zero (Aprovado pela Meta)",
+              "es": "Cero (Aprobado por Meta)",
+              "id": "Nol (Disetujui Meta)",
+              "ar": "صفر (معتمد من Meta)",
+              "tr": "Sıfır (Meta onaylı)",
+              "ng": "Zero (TRAI / Meta approved)"
+            },
+            {
+              "en": "Zero (If Opt-In is verified)",
+              "pt": "Zero (Se o Opt-In for verificado)",
+              "es": "Cero (Si se verifica el Opt-In)",
+              "id": "Nol (Jika Opt-In diverifikasi)",
+              "ar": "صفر (إذا تم التحقق من الاشتراك)",
+              "tr": "Sıfır (Onay doğrulanmışsa)",
+              "ng": "Zero (If Opt-In is verified)"
+            }
           ]
         ]
       }
@@ -248,33 +576,141 @@
       "type": "statsBar",
       "props": {
         "stats": [
-          { "value": "2B+", "label": { "en": "WhatsApp users worldwide", "pt": "Usuários de WhatsApp no mundo", "es": "Usuarios de WhatsApp en el mundo", "id": "Pengguna WhatsApp di seluruh dunia", "ar": "مستخدمي واتساب حول العالم", "tr": "Dünya çapında WhatsApp kullanıcısı", "ng": "WhatsApp users worldwide" } },
-          { "value": "98%", "label": { "en": "Message open rate", "pt": "Taxa de abertura de mensagens", "es": "Tasa de apertura de mensajes", "id": "Tingkat buka pesan", "ar": "معدل فتح الرسائل", "tr": "Mesaj açılma oranı", "ng": "Message open rate" } },
-          { "value": "< 2s", "label": { "en": "Average delivery time", "pt": "Tempo médio de entrega", "es": "Tiempo promedio de entrega", "id": "Waktu pengiriman rata-rata", "ar": "متوسط وقت التسليم", "tr": "Ortalama teslimat süresi", "ng": "Average delivery time" } },
-          { "value": "180+", "label": { "en": "Countries reachable", "pt": "Países alcançáveis", "es": "Países alcanzables", "id": "Negara yang dapat dijangkau", "ar": "البلدان التي يمكن الوصول إليها", "tr": "Ulaşılan ülke sayısı", "ng": "Countries reachable" } }
+          {
+            "value": "2B+",
+            "label": {
+              "en": "WhatsApp users worldwide",
+              "pt": "Usuários de WhatsApp no mundo",
+              "es": "Usuarios de WhatsApp en el mundo",
+              "id": "Pengguna WhatsApp di seluruh dunia",
+              "ar": "مستخدمي واتساب حول العالم",
+              "tr": "Dünya çapında WhatsApp kullanıcısı",
+              "ng": "WhatsApp users worldwide"
+            }
+          },
+          {
+            "value": "98%",
+            "label": {
+              "en": "Message open rate",
+              "pt": "Taxa de abertura de mensagens",
+              "es": "Tasa de apertura de mensajes",
+              "id": "Tingkat buka pesan",
+              "ar": "معدل فتح الرسائل",
+              "tr": "Mesaj açılma oranı",
+              "ng": "Message open rate"
+            }
+          },
+          {
+            "value": "< 2s",
+            "label": {
+              "en": "Average delivery time",
+              "pt": "Tempo médio de entrega",
+              "es": "Tiempo promedio de entrega",
+              "id": "Waktu pengiriman rata-rata",
+              "ar": "متوسط وقت التسليم",
+              "tr": "Ortalama teslimat süresi",
+              "ng": "Average delivery time"
+            }
+          },
+          {
+            "value": "180+",
+            "label": {
+              "en": "Countries reachable",
+              "pt": "Países alcançáveis",
+              "es": "Países alcanzables",
+              "id": "Negara yang dapat dijangkau",
+              "ar": "البلدان التي يمكن الوصول إليها",
+              "tr": "Ulaşılan ülke sayısı",
+              "ng": "Countries reachable"
+            }
+          }
         ]
       }
     },
     {
       "type": "howItWorks",
       "props": {
-        "badge": { "en": "Getting Started", "pt": "Primeiros Passos", "es": "Primeros Pasos", "id": "Mulai", "ar": "الخطوات الأولى", "tr": "Başlarken", "ng": "Getting Started" },
-        "heading": { "en": "Start Sending WhatsApp Messages in 3 Steps", "pt": "Comece a Enviar Mensagens em 3 Passos", "es": "Comience a Enviar Mensajes en 3 Pasos", "id": "Mulai Mengirim Pesan WhatsApp dalam 3 Langkah", "ar": "ابدأ في إرسال رسائل واتساب في 3 خطوات", "tr": "3 Adımda WhatsApp Mesajları Göndermeye Başlayın", "ng": "Start Sending WhatsApp Messages in 3 Steps" },
+        "badge": {
+          "en": "Getting Started",
+          "pt": "Primeiros Passos",
+          "es": "Primeros Pasos",
+          "id": "Mulai",
+          "ar": "الخطوات الأولى",
+          "tr": "Başlarken",
+          "ng": "Getting Started"
+        },
+        "heading": {
+          "en": "Start Sending WhatsApp Messages in 3 Steps",
+          "pt": "Comece a Enviar Mensagens em 3 Passos",
+          "es": "Comience a Enviar Mensajes en 3 Pasos",
+          "id": "Mulai Mengirim Pesan WhatsApp dalam 3 Langkah",
+          "ar": "ابدأ في إرسال رسائل واتساب في 3 خطوات",
+          "tr": "3 Adımda WhatsApp Mesajları Göndermeye Başlayın",
+          "ng": "Start Sending WhatsApp Messages in 3 Steps"
+        },
         "steps": [
           {
             "icon": "user",
-            "title": { "en": "Register & Get API Key", "pt": "Registre-se e Obtenha a Chave da API", "es": "Regístrese y Obtenga la Clave de API", "id": "Daftar & Dapatkan Kunci API", "ar": "سجل واحصل على مفتاح API", "tr": "Kaydolun ve API Anahtarını Alın", "ng": "Register & Get API Key" },
-            "description": { "en": "Create your account and receive API credentials instantly.", "pt": "Crie sua conta e receba credenciais de API instantaneamente.", "es": "Cree su cuenta y reciba credenciales de API instantáneamente.", "id": "Buat akun Anda dan terima kredensial API secara instan.", "ar": "أنشئ حسابك واحصل على بيانات اعتماد واجهة البرمجة فوراً.", "tr": "Hesabınızı oluşturun ve API kimlik bilgilerini anında alın.", "ng": "Create your account and receive API credentials instantly." }
+            "title": {
+              "en": "Register & Get API Key",
+              "pt": "Registre-se e Obtenha a Chave da API",
+              "es": "Regístrese y Obtenga la Clave de API",
+              "id": "Daftar & Dapatkan Kunci API",
+              "ar": "سجل واحصل على مفتاح API",
+              "tr": "Kaydolun ve API Anahtarını Alın",
+              "ng": "Register & Get API Key"
+            },
+            "description": {
+              "en": "Create your account and receive API credentials instantly.",
+              "pt": "Crie sua conta e receba credenciais de API instantaneamente.",
+              "es": "Cree su cuenta y reciba credenciales de API instantáneamente.",
+              "id": "Buat akun Anda dan terima kredensial API secara instan.",
+              "ar": "أنشئ حسابك واحصل على بيانات اعتماد واجهة البرمجة فوراً.",
+              "tr": "Hesabınızı oluşturun ve API kimlik bilgilerini anında alın.",
+              "ng": "Create your account and receive API credentials instantly."
+            }
           },
           {
             "icon": "code",
-            "title": { "en": "Create Message Templates", "pt": "Crie Modelos de Mensagem", "es": "Cree Plantillas de Mensaje", "id": "Buat Templat Pesan", "ar": "أنشئ قوالب الرسائل", "tr": "Mesaj Şablonları Oluşturun", "ng": "Create Message Templates" },
-            "description": { "en": "Submit message templates for Meta approval. Most templates are approved within minutes.", "pt": "Envie modelos de mensagem para aprovação da Meta. A maioria é aprovada em minutos.", "es": "Envíe plantillas de mensajes para aprobación de Meta. La mayoría se aprueba en minutos.", "id": "Kirim templat pesan untuk disetujui Meta. Sebagian besar templat disetujui dalam beberapa menit.", "ar": "أرسل قوالب الرسائل لموافقة Meta. يتم الموافقة على معظم القوالب في غضون دقائق.", "tr": "Meta onayı için mesaj şablonları gönderin. Çoğu şablon birkaç dakika içinde onaylanır.", "ng": "Submit message templates for Meta approval. Most templates are approved within minutes." }
+            "title": {
+              "en": "Create Message Templates",
+              "pt": "Crie Modelos de Mensagem",
+              "es": "Cree Plantillas de Mensaje",
+              "id": "Buat Templat Pesan",
+              "ar": "أنشئ قوالب الرسائل",
+              "tr": "Mesaj Şablonları Oluşturun",
+              "ng": "Create Message Templates"
+            },
+            "description": {
+              "en": "Submit message templates for Meta approval. Most templates are approved within minutes.",
+              "pt": "Envie modelos de mensagem para aprovação da Meta. A maioria é aprovada em minutos.",
+              "es": "Envíe plantillas de mensajes para aprobación de Meta. La mayoría se aprueba en minutos.",
+              "id": "Kirim templat pesan untuk disetujui Meta. Sebagian besar templat disetujui dalam beberapa menit.",
+              "ar": "أرسل قوالب الرسائل لموافقة Meta. يتم الموافقة على معظم القوالب في غضون دقائق.",
+              "tr": "Meta onayı için mesaj şablonları gönderin. Çoğu şablon birkaç dakika içinde onaylanır.",
+              "ng": "Submit message templates for Meta approval. Most templates are approved within minutes."
+            }
           },
           {
             "icon": "rocket",
-            "title": { "en": "Send & Track Messages", "pt": "Envie e Rastreie Mensagens", "es": "Envíe y Rastrear Mesajes", "id": "Kirim & Lacak Pesan", "ar": "أرسل وتتبع الرسائل", "tr": "Mesajları Gönderin ve Takip Edin", "ng": "Send & Track Messages" },
-            "description": { "en": "Send your first broadcast and monitor delivery, opens, and replies in real-time.", "pt": "Envie sua primeira transmissão e monitore a entrega, aberturas e respostas em tempo real.", "es": "Envíe su primera difusión y monitoree la entrega, aperturas y respuestas en tiempo real.", "id": "Kirim siaran pertama Anda dan pantau pengiriman, buka pesan, serta balasan secara real-time.", "ar": "أرسل أول بث لك وراقب التسليم وفتح الرسائل والردود في الوقت الفعلي.", "tr": "İlk yayınınızı gönderin ve teslimatı, açılmaları ve yanıtları gerçek zamanlı olarak izleyin.", "ng": "Send your first broadcast and monitor delivery, opens, and replies in real-time." }
+            "title": {
+              "en": "Send & Track Messages",
+              "pt": "Envie e Rastreie Mensagens",
+              "es": "Envíe y Rastrear Mesajes",
+              "id": "Kirim & Lacak Pesan",
+              "ar": "أرسل وتتبع الرسائل",
+              "tr": "Mesajları Gönderin ve Takip Edin",
+              "ng": "Send & Track Messages"
+            },
+            "description": {
+              "en": "Send your first broadcast and monitor delivery, opens, and replies in real-time.",
+              "pt": "Envie sua primeira transmissão e monitore a entrega, aberturas e respostas em tempo real.",
+              "es": "Envíe su primera difusión y monitoree la entrega, aperturas y respuestas en tiempo real.",
+              "id": "Kirim siaran pertama Anda dan pantau pengiriman, buka pesan, serta balasan secara real-time.",
+              "ar": "أرسل أول بث لك وراقب التسليم وفتح الرسائل والردود في الوقت الفعلي.",
+              "tr": "İlk yayınınızı gönderin ve teslimatı, açılmaları ve yanıtları gerçek zamanlı olarak izleyin.",
+              "ng": "Send your first broadcast and monitor delivery, opens, and replies in real-time."
+            }
           }
         ]
       }
@@ -282,20 +718,84 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
-        "heading": { "en": "WhatsApp API — Frequently Asked Questions", "pt": "API do WhatsApp — Perguntas Frequentes", "es": "API de WhatsApp — Preguntas Frecuentes", "id": "API WhatsApp — Pertanyaan Sering Diajukan", "ar": "واجهة واتساب — الأسئلة الشائعة", "tr": "WhatsApp API — Sıkça Sorulan Sorular", "ng": "WhatsApp API — Frequently Asked Questions" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS",
+          "ng": "FAQs"
+        },
+        "heading": {
+          "en": "WhatsApp API — Frequently Asked Questions",
+          "pt": "API do WhatsApp — Perguntas Frequentes",
+          "es": "API de WhatsApp — Preguntas Frecuentes",
+          "id": "API WhatsApp — Pertanyaan Sering Diajukan",
+          "ar": "واجهة واتساب — الأسئلة الشائعة",
+          "tr": "WhatsApp API — Sıkça Sorulan Sorular",
+          "ng": "WhatsApp API — Frequently Asked Questions"
+        },
         "items": [
           {
-            "question": { "en": "What is the WhatsApp Business API?", "pt": "O que é a API do WhatsApp Business?", "es": "¿Qué es la API de WhatsApp Business?", "id": "Apa itu API WhatsApp Business?", "ar": "ما هي واجهة برمجة تطبيقات واتساب للأعمال؟", "tr": "WhatsApp Business API nedir?", "ng": "What is the WhatsApp Business API?" },
-            "answer": { "en": "The WhatsApp Business API is Meta's official programmatic interface that allows businesses to send messages, notifications, and engage with customers at scale. Unlike the WhatsApp Business App, the API is designed for businesses that need to integrate messaging into CRMs, dashboards, and custom backend systems. StartMessaging is an official BSP providing direct access.", "pt": "A API do WhatsApp Business é a interface de programação oficial da Meta que permite às empresas enviar mensagens, notificações e interagir com clientes em escala. Ao contrário do aplicativo WhatsApp Business, a API é projetada para integração em CRMs e sistemas internos. A StartMessaging é um BSP oficial.", "es": "La API de WhatsApp Business es la interfaz oficial de Meta que permite a las empresas enviar mensajes, notificaciones e interactuar con clientes a escala. Diseñada para integrarse en CRM y sistemas propios. StartMessaging es un BSP oficial.", "id": "API WhatsApp Business adalah antarmuka terprogram resmi Meta yang memungkinkan bisnis mengirim pesan, notifikasi, dan berinteraksi dengan pelanggan dalam skala besar. StartMessaging adalah BSP resmi.", "ar": "واجهة واتساب للأعمال هي الواجهة البرمجية الرسمية من Meta التي تتيح للشركات إرسال الرسائل والإشعارات والتفاعل مع العملاء على نطاق واسع. StartMessaging هو شريك رسمي يوفر وصولاً مباشراً.", "tr": "WhatsApp Business API, işletmelerin ölçekli olarak mesajlar, bildirimler göndermesine ve müşterilerle etkileşim kurmasına olanak tanıyan resmi Meta programatik arayüzüdür. StartMessaging, doğrudan erişim sağlayan resmi bir Meta BSP'dir.", "ng": "The WhatsApp Business API is Meta's official programmatic interface that allows businesses to send messages, notifications, and engage with customers at scale. Unlike the WhatsApp Business App, the API is designed for businesses that need to integrate messaging into CRMs, dashboards, and custom backend systems. StartMessaging is an official BSP providing direct access." }
+            "question": {
+              "en": "What is the WhatsApp Business API?",
+              "pt": "O que é a API do WhatsApp Business?",
+              "es": "¿Qué es la API de WhatsApp Business?",
+              "id": "Apa itu API WhatsApp Business?",
+              "ar": "ما هي واجهة برمجة تطبيقات واتساب للأعمال؟",
+              "tr": "WhatsApp Business API nedir?",
+              "ng": "What is the WhatsApp Business API?"
+            },
+            "answer": {
+              "en": "The WhatsApp Business API is Meta's official programmatic interface that allows businesses to send messages, notifications, and engage with customers at scale. Unlike the WhatsApp Business App, the API is designed for businesses that need to integrate messaging into CRMs, dashboards, and custom backend systems. StartMessaging is an official BSP providing direct access.",
+              "pt": "A API do WhatsApp Business é a interface de programação oficial da Meta que permite às empresas enviar mensagens, notificações e interagir com clientes em escala. Ao contrário do aplicativo WhatsApp Business, a API é projetada para integração em CRMs e sistemas internos. A StartMessaging é um BSP oficial.",
+              "es": "La API de WhatsApp Business es la interfaz oficial de Meta que permite a las empresas enviar mensajes, notificaciones e interactuar con clientes a escala. Diseñada para integrarse en CRM y sistemas propios. StartMessaging es un BSP oficial.",
+              "id": "API WhatsApp Business adalah antarmuka terprogram resmi Meta yang memungkinkan bisnis mengirim pesan, notifikasi, dan berinteraksi dengan pelanggan dalam skala besar. StartMessaging adalah BSP resmi.",
+              "ar": "واجهة واتساب للأعمال هي الواجهة البرمجية الرسمية من Meta التي تتيح للشركات إرسال الرسائل والإشعارات والتفاعل مع العملاء على نطاق واسع. StartMessaging هو شريك رسمي يوفر وصولاً مباشراً.",
+              "tr": "WhatsApp Business API, işletmelerin ölçekli olarak mesajlar, bildirimler göndermesine ve müşterilerle etkileşim kurmasına olanak tanıyan resmi Meta programatik arayüzüdür. StartMessaging, doğrudan erişim sağlayan resmi bir Meta BSP'dir.",
+              "ng": "The WhatsApp Business API is Meta's official programmatic interface that allows businesses to send messages, notifications, and engage with customers at scale. Unlike the WhatsApp Business App, the API is designed for businesses that need to integrate messaging into CRMs, dashboards, and custom backend systems. StartMessaging is an official BSP providing direct access."
+            }
           },
           {
-            "question": { "en": "How much does WhatsApp Business API cost?", "pt": "Quanto custa a API do WhatsApp Business?", "es": "¿Cuánto cuesta la API de WhatsApp Business?", "id": "Berapa biaya API WhatsApp Business?", "ar": "ما هي تكلفة واجهة برمجة تطبيقات واتساب للأعمال؟", "tr": "WhatsApp Business API'nin maliyeti nedir?", "ng": "How much does WhatsApp Business API cost?" },
-            "answer": { "en": "WhatsApp API pricing is conversation-based, set by Meta and varying by country and message category (marketing, utility, authentication, service). StartMessaging adds no markup to Meta's base pricing. We offer plans tailored for businesses of all sizes, along with volume discounts for high-usage clients.", "pt": "O preço da API do WhatsApp é baseado em conversas de 24 horas, definido pela Meta e varia de acordo com o país e categoria da mensagem. A StartMessaging não adiciona taxas extras sobre os preços básicos da Meta.", "es": "El precio de la API de WhatsApp se basa en conversaciones, lo define Meta y varía según el país y la categoría del mensaje. StartMessaging no añade recargos a los precios base de Meta.", "id": "Harga API WhatsApp berbasis percakapan, ditentukan oleh Meta dan bervariasi berdasarkan negara serta kategori pesan. StartMessaging tidak menambahkan markup pada harga dasar Meta.", "ar": "تسعير واجهة واتساب يعتمد على المحادثات، وتحدده Meta ويختلف حسب البلد وفئة الرسالة. لا تضيف StartMessaging أي رسوم إضافية على أسعار Meta الأساسية.", "tr": "WhatsApp API fiyatlandırması konuşma tabanlıdir, Meta tarafından belirlenir ve ülkeye ile mesaj kategorisine göre değişir. StartMessaging, Meta'nın taban fiyatlandırmasına herhangi bir marj eklemez.", "ng": "WhatsApp API pricing is conversation-based, set by Meta and varying by country and message category (marketing, utility, authentication, service). StartMessaging adds no markup to Meta's base pricing. We offer plans tailored for businesses of all sizes, along with volume discounts for high-usage clients." }
+            "question": {
+              "en": "How much does WhatsApp Business API cost?",
+              "pt": "Quanto custa a API do WhatsApp Business?",
+              "es": "¿Cuánto cuesta la API de WhatsApp Business?",
+              "id": "Berapa biaya API WhatsApp Business?",
+              "ar": "ما هي تكلفة واجهة برمجة تطبيقات واتساب للأعمال؟",
+              "tr": "WhatsApp Business API'nin maliyeti nedir?",
+              "ng": "How much does WhatsApp Business API cost?"
+            },
+            "answer": {
+              "en": "WhatsApp API pricing is conversation-based, set by Meta and varying by country and message category (marketing, utility, authentication, service). StartMessaging adds no markup to Meta's base pricing. We offer plans tailored for businesses of all sizes, along with volume discounts for high-usage clients.",
+              "pt": "O preço da API do WhatsApp é baseado em conversas de 24 horas, definido pela Meta e varia de acordo com o país e categoria da mensagem. A StartMessaging não adiciona taxas extras sobre os preços básicos da Meta.",
+              "es": "El precio de la API de WhatsApp se basa en conversaciones, lo define Meta y varía según el país y la categoría del mensaje. StartMessaging no añade recargos a los precios base de Meta.",
+              "id": "Harga API WhatsApp berbasis percakapan, ditentukan oleh Meta dan bervariasi berdasarkan negara serta kategori pesan. StartMessaging tidak menambahkan markup pada harga dasar Meta.",
+              "ar": "تسعير واجهة واتساب يعتمد على المحادثات، وتحدده Meta ويختلف حسب البلد وفئة الرسالة. لا تضيف StartMessaging أي رسوم إضافية على أسعار Meta الأساسية.",
+              "tr": "WhatsApp API fiyatlandırması konuşma tabanlıdir, Meta tarafından belirlenir ve ülkeye ile mesaj kategorisine göre değişir. StartMessaging, Meta'nın taban fiyatlandırmasına herhangi bir marj eklemez.",
+              "ng": "WhatsApp API pricing is conversation-based, set by Meta and varying by country and message category (marketing, utility, authentication, service). StartMessaging adds no markup to Meta's base pricing. We offer plans tailored for businesses of all sizes, along with volume discounts for high-usage clients."
+            }
           },
           {
-            "question": { "en": "Can I send promotional messages on WhatsApp?", "pt": "Posso enviar mensagens promocionais no WhatsApp?", "es": "¿Puedo enviar mensajes promocionales en WhatsApp?", "id": "Apakah saya bisa mengirim pesan promosi di WhatsApp?", "ar": "هل يمكنني إرسال رسائل ترويجية على واتساب؟", "tr": "WhatsApp üzerinden tanıtım mesajları gönderebilir miyim?", "ng": "Can I send promotional messages on WhatsApp?" },
-            "answer": { "en": "Yes! WhatsApp allows marketing messages to opted-in contacts. You can send promotions, product launches, event invitations, and personalized offers using pre-approved templates.", "pt": "Sim! O WhatsApp permite mensagens de marketing para contatos que concordaram em recebê-las (opt-in). Você pode enviar promoções, lançamentos de produtos e ofertas personalizadas.", "es": "¡Sí! WhatsApp permite enviar mensajes de marketing a los contactos registrados. Puede enviar promociones, lanzamientos de productos, invitaciones a eventos y ofertas personalizadas.", "id": "Ya! WhatsApp mengizinkan pesan pemasaran dikirim ke kontak yang telah memberikan persetujuan (opt-in). Anda dapat mengirim promosi, peluncuran produk, dan penawaran terpersonalisasi.", "ar": "نعم! يسمح واتساب بإرسال رسائل تسويقية لجهات الاتصال المشتركة. يمكنك إرسال العروض الترويجية وإطلاق المنتجات ودعوات الفعاليات والعروض المخصصة باستخدام القوالب المعتمدة.", "tr": "Evet! WhatsApp, onay vermiş kişilere pazarlama mesajları gönderilmesine izin verir. Önceden onaylanmış şablonları kullanarak promosyonlar, ürün lansmanları, etkinlik davetiyeleri ve kişiselleştirilmiş teklifler gönderebilirsiniz.", "ng": "Yes! WhatsApp allows marketing messages to opted-in contacts. You can send promotions, product launches, event invitations, and personalized offers using pre-approved templates." }
+            "question": {
+              "en": "Can I send promotional messages on WhatsApp?",
+              "pt": "Posso enviar mensagens promocionais no WhatsApp?",
+              "es": "¿Puedo enviar mensajes promocionales en WhatsApp?",
+              "id": "Apakah saya bisa mengirim pesan promosi di WhatsApp?",
+              "ar": "هل يمكنني إرسال رسائل ترويجية على واتساب؟",
+              "tr": "WhatsApp üzerinden tanıtım mesajları gönderebilir miyim?",
+              "ng": "Can I send promotional messages on WhatsApp?"
+            },
+            "answer": {
+              "en": "Yes! WhatsApp allows marketing messages to opted-in contacts. You can send promotions, product launches, event invitations, and personalized offers using pre-approved templates.",
+              "pt": "Sim! O WhatsApp permite mensagens de marketing para contatos que concordaram em recebê-las (opt-in). Você pode enviar promoções, lançamentos de produtos e ofertas personalizadas.",
+              "es": "¡Sí! WhatsApp permite enviar mensajes de marketing a los contactos registrados. Puede enviar promociones, lanzamientos de productos, invitaciones a eventos y ofertas personalizadas.",
+              "id": "Ya! WhatsApp mengizinkan pesan pemasaran dikirim ke kontak yang telah memberikan persetujuan (opt-in). Anda dapat mengirim promosi, peluncuran produk, dan penawaran terpersonalisasi.",
+              "ar": "نعم! يسمح واتساب بإرسال رسائل تسويقية لجهات الاتصال المشتركة. يمكنك إرسال العروض الترويجية وإطلاق المنتجات ودعوات الفعاليات والعروض المخصصة باستخدام القوالب المعتمدة.",
+              "tr": "Evet! WhatsApp, onay vermiş kişilere pazarlama mesajları gönderilmesine izin verir. Önceden onaylanmış şablonları kullanarak promosyonlar, ürün lansmanları, etkinlik davetiyeleri ve kişiselleştirilmiş teklifler gönderebilirsiniz.",
+              "ng": "Yes! WhatsApp allows marketing messages to opted-in contacts. You can send promotions, product launches, event invitations, and personalized offers using pre-approved templates."
+            }
           }
         ]
       }
@@ -303,9 +803,33 @@
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Ready to Connect with Your Customers on WhatsApp?", "pt": "Pronto para se Conectar com Seus Clientes no WhatsApp?", "es": "¿Listo para Conectarse con Sus Clientes en WhatsApp?", "id": "Siap Terhubung dengan Pelanggan Anda di WhatsApp?", "ar": "جاهز للتواصل مع عملائك على واتساب؟", "tr": "WhatsApp'ta Müşterilerinizle Bağlantı Kurmaya Hazır mısınız?", "ng": "Ready to Connect with Your Customers on WhatsApp?" },
-        "subtext": { "en": "Start in 5 minutes. No credit card required.", "pt": "Comece em 5 minutos. Sem cartão de crédito.", "es": "Comience en 5 minutos. Sin tarjeta de crédito.", "id": "Mulai dalam 5 menit. Tanpa kartu kredit.", "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.", "tr": "5 dakikada başlayın. Kredi kartı gerekmez.", "ng": "Start in 5 minutes. No credit card required." },
-        "primaryCta": { "en": "Get Started Free", "pt": "Começar Grátis", "es": "Empieza Gratis", "id": "Mulai Gratis", "ar": "ابدأ مجاناً", "tr": "Ücretsiz Başla", "ng": "Get Started Free" },
+        "heading": {
+          "en": "Ready to Connect with Your Customers on WhatsApp?",
+          "pt": "Pronto para se Conectar com Seus Clientes no WhatsApp?",
+          "es": "¿Listo para Conectarse con Sus Clientes en WhatsApp?",
+          "id": "Siap Terhubung dengan Pelanggan Anda di WhatsApp?",
+          "ar": "جاهز للتواصل مع عملائك على واتساب؟",
+          "tr": "WhatsApp'ta Müşterilerinizle Bağlantı Kurmaya Hazır mısınız?",
+          "ng": "Ready to Connect with Your Customers on WhatsApp?"
+        },
+        "subtext": {
+          "en": "Start in 5 minutes. No credit card required.",
+          "pt": "Comece em 5 minutos. Sem cartão de crédito.",
+          "es": "Comience en 5 minutos. Sin tarjeta de crédito.",
+          "id": "Mulai dalam 5 menit. Tanpa kartu kredit.",
+          "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.",
+          "tr": "5 dakikada başlayın. Kredi kartı gerekmez.",
+          "ng": "Start in 5 minutes. No credit card required."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla",
+          "ng": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

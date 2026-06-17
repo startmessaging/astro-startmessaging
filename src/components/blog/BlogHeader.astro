@@ -1,7 +1,8 @@
 ---
 /**
- * BlogHeader — post header with category badge, title, description, author + date.
- * Ported from startmessaging-astro.
+ * BlogHeader — post header with category badge, title, description, author, date,
+ * reading time, and optional "Updated" date.
+ * Ported from startmessaging-astro with SEO audit fixes.
  */
 import CategoryBadge from './CategoryBadge.astro';
 import { HREFLANG, type Country } from '@/config/countries';
@@ -11,14 +12,19 @@ interface Props {
     title: string;
     description: string;
     publishedAt: Date;
+    updatedAt?: Date;
     category: string;
     author?: string;
   };
   country?: string;
+  /** Estimated reading time in minutes (calculated by parent) */
+  readingTime?: number;
 }
 
-const { post, country = 'in' } = Astro.props;
+const { post, country = 'in', readingTime } = Astro.props;
 const locale = HREFLANG[country as Country] ?? 'en-US';
+
+const hasUpdated = post.updatedAt && post.updatedAt.getTime() !== post.publishedAt.getTime();
 ---
 
 <header class="mb-8">
@@ -27,11 +33,27 @@ const locale = HREFLANG[country as Country] ?? 'en-US';
     {post.title}
   </h1>
   <p class="mt-4 text-lg text-gray-500 dark:text-gray-400">{post.description}</p>
-  <div class="mt-4 flex items-center gap-4 text-sm text-gray-400 dark:text-gray-500">
+  <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-400 dark:text-gray-500">
     {post.author && <span>{post.author}</span>}
-    {post.author && <span>·</span>}
+    {post.author && <span aria-hidden="true">·</span>}
     <time datetime={post.publishedAt.toISOString()}>
       {post.publishedAt.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}
     </time>
+    {hasUpdated && (
+      <>
+        <span aria-hidden="true">·</span>
+        <span class="text-gray-400 dark:text-gray-500">
+          Updated <time datetime={post.updatedAt!.toISOString()}>
+            {post.updatedAt!.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' })}
+          </time>
+        </span>
+      </>
+    )}
+    {readingTime && (
+      <>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime} min read</span>
+      </>
+    )}
   </div>
 </header>

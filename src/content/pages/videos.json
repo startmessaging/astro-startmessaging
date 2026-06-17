@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -12,7 +20,8 @@
     },
     "description": {
       "en": "Watch step-by-step video tutorials on WhatsApp API integration, OTP setup, chatbot building, and campaign management."
-    }
+    },
+    "ogImage": "/og/videos.jpg"
   },
   "sections": [
     {
@@ -135,7 +144,9 @@
           "ar": "ابدأ بخطتنا المجانية واتبع الدروس.",
           "tr": "Ücretsiz planımızla başlayın ve eğitimleri takip edin."
         },
-        "primaryCta": { "en": "Get Started Free" },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

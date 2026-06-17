@@ -1,8 +1,16 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
-    "ogImage": "/images/trigger-engine.webp",
+    "ogImage": "/og/whatsapp-triggers.jpg",
     "title": {
       "en": "WhatsApp Auto-Trigger Messages — Event Triggers — StartMessaging",
       "pt": "Mensagens Auto-Trigger WhatsApp — Disparos por Eventos — StartMessaging",
@@ -124,7 +132,14 @@
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "How It Works", "pt": "Como Funciona", "es": "Cómo Funciona", "id": "Cara Kerjanya", "ar": "كيف يعمل", "tr": "Nasıl Çalışır" },
+        "badge": {
+          "en": "How It Works",
+          "pt": "Como Funciona",
+          "es": "Cómo Funciona",
+          "id": "Cara Kerjanya",
+          "ar": "كيف يعمل",
+          "tr": "Nasıl Çalışır"
+        },
         "heading": {
           "en": "3 Steps to Automated Messaging",
           "pt": "3 Passos para Mensagens Automatizadas",
@@ -135,16 +150,58 @@
         },
         "steps": [
           {
-            "title": { "en": "Define Your Trigger Event", "pt": "Defina Seu Evento de Disparo", "es": "Defina Su Evento de Disparo", "id": "Tentukan Acara Pemicu Anda", "ar": "حدّد حدث التشغيل", "tr": "Tetikleme Olayınızı Tanımlayın" },
-            "description": { "en": "Choose from pre-built events (abandoned cart, sign-up, purchase) or create custom webhook triggers from your backend systems.", "pt": "Escolha entre eventos pré-construídos (carrinho abandonado, cadastro, compra) ou crie triggers de webhook personalizados a partir de seus sistemas backend.", "es": "Elija entre eventos predefinidos (carrito abandonado, registro, compra) o cree desencadenadores de webhook personalizados desde sus sistemas backend.", "id": "Pilih dari acara yang telah dibuat sebelumnya (keranjang ditinggalkan, pendaftaran, pembelian) atau buat pemicu webhook kustom dari sistem backend Anda.", "ar": "اختر من الأحداث المُعدَّة مسبقاً (سلة مهجورة، تسجيل، شراء) أو أنشئ مشغلات webhook مخصصة من أنظمتك الخلفية.", "tr": "Hazır etkinliklerden (terk edilmiş sepet, kayıt, satın alma) seçin veya arka uç sistemlerinizden özel webhook tetikleyicileri oluşturun." }
+            "title": {
+              "en": "Define Your Trigger Event",
+              "pt": "Defina Seu Evento de Disparo",
+              "es": "Defina Su Evento de Disparo",
+              "id": "Tentukan Acara Pemicu Anda",
+              "ar": "حدّد حدث التشغيل",
+              "tr": "Tetikleme Olayınızı Tanımlayın"
+            },
+            "description": {
+              "en": "Choose from pre-built events (abandoned cart, sign-up, purchase) or create custom webhook triggers from your backend systems.",
+              "pt": "Escolha entre eventos pré-construídos (carrinho abandonado, cadastro, compra) ou crie triggers de webhook personalizados a partir de seus sistemas backend.",
+              "es": "Elija entre eventos predefinidos (carrito abandonado, registro, compra) o cree desencadenadores de webhook personalizados desde sus sistemas backend.",
+              "id": "Pilih dari acara yang telah dibuat sebelumnya (keranjang ditinggalkan, pendaftaran, pembelian) atau buat pemicu webhook kustom dari sistem backend Anda.",
+              "ar": "اختر من الأحداث المُعدَّة مسبقاً (سلة مهجورة، تسجيل، شراء) أو أنشئ مشغلات webhook مخصصة من أنظمتك الخلفية.",
+              "tr": "Hazır etkinliklerden (terk edilmiş sepet, kayıt, satın alma) seçin veya arka uç sistemlerinizden özel webhook tetikleyicileri oluşturun."
+            }
           },
           {
-            "title": { "en": "Configure Your Template & Delay", "pt": "Configure Seu Template e Atraso", "es": "Configure Su Plantilla y Retraso", "id": "Konfigurasi Template & Penundaan Anda", "ar": "ضبط القالب والتأخير", "tr": "Şablonunuzu ve Gecikmenizi Yapılandırın" },
-            "description": { "en": "Select a pre-approved WhatsApp template, set personalization variables, and configure the delay (e.g., 1 hour after cart abandonment).", "pt": "Selecione um template WhatsApp pré-aprovado, defina variáveis de personalização e configure o atraso (ex.: 1 hora após abandono do carrinho).", "es": "Seleccione una plantilla de WhatsApp preaprobada, configure variables de personalización y defina el retraso (p.ej., 1 hora después del abandono).", "id": "Pilih template WhatsApp yang sudah disetujui, atur variabel personalisasi, dan konfigurasikan penundaan (mis., 1 jam setelah keranjang ditinggalkan).", "ar": "حدد قالب واتساب معتمداً واضبط متغيرات التخصيص والتأخير (مثل ساعة بعد التخلي عن السلة).", "tr": "Önceden onaylanmış bir WhatsApp şablonu seçin, kişiselleştirme değişkenlerini ayarlayın ve gecikmeyi yapılandırın (örn. sepet terkinden 1 saat sonra)." }
+            "title": {
+              "en": "Configure Your Template & Delay",
+              "pt": "Configure Seu Template e Atraso",
+              "es": "Configure Su Plantilla y Retraso",
+              "id": "Konfigurasi Template & Penundaan Anda",
+              "ar": "ضبط القالب والتأخير",
+              "tr": "Şablonunuzu ve Gecikmenizi Yapılandırın"
+            },
+            "description": {
+              "en": "Select a pre-approved WhatsApp template, set personalization variables, and configure the delay (e.g., 1 hour after cart abandonment).",
+              "pt": "Selecione um template WhatsApp pré-aprovado, defina variáveis de personalização e configure o atraso (ex.: 1 hora após abandono do carrinho).",
+              "es": "Seleccione una plantilla de WhatsApp preaprobada, configure variables de personalización y defina el retraso (p.ej., 1 hora después del abandono).",
+              "id": "Pilih template WhatsApp yang sudah disetujui, atur variabel personalisasi, dan konfigurasikan penundaan (mis., 1 jam setelah keranjang ditinggalkan).",
+              "ar": "حدد قالب واتساب معتمداً واضبط متغيرات التخصيص والتأخير (مثل ساعة بعد التخلي عن السلة).",
+              "tr": "Önceden onaylanmış bir WhatsApp şablonu seçin, kişiselleştirme değişkenlerini ayarlayın ve gecikmeyi yapılandırın (örn. sepet terkinden 1 saat sonra)."
+            }
           },
           {
-            "title": { "en": "Activate & Monitor", "pt": "Ativar e Monitorar", "es": "Activar y Monitorear", "id": "Aktifkan & Pantau", "ar": "تفعيل ومراقبة", "tr": "Etkinleştir ve İzle" },
-            "description": { "en": "Turn on your trigger and monitor performance in real-time. Track delivery, opens, clicks, and conversion rates from your dashboard.", "pt": "Ative seu trigger e monitore o desempenho em tempo real. Acompanhe entrega, aberturas, cliques e taxas de conversão no painel.", "es": "Active su trigger y monitoree el rendimiento en tiempo real. Realice seguimiento de entrega, aperturas, clics y tasas de conversión desde su panel.", "id": "Aktifkan pemicu Anda dan pantau kinerja secara real-time. Lacak pengiriman, buka, klik, dan tingkat konversi dari dasbor Anda.", "ar": "شغّل مشغلك وراقب الأداء في الوقت الفعلي. تتبع التسليم والفتح والنقرات ومعدلات التحويل من لوحة التحكم.", "tr": "Tetikleyicinizi açın ve performansı gerçek zamanlı izleyin. Panelinizden teslimat, açılma, tıklama ve dönüşüm oranlarını takip edin." }
+            "title": {
+              "en": "Activate & Monitor",
+              "pt": "Ativar e Monitorar",
+              "es": "Activar y Monitorear",
+              "id": "Aktifkan & Pantau",
+              "ar": "تفعيل ومراقبة",
+              "tr": "Etkinleştir ve İzle"
+            },
+            "description": {
+              "en": "Turn on your trigger and monitor performance in real-time. Track delivery, opens, clicks, and conversion rates from your dashboard.",
+              "pt": "Ative seu trigger e monitore o desempenho em tempo real. Acompanhe entrega, aberturas, cliques e taxas de conversão no painel.",
+              "es": "Active su trigger y monitoree el rendimiento en tiempo real. Realice seguimiento de entrega, aperturas, clics y tasas de conversión desde su panel.",
+              "id": "Aktifkan pemicu Anda dan pantau kinerja secara real-time. Lacak pengiriman, buka, klik, dan tingkat konversi dari dasbor Anda.",
+              "ar": "شغّل مشغلك وراقب الأداء في الوقت الفعلي. تتبع التسليم والفتح والنقرات ومعدلات التحويل من لوحة التحكم.",
+              "tr": "Tetikleyicinizi açın ve performansı gerçek zamanlı izleyin. Panelinizden teslimat, açılma, tıklama ve dönüşüm oranlarını takip edin."
+            }
           }
         ]
       }
@@ -152,39 +209,209 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Integration Model", "pt": "Modelo de Integração", "es": "Modelo de Integración", "id": "Model Integrasi", "ar": "نموذج التكامل", "tr": "Entegrasyon Modeli" },
-        "heading": { "en": "Event Triggers vs. Polling Systems vs. Manual Webhooks", "pt": "Triggers de Eventos vs. Sistemas de Polling vs. Webhooks Manuais", "es": "Disparadores de Eventos vs. Sistemas de Polling vs. Webhooks Manuales", "id": "Pemicu Acara vs. Sistem Polling vs. Webhook Manual", "ar": "مشغلات الأحداث مقابل أنظمة الفحص الدوري مقابل الويبهوك اليدوي", "tr": "Olay Tetikleyicileri vs. Polling Sistemleri vs. Manuel Webhook'lar" },
-        "subheading": { "en": "Compare setup overhead, network latency, and infrastructure resource costs for event automation.", "pt": "Compare o overhead de configuração, latência de rede e custos de recursos de infraestrutura para automação de eventos.", "es": "Compare el overhead de configuración, la latencia de red y los costos de recursos de infraestructura para la automatización de eventos.", "id": "Bandingkan overhead pengaturan, latensi jaringan, dan biaya sumber daya infrastruktur untuk otomatisasi acara.", "ar": "قارن تكلفة الإعداد وكمون الشبكة وتكاليف موارد البنية التحتية لأتمتة الأحداث.", "tr": "Olay otomasyonu için kurulum yükü, ağ gecikmesi ve altyapı kaynak maliyetlerini karşılaştırın." },
+        "badge": {
+          "en": "Integration Model",
+          "pt": "Modelo de Integração",
+          "es": "Modelo de Integración",
+          "id": "Model Integrasi",
+          "ar": "نموذج التكامل",
+          "tr": "Entegrasyon Modeli"
+        },
+        "heading": {
+          "en": "Event Triggers vs. Polling Systems vs. Manual Webhooks",
+          "pt": "Triggers de Eventos vs. Sistemas de Polling vs. Webhooks Manuais",
+          "es": "Disparadores de Eventos vs. Sistemas de Polling vs. Webhooks Manuales",
+          "id": "Pemicu Acara vs. Sistem Polling vs. Webhook Manual",
+          "ar": "مشغلات الأحداث مقابل أنظمة الفحص الدوري مقابل الويبهوك اليدوي",
+          "tr": "Olay Tetikleyicileri vs. Polling Sistemleri vs. Manuel Webhook'lar"
+        },
+        "subheading": {
+          "en": "Compare setup overhead, network latency, and infrastructure resource costs for event automation.",
+          "pt": "Compare o overhead de configuração, latência de rede e custos de recursos de infraestrutura para automação de eventos.",
+          "es": "Compare el overhead de configuración, la latencia de red y los costos de recursos de infraestructura para la automatización de eventos.",
+          "id": "Bandingkan overhead pengaturan, latensi jaringan, dan biaya sumber daya infrastruktur untuk otomatisasi acara.",
+          "ar": "قارن تكلفة الإعداد وكمون الشبكة وتكاليف موارد البنية التحتية لأتمتة الأحداث.",
+          "tr": "Olay otomasyonu için kurulum yükü, ağ gecikmesi ve altyapı kaynak maliyetlerini karşılaştırın."
+        },
         "columns": [
-          { "label": { "en": "Comparison Point", "pt": "Ponto de Comparação", "es": "Punto de Comparación", "id": "Titik Perbandingan", "ar": "نقطة المقارنة", "tr": "Karşılaştırma Noktası" } },
-          { "label": { "en": "Real-time Event Triggers", "pt": "Triggers de Eventos em Tempo Real", "es": "Disparadores de Eventos en Tiempo Real", "id": "Pemicu Acara Real-time", "ar": "مشغلات أحداث في الوقت الفعلي", "tr": "Gerçek Zamanlı Olay Tetikleyicileri" }, "highlight": true },
-          { "label": { "en": "Cron Polling Systems", "pt": "Sistemas de Polling Cron", "es": "Sistemas de Polling Cron", "id": "Sistem Polling Cron", "ar": "أنظمة الفحص الدوري Cron", "tr": "Cron Polling Sistemleri" } },
-          { "label": { "en": "Manual Direct Webhooks", "pt": "Webhooks Diretos Manuais", "es": "Webhooks Directos Manuales", "id": "Webhook Langsung Manual", "ar": "ويبهوك مباشر يدوي", "tr": "Manuel Direkt Webhook'lar" } }
+          {
+            "label": {
+              "en": "Comparison Point",
+              "pt": "Ponto de Comparação",
+              "es": "Punto de Comparación",
+              "id": "Titik Perbandingan",
+              "ar": "نقطة المقارنة",
+              "tr": "Karşılaştırma Noktası"
+            }
+          },
+          {
+            "label": {
+              "en": "Real-time Event Triggers",
+              "pt": "Triggers de Eventos em Tempo Real",
+              "es": "Disparadores de Eventos en Tiempo Real",
+              "id": "Pemicu Acara Real-time",
+              "ar": "مشغلات أحداث في الوقت الفعلي",
+              "tr": "Gerçek Zamanlı Olay Tetikleyicileri"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Cron Polling Systems",
+              "pt": "Sistemas de Polling Cron",
+              "es": "Sistemas de Polling Cron",
+              "id": "Sistem Polling Cron",
+              "ar": "أنظمة الفحص الدوري Cron",
+              "tr": "Cron Polling Sistemleri"
+            }
+          },
+          {
+            "label": {
+              "en": "Manual Direct Webhooks",
+              "pt": "Webhooks Diretos Manuais",
+              "es": "Webhooks Directos Manuales",
+              "id": "Webhook Langsung Manual",
+              "ar": "ويبهوك مباشر يدوي",
+              "tr": "Manuel Direkt Webhook'lar"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Message Latency", "pt": "Latência da Mensagem", "es": "Latencia del Mensaje", "id": "Latensi Pesan", "ar": "كمون الرسالة", "tr": "Mesaj Gecikmesi" },
-            { "en": "< 1 second (Direct push)", "pt": "< 1 segundo (Push direto)", "es": "< 1 segundo (Push directo)", "id": "< 1 detik (Push langsung)", "ar": "< ثانية (بث مباشر)", "tr": "< 1 saniye (Doğrudan push)" },
-            { "en": "Minutes to hours (Batch run)", "pt": "Minutos a horas (Execução em lote)", "es": "Minutos a horas (Ejecución por lote)", "id": "Menit hingga jam (Proses batch)", "ar": "دقائق إلى ساعات (تشغيل دفعي)", "tr": "Dakikalar ila saatler (Toplu çalışma)" },
-            { "en": "< 1 second (Direct hook)", "pt": "< 1 segundo (Hook direto)", "es": "< 1 segundo (Hook directo)", "id": "< 1 detik (Hook langsung)", "ar": "< ثانية (Hook مباشر)", "tr": "< 1 saniye (Doğrudan hook)" }
+            {
+              "en": "Message Latency",
+              "pt": "Latência da Mensagem",
+              "es": "Latencia del Mensaje",
+              "id": "Latensi Pesan",
+              "ar": "كمون الرسالة",
+              "tr": "Mesaj Gecikmesi"
+            },
+            {
+              "en": "< 1 second (Direct push)",
+              "pt": "< 1 segundo (Push direto)",
+              "es": "< 1 segundo (Push directo)",
+              "id": "< 1 detik (Push langsung)",
+              "ar": "< ثانية (بث مباشر)",
+              "tr": "< 1 saniye (Doğrudan push)"
+            },
+            {
+              "en": "Minutes to hours (Batch run)",
+              "pt": "Minutos a horas (Execução em lote)",
+              "es": "Minutos a horas (Ejecución por lote)",
+              "id": "Menit hingga jam (Proses batch)",
+              "ar": "دقائق إلى ساعات (تشغيل دفعي)",
+              "tr": "Dakikalar ila saatler (Toplu çalışma)"
+            },
+            {
+              "en": "< 1 second (Direct hook)",
+              "pt": "< 1 segundo (Hook direto)",
+              "es": "< 1 segundo (Hook directo)",
+              "id": "< 1 detik (Hook langsung)",
+              "ar": "< ثانية (Hook مباشر)",
+              "tr": "< 1 saniye (Doğrudan hook)"
+            }
           ],
           [
-            { "en": "Development Effort", "pt": "Esforço de Desenvolvimento", "es": "Esfuerzo de Desarrollo", "id": "Upaya Pengembangan", "ar": "جهد التطوير", "tr": "Geliştirme Efor" },
-            { "en": "Low (Configure on UI/API)", "pt": "Baixo (Configurar na UI/API)", "es": "Bajo (Configurar en UI/API)", "id": "Rendah (Konfigurasi di UI/API)", "ar": "منخفض (إعداد على الواجهة/API)", "tr": "Düşük (UI/API'de yapılandırın)" },
-            { "en": "Medium (Write scheduler logic)", "pt": "Médio (Escrever lógica de agendador)", "es": "Medio (Escribir lógica de programador)", "id": "Sedang (Tulis logika penjadwal)", "ar": "متوسط (كتابة منطق جدولة المهام)", "tr": "Orta (Zamanlayıcı mantığı yazın)" },
-            { "en": "High (Handle edge failures)", "pt": "Alto (Tratar falhas de borda)", "es": "Alto (Manejar fallos perimetrales)", "id": "Tinggi (Tangani kegagalan tepi)", "ar": "عالٍ (معالجة حالات فشل الحافة)", "tr": "Yüksek (Sınır hatalarını yönetin)" }
+            {
+              "en": "Development Effort",
+              "pt": "Esforço de Desenvolvimento",
+              "es": "Esfuerzo de Desarrollo",
+              "id": "Upaya Pengembangan",
+              "ar": "جهد التطوير",
+              "tr": "Geliştirme Efor"
+            },
+            {
+              "en": "Low (Configure on UI/API)",
+              "pt": "Baixo (Configurar na UI/API)",
+              "es": "Bajo (Configurar en UI/API)",
+              "id": "Rendah (Konfigurasi di UI/API)",
+              "ar": "منخفض (إعداد على الواجهة/API)",
+              "tr": "Düşük (UI/API'de yapılandırın)"
+            },
+            {
+              "en": "Medium (Write scheduler logic)",
+              "pt": "Médio (Escrever lógica de agendador)",
+              "es": "Medio (Escribir lógica de programador)",
+              "id": "Sedang (Tulis logika penjadwal)",
+              "ar": "متوسط (كتابة منطق جدولة المهام)",
+              "tr": "Orta (Zamanlayıcı mantığı yazın)"
+            },
+            {
+              "en": "High (Handle edge failures)",
+              "pt": "Alto (Tratar falhas de borda)",
+              "es": "Alto (Manejar fallos perimetrales)",
+              "id": "Tinggi (Tangani kegagalan tepi)",
+              "ar": "عالٍ (معالجة حالات فشل الحافة)",
+              "tr": "Yüksek (Sınır hatalarını yönetin)"
+            }
           ],
           [
-            { "en": "Server Load Overhead", "pt": "Sobrecarga de Carga do Servidor", "es": "Sobrecarga de Carga del Servidor", "id": "Overhead Beban Server", "ar": "عبء تحميل الخادم", "tr": "Sunucu Yükü" },
-            { "en": "Minimal (Event-driven)", "pt": "Mínimo (Orientado a eventos)", "es": "Mínimo (Orientado a eventos)", "id": "Minimal (Berbasis acara)", "ar": "ضئيل (قائم على الأحداث)", "tr": "Minimum (Olay tabanlı)" },
-            { "en": "High (Heavy periodic DB scans)", "pt": "Alto (Varreduras periódicas pesadas no BD)", "es": "Alto (Escaneos periódicos pesados de BD)", "id": "Tinggi (Pemindaian DB berkala besar)", "ar": "عالٍ (فحوصات دورية ثقيلة للبيانات)", "tr": "Yüksek (Yoğun periyodik DB taramaları)" },
-            { "en": "Minimal (Push updates)", "pt": "Mínimo (Atualizações push)", "es": "Mínimo (Actualizaciones push)", "id": "Minimal (Pembaruan push)", "ar": "ضئيل (تحديثات push)", "tr": "Minimum (Push güncellemeleri)" }
+            {
+              "en": "Server Load Overhead",
+              "pt": "Sobrecarga de Carga do Servidor",
+              "es": "Sobrecarga de Carga del Servidor",
+              "id": "Overhead Beban Server",
+              "ar": "عبء تحميل الخادم",
+              "tr": "Sunucu Yükü"
+            },
+            {
+              "en": "Minimal (Event-driven)",
+              "pt": "Mínimo (Orientado a eventos)",
+              "es": "Mínimo (Orientado a eventos)",
+              "id": "Minimal (Berbasis acara)",
+              "ar": "ضئيل (قائم على الأحداث)",
+              "tr": "Minimum (Olay tabanlı)"
+            },
+            {
+              "en": "High (Heavy periodic DB scans)",
+              "pt": "Alto (Varreduras periódicas pesadas no BD)",
+              "es": "Alto (Escaneos periódicos pesados de BD)",
+              "id": "Tinggi (Pemindaian DB berkala besar)",
+              "ar": "عالٍ (فحوصات دورية ثقيلة للبيانات)",
+              "tr": "Yüksek (Yoğun periyodik DB taramaları)"
+            },
+            {
+              "en": "Minimal (Push updates)",
+              "pt": "Mínimo (Atualizações push)",
+              "es": "Mínimo (Actualizaciones push)",
+              "id": "Minimal (Pembaruan push)",
+              "ar": "ضئيل (تحديثات push)",
+              "tr": "Minimum (Push güncellemeleri)"
+            }
           ],
           [
-            { "en": "Error Fallback Handling", "pt": "Tratamento de Fallback de Erros", "es": "Manejo de Fallback de Errores", "id": "Penanganan Fallback Error", "ar": "معالجة الأخطاء الاحتياطية", "tr": "Hata Yedek Yönetimi" },
-            { "en": "✓ (Built-in retry queues)", "pt": "✓ (Filas de retentativa integradas)", "es": "✓ (Colas de reintento integradas)", "id": "✓ (Antrean coba ulang bawaan)", "ar": "✓ (صفوف إعادة محاولة مدمجة)", "tr": "✓ (Dahili yeniden deneme kuyrukları)" },
-            { "en": "✗ (Manual correction needed)", "pt": "✗ (Correção manual necessária)", "es": "✗ (Corrección manual necesaria)", "id": "✗ (Perbaikan manual diperlukan)", "ar": "✗ (تصحيح يدوي مطلوب)", "tr": "✗ (Manuel düzeltme gerekli)" },
-            { "en": "✗ (Requires custom script queues)", "pt": "✗ (Requer filas de scripts personalizados)", "es": "✗ (Requiere colas de scripts personalizados)", "id": "✗ (Memerlukan antrean skrip kustom)", "ar": "✗ (يتطلب صفوف سكريبت مخصصة)", "tr": "✗ (Özel komut dosyası kuyrukları gerektirir)" }
+            {
+              "en": "Error Fallback Handling",
+              "pt": "Tratamento de Fallback de Erros",
+              "es": "Manejo de Fallback de Errores",
+              "id": "Penanganan Fallback Error",
+              "ar": "معالجة الأخطاء الاحتياطية",
+              "tr": "Hata Yedek Yönetimi"
+            },
+            {
+              "en": "✓ (Built-in retry queues)",
+              "pt": "✓ (Filas de retentativa integradas)",
+              "es": "✓ (Colas de reintento integradas)",
+              "id": "✓ (Antrean coba ulang bawaan)",
+              "ar": "✓ (صفوف إعادة محاولة مدمجة)",
+              "tr": "✓ (Dahili yeniden deneme kuyrukları)"
+            },
+            {
+              "en": "✗ (Manual correction needed)",
+              "pt": "✗ (Correção manual necessária)",
+              "es": "✗ (Corrección manual necesaria)",
+              "id": "✗ (Perbaikan manual diperlukan)",
+              "ar": "✗ (تصحيح يدوي مطلوب)",
+              "tr": "✗ (Manuel düzeltme gerekli)"
+            },
+            {
+              "en": "✗ (Requires custom script queues)",
+              "pt": "✗ (Requer filas de scripts personalizados)",
+              "es": "✗ (Requiere colas de scripts personalizados)",
+              "id": "✗ (Memerlukan antrean skrip kustom)",
+              "ar": "✗ (يتطلب صفوف سكريبت مخصصة)",
+              "tr": "✗ (Özel komut dosyası kuyrukları gerektirir)"
+            }
           ]
         ]
       }
@@ -192,9 +419,30 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Trigger API", "pt": "API de Trigger", "es": "API de Trigger", "id": "API Pemicu", "ar": "API التشغيل", "tr": "Tetikleme API'si" },
-        "heading": { "en": "Register a Automated Message Trigger", "pt": "Registrar um Trigger de Mensagem Automatizado", "es": "Registrar un Disparador de Mensajes Automatizado", "id": "Daftarkan Pemicu Pesan Otomatis", "ar": "تسجيل مشغل رسائل آلي", "tr": "Otomatik Mesaj Tetikleyicisi Kaydedin" },
-        "overlayText": { "en": "Auto-Trigger API Sandbox — Coming Soon", "pt": "Sandbox API Auto-Trigger — Em Breve", "es": "Sandbox API Auto-Trigger — Próximamente", "id": "Sandbox API Auto-Trigger — Segera Hadir", "ar": "بيئة تجريبية API Auto-Trigger — قريباً", "tr": "Auto-Trigger API Sanal Alanı — Çok Yakında" },
+        "badge": {
+          "en": "Trigger API",
+          "pt": "API de Trigger",
+          "es": "API de Trigger",
+          "id": "API Pemicu",
+          "ar": "API التشغيل",
+          "tr": "Tetikleme API'si"
+        },
+        "heading": {
+          "en": "Register a Automated Message Trigger",
+          "pt": "Registrar um Trigger de Mensagem Automatizado",
+          "es": "Registrar un Disparador de Mensajes Automatizado",
+          "id": "Daftarkan Pemicu Pesan Otomatis",
+          "ar": "تسجيل مشغل رسائل آلي",
+          "tr": "Otomatik Mesaj Tetikleyicisi Kaydedin"
+        },
+        "overlayText": {
+          "en": "Auto-Trigger API Sandbox — Coming Soon",
+          "pt": "Sandbox API Auto-Trigger — Em Breve",
+          "es": "Sandbox API Auto-Trigger — Próximamente",
+          "id": "Sandbox API Auto-Trigger — Segera Hadir",
+          "ar": "بيئة تجريبية API Auto-Trigger — قريباً",
+          "tr": "Auto-Trigger API Sanal Alanı — Çok Yakında"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -210,7 +458,14 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "Perguntas Frequentes", "es": "Preguntas Frecuentes", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
         "heading": {
           "en": "Auto-Trigger — FAQ",
           "pt": "Disparo Automático — FAQ",
@@ -244,12 +499,59 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar"
+        },
         "links": [
-          { "label": { "en": "Chatbot Builder", "pt": "Construtor de Chatbot", "es": "Constructor de Chatbot", "id": "Pembuat Chatbot", "ar": "منشئ الشات بوت", "tr": "Chatbot Oluşturucu" }, "href": "/whatsapp/chatbot" },
-          { "label": { "en": "Utility Notifications", "pt": "Notificações Utilitárias", "es": "Notificaciones Utilitarias", "id": "Notifikasi Utilitas", "ar": "إشعارات الخدمات", "tr": "Yardımcı Bildirimler" }, "href": "/whatsapp/utility" },
-          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması" }, "href": "/whatsapp/broadcast" },
-          { "label": { "en": "Technical Support", "pt": "Suporte Técnico", "es": "Soporte Técnico", "id": "Dukungan Teknis", "ar": "الدعم التقني", "tr": "Teknik Destek" }, "href": "/contact" }
+          {
+            "label": {
+              "en": "Chatbot Builder",
+              "pt": "Construtor de Chatbot",
+              "es": "Constructor de Chatbot",
+              "id": "Pembuat Chatbot",
+              "ar": "منشئ الشات بوت",
+              "tr": "Chatbot Oluşturucu"
+            },
+            "href": "/whatsapp/chatbot"
+          },
+          {
+            "label": {
+              "en": "Utility Notifications",
+              "pt": "Notificações Utilitárias",
+              "es": "Notificaciones Utilitarias",
+              "id": "Notifikasi Utilitas",
+              "ar": "إشعارات الخدمات",
+              "tr": "Yardımcı Bildirimler"
+            },
+            "href": "/whatsapp/utility"
+          },
+          {
+            "label": {
+              "en": "Broadcast Messaging",
+              "pt": "Mensagens de Transmissão",
+              "es": "Mensajes de Difusión",
+              "id": "Pesan Siaran",
+              "ar": "رسائل البث",
+              "tr": "Yayın Mesajlaşması"
+            },
+            "href": "/whatsapp/broadcast"
+          },
+          {
+            "label": {
+              "en": "Technical Support",
+              "pt": "Suporte Técnico",
+              "es": "Soporte Técnico",
+              "id": "Dukungan Teknis",
+              "ar": "الدعم التقني",
+              "tr": "Teknik Destek"
+            },
+            "href": "/contact"
+          }
         ]
       }
     },

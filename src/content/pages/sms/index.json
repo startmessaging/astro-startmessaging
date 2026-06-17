@@ -1,5 +1,7 @@
 {
-  "countries": ["in"],
+  "countries": [
+    "in"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -7,40 +9,63 @@
     },
     "description": {
       "en": "Reliable SMS API for India. Send transactional SMS at ₹0.25 per message with pre-registered TRAI DLT compliant routes. 99.9% delivery, sub-second speed. Free test plan."
-    }
+    },
+    "ogImage": "/og/sms-api.jpg"
   },
   "sections": [
     {
       "type": "hero",
       "theme": "sms",
       "props": {
-        "badge": { "en": "SMS API — India" },
-        "title": { "en": "SMS OTPs at ₹0.25 — No DLT Required" },
+        "badge": {
+          "en": "SMS API — India"
+        },
+        "title": {
+          "en": "SMS OTPs at ₹0.25 — No DLT Required"
+        },
         "subtitle": {
           "en": "Send transactional SMS across all Indian networks with 99.9% delivery, sub-second speed, and zero DLT registration hassle. Pre-registered compliant routes handle everything for you."
         },
-        "primaryCta": { "en": "Start Sending SMS" },
+        "primaryCta": {
+          "en": "Start Sending SMS"
+        },
         "primaryHref": "https://app.startmessaging.com/signup",
-        "secondaryCta": { "en": "View SMS Pricing" },
+        "secondaryCta": {
+          "en": "View SMS Pricing"
+        },
         "secondaryHref": "/pricing"
       }
     },
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Why Choose StartMessaging for SMS?" },
+        "heading": {
+          "en": "Why Choose StartMessaging for SMS?"
+        },
         "body": {
           "en": "Most SMS providers in India require DLT registration — a complex process that can take weeks. StartMessaging operates through pre-registered DLT routes, letting you send transactional SMS instantly at just ₹0.25 per message. Our routing engine dynamically selects the fastest delivery path."
         },
         "bullets": [
-          { "en": "₹0.25 per transactional SMS" },
-          { "en": "No DLT registration required" },
-          { "en": "99.9% delivery rate" },
-          { "en": "Sub-second delivery speed" },
-          { "en": "All Indian networks supported" }
+          {
+            "en": "₹0.25 per transactional SMS"
+          },
+          {
+            "en": "No DLT registration required"
+          },
+          {
+            "en": "99.9% delivery rate"
+          },
+          {
+            "en": "Sub-second delivery speed"
+          },
+          {
+            "en": "All Indian networks supported"
+          }
         ],
         "image": "/images/sms-dashboard.webp",
-        "imageAlt": { "en": "SMS Logs Dashboard" },
+        "imageAlt": {
+          "en": "SMS Logs Dashboard"
+        },
         "reversed": false
       }
     },
@@ -48,18 +73,42 @@
       "type": "statsBar",
       "props": {
         "stats": [
-          { "value": "99.9%", "label": { "en": "Average Delivery Rate" } },
-          { "value": "< 2s", "label": { "en": "Delivery Speed" } },
-          { "value": "10M+", "label": { "en": "Messages Processed Daily" } },
-          { "value": "0", "label": { "en": "DLT Setup Hours" } }
+          {
+            "value": "99.9%",
+            "label": {
+              "en": "Average Delivery Rate"
+            }
+          },
+          {
+            "value": "< 2s",
+            "label": {
+              "en": "Delivery Speed"
+            }
+          },
+          {
+            "value": "10M+",
+            "label": {
+              "en": "Messages Processed Daily"
+            }
+          },
+          {
+            "value": "0",
+            "label": {
+              "en": "DLT Setup Hours"
+            }
+          }
         ]
       }
     },
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Send an SMS in One API Call" },
-        "heading": { "en": "Works with every language. Just a single POST request." },
+        "badge": {
+          "en": "Send an SMS in One API Call"
+        },
+        "heading": {
+          "en": "Works with every language. Just a single POST request."
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -91,36 +140,62 @@
     {
       "type": "logoCloud",
       "props": {
-        "heading": { "en": "High-Reliability Carrier Routing" },
-        "subheading": { "en": "We route directly through Tier 1 operators for maximum deliverability." },
+        "heading": {
+          "en": "High-Reliability Carrier Routing"
+        },
+        "subheading": {
+          "en": "We route directly through Tier 1 operators for maximum deliverability."
+        },
         "logos": [
-          { "name": "Direct Routes", "icon": "server" },
-          { "name": "Global Cloud", "icon": "cloud" },
-          { "name": "TRAI Compliant", "icon": "verified" },
-          { "name": "Jio/Airtel Failover", "icon": "globe" }
+          {
+            "name": "Direct Routes",
+            "icon": "server"
+          },
+          {
+            "name": "Global Cloud",
+            "icon": "cloud"
+          },
+          {
+            "name": "TRAI Compliant",
+            "icon": "verified"
+          },
+          {
+            "name": "Jio/Airtel Failover",
+            "icon": "globe"
+          }
         ]
       }
     },
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "SMS API — Frequently Asked Questions" },
+        "badge": {
+          "en": "FAQs"
+        },
+        "heading": {
+          "en": "SMS API — Frequently Asked Questions"
+        },
         "items": [
           {
-            "question": { "en": "Why don't I need DLT registration?" },
+            "question": {
+              "en": "Why don't I need DLT registration?"
+            },
             "answer": {
               "en": "StartMessaging operates through pre-registered DLT compliant routes with major Indian telecom operators. This means your transactional messages are sent through already-registered sender IDs and templates, eliminating the need for you to go through the DLT registration process yourself. This saves weeks of setup time."
             }
           },
           {
-            "question": { "en": "What types of SMS can I send?" },
+            "question": {
+              "en": "What types of SMS can I send?"
+            },
             "answer": {
               "en": "Our SMS API supports transactional messages (OTPs, alerts, confirmations). All messages are sent through pre-registered DLT routes at ₹0.25/SMS. For promotional SMS, DLT registration is required per TRAI regulations — contact us for assistance with the registration process."
             }
           },
           {
-            "question": { "en": "What is the delivery rate?" },
+            "question": {
+              "en": "What is the delivery rate?"
+            },
             "answer": {
               "en": "Our transactional SMS delivery rate is 99.9% across all major Indian networks including Jio, Airtel, Vi, and BSNL. We use intelligent routing to select the fastest delivery path. Average delivery time is under 2 seconds. You receive real-time delivery receipts via webhook."
             }
@@ -131,23 +206,49 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages"
+        },
         "links": [
-          { "label": { "en": "DLT SMS Guide" }, "href": "/sms/dlt" },
-          { "label": { "en": "Non-DLT Route" }, "href": "/sms/non-dlt" },
-          { "label": { "en": "Auth API Docs" }, "href": "/auth-api" },
-          { "label": { "en": "Pricing" }, "href": "/pricing" }
+          {
+            "label": {
+              "en": "DLT SMS Guide"
+            },
+            "href": "/sms/dlt"
+          },
+          {
+            "label": {
+              "en": "Non-DLT Route"
+            },
+            "href": "/sms/non-dlt"
+          },
+          {
+            "label": {
+              "en": "Auth API Docs"
+            },
+            "href": "/auth-api"
+          },
+          {
+            "label": {
+              "en": "Pricing"
+            },
+            "href": "/pricing"
+          }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Start Sending SMS at ₹0.25" },
+        "heading": {
+          "en": "Start Sending SMS at ₹0.25"
+        },
         "subtext": {
           "en": "Free plan. No DLT registration. No credit card required."
         },
-        "primaryCta": { "en": "Get Started Free" },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

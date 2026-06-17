@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -18,7 +26,7 @@
       "ar": "تعرف على مهمة StartMessaging لتبسيط الاتصالات السحابية للشركات في جميع أنحاء العالم باستخدام واجهات واتساب وSMS.",
       "tr": "StartMessaging'in WhatsApp ve SMS API'leri ile dünya çapında işletmeler için bulut iletişimini basitleştirme misyonu hakkında bilgi edinin."
     },
-    "ogImage": "/og.png?title=About+Us&theme=sms"
+    "ogImage": "/og/about.jpg"
   },
   "sections": [
     {
@@ -143,12 +151,30 @@
           "tr": "Teknoloji ve Ortaklıklar"
         },
         "logos": [
-          { "name": "Meta BSP", "icon": "meta" },
-          { "name": "WhatsApp", "icon": "whatsapp" },
-          { "name": "Verified API", "icon": "verified" },
-          { "name": "Cloud Infrastructure", "icon": "cloud" },
-          { "name": "Global Network", "icon": "globe" },
-          { "name": "Redundant Servers", "icon": "server" }
+          {
+            "name": "Meta BSP",
+            "icon": "meta"
+          },
+          {
+            "name": "WhatsApp",
+            "icon": "whatsapp"
+          },
+          {
+            "name": "Verified API",
+            "icon": "verified"
+          },
+          {
+            "name": "Cloud Infrastructure",
+            "icon": "cloud"
+          },
+          {
+            "name": "Global Network",
+            "icon": "globe"
+          },
+          {
+            "name": "Redundant Servers",
+            "icon": "server"
+          }
         ]
       }
     },
@@ -202,7 +228,9 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
+        "badge": {
+          "en": "FAQs"
+        },
         "heading": {
           "en": "About — Frequently Asked Questions",
           "pt": "Sobre — Perguntas Frequentes",

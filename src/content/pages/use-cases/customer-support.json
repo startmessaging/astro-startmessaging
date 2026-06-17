@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
     "title": {
@@ -19,7 +27,7 @@
       "ar": "أتمت حتى 70% من دعم العملاء مع شات بوت واتساب. قدّم ردوداً فورية ووجّه الاستفسارات للموظفين.",
       "tr": "WhatsApp chatbot'ları ile müşteri desteğinin %70'ini otomatikleştirin. Anında yanıtlar verin ve karmaşık sorguları canlı ajanlara yönlendirin."
     },
-    "ogImage": "/images/customer-support-dashboard.webp"
+    "ogImage": "/og/whatsapp-api.jpg"
   },
   "sections": [
     {
@@ -68,7 +76,15 @@
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Smart Support Automation", "pt": "Automação Inteligente de Suporte", "es": "Automatización Inteligente de Soporte", "id": "Otomatisasi Dukungan Cerdas", "ar": "أتمتة الدعم الذكي", "tr": "Akıllı Destek Otomasyonu", "ng": "Smart Support Automation" },
+        "heading": {
+          "en": "Smart Support Automation",
+          "pt": "Automação Inteligente de Suporte",
+          "es": "Automatización Inteligente de Soporte",
+          "id": "Otomatisasi Dukungan Cerdas",
+          "ar": "أتمتة الدعم الذكي",
+          "tr": "Akıllı Destek Otomasyonu",
+          "ng": "Smart Support Automation"
+        },
         "body": {
           "en": "Our chatbot builder lets you create intelligent support flows that understand customer intent, provide instant answers to FAQs, check order status, process returns, and escalate to human agents when needed — all without writing code.",
           "pt": "Nosso construtor de chatbot permite criar fluxos inteligentes que entendem a intenção do cliente, respondem FAQs, verificam status de pedidos e encaminham para humanos — sem programar.",
@@ -78,9 +94,33 @@
           "tr": "Chatbot oluşturucumuz, müşteri amacını anlayan, SSS'lere anında yanıt veren, sipariş durumunu kontrol eden ve gerektiğinde insan ajanlara aktaran akıllı destek akışları oluşturmanızı sağlar; hepsi kod yazmadan."
         },
         "bullets": [
-          { "en": "No-code visual chatbot builder", "pt": "Construtor visual de chatbot no-code", "es": "Creador visual de chatbot sin código", "id": "Pembuat chatbot visual tanpa kode", "ar": "منشئ شات بوت مرئي بدون كود", "tr": "Kodsuz görsel chatbot oluşturucu", "ng": "No-code visual chatbot builder" },
-          { "en": "Automated FAQ matching & order tracking", "pt": "Busca automática em FAQs e rastreio", "es": "Búsqueda automática de FAQs y rastreo", "id": "Pencocokan FAQ & pelacakan pesanan otomatis", "ar": "مطابقة الأسئلة الشائعة وتتبع الطلبات تلقائياً", "tr": "Otomatik SSS eşleşmesi ve sipariş takibi", "ng": "Automated FAQ matching & order tracking" },
-          { "en": "Intelligent live agent handoff routing", "pt": "Encaminhamento inteligente para agente", "es": "Enrutamiento inteligente hacia agentes humanos", "id": "Perutean serah terima agen live yang cerdas", "ar": "توجيه ذكي لتحويل المحادثة للموظف البشري", "tr": "Akıllı canlı ajan devir yönlendirmesi", "ng": "Intelligent live agent handoff routing" }
+          {
+            "en": "No-code visual chatbot builder",
+            "pt": "Construtor visual de chatbot no-code",
+            "es": "Creador visual de chatbot sin código",
+            "id": "Pembuat chatbot visual tanpa kode",
+            "ar": "منشئ شات بوت مرئي بدون كود",
+            "tr": "Kodsuz görsel chatbot oluşturucu",
+            "ng": "No-code visual chatbot builder"
+          },
+          {
+            "en": "Automated FAQ matching & order tracking",
+            "pt": "Busca automática em FAQs e rastreio",
+            "es": "Búsqueda automática de FAQs y rastreo",
+            "id": "Pencocokan FAQ & pelacakan pesanan otomatis",
+            "ar": "مطابقة الأسئلة الشائعة وتتبع الطلبات تلقائياً",
+            "tr": "Otomatik SSS eşleşmesi ve sipariş takibi",
+            "ng": "Automated FAQ matching & order tracking"
+          },
+          {
+            "en": "Intelligent live agent handoff routing",
+            "pt": "Encaminhamento inteligente para agente",
+            "es": "Enrutamiento inteligente hacia agentes humanos",
+            "id": "Perutean serah terima agen live yang cerdas",
+            "ar": "توجيه ذكي لتحويل المحادثة للموظف البشري",
+            "tr": "Akıllı canlı ajan devir yönlendirmesi",
+            "ng": "Intelligent live agent handoff routing"
+          }
         ],
         "image": "/images/customer-support-dashboard.webp",
         "imageAlt": {
@@ -101,11 +141,35 @@
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Handoff Logic", "pt": "Lógica de Transferência", "es": "Lógica de Transferencia", "id": "Logika Serah Terima", "ar": "منطق التحويل", "tr": "Devir Mantığı", "ng": "Handoff Logic" },
-        "heading": { "en": "Seamless Bot-to-Human Handoff", "pt": "Transferência Perfeita de Bot para Humano", "es": "Transferencia Perfecta de Bot a Humano", "id": "Serah Terima Bot-ke-Manusia yang Mulus", "ar": "تحويل سلس من البوت إلى الموظف البشري", "tr": "Bot'tan İnsana Sorunsuz Devir", "ng": "Seamless Bot-to-Human Handoff" },
+        "badge": {
+          "en": "Handoff Logic",
+          "pt": "Lógica de Transferência",
+          "es": "Lógica de Transferencia",
+          "id": "Logika Serah Terima",
+          "ar": "منطق التحويل",
+          "tr": "Devir Mantığı",
+          "ng": "Handoff Logic"
+        },
+        "heading": {
+          "en": "Seamless Bot-to-Human Handoff",
+          "pt": "Transferência Perfeita de Bot para Humano",
+          "es": "Transferencia Perfecta de Bot a Humano",
+          "id": "Serah Terima Bot-ke-Manusia yang Mulus",
+          "ar": "تحويل سلس من البوت إلى الموظف البشري",
+          "tr": "Bot'tan İnsana Sorunsuz Devir",
+          "ng": "Seamless Bot-to-Human Handoff"
+        },
         "steps": [
           {
-            "title": { "en": "1. Bot Resolution", "pt": "1. Resolução pelo Bot", "es": "1. Resolución del Bot", "id": "1. Resolusi Bot", "ar": "1. حل البوت", "tr": "1. Bot Çözümü", "ng": "1. Bot Resolution" },
+            "title": {
+              "en": "1. Bot Resolution",
+              "pt": "1. Resolução pelo Bot",
+              "es": "1. Resolución del Bot",
+              "id": "1. Resolusi Bot",
+              "ar": "1. حل البوت",
+              "tr": "1. Bot Çözümü",
+              "ng": "1. Bot Resolution"
+            },
             "description": {
               "en": "The WhatsApp bot handles FAQs, user profiling, and simple transactional queries instantly.",
               "pt": "O bot do WhatsApp gerencia FAQs, perfil do usuário e consultas transacionais simples instantaneamente.",
@@ -117,7 +181,15 @@
             }
           },
           {
-            "title": { "en": "2. Agent Request", "pt": "2. Solicitação de Agente", "es": "2. Solicitud de Agente", "id": "2. Permintaan Agen", "ar": "2. طلب الموظف", "tr": "2. Temsilci Talebi", "ng": "2. Agent Request" },
+            "title": {
+              "en": "2. Agent Request",
+              "pt": "2. Solicitação de Agente",
+              "es": "2. Solicitud de Agente",
+              "id": "2. Permintaan Agen",
+              "ar": "2. طلب الموظف",
+              "tr": "2. Temsilci Talebi",
+              "ng": "2. Agent Request"
+            },
             "description": {
               "en": "For complex requests, the user clicks 'Talk to Agent', triggering a handoff event hook.",
               "pt": "Para problemas complexos, o usuário clica em 'Falar com Agente', disparando a transferência.",
@@ -129,7 +201,15 @@
             }
           },
           {
-            "title": { "en": "3. Live Takeover", "pt": "3. Assunção ao Vivo", "es": "3. Intervención en Vivo", "id": "3. Pengambilalihan Langsung", "ar": "3. الاستحواذ المباشر", "tr": "3. Canlı Devralma", "ng": "3. Live Takeover" },
+            "title": {
+              "en": "3. Live Takeover",
+              "pt": "3. Assunção ao Vivo",
+              "es": "3. Intervención en Vivo",
+              "id": "3. Pengambilalihan Langsung",
+              "ar": "3. الاستحواذ المباشر",
+              "tr": "3. Canlı Devralma",
+              "ng": "3. Live Takeover"
+            },
             "description": {
               "en": "The support dashboard routes the chat history to a live agent queue for immediate intervention.",
               "pt": "O painel de suporte envia o histórico da conversa para a fila de um agente humano para ajuda imediata.",
@@ -146,39 +226,232 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Support Channels", "pt": "Canais de Suporte", "es": "Canales de Soporte", "id": "Saluran Dukungan", "ar": "قنوات الدعم", "tr": "Destek Kanalları", "ng": "Support Channels" },
-        "heading": { "en": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center", "pt": "Chatbot WhatsApp vs. Fila de Email vs. Call Center", "es": "Chatbot WhatsApp vs. Fila de Email vs. Call Center", "id": "WhatsApp Bot Support vs. Antrean Email vs. Call Center Langsung", "ar": "دعم شات بوت واتساب مقابل قائمة البريد الإلكتروني مقابل مركز الاتصال المباشر", "tr": "WhatsApp Bot Desteği vs. Geleneksel E-posta Kuyruğu vs. Canlı Çağrı Merkezi", "ng": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center" },
-        "subheading": { "en": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms.", "pt": "Compare velocidade de resolução, custos de licença e acessibilidade em plataformas de suporte.", "es": "Compare velocidad de resolución, costos de licencia y accesibilidad en plataformas de soporte.", "id": "Bandingkan kecepatan resolusi, biaya lisensi, dan aksesibilitas pelanggan di seluruh platform dukungan.", "ar": "قارن سرعات الحل وتكاليف ترخيص المقاعد وإمكانية وصول العملاء عبر منصات الدعم.", "tr": "Destek platformlarında çözüm hızlarını, lisans maliyetlerini ve müşteri erişilebilirliğini karşılaştırın.", "ng": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms." },
+        "badge": {
+          "en": "Support Channels",
+          "pt": "Canais de Suporte",
+          "es": "Canales de Soporte",
+          "id": "Saluran Dukungan",
+          "ar": "قنوات الدعم",
+          "tr": "Destek Kanalları",
+          "ng": "Support Channels"
+        },
+        "heading": {
+          "en": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center",
+          "pt": "Chatbot WhatsApp vs. Fila de Email vs. Call Center",
+          "es": "Chatbot WhatsApp vs. Fila de Email vs. Call Center",
+          "id": "WhatsApp Bot Support vs. Antrean Email vs. Call Center Langsung",
+          "ar": "دعم شات بوت واتساب مقابل قائمة البريد الإلكتروني مقابل مركز الاتصال المباشر",
+          "tr": "WhatsApp Bot Desteği vs. Geleneksel E-posta Kuyruğu vs. Canlı Çağrı Merkezi",
+          "ng": "WhatsApp Chatbot Support vs. Traditional Email Queue vs. Live Call Center"
+        },
+        "subheading": {
+          "en": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms.",
+          "pt": "Compare velocidade de resolução, custos de licença e acessibilidade em plataformas de suporte.",
+          "es": "Compare velocidad de resolución, costos de licencia y accesibilidad en plataformas de soporte.",
+          "id": "Bandingkan kecepatan resolusi, biaya lisensi, dan aksesibilitas pelanggan di seluruh platform dukungan.",
+          "ar": "قارن سرعات الحل وتكاليف ترخيص المقاعد وإمكانية وصول العملاء عبر منصات الدعم.",
+          "tr": "Destek platformlarında çözüm hızlarını, lisans maliyetlerini ve müşteri erişilebilirliğini karşılaştırın.",
+          "ng": "Compare resolution speeds, seat licensing costs, and customer accessibility across support platforms."
+        },
         "columns": [
-          { "label": { "en": "Factor", "pt": "Fator", "es": "Factor", "id": "Faktor", "ar": "العامل", "tr": "Faktör", "ng": "Factor" } },
-          { "label": { "en": "WhatsApp Bot Support", "pt": "Suporte Bot WhatsApp", "es": "Soporte Bot WhatsApp", "id": "Dukungan Bot WhatsApp", "ar": "دعم شات بوت واتساب", "tr": "WhatsApp Bot Desteği", "ng": "WhatsApp Bot Support" }, "highlight": true },
-          { "label": { "en": "Email Queue Support", "pt": "Suporte via Email", "es": "Soporte via Email", "id": "Dukungan Antrean Email", "ar": "دعم البريد الإلكتروني", "tr": "E-posta Kuyruk Desteği", "ng": "Email Queue Support" } },
-          { "label": { "en": "Live Call Center", "pt": "Central de Atendimento", "es": "Call Center en Vivo", "id": "Call Center Langsung", "ar": "مركز الاتصال المباشر", "tr": "Canlı Çağrı Merkezi", "ng": "Live Call Center" } }
+          {
+            "label": {
+              "en": "Factor",
+              "pt": "Fator",
+              "es": "Factor",
+              "id": "Faktor",
+              "ar": "العامل",
+              "tr": "Faktör",
+              "ng": "Factor"
+            }
+          },
+          {
+            "label": {
+              "en": "WhatsApp Bot Support",
+              "pt": "Suporte Bot WhatsApp",
+              "es": "Soporte Bot WhatsApp",
+              "id": "Dukungan Bot WhatsApp",
+              "ar": "دعم شات بوت واتساب",
+              "tr": "WhatsApp Bot Desteği",
+              "ng": "WhatsApp Bot Support"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Email Queue Support",
+              "pt": "Suporte via Email",
+              "es": "Soporte via Email",
+              "id": "Dukungan Antrean Email",
+              "ar": "دعم البريد الإلكتروني",
+              "tr": "E-posta Kuyruk Desteği",
+              "ng": "Email Queue Support"
+            }
+          },
+          {
+            "label": {
+              "en": "Live Call Center",
+              "pt": "Central de Atendimento",
+              "es": "Call Center en Vivo",
+              "id": "Call Center Langsung",
+              "ar": "مركز الاتصال المباشر",
+              "tr": "Canlı Çağrı Merkezi",
+              "ng": "Live Call Center"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Average Response Speed", "pt": "Tempo de Resposta", "es": "Velocidad de Respuesta", "id": "Kecepatan Respons Rata-rata", "ar": "متوسط سرعة الاستجابة", "tr": "Ortalama Yanıt Hızı", "ng": "Average Response Speed" },
-            { "en": "< 1 second (Instant)", "pt": "< 1 segundo (Instantâneo)", "es": "< 1 segundo (Instantáneo)", "id": "< 1 detik (Instan)", "ar": "< ثانية واحدة (فوري)", "tr": "< 1 saniye (Anında)", "ng": "< 1 second (Instant)" },
-            { "en": "2 - 24 hours", "pt": "2 - 24 horas", "es": "2 - 24 horas", "id": "2 - 24 jam", "ar": "2 - 24 ساعة", "tr": "2 - 24 saat", "ng": "2 - 24 hours" },
-            { "en": "5 - 30 minutes (Hold queue)", "pt": "5 - 30 min (Em espera)", "es": "5 - 30 minutos (En espera)", "id": "5 - 30 menit (Antrean tunggu)", "ar": "5 - 30 دقيقة (قائمة الانتظار)", "tr": "5 - 30 dakika (Bekleme kuyruğu)", "ng": "5 - 30 minutes (Hold queue)" }
+            {
+              "en": "Average Response Speed",
+              "pt": "Tempo de Resposta",
+              "es": "Velocidad de Respuesta",
+              "id": "Kecepatan Respons Rata-rata",
+              "ar": "متوسط سرعة الاستجابة",
+              "tr": "Ortalama Yanıt Hızı",
+              "ng": "Average Response Speed"
+            },
+            {
+              "en": "< 1 second (Instant)",
+              "pt": "< 1 segundo (Instantâneo)",
+              "es": "< 1 segundo (Instantáneo)",
+              "id": "< 1 detik (Instan)",
+              "ar": "< ثانية واحدة (فوري)",
+              "tr": "< 1 saniye (Anında)",
+              "ng": "< 1 second (Instant)"
+            },
+            {
+              "en": "2 - 24 hours",
+              "pt": "2 - 24 horas",
+              "es": "2 - 24 horas",
+              "id": "2 - 24 jam",
+              "ar": "2 - 24 ساعة",
+              "tr": "2 - 24 saat",
+              "ng": "2 - 24 hours"
+            },
+            {
+              "en": "5 - 30 minutes (Hold queue)",
+              "pt": "5 - 30 min (Em espera)",
+              "es": "5 - 30 minutos (En espera)",
+              "id": "5 - 30 menit (Antrean tunggu)",
+              "ar": "5 - 30 دقيقة (قائمة الانتظار)",
+              "tr": "5 - 30 dakika (Bekleme kuyruğu)",
+              "ng": "5 - 30 minutes (Hold queue)"
+            }
           ],
           [
-            { "en": "Support Availability", "pt": "Disponibilidade", "es": "Disponibilidad", "id": "Ketersediaan Dukungan", "ar": "توفر الدعم", "tr": "Destek Kullanılabilirliği", "ng": "Support Availability" },
-            { "en": "24/7/365 (Unattended)", "pt": "24/7/365 (Sem interrupções)", "es": "24/7/365 (Sin interrupciones)", "id": "24/7/365 (Tanpa pengawasan)", "ar": "24/7/365 (دون توقف)", "tr": "7/24/365 (Gözetimsiz)", "ng": "24/7/365 (Unattended)" },
-            { "en": "Business hours queue", "pt": "Horário comercial", "es": "Horario comercial", "id": "Antrean jam bisnis", "ar": "ساعات العمل فقط", "tr": "Mesai saatleri kuyruğu", "ng": "Business hours queue" },
-            { "en": "Shift-work availability", "pt": "Escala de turnos", "es": "Disponibilidad de turnos", "id": "Ketersediaan kerja shift", "ar": "توفر بنظام الورديات", "tr": "Vardiyalı çalışma sistemi", "ng": "Shift-work availability" }
+            {
+              "en": "Support Availability",
+              "pt": "Disponibilidade",
+              "es": "Disponibilidad",
+              "id": "Ketersediaan Dukungan",
+              "ar": "توفر الدعم",
+              "tr": "Destek Kullanılabilirliği",
+              "ng": "Support Availability"
+            },
+            {
+              "en": "24/7/365 (Unattended)",
+              "pt": "24/7/365 (Sem interrupções)",
+              "es": "24/7/365 (Sin interrupciones)",
+              "id": "24/7/365 (Tanpa pengawasan)",
+              "ar": "24/7/365 (دون توقف)",
+              "tr": "7/24/365 (Gözetimsiz)",
+              "ng": "24/7/365 (Unattended)"
+            },
+            {
+              "en": "Business hours queue",
+              "pt": "Horário comercial",
+              "es": "Horario comercial",
+              "id": "Antrean jam bisnis",
+              "ar": "ساعات العمل فقط",
+              "tr": "Mesai saatleri kuyruğu",
+              "ng": "Business hours queue"
+            },
+            {
+              "en": "Shift-work availability",
+              "pt": "Escala de turnos",
+              "es": "Disponibilidad de turnos",
+              "id": "Ketersediaan kerja shift",
+              "ar": "توفر بنظام الورديات",
+              "tr": "Vardiyalı çalışma sistemi",
+              "ng": "Shift-work availability"
+            }
           ],
           [
-            { "en": "Seat Costs", "pt": "Custos por Licença", "es": "Costos de Puesto", "id": "Biaya Lisensi", "ar": "تكاليف المقاعد", "tr": "Kullanıcı Maliyetleri", "ng": "Seat Costs" },
-            { "en": "Low flat API pricing", "pt": "Taxa fixa de API baixa", "es": "Precios de API planos y bajos", "id": "Harga API flat rendah", "ar": "تسعير واجهة برمجة منخفض وثابت", "tr": "Düşük sabit API fiyatlandırması", "ng": "Low flat API pricing" },
-            { "en": "Per-agent CRM licenses", "pt": "Licenças de CRM por agente", "es": "Licencias de CRM por agente", "id": "Lisensi CRM per agen", "ar": "تراخيص CRM لكل موظف", "tr": "Ajan başına CRM lisansları", "ng": "Per-agent CRM licenses" },
-            { "en": "High telecom & staff overhead", "pt": "Altos custos de equipe/telecom", "es": "Altos costos de personal y telecom", "id": "Biaya tim & telekomunikasi tinggi", "ar": "تكاليف اتصالات وموظفين مرتفعة", "tr": "Yüksek telekom ve personel giderleri", "ng": "High telecom & staff overhead" }
+            {
+              "en": "Seat Costs",
+              "pt": "Custos por Licença",
+              "es": "Costos de Puesto",
+              "id": "Biaya Lisensi",
+              "ar": "تكاليف المقاعد",
+              "tr": "Kullanıcı Maliyetleri",
+              "ng": "Seat Costs"
+            },
+            {
+              "en": "Low flat API pricing",
+              "pt": "Taxa fixa de API baixa",
+              "es": "Precios de API planos y bajos",
+              "id": "Harga API flat rendah",
+              "ar": "تسعير واجهة برمجة منخفض وثابت",
+              "tr": "Düşük sabit API fiyatlandırması",
+              "ng": "Low flat API pricing"
+            },
+            {
+              "en": "Per-agent CRM licenses",
+              "pt": "Licenças de CRM por agente",
+              "es": "Licencias de CRM por agente",
+              "id": "Lisensi CRM per agen",
+              "ar": "تراخيص CRM لكل موظف",
+              "tr": "Ajan başına CRM lisansları",
+              "ng": "Per-agent CRM licenses"
+            },
+            {
+              "en": "High telecom & staff overhead",
+              "pt": "Altos custos de equipe/telecom",
+              "es": "Altos costos de personal y telecom",
+              "id": "Biaya tim & telekomunikasi tinggi",
+              "ar": "تكاليف اتصالات وموظفين مرتفعة",
+              "tr": "Yüksek telekom ve personel giderleri",
+              "ng": "High telecom & staff overhead"
+            }
           ],
           [
-            { "en": "CSAT (User Satisfaction)", "pt": "Nível de Satisfação", "es": "Satisfacción de Usuario", "id": "Kepuasan Pengguna (CSAT)", "ar": "مستوى رضا المستخدمين", "tr": "Müşteri Memnuniyeti (CSAT)", "ng": "CSAT (User Satisfaction)" },
-            { "en": "91% (High engagement)", "pt": "91% (Alto engajamento)", "es": "91% (Alto compromiso)", "id": "91% (Keterlibatan tinggi)", "ar": "91% (تفاعل مرتفع)", "tr": "%91 (Yüksek etkileşim)", "ng": "91% (High engagement)" },
-            { "en": "65% (Friction from delays)", "pt": "65% (Fricção devido a atrasos)", "es": "65% (Fricción debido a retrasos)", "id": "65% (Friksi karena keterlambatan)", "ar": "65% (استياء بسبب التأخير)", "tr": "%65 (Gecikmelerden kaynaklanan memnuniyetsizlik)", "ng": "65% (Friction from delays)" },
-            { "en": "74% (Friction from hold times)", "pt": "74% (Fricção de espera)", "es": "74% (Fricción de espera)", "id": "74% (Friksi karena waktu tunggu)", "ar": "74% (استياء بسبب أوقات الانتظار)", "tr": "%74 (Bekleme sürelerinden kaynaklanan memnuniyetsizlik)", "ng": "74% (Friction from hold times)" }
+            {
+              "en": "CSAT (User Satisfaction)",
+              "pt": "Nível de Satisfação",
+              "es": "Satisfacción de Usuario",
+              "id": "Kepuasan Pengguna (CSAT)",
+              "ar": "مستوى رضا المستخدمين",
+              "tr": "Müşteri Memnuniyeti (CSAT)",
+              "ng": "CSAT (User Satisfaction)"
+            },
+            {
+              "en": "91% (High engagement)",
+              "pt": "91% (Alto engajamento)",
+              "es": "91% (Alto compromiso)",
+              "id": "91% (Keterlibatan tinggi)",
+              "ar": "91% (تفاعل مرتفع)",
+              "tr": "%91 (Yüksek etkileşim)",
+              "ng": "91% (High engagement)"
+            },
+            {
+              "en": "65% (Friction from delays)",
+              "pt": "65% (Fricção devido a atrasos)",
+              "es": "65% (Fricción debido a retrasos)",
+              "id": "65% (Friksi karena keterlambatan)",
+              "ar": "65% (استياء بسبب التأخير)",
+              "tr": "%65 (Gecikmelerden kaynaklanan memnuniyetsizlik)",
+              "ng": "65% (Friction from delays)"
+            },
+            {
+              "en": "74% (Friction from hold times)",
+              "pt": "74% (Fricção de espera)",
+              "es": "74% (Fricción de espera)",
+              "id": "74% (Friksi karena waktu tunggu)",
+              "ar": "74% (استياء بسبب أوقات الانتظار)",
+              "tr": "%74 (Bekleme sürelerinden kaynaklanan memnuniyetsizlik)",
+              "ng": "74% (Friction from hold times)"
+            }
           ]
         ]
       }
@@ -186,9 +459,33 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Handoff API", "pt": "API de Transferência", "es": "API de Transferencia", "id": "API Serah Terima", "ar": "API التحويل", "tr": "Devir API'si", "ng": "Handoff API" },
-        "heading": { "en": "Programmatic Support Handoff Trigger", "pt": "Disparar Transferência Programaticamente", "es": "Activar Transferencia Programáticamente", "id": "Picu Serah Terima Dukungan Programatik", "ar": "تشغيل تحويل الدعم برمجياً", "tr": "Programatik Destek Devrini Tetikleyin", "ng": "Programmatic Support Handoff Trigger" },
-        "overlayText": { "en": "Support Bot Handoff API Sandbox — Coming Soon", "pt": "Sandbox da API de Transferência — Em Breve", "es": "Sandbox de API de Transferencia — Próximamente", "id": "Support Bot Handoff API Sandbox — Segera Hadir", "ar": "بيئة تجريبية لتحويل دعم البوت — قريباً", "tr": "Destek Botu Devir API Sanal Alanı — Çok Yakında", "ng": "Support Bot Handoff API Sandbox — Coming Soon" },
+        "badge": {
+          "en": "Handoff API",
+          "pt": "API de Transferência",
+          "es": "API de Transferencia",
+          "id": "API Serah Terima",
+          "ar": "API التحويل",
+          "tr": "Devir API'si",
+          "ng": "Handoff API"
+        },
+        "heading": {
+          "en": "Programmatic Support Handoff Trigger",
+          "pt": "Disparar Transferência Programaticamente",
+          "es": "Activar Transferencia Programáticamente",
+          "id": "Picu Serah Terima Dukungan Programatik",
+          "ar": "تشغيل تحويل الدعم برمجياً",
+          "tr": "Programatik Destek Devrini Tetikleyin",
+          "ng": "Programmatic Support Handoff Trigger"
+        },
+        "overlayText": {
+          "en": "Support Bot Handoff API Sandbox — Coming Soon",
+          "pt": "Sandbox da API de Transferência — Em Breve",
+          "es": "Sandbox de API de Transferencia — Próximamente",
+          "id": "Support Bot Handoff API Sandbox — Segera Hadir",
+          "ar": "بيئة تجريبية لتحويل دعم البوت — قريباً",
+          "tr": "Destek Botu Devir API Sanal Alanı — Çok Yakında",
+          "ng": "Support Bot Handoff API Sandbox — Coming Soon"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -208,8 +505,24 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
-        "heading": { "en": "Customer Support — FAQ", "pt": "Suporte ao Cliente — FAQ", "es": "Soporte al Cliente — FAQ", "id": "Dukungan Pelanggan — FAQ", "ar": "دعم العملاء — الأسئلة الشائعة", "tr": "Müşteri Desteği — SSS", "ng": "Customer Support — FAQ" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS",
+          "ng": "FAQs"
+        },
+        "heading": {
+          "en": "Customer Support — FAQ",
+          "pt": "Suporte ao Cliente — FAQ",
+          "es": "Soporte al Cliente — FAQ",
+          "id": "Dukungan Pelanggan — FAQ",
+          "ar": "دعم العملاء — الأسئلة الشائعة",
+          "tr": "Müşteri Desteği — SSS",
+          "ng": "Customer Support — FAQ"
+        },
         "items": [
           {
             "question": {
@@ -297,19 +610,79 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar", "ng": "Related Pages" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar",
+          "ng": "Related Pages"
+        },
         "links": [
-          { "label": { "en": "E-Commerce System", "pt": "Sistema de E-Commerce", "es": "Sistema de E-Commerce", "id": "Sistem E-Commerce", "ar": "نظام التجارة الإلكترونية", "tr": "E-Ticaret Sistemi", "ng": "E-Commerce System" }, "href": "/use-cases/ecommerce" },
-          { "label": { "en": "Marketing Campaigns", "pt": "Campanhas de Marketing", "es": "Campañas de Marketing", "id": "Kampanye Marketing", "ar": "حملات التسويق", "tr": "Pazarlama Kampanyaları", "ng": "Marketing Campaigns" }, "href": "/use-cases/marketing-campaigns" },
-          { "label": { "en": "WhatsApp Chatbot", "pt": "Chatbot WhatsApp", "es": "Chatbot WhatsApp", "id": "Chatbot WhatsApp", "ar": "شات بوت واتساب", "tr": "WhatsApp Chatbot'u", "ng": "WhatsApp Chatbot" }, "href": "/whatsapp/chatbot" },
-          { "label": { "en": "Technical Support", "pt": "Suporte Técnico", "es": "Soporte Técnico", "id": "Dukungan Teknis", "ar": "الدعم الفني", "tr": "Teknik Destek", "ng": "Technical Support" }, "href": "/contact" }
+          {
+            "label": {
+              "en": "E-Commerce System",
+              "pt": "Sistema de E-Commerce",
+              "es": "Sistema de E-Commerce",
+              "id": "Sistem E-Commerce",
+              "ar": "نظام التجارة الإلكترونية",
+              "tr": "E-Ticaret Sistemi",
+              "ng": "E-Commerce System"
+            },
+            "href": "/use-cases/ecommerce"
+          },
+          {
+            "label": {
+              "en": "Marketing Campaigns",
+              "pt": "Campanhas de Marketing",
+              "es": "Campañas de Marketing",
+              "id": "Kampanye Marketing",
+              "ar": "حملات التسويق",
+              "tr": "Pazarlama Kampanyaları",
+              "ng": "Marketing Campaigns"
+            },
+            "href": "/use-cases/marketing-campaigns"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Chatbot",
+              "pt": "Chatbot WhatsApp",
+              "es": "Chatbot WhatsApp",
+              "id": "Chatbot WhatsApp",
+              "ar": "شات بوت واتساب",
+              "tr": "WhatsApp Chatbot'u",
+              "ng": "WhatsApp Chatbot"
+            },
+            "href": "/whatsapp/chatbot"
+          },
+          {
+            "label": {
+              "en": "Technical Support",
+              "pt": "Suporte Técnico",
+              "es": "Soporte Técnico",
+              "id": "Dukungan Teknis",
+              "ar": "الدعم الفني",
+              "tr": "Teknik Destek",
+              "ng": "Technical Support"
+            },
+            "href": "/contact"
+          }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Automate Your Support Today", "pt": "Automatize Seu Suporte Hoje", "es": "Automatice Su Soporte Hoy", "id": "Otomatisasi Dukungan Anda Hari Ini", "ar": "أتمت دعمك اليوم", "tr": "Desteğinizi Bugün Otomatikleştirin", "ng": "Automate Your Support Today" },
+        "heading": {
+          "en": "Automate Your Support Today",
+          "pt": "Automatize Seu Suporte Hoje",
+          "es": "Automatice Su Soporte Hoy",
+          "id": "Otomatisasi Dukungan Anda Hari Ini",
+          "ar": "أتمت دعمك اليوم",
+          "tr": "Desteğinizi Bugün Otomatikleştirin",
+          "ng": "Automate Your Support Today"
+        },
         "subtext": {
           "en": "Chatbot builder available on Premium and Enterprise plans.",
           "pt": "Construtor de chatbot disponível nos planos Premium e Enterprise.",
@@ -319,7 +692,15 @@
           "tr": "Chatbot oluşturucu Premium ve Kurumsal planlarda mevcuttur.",
           "ng": "Chatbot builder available on Premium and Enterprise plans."
         },
-        "primaryCta": { "en": "Get Premium", "pt": "Obter Premium", "es": "Obtener Premium", "id": "Dapatkan Premium", "ar": "احصل على Premium", "tr": "Premium'u Alın", "ng": "Get Premium" },
+        "primaryCta": {
+          "en": "Get Premium",
+          "pt": "Obter Premium",
+          "es": "Obtener Premium",
+          "id": "Dapatkan Premium",
+          "ar": "احصل على Premium",
+          "tr": "Premium'u Alın",
+          "ng": "Get Premium"
+        },
         "primaryHref": "https://app.startmessaging.com/signup?plan=premium"
       }
     }

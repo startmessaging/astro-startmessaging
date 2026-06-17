@@ -33,6 +33,13 @@ const filtered = headings.filter((h) => h.depth <= 3);
 )}
 
 <script>
+  // Extend Window interface for tracking the observer
+  declare global {
+    interface Window {
+      __tocObserver?: IntersectionObserver;
+    }
+  }
+
   function setupTOC() {
     const links = document.querySelectorAll('.toc-link');
     if (links.length === 0) return;
@@ -74,11 +81,6 @@ const filtered = headings.filter((h) => h.depth <= 3);
         if (el) observer.observe(el);
       }
     });
-  }
-
-  // Extend Window interface for tracking the observer
-  interface Window {
-    __tocObserver?: IntersectionObserver;
   }
 
   // Initialize TOC highlight

@@ -2,6 +2,22 @@
 @import "tw-animate-css";
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --white: #ffffff;
   --black: #000000;
@@ -363,6 +379,36 @@ html[data-theme-brand="whatsapp"][data-theme="dark"],
     background-color: var(--color-primary);
     color: var(--color-on-primary);
   }
+
+  /* ── Skip-to-content link (A11y) ─────────────────────────────────────── */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: var(--text-body-sm);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    left: 1rem;
+    top: 0.5rem;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ─── Desktop Nav Dropdown Keyboard Accessibility ────────────────────────── */
+/* Allows focus-within (Tab key) to open dropdowns, matching hover behavior */
+
+.group:focus-within > div[class*="opacity-0"] {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
 }
 
 /* ─── Aurora Background Effect ───────────────────────────────────────────── */

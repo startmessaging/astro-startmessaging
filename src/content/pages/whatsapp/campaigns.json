@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
     "title": {
@@ -19,7 +27,7 @@
       "ar": "شغّل حملات تسويق واتساب مستهدفة مع تقسيم الجمهور واختبار A/B والجدولة وتتبع العائد على الاستثمار.",
       "tr": "Hedef kitle segmentasyonu, A/B testi ve detaylı ROI analitiği ile hedefli WhatsApp pazarlama kampanyaları yürütün."
     },
-    "ogImage": "/images/campaign-flow.webp"
+    "ogImage": "/og/whatsapp-campaigns.jpg"
   },
   "sections": [
     {
@@ -285,27 +293,83 @@
         ],
         "rows": [
           [
-            { "en": "A/B Template Testing", "pt": "Teste A/B de Templates", "es": "Prueba A/B de Plantillas", "id": "Pengujian A/B Template", "ar": "اختبار قوالب A/B", "tr": "A/B Şablon Testi" },
+            {
+              "en": "A/B Template Testing",
+              "pt": "Teste A/B de Templates",
+              "es": "Prueba A/B de Plantillas",
+              "id": "Pengujian A/B Template",
+              "ar": "اختبار قوالب A/B",
+              "tr": "A/B Şablon Testi"
+            },
             "✓",
             "—",
             "—"
           ],
           [
-            { "en": "Timezone-Aware Scheduling", "pt": "Agendamento por Fuso Horário", "es": "Programación por Zona Horaria", "id": "Penjadwalan Zona Waktu", "ar": "جدولة مع مراعاة المنطقة الزمنية", "tr": "Saat Dilimi Planlaması" },
+            {
+              "en": "Timezone-Aware Scheduling",
+              "pt": "Agendamento por Fuso Horário",
+              "es": "Programación por Zona Horaria",
+              "id": "Penjadwalan Zona Waktu",
+              "ar": "جدولة مع مراعاة المنطقة الزمنية",
+              "tr": "Saat Dilimi Planlaması"
+            },
             "✓",
             "✓",
             "—"
           ],
           [
-            { "en": "Sequence Fallback Logic", "pt": "Lógica de Fallback em Sequência", "es": "Lógica de Fallback en Secuencia", "id": "Logika Fallback Urutan", "ar": "منطق الاحتياط المتسلسل", "tr": "Sıralı Yedek Mantığı" },
-            { "en": "✓ (Multi-step)", "pt": "✓ (Multi-etapa)", "es": "✓ (Multi-paso)", "id": "✓ (Multi-langkah)", "ar": "✓ (متعدد الخطوات)", "tr": "✓ (Çok adımlı)" },
-            { "en": "—", "pt": "—", "es": "—", "id": "—", "ar": "—", "tr": "—" },
-            { "en": "—", "pt": "—", "es": "—", "id": "—", "ar": "—", "tr": "—" }
+            {
+              "en": "Sequence Fallback Logic",
+              "pt": "Lógica de Fallback em Sequência",
+              "es": "Lógica de Fallback en Secuencia",
+              "id": "Logika Fallback Urutan",
+              "ar": "منطق الاحتياط المتسلسل",
+              "tr": "Sıralı Yedek Mantığı"
+            },
+            {
+              "en": "✓ (Multi-step)",
+              "pt": "✓ (Multi-etapa)",
+              "es": "✓ (Multi-paso)",
+              "id": "✓ (Multi-langkah)",
+              "ar": "✓ (متعدد الخطوات)",
+              "tr": "✓ (Çok adımlı)"
+            },
+            {
+              "en": "—",
+              "pt": "—",
+              "es": "—",
+              "id": "—",
+              "ar": "—",
+              "tr": "—"
+            },
+            {
+              "en": "—",
+              "pt": "—",
+              "es": "—",
+              "id": "—",
+              "ar": "—",
+              "tr": "—"
+            }
           ],
           [
-            { "en": "Real-time Conversion ROI", "pt": "ROI de Conversão em Tempo Real", "es": "ROI de Conversión en Tiempo Real", "id": "ROI Konversi Real-time", "ar": "عائد الاستثمار في الوقت الفعلي", "tr": "Gerçek Zamanlı Dönüşüm ROI" },
+            {
+              "en": "Real-time Conversion ROI",
+              "pt": "ROI de Conversão em Tempo Real",
+              "es": "ROI de Conversión en Tiempo Real",
+              "id": "ROI Konversi Real-time",
+              "ar": "عائد الاستثمار في الوقت الفعلي",
+              "tr": "Gerçek Zamanlı Dönüşüm ROI"
+            },
             "✓",
-            { "en": "Read receipts only", "pt": "Apenas confirmações de leitura", "es": "Solo confirmaciones de lectura", "id": "Hanya laporan dibaca", "ar": "مؤشرات القراءة فقط", "tr": "Yalnızca okundu bilgisi" },
+            {
+              "en": "Read receipts only",
+              "pt": "Apenas confirmações de leitura",
+              "es": "Solo confirmaciones de lectura",
+              "id": "Hanya laporan dibaca",
+              "ar": "مؤشرات القراءة فقط",
+              "tr": "Yalnızca okundu bilgisi"
+            },
             "—"
           ]
         ]
@@ -437,10 +501,50 @@
           "tr": "İlgili Sayfalar"
         },
         "links": [
-          { "label": { "en": "Broadcast Messaging", "pt": "Mensagens de Transmissão", "es": "Mensajes de Difusión", "id": "Pesan Siaran", "ar": "رسائل البث", "tr": "Yayın Mesajlaşması" }, "href": "/whatsapp/broadcast" },
-          { "label": { "en": "Auto-Trigger Engine", "pt": "Motor de Disparo Automático", "es": "Motor de Auto-Activación", "id": "Mesin Auto-Trigger", "ar": "محرك التشغيل التلقائي", "tr": "Otomatik Tetikleme Motoru" }, "href": "/whatsapp/auto-trigger" },
-          { "label": { "en": "Marketing Solutions", "pt": "Soluções de Marketing", "es": "Soluciones de Marketing", "id": "Solusi Marketing", "ar": "حلول التسويق", "tr": "Pazarlama Çözümleri" }, "href": "/whatsapp/marketing" },
-          { "label": { "en": "Pricing", "pt": "Preços", "es": "Precios", "id": "Harga", "ar": "الأسعار", "tr": "Fiyatlandırma" }, "href": "/pricing" }
+          {
+            "label": {
+              "en": "Broadcast Messaging",
+              "pt": "Mensagens de Transmissão",
+              "es": "Mensajes de Difusión",
+              "id": "Pesan Siaran",
+              "ar": "رسائل البث",
+              "tr": "Yayın Mesajlaşması"
+            },
+            "href": "/whatsapp/broadcast"
+          },
+          {
+            "label": {
+              "en": "Auto-Trigger Engine",
+              "pt": "Motor de Disparo Automático",
+              "es": "Motor de Auto-Activación",
+              "id": "Mesin Auto-Trigger",
+              "ar": "محرك التشغيل التلقائي",
+              "tr": "Otomatik Tetikleme Motoru"
+            },
+            "href": "/whatsapp/auto-trigger"
+          },
+          {
+            "label": {
+              "en": "Marketing Solutions",
+              "pt": "Soluções de Marketing",
+              "es": "Soluciones de Marketing",
+              "id": "Solusi Marketing",
+              "ar": "حلول التسويق",
+              "tr": "Pazarlama Çözümleri"
+            },
+            "href": "/whatsapp/marketing"
+          },
+          {
+            "label": {
+              "en": "Pricing",
+              "pt": "Preços",
+              "es": "Precios",
+              "id": "Harga",
+              "ar": "الأسعار",
+              "tr": "Fiyatlandırma"
+            },
+            "href": "/pricing"
+          }
         ]
       }
     },

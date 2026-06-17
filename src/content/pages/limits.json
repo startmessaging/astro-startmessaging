@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -18,7 +26,7 @@
       "ar": "حدود معدل SMS API التفصيلية وحدود الأمان لكل رقم وأفضل الممارسات للتعامل مع أخطاء 429 وحالة حدود WhatsApp API.",
       "tr": "Ayrıntılı SMS API hız limitleri, numara başına güvenlik limitleri, 429 hatalarını yönetme için en iyi uygulamalar ve WhatsApp API limit durumu."
     },
-    "ogImage": "/og.png?title=API+Limits&theme=sms"
+    "ogImage": "/og/limits.jpg"
   },
   "sections": [
     {
@@ -52,7 +60,9 @@
     },
     {
       "type": "comparisonTable",
-      "countries": ["in"],
+      "countries": [
+        "in"
+      ],
       "props": {
         "badge": {
           "en": "SMS API Limits"
@@ -64,42 +74,87 @@
           "en": "These limits apply to all SMS API endpoints including OTP, non-DLT, and transactional routes."
         },
         "columns": [
-          { "label": { "en": "Limit Type" } },
-          { "label": { "en": "Value" }, "highlight": true },
-          { "label": { "en": "Scope" } }
+          {
+            "label": {
+              "en": "Limit Type"
+            }
+          },
+          {
+            "label": {
+              "en": "Value"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Scope"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Global Throughput" },
-            { "en": "20 requests / second" },
-            { "en": "Per account (1,200 req/min)" }
+            {
+              "en": "Global Throughput"
+            },
+            {
+              "en": "20 requests / second"
+            },
+            {
+              "en": "Per account (1,200 req/min)"
+            }
           ],
           [
-            { "en": "Per-Number OTP Limit" },
-            { "en": "3 OTPs per 5 minutes" },
-            { "en": "Per unique mobile number" }
+            {
+              "en": "Per-Number OTP Limit"
+            },
+            {
+              "en": "3 OTPs per 5 minutes"
+            },
+            {
+              "en": "Per unique mobile number"
+            }
           ],
           [
-            { "en": "Idempotency Window" },
-            { "en": "24 hours" },
-            { "en": "Per idempotencyKey" }
+            {
+              "en": "Idempotency Window"
+            },
+            {
+              "en": "24 hours"
+            },
+            {
+              "en": "Per idempotencyKey"
+            }
           ],
           [
-            { "en": "Max Message Length" },
-            { "en": "160 chars (1 SMS segment)" },
-            { "en": "160+ chars counted as multi-part" }
+            {
+              "en": "Max Message Length"
+            },
+            {
+              "en": "160 chars (1 SMS segment)"
+            },
+            {
+              "en": "160+ chars counted as multi-part"
+            }
           ],
           [
-            { "en": "Custom Limit Increase" },
-            { "en": "Available on request" },
-            { "en": "Contact support to apply" }
+            {
+              "en": "Custom Limit Increase"
+            },
+            {
+              "en": "Available on request"
+            },
+            {
+              "en": "Contact support to apply"
+            }
           ]
         ]
       }
     },
     {
       "type": "richText",
-      "countries": ["in"],
+      "countries": [
+        "in"
+      ],
       "props": {
         "heading": {
           "en": "Why We Limit OTPs Per Number"

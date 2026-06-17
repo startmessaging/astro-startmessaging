@@ -1,24 +1,33 @@
 {
-  "countries": ["in"],
+  "countries": [
+    "in"
+  ],
   "theme": "sms",
   "seo": {
-    "title": { "en": "OTP API Documentation - REST API to Send & Verify OTPs" },
+    "title": {
+      "en": "OTP API Documentation - REST API to Send & Verify OTPs"
+    },
     "description": {
       "en": "Complete REST API documentation for sending OTPs and checking status. Code examples in cURL, Node.js, Python, PHP, Java, and Go. Simple JSON API with idempotent sends."
-    }
+    },
+    "ogImage": "/og/otp-api.jpg"
   },
   "sections": [
     {
       "type": "hero",
       "props": {
-        "badge": { "en": "OTP API" },
+        "badge": {
+          "en": "OTP API"
+        },
         "title": {
           "en": "OTP API Documentation"
         },
         "subtitle": {
           "en": "A simple REST API to send OTPs via SMS and check delivery status. One endpoint to send, one to check status. Works with any language or framework."
         },
-        "primaryCta": { "en": "Try OTP API" },
+        "primaryCta": {
+          "en": "Try OTP API"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
@@ -33,20 +42,28 @@
     {
       "type": "featuresGrid",
       "props": {
-        "badge": { "en": "API Reference" },
-        "heading": { "en": "REST API Endpoints" },
+        "badge": {
+          "en": "API Reference"
+        },
+        "heading": {
+          "en": "REST API Endpoints"
+        },
         "columns": 2,
         "items": [
           {
             "icon": "api",
-            "title": { "en": "POST /otp/send" },
+            "title": {
+              "en": "POST /otp/send"
+            },
             "description": {
               "en": "Send a one-time password to a phone number. Fields: phoneNumber (E.164 format), templateId (optional), and variables (Must contain \"otp\" — a 4-6 digit code you generate, plus optional custom placeholders like \"appName\")."
             }
           },
           {
             "icon": "analytics",
-            "title": { "en": "GET /messages/:id" },
+            "title": {
+              "en": "GET /messages/:id"
+            },
             "description": {
               "en": "Fetch the real-time delivery status of an OTP request. Statuses include: initiated, queued, sent, delivered, and failed."
             }
@@ -57,8 +74,12 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Send an OTP in One API Call" },
-        "heading": { "en": "Works with every language. Just a single POST request." },
+        "badge": {
+          "en": "Send an OTP in One API Call"
+        },
+        "heading": {
+          "en": "Works with every language. Just a single POST request."
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -98,29 +119,41 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQ" },
-        "heading": { "en": "API FAQ" },
+        "badge": {
+          "en": "FAQ"
+        },
+        "heading": {
+          "en": "API FAQ"
+        },
         "items": [
           {
-            "question": { "en": "What authentication does the API use?" },
+            "question": {
+              "en": "What authentication does the API use?"
+            },
             "answer": {
               "en": "All requests require an API key passed in the X-API-Key header. API keys start with sm_live_ and can be created from the dashboard."
             }
           },
           {
-            "question": { "en": "What format should phone numbers be in?" },
+            "question": {
+              "en": "What format should phone numbers be in?"
+            },
             "answer": {
               "en": "Phone numbers must be in E.164 format: +{country code}{number}. For Indian numbers: +919876543210."
             }
           },
           {
-            "question": { "en": "What is the rate limit?" },
+            "question": {
+              "en": "What is the rate limit?"
+            },
             "answer": {
               "en": "We support a high throughput of 20 OTPs per second globally per account. Additionally, there is a security limit of 3 OTPs per 5 minutes per mobile number to prevent abuse."
             }
           },
           {
-            "question": { "en": "Do you support webhooks for delivery status?" },
+            "question": {
+              "en": "Do you support webhooks for delivery status?"
+            },
             "answer": {
               "en": "Delivery status is available via the messages API endpoint. You can poll for status updates using the message ID returned from the send endpoint."
             }
@@ -131,18 +164,26 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages"
+        },
         "links": [
           {
-            "label": { "en": "Bulk OTP API" },
+            "label": {
+              "en": "Bulk OTP API"
+            },
             "href": "/bulk-otp-api"
           },
           {
-            "label": { "en": "Send OTP Without DLT" },
+            "label": {
+              "en": "Send OTP Without DLT"
+            },
             "href": "/send-otp-without-dlt"
           },
           {
-            "label": { "en": "Pricing" },
+            "label": {
+              "en": "Pricing"
+            },
             "href": "/pricing"
           }
         ]
@@ -151,11 +192,19 @@
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Start Building with the OTP API" },
-        "subtext": { "en": "Get your API key and send your first OTP in under 5 minutes." },
-        "primaryCta": { "en": "Get Started Free" },
+        "heading": {
+          "en": "Start Building with the OTP API"
+        },
+        "subtext": {
+          "en": "Get your API key and send your first OTP in under 5 minutes."
+        },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup",
-        "secondaryCta": { "en": "View DLT Free OTP" },
+        "secondaryCta": {
+          "en": "View DLT Free OTP"
+        },
         "secondaryHref": "/dlt-free-otp"
       }
     }

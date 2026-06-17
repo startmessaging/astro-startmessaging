@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -19,7 +27,7 @@
       "ar": "أرسل تذكيرات المواعيد وتنبيهات الدفع والتحديثات المعاملاتية عبر واتساب وSMS.",
       "tr": "WhatsApp ve SMS üzerinden randevu hatırlatmaları, ödeme uyarıları ve işlemsel bildirimler gönderin."
     },
-    "ogImage": "/images/notifications-alerts.webp"
+    "ogImage": "/og/sms-api.jpg"
   },
   "sections": [
     {
@@ -67,11 +75,27 @@
     {
       "type": "featuresGrid",
       "props": {
-        "heading": { "en": "Notification Types", "pt": "Tipos de Notificações", "es": "Tipos de Notificaciones", "id": "Jenis Notifikasi", "ar": "أنواع الإشعارات", "tr": "Bildirim Türleri", "ng": "Notification Types" },
+        "heading": {
+          "en": "Notification Types",
+          "pt": "Tipos de Notificações",
+          "es": "Tipos de Notificaciones",
+          "id": "Jenis Notifikasi",
+          "ar": "أنواع الإشعارات",
+          "tr": "Bildirim Türleri",
+          "ng": "Notification Types"
+        },
         "items": [
           {
             "icon": "broadcast",
-            "title": { "en": "Appointment Reminders", "pt": "Lembretes de Consultas", "es": "Recordatorios de Citas", "id": "Pengingat Janji Temu", "ar": "تذكيرات المواعيد", "tr": "Randevu Hatırlatmaları", "ng": "Appointment Reminders" },
+            "title": {
+              "en": "Appointment Reminders",
+              "pt": "Lembretes de Consultas",
+              "es": "Recordatorios de Citas",
+              "id": "Pengingat Janji Temu",
+              "ar": "تذكيرات المواعيد",
+              "tr": "Randevu Hatırlatmaları",
+              "ng": "Appointment Reminders"
+            },
             "description": {
               "en": "Reduce no-shows by 40% with automated appointment reminders including confirm/reschedule buttons.",
               "pt": "Reduza faltas em 40% com lembretes automáticos contendo botões de confirmar ou reagendar.",
@@ -84,7 +108,15 @@
           },
           {
             "icon": "shield",
-            "title": { "en": "Payment Alerts", "pt": "Alertas de Pagamento", "es": "Alertas de Pago", "id": "Peringatan Pembayaran", "ar": "تنبيهات الدفع", "tr": "Ödeme Uyarıları", "ng": "Payment Alerts" },
+            "title": {
+              "en": "Payment Alerts",
+              "pt": "Alertas de Pagamento",
+              "es": "Alertas de Pago",
+              "id": "Peringatan Pembayaran",
+              "ar": "تنبيهات الدفع",
+              "tr": "Ödeme Uyarıları",
+              "ng": "Payment Alerts"
+            },
             "description": {
               "en": "Payment confirmations, invoice reminders, subscription renewals, and overdue payment notifications.",
               "pt": "Confirmações de pagamento, lembretes de faturas, renovações de assinatura e alertas de atraso.",
@@ -97,7 +129,15 @@
           },
           {
             "icon": "template",
-            "title": { "en": "Account Notifications", "pt": "Notificações de Conta", "es": "Notificaciones de Cuenta", "id": "Notifikasi Akun", "ar": "إشعارات الحساب", "tr": "Hesap Bildirimleri", "ng": "Account Notifications" },
+            "title": {
+              "en": "Account Notifications",
+              "pt": "Notificações de Conta",
+              "es": "Notificaciones de Cuenta",
+              "id": "Notifikasi Akun",
+              "ar": "إشعارات الحساب",
+              "tr": "Hesap Bildirimleri",
+              "ng": "Account Notifications"
+            },
             "description": {
               "en": "Welcome messages, password resets, security alerts, and account activity notifications.",
               "pt": "Mensagens de boas-vindas, redefinições de senha, alertas de segurança e atividades de conta.",
@@ -110,7 +150,15 @@
           },
           {
             "icon": "analytics",
-            "title": { "en": "Service Updates", "pt": "Atualizações de Serviço", "es": "Actualizaciones de Servicio", "id": "Pembaruan Layanan", "ar": "تحديثات الخدمة", "tr": "Hizmet Güncellemeleri", "ng": "Service Updates" },
+            "title": {
+              "en": "Service Updates",
+              "pt": "Atualizações de Serviço",
+              "es": "Actualizaciones de Servicio",
+              "id": "Pembaruan Layanan",
+              "ar": "تحديثات الخدمة",
+              "tr": "Hizmet Güncellemeleri",
+              "ng": "Service Updates"
+            },
             "description": {
               "en": "Maintenance windows, feature releases, policy changes, and system status notifications.",
               "pt": "Janelas de manutenção, lançamentos de recursos, alterações de políticas e status do sistema.",
@@ -127,7 +175,15 @@
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Smart Multi-Channel Dispatching", "pt": "Envio Inteligente Multicanal", "es": "Envío Inteligente Multicanal", "id": "Pengiriman Multi-Saluran Cerdas", "ar": "إرسال ذكي متعدد القنوات", "tr": "Akıllı Çok Kanallı Gönderim", "ng": "Smart Multi-Channel Dispatching" },
+        "heading": {
+          "en": "Smart Multi-Channel Dispatching",
+          "pt": "Envio Inteligente Multicanal",
+          "es": "Envío Inteligente Multicanal",
+          "id": "Pengiriman Multi-Saluran Cerdas",
+          "ar": "إرسال ذكي متعدد القنوات",
+          "tr": "Akıllı Çok Kanallı Gönderim",
+          "ng": "Smart Multi-Channel Dispatching"
+        },
         "body": {
           "en": "Never miss a critical notification update. If a user is not online or active on WhatsApp, our system automatically detects it within a configured threshold and falls back to traditional transactional SMS instantly, ensuring 100% reach.",
           "pt": "Nunca perca uma notificação crítica. Se um usuário não estiver online no WhatsApp, nosso sistema detecta e faz o fallback para SMS transacional imediatamente.",
@@ -137,9 +193,33 @@
           "tr": "Önemli bir bildirim güncellemesini asla kaçırmayın. Kullanıcı WhatsApp'ta çevrimiçi veya aktif değilse, sistemimiz bunu yapılandırılan eşik değerinde otomatik olarak algılar ve anında geleneksel işlemsel SMS'e geçerek %100 erişim sağlar."
         },
         "bullets": [
-          { "en": "WhatsApp-first routing with SMS fallback support", "pt": "Roteamento WhatsApp primeiro com fallback para SMS", "es": "Ruta WhatsApp primero con soporte de respaldo a SMS", "id": "Perutean WhatsApp-first dengan dukungan cadangan SMS", "ar": "توجيه واتساب أولاً مع دعم رسائل SMS الاحتياطية", "tr": "SMS yedekleme destekli öncelikli WhatsApp yönlendirmesi", "ng": "WhatsApp-first routing with SMS fallback support" },
-          { "en": "Real-time delivery status receipts and webhook logs", "pt": "Confirmação de entrega em tempo real e logs de webhook", "es": "Confirmación de entrega en tiempo real y registros de webhook", "id": "Laporan status pengiriman real-time dan log webhook", "ar": "إيصالات حالة التسليم في الوقت الفعلي وسجلات الويب هوك", "tr": "Gerçek zamanlı teslimat durumu raporları ve webhook günlükleri", "ng": "Real-time delivery status receipts and webhook logs" },
-          { "en": "Support for localized DLT parameters in India", "pt": "Suporte a parâmetros DLT localizados na Índia", "es": "Soporte para parámetros DLT localizados en India", "id": "Dukungan untuk parameter DLT lokal di India", "ar": "دعم معلمات DLT المحلية في الهند", "tr": "Hindistan'da yerelleştirilmiş DLT parametreleri desteği", "ng": "Support for localized DLT parameters in India" }
+          {
+            "en": "WhatsApp-first routing with SMS fallback support",
+            "pt": "Roteamento WhatsApp primeiro com fallback para SMS",
+            "es": "Ruta WhatsApp primero con soporte de respaldo a SMS",
+            "id": "Perutean WhatsApp-first dengan dukungan cadangan SMS",
+            "ar": "توجيه واتساب أولاً مع دعم رسائل SMS الاحتياطية",
+            "tr": "SMS yedekleme destekli öncelikli WhatsApp yönlendirmesi",
+            "ng": "WhatsApp-first routing with SMS fallback support"
+          },
+          {
+            "en": "Real-time delivery status receipts and webhook logs",
+            "pt": "Confirmação de entrega em tempo real e logs de webhook",
+            "es": "Confirmación de entrega en tiempo real y registros de webhook",
+            "id": "Laporan status pengiriman real-time dan log webhook",
+            "ar": "إيصالات حالة التسليم في الوقت الفعلي وسجلات الويب هوك",
+            "tr": "Gerçek zamanlı teslimat durumu raporları ve webhook günlükleri",
+            "ng": "Real-time delivery status receipts and webhook logs"
+          },
+          {
+            "en": "Support for localized DLT parameters in India",
+            "pt": "Suporte a parâmetros DLT localizados na Índia",
+            "es": "Soporte para parámetros DLT localizados en India",
+            "id": "Dukungan untuk parameter DLT lokal di India",
+            "ar": "دعم معلمات DLT المحلية في الهند",
+            "tr": "Hindistan'da yerelleştirilmiş DLT parametreleri desteği",
+            "ng": "Support for localized DLT parameters in India"
+          }
         ],
         "image": "/images/notifications-alerts.webp",
         "imageAlt": {
@@ -160,11 +240,35 @@
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Routing Queue", "pt": "Fila de Roteamento", "es": "Cola de Enrutamiento", "id": "Antrean Perutean", "ar": "طابور التوجيه", "tr": "Yönlendirme Kuyruğu", "ng": "Routing Queue" },
-        "heading": { "en": "Notification Delivery Lifecycle", "pt": "Ciclo de Vida de Entrega da Notificação", "es": "Ciclo de Vida de Entrega de Notificaciones", "id": "Siklus Hidup Pengiriman Notifikasi", "ar": "دورة حياة تسليم الإشعارات", "tr": "Bildirim Teslimat Yaşam Döngüsü", "ng": "Notification Delivery Lifecycle" },
+        "badge": {
+          "en": "Routing Queue",
+          "pt": "Fila de Roteamento",
+          "es": "Cola de Enrutamiento",
+          "id": "Antrean Perutean",
+          "ar": "طابور التوجيه",
+          "tr": "Yönlendirme Kuyruğu",
+          "ng": "Routing Queue"
+        },
+        "heading": {
+          "en": "Notification Delivery Lifecycle",
+          "pt": "Ciclo de Vida de Entrega da Notificação",
+          "es": "Ciclo de Vida de Entrega de Notificaciones",
+          "id": "Siklus Hidup Pengiriman Notifikasi",
+          "ar": "دورة حياة تسليم الإشعارات",
+          "tr": "Bildirim Teslimat Yaşam Döngüsü",
+          "ng": "Notification Delivery Lifecycle"
+        },
         "steps": [
           {
-            "title": { "en": "1. Event Triggered", "pt": "1. Evento Disparado", "es": "1. Evento Disparado", "id": "1. Peristiwa Dipicu", "ar": "1. تشغيل الحدث", "tr": "1. Olay Tetiklendi", "ng": "1. Event Triggered" },
+            "title": {
+              "en": "1. Event Triggered",
+              "pt": "1. Evento Disparado",
+              "es": "1. Evento Disparado",
+              "id": "1. Peristiwa Dipicu",
+              "ar": "1. تشغيل الحدث",
+              "tr": "1. Olay Tetiklendi",
+              "ng": "1. Event Triggered"
+            },
             "description": {
               "en": "An event on your database (payment, reminder) triggers a POST request to our notifications API endpoint.",
               "pt": "Um evento no banco de dados (pagamento, lembrete) dispara uma requisição POST para nossa API.",
@@ -175,7 +279,15 @@
             }
           },
           {
-            "title": { "en": "2. WhatsApp Try", "pt": "2. Tentativa via WhatsApp", "es": "2. Intento de WhatsApp", "id": "2. Mencoba WhatsApp", "ar": "2. محاولة واتساب", "tr": "2. WhatsApp Denemesi", "ng": "2. WhatsApp Try" },
+            "title": {
+              "en": "2. WhatsApp Try",
+              "pt": "2. Tentativa via WhatsApp",
+              "es": "2. Intento de WhatsApp",
+              "id": "2. Mencoba WhatsApp",
+              "ar": "2. محاولة واتساب",
+              "tr": "2. WhatsApp Denemesi",
+              "ng": "2. WhatsApp Try"
+            },
             "description": {
               "en": "Our engine attempts delivery via WhatsApp, monitoring for read or delivery confirmation statuses.",
               "pt": "Nosso motor tenta a entrega via WhatsApp, monitorando confirmações de leitura ou entrega.",
@@ -186,7 +298,15 @@
             }
           },
           {
-            "title": { "en": "3. SMS Fallback", "pt": "3. Fallback para SMS", "es": "3. Respaldo a SMS", "id": "3. Cadangan SMS", "ar": "3. احتياطي SMS", "tr": "3. SMS Yedekleme", "ng": "3. SMS Fallback" },
+            "title": {
+              "en": "3. SMS Fallback",
+              "pt": "3. Fallback para SMS",
+              "es": "3. Respaldo a SMS",
+              "id": "3. Cadangan SMS",
+              "ar": "3. احتياطي SMS",
+              "tr": "3. SMS Yedekleme",
+              "ng": "3. SMS Fallback"
+            },
             "description": {
               "en": "If not delivered within 30 seconds, a fallback SMS is triggered to ensure immediate delivery.",
               "pt": "Se não for entregue em 30 segundos, um SMS de fallback é enviado para garantir a entrega.",
@@ -202,39 +322,232 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Alert Comparisons", "pt": "Comparações de Alertas", "es": "Comparaciones de Alertas", "id": "Perbandingan Peringatan", "ar": "مقارنات التنبيهات", "tr": "Bildirim Karşılaştırmaları", "ng": "Alert Comparisons" },
-        "heading": { "en": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications", "pt": "Alertas WhatsApp vs. SMS vs. Notificações por Email", "es": "Alertas WhatsApp vs. SMS vs. Notificaciones por Email", "id": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications", "ar": "تنبيهات واتساب المعاملاتية مقابل تنبيهات SMS مقابل إشعارات البريد الإلكتروني", "tr": "WhatsApp İşlemsel Uyarıları vs. SMS Uyarıları vs. E-posta Bildirimleri", "ng": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications" },
-        "subheading": { "en": "Compare formatting capabilities, read speeds, and delivery reliability.", "pt": "Compare formatação, velocidade de leitura e confiabilidade de entrega.", "es": "Compare formato, velocidad de lectura y confiabilidad de entrega.", "id": "Bandingkan kemampuan format, kecepatan baca, dan keandalan pengiriman.", "ar": "قارن إمكانيات التنسيق وسرعات القراءة وموثوقية التسليم.", "tr": "Biçimlendirme yeteneklerini, okunma hızlarını ve teslimat güvenilirliğini karşılaştırın.", "ng": "Compare formatting capabilities, read speeds, and delivery reliability." },
+        "badge": {
+          "en": "Alert Comparisons",
+          "pt": "Comparações de Alertas",
+          "es": "Comparaciones de Alertas",
+          "id": "Perbandingan Peringatan",
+          "ar": "مقارنات التنبيهات",
+          "tr": "Bildirim Karşılaştırmaları",
+          "ng": "Alert Comparisons"
+        },
+        "heading": {
+          "en": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications",
+          "pt": "Alertas WhatsApp vs. SMS vs. Notificações por Email",
+          "es": "Alertas WhatsApp vs. SMS vs. Notificaciones por Email",
+          "id": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications",
+          "ar": "تنبيهات واتساب المعاملاتية مقابل تنبيهات SMS مقابل إشعارات البريد الإلكتروني",
+          "tr": "WhatsApp İşlemsel Uyarıları vs. SMS Uyarıları vs. E-posta Bildirimleri",
+          "ng": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications"
+        },
+        "subheading": {
+          "en": "Compare formatting capabilities, read speeds, and delivery reliability.",
+          "pt": "Compare formatação, velocidade de leitura e confiabilidade de entrega.",
+          "es": "Compare formato, velocidad de lectura y confiabilidad de entrega.",
+          "id": "Bandingkan kemampuan format, kecepatan baca, dan keandalan pengiriman.",
+          "ar": "قارن إمكانيات التنسيق وسرعات القراءة وموثوقية التسليم.",
+          "tr": "Biçimlendirme yeteneklerini, okunma hızlarını ve teslimat güvenilirliğini karşılaştırın.",
+          "ng": "Compare formatting capabilities, read speeds, and delivery reliability."
+        },
         "columns": [
-          { "label": { "en": "Outreach Factor", "pt": "Fator de Alcance", "es": "Factor de Alcance", "id": "Faktor Jangkauan", "ar": "عامل الوصول", "tr": "Erişim Faktörü", "ng": "Outreach Factor" } },
-          { "label": { "en": "WhatsApp Alerts", "pt": "Alertas WhatsApp", "es": "Alertas WhatsApp", "id": "Peringatan WhatsApp", "ar": "تنبيهات واتساب", "tr": "WhatsApp Uyarıları", "ng": "WhatsApp Alerts" }, "highlight": true },
-          { "label": { "en": "SMS Alerts", "pt": "Alertas SMS", "es": "Alertas SMS", "id": "Peringatan SMS", "ar": "تنبيهات SMS", "tr": "SMS Uyarıları", "ng": "SMS Alerts" } },
-          { "label": { "en": "Email Notifications", "pt": "Notificações de Email", "es": "Notificaciones de Email", "id": "Notifikasi Email", "ar": "إشعارات البريد الإلكتروني", "tr": "E-posta Bildirimleri", "ng": "Email Notifications" } }
+          {
+            "label": {
+              "en": "Outreach Factor",
+              "pt": "Fator de Alcance",
+              "es": "Factor de Alcance",
+              "id": "Faktor Jangkauan",
+              "ar": "عامل الوصول",
+              "tr": "Erişim Faktörü",
+              "ng": "Outreach Factor"
+            }
+          },
+          {
+            "label": {
+              "en": "WhatsApp Alerts",
+              "pt": "Alertas WhatsApp",
+              "es": "Alertas WhatsApp",
+              "id": "Peringatan WhatsApp",
+              "ar": "تنبيهات واتساب",
+              "tr": "WhatsApp Uyarıları",
+              "ng": "WhatsApp Alerts"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "SMS Alerts",
+              "pt": "Alertas SMS",
+              "es": "Alertas SMS",
+              "id": "Peringatan SMS",
+              "ar": "تنبيهات SMS",
+              "tr": "SMS Uyarıları",
+              "ng": "SMS Alerts"
+            }
+          },
+          {
+            "label": {
+              "en": "Email Notifications",
+              "pt": "Notificações de Email",
+              "es": "Notificaciones de Email",
+              "id": "Notifikasi Email",
+              "ar": "إشعارات البريد الإلكتروني",
+              "tr": "E-posta Bildirimleri",
+              "ng": "Email Notifications"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Read Latency", "pt": "Latência de Leitura", "es": "Latencia de Lectura", "id": "Latensi Baca", "ar": "وقت القراءة", "tr": "Okunma Gecikmesi", "ng": "Read Latency" },
-            { "en": "< 5 minutes (90% reads)", "pt": "< 5 minutos (90% lido)", "es": "< 5 minutos (90% leído)", "id": "< 5 menit (90% dibaca)", "ar": "< 5 دقائق (90% قراءة)", "tr": "< 5 dakika (%90 okunma)", "ng": "< 5 minutes (90% reads)" },
-            { "en": "< 15 minutes (Basic reads)", "pt": "< 15 minutos (Leitura básica)", "es": "< 15 minutos (Leitura básica)", "id": "< 15 menit (Pembacaan biasa)", "ar": "< 15 دقيقة (قراءة أساسية)", "tr": "< 15 dakika (Temel okunma)", "ng": "< 15 minutes (Basic reads)" },
-            { "en": "Hours to days (Often delayed)", "pt": "Horas a dias (Atrasado)", "es": "Horas a días (Atrasado)", "id": "Jam hingga hari (Sering tertunda)", "ar": "ساعات إلى أيام (متأخر عادةً)", "tr": "Saatler ila günler (Genellikle gecikmeli)", "ng": "Hours to days (Often delayed)" }
+            {
+              "en": "Read Latency",
+              "pt": "Latência de Leitura",
+              "es": "Latencia de Lectura",
+              "id": "Latensi Baca",
+              "ar": "وقت القراءة",
+              "tr": "Okunma Gecikmesi",
+              "ng": "Read Latency"
+            },
+            {
+              "en": "< 5 minutes (90% reads)",
+              "pt": "< 5 minutos (90% lido)",
+              "es": "< 5 minutos (90% leído)",
+              "id": "< 5 menit (90% dibaca)",
+              "ar": "< 5 دقائق (90% قراءة)",
+              "tr": "< 5 dakika (%90 okunma)",
+              "ng": "< 5 minutes (90% reads)"
+            },
+            {
+              "en": "< 15 minutes (Basic reads)",
+              "pt": "< 15 minutos (Leitura básica)",
+              "es": "< 15 minutos (Leitura básica)",
+              "id": "< 15 menit (Pembacaan biasa)",
+              "ar": "< 15 دقيقة (قراءة أساسية)",
+              "tr": "< 15 dakika (Temel okunma)",
+              "ng": "< 15 minutes (Basic reads)"
+            },
+            {
+              "en": "Hours to days (Often delayed)",
+              "pt": "Horas a dias (Atrasado)",
+              "es": "Horas a días (Atrasado)",
+              "id": "Jam hingga hari (Sering tertunda)",
+              "ar": "ساعات إلى أيام (متأخر عادةً)",
+              "tr": "Saatler ila günler (Genellikle gecikmeli)",
+              "ng": "Hours to days (Often delayed)"
+            }
           ],
           [
-            { "en": "Interactive Buttons", "pt": "Botões Interativos", "es": "Botones Interactivos", "id": "Tombol Interaktif", "ar": "أزرار تفاعلية", "tr": "Etkileşimli Butonlar", "ng": "Interactive Buttons" },
-            { "en": "✓ (Clickable CTAs / Quick replies)", "pt": "✓ (CTAs clicáveis / Respostas rápidas)", "es": "✓ (CTAs clicables / Respuestas rápidas)", "id": "✓ (CTA yang dapat diklik / Balasan cepat)", "ar": "✓ (أزرار تفاعلية وروابط كليك)", "tr": "✓ (Tıklanabilir CTA'lar / Hızlı yanıtlar)", "ng": "✓ (Clickable CTAs / Quick replies)" },
-            { "en": "✗ (Raw hyperlinks only)", "pt": "✗ (Apenas links de URL brutos)", "es": "✗ (Solo enlaces de URL simples)", "id": "✗ (Hanya tautan mentah)", "ar": "✗ (روابط نصية فقط)", "tr": "✗ (Yalnızca ham köprüler)", "ng": "✗ (Raw hyperlinks only)" },
-            { "en": "✓ (HTML layout links)", "pt": "✓ (Links de layout HTML)", "es": "✓ (Enlaces de diseño HTML)", "id": "✓ (Tautan tata letak HTML)", "ar": "✓ (روابط تخطيط HTML)", "tr": "✓ (HTML düzen bağlantıları)", "ng": "✓ (HTML layout tags)" }
+            {
+              "en": "Interactive Buttons",
+              "pt": "Botões Interativos",
+              "es": "Botones Interactivos",
+              "id": "Tombol Interaktif",
+              "ar": "أزرار تفاعلية",
+              "tr": "Etkileşimli Butonlar",
+              "ng": "Interactive Buttons"
+            },
+            {
+              "en": "✓ (Clickable CTAs / Quick replies)",
+              "pt": "✓ (CTAs clicáveis / Respostas rápidas)",
+              "es": "✓ (CTAs clicables / Respuestas rápidas)",
+              "id": "✓ (CTA yang dapat diklik / Balasan cepat)",
+              "ar": "✓ (أزرار تفاعلية وروابط كليك)",
+              "tr": "✓ (Tıklanabilir CTA'lar / Hızlı yanıtlar)",
+              "ng": "✓ (Clickable CTAs / Quick replies)"
+            },
+            {
+              "en": "✗ (Raw hyperlinks only)",
+              "pt": "✗ (Apenas links de URL brutos)",
+              "es": "✗ (Solo enlaces de URL simples)",
+              "id": "✗ (Hanya tautan mentah)",
+              "ar": "✗ (روابط نصية فقط)",
+              "tr": "✗ (Yalnızca ham köprüler)",
+              "ng": "✗ (Raw hyperlinks only)"
+            },
+            {
+              "en": "✓ (HTML layout links)",
+              "pt": "✓ (Links de layout HTML)",
+              "es": "✓ (Enlaces de diseño HTML)",
+              "id": "✓ (Tautan tata letak HTML)",
+              "ar": "✓ (روابط تخطيط HTML)",
+              "tr": "✓ (HTML düzen bağlantıları)",
+              "ng": "✓ (HTML layout tags)"
+            }
           ],
           [
-            { "en": "Delivery Priority", "pt": "Prioridade de Entrega", "es": "Prioridad de Entrega", "id": "Prioritas Pengiriman", "ar": "أولوية التسليم", "tr": "Teslimat Önceliği", "ng": "Delivery Priority" },
-            { "en": "High (Direct Meta BSP pipe)", "pt": "Alta (Link direto Meta BSP)", "es": "Alta (Enlace directo Meta BSP)", "id": "Tinggi (Jalur langsung Meta BSP)", "ar": "مرتفعة (خط مباشر Meta BSP)", "tr": "Yüksek (Doğrudan Meta BSP hattı)", "ng": "High (Direct Meta BSP pipe)" },
-            { "en": "Medium (Subject to network congestion)", "pt": "Média (Sujeito a congestionamento)", "es": "Media (Sujeto a congestión de red)", "id": "Sedang (Tergantung kemacetan jaringan)", "ar": "متوسطة (تخضع للازدحام)", "tr": "Orta (Şebeke yoğunluğuna bağlı)", "ng": "Medium (Subject to network congestion)" },
-            { "en": "Low (Sorted to promo inbox)", "pt": "Baixa (Direcionado para aba promo)", "es": "Baja (Enviado a pestaña promo)", "id": "Rendah (Disaring ke kotak masuk promo)", "ar": "منخفضة (تذهب لبريد الترويج)", "tr": "Düşük (Tanıtım gelen kutusuna yönlendirilir)", "ng": "Low (Sorted to promo inbox)" }
+            {
+              "en": "Delivery Priority",
+              "pt": "Prioridade de Entrega",
+              "es": "Prioridad de Entrega",
+              "id": "Prioritas Pengiriman",
+              "ar": "أولوية التسليم",
+              "tr": "Teslimat Önceliği",
+              "ng": "Delivery Priority"
+            },
+            {
+              "en": "High (Direct Meta BSP pipe)",
+              "pt": "Alta (Link direto Meta BSP)",
+              "es": "Alta (Enlace directo Meta BSP)",
+              "id": "Tinggi (Jalur langsung Meta BSP)",
+              "ar": "مرتفعة (خط مباشر Meta BSP)",
+              "tr": "Yüksek (Doğrudan Meta BSP hattı)",
+              "ng": "High (Direct Meta BSP pipe)"
+            },
+            {
+              "en": "Medium (Subject to network congestion)",
+              "pt": "Média (Sujeito a congestionamento)",
+              "es": "Media (Sujeto a congestión de red)",
+              "id": "Sedang (Tergantung kemacetan jaringan)",
+              "ar": "متوسطة (تخضع للازدحام)",
+              "tr": "Orta (Şebeke yoğunluğuna bağlı)",
+              "ng": "Medium (Subject to network congestion)"
+            },
+            {
+              "en": "Low (Sorted to promo inbox)",
+              "pt": "Baixa (Direcionado para aba promo)",
+              "es": "Baja (Enviado a pestaña promo)",
+              "id": "Rendah (Disaring ke kotak masuk promo)",
+              "ar": "منخفضة (تذهب لبريد الترويج)",
+              "tr": "Düşük (Tanıtım gelen kutusuna yönlendirilir)",
+              "ng": "Low (Sorted to promo inbox)"
+            }
           ],
           [
-            { "en": "Rich PDF Receipts", "pt": "Recibos em PDF Rico", "es": "Recibos PDF Completos", "id": "Tanda Terima PDF Kaya", "ar": "إيصالات PDF غنية", "tr": "Zengin PDF Makbuzları", "ng": "Rich PDF Receipts" },
-            { "en": "✓ (Sent as direct file attachment)", "pt": "✓ (Enviado como anexo de arquivo)", "es": "✓ (Enviado como archivo adjunto directo)", "id": "✓ (Dikirim sebagai lampiran file langsung)", "ar": "✓ (يُرسل كملف مرفق مباشر)", "tr": "✓ (Doğrudan dosya eki olarak gönderilir)", "ng": "✓ (Sent as direct file attachment)" },
-            { "en": "✗ (No files support)", "pt": "✗ (Sem suporte a arquivos)", "es": "✗ (Sin soporte a archivos)", "id": "✗ (Tidak mendukung file)", "ar": "✗ (لا يدعم الملفات)", "tr": "✗ (Dosya desteği yok)", "ng": "✗ (No files support)" },
-            { "en": "✓ (Standard attachments)", "pt": "✓ (Anexos padrão)", "es": "✓ (Adjuntos estándar)", "id": "✓ (Lampiran standar)", "ar": "✓ (مرفقات قياسية)", "tr": "✓ (Standart ekler)", "ng": "✓ (Standard attachments)" }
+            {
+              "en": "Rich PDF Receipts",
+              "pt": "Recibos em PDF Rico",
+              "es": "Recibos PDF Completos",
+              "id": "Tanda Terima PDF Kaya",
+              "ar": "إيصالات PDF غنية",
+              "tr": "Zengin PDF Makbuzları",
+              "ng": "Rich PDF Receipts"
+            },
+            {
+              "en": "✓ (Sent as direct file attachment)",
+              "pt": "✓ (Enviado como anexo de arquivo)",
+              "es": "✓ (Enviado como archivo adjunto directo)",
+              "id": "✓ (Dikirim sebagai lampiran file langsung)",
+              "ar": "✓ (يُرسل كملف مرفق مباشر)",
+              "tr": "✓ (Doğrudan dosya eki olarak gönderilir)",
+              "ng": "✓ (Sent as direct file attachment)"
+            },
+            {
+              "en": "✗ (No files support)",
+              "pt": "✗ (Sem suporte a arquivos)",
+              "es": "✗ (Sin soporte a archivos)",
+              "id": "✗ (Tidak mendukung file)",
+              "ar": "✗ (لا يدعم الملفات)",
+              "tr": "✗ (Dosya desteği yok)",
+              "ng": "✗ (No files support)"
+            },
+            {
+              "en": "✓ (Standard attachments)",
+              "pt": "✓ (Anexos padrão)",
+              "es": "✓ (Adjuntos estándar)",
+              "id": "✓ (Lampiran standar)",
+              "ar": "✓ (مرفقات قياسية)",
+              "tr": "✓ (Standart ekler)",
+              "ng": "✓ (Standard attachments)"
+            }
           ]
         ]
       }
@@ -242,9 +555,33 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Alert API", "pt": "API de Alerta", "es": "API de Alerta", "id": "API Peringatan", "ar": "API التنبيهات", "tr": "Bildirim API'si", "ng": "Alert API" },
-        "heading": { "en": "Dispatch Transactional Alerts", "pt": "Enviar Alertas Transacionais", "es": "Enviar Alertas Transaccionales", "id": "Kirim Peringatan Transaksional", "ar": "إرسال التنبيهات المعاملاتية", "tr": "İşlemsel Uyarılar Gönderin", "ng": "Dispatch Transactional Alerts" },
-        "overlayText": { "en": "Transactional Alerts API Sandbox — Coming Soon", "pt": "Sandbox de API de Alertas — Em Breve", "es": "Sandbox de API de Alertas — Próximamente", "id": "Transactional Alerts API Sandbox — Segera Hadir", "ar": "بيئة تجريبية لـ API الإشعارات — قريباً", "tr": "İşlemsel Uyarılar API Sanal Alanı — Çok Yakında", "ng": "Transactional Alerts API Sandbox — Coming Soon" },
+        "badge": {
+          "en": "Alert API",
+          "pt": "API de Alerta",
+          "es": "API de Alerta",
+          "id": "API Peringatan",
+          "ar": "API التنبيهات",
+          "tr": "Bildirim API'si",
+          "ng": "Alert API"
+        },
+        "heading": {
+          "en": "Dispatch Transactional Alerts",
+          "pt": "Enviar Alertas Transacionais",
+          "es": "Enviar Alertas Transaccionales",
+          "id": "Kirim Peringatan Transaksional",
+          "ar": "إرسال التنبيهات المعاملاتية",
+          "tr": "İşlemsel Uyarılar Gönderin",
+          "ng": "Dispatch Transactional Alerts"
+        },
+        "overlayText": {
+          "en": "Transactional Alerts API Sandbox — Coming Soon",
+          "pt": "Sandbox de API de Alertas — Em Breve",
+          "es": "Sandbox de API de Alertas — Próximamente",
+          "id": "Transactional Alerts API Sandbox — Segera Hadir",
+          "ar": "بيئة تجريبية لـ API الإشعارات — قريباً",
+          "tr": "İşlemsel Uyarılar API Sanal Alanı — Çok Yakında",
+          "ng": "Transactional Alerts API Sandbox — Coming Soon"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -256,7 +593,7 @@
           },
           {
             "lang": "Python",
-            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/notifications/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"to\": \"+919876543210\",\n        \"type\": \"alert\",\n        \"message\": \"Your payment of \u20b9499.00 has been received successfully.\",\n        \"channels\": [\"whatsapp\", \"sms\"],\n        \"fallback_delay\": 30\n    }\n)"
+            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/notifications/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"to\": \"+919876543210\",\n        \"type\": \"alert\",\n        \"message\": \"Your payment of ₹499.00 has been received successfully.\",\n        \"channels\": [\"whatsapp\", \"sms\"],\n        \"fallback_delay\": 30\n    }\n)"
           }
         ]
       }
@@ -264,8 +601,24 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
-        "heading": { "en": "Notifications — FAQ", "pt": "Notificações — FAQ", "es": "Notificaciones — FAQ", "id": "Notifikasi — FAQ", "ar": "الإشعارات — الأسئلة الشائعة", "tr": "Bildirimler — SSS", "ng": "Notifications — FAQ" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS",
+          "ng": "FAQs"
+        },
+        "heading": {
+          "en": "Notifications — FAQ",
+          "pt": "Notificações — FAQ",
+          "es": "Notificaciones — FAQ",
+          "id": "Notifikasi — FAQ",
+          "ar": "الإشعارات — الأسئلة الشائعة",
+          "tr": "Bildirimler — SSS",
+          "ng": "Notifications — FAQ"
+        },
         "items": [
           {
             "question": {
@@ -353,21 +706,97 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar", "ng": "Related Pages" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar",
+          "ng": "Related Pages"
+        },
         "links": [
-          { "label": { "en": "E-Commerce System", "pt": "Sistema de E-Commerce", "es": "Sistema de E-Commerce", "id": "Sistem E-Commerce", "ar": "نظام التجارة الإلكترونية", "tr": "E-Ticaret Sistemi", "ng": "E-Commerce System" }, "href": "/use-cases/ecommerce" },
-          { "label": { "en": "Customer Support", "pt": "Suporte ao Cliente", "es": "Soporte al Cliente", "id": "Dukungan Pelanggan", "ar": "دعم العملاء", "tr": "Müşteri Desteği", "ng": "Customer Support" }, "href": "/use-cases/customer-support" },
-          { "label": { "en": "WhatsApp Utility", "pt": "Utilidade WhatsApp", "es": "Utilidad WhatsApp", "id": "Utilitas WhatsApp", "ar": "خدمات واتساب", "tr": "WhatsApp Yardımcı Programı", "ng": "WhatsApp Utility" }, "href": "/whatsapp/utility" },
-          { "label": { "en": "Technical Limits", "pt": "Limites Técnicos", "es": "Límites Técnicos", "id": "Batasan Teknis", "ar": "الحدود الفنية", "tr": "Teknik Limitler", "ng": "Technical Limits" }, "href": "/limits" }
+          {
+            "label": {
+              "en": "E-Commerce System",
+              "pt": "Sistema de E-Commerce",
+              "es": "Sistema de E-Commerce",
+              "id": "Sistem E-Commerce",
+              "ar": "نظام التجارة الإلكترونية",
+              "tr": "E-Ticaret Sistemi",
+              "ng": "E-Commerce System"
+            },
+            "href": "/use-cases/ecommerce"
+          },
+          {
+            "label": {
+              "en": "Customer Support",
+              "pt": "Suporte ao Cliente",
+              "es": "Soporte al Cliente",
+              "id": "Dukungan Pelanggan",
+              "ar": "دعم العملاء",
+              "tr": "Müşteri Desteği",
+              "ng": "Customer Support"
+            },
+            "href": "/use-cases/customer-support"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Utility",
+              "pt": "Utilidade WhatsApp",
+              "es": "Utilidad WhatsApp",
+              "id": "Utilitas WhatsApp",
+              "ar": "خدمات واتساب",
+              "tr": "WhatsApp Yardımcı Programı",
+              "ng": "WhatsApp Utility"
+            },
+            "href": "/whatsapp/utility"
+          },
+          {
+            "label": {
+              "en": "Technical Limits",
+              "pt": "Limites Técnicos",
+              "es": "Límites Técnicos",
+              "id": "Batasan Teknis",
+              "ar": "الحدود الفنية",
+              "tr": "Teknik Limitler",
+              "ng": "Technical Limits"
+            },
+            "href": "/limits"
+          }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Upgrade Your Notifications", "pt": "Atualize Suas Notificações", "es": "Actualice Sus Notificaciones", "id": "Tingkatkan Notifikasi Anda", "ar": "ترقية إشعاراتك", "tr": "Bildirimlerinizi Yükseltin", "ng": "Upgrade Your Notifications" },
-        "subtext": { "en": "Start in 5 minutes. No credit card required.", "pt": "Comece em 5 minutos. Sem cartão de crédito.", "es": "Comience en 5 minutos. Sin tarjeta de crédito.", "id": "Mulai dalam 5 menit. Tanpa kartu kredit.", "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.", "tr": "5 dakikada başlayın. Kredi kartı gerekmez.", "ng": "Start in 5 minutes. No credit card required." },
-        "primaryCta": { "en": "Get Started Free", "pt": "Começar Grátis", "es": "Empieza Gratis", "id": "Mulai Gratis", "ar": "ابدأ مجاناً", "tr": "Ücretsiz Başla", "ng": "Get Started Free" },
+        "heading": {
+          "en": "Upgrade Your Notifications",
+          "pt": "Atualize Suas Notificações",
+          "es": "Actualice Sus Notificaciones",
+          "id": "Tingkatkan Notifikasi Anda",
+          "ar": "ترقية إشعاراتك",
+          "tr": "Bildirimlerinizi Yükseltin",
+          "ng": "Upgrade Your Notifications"
+        },
+        "subtext": {
+          "en": "Start in 5 minutes. No credit card required.",
+          "pt": "Comece em 5 minutos. Sem cartão de crédito.",
+          "es": "Comience en 5 minutos. Sin tarjeta de crédito.",
+          "id": "Mulai dalam 5 menit. Tanpa kartu kredit.",
+          "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.",
+          "tr": "5 dakikada başlayın. Kredi kartı gerekmez.",
+          "ng": "Start in 5 minutes. No credit card required."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla",
+          "ng": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

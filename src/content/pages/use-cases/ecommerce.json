@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "whatsapp",
   "seo": {
     "title": {
@@ -19,7 +27,7 @@
       "ar": "أتمت رحلة عميل التجارة الإلكترونية بالكامل على واتساب. استعد السلال المهجورة وأرسل تنبيهات الشحن.",
       "tr": "WhatsApp'ta e-ticaret müşteri yolculuğunu otomatikleştirin. Terk edilmiş sepetleri kurtarın ve kargo takibi gönderin."
     },
-    "ogImage": "/images/ecommerce-cart-recovery.webp"
+    "ogImage": "/og/whatsapp-api.jpg"
   },
   "sections": [
     {
@@ -68,12 +76,36 @@
     {
       "type": "featuresGrid",
       "props": {
-        "badge": { "en": "Solutions", "pt": "Soluções", "es": "Soluciones", "id": "Solusi", "ar": "الحلول", "tr": "Çözümler", "ng": "Solutions" },
-        "heading": { "en": "Complete E-Commerce Toolkit", "pt": "Kit Completo para E-Commerce", "es": "Kit Completo para E-Commerce", "id": "Toolkit E-Commerce Lengkap", "ar": "مجموعة أدوات التجارة الإلكترونية المتكاملة", "tr": "Eksiksiz E-Ticaret Araç Seti", "ng": "Complete E-Commerce Toolkit" },
+        "badge": {
+          "en": "Solutions",
+          "pt": "Soluções",
+          "es": "Soluciones",
+          "id": "Solusi",
+          "ar": "الحلول",
+          "tr": "Çözümler",
+          "ng": "Solutions"
+        },
+        "heading": {
+          "en": "Complete E-Commerce Toolkit",
+          "pt": "Kit Completo para E-Commerce",
+          "es": "Kit Completo para E-Commerce",
+          "id": "Toolkit E-Commerce Lengkap",
+          "ar": "مجموعة أدوات التجارة الإلكترونية المتكاملة",
+          "tr": "Eksiksiz E-Ticaret Araç Seti",
+          "ng": "Complete E-Commerce Toolkit"
+        },
         "items": [
           {
             "icon": "broadcast",
-            "title": { "en": "Order Updates", "pt": "Atualizações de Pedidos", "es": "Actualizaciones de Pedidos", "id": "Pembaruan Pesanan", "ar": "تحديثات الطلبات", "tr": "Sipariş Güncellemeleri", "ng": "Order Updates" },
+            "title": {
+              "en": "Order Updates",
+              "pt": "Atualizações de Pedidos",
+              "es": "Actualizaciones de Pedidos",
+              "id": "Pembaruan Pesanan",
+              "ar": "تحديثات الطلبات",
+              "tr": "Sipariş Güncellemeleri",
+              "ng": "Order Updates"
+            },
             "description": {
               "en": "Automated order confirmation, processing, shipped, out-for-delivery, and delivered notifications with tracking links.",
               "pt": "Notificações automatizadas de confirmação, processamento, envio e entrega com links de rastreamento.",
@@ -86,7 +118,15 @@
           },
           {
             "icon": "template",
-            "title": { "en": "Abandoned Cart Recovery", "pt": "Recuperação de Carrinho Abandonado", "es": "Recuperación de Carrito Abandonado", "id": "Pemulihan Keranjang Belanja", "ar": "استرداد السلال المتروكة", "tr": "Terk Edilmiş Sepet Kurtarma", "ng": "Abandoned Cart Recovery" },
+            "title": {
+              "en": "Abandoned Cart Recovery",
+              "pt": "Recuperação de Carrinho Abandonado",
+              "es": "Recuperación de Carrito Abandonado",
+              "id": "Pemulihan Keranjang Belanja",
+              "ar": "استرداد السلال المتروكة",
+              "tr": "Terk Edilmiş Sepet Kurtarma",
+              "ng": "Abandoned Cart Recovery"
+            },
             "description": {
               "en": "Send WhatsApp reminders 1 hour after cart abandonment. Include product images, prices, and a direct checkout link.",
               "pt": "Envie lembretes de WhatsApp 1 hora após o abandono do carrinho. Inclua imagens dos produtos, preços e link direto de checkout.",
@@ -99,7 +139,15 @@
           },
           {
             "icon": "analytics",
-            "title": { "en": "Review Requests", "pt": "Solicitações de Avaliação", "es": "Solicitudes de Reseñas", "id": "Permintaan Ulasan", "ar": "طلبات Mراجعة", "tr": "Değerlendirme Talepleri", "ng": "Review Requests" },
+            "title": {
+              "en": "Review Requests",
+              "pt": "Solicitações de Avaliação",
+              "es": "Solicitudes de Reseñas",
+              "id": "Permintaan Ulasan",
+              "ar": "طلبات Mراجعة",
+              "tr": "Değerlendirme Talepleri",
+              "ng": "Review Requests"
+            },
             "description": {
               "en": "Automated post-delivery review requests with star rating buttons. Boost your product reviews and social proof.",
               "pt": "Solicitações automatizadas de avaliação pós-entrega com botões de estrelas. Aumente as avaliações de seus produtos.",
@@ -112,7 +160,15 @@
           },
           {
             "icon": "shield",
-            "title": { "en": "Product Catalogs", "pt": "Catálogos de Produtos", "es": "Catálogos de Productos", "id": "Katalog Produk", "ar": "كتالوجات المنتجات", "tr": "Ürün Katalogları", "ng": "Product Catalogs" },
+            "title": {
+              "en": "Product Catalogs",
+              "pt": "Catálogos de Produtos",
+              "es": "Catálogos de Productos",
+              "id": "Katalog Produk",
+              "ar": "كتالوجات المنتجات",
+              "tr": "Ürün Katalogları",
+              "ng": "Product Catalogs"
+            },
             "description": {
               "en": "Share product catalogs directly in WhatsApp with images, descriptions, and 'Add to Cart' quick-reply buttons.",
               "pt": "Compartilhe catálogos de produtos diretamente no WhatsApp com imagens, descrições e botões de resposta rápida.",
@@ -129,7 +185,15 @@
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "E-Commerce Integrations", "pt": "Integrações E-Commerce", "es": "Integraciones de E-Commerce", "id": "Integrasi E-Commerce", "ar": "تكاملات التجارة الإلكترونية", "tr": "E-Ticaret Entegrasyonları", "ng": "E-Commerce Integrations" },
+        "heading": {
+          "en": "E-Commerce Integrations",
+          "pt": "Integrações E-Commerce",
+          "es": "Integraciones de E-Commerce",
+          "id": "Integrasi E-Commerce",
+          "ar": "تكاملات التجارة الإلكترونية",
+          "tr": "E-Ticaret Entegrasyonları",
+          "ng": "E-Commerce Integrations"
+        },
         "body": {
           "en": "Connect your Shopify, WooCommerce, or Magento backend via webhooks. Automatically fire structured message dispatches to customer chats the moment actions occur on your store storefront database, retaining absolute control over message flow.",
           "pt": "Conecte seu painel Shopify, WooCommerce ou Magento por meio de webhooks. Dispare mensagens estruturadas para o chat do cliente no momento exato em que ocorrem as ações na sua loja.",
@@ -140,9 +204,33 @@
           "ng": "Connect your Shopify, WooCommerce, or Magento backend via webhooks. Automatically fire structured message dispatches to customer chats the moment actions occur on your store storefront database, retaining absolute control over message flow."
         },
         "bullets": [
-          { "en": "Plug-and-play webhook integrations", "pt": "Integrações webhook plug-and-play", "es": "Integraciones webhook plug-and-play", "id": "Integrasi webhook plug-and-play", "ar": "تكاملات ويب هوك سهلة التشغيل", "tr": "Tak-çalıştır webhook entegrasyonları", "ng": "Plug-and-play webhook integrations" },
-          { "en": "Abandoned cart checkout shortcuts", "pt": "Atalhos de checkout de carrinho abandonado", "es": "Accesos directos de pago de carrito abandonado", "id": "Pintasan checkout keranjang belanja yang ditinggalkan", "ar": "اختصارات الدفع للسلال المتروكة", "tr": "Terk edilmiş sepet ödeme kısayolları", "ng": "Abandoned cart checkout shortcuts" },
-          { "en": "Direct user catalogs sharing", "pt": "Compartilhamento direto de catálogos", "es": "Compartición directa de catálogos", "id": "Berbagi katalog pengguna secara langsung", "ar": "مشاركة الكتالوجات مباشرة مع المستخدمين", "tr": "Doğrudan kullanıcı katalogları paylaşımı", "ng": "Direct user catalogs sharing" }
+          {
+            "en": "Plug-and-play webhook integrations",
+            "pt": "Integrações webhook plug-and-play",
+            "es": "Integraciones webhook plug-and-play",
+            "id": "Integrasi webhook plug-and-play",
+            "ar": "تكاملات ويب هوك سهلة التشغيل",
+            "tr": "Tak-çalıştır webhook entegrasyonları",
+            "ng": "Plug-and-play webhook integrations"
+          },
+          {
+            "en": "Abandoned cart checkout shortcuts",
+            "pt": "Atalhos de checkout de carrinho abandonado",
+            "es": "Accesos directos de pago de carrito abandonado",
+            "id": "Pintasan checkout keranjang belanja yang ditinggalkan",
+            "ar": "اختصارات الدفع للسلال المتروكة",
+            "tr": "Terk edilmiş sepet ödeme kısayolları",
+            "ng": "Abandoned cart checkout shortcuts"
+          },
+          {
+            "en": "Direct user catalogs sharing",
+            "pt": "Compartilhamento direto de catálogos",
+            "es": "Compartición directa de catálogos",
+            "id": "Berbagi katalog pengguna secara langsung",
+            "ar": "مشاركة الكتالوجات مباشرة مع المستخدمين",
+            "tr": "Doğrudan kullanıcı katalogları paylaşımı",
+            "ng": "Direct user catalogs sharing"
+          }
         ],
         "image": "/images/ecommerce-cart-recovery.webp",
         "imageAlt": {
@@ -163,11 +251,35 @@
     {
       "type": "stepFlow",
       "props": {
-        "badge": { "en": "Workflow", "pt": "Fluxo de Trabalho", "es": "Flujo de Trabajo", "id": "Alur Kerja", "ar": "تدفق العمل", "tr": "İş Akışı", "ng": "Workflow" },
-        "heading": { "en": "Cart Recovery Automation Sequence", "pt": "Sequência de Automação de Recuperação de Carrinho", "es": "Secuencia de Automatización de Recuperación de Carrito", "id": "Urutan Otomatisasi Pemulihan Keranjang", "ar": "تسلسل أتمتة استرداد السلة", "tr": "Sepet Kurtarma Otomasyon Sırası", "ng": "Cart Recovery Automation Sequence" },
+        "badge": {
+          "en": "Workflow",
+          "pt": "Fluxo de Trabalho",
+          "es": "Flujo de Trabajo",
+          "id": "Alur Kerja",
+          "ar": "تدفق العمل",
+          "tr": "İş Akışı",
+          "ng": "Workflow"
+        },
+        "heading": {
+          "en": "Cart Recovery Automation Sequence",
+          "pt": "Sequência de Automação de Recuperação de Carrinho",
+          "es": "Secuencia de Automatización de Recuperación de Carrito",
+          "id": "Urutan Otomatisasi Pemulihan Keranjang",
+          "ar": "تسلسل أتمتة استرداد السلة",
+          "tr": "Sepet Kurtarma Otomasyon Sırası",
+          "ng": "Cart Recovery Automation Sequence"
+        },
         "steps": [
           {
-            "title": { "en": "1. Event Trigger", "pt": "1. Gatilho do Evento", "es": "1. Disparador del Evento", "id": "1. Pemicu Peristiwa", "ar": "1. مشغل الحدث", "tr": "1. Olay Tetikleyici", "ng": "1. Event Trigger" },
+            "title": {
+              "en": "1. Event Trigger",
+              "pt": "1. Gatilho do Evento",
+              "es": "1. Disparador del Evento",
+              "id": "1. Pemicu Peristiwa",
+              "ar": "1. مشغل الحدث",
+              "tr": "1. Olay Tetikleyici",
+              "ng": "1. Event Trigger"
+            },
             "description": {
               "en": "Customer adds items to cart on your store database, inputting checkout contact detail but leaving without buying.",
               "pt": "O cliente adiciona itens ao carrinho, insere detalhes de contato, mas sai sem finalizar a compra.",
@@ -179,7 +291,15 @@
             }
           },
           {
-            "title": { "en": "2. Queued Timeout", "pt": "2. Tempo de Fila", "es": "2. Tiempo de Espera en Cola", "id": "2. Batas Waktu Antrean", "ar": "2. مهلة الانتظار", "tr": "2. Kuyruğa Alınmış Zaman Aşımı", "ng": "2. Queued Timeout" },
+            "title": {
+              "en": "2. Queued Timeout",
+              "pt": "2. Tempo de Fila",
+              "es": "2. Tiempo de Espera en Cola",
+              "id": "2. Batas Waktu Antrean",
+              "ar": "2. مهلة الانتظار",
+              "tr": "2. Kuyruğa Alınmış Zaman Aşımı",
+              "ng": "2. Queued Timeout"
+            },
             "description": {
               "en": "Our API queues a cart recovery dispatch event, waiting 60 minutes for potential order completions.",
               "pt": "Nossa API enfileira um evento de recuperação de carrinho, aguardando 60 minutos para possíveis finalizações.",
@@ -191,7 +311,15 @@
             }
           },
           {
-            "title": { "en": "3. Direct Blast", "pt": "3. Envio Direto", "es": "3. Envío Direto", "id": "3. Pengiriman Langsung", "ar": "3. إرسال مباشر", "tr": "3. Doğrudan Gönderim", "ng": "3. Direct Blast" },
+            "title": {
+              "en": "3. Direct Blast",
+              "pt": "3. Envio Direto",
+              "es": "3. Envío Direto",
+              "id": "3. Pengiriman Langsung",
+              "ar": "3. إرسال مباشر",
+              "tr": "3. Doğrudan Gönderim",
+              "ng": "3. Direct Blast"
+            },
             "description": {
               "en": "If order is not placed, a personalized WhatsApp template fires with direct checkout links.",
               "pt": "Se o pedido não for realizado, um modelo de WhatsApp personalizado é enviado com link direto de checkout.",
@@ -208,39 +336,232 @@
     {
       "type": "comparisonTable",
       "props": {
-        "badge": { "en": "Channel Recovery", "pt": "Recuperação de Canal", "es": "Recuperación de Canal", "id": "Pemulihan Saluran", "ar": "استرداد القنوات", "tr": "Kanal Karşılaştırması", "ng": "Channel Recovery" },
-        "heading": { "en": "WhatsApp Cart Recovery vs. Email Cart Recovery vs. Web Push Notifications", "pt": "Recuperação no WhatsApp vs. Email vs. Web Push", "es": "Recuperación en WhatsApp vs. Email vs. Web Push", "id": "Pemulihan Keranjang WhatsApp vs. Email vs. Web Push", "ar": "استرداد سلة واتساب مقابل البريد الإلكتروني مقابل إشعارات الويب", "tr": "WhatsApp Sepet Kurtarma vs. E-posta Sepet Kurtarma vs. Web Push Bildirimleri", "ng": "WhatsApp Cart Recovery vs. Email Cart Recovery vs. Web Push Notifications" },
-        "subheading": { "en": "Compare checkout returns, client engagement rates, and unsubscribe ratios.", "pt": "Compare retornos de checkout, taxas de engajamento do cliente e taxas de descadastro.", "es": "Compare retornos de pago, tasas de interacción del cliente y tasas de cancelación.", "id": "Bandingkan pengembalian checkout, tingkat keterlibatan klien, dan rasio berhenti berlangganan.", "ar": "قارن عوائد الدفع ومعدلات تفاعل العملاء ونسب إلغاء الاشتراك.", "tr": "Ödeme dönüşlerini, müşteri etkileşim oranlarını ve abonelikten çıkma oranlarını karşılaştırın.", "ng": "Compare checkout returns, client engagement rates, and unsubscribe ratios." },
+        "badge": {
+          "en": "Channel Recovery",
+          "pt": "Recuperação de Canal",
+          "es": "Recuperación de Canal",
+          "id": "Pemulihan Saluran",
+          "ar": "استرداد القنوات",
+          "tr": "Kanal Karşılaştırması",
+          "ng": "Channel Recovery"
+        },
+        "heading": {
+          "en": "WhatsApp Cart Recovery vs. Email Cart Recovery vs. Web Push Notifications",
+          "pt": "Recuperação no WhatsApp vs. Email vs. Web Push",
+          "es": "Recuperación en WhatsApp vs. Email vs. Web Push",
+          "id": "Pemulihan Keranjang WhatsApp vs. Email vs. Web Push",
+          "ar": "استرداد سلة واتساب مقابل البريد الإلكتروني مقابل إشعارات الويب",
+          "tr": "WhatsApp Sepet Kurtarma vs. E-posta Sepet Kurtarma vs. Web Push Bildirimleri",
+          "ng": "WhatsApp Cart Recovery vs. Email Cart Recovery vs. Web Push Notifications"
+        },
+        "subheading": {
+          "en": "Compare checkout returns, client engagement rates, and unsubscribe ratios.",
+          "pt": "Compare retornos de checkout, taxas de engajamento do cliente e taxas de descadastro.",
+          "es": "Compare retornos de pago, tasas de interacción del cliente y tasas de cancelación.",
+          "id": "Bandingkan pengembalian checkout, tingkat keterlibatan klien, dan rasio berhenti berlangganan.",
+          "ar": "قارن عوائد الدفع ومعدلات تفاعل العملاء ونسب إلغاء الاشتراك.",
+          "tr": "Ödeme dönüşlerini, müşteri etkileşim oranlarını ve abonelikten çıkma oranlarını karşılaştırın.",
+          "ng": "Compare checkout returns, client engagement rates, and unsubscribe ratios."
+        },
         "columns": [
-          { "label": { "en": "Parameter", "pt": "Parâmetro", "es": "Parámetro", "id": "Parameter", "ar": "المعيار", "tr": "Parametre", "ng": "Parameter" } },
-          { "label": { "en": "WhatsApp Recovery", "pt": "Recuperação WhatsApp", "es": "Recuperación WhatsApp", "id": "Pemulihan WhatsApp", "ar": "استرداد واتساب", "tr": "WhatsApp Kurtarma", "ng": "WhatsApp Recovery" }, "highlight": true },
-          { "label": { "en": "Email Recovery", "pt": "Recuperação Email", "es": "Recuperación Email", "id": "Pemulihan Email", "ar": "استرداد البريد الإلكتروني", "tr": "E-posta Kurtarma", "ng": "Email Recovery" } },
-          { "label": { "en": "Web Push Alerts", "pt": "Alertas Web Push", "es": "Alertas Web Push", "id": "Peringatan Web Push", "ar": "تنبيهات الويب", "tr": "Web Push Uyarıları", "ng": "Web Push Alerts" } }
+          {
+            "label": {
+              "en": "Parameter",
+              "pt": "Parâmetro",
+              "es": "Parámetro",
+              "id": "Parameter",
+              "ar": "المعيار",
+              "tr": "Parametre",
+              "ng": "Parameter"
+            }
+          },
+          {
+            "label": {
+              "en": "WhatsApp Recovery",
+              "pt": "Recuperação WhatsApp",
+              "es": "Recuperación WhatsApp",
+              "id": "Pemulihan WhatsApp",
+              "ar": "استرداد واتساب",
+              "tr": "WhatsApp Kurtarma",
+              "ng": "WhatsApp Recovery"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Email Recovery",
+              "pt": "Recuperação Email",
+              "es": "Recuperación Email",
+              "id": "Pemulihan Email",
+              "ar": "استرداد البريد الإلكتروني",
+              "tr": "E-posta Kurtarma",
+              "ng": "Email Recovery"
+            }
+          },
+          {
+            "label": {
+              "en": "Web Push Alerts",
+              "pt": "Alertas Web Push",
+              "es": "Alertas Web Push",
+              "id": "Peringatan Web Push",
+              "ar": "تنبيهات الويب",
+              "tr": "Web Push Uyarıları",
+              "ng": "Web Push Alerts"
+            }
+          }
         ],
         "rows": [
           [
-            { "en": "Recovery Success Rate", "pt": "Taxa de Sucesso", "es": "Tasa de Éxito", "id": "Tingkat Keberhasilan", "ar": "معدل نجاح الاسترداد", "tr": "Kurtarma Başarı Oranı", "ng": "Recovery Success Rate" },
-            { "en": "15% - 25% (Extremely high)", "pt": "15% - 25% (Muito alta)", "es": "15% - 25% (Muy alta)", "id": "15% - 25% (Sangat tinggi)", "ar": "15% - 25% (مرتفع للغاية)", "tr": "%15 - %25 (Son derece yüksek)", "ng": "15% - 25% (Extremely high)" },
-            { "en": "3% - 5% (Low conversion)", "pt": "3% - 5% (Baixa conversão)", "es": "3% - 5% (Baja conversión)", "id": "3% - 5% (Konversi rendah)", "ar": "3% - 5% (تحويل منخفض)", "tr": "%3 - %5 (Düşük dönüşüm)", "ng": "3% - 5% (Low conversion)" },
-            { "en": "1% - 2% (Rarely clicked)", "pt": "1% - 2% (Raramente clicado)", "es": "1% - 2% (Raramente clicado)", "id": "1% - 2% (Jarang diklik)", "ar": "1% - 2% (نادراً ما ينقر)", "tr": "%1 - %2 (Nadiren tıklanır)", "ng": "1% - 2% (Rarely clicked)" }
+            {
+              "en": "Recovery Success Rate",
+              "pt": "Taxa de Sucesso",
+              "es": "Tasa de Éxito",
+              "id": "Tingkat Keberhasilan",
+              "ar": "معدل نجاح الاسترداد",
+              "tr": "Kurtarma Başarı Oranı",
+              "ng": "Recovery Success Rate"
+            },
+            {
+              "en": "15% - 25% (Extremely high)",
+              "pt": "15% - 25% (Muito alta)",
+              "es": "15% - 25% (Muy alta)",
+              "id": "15% - 25% (Sangat tinggi)",
+              "ar": "15% - 25% (مرتفع للغاية)",
+              "tr": "%15 - %25 (Son derece yüksek)",
+              "ng": "15% - 25% (Extremely high)"
+            },
+            {
+              "en": "3% - 5% (Low conversion)",
+              "pt": "3% - 5% (Baixa conversão)",
+              "es": "3% - 5% (Baja conversión)",
+              "id": "3% - 5% (Konversi rendah)",
+              "ar": "3% - 5% (تحويل منخفض)",
+              "tr": "%3 - %5 (Düşük dönüşüm)",
+              "ng": "3% - 5% (Low conversion)"
+            },
+            {
+              "en": "1% - 2% (Rarely clicked)",
+              "pt": "1% - 2% (Raramente clicado)",
+              "es": "1% - 2% (Raramente clicado)",
+              "id": "1% - 2% (Jarang diklik)",
+              "ar": "1% - 2% (نادراً ما ينقر)",
+              "tr": "%1 - %2 (Nadiren tıklanır)",
+              "ng": "1% - 2% (Rarely clicked)"
+            }
           ],
           [
-            { "en": "Click-Through Rate", "pt": "Taxa de Cliques", "es": "Tasa de Clics", "id": "Rasio Klik", "ar": "معدل النقر", "tr": "Tıklama Oranı", "ng": "Click-Through Rate" },
-            { "en": "45% - 55%", "pt": "45% - 55%", "es": "45% - 55%", "id": "45% - 55%", "ar": "45% - 55%", "tr": "%45 - %55", "ng": "45% - 55%" },
-            { "en": "8% - 12%", "pt": "8% - 12%", "es": "8% - 12%", "id": "8% - 12%", "ar": "8% - 12%", "tr": "%8 - %12", "ng": "8% - 12%" },
-            { "en": "3% - 5%", "pt": "3% - 5%", "es": "3% - 5%", "id": "3% - 5%", "ar": "3% - 5%", "tr": "%3 - %5", "ng": "3% - 5%" }
+            {
+              "en": "Click-Through Rate",
+              "pt": "Taxa de Cliques",
+              "es": "Tasa de Clics",
+              "id": "Rasio Klik",
+              "ar": "معدل النقر",
+              "tr": "Tıklama Oranı",
+              "ng": "Click-Through Rate"
+            },
+            {
+              "en": "45% - 55%",
+              "pt": "45% - 55%",
+              "es": "45% - 55%",
+              "id": "45% - 55%",
+              "ar": "45% - 55%",
+              "tr": "%45 - %55",
+              "ng": "45% - 55%"
+            },
+            {
+              "en": "8% - 12%",
+              "pt": "8% - 12%",
+              "es": "8% - 12%",
+              "id": "8% - 12%",
+              "ar": "8% - 12%",
+              "tr": "%8 - %12",
+              "ng": "8% - 12%"
+            },
+            {
+              "en": "3% - 5%",
+              "pt": "3% - 5%",
+              "es": "3% - 5%",
+              "id": "3% - 5%",
+              "ar": "3% - 5%",
+              "tr": "%3 - %5",
+              "ng": "3% - 5%"
+            }
           ],
           [
-            { "en": "User Opt-out Friction", "pt": "Fricção de Saída", "es": "Fricción de Salida", "id": "Friksi Opt-out", "ar": "صعوبة إلغاء الاشتراك", "tr": "Abonelikten Çıkma Zorluğu", "ng": "User Opt-out Friction" },
-            { "en": "Low (Opt-out templates support)", "pt": "Baixa (Botão de opt-out fácil)", "es": "Baja (Soporta botão de opt-out)", "id": "Rendah (Dukungan templat opt-out)", "ar": "منخفضة (يدعم إلغاء الاشتراك بنقرة)", "tr": "Düşük (Opt-out şablon desteği)", "ng": "Low (Opt-out templates support)" },
-            { "en": "High (Subscribed lists)", "pt": "Alta (Listas de emails)", "es": "Alta (Listas de suscripción)", "id": "Tinggi (Daftar langganan)", "ar": "مرتفعة (قوائم المشتركين)", "tr": "Yüksek (Abone listeleri)", "ng": "High (Subscribed lists)" },
-            { "en": "Immediate blocker settings", "pt": "Bloqueio imediato nas configs", "es": "Bloqueo inmediato", "id": "Pengaturan blokir langsung", "ar": "إعدادات حظر فورية", "tr": "Anında engelleme ayarları", "ng": "Immediate blocker settings" }
+            {
+              "en": "User Opt-out Friction",
+              "pt": "Fricção de Saída",
+              "es": "Fricción de Salida",
+              "id": "Friksi Opt-out",
+              "ar": "صعوبة إلغاء الاشتراك",
+              "tr": "Abonelikten Çıkma Zorluğu",
+              "ng": "User Opt-out Friction"
+            },
+            {
+              "en": "Low (Opt-out templates support)",
+              "pt": "Baixa (Botão de opt-out fácil)",
+              "es": "Baja (Soporta botão de opt-out)",
+              "id": "Rendah (Dukungan templat opt-out)",
+              "ar": "منخفضة (يدعم إلغاء الاشتراك بنقرة)",
+              "tr": "Düşük (Opt-out şablon desteği)",
+              "ng": "Low (Opt-out templates support)"
+            },
+            {
+              "en": "High (Subscribed lists)",
+              "pt": "Alta (Listas de emails)",
+              "es": "Alta (Listas de suscripción)",
+              "id": "Tinggi (Daftar langganan)",
+              "ar": "مرتفعة (قوائم المشتركين)",
+              "tr": "Yüksek (Abone listeleri)",
+              "ng": "High (Subscribed lists)"
+            },
+            {
+              "en": "Immediate blocker settings",
+              "pt": "Bloqueio imediato nas configs",
+              "es": "Bloqueo inmediato",
+              "id": "Pengaturan blokir langsung",
+              "ar": "إعدادات حظر فورية",
+              "tr": "Anında engelleme ayarları",
+              "ng": "Immediate blocker settings"
+            }
           ],
           [
-            { "en": "Multimedia Catalogs", "pt": "Catálogos Multimídia", "es": "Catálogos Multimedia", "id": "Katalog Multimedia", "ar": "كتالوجات الوسائط", "tr": "Multimedya Katalogları", "ng": "Multimedia Catalogs" },
-            { "en": "✓ (Render image slide catalogs)", "pt": "✓ (Catálogos com slides de imagem)", "es": "✓ (Catálogos con diapositivas de imágenes)", "id": "✓ (Render katalog slide gambar)", "ar": "✓ (عرض كتالوجات شرائح الصور)", "tr": "✓ (Görsel slayt katalogları oluşturma)", "ng": "✓ (Render image slide catalogs)" },
-            { "en": "✓ (Heavy static HTML)", "pt": "✓ (HTML estático pesado)", "es": "✓ (HTML estático pesado)", "id": "✓ (HTML statis berat)", "ar": "✓ (HTML ثابت ثقيل)", "tr": "✓ (Ağır statik HTML)", "ng": "✓ (Heavy static HTML)" },
-            { "en": "✗ (Static small icon)", "pt": "✗ (Apenas ícone estático)", "es": "✗ (Solo icono estático)", "id": "✗ (Ikon kecil statis)", "ar": "✗ (أيقونة صغيرة ثابتة)", "tr": "✗ (Statik küçük simge)", "ng": "✗ (Static small icon)" }
+            {
+              "en": "Multimedia Catalogs",
+              "pt": "Catálogos Multimídia",
+              "es": "Catálogos Multimedia",
+              "id": "Katalog Multimedia",
+              "ar": "كتالوجات الوسائط",
+              "tr": "Multimedya Katalogları",
+              "ng": "Multimedia Catalogs"
+            },
+            {
+              "en": "✓ (Render image slide catalogs)",
+              "pt": "✓ (Catálogos com slides de imagem)",
+              "es": "✓ (Catálogos con diapositivas de imágenes)",
+              "id": "✓ (Render katalog slide gambar)",
+              "ar": "✓ (عرض كتالوجات شرائح الصور)",
+              "tr": "✓ (Görsel slayt katalogları oluşturma)",
+              "ng": "✓ (Render image slide catalogs)"
+            },
+            {
+              "en": "✓ (Heavy static HTML)",
+              "pt": "✓ (HTML estático pesado)",
+              "es": "✓ (HTML estático pesado)",
+              "id": "✓ (HTML statis berat)",
+              "ar": "✓ (HTML ثابت ثقيل)",
+              "tr": "✓ (Ağır statik HTML)",
+              "ng": "✓ (Heavy static HTML)"
+            },
+            {
+              "en": "✗ (Static small icon)",
+              "pt": "✗ (Apenas ícone estático)",
+              "es": "✗ (Solo icono estático)",
+              "id": "✗ (Ikon kecil statis)",
+              "ar": "✗ (أيقونة صغيرة ثابتة)",
+              "tr": "✗ (Statik küçük simge)",
+              "ng": "✗ (Static small icon)"
+            }
           ]
         ]
       }
@@ -248,9 +569,33 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Cart API", "pt": "API de Carrinho", "es": "API de Carrito", "id": "API Keranjang", "ar": "API السلة", "tr": "Sepet API'si", "ng": "Cart API" },
-        "heading": { "en": "Trigger Abandoned Cart Flows", "pt": "Disparar Fluxos de Carrinho Abandonado", "es": "Activar Flujos de Carrito Abandonado", "id": "Picu Alur Keranjang Ditinggalkan", "ar": "تشغيل تدفقات السلة المتروكة", "tr": "Terk Edilmiş Sepet Akışlarını Tetikleyin", "ng": "Trigger Abandoned Cart Flows" },
-        "overlayText": { "en": "E-Commerce Integration API Sandbox — Coming Soon", "pt": "Sandbox da API de E-Commerce — Em Breve", "es": "Sandbox de API de E-Commerce — Próximamente", "id": "E-Commerce Integration API Sandbox — Segera Hadir", "ar": "بيئة تجريبية لتكامل التجارة الإلكترونية — قريباً", "tr": "E-Ticaret Entegrasyonu API Sanal Alanı — Çok Yakında", "ng": "E-Commerce Integration API Sandbox — Coming Soon" },
+        "badge": {
+          "en": "Cart API",
+          "pt": "API de Carrinho",
+          "es": "API de Carrito",
+          "id": "API Keranjang",
+          "ar": "API السلة",
+          "tr": "Sepet API'si",
+          "ng": "Cart API"
+        },
+        "heading": {
+          "en": "Trigger Abandoned Cart Flows",
+          "pt": "Disparar Fluxos de Carrinho Abandonado",
+          "es": "Activar Flujos de Carrito Abandonado",
+          "id": "Picu Alur Keranjang Ditinggalkan",
+          "ar": "تشغيل تدفقات السلة المتروكة",
+          "tr": "Terk Edilmiş Sepet Akışlarını Tetikleyin",
+          "ng": "Trigger Abandoned Cart Flows"
+        },
+        "overlayText": {
+          "en": "E-Commerce Integration API Sandbox — Coming Soon",
+          "pt": "Sandbox da API de E-Commerce — Em Breve",
+          "es": "Sandbox de API de E-Commerce — Próximamente",
+          "id": "E-Commerce Integration API Sandbox — Segera Hadir",
+          "ar": "بيئة تجريبية لتكامل التجارة الإلكترونية — قريباً",
+          "tr": "E-Ticaret Entegrasyonu API Sanal Alanı — Çok Yakında",
+          "ng": "E-Commerce Integration API Sandbox — Coming Soon"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -270,8 +615,24 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs", "pt": "FAQs", "es": "FAQs", "id": "FAQ", "ar": "الأسئلة الشائعة", "tr": "SSS", "ng": "FAQs" },
-        "heading": { "en": "E-Commerce Use Case — FAQ", "pt": "E-Commerce — FAQ", "es": "E-Commerce — FAQ", "id": "E-Commerce — FAQ", "ar": "التجارة الإلكترونية — الأسئلة الشائعة", "tr": "E-Ticaret — SSS", "ng": "E-Commerce Use Case — FAQ" },
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS",
+          "ng": "FAQs"
+        },
+        "heading": {
+          "en": "E-Commerce Use Case — FAQ",
+          "pt": "E-Commerce — FAQ",
+          "es": "E-Commerce — FAQ",
+          "id": "E-Commerce — FAQ",
+          "ar": "التجارة الإلكترونية — الأسئلة الشائعة",
+          "tr": "E-Ticaret — SSS",
+          "ng": "E-Commerce Use Case — FAQ"
+        },
         "items": [
           {
             "question": {
@@ -359,21 +720,97 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages", "pt": "Páginas Relacionadas", "es": "Páginas Relacionadas", "id": "Halaman Terkait", "ar": "الصفحات ذات الصلة", "tr": "İlgili Sayfalar", "ng": "Related Pages" },
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar",
+          "ng": "Related Pages"
+        },
         "links": [
-          { "label": { "en": "Customer Support Use", "pt": "Suporte ao Cliente", "es": "Uso de Soporte al Cliente", "id": "Dukungan Pelanggan", "ar": "دعم العملاء", "tr": "Müşteri Desteği Kullanımı", "ng": "Customer Support Use" }, "href": "/use-cases/customer-support" },
-          { "label": { "en": "Transactional Alerts", "pt": "Alertas Transacionais", "es": "Alertas Transaccionales", "id": "Peringatan Transaksional", "ar": "الإشعارات المعاملاتية", "tr": "İşlemsel Uyarılar", "ng": "Transactional Alerts" }, "href": "/use-cases/notifications" },
-          { "label": { "en": "WhatsApp API Platform", "pt": "Plataforma API WhatsApp", "es": "Plataforma de API de WhatsApp", "id": "Platform API WhatsApp", "ar": "منصة واجهة واتساب", "tr": "WhatsApp API Platformu", "ng": "WhatsApp API Platform" }, "href": "/whatsapp" },
-          { "label": { "en": "Pricing Model", "pt": "Modelo de Preços", "es": "Modelo de Precios", "id": "Model Harga", "ar": "nomedeprecos", "tr": "Fiyatlandırma Modeli", "ng": "Pricing Model" }, "href": "/pricing" }
+          {
+            "label": {
+              "en": "Customer Support Use",
+              "pt": "Suporte ao Cliente",
+              "es": "Uso de Soporte al Cliente",
+              "id": "Dukungan Pelanggan",
+              "ar": "دعم العملاء",
+              "tr": "Müşteri Desteği Kullanımı",
+              "ng": "Customer Support Use"
+            },
+            "href": "/use-cases/customer-support"
+          },
+          {
+            "label": {
+              "en": "Transactional Alerts",
+              "pt": "Alertas Transacionais",
+              "es": "Alertas Transaccionales",
+              "id": "Peringatan Transaksional",
+              "ar": "الإشعارات المعاملاتية",
+              "tr": "İşlemsel Uyarılar",
+              "ng": "Transactional Alerts"
+            },
+            "href": "/use-cases/notifications"
+          },
+          {
+            "label": {
+              "en": "WhatsApp API Platform",
+              "pt": "Plataforma API WhatsApp",
+              "es": "Plataforma de API de WhatsApp",
+              "id": "Platform API WhatsApp",
+              "ar": "منصة واجهة واتساب",
+              "tr": "WhatsApp API Platformu",
+              "ng": "WhatsApp API Platform"
+            },
+            "href": "/whatsapp"
+          },
+          {
+            "label": {
+              "en": "Pricing Model",
+              "pt": "Modelo de Preços",
+              "es": "Modelo de Precios",
+              "id": "Model Harga",
+              "ar": "nomedeprecos",
+              "tr": "Fiyatlandırma Modeli",
+              "ng": "Pricing Model"
+            },
+            "href": "/pricing"
+          }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Boost Your E-Commerce with WhatsApp", "pt": "Impulsione Seu E-Commerce com WhatsApp", "es": "Impulse Su Comercio Electrónico con WhatsApp", "id": "Tingkatkan E-Commerce Anda dengan WhatsApp", "ar": "عزز تجارتك الإلكترونية عبر واتساب", "tr": "E-Ticaretinizi WhatsApp ile Güçlendirin", "ng": "Boost Your E-Commerce with WhatsApp" },
-        "subtext": { "en": "Start in 5 minutes. No credit card required.", "pt": "Comece em 5 minutos. Sem cartão de crédito.", "es": "Comience en 5 minutos. Sin tarjeta de crédito.", "id": "Mulai dalam 5 menit. Tanpa kartu kredit.", "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.", "tr": "5 dakikada başlayın. Kredi kartı gerekmez.", "ng": "Start in 5 minutes. No credit card required." },
-        "primaryCta": { "en": "Get Started Free", "pt": "Começar Grátis", "es": "Empieza Gratis", "id": "Mulai Gratis", "ar": "ابدأ مجاناً", "tr": "Ücretsiz Başla", "ng": "Get Started Free" },
+        "heading": {
+          "en": "Boost Your E-Commerce with WhatsApp",
+          "pt": "Impulsione Seu E-Commerce com WhatsApp",
+          "es": "Impulse Su Comercio Electrónico con WhatsApp",
+          "id": "Tingkatkan E-Commerce Anda dengan WhatsApp",
+          "ar": "عزز تجارتك الإلكترونية عبر واتساب",
+          "tr": "E-Ticaretinizi WhatsApp ile Güçlendirin",
+          "ng": "Boost Your E-Commerce with WhatsApp"
+        },
+        "subtext": {
+          "en": "Start in 5 minutes. No credit card required.",
+          "pt": "Comece em 5 minutos. Sem cartão de crédito.",
+          "es": "Comience en 5 minutos. Sin tarjeta de crédito.",
+          "id": "Mulai dalam 5 menit. Tanpa kartu kredit.",
+          "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.",
+          "tr": "5 dakikada başlayın. Kredi kartı gerekmez.",
+          "ng": "Start in 5 minutes. No credit card required."
+        },
+        "primaryCta": {
+          "en": "Get Started Free",
+          "pt": "Começar Grátis",
+          "es": "Empieza Gratis",
+          "id": "Mulai Gratis",
+          "ar": "ابدأ مجاناً",
+          "tr": "Ücretsiz Başla",
+          "ng": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }

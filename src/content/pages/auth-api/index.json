@@ -1,5 +1,13 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
   "theme": "sms",
   "seo": {
     "title": {
@@ -12,7 +20,8 @@
     },
     "description": {
       "en": "Complete authentication API with OTP verification, phone number validation, and multi-channel delivery via SMS and WhatsApp."
-    }
+    },
+    "ogImage": "/og/auth-api.jpg"
   },
   "sections": [
     {
@@ -42,24 +51,36 @@
           "ar": "مجموعة أدوات تحقق كاملة: إرسال OTP عبر SMS/واتساب والتحقق من الرموز والتحقق من صيغة الرقم — كل ذلك عبر واجهة REST API واحدة.",
           "tr": "Eksiksiz doğrulama araç seti: SMS/WhatsApp ile OTP gönderin, kodları doğrulayın ve numara biçimini kontrol edin — hepsi tek bir REST API ile."
         },
-        "primaryCta": { "en": "Try Auth API" },
+        "primaryCta": {
+          "en": "Try Auth API"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     },
     {
       "type": "featureSplit",
       "props": {
-        "heading": { "en": "Multi-Channel Verification Routing" },
+        "heading": {
+          "en": "Multi-Channel Verification Routing"
+        },
         "body": {
           "en": "Deliver OTP codes with smart failovers. Tries WhatsApp first for higher conversion rates and automatically falls back to transactional SMS if not delivered in 30 seconds."
         },
         "bullets": [
-          { "en": "WhatsApp-first with SMS fallback" },
-          { "en": "Real-time delivery analytics" },
-          { "en": "Global E.164 phone number formatting checks" }
+          {
+            "en": "WhatsApp-first with SMS fallback"
+          },
+          {
+            "en": "Real-time delivery analytics"
+          },
+          {
+            "en": "Global E.164 phone number formatting checks"
+          }
         ],
         "image": "/images/auth-fallback.webp",
-        "imageAlt": { "en": "WhatsApp to SMS Fallback Timeline" },
+        "imageAlt": {
+          "en": "WhatsApp to SMS Fallback Timeline"
+        },
         "reversed": false
       }
     },
@@ -74,7 +95,9 @@
     {
       "type": "featuresGrid",
       "props": {
-        "badge": { "en": "Endpoints" },
+        "badge": {
+          "en": "Endpoints"
+        },
         "heading": {
           "en": "API Capabilities",
           "pt": "Recursos da API",
@@ -86,28 +109,36 @@
         "items": [
           {
             "icon": "api",
-            "title": { "en": "POST /otp/send" },
+            "title": {
+              "en": "POST /otp/send"
+            },
             "description": {
               "en": "Generate and dispatch a one-time password code to a phone number. Customize template placeholders easily."
             }
           },
           {
             "icon": "shield",
-            "title": { "en": "POST /otp/verify" },
+            "title": {
+              "en": "POST /otp/verify"
+            },
             "description": {
               "en": "Validate the code entered by the user. Simple 1-call verification that checks request expiration."
             }
           },
           {
             "icon": "broadcast",
-            "title": { "en": "GET /messages/:id" },
+            "title": {
+              "en": "GET /messages/:id"
+            },
             "description": {
               "en": "Fetch the real-time delivery status of the SMS or WhatsApp message."
             }
           },
           {
             "icon": "analytics",
-            "title": { "en": "Fraud Prevention" },
+            "title": {
+              "en": "Fraud Prevention"
+            },
             "description": {
               "en": "Enforces rate-limits, carrier risk lookups, and device rules to mitigate fake signups."
             }
@@ -118,8 +149,12 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Step 1: Send OTP" },
-        "heading": { "en": "Generate and Send OTP Code" },
+        "badge": {
+          "en": "Step 1: Send OTP"
+        },
+        "heading": {
+          "en": "Generate and Send OTP Code"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -151,8 +186,12 @@
     {
       "type": "codeShowcase",
       "props": {
-        "badge": { "en": "Step 2: Verify OTP" },
-        "heading": { "en": "Confirm User Codes Instantly" },
+        "badge": {
+          "en": "Step 2: Verify OTP"
+        },
+        "heading": {
+          "en": "Confirm User Codes Instantly"
+        },
         "snippets": [
           {
             "lang": "cURL",
@@ -192,8 +231,12 @@
     {
       "type": "faqSection",
       "props": {
-        "badge": { "en": "FAQs" },
-        "heading": { "en": "Auth API — FAQ" },
+        "badge": {
+          "en": "FAQs"
+        },
+        "heading": {
+          "en": "Auth API — FAQ"
+        },
         "items": [
           {
             "question": {
@@ -209,21 +252,49 @@
     {
       "type": "relatedPages",
       "props": {
-        "heading": { "en": "Related Pages" },
+        "heading": {
+          "en": "Related Pages"
+        },
         "links": [
-          { "label": { "en": "OTP API Docs" }, "href": "/otp-api" },
-          { "label": { "en": "WhatsApp Auth API" }, "href": "/whatsapp/authentication" },
-          { "label": { "en": "Pricing" }, "href": "/pricing" },
-          { "label": { "en": "Use Cases" }, "href": "/use-cases" }
+          {
+            "label": {
+              "en": "OTP API Docs"
+            },
+            "href": "/otp-api"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Auth API"
+            },
+            "href": "/whatsapp/authentication"
+          },
+          {
+            "label": {
+              "en": "Pricing"
+            },
+            "href": "/pricing"
+          },
+          {
+            "label": {
+              "en": "Use Cases"
+            },
+            "href": "/use-cases"
+          }
         ]
       }
     },
     {
       "type": "ctaBlock",
       "props": {
-        "heading": { "en": "Add User Verification to Your App" },
-        "subtext": { "en": "Free plan. API key in 30 seconds." },
-        "primaryCta": { "en": "Get Started Free" },
+        "heading": {
+          "en": "Add User Verification to Your App"
+        },
+        "subtext": {
+          "en": "Free plan. API key in 30 seconds."
+        },
+        "primaryCta": {
+          "en": "Get Started Free"
+        },
         "primaryHref": "https://app.startmessaging.com/signup"
       }
     }
