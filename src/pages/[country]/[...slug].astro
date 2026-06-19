@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES, DEFAULT_COUNTRY, type Country } from '@/config/countries';
-import { buildService } from '@/lib/jsonld';
+import { buildService, buildFaqPage, buildContactPage, buildProductOffer } from '@/lib/jsonld';
 import { r } from '@/i18n/r';
 
 export async function getStaticPaths() {
@@ -32,21 +32,83 @@ const { page, country, pageCountries } = Astro.props;
 const slug = Astro.params.slug ?? '';
 const pageTheme = page.data.theme ?? 'sms';
 
-// Inject Service schema for WhatsApp and SMS product pages
+// Build JSON-LD schemas based on page content
+const schemas: any[] = [];
+
+// 1. Service schema for WhatsApp and SMS product pages
 const isServicePage = slug.startsWith('whatsapp') || slug.startsWith('sms');
-const serviceType = slug.startsWith('whatsapp') ? 'WhatsApp Business API' : 'SMS API';
-const seoWithSchema = isServicePage
-  ? {
-      ...page.data.seo,
-      jsonLd: buildService(
-        r(page.data.seo.title, country as Country),
-        serviceType,
-        r(page.data.seo.description, country as Country),
-        `https://startmessaging.com/${country}/${slug}`,
-        pageCountries as Country[]
-      ),
+if (isServicePage) {
+  const serviceType = slug.startsWith('whatsapp') ? 'WhatsApp Business API' : 'SMS API';
+  schemas.push(
+    buildService(
+      r(page.data.seo.title, country as Country),
+      serviceType,
+      r(page.data.seo.description, country as Country),
+      `https://startmessaging.com/${country}/${slug}`,
+      pageCountries as Country[]
+    )
+  );
+}
+
+// 2. FAQPage schema - extract from faqSection
+const faqSection = page.data.sections?.find?.((s: any) => s.type === 'faqSection');
+if (faqSection?.props?.items && Array.isArray(faqSection.props.items)) {
+  const faqItems = faqSection.props.items
+    .filter((item: any) => !item.countries || item.countries.includes(country))
+    .map((item: any) => ({
+      question: r(item.question, country as Country),
+      answer: r(item.answer, country as Country),
+    }));
+  if (faqItems.length > 0) {
+    schemas.push(buildFaqPage(faqItems));
+  }
+}
+
+// 3. ContactPage schema for contact page
+if (slug === 'contact') {
+  schemas.push(
+    buildContactPage({
+      email: 'startmessagingdotcom@gmail.com',
+      telephone: '+91-637-638-3348',
+      availableLanguages: ['en', 'pt', 'es', 'id', 'ar', 'tr'],
+    })
+  );
+}
+
+// 4. Product/Offer schema for pricing page (localized pricing)
+if (slug === 'pricing') {
+  // Get country-specific Premium plan pricing from page data
+  const pricingSection = page.data.sections?.find?.((s: any) => s.type === 'pricingTabs');
+  const plans = pricingSection?.props?.['plans'];
+  const premiumPlan = Array.isArray(plans) ? plans.find((p: any) => {
+    try {
+      return r(p.name, country as Country) === 'Premium';
+    } catch {
+      return false;
     }
-  : page.data.seo;
+  }) : null;
+  
+  if (premiumPlan) {
+    const price = String(r(premiumPlan.price, country as Country)).replace(/[^\d.]/g, ''); // Extract number only
+    const currencyMap: Record<string, string> = {
+      'in': 'INR', 'br': 'BRL', 'mx': 'MXN', 'id': 'IDR', 'ae': 'AED', 'tr': 'TRY', 'ng': 'USD'
+    };
+    schemas.push(
+      buildProductOffer({
+        name: 'StartMessaging Premium Plan',
+        description: String(r(premiumPlan.description, country as Country)),
+        price: price || '49',
+        priceCurrency: currencyMap[country as string] || 'USD',
+        url: `https://startmessaging.com/${country}/pricing`,
+      })
+    );
+  }
+}
+
+const seoWithSchema = {
+  ...page.data.seo,
+  jsonLd: schemas.length > 0 ? schemas : undefined,
+};
 ---
 
 <MarketingLayout

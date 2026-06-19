@@ -22,6 +22,7 @@ const pages = defineCollection({
   schema: z.object({
     countries: z.array(z.string()).optional(),
     theme:     z.enum(['sms', 'whatsapp']).optional(),
+    updatedAt: z.coerce.date().optional(),
     seo: z.object({
       title:       Localized,
       description: Localized,

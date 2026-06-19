@@ -41,15 +41,19 @@ function parseSlug(slug: string | undefined): {
   }
 
   // Expected patterns:
-  //   in/blog/send-otp-without-dlt
-  //   br/blog/whatsapp-api-brazil
+  //   in/blog/send-otp-without-dlt          → Blog post
+  //   br/blog/whatsapp-api-brazil           → Blog post (WhatsApp)
+  //   limits                                 → Marketing page
+  //   use-cases/otp-authentication          → Marketing sub-page
+  //   br/pricing                            → Country-specific marketing page
   const parts = slug.split('/');
   const country = parts[0];
   const isBlog = parts[1] === 'blog';
+  const isCountryPath = COUNTRY_SLUGS.has(country);
 
-  if (isBlog && COUNTRY_SLUGS.has(country)) {
+  // Handle blog posts: /[country]/blog/[slug]
+  if (isBlog && isCountryPath) {
     const rawSlug = parts.slice(2).join('/');
-    // Convert slug to readable title: kebab-case → Title Case
     const title = rawSlug
       .split('-')
       .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
@@ -60,8 +64,30 @@ function parseSlug(slug: string | undefined): {
     return { title, theme, pill };
   }
 
-  // Fallback
-  return { title: 'StartMessaging', theme: 'sms', pill: 'SMS & WhatsApp Platform' };
+  // Handle country-specific marketing pages: /[country]/[page]
+  if (isCountryPath && !isBlog) {
+    const pagePath = parts.slice(1).join('/');
+    const title = pagePath
+      .split(/[-/]/)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+
+    const theme = WA_COUNTRIES.has(country) ? 'whatsapp' : 'sms';
+    const pill = theme === 'whatsapp' ? 'WhatsApp Business API' : 'SMS & WhatsApp Platform';
+    return { title, theme, pill };
+  }
+
+  // Handle India marketing pages (no country prefix): /limits, /use-cases/otp
+  const title = slug
+    .split(/[-/]/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+
+  // Determine theme based on content (WhatsApp in slug → whatsapp theme)
+  const theme = slug.toLowerCase().includes('whatsapp') ? 'whatsapp' : 'sms';
+  const pill = theme === 'whatsapp' ? 'WhatsApp Business API' : 'SMS & WhatsApp Platform';
+  
+  return { title, theme, pill };
 }
 
 export const GET: APIRoute = async ({ params }) => {

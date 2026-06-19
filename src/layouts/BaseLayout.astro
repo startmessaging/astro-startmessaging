@@ -20,6 +20,7 @@ import {
 } from '@/config/countries';
 import CountryNotice from '@/components/CountryNotice.astro';
 import { buildOrganization, buildWebSite } from '@/lib/jsonld';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -156,6 +157,9 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Client Router: SPA-like navigation with view transitions -->
+    <ClientRouter />
 
     <!-- Anti-FOUC: set theme before CSS loads -->
     <script is:inline set:html={themeScript} />

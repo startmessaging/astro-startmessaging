@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
-import { buildService } from '@/lib/jsonld';
+import { buildService, buildFaqPage, buildContactPage, buildProductOffer } from '@/lib/jsonld';
 import { r } from '@/i18n/r';
 
 export async function getStaticPaths() {
@@ -35,21 +35,66 @@ const { page, country, pageCountries } = Astro.props;
 const slug = Astro.params.slug ?? '';
 const pageTheme = page.data.theme ?? 'sms';
 
-// Inject Service schema for WhatsApp and SMS product pages
+// Build JSON-LD schemas based on page content
+const schemas: any[] = [];
+
+// 1. Service schema for WhatsApp and SMS product pages
 const isServicePage = slug.startsWith('whatsapp') || slug.startsWith('sms');
-const serviceType = slug.startsWith('whatsapp') ? 'WhatsApp Business API' : 'SMS API';
-const seoWithSchema = isServicePage
-  ? {
-      ...page.data.seo,
-      jsonLd: buildService(
-        r(page.data.seo.title, country),
-        serviceType,
-        r(page.data.seo.description, country),
-        `https://startmessaging.com/${slug}`,
-        pageCountries as any[]
-      ),
-    }
-  : page.data.seo;
+if (isServicePage) {
+  const serviceType = slug.startsWith('whatsapp') ? 'WhatsApp Business API' : 'SMS API';
+  schemas.push(
+    buildService(
+      r(page.data.seo.title, country),
+      serviceType,
+      r(page.data.seo.description, country),
+      `https://startmessaging.com/${slug}`,
+      pageCountries as any[]
+    )
+  );
+}
+
+// 2. FAQPage schema - extract from faqSection
+const faqSection = page.data.sections?.find?.((s: any) => s.type === 'faqSection');
+if (faqSection?.props?.items && Array.isArray(faqSection.props.items)) {
+  const faqItems = faqSection.props.items
+    .filter((item: any) => !item.countries || item.countries.includes(country))
+    .map((item: any) => ({
+      question: r(item.question, country),
+      answer: r(item.answer, country),
+    }));
+  if (faqItems.length > 0) {
+    schemas.push(buildFaqPage(faqItems));
+  }
+}
+
+// 3. ContactPage schema for contact page
+if (slug === 'contact') {
+  schemas.push(
+    buildContactPage({
+      email: 'startmessagingdotcom@gmail.com',
+      telephone: '+91-637-638-3348',
+      availableLanguages: ['en', 'pt', 'es', 'id', 'ar', 'tr'],
+    })
+  );
+}
+
+// 4. Product/Offer schema for pricing page (Premium plan as example)
+if (slug === 'pricing') {
+  schemas.push(
+    buildProductOffer({
+      name: 'StartMessaging Premium Plan',
+      description: 'WhatsApp Business API platform with no-code chatbot builder, advanced analytics, and multi-agent dashboard',
+      price: '49',
+      priceCurrency: 'USD',
+      url: 'https://startmessaging.com/pricing',
+    })
+  );
+}
+
+const seoWithSchema = {
+  ...page.data.seo,
+  jsonLd: schemas.length > 0 ? schemas : undefined,
+};
 ---
 
 <MarketingLayout

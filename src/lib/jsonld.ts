@@ -171,3 +171,61 @@ export function buildSoftwareApplication() {
     provider: { '@type': 'Organization', name: ORG_NAME, url: SITE },
   };
 }
+
+/** Product/Offer schema for pricing plans */
+export function buildProductOffer(options: {
+  name: string;
+  description: string;
+  price: string;
+  priceCurrency: string;
+  url?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: options.name,
+    applicationCategory: 'BusinessApplication',
+    description: options.description,
+    offers: {
+      '@type': 'Offer',
+      price: options.price,
+      priceCurrency: options.priceCurrency,
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: options.price,
+        priceCurrency: options.priceCurrency,
+        unitCode: 'MON', // per month
+      },
+      availability: 'https://schema.org/InStock',
+      url: options.url || SITE,
+    },
+  };
+}
+
+/** ContactPage schema with contact information */
+export function buildContactPage(options: {
+  email: string;
+  telephone: string;
+  availableLanguages?: string[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    mainEntity: {
+      '@type': 'Organization',
+      name: ORG_NAME,
+      url: SITE,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: options.telephone,
+        email: options.email,
+        contactType: 'customer service',
+        availableLanguage: options.availableLanguages || ['en', 'pt', 'es', 'id', 'ar', 'tr'],
+        areaServed: ALL_COUNTRIES.map((c) => ({
+          '@type': 'Country',
+          name: COUNTRY_CONFIG[c].name,
+        })),
+      },
+    },
+  };
+}
