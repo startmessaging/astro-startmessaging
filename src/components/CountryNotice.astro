@@ -293,10 +293,11 @@ const ipToCountryJson = JSON.stringify(IP_TO_COUNTRY);
     document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
   }
 
-  // Init on DOM ready
+  // Setup on page load / view transitions
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCountryNotice);
   } else {
     initCountryNotice();
   }
+  document.addEventListener('astro:page-load', initCountryNotice);
 </script>

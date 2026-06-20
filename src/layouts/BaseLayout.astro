@@ -21,6 +21,8 @@ import {
 import CountryNotice from '@/components/CountryNotice.astro';
 import { buildOrganization, buildWebSite } from '@/lib/jsonld';
 import { ClientRouter } from 'astro:transitions';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
 
 interface Props {
@@ -247,5 +249,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <slot />
     <CountryNotice country={country} currentPath={Astro.url.pathname} />
+    <Analytics />
+    <SpeedInsights />
   </body>
 </html>

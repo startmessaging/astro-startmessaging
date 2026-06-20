@@ -83,6 +83,11 @@ const filtered = headings.filter((h) => h.depth <= 3);
     });
   }
 
-  // Initialize TOC highlight
-  setupTOC();
+  // Setup on page load / view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTOC);
+  } else {
+    setupTOC();
+  }
+  document.addEventListener('astro:page-load', setupTOC);
 </script>

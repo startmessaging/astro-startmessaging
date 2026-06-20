@@ -220,23 +220,33 @@ const secondaryBtnBorder = isWhatsapp ? '!border-accent-wa/30 hover:!bg-accent-w
 </style>
 
 <script>
-  // Lightweight IntersectionObserver to trigger animation when in view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        // Also find any animated underlines inside this card and trigger them
-        entry.target.querySelectorAll('.cta-animated-underline').forEach((el) => {
-          el.classList.add('in-view');
-        });
-        observer.unobserve(entry.target); // Trigger once
-      }
-    });
-  }, { threshold: 0.15 });
+  function initCtaObserver() {
+    // Lightweight IntersectionObserver to trigger animation when in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          // Also find any animated underlines inside this card and trigger them
+          entry.target.querySelectorAll('.cta-animated-underline').forEach((el) => {
+            el.classList.add('in-view');
+          });
+          observer.unobserve(entry.target); // Trigger once
+        }
+      });
+    }, { threshold: 0.02 }); // Lower threshold to ensure reliable triggering on mobile/small screens
 
-  document.querySelectorAll('.cta-card').forEach((el) => {
-    observer.observe(el);
-  });
+    document.querySelectorAll('.cta-card').forEach((el) => {
+      observer.observe(el);
+    });
+  }
+
+  // Setup on page load / view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCtaObserver);
+  } else {
+    initCtaObserver();
+  }
+  document.addEventListener('astro:page-load', initCtaObserver);
 </script>
 
 

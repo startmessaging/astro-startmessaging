@@ -65,21 +65,21 @@ StartMessaging is a business messaging platform offering SMS OTP verification an
 - Prepaid wallet model
 
 ## API Base URL
-https://api.startmessaging.com
+- [API Base URL](https://api.startmessaging.com)
 
 ## Documentation
-- WhatsApp API: ${siteUrl}docs/whatsapp/getting-started
-- SMS API: ${siteUrl}docs/sms/getting-started
-- Auth API: ${siteUrl}docs/auth-api/getting-started
+- [WhatsApp API](${siteUrl}docs/whatsapp/getting-started)
+- [SMS API](${siteUrl}docs/sms/getting-started)
+- [Auth API](${siteUrl}docs/auth-api/getting-started)
 
 ## Key Pages
-- Home: ${siteUrl}
-- Features: ${siteUrl}features
-- Pricing: ${siteUrl}pricing
-- WhatsApp: ${siteUrl}whatsapp
-- SMS: ${siteUrl}sms
-- Blog: ${siteUrl}blog
-- Contact: ${siteUrl}contact
+- [Home](${siteUrl})
+- [Features](${siteUrl}features)
+- [Pricing](${siteUrl}pricing)
+- [WhatsApp](${siteUrl}whatsapp)
+- [SMS](${siteUrl}sms)
+- [Blog](${siteUrl}blog)
+- [Contact](${siteUrl}contact)
 
 ## SDKs
 - Node.js: @startmessaging/node
@@ -89,8 +89,8 @@ https://api.startmessaging.com
 - Go: github.com/startmessaging/go-sdk
 
 ## Contact
-- Website: ${siteUrl}contact
-- App: https://app.startmessaging.com
+- [Website Contact Page](${siteUrl}contact)
+- [Console Application](https://app.startmessaging.com)
 `;
 
   return new Response(content, {

@@ -128,16 +128,26 @@ const uniqueId = `code-${Math.random().toString(36).slice(2, 8)}`;
 </style>
 
 <script>
-  /* Fallback for browsers without :has() */
-  document.querySelectorAll('.code-tab-radio').forEach((radio) => {
-    radio.addEventListener('change', (e) => {
-      const target = e.target as HTMLInputElement;
-      const wrapper = target.closest('.code-showcase-wrapper');
-      if (!wrapper) return;
-      const idx = Array.from(wrapper.querySelectorAll('.code-tab-radio')).indexOf(target);
-      wrapper.querySelectorAll('.code-panel').forEach((panel, i) => {
-        (panel as HTMLElement).style.display = i === idx ? 'block' : 'none';
+  function initCodeShowcase() {
+    /* Fallback for browsers without :has() */
+    document.querySelectorAll('.code-tab-radio').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        const wrapper = target.closest('.code-showcase-wrapper');
+        if (!wrapper) return;
+        const idx = Array.from(wrapper.querySelectorAll('.code-tab-radio')).indexOf(target);
+        wrapper.querySelectorAll('.code-panel').forEach((panel, i) => {
+          (panel as HTMLElement).style.display = i === idx ? 'block' : 'none';
+        });
       });
     });
-  });
+  }
+
+  // Setup on page load / view transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCodeShowcase);
+  } else {
+    initCodeShowcase();
+  }
+  document.addEventListener('astro:page-load', initCodeShowcase);
 </script>
