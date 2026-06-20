@@ -24,6 +24,8 @@ import { ClientRouter } from 'astro:transitions';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
+import interRegular from '../assets/fonts/Inter-Regular.woff2';
+import interBold from '../assets/fonts/Inter-Bold.woff2';
 
 interface Props {
   seo: {
@@ -166,6 +168,10 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <!-- Anti-FOUC: set theme before CSS loads -->
     <script is:inline set:html={themeScript} />
 
+    <!-- Preload fonts to avoid layout shift and flash of invisible text -->
+    <link rel="preload" href={interRegular} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={interBold} as="font" type="font/woff2" crossorigin />
+
     <!-- Google Fonts loaded locally from global.css -->
 
     <!-- Primary SEO -->
@@ -235,14 +241,6 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     {jsonLdItems.map((item) => (
       <script type="application/ld+json" is:inline set:html={JSON.stringify(item)} />
     ))}
-    <!-- Clarity tag -->
-    <script is:inline>
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "x7wznk3vjl");
-</script>
   </head>
   <body>
     <!-- Skip-to-content link for keyboard/screen-reader accessibility -->
@@ -251,5 +249,23 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <CountryNotice country={country} currentPath={Astro.url.pathname} />
     <Analytics />
     <SpeedInsights />
+
+    <!-- Clarity tag (deferred to window load + idle callback) -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        var initClarity = function() {
+          (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "x7wznk3vjl");
+        };
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(initClarity);
+        } else {
+          setTimeout(initClarity, 500);
+        }
+      });
+    </script>
   </body>
 </html>

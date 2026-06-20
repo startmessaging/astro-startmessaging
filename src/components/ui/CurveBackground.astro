@@ -1,8 +1,8 @@
 ---
 /**
- * CurveBackground — SVG curve background component using design tokens.
- * Uses dynamic theme colors based on CSS variables.
- * Designed for static-first rendering.
+ * CurveBackground — mobile-first SVG curve background.
+ * Vertical flowing curves for portrait viewports.
+ * Desktop retains the right-side sweep but with a cleaner single-SVG structure.
  */
 interface Props {
   theme?: 'sms' | 'whatsapp';
@@ -11,24 +11,157 @@ interface Props {
 
 const { theme = 'sms', class: className = '' } = Astro.props;
 
-// Determine fill colors dynamically using CSS variables
-const fills = [
-  'var(--color-curve-1)',
-  'var(--color-curve-2)',
-  'var(--color-curve-3)',
-];
+const isWa = theme === 'whatsapp';
+
+const c1 = 'var(--color-curve-1)';
+const c2 = 'var(--color-curve-2)';
+const c3 = 'var(--color-curve-3)';
+const accent = 'var(--color-curve-1)';
 
 // Optional background gradients
-const bgFrom = theme === 'whatsapp' ? 'var(--color-surface-wa)' : 'var(--color-canvas)';
+const bgFrom = isWa ? 'var(--color-surface-wa)' : 'var(--color-canvas)';
 const bgTo = 'transparent';
 ---
 
-<div class:list={["absolute inset-0 overflow-hidden pointer-events-none select-none z-0", className]}>
-  {/* Right side curves */}
+<div
+  class:list={[
+    "absolute inset-0 overflow-hidden pointer-events-none select-none z-0",
+    className
+  ]}
+  aria-hidden="true"
+>
+  {/* ── Mobile: gradient blobs + soft organic shapes ── */}
+  <svg
+    viewBox="0 0 390 844"
+    xmlns="http://www.w3.org/2000/svg"
+    class="absolute inset-0 w-full h-full lg:hidden"
+    preserveAspectRatio="xMidYMid slice"
+  >
+    <defs>
+      {/* Large top-right radial glow */}
+      <radialGradient id={`mob-glow-tr-${theme}`} cx="85%" cy="8%" r="55%">
+        <stop offset="0%" stop-color={c1} stop-opacity="0.18" />
+        <stop offset="60%" stop-color={c2} stop-opacity="0.06" />
+        <stop offset="100%" stop-color={c3} stop-opacity="0" />
+      </radialGradient>
+      {/* Bottom-left radial glow */}
+      <radialGradient id={`mob-glow-bl-${theme}`} cx="10%" cy="90%" r="50%">
+        <stop offset="0%" stop-color={c3} stop-opacity="0.14" />
+        <stop offset="55%" stop-color={c2} stop-opacity="0.05" />
+        <stop offset="100%" stop-color={c1} stop-opacity="0" />
+      </radialGradient>
+      {/* Centre soft accent wash */}
+      <radialGradient id={`mob-glow-c-${theme}`} cx="50%" cy="45%" r="45%">
+        <stop offset="0%" stop-color={c1} stop-opacity="0.07" />
+        <stop offset="100%" stop-color={c2} stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    {/* Full-bleed radial glows */}
+    <rect width="390" height="844" fill={`url(#mob-glow-tr-${theme})`} />
+    <rect width="390" height="844" fill={`url(#mob-glow-bl-${theme})`} />
+    <rect width="390" height="844" fill={`url(#mob-glow-c-${theme})`} />
+
+    {/* Flowing top-right organic wave */}
+    <path
+      d="M 250 0
+         C 310 30, 390 80, 390 160
+         C 390 260, 320 300, 350 420
+         C 370 500, 390 520, 390 600
+         L 390 0 Z"
+      fill={c1}
+      opacity="0.06"
+    />
+
+    {/* Softer inner wave */}
+    <path
+      d="M 320 0
+         C 360 50, 390 120, 390 200
+         C 390 310, 340 360, 365 480
+         L 390 480 L 390 0 Z"
+      fill={c2}
+      opacity="0.05"
+    />
+    {/* ── Bottom-left mirrored waves (exact mirror of top-right) ── */}
+    {/* Outer wave — mirrored */}
+    <path
+      d="M 140 844
+         C 80 814, 0 764, 0 684
+         C 0 584, 70 544, 40 424
+         C 20 344, 0 324, 0 244
+         L 0 844 Z"
+      fill={c1}
+      opacity="0.06"
+    />
+    {/* Inner wave — mirrored */}
+    <path
+      d="M 70 844
+         C 30 794, 0 724, 0 644
+         C 0 534, 50 484, 25 364
+         L 0 364 L 0 844 Z"
+      fill={c2}
+      opacity="0.05"
+    />
+
+    {/* ── Corner accents (diagonal symmetry) ── */}
+    {/* Top-left arc accent */}
+    <path
+      d="M 0 0
+         C 50 5, 110 30, 120 90
+         C 130 150, 80 200, 40 230
+         C 20 245, 0 250, 0 250 Z"
+      fill={c1}
+      opacity="0.045"
+    />
+    {/* Bottom-right arc accent — mirror of top-left */}
+    <path
+      d="M 390 844
+         C 340 839, 280 814, 270 754
+         C 260 694, 310 644, 350 614
+         C 370 599, 390 594, 390 594 Z"
+      fill={c1}
+      opacity="0.045"
+    />
+
+    {/* ── Centre soft glow ring ── */}
+    <circle cx="195" cy="400" r="160" fill="none" stroke={c1} stroke-width="0.8" opacity="0.06" />
+    <circle cx="195" cy="400" r="120" fill="none" stroke={c2} stroke-width="0.5" opacity="0.04" />
+
+    {/* ── Decorative dot grids (diagonal symmetry) ── */}
+    {/* Top-right dots */}
+    <g opacity="0.08">
+      {Array.from({ length: 5 }).map((_, row) =>
+        Array.from({ length: 4 }).map((_, col) => (
+          <circle
+            cx={280 + col * 22}
+            cy={60 + row * 22}
+            r="1.5"
+            fill={c2}
+          />
+        ))
+      )}
+    </g>
+    {/* Bottom-left dots — mirrored position */}
+    <g opacity="0.06">
+      {Array.from({ length: 5 }).map((_, row) =>
+        Array.from({ length: 4 }).map((_, col) => (
+          <circle
+            cx={24 + col * 22}
+            cy={676 + row * 22}
+            r="1.5"
+            fill={c3}
+          />
+        ))
+      )}
+    </g>
+  </svg>
+
+  {/* ── Desktop: ── */}
+ {/* Right side curves */}
   <svg
     viewBox="0 0 900 480"
     xmlns="http://www.w3.org/2000/svg"
-    class="absolute top-0 right-0 w-[62%] h-full pointer-events-none"
+    class="hidden lg:block absolute top-0 right-0 w-[62%] h-full pointer-events-none"
     preserveAspectRatio="xMaxYMid slice"
   >
     <defs>
@@ -44,7 +177,7 @@ const bgTo = 'transparent';
          C 700 -20, 480 80, 380 200
          C 280 320, 340 420, 520 480
          L 900 480 Z"
-      fill={fills[0]}
+      fill={c1}
       opacity="0.08"
     />
 
@@ -54,7 +187,7 @@ const bgTo = 'transparent';
          C 740 50, 560 130, 460 260
          C 370 370, 430 460, 620 480
          L 900 480 Z"
-      fill={fills[1]}
+      fill={c2}
       opacity="0.05"
     />
 
@@ -64,16 +197,17 @@ const bgTo = 'transparent';
          C 800 140, 680 200, 610 310
          C 550 400, 590 460, 720 480
          L 900 480 Z"
-      fill={fills[2]}
+      fill={c3}
       opacity="0.06"
     />
   </svg>
 
+ {/* ── Desktop: ── */}
   {/* Left side curves (Mirrored & Rotated) */}
   <svg
     viewBox="0 0 900 480"
     xmlns="http://www.w3.org/2000/svg"
-    class="absolute top-0 left-0 w-[62%] h-full pointer-events-none rotate-180"
+    class="hidden lg:block absolute top-0 left-0 w-[62%] h-full pointer-events-none rotate-180"
     preserveAspectRatio="xMaxYMid slice"
   >
     <defs>
@@ -89,7 +223,7 @@ const bgTo = 'transparent';
          C 700 -20, 480 80, 380 200
          C 280 320, 340 420, 520 480
          L 900 480 Z"
-      fill={fills[0]}
+      fill={c1}
       opacity="0.08"
     />
 
@@ -99,7 +233,7 @@ const bgTo = 'transparent';
          C 740 50, 560 130, 460 260
          C 370 370, 430 460, 620 480
          L 900 480 Z"
-      fill={fills[1]}
+      fill={c2}
       opacity="0.05"
     />
 
@@ -109,7 +243,7 @@ const bgTo = 'transparent';
          C 800 140, 680 200, 610 310
          C 550 400, 590 460, 720 480
          L 900 480 Z"
-      fill={fills[2]}
+      fill={c3}
       opacity="0.05"
     />
   </svg>
