@@ -168,6 +168,9 @@ export default defineConfig({
       name: 'indexnow-submit',
       hooks: {
         'astro:build:done': async () => {
+          // Vercel sets VERCEL=1 during remote builds; skip local npm run build
+          if (process.env.VERCEL !== '1') return;
+
           const { submitToIndexNow } = await import('./src/lib/indexnow.ts');
           const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
