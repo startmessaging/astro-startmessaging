@@ -2,10 +2,12 @@
 /**
  * Country blog category listing: /br/blog/category/guides
  * Per ASTRO_COUNTRY_PLAN.md §3.
+ * Style matches India blog category page: centered header, category pills, BlogCard grid, CTA.
  */
 import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
-import Container from '@/components/ui/Container.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
+import Button from '@/components/ui/Button.astro';
 import { HREFLANG, type Country } from '@/config/countries';
 
 export async function getStaticPaths() {
@@ -36,7 +38,7 @@ const catPosts = posts
   .filter((p) => p.id.startsWith(`${country}/`) && p.data.category === cat)
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
-const catLabels: Record<string, Record<string, string>> = {
+const CATEGORY_LABELS: Record<string, Record<string, string>> = {
   tutorials:   { en: 'Tutorials',   pt: 'Tutoriais',     es: 'Tutoriales',    id: 'Tutorial',     ar: 'دروس',         tr: 'Eğitimler' },
   guides:      { en: 'Guides',      pt: 'Guias',         es: 'Guías',         id: 'Panduan',      ar: 'أدلة',          tr: 'Rehberler' },
   comparisons: { en: 'Comparisons', pt: 'Comparações',   es: 'Comparaciones', id: 'Perbandingan', ar: 'مقارنات',       tr: 'Karşılaştırmalar' },
@@ -45,59 +47,87 @@ const catLabels: Record<string, Record<string, string>> = {
   business:    { en: 'Business',    pt: 'Negócios',      es: 'Negocios',      id: 'Bisnis',       ar: 'الأعمال',       tr: 'İş' },
 };
 
+const ALL_LABEL: Record<string, string> = {
+  en: 'All', pt: 'Todos', es: 'Todos', id: 'Semua', ar: 'الكل', tr: 'Tümü',
+};
+
 const lang = (HREFLANG[c] ?? 'en-IN').split('-')[0];
-const catLabel = catLabels[cat!]?.[lang] ?? catLabels[cat!]?.en ?? cat;
-const locale = HREFLANG[c] ?? 'en-US';
+const catLabel = CATEGORY_LABELS[cat!]?.[lang] ?? CATEGORY_LABELS[cat!]?.en ?? cat;
+const allLabel = ALL_LABEL[lang] ?? ALL_LABEL.en;
 ---
 
 <MarketingLayout
   seo={{
     title: `${catLabel} — Blog — StartMessaging`,
-    description: `Browse ${catLabel.toLowerCase()} articles on StartMessaging's blog.`,
+    description: `Browse ${catPosts.length} ${catLabel.toLowerCase()} articles on StartMessaging's blog.`,
+    noindex: true,
   }}
   country={country!}
   pageCountries={[country!]}
   slug={`blog/category/${cat!}`}
 >
-  <Container>
-    <div class="py-16">
-      <h1 class="text-display-md font-bold text-ink mb-2">{catLabel}</h1>
-      <p class="text-body-md text-muted mb-12">
-        {catPosts.length} {catPosts.length !== 1 ? 'articles' : 'article'}
-      </p>
+  <article>
+    <!-- Hero header -->
+    <section class="py-12 sm:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-medium text-primary/60 mb-2">
+            <a href={`/${country}/blog`} class="hover:text-primary">Blog</a> /
+          </p>
+          <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-5xl">{catLabel}</h1>
+          <p class="mt-4 text-lg text-primary/70">{catPosts.length} {catPosts.length !== 1 ? 'articles' : 'article'}</p>
+        </div>
 
-      <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {catPosts.map((post) => {
-          const slug = post.id.split('/').slice(1).join('/');
-          const dateStr = post.data.publishedAt.toLocaleDateString(locale, {
-            year: 'numeric', month: 'long', day: 'numeric',
-          });
-          return (
-            <li>
-              <a
-                href={`/${country}/blog/${slug}`}
-                class="group block rounded-md border border-hairline bg-surface-soft overflow-hidden hover:shadow-card transition-shadow"
-              >
-                <div class="p-6">
-                  <h2 class="text-title-md font-semibold text-ink group-hover:text-primary transition-colors mb-2 line-clamp-2">
-                    {post.data.title}
-                  </h2>
-                  <p class="text-sm text-muted line-clamp-3 mb-4">
-                    {post.data.description}
-                  </p>
-                  <time class="text-xs text-muted" datetime={post.data.publishedAt.toISOString()}>
-                    {dateStr}
-                  </time>
-                </div>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+        <!-- Category pills -->
+        <div class="mt-8 flex flex-wrap justify-center gap-2">
+          <a href={`/${country}/blog`} class="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 transition-colors">
+            {allLabel}
+          </a>
+          {Object.entries(CATEGORY_LABELS).map(([slug, labels]) => (
+            <a
+              href={`/${country}/blog/category/${slug}`}
+              class={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${slug === cat ? 'bg-primary text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
+            >
+              {labels[lang] ?? labels.en}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
 
-      {catPosts.length === 0 && (
-        <p class="text-center text-muted py-16">No articles in this category yet.</p>
-      )}
-    </div>
-  </Container>
+    <!-- Articles grid -->
+    <section class="pb-12 sm:pb-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {catPosts.length > 0 ? (
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {catPosts.map((post) => <BlogCard post={post} country={country} />)}
+          </div>
+        ) : (
+          <p class="text-center text-primary/60 py-16">No articles in this category yet.</p>
+        )}
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-[var(--color-surface-soft)] py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            Ready to Start Building?
+          </h2>
+          <p class="mt-4 text-lg text-muted">
+            Skip the blog and go straight to sending messages. Sign up and integrate in 5 minutes.
+          </p>
+          <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Button href="https://app.startmessaging.com/signup" variant="primary" size="md">
+              Start for Free →
+            </Button>
+            <Button href={`/${country}/pricing`} variant="secondary" size="md">
+              View Pricing
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
 </MarketingLayout>

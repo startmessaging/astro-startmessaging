@@ -9,12 +9,16 @@ import BlogCard from '@/components/blog/BlogCard.astro';
 import { HREFLANG, type Country } from '@/config/countries';
 
 const CATEGORY_LABELS: Record<string, Record<string, string>> = {
-  tutorials:   { en: 'Tutorials',   pt: 'Tutoriais',     es: 'Tutoriales' },
-  guides:      { en: 'Guides',      pt: 'Guias',         es: 'Guías' },
-  comparisons: { en: 'Comparisons', pt: 'Comparações',   es: 'Comparaciones' },
-  compliance:  { en: 'Compliance',  pt: 'Conformidade',  es: 'Cumplimiento' },
-  'use-cases': { en: 'Use Cases',   pt: 'Casos de Uso',  es: 'Casos de Uso' },
-  business:    { en: 'Business',    pt: 'Negócios',      es: 'Negocios' },
+  tutorials:   { en: 'Tutorials',   pt: 'Tutoriais',     es: 'Tutoriales',    id: 'Tutorial',     ar: 'دروس',         tr: 'Eğitimler' },
+  guides:      { en: 'Guides',      pt: 'Guias',         es: 'Guías',         id: 'Panduan',      ar: 'أدلة',          tr: 'Rehberler' },
+  comparisons: { en: 'Comparisons', pt: 'Comparações',   es: 'Comparaciones', id: 'Perbandingan', ar: 'مقارنات',       tr: 'Karşılaştırmalar' },
+  compliance:  { en: 'Compliance',  pt: 'Conformidade',  es: 'Cumplimiento',  id: 'Kepatuhan',    ar: 'الامتثال',      tr: 'Uyumluluk' },
+  'use-cases': { en: 'Use Cases',   pt: 'Casos de Uso',  es: 'Casos de Uso',  id: 'Kasus Penggunaan', ar: 'حالات الاستخدام', tr: 'Kullanım Senaryoları' },
+  business:    { en: 'Business',    pt: 'Negócios',      es: 'Negocios',      id: 'Bisnis',       ar: 'الأعمال',       tr: 'İş' },
+};
+
+const ALL_LABEL: Record<string, string> = {
+  en: 'All', pt: 'Todos', es: 'Todos', id: 'Semua', ar: 'الكل', tr: 'Tümü',
 };
 
 export async function getStaticPaths() {
@@ -39,6 +43,8 @@ const countryPosts = posts
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
 const [featured, ...rest] = countryPosts;
+
+const allLabel = ALL_LABEL[lang] ?? ALL_LABEL.en;
 
 const labels: Record<string, { heading: string; tagline: string }> = {
   br: {
@@ -78,14 +84,14 @@ const label = labels[country!] ?? {
         <!-- Category pills -->
         <div class="mt-8 flex flex-wrap justify-center gap-2">
           <a href={`/${country}/blog`} class="rounded-full bg-primary px-4 py-2 text-sm font-medium text-white">
-            All
+            {allLabel}
           </a>
-          {Object.entries(CATEGORY_LABELS).map(([cat, labels]) => (
+          {Object.entries(CATEGORY_LABELS).map(([cat, catLabels]) => (
             <a
               href={`/${country}/blog/category/${cat}`}
               class="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 transition-colors"
             >
-              {labels[lang] ?? labels.en}
+              {catLabels[lang] ?? catLabels.en}
             </a>
           ))}
         </div>

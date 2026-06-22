@@ -84,6 +84,16 @@ if (isIndia) {
 ---
 
 <style>
+  /* Hide logo text on very narrow screens (< 380px) to prevent overflow on RTL */
+  .logo-text {
+    display: none;
+  }
+  @media (min-width: 380px) {
+    .logo-text {
+      display: inline;
+    }
+  }
+
   /* Coming Soon badge — tilted pill */
   .cs-badge {
     position: absolute;
@@ -127,10 +137,10 @@ if (isIndia) {
 <header class:list={["sticky top-0 z-50 border-b w-full", bgClass]} id="main-header">
   <div class="max-w-[80rem] mx-auto px-4 lg:px-8 h-16 lg:h-20 flex items-center justify-between gap-4">
     
-    <!-- Logo -->
-    <a href={homeHref} class="flex items-center gap-2 font-bold text-display-sm text-ink shrink-0 hover:opacity-80 transition-opacity" id="header-logo">
-      <AppIcon class="h-6 w-6" theme={theme} />
-      <span>Start<span class:list={[logoTextClass]}>Messaging</span></span>
+    <!-- Logo (smaller on mobile) -->
+    <a href={homeHref} class="flex items-center gap-1.5 lg:gap-2 font-bold text-title-md lg:text-display-sm text-ink shrink-0 hover:opacity-80 transition-opacity" id="header-logo">
+      <AppIcon class="h-5 w-5 lg:h-6 lg:w-6" theme={theme} />
+      <span class="logo-text">Start<span class:list={[logoTextClass]}>Messaging</span></span>
     </a>
 
     <!-- Desktop Navigation Menu -->
@@ -249,9 +259,10 @@ if (isIndia) {
 
     </nav>
 
-    <!-- Desktop CTAs / Mobile Toggle -->
-    <div class="flex items-center gap-3 shrink-0">
+    <!-- Right side: Desktop CTAs + Mobile Login & Menu -->
+    <div class="flex items-center gap-2 lg:gap-3 shrink-0">
       
+      <!-- Desktop CTAs (hidden on mobile) -->
       <div class="hidden lg:flex items-center gap-3">
         <a href="https://app.startmessaging.com" class:list={["text-body-sm transition-colors font-medium", loginLinkClass]}>
           {t('nav.login', c)}
@@ -265,6 +276,19 @@ if (isIndia) {
           {t('nav.signup', c)}
         </Button>
       </div>
+
+      <!-- Mobile Login Button (visible only on mobile, primary CTA style) -->
+      <a
+        href="https://app.startmessaging.com"
+        class:list={[
+          "lg:hidden inline-flex items-center px-3.5 py-1.5 rounded text-body-sm font-semibold transition-colors shadow-sm",
+          isWhatsapp
+            ? "bg-accent-wa hover:bg-accent-wa-hover text-on-accent-wa"
+            : "bg-primary hover:bg-primary-hover text-on-primary"
+        ]}
+      >
+        {t('nav.login', c)}
+      </a>
 
       <!-- Mobile Hamburger Button -->
       <button
