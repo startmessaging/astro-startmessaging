@@ -1,8 +1,8 @@
-﻿---
+---
 title: "OTP for Insurance Apps in India (IRDAI-Compliant Patterns)"
 description: "How Indian insurance apps use OTPs for policy issuance, claims, nominee changes and renewals. IRDAI rules, audit requirements, and a reference implementation."
 publishedAt: "2026-04-29"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-22"
 category: use-cases
 country: "in"
 author: "StartMessaging Team"
@@ -15,92 +15,111 @@ keywords:
   - "irdai 2fa"
 relatedSlugs:
   - "otp-nbfc-loan-apps-india"
-  - "rbi-2fa-2026-mandate"
+  - "rbi-authentication-directions-2025-developer-guide"
   - "otp-data-privacy-india"
   - "otp-fintech-india"
 featured: false
 ---
 
-
-Indian insurance apps sit at the intersection of two strict
-        regulators — IRDAI and the DPDP regime — and a customer base that
-        almost never logs in until something goes wrong. OTP is the
-        authentication thread that connects every milestone: from buying a
-        policy on a long weekend to filing a claim after an accident.
-
-
-## Why Insurance Apps Need Strict OTP Design
-
-
-- Long policy lifecycle (months to decades) — contact details drift.
-- Claims are emotionally loaded and time-sensitive.
-- Pay-outs are large; fraud is a constant pressure.
-- IRDAI examines OTP audit trails during digital-readiness reviews.
-
-
+Indian insurance apps sit at the intersection of two strict regulators — IRDAI and the DPDP regime — and a customer base that almost never logs in until something goes wrong. A policyholder may interact with your app twice a year: once to renew, once to file a claim. But when they do interact, the stakes are high — a claim worth lakhs, a nominee change that redirects the death benefit, a premium payment that keeps coverage active. OTP is the authentication thread that connects every milestone across the policy lifecycle, and getting the OTP flows right is the difference between a smooth claims experience and a regulatory finding. This guide covers the full OTP lifecycle in an insurance app, the IRDAI rules that govern each touchpoint, and the fraud patterns specific to insurance.
 
 ## OTP Flows Across the Policy Lifecycle
 
+An insurance app uses OTP at more touchpoints than most apps, because the policy lifecycle spans years and each modification carries high-value consequences:
 
-- Quote & sign-up — phone OTP.
-- KYC — Aadhaar / PAN OTP.
-- Premium payment — bank-issued OTP.
-- Policy issuance SMS — transactional.
-- Renewal reminder — service-explicit.
-- Nominee change — fresh OTP, audited.
-- Claim intimation — OTP + document upload.
-- Claim disbursement — confirmation SMS with UTR.
+### Quote and Sign-Up
 
+The user browses plans and requests a quote. To save the quote or proceed to purchase, they verify their phone number with an OTP. This is the identity anchor — all subsequent OTPs will go to this number. For insurance, this is more critical than most industries because the policy may last 20–30 years, and the registered number is the primary contact channel for renewals, claims, and modifications.
 
+### KYC Verification
 
-## IRDAI Rules to Know
+Aadhaar-based e-KYC (for policies above threshold) or PAN-based verification. The Aadhaar OTP is issued by UIDAI through your KUA license — it is separate from your application OTP. PAN verification may involve a name-match API without OTP, or an OTP-gated consent flow depending on your implementation.
 
+### Premium Payment
 
-- OTP-based digital onboarding permitted under IRDAI's e-policy framework.
-- Customer authentication required for any policy modification.
-- Audit logs accessible to IRDAI examiners.
-- See our  [RBI 2FA mandate guide](/blog/rbi-2fa-2026-mandate)  — IRDAI broadly mirrors the AFA framework.
+The payment OTP is issued by the user's bank as part of RBI's AFA framework. Your insurance app redirects to the payment gateway, which handles the bank's OTP page. Your responsibility is ensuring the redirect back to your app works without errors — a broken return URL means the user paid but does not see the policy confirmation, generating a support ticket.
 
+### Policy Issuance SMS
 
+After payment confirmation, the insurer sends a transactional SMS confirming the policy number, sum assured, and coverage start date. This is the digital equivalent of the policy document — users screenshot it and store it. It must be sent immediately after payment confirmation, using a DLT-registered transactional template.
+
+### Renewal Reminders
+
+Service-explicit SMS sent 30, 15, and 7 days before premium due date. These are not OTPs but use the same SMS infrastructure. The DLT template must be registered under the service-explicit category, not promotional — renewal reminders are time-sensitive and should not be subject to DND hour restrictions.
+
+### Nominee Change OTP
+
+The highest-risk modification in insurance. Changing the nominee on a life insurance policy redirects the entire death benefit to a different person. IRDAI expects fresh OTP authentication, a cooling-off period (24–72 hours), and notification to both the old and new nominee (if contact details are available).
+
+The cooling-off period is critical — it gives the legitimate policyholder time to notice and contest a fraudulent nominee change. Without it, an attacker who gains temporary access to the account can change the nominee and file a fraudulent claim before the policyholder notices.
+
+### Claims OTP
+
+When the policyholder (or nominee, for death claims) files a claim, the first step is OTP-based authentication. For low-value claims (motor dent repair, outpatient medical, pharmacy reimbursement), OTP-only intimation is sufficient. For high-value claims, OTP gates the initial filing, followed by document upload, surveyor assessment, and potentially video KYC.
+
+### Claim Disbursement Confirmation SMS
+
+After claim approval and fund transfer, the insurer sends a transactional SMS with the UTR (Unique Transaction Reference) number, claim amount, and the bank account it was credited to. This is a regulatory requirement and a customer-experience essential — the policyholder needs confirmation that the money arrived.
+
+## IRDAI Compliance Requirements for OTP
+
+IRDAI's digital-self-service framework sets specific expectations for authentication in insurance apps:
+
+- **OTP-based digital onboarding is permitted** for term life, motor, health, and travel insurance below specified sum-assured thresholds. Above the threshold, video KYC with a live agent is required in addition to OTP.
+- **Fresh OTP for every policy modification.** Nominee change, sum-assured change, address change, bank account change, and mobile number change each require a new OTP. Reusing a previous OTP verification is not acceptable.
+- **Audit logs accessible to IRDAI examiners.** Every OTP event must be logged with the policyId, event type, requestId, verification status, IP address, and timestamp. IRDAI conducts digital-readiness assessments where they review these logs.
+- **8-year minimum retention** after policy termination. For a 30-year term plan, this means OTP logs from year 1 must be retained for up to 38 years. Plan your data archival strategy accordingly.
+
+For the full regulatory detail, see our [IRDAI OTP rules compliance guide](/blog/irdai-otp-rules-insurance-india).
 
 ## Fraud Patterns Specific to Insurance
 
+Insurance fraud follows different patterns than banking fraud because the payout timelines are longer and the stakes per event are higher:
 
-- Account takeover before claim — attacker resets phone, then files.
-- Fake claims with rented phone numbers passing OTP.
-- Nominee-change attacks before policyholder death-claim.
-- Premium-rebate scams — promotional SMS pretending to be transactional.
+- **Account takeover before a claim.** The attacker gains access to the policyholder's account (through phishing, SIM swap, or credential stuffing), changes the nominee and bank account, then files a fraudulent claim. The payout goes to the attacker's account. Defence: OTP-gated modifications with cooling-off periods, SIM-age checks before sensitive changes, and dual-channel notifications (SMS + email) for every modification.
+- **Fake claims with rented phone numbers.** The attacker creates multiple accounts using temporary phone numbers, purchases cheap policies, and files fraudulent claims. The phone numbers pass OTP verification but belong to SIM farms. Defence: phone-number reputation scoring, device fingerprinting, and velocity checks (multiple signups from the same device or IP).
+- **Nominee-change attacks before death claims.** A more targeted variant — the attacker changes the nominee on a legitimate policy shortly before filing a death claim. The cooling-off period on nominee changes is the primary defence.
+- **Premium-rebate scams.** Fraudulent promotional SMS messages pretending to be from the insurer, offering premium discounts in exchange for OTP or account credentials. Defence: educate users that your insurer never asks for OTPs via unsolicited messages, and use branded sender IDs that users can recognise.
 
+## Production Patterns for Insurance OTP
 
-
-## Production Patterns
-
-
-- SIM-swap detection on policy modification.
-- Step-up auth (video KYC) for high-value claims.
-- Cool-off period after phone-number change.
-- Email + SMS dual-channel notifications for any modification.
-
-
+- **SIM swap detection on policy modifications.** Before processing a nominee change, bank account change, or mobile number change, run a SIM-age check. A SIM activated within the last 48 hours should block the modification and trigger manual review. See our [SIM swap protection guide](/blog/sim-swap-otp-protection-india).
+- **Step-up authentication for high-value claims.** Low-value claims can proceed with OTP-only authentication. High-value claims (above ₹1 lakh) should trigger step-up: OTP plus video KYC with a live agent, or OTP plus biometric verification.
+- **Cool-off period after phone-number change.** When a policyholder changes their registered mobile number, implement a 72-hour cooling-off period before allowing any policy modifications or claim filings on the new number. This prevents an attacker from changing the number and immediately filing a fraudulent claim.
+- **Email + SMS dual-channel notifications.** For every policy modification (nominee change, bank account change, address change), send notifications on both SMS and email. This ensures the policyholder is aware of the change even if one channel is compromised.
+- **Separate audit trail per policy.** Each policy should have its own audit trail of OTP events, not a single user-level log. A user with multiple policies (term life, motor, health) should have independent audit trails for each — IRDAI examiners review at the policy level.
 
 ## Audit Trail and Retention
 
-Retain for each event:
+For each OTP event in an insurance app, retain the following for a minimum of 8 years after policy termination:
 
+- `policyId` — links the OTP event to the specific policy
+- `event type` — onboarding, modification, claim, disbursement, renewal
+- `OTP requestId` — unique identifier from your OTP provider
+- `timestamp` — server-side UTC timestamp
+- `verification status` — success, failure, expired
+- `IP address` — client IP at verification time
+- `device fingerprint` — hardware identifier or composite fingerprint
+- `purpose label` — specific purpose (e.g., "nominee_change", "claim_filing")
 
+Store in a tamper-evident format — append-only databases, cryptographic hash chains, or write-once storage. IRDAI examiners expect to retrieve authentication records for a specific policy within a reasonable timeframe during digital-readiness audits.
 
-- OTP requestId.
-- Verified phone hash.
-- Timestamp.
-- Purpose (purchase / kyc / claim / nominee change).
-- IP address and device fingerprint.
+## Frequently Asked Questions
 
+**Q: Is the Aadhaar KYC OTP the same as the application OTP?**
 
+A: No. Aadhaar OTP flows through UIDAI's infrastructure via your KUA license. Your application OTP (signup verification, nominee change, claim filing) flows through your OTP provider. These are separate systems with separate compliance requirements. [StartMessaging](/otp-api) handles the application OTP layer; Aadhaar OTP uses a different integration path.
 
-## FAQ
+**Q: Does IRDAI require OTP for every claim?**
 
-[StartMessaging](/dlt-free-otp) provides the
-        application OTP layer most insurers need — DLT-handled, hashed-storage,
-        DLR-retained — separate from any UIDAI Aadhaar OTP path you also
-        operate.
+A: OTP-based claim intimation is permitted for low-value claims. High-value claims require OTP as the initial authentication step, followed by additional verification (document upload, surveyor assessment, video KYC). The OTP gates the filing; it does not replace the full claims investigation.
 
+**Q: How long must I keep OTP audit records for insurance?**
+
+A: Minimum 8 years after the policy terminates. For long-term policies (20–30 year term plans), records from early policy years may need to be retained for 30+ years total. Plan your archival strategy with this in mind.
+
+**Q: How do I prevent nominee-change fraud?**
+
+A: Implement a cooling-off period (24–72 hours) after any nominee change, during which the original nominee is notified. Run a SIM-age check before processing the change. Require fresh OTP (not a reused verification), and send dual-channel notifications (SMS + email) to the policyholder.
+
+[StartMessaging](/dlt-free-otp) provides the application OTP layer most insurers need — DLT handled, hashed-storage, delivery receipts retained — separate from any UIDAI Aadhaar OTP path you also operate. [Sign up](https://app.startmessaging.com/register) at ₹0.25 per OTP.

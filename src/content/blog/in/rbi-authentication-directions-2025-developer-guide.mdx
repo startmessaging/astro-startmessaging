@@ -1,0 +1,241 @@
+---
+title: "RBI Authentication Rules (April 2026): What Developers Must Do"
+description: "RBI Authentication Directions 2025 mandate 2FA for digital payments by April 2026. What Indian developers must change, which factors qualify, and how to comply."
+publishedAt: "2026-06-22"
+category: "compliance"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "rbi sms otp phase out india 2026"
+  - "rbi authentication directions 2025"
+  - "rbi 2fa rules india april 2026"
+  - "sms otp alternatives india rbi"
+  - "rbi digital payment authentication developer"
+  - "passkeys india fintech rbi"
+  - "device bound authentication india payments"
+  - "rbi otp compliance fintech india"
+  - "whatsapp otp instead of sms india rbi"
+relatedSlugs:
+  - "rbi-afa-guidelines-otp-2026"
+  - "sms-otp-vs-whatsapp-otp"
+  - "otp-fintech-india"
+  - "sim-swap-otp-protection-india"
+featured: true
+---
+
+The RBI's Authentication Mechanisms Directions, 2025 dropped in February and the developer community responded with a mix of panic and confusion. Headlines screamed "OTP can't secure payments" — which is not what the directive says. SMS OTP is not banned. It is not disappearing. But it can no longer stand alone as the only authentication step for digital payments. If your app processes payments in India, you have until 1 April 2026 to add a genuine second factor. This post breaks down exactly what the RBI said, what it means for your codebase, and the fastest paths to compliance.
+
+*Disclaimer: This is informational content, not legal advice. Consult a compliance officer or lawyer for your specific regulatory situation.*
+
+## What the RBI Actually Said (Plain Language)
+
+The RBI Authentication Mechanisms Directions, 2025 replaced the older AFA (Additional Factor of Authentication) framework that previously applied only to card-not-present transactions. The new directive is broader, more prescriptive, and carries three separate deadlines that affect different parts of the payment chain.
+
+### The Three Deadlines
+
+The directive lays out three compliance milestones. Missing any of them puts your payment processing at risk.
+
+- **1 April 2026 — Domestic digital payments:** Every domestic digital payment must be authenticated with two distinct factors. At least one factor must be dynamic and transaction-specific. This covers UPI, net banking, wallets, PPI instruments, BNPL, and card transactions.
+- **31 October 2025 — Domain migration:** All digital banking domains must migrate to `.bank.in`. This is a domain and infrastructure change, not an authentication change, but it affects how your payment flows route.
+- **1 October 2026 — Cross-border CNP transactions:** Risk-based authentication controls for cross-border card-not-present (CNP) transactions. International payment processors and merchants with cross-border flows need to implement risk scoring by this date.
+
+### Who is Covered
+
+The scope is wider than most developers realise. The directive applies to all "Payment System Providers and Participants," which includes:
+
+- Banks (issuing and acquiring)
+- Payment aggregators and gateways (Razorpay, Cashfree, PayU, Juspay, etc.)
+- Prepaid Payment Instrument (PPI) issuers — every wallet app
+- UPI apps and Third-Party Application Providers (TPAPs)
+- Non-bank fintechs offering BNPL, instant credit, or any payment facilitation
+- NBFCs with digital lending products that process payments
+
+If your app integrates with any of these to process payments, you inherit compliance obligations. Your payment gateway may handle transaction-level authentication, but you still need to ensure your own login and sensitive-action screens meet the two-factor requirement.
+
+### The Core Rule: Two Distinct Factors
+
+The rule is straightforward: every domestic digital payment requires authentication by two factors drawn from different categories. The three categories are:
+
+- **Something you know** — PIN, password, passphrase
+- **Something you have** — SMS OTP, device token, hardware key, registered mobile device
+- **Something you are** — Fingerprint, face, iris, voice biometric
+
+The critical requirement: at least one factor must be **dynamic and transaction-specific**. A static password satisfies "something you know." An SMS OTP satisfies "something you have" and is dynamic. Together, they form a valid 2FA combination. A static password alone does not. Two static factors (password + security question) do not qualify either — at least one factor must change with every transaction.
+
+## What This Means for Your App (Developer Translation)
+
+The implications differ based on what your app does. Here is the practical breakdown.
+
+### If You Build a Fintech or Payments App
+
+Your SMS OTP flow is not banned. Read that again. The RBI is not killing SMS OTP — it is saying SMS OTP cannot be the *only* factor. If your current flow sends an OTP and grants payment access with nothing else, that is what needs to change. Add a PIN, device binding, or biometric check alongside the OTP and you are compliant.
+
+The most common pre-directive flow looked like this:
+
+1. User initiates payment
+2. App sends SMS OTP
+3. User enters OTP
+4. Payment authorised ✅ (was acceptable) → ❌ (no longer sufficient)
+
+The compliant flow:
+
+1. User initiates payment
+2. User enters PIN or provides biometric (Factor 1: something you know/are)
+3. App sends SMS OTP (Factor 2: something you have — dynamic)
+4. User enters OTP
+5. Payment authorised ✅
+
+### If You Build a Non-Payments App
+
+E-commerce login flows, SaaS signup, social media verification — the RBI directive does not apply directly. SMS OTP remains valid as a standalone authentication method for non-payment actions. The directive specifically targets "digital payment transactions," not general user authentication.
+
+That said, if your e-commerce app has a wallet or processes payments through an integrated gateway, the payment step itself falls under the directive. The login can stay OTP-only; the payment cannot.
+
+### Why the RBI Made This Move
+
+The directive did not come from nowhere. SIM swap fraud cost victims nearly USD 50 million in 2023 in India. The attack is simple: a fraudster convinces a telecom operator to transfer the victim's number to a new SIM, then intercepts every OTP sent to that number. By requiring a second factor that is not tied to the telecom network — a device-bound token, a biometric, a hardware key — the RBI is pulling authentication away from the vulnerable SS7 infrastructure and onto secured device hardware.
+
+The framing matters: the RBI is not saying OTP is insecure. It is saying OTP alone is a single point of failure, and single points of failure are unacceptable for financial transactions.
+
+### Risk-Based Authentication (RBA)
+
+The directive explicitly encourages risk-based authentication. Low-value, routine transactions from a recognised device in a familiar location can use lighter authentication flows. Anomalous, high-value, or first-time transactions should trigger full 2FA with stronger factors.
+
+This means you do not have to hit every user with a PIN + OTP + biometric check for a ₹50 recharge. But you should escalate authentication intensity for a ₹50,000 transfer from an unrecognised device. Design your auth tiers accordingly:
+
+- **Low risk (₹0–₹2,000, known device, normal pattern):** Device token + SMS OTP
+- **Medium risk (₹2,000–₹25,000, or minor anomaly):** PIN + SMS OTP
+- **High risk (₹25,000+, new device, or unusual pattern):** PIN + biometric or device-bound passkey
+
+## Your Compliance Options
+
+Three practical paths exist for adding a second factor without rebuilding your entire authentication stack. Each has trade-offs in implementation effort, user experience, and security strength.
+
+### Option A: SMS OTP + Device-Bound Token
+
+This is the most practical path for existing apps that already send SMS OTP. You add a device-bound token as the first factor, and SMS OTP becomes the second.
+
+**How it works:** When a user registers or logs in for the first time, your app generates a cryptographic key pair on the device. The private key is stored in the device's secure enclave (Keystore on Android, Secure Enclave on iOS). On subsequent payments, the app signs a challenge with the private key (proving device possession) and then triggers an SMS OTP for the second factor.
+
+**Pros:** Minimal user friction — the device binding happens silently. SMS OTP flow stays unchanged. Works on devices without biometric hardware.
+
+**Cons:** If the user switches devices, they need to re-register. The device token is invisible to the user, so they may not understand why a new phone requires re-verification.
+
+### Option B: SMS OTP + Biometric
+
+Two sub-options here: Aadhaar-based biometric with liveness check, or FIDO-based on-device biometric.
+
+**Aadhaar biometric** uses UIDAI's authentication API to verify a fingerprint or iris scan against the Aadhaar database. This is powerful for KYC-heavy flows (lending, insurance, high-value transactions) but requires Aadhaar consent, an AUA/KUA licence, and adds latency from the UIDAI API call.
+
+**FIDO-based biometric** uses the device's built-in fingerprint or face sensor through the WebAuthn/FIDO2 standard. The biometric never leaves the device — only a cryptographic assertion is sent to your server. This is faster, privacy-preserving, and works offline after initial registration.
+
+**Pros:** Strong security — biometrics are hard to replicate remotely. User experience is familiar (fingerprint to pay).
+
+**Cons:** Not every device has reliable biometric hardware. Feature phones and older Androids are excluded. Aadhaar-based biometric adds regulatory and integration complexity.
+
+### Option C: In-App Push Authentication + SMS Fallback
+
+Your app sends a push notification asking the user to confirm the transaction. The user taps "Approve" (optionally with biometric confirmation on the device). SMS OTP serves as the fallback for when push delivery fails or the user has notifications disabled.
+
+**Pros:** Excellent UX — one tap instead of entering a 6-digit code. Push is faster than SMS. No telecom dependency for the primary factor.
+
+**Cons:** Requires your app to be installed (not suitable for web-only flows). Push delivery is not guaranteed — Firebase Cloud Messaging and APNs both have failure rates. You still need SMS as a fallback, so you are maintaining two channels.
+
+### The RBI's Stated Preferences
+
+The RBI framework formally encourages banks and payment providers to shift from OTP-only user journeys to stronger, non-OTP mechanisms. The directive specifically names device binding, passkeys, biometrics, and token-based authentication as preferred alternatives. This does not mean OTP is deprecated — it means the regulatory direction favours layered authentication where OTP is one component, not the entire mechanism.
+
+### Passkeys in India: An Honest Assessment
+
+Passkeys (FIDO2/WebAuthn credentials stored in the platform authenticator) are the technically ideal solution. They are phishing-resistant, eliminate OTP entirely, and the user experience is a single biometric confirmation. Google, Apple, and Microsoft all support passkeys across their platforms.
+
+The reality for Indian apps right now: passkey adoption is growing but not yet universal. Chrome on Android supports passkeys well. Safari on iOS supports them. But the Indian user base still includes significant segments on older Android versions (below Android 9) where passkey support is absent or unreliable. If your user base skews toward metro, smartphone-first audiences, passkeys are viable today. If you serve tier-2/tier-3 cities with a mix of device generations, you need fallback flows — which brings you back to SMS OTP as part of the stack.
+
+The pragmatic approach: implement passkeys as the primary factor for devices that support them, and fall back to SMS OTP + PIN for devices that do not. This gives you a compliant, future-proof architecture without excluding any user segment.
+
+## Where WhatsApp OTP Fits in the New Framework
+
+A question developers keep asking: can WhatsApp OTP satisfy the RBI's second-factor requirement?
+
+### Practical Analysis
+
+WhatsApp OTP, like SMS OTP, qualifies as "something you have" — it proves possession of a registered device with access to the WhatsApp account tied to that phone number. It is also dynamic and transaction-specific (a unique code that expires). On paper, WhatsApp OTP and SMS OTP occupy the same factor category.
+
+The RBI directive does not specify *which* communication channel must deliver the dynamic factor. It says the factor must be dynamic and transaction-specific. A one-time code delivered via WhatsApp meets that definition just as well as one delivered via SMS.
+
+The practical advantages of WhatsApp OTP over SMS OTP in this context:
+
+- **Higher delivery rates in urban areas:** WhatsApp messages arrive in 1–3 seconds versus 3–8 seconds for SMS. During peak traffic (Diwali sales, IPL match days), SMS can lag further while WhatsApp delivery stays consistent.
+- **Lower cost per message:** WhatsApp authentication conversations are priced competitively, and a single conversation window covers multiple messages within 24 hours.
+- **Resistant to SIM swap:** WhatsApp is tied to the device, not just the SIM. A SIM swap does not automatically grant access to the victim's WhatsApp account — the attacker would need to re-register WhatsApp on the new device, which triggers a notification to the original device.
+- **End-to-end encryption:** Unlike SMS (which traverses the unencrypted SS7 network), WhatsApp messages are encrypted in transit.
+
+### Multi-Channel Fallback: SMS → WhatsApp → Voice
+
+The most resilient authentication stack uses multiple channels with automatic fallback. [StartMessaging's multi-channel OTP API](/otp-api) supports this pattern:
+
+1. **Primary: SMS OTP** — Universal reach, works on every phone with a SIM card, no internet required.
+2. **Fallback 1: WhatsApp OTP** — If SMS delivery is not confirmed within 15 seconds, automatically retry via WhatsApp. Higher delivery rate for smartphone users.
+3. **Fallback 2: Voice OTP** — If both SMS and WhatsApp fail (e.g., the user is on a feature phone without data), deliver the OTP as an automated voice call.
+
+This three-channel approach gives you 99%+ effective delivery while maintaining compliance. The RBI cares that the dynamic factor reaches the user — not which pipe delivers it.
+
+## Implementation Checklist for April 2026 Compliance
+
+Use this checklist to prepare your app before the deadline. You do not need to rebuild from scratch — most of these are incremental changes to your existing auth flow.
+
+### Step 1: Audit Your Current Auth Flows
+
+Map every user action in your app that involves a payment or financial transaction. For each action, document the current authentication method. Flag any flow that relies on a single factor (OTP only, PIN only, biometric only).
+
+### Step 2: Classify Each Flow by Risk Tier
+
+Assign risk tiers based on transaction value, user behaviour, and device trust. Low-risk flows get lighter authentication; high-risk flows get stronger factors. The RBI explicitly supports this risk-based approach.
+
+### Step 3: Add a Second Factor to Payment Flows
+
+Choose one of the three options above (device-bound token, biometric, or push authentication) and implement it alongside your existing OTP flow. The second factor should be independent — it must come from a different category than the first.
+
+### Step 4: Implement Fallback Channels
+
+Do not rely on a single OTP delivery channel. Set up [SMS → WhatsApp → Voice fallback](/blog/sms-otp-vs-whatsapp-otp) to maximise delivery rates and avoid blocking users when one channel fails.
+
+### Step 5: DLT Registration Remains Required
+
+The RBI directive does not change TRAI's DLT requirements for SMS. If you send SMS OTP in India, you still need DLT registration, approved message templates, and PE-ID compliance. [StartMessaging handles DLT for you](/dlt-free-otp) — no registration required on your end, with OTP delivery at ₹0.25 per message.
+
+### Step 6: Test Your New 2FA Flow
+
+Before going live, test your 2FA flow across device types, network conditions, and edge cases:
+
+- What happens when the user switches devices mid-transaction?
+- What happens when SMS delivery fails and the fallback triggers?
+- What happens when the biometric check fails (wet fingers, face mask)?
+- What happens on a feature phone that does not support device binding?
+- What is the end-to-end latency of your 2FA flow under load?
+
+Run these tests against your staging environment with real phone numbers using [StartMessaging's sandbox mode](/docs/sms/quickstart) before switching to production.
+
+## Frequently Asked Questions
+
+**Q: Is SMS OTP banned in India after April 2026?**
+
+A: No. SMS OTP is not banned. The RBI directive requires two-factor authentication for digital payments, and SMS OTP remains a valid second factor. What changed is that SMS OTP cannot be the *only* factor. You must pair it with a PIN, biometric, device token, or another factor from a different category.
+
+**Q: Does this apply to my SaaS app's login flow?**
+
+A: Only if your SaaS app processes digital payments. General user authentication (login, signup, account recovery) for non-payment applications is not covered by this directive. If your app has a wallet feature or integrates a payment gateway, the payment step specifically falls under the 2FA requirement.
+
+**Q: Can I use WhatsApp OTP as the second factor?**
+
+A: Yes. WhatsApp OTP qualifies as a dynamic, transaction-specific factor in the "something you have" category, just like SMS OTP. The RBI directive does not mandate a specific delivery channel — it mandates that the factor is dynamic and independent. WhatsApp OTP meets both criteria. StartMessaging supports WhatsApp OTP as part of a [multi-channel fallback strategy](/otp-api).
+
+**Q: What happens if I miss the 1 April 2026 deadline?**
+
+A: Payment System Providers and Participants that fail to comply risk enforcement action from the RBI, which can include penalties, restrictions on processing, or directives to halt specific payment services until compliance is demonstrated. Your payment gateway partner may also refuse to process transactions for non-compliant merchants after the deadline.
+
+**Q: Do I need to implement passkeys right now?**
+
+A: Not immediately. Passkeys are the strongest option and the direction the industry is moving, but they are not mandatory under the current directive. Any valid two-factor combination satisfies the rule. Start with SMS OTP + device binding or PIN if you need a fast path to compliance, and plan a passkey migration for users on supported devices over the next 12–18 months.
+
+The April 2026 deadline is not about killing OTP — it is about making authentication stronger by layering factors. If you are already sending SMS OTP through [StartMessaging](/otp-api), you are halfway there. Add a second factor from a different category, set up [multi-channel fallback for maximum delivery](/blog/sms-otp-vs-whatsapp-otp), and your payment flows are compliant. [Sign up for StartMessaging](https://app.startmessaging.com/register) to get OTP delivery at ₹0.25/message with built-in DLT compliance, rate limiting, and fraud detection — so you can focus on the 2FA logic instead of the plumbing.

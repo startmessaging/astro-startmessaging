@@ -1,8 +1,8 @@
-﻿---
+---
 title: "PCI-DSS and OTP: What Indian Payment Apps Need to Know"
 description: "How PCI-DSS applies to OTP and SMS workflows in Indian payment apps: scope, segregation, audit-trail expectations, and where OTP fits relative to RBI AFA."
 publishedAt: "2026-05-06"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-22"
 category: compliance
 country: "in"
 author: "StartMessaging Team"
@@ -14,59 +14,94 @@ keywords:
   - "card otp compliance"
 relatedSlugs:
   - "rbi-afa-guidelines-otp-2026"
-  - "rbi-2fa-2026-mandate"
+  - "rbi-authentication-directions-2025-developer-guide"
   - "otp-fintech-india"
   - "dpdp-act-otp-compliance-india"
 featured: false
 ---
 
+*Disclaimer: This is informational content, not legal advice. Consult a PCI QSA or compliance officer for your specific assessment scope.*
 
-PCI-DSS focuses on cardholder data. OTP is rarely in scope unless
-        you actively put card data into SMS. This guide explains where OTP
-        sits and how to keep your SMS provider out of scope.
+PCI-DSS is the global security standard for entities that store, process, or transmit cardholder data. If your Indian payment app handles card payments, you are either PCI-DSS compliant yourself or rely on a PCI-compliant payment gateway. The good news: OTP is rarely in scope unless you actively put cardholder data into your SMS messages. The bad news: the boundary between in-scope and out-of-scope is easy to cross by accident. This guide explains where OTP sits relative to PCI-DSS, how to keep your SMS provider out of scope, and how PCI-DSS intersects with RBI's AFA requirements in India.
 
+## PCI-DSS Scope and Where OTP Fits
 
-## Overview
+PCI-DSS scope is defined by one thing: cardholder data. Specifically, the Primary Account Number (PAN), cardholder name, expiration date, and service code. If a system component stores, processes, or transmits any of these data elements, it falls within PCI-DSS scope.
 
+OTPs themselves are not cardholder data. An OTP is an authentication credential — a 4–6 digit code that verifies the user's identity. The OTP code, the phone number it was sent to, the request ID, and the delivery status are all authentication data, not payment data. They sit outside PCI-DSS scope by default.
 
-- PCI-DSS scope is cardholder data.
-- OTPs themselves are not cardholder data.
-- Keep SMS bodies free of PAN.
+Where this gets complicated:
 
+- **The OTP is in scope if your SMS body contains PAN.** If your OTP confirmation SMS says "Transaction of ₹5,000 on card ending 4532, OTP: 829461" — the last four digits of the card are not full PAN, so this is acceptable. But if you include the full 16-digit card number in any SMS, that SMS (and the system that generated it) enters PCI-DSS scope.
+- **Payment result SMS can accidentally include cardholder data.** A post-payment confirmation SMS that includes the full card number, expiration date, or any sensitive authentication data brings your SMS provider into scope.
+- **Tokenised card references are safe.** If your SMS references a token ("Transaction on your card token T-4532"), the token is not PAN and does not trigger PCI-DSS scope.
 
+The rule of thumb: keep your SMS bodies free of raw PAN, and your OTP workflow stays out of PCI-DSS scope.
 
-## PCI-DSS Scope and OTP
+## Cardholder Data Segregation Architecture
 
-OTP is part of authentication; cardholder data is the PAN. Send the
-        OTP via SMS, send the payment-result SMS via the same provider —
-        nothing PAN-bearing leaves the PCI environment.
+The most effective way to keep your OTP system out of PCI-DSS scope is architectural segregation. Your PCI-scoped systems (payment processing, card tokenisation, transaction authorisation) and your non-scoped systems (OTP sending, user authentication, notification delivery) should be on separate network segments with controlled data flows between them.
 
+Architecture principles:
 
-## Cardholder Data Segregation
+- **Cardholder data stays inside the PCI boundary.** Your payment gateway processes the card, returns a transaction ID and a token — never the raw PAN. Your application receives the token, not the card number.
+- **OTP system receives only non-PAN data.** The OTP trigger contains: phone number, transaction amount, merchant name, and a transaction reference ID. No card data crosses into the OTP system.
+- **SMS provider never sees PAN.** Your SMS provider (whether StartMessaging or another) receives the SMS body you compose. If you compose it correctly (no PAN in the body), the provider stays out of PCI scope. This matters because bringing a third-party provider into your PCI scope significantly increases your compliance burden and cost.
+- **Authorisation responses stay inside the PCI environment.** The approve/decline response from the card network goes to your payment gateway, not to your OTP or notification system. Your application receives a sanitised status (approved / declined / pending) and composes the SMS from that.
 
+If your architecture follows these boundaries, your PCI-DSS Self-Assessment Questionnaire (SAQ) can exclude your OTP and SMS infrastructure entirely, reducing audit scope and cost.
 
-- Cardholder data lives only in PCI-DSS-scoped systems.
-- SMS provider never sees PAN.
-- Authorisation responses stay inside the scope.
+## Audit Trail Requirements
 
+PCI-DSS Requirement 10 mandates comprehensive logging for all system components within scope. Since OTP systems are typically out of scope, PCI-DSS does not directly mandate OTP audit logging. However, RBI's AFA guidelines do require authentication event logging, and Indian payment apps must satisfy both standards.
 
+For each OTP-authenticated transaction, retain:
 
-## Audit Trail
+- `transactionId` — links the OTP event to the payment transaction
+- `OTPrequestId` — the unique identifier from your OTP provider
+- `status` — sent, verified, failed, expired
+- `timestamp` — server-side UTC timestamp
+- `IP address` and `deviceId` — client identification at OTP verification time
+- `factor type` — SMS OTP, voice OTP, WhatsApp OTP, or biometric
 
-Retain (transactionId, OTPrequestId, status, timestamp). 12+ months
-        for PCI-DSS, longer for RBI-side requirements.
+PCI-DSS requires 12 months of readily accessible logs and a total retention of at least 12 months. RBI's requirements are longer — 7 to 10 years for financial transaction records. If you operate under both standards, set your retention to the longer of the two.
 
+Store logs in a tamper-evident format — append-only databases, write-once storage, or cryptographically signed log entries. PCI-DSS Requirement 10.5 specifically requires that audit trails cannot be altered, and RBI examiners check for the same.
 
-## PCI-DSS + RBI AFA
+## PCI-DSS + RBI AFA: How They Interact
 
-PCI-DSS is global; RBI AFA is India-specific. Both align on OTP as
-        the second factor. Read our 
-        [RBI AFA guide](/blog/rbi-afa-guidelines-otp-2026).
+PCI-DSS is a global standard; RBI AFA is India-specific. They are complementary, not conflicting, but they have different focuses:
 
+- **PCI-DSS focuses on protecting cardholder data** — the card number, expiration date, and sensitive authentication data. Its security controls (encryption, access control, network segmentation) are designed to prevent data breaches.
+- **RBI AFA focuses on authenticating the user** — confirming that the person initiating the payment is the legitimate cardholder. Its controls (two-factor authentication, risk-based escalation) are designed to prevent unauthorised transactions.
 
-## FAQ
+OTP sits at the intersection: it is an AFA mechanism (RBI) that exists outside the cardholder data environment (PCI-DSS). Your OTP system helps you satisfy RBI compliance while not increasing your PCI-DSS scope — provided you maintain the data segregation described above.
 
-[StartMessaging](/dlt-free-otp) stays out of your
-        PCI-DSS scope by design — we never see PAN, only the OTP request
-        ID and result.
+In practice, most Indian payment apps satisfy both by:
 
+- Using their PCI-compliant payment gateway for card processing
+- Keeping OTP authentication on a separate, non-PCI system
+- Logging both payment events and OTP events, but storing them in separate audit trails with appropriate retention periods
+- Ensuring no cardholder data crosses from the payment system into the OTP or SMS system
+
+Read our [RBI AFA guidelines guide](/blog/rbi-afa-guidelines-otp-2026) for the authentication-side requirements.
+
+## Frequently Asked Questions
+
+**Q: Does my SMS OTP provider need to be PCI-DSS compliant?**
+
+A: Only if you send cardholder data (PAN, expiration date) through their API. If your SMS bodies contain only the OTP code, transaction amount, merchant name, and a tokenised card reference — no raw PAN — your SMS provider stays out of PCI-DSS scope. Keep SMS bodies clean and you avoid expanding your compliance boundary.
+
+**Q: Is the OTP code itself considered "sensitive authentication data" under PCI-DSS?**
+
+A: No. PCI-DSS defines sensitive authentication data as the full magnetic stripe data, CAV2/CVC2/CVV2, and PINs. The OTP code is an authentication credential for your application's 2FA flow — it is not cardholder authentication data in the PCI-DSS sense. OTPs are covered by RBI's AFA guidelines, not PCI-DSS.
+
+**Q: Can I include the last four digits of the card number in my OTP SMS?**
+
+A: Yes. PCI-DSS allows display of the first six and last four digits of the PAN (truncated PAN). Including "card ending 4532" in your OTP SMS body does not bring the SMS system into PCI scope. Do not include the full 16-digit PAN, expiration date, or CVV in any SMS.
+
+**Q: How do PCI-DSS audit logs and RBI AFA audit logs differ?**
+
+A: PCI-DSS requires 12 months of accessible logs focused on access to cardholder data environments. RBI AFA requires 7–10 years of authentication event logs. If you operate under both, set retention to the longer period (RBI's). Store payment-system logs and OTP-authentication logs separately — this maintains your PCI scope boundary while satisfying RBI's retention requirements.
+
+[StartMessaging](/dlt-free-otp) stays out of your PCI-DSS scope by design — we never see PAN, only the OTP request ID and delivery result. [Sign up](https://app.startmessaging.com/register) to start sending compliant OTPs at ₹0.25 per message with no DLT registration required.

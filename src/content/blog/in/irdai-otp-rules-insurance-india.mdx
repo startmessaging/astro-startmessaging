@@ -1,8 +1,8 @@
-﻿---
+---
 title: "IRDAI OTP Rules for Insurance Apps"
 description: "IRDAI OTP rules for insurance apps in India: digital onboarding, claims, nominee changes, e-policy issuance, and audit-grade record-keeping requirements."
 publishedAt: "2026-05-05"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-22"
 category: compliance
 country: "in"
 author: "StartMessaging Team"
@@ -14,64 +14,83 @@ keywords:
   - "insurance compliance otp"
 relatedSlugs:
   - "otp-insurance-apps-india"
-  - "rbi-2fa-2026-mandate"
+  - "rbi-authentication-directions-2025-developer-guide"
   - "otp-data-privacy-india"
   - "dpdp-act-otp-compliance-india"
 featured: false
 ---
 
+*Disclaimer: This is informational content, not legal advice. Consult a compliance officer or IRDAI-registered actuary for your specific regulatory obligations.*
 
-IRDAI's digital-self-service framework places OTP at the
-        centre of customer authentication for insurance apps. Whether
-        issuing a new policy or processing a claim, OTP gates the change and
-        produces the audit trail.
+IRDAI's digital-self-service framework places OTP at the centre of customer authentication for insurance apps in India. Whether issuing a new policy on a consumer's phone, processing a claim after a hospital visit, or updating a nominee before a life event — OTP gates each change and produces the audit trail that IRDAI examiners review during digital-readiness assessments. Insurance apps face a unique challenge: users may log in only a few times per year, but each interaction (claims, nominee changes, surrender) carries high-value consequences that demand strong authentication.
 
+## OTP-Based Digital Onboarding
 
-## Overview
+IRDAI permits fully digital onboarding — including policy issuance without a physical signature or in-person meeting — for select product categories. The OTP serves as the primary identity-verification mechanism during this process.
 
+Products eligible for OTP-based digital onboarding (below specified sum-assured thresholds):
 
-- Phone-OTP for digital onboarding.
-- Aadhaar-OTP for KYC.
-- Fresh OTP for policy modifications.
-- OTP-gated claims for low-value claims.
+- **Term life insurance** — policies up to the threshold set by IRDAI (revised periodically). OTP verification on the registered mobile number, combined with Aadhaar e-KYC, satisfies the identity requirement.
+- **Motor insurance** — both new business and renewals. Vehicle details are verified against VAHAN database; policyholder identity is verified via OTP.
+- **Health insurance** — individual and family floater plans. OTP-based onboarding with self-declaration of health; no medical examination required below age and sum-assured thresholds.
+- **Travel insurance** — fully digital, OTP-verified purchase. The low sum-assured and short policy duration make this the simplest OTP-onboarding use case.
 
+Above the threshold (high sum-assured term plans, large health policies, ULIP products), IRDAI requires video KYC in addition to OTP. The OTP still gates the initial identity check, but it is supplemented by a live video call with a KYC officer.
 
+The onboarding OTP is separate from the payment OTP — the payment-side OTP is issued by the user's bank as part of RBI's AFA framework. Your application OTP verifies identity; the bank OTP authorises the premium payment.
 
-## Digital Onboarding
+## Policy Modification Rules
 
-IRDAI permits OTP-based digital onboarding for term, motor and
-        health policies up to specified thresholds. Above threshold, video
-        KYC is required.
+Policy modifications carry higher risk than new business because they alter the terms of an existing contract. IRDAI requires fresh authentication — typically a new OTP — for each modification, and each event must be logged in the audit trail.
 
+Modifications requiring OTP authentication:
 
-## Policy Modifications
+- **Nominee change:** Fresh OTP to the policyholder's registered mobile number. This is the highest-risk modification because a fraudulent nominee change before a death claim can redirect the entire payout. IRDAI expects a cooling-off period (24–72 hours) after a nominee change, during which the original nominee is notified.
+- **Sum-assured change:** OTP plus a cooling-off period. Increases may require additional underwriting; decreases affect surrender value calculations.
+- **Address change:** OTP plus a transactional confirmation SMS to the old and new addresses (if different mobile numbers are involved).
+- **Bank account change:** OTP plus penny-drop verification to the new bank account. This prevents claim-diversion fraud where an attacker changes the bank account before filing a claim.
+- **Mobile number change:** The most sensitive modification. IRDAI best practice requires OTP to the old number (if still active), followed by OTP to the new number, followed by a confirmation SMS to both. Some insurers add video KYC for mobile number changes on high-value policies.
 
-
-- Nominee change — fresh OTP, audited.
-- Sum-assured change — OTP + cooling-off period.
-- Address change — OTP + transactional confirmation SMS.
-- Bank account change — OTP + penny-drop verification.
-
-
+Each modification generates an audit record that links the OTP requestId, the modification type, the before-and-after values, and the timestamp. This record must be available to IRDAI examiners for the life of the policy plus the regulatory retention period.
 
 ## Claims OTP Requirements
 
+Claims are the moment of truth for insurance apps. IRDAI's framework distinguishes between low-value and high-value claims, with different authentication requirements:
 
-- Low-value motor / health — OTP-only intimation.
-- High-value — OTP + document upload + video KYC.
-- Disbursement — bank-issued OTP + UTR confirmation SMS.
+- **Low-value motor and health claims (below threshold):** OTP-only intimation is permitted. The policyholder authenticates via OTP, submits claim documents through the app, and the insurer processes without requiring in-person verification. This covers minor fender-benders, outpatient medical claims, and pharmacy reimbursements.
+- **High-value claims:** OTP-based intimation is the first step, but IRDAI requires additional verification: document upload, surveyor assessment, and in some cases video KYC with the claimant. The OTP gates the initial claim filing; subsequent steps add layers of verification.
+- **Death claims:** Filed by the nominee, not the policyholder. Authentication relies on the nominee's registered credentials. If the nominee was registered with a mobile number, OTP to that number is the first step. Additional documentation (death certificate, identity proof) follows.
+- **Disbursement confirmation:** After claim approval, the insurer sends a confirmation SMS with the UTR (Unique Transaction Reference) number from the bank transfer. This is a transactional SMS, not an OTP, but it uses the same SMS infrastructure and DLT template registration.
 
+The critical fraud pattern to defend against: account takeover before a claim. An attacker gains access to the policyholder's account, changes the nominee and bank account, then files a fraudulent claim. OTP-gated modifications with cooling-off periods (as described above) are the primary defence.
 
+## Audit Retention Requirements
 
-## Audit Retention
+IRDAI's audit expectations for insurance apps are more demanding than most Indian regulators because policy lifecycles span years or decades:
 
-Minimum 8 years post policy end. Retained per (policyId, event,
-        OTPrequestId, timestamp, status).
+- **Retention period:** Minimum 8 years after the policy terminates (not from the date of the event, but from the end of the policy). For a 30-year term plan, this means OTP audit records from year 1 must be retained for up to 38 years.
+- **Record structure:** For each OTP event, retain the policyId, event type (onboarding/modification/claim/disbursement), OTP requestId, timestamp, verification status (success/failure/expired), IP address, and device fingerprint.
+- **Tamper evidence:** Records must be in a format that demonstrates they have not been altered after creation. Append-only databases, cryptographic hash chains, or write-once storage satisfy this requirement.
+- **Accessibility:** IRDAI examiners expect to retrieve authentication records for a specific policy within a reasonable timeframe during audits. Archival storage is acceptable for old records, but they must be retrievable.
 
+For insurance apps with millions of policies, the audit-log storage requirement is substantial. Plan your database and archival strategy accordingly — the retention period is the longest of any Indian regulator.
 
-## FAQ
+## Frequently Asked Questions
 
-[StartMessaging](/dlt-free-otp) handles application
-        OTP and confirmation SMS for insurance apps, separate from the
-        UIDAI Aadhaar-OTP path.
+**Q: Can I issue a life insurance policy entirely online using OTP for identity verification?**
 
+A: Yes, for policies below IRDAI's specified sum-assured threshold. OTP verification combined with Aadhaar e-KYC satisfies the identity requirement. Above the threshold, video KYC is required in addition to OTP. The payment is authenticated separately through the bank's OTP (RBI AFA), not your application OTP.
+
+**Q: Does IRDAI require OTP for every claim, or only high-value claims?**
+
+A: IRDAI permits OTP-only intimation for low-value claims (motor, health below threshold). High-value claims require OTP as the first authentication step, followed by additional verification — document upload, surveyor assessment, and potentially video KYC. The OTP gates the claim filing; it does not replace the full claims investigation process.
+
+**Q: How long must I keep OTP audit records for insurance policies?**
+
+A: Minimum 8 years after the policy terminates. For long-term policies (20–30 year term plans), this means records from early policy years may need to be retained for 30+ years total. Plan your archival strategy accordingly — IRDAI examiners expect retrievable records for any policy during an audit.
+
+**Q: Is the IRDAI OTP requirement separate from RBI's AFA?**
+
+A: Yes. IRDAI governs the application-level authentication for insurance actions (onboarding, modifications, claims). RBI's AFA governs the payment-level authentication (premium payment OTP from the bank). Your insurance app typically has two separate OTP flows — your own application OTP (IRDAI-governed) and the bank-issued OTP for premium payment (RBI-governed). See our [RBI AFA guidelines guide](/blog/rbi-afa-guidelines-otp-2026) for the payment-side requirements.
+
+For insurance apps that need reliable, audit-grade OTP delivery, [StartMessaging](/dlt-free-otp) provides DLT-compliant SMS with hashed-storage, delivery receipts, and retained audit logs — separate from any UIDAI Aadhaar OTP path you also operate. [Sign up](https://app.startmessaging.com/register) to start at ₹0.25 per OTP.

@@ -1,8 +1,8 @@
-﻿---
+---
 title: "RBI AFA Guidelines for OTP (2026 Update)"
 description: "RBI Additional Factor of Authentication guidelines summarised for OTP developers: scope, exemptions, alternative-factor allowances, and what changed in 2026."
 publishedAt: "2026-05-05"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-22"
 category: compliance
 country: "in"
 author: "StartMessaging Team"
@@ -13,76 +13,81 @@ keywords:
   - "afa rbi 2026"
   - "card not present otp"
 relatedSlugs:
-  - "rbi-2fa-2026-mandate"
+  - "rbi-authentication-directions-2025-developer-guide"
   - "otp-fintech-india"
   - "otp-nbfc-loan-apps-india"
   - "otp-stock-broking-apps-india"
 featured: false
 ---
 
+*Disclaimer: This is informational content, not legal advice. Consult a compliance officer or lawyer for your specific regulatory situation.*
 
-RBI's AFA framework underpins the Indian online-payment
-        experience. OTP is the dominant AFA implementation. The 2026 update
-        clarifies several edges and recognises modern alternative factors.
+RBI's Additional Factor of Authentication (AFA) framework is the regulatory backbone of the Indian online-payment experience. Every time a user enters an OTP to confirm a card payment, approves a UPI transaction with a PIN, or authenticates a net-banking transfer — that is AFA in action. The 2026 update (formalized through the Authentication Mechanisms Directions, 2025) clarified several edges, expanded the scope beyond card-not-present transactions, and formally recognised modern alternative factors alongside SMS OTP. This guide explains what AFA covers, what changed, and what you need to implement.
 
+## Scope of AFA: What Transactions Are Covered
 
-## Overview
+AFA is mandatory across a wider range of digital payment transactions than most developers realise. The 2026 framework extends the original card-payment-only rule to a cross-channel mandate covering:
 
+- **Card-not-present (CNP) transactions:** Online card payments where the cardholder is not physically present. The card CVV serves as one factor; OTP from the issuing bank serves as the second. This was the original AFA use case and remains the highest-volume application.
+- **Internet banking and mobile banking:** Login and transaction authentication for net-banking sessions. Banks typically use password (factor 1) plus SMS OTP or hardware token (factor 2).
+- **UPI transactions above thresholds:** UPI payments above certain value tiers require the UPI PIN (factor 1, something you know) and the device binding (factor 2, something you have). The device SIM serves as an implicit possession factor in UPI's architecture.
+- **Prepaid Payment Instruments (PPI):** Wallet apps, prepaid cards, and gift cards. PPI issuers must enforce AFA on loading, spending above thresholds, and peer-to-peer transfers.
+- **NBFC loan disbursement and EMI changes:** Digital lending platforms must gate disbursement confirmation, EMI restructuring, and foreclosure actions behind AFA.
+- **Recurring mandates at registration:** e-NACH and e-mandate setup requires AFA at the time of registration. Subsequent debits within the registered amount do not require AFA on each charge — this is an explicit carve-out.
 
-- AFA mandatory on card-not-present transactions.
-- Internet banking and mobile banking transactions covered.
-- UPI transactions above thresholds require AFA.
-- Specific e-mandate carve-outs.
+If your app integrates with any payment gateway or acquirer to process these transaction types, the AFA requirement flows through to your user-facing authentication screens. Your gateway handles the issuer-side OTP for card payments, but you are responsible for AFA on your own application-level flows (login, wallet actions, in-app transfers).
 
-
-
-## Scope of AFA
-
-
-- Card payments (CVV is one factor; OTP is the second).
-- Mobile / internet banking logins and high-value transactions.
-- UPI transactions above thresholds.
-- NBFC loan disbursement and EMI changes.
-
-
+For the full developer-facing breakdown of the 2026 mandate, see our [RBI Authentication Directions 2025 developer guide](/blog/rbi-authentication-directions-2025-developer-guide).
 
 ## Exemptions and Carve-Outs
 
+Not every transaction requires full AFA. The framework includes specific exemptions designed to balance security with user convenience for low-risk scenarios:
 
-- Small-value e-mandates (within RBI thresholds).
-- Tokenised low-value payments at trusted merchants.
-- Some employer-sponsored corporate-card flows.
+- **Small-value e-mandates:** Recurring payments registered with AFA at setup do not need AFA on each individual debit, provided the debit amount stays within the registered mandate limit. Utility bills, subscription charges, and SIP investments typically fall under this carve-out.
+- **Tokenised low-value payments at trusted merchants:** Payments using tokenised cards at previously authenticated merchants may use a simplified flow for transactions below a threshold (currently ₹5,000 for contactless tap-and-go).
+- **Corporate card flows:** Some employer-sponsored corporate card programmes have streamlined AFA processes, particularly for travel and expense management where the card issuer has pre-approved the merchant category.
 
+The exemptions are not blanket passes — they require that AFA was applied at the initial registration, mandate setup, or merchant onboarding. The ongoing transactions are exempt because the initial authentication established trust.
 
+## Alternative Factors the RBI Permits
 
-## Alternative Factors RBI Permits
+The 2026 update formally expanded the list of acceptable authentication factors beyond SMS OTP. This matters because it gives developers and product teams a menu of compliant options rather than defaulting to SMS for everything:
 
+- **SMS OTP:** Remains the most widely used factor. Universal reach (works on every Indian phone, no internet required), low implementation cost, and user familiarity make it the default for most consumer apps. Cost is typically ₹0.12–₹0.25 per message.
+- **TOTP / authenticator apps:** Time-based one-time passwords generated by apps like Google Authenticator or Authy. No SMS cost, works offline, but requires the user to install and configure an authenticator app. Adoption among Indian consumers remains low; more common in B2B SaaS and developer-facing products.
+- **Biometric authentication:** Fingerprint, face recognition, or iris scan through the device's native hardware. FIDO2/WebAuthn-based biometric is the preferred implementation because the biometric never leaves the device — only a cryptographic proof is sent to the server. Aadhaar-based biometric is a separate path that requires AUA/KUA licensing.
+- **Push notification approval:** A push notification sent to the user's registered device, asking them to approve or deny the transaction. The user taps "Approve" (optionally with biometric confirmation). Faster and cheaper than SMS OTP, but requires the app to be installed and push delivery to be reliable.
+- **Hardware tokens:** Physical devices (YubiKey, bank-issued token generators) that produce time-based or event-based codes. Used primarily in corporate banking and high-net-worth segments where the cost of the hardware device is justified by the transaction values.
 
-- SMS OTP (default).
-- TOTP / authenticator apps.
-- Biometric in regulated mobile apps.
-- Push approvals on registered devices.
-- Hardware tokens for corporate banking.
+Each alternative satisfies the "something you have" or "something you are" category. The critical rule remains: you must combine two factors from different categories. A password (something you know) plus a biometric (something you are) is valid. A password plus a security question (both something you know) is not.
 
+## Production Patterns for AFA Implementation
 
+When implementing AFA in a production app, the choice of second factor depends on your user base, transaction values, and device demographics:
 
-Read our broader 
-        [RBI 2FA mandate guide](/blog/rbi-2fa-2026-mandate).
+- **Default to SMS OTP for maximum reach.** SMS works on every Indian phone regardless of OS, internet connectivity, or device age. For consumer apps serving tier-2 and tier-3 cities, SMS OTP is the only factor that reaches 100% of users.
+- **Layer biometric for trusted-device logins.** On registered smartphones with biometric hardware, use device biometric as the second factor for repeat logins. This eliminates OTP costs for 60–80% of sessions while maintaining AFA compliance.
+- **Step-up to SMS OTP on risk anomalies.** When the risk engine detects a cross-device login, new IP, impossible travel, or high-value transaction, escalate from biometric to SMS OTP or even OTP + biometric together.
+- **Retain audit logs for 7–10 years.** RBI examiners expect a tamper-evident log of every AFA event. Log the requestId, factor type, verification status, IP address, device fingerprint, and timestamp for each authentication event.
 
+[StartMessaging](/dlt-free-otp) handles the SMS OTP component of your AFA implementation at scale — DLT compliance included, no template registration on your end, and ₹0.25 per message.
 
-## Production Patterns
+## Frequently Asked Questions
 
+**Q: Is SMS OTP still a valid factor under the 2026 RBI AFA framework?**
 
-- Default to SMS OTP for breadth.
-- Layer biometric for trusted devices.
-- Step-up to OTP on cross-device or cross-IP risk.
-- Audit retain 7–10 years.
+A: Yes. SMS OTP remains explicitly recognised as a valid "something you have" factor. The 2026 update does not deprecate SMS OTP — it requires that OTP cannot be the only factor. You must pair it with a PIN, biometric, device token, or another factor from a different category.
 
+**Q: Does AFA apply to UPI payments?**
 
+A: Yes, but UPI has its own AFA architecture. The UPI PIN serves as "something you know" and the device-SIM binding serves as "something you have." If your app is a TPAP (Third-Party Application Provider), the UPI infrastructure handles AFA — you do not need to add a separate OTP layer on top of UPI PIN.
 
-## FAQ
+**Q: Can I use WhatsApp OTP as an AFA factor?**
 
-[StartMessaging](/dlt-free-otp) handles
-        application-side OTPs at scale; you remain compliant with AFA on the
-        flows where you control authentication.
+A: WhatsApp OTP qualifies as a dynamic, transaction-specific factor in the "something you have" category, similar to SMS OTP. The RBI directive does not mandate a specific delivery channel — it mandates that the factor is dynamic and independent. WhatsApp OTP meets both criteria. See our [RBI Authentication Directions guide](/blog/rbi-authentication-directions-2025-developer-guide) for the full analysis.
 
+**Q: What audit records does the RBI expect for AFA events?**
+
+A: At minimum: requestId, factor type used, verification status (success/failure/expired), IP address, device identifier, timestamp, and number of attempts. Retain for 7–10 years in a tamper-evident format. Examiners look for authentication gaps — sessions with no recorded AFA event or mismatched timestamps.
+
+For the complete developer guide to the 2026 RBI authentication mandate, read our [Authentication Directions 2025 pillar post](/blog/rbi-authentication-directions-2025-developer-guide). To start sending compliant OTPs today, [sign up for StartMessaging](https://app.startmessaging.com/register).

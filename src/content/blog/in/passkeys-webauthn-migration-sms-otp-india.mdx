@@ -1,8 +1,8 @@
-﻿---
+---
 title: "Passkeys (WebAuthn) vs SMS OTP for Indian Apps: Migration Notes"
 description: "A practical roadmap for Indian product teams adding FIDO2 passkeys alongside SMS OTP: user education, device coverage, RBI-style step-up, recovery, and when SMS remains mandatory."
 publishedAt: "2026-05-12"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-22"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -16,82 +16,129 @@ keywords:
   - "passwordless login India"
 relatedSlugs:
   - "sms-otp-vs-email-magic-link-vs-totp"
-  - "rbi-2fa-2026-mandate"
+  - "rbi-authentication-directions-2025-developer-guide"
   - "otp-smishing-phishing-prevention"
   - "silent-authentication-vs-otp-india"
 featured: false
 ---
 
+SMS OTP is universal in India but vulnerable to smishing, SIM swap, and real-time phishing relays. **Passkeys (FIDO2/WebAuthn)** bind sign-in to a device-held key pair and resist remote phishing by design — the authentication ceremony is cryptographically tied to the origin domain, so a fake login page cannot relay the credential. This guide is for engineering managers planning a **migration**, not a cryptographic deep-dive. We cover rollout sequencing, device-coverage realities in the Indian market, compliance touchpoints, recovery strategies, and the metrics that prove the migration is working.
 
-SMS OTP is universal in India but vulnerable to smishing and SIM
-        events. **Passkeys (FIDO2 / WebAuthn)** bind sign-in to
-        a device key pair and resist remote phishing. This guide is for
-        engineering managers planning a **migration**, not a
-        crypto tutorial — we focus on rollout sequencing and compliance
-        touchpoints.
+## Why Indian Teams Still Default to SMS OTP
 
+Before planning a passkey migration, understand why SMS OTP became the default — and why those reasons still hold for much of your user base:
 
-## Why Indian Teams Still Default to SMS
+- **Universal reach.** SMS OTP works on every phone with a SIM card — smartphones, feature phones, 2G networks, Wi-Fi-only scenarios. No app installation, no OS version requirement, no biometric hardware dependency. For apps serving tier-2 and tier-3 India, SMS OTP is the only authentication factor that reaches 100% of users.
+- **User mental model.** Indian users have been trained by banks, UPI apps, and e-commerce platforms to expect an OTP on login and payment. "Enter the OTP sent to your phone" is a universally understood instruction. Passkeys require a different mental model ("tap your fingerprint to log in") that is familiar to tech-savvy users but foreign to many others.
+- **Vendor-neutral.** SMS OTP does not assume the user has a Google account (for passkey sync via Google Password Manager) or an Apple device (for iCloud Keychain sync). The OTP works regardless of ecosystem.
+- **Implementation simplicity.** Integrating an SMS OTP API takes a day. Implementing WebAuthn registration, authentication, attestation verification, and credential management takes weeks. For early-stage startups, SMS OTP gets the product to market faster.
 
-
-- Works on every handset without app updates.
-- Aligns with user mental models built by banks and UPI apps.
-- Vendor-neutral — no Apple / Google passkey sync assumptions.
-
-
+These are not weaknesses — they are trade-offs. The migration to passkeys is not about replacing SMS OTP entirely; it is about offering a stronger option for users and devices that support it, while keeping SMS as the universal fallback.
 
 ## Threat Model: What Passkeys Fix
 
-SMS OTP can be intercepted by fake login pages that relay codes in
-        real time. Passkeys remove shared secrets from the authentication
-        ceremony. Read alongside 
-        [OTP strengths and weaknesses](/blog/is-otp-secure-strengths-weaknesses) 
-        to decide where passkeys belong in your stack (login vs payments vs
-        account recovery).
+Passkeys address specific attack vectors that SMS OTP cannot defend against:
 
+- **Real-time phishing relay.** The attacker creates a fake login page that looks identical to yours. The user enters their credentials and OTP on the fake page. The attacker relays the OTP to your real server in real time, gaining access before the OTP expires. This attack is increasingly common and SMS OTP is fundamentally vulnerable to it because the code is a shared secret that can be relayed.
+- **SIM swap.** The attacker convinces the carrier to transfer the victim's number to a new SIM. Every OTP sent to the number goes to the attacker. Passkeys are immune because they are bound to the device's secure element, not the SIM. See our [SIM swap protection guide](/blog/sim-swap-otp-protection-india).
+- **Smishing.** Fraudulent SMS messages that trick users into clicking links and entering OTPs on phishing sites. Passkeys cannot be phished because the WebAuthn protocol binds the authentication to the origin domain — a passkey registered on `bank.example.com` will not respond to a challenge from `bank-login.fake.com`.
+- **OTP interception via SS7 vulnerabilities.** The SS7 signalling network used for SMS routing has known vulnerabilities that allow sophisticated attackers to intercept SMS messages. Passkeys bypass SS7 entirely — no message is sent.
+
+Read our [OTP strengths and weaknesses analysis](/blog/is-otp-secure-strengths-weaknesses) for a broader view of where passkeys fit relative to SMS, TOTP, and push authentication.
+
+## Device Coverage in India: The Real Numbers
+
+Passkey support depends on the device's OS version and hardware capabilities. Indian device demographics determine your migration ceiling — the maximum percentage of users who can use passkeys today.
+
+**Android (dominant in India, ~95% market share):**
+- Android 9+ supports FIDO2 hardware-backed credentials. Android 14+ supports synced passkeys via Google Password Manager.
+- As of mid-2026, approximately 80–85% of active Indian Android devices run Android 10 or later, with passkey-capable hardware.
+- The remaining 15–20% are on Android 8.x or older — these users cannot use passkeys and must remain on SMS OTP.
+
+**iOS (~4–5% market share in India):**
+- iOS 16+ supports passkeys with iCloud Keychain sync. iOS 15 supports WebAuthn but not synced passkeys.
+- Apple users in India tend to be on recent iOS versions, so passkey support is near-universal among iPhone users.
+
+**Feature phones and KaiOS:**
+- No WebAuthn support. These users (primarily rural and semi-urban) must use SMS OTP.
+
+**Practical migration ceiling:** Approximately 80% of your Indian user base can theoretically use passkeys. The remaining 20% stays on SMS OTP. This is why the migration is additive (passkeys alongside SMS) rather than a replacement (passkeys instead of SMS).
 
 ## Phased Rollout Pattern
 
+A passkey migration should be gradual. Users need time to understand the new flow, and your team needs time to handle edge cases.
 
-- **Shadow mode:** Register passkeys for users who opt in; keep SMS OTP unchanged.
-- **Preferred factor:** Offer passkey-first login with SMS fallback behind the same risk engine used for  [lockouts](/blog/otp-failed-attempt-lockout-strategies) .
-- **Step-up:** Keep SMS or issuer push for high-risk actions even after passkeys win on primary login.
+### Phase 1: Shadow Mode (Weeks 1–4)
 
+Register passkeys for users who opt in through a settings page ("Try passwordless login"). Keep SMS OTP as the primary login method for everyone. The goal is to build a cohort of passkey users and gather data on registration success rates, authentication success rates, and support tickets.
 
+During this phase, measure:
+- What percentage of eligible users (Android 9+, iOS 16+) successfully register a passkey?
+- What percentage of passkey logins succeed on the first attempt?
+- How many users contact support with passkey confusion?
+
+### Phase 2: Preferred Factor (Months 2–3)
+
+For users with a registered passkey, offer passkey-first login. The login screen detects whether a passkey is available and prompts biometric confirmation. If the passkey login fails or the user dismisses it, fall back to SMS OTP behind the same risk engine used for [lockout strategies](/blog/otp-failed-attempt-lockout-strategies).
+
+Show a brief explainer on first passkey login: "Log in with your fingerprint — no OTP needed." Users unfamiliar with passkeys need a single sentence of context.
+
+### Phase 3: Step-Up Hybrid (Months 3–6)
+
+Keep SMS OTP (or issuer-issued push OTP) for high-risk actions even after passkeys win on primary login. Payment confirmation, beneficiary changes, and large transfers should use the strongest available factor — which may be passkey + biometric for some actions, and passkey + SMS OTP for others.
+
+This phase establishes the long-term architecture: passkeys handle login, SMS OTP handles step-up, and the risk engine determines which is required for each action.
+
+### Phase 4: Incentivised Adoption (Months 6+)
+
+Nudge eligible users who have not registered a passkey. Use in-app prompts after successful OTP login: "Want faster login? Set up fingerprint sign-in." Do not force migration — users who dismiss the prompt should not see it again for 30 days.
+
+Track the passkey registration rate over time. A healthy target is 40–60% of eligible users within 12 months.
 
 ## Regulated Flows and Step-Up Authentication
 
-Fintech teams should read 
-        [RBI AFA guidance](/blog/rbi-afa-guidelines-otp-2026) 
-        with counsel. Passkeys can satisfy "something you have"
-        for app login, but card-not-present and many wallet actions still
-        expect issuer-controlled factors. Document which journeys are
-        *in-app authentication* vs *regulated payment authentication*.
+Fintech teams must be careful about which flows use passkeys and which still require OTP. The [RBI AFA framework](/blog/rbi-afa-guidelines-otp-2026) recognises passkeys as a valid factor, but the distinction between in-app authentication and regulated payment authentication matters.
 
+- **In-app authentication (login, settings, profile).** Passkeys are ideal. The user authenticates to your application, and passkeys satisfy the "something you have" (device) plus "something you are" (biometric) requirements.
+- **Regulated payment authentication (card-not-present, UPI, wallet transfer).** The payment OTP is typically issued by the bank or payment gateway, not your application. Passkeys on your side can satisfy one factor, but the payment-side factor may still be an OTP from the issuing bank. Do not assume your passkey replaces the bank's OTP — they are separate authentication events.
+- **High-value step-up.** For sensitive actions within your app (large transfers, beneficiary changes), consider requiring passkey plus SMS OTP as a dual-factor step-up. The passkey confirms the device; the SMS OTP confirms possession of the registered phone. This is belt-and-suspenders for actions where the cost of compromise is high.
+
+Document clearly which user journeys are in-app authentication (your passkeys suffice) versus regulated payment authentication (the bank's factors apply). Consult with legal counsel on the specific boundaries.
 
 ## Recovery Without SMS-Only Weakness
 
-If passkey recovery is "send SMS OTP," you reintroduce the
-        same SIM risks. Stronger patterns include split knowledge with
-        in-branch verification, video KYC for high-value accounts, or
-        hardware security keys for admin roles.
+If the passkey recovery mechanism is "send an SMS OTP," you have reintroduced the exact vulnerability (SIM swap, smishing) that passkeys were designed to eliminate. Recovery design is the hardest part of a passkey migration.
 
+Stronger recovery patterns:
+
+- **Cross-device passkey sync.** If the user has passkeys synced across devices via Google Password Manager or iCloud Keychain, losing one device does not lose the credential. The passkey is available on any other device signed into the same account.
+- **Recovery code at registration.** Generate a one-time recovery code during passkey registration. The user stores it in a safe location. This is the TOTP-recovery-code pattern applied to passkeys.
+- **Split knowledge with in-branch verification.** For high-security apps (banking, wealth management), require in-branch identity verification before re-enrolling passkeys. This is high-friction but eliminates remote account takeover during recovery.
+- **Video KYC for high-value accounts.** A live video call with a KYC agent who verifies identity against Aadhaar or PAN before re-enabling authentication. This is practical for fintech apps with existing video KYC infrastructure.
+- **SMS OTP as a gated fallback.** If you must use SMS OTP for recovery, add a cooling-off period (24–72 hours) between the OTP verification and the re-enablement of high-value actions. This gives the legitimate user time to notice and intervene if a SIM swap has occurred.
 
 ## Metrics That Prove the Migration
 
+Track these metrics to measure whether the passkey migration is delivering value:
 
-- Login success rate by device cohort.
-- Median time-to-login before vs after passkeys.
-- Support tickets tagged smishing / OTP not received.
-- Chargeback or fraud loss rate on step-up flows.
+- **Login success rate by device cohort.** Passkey users should have equal or higher login success rates than OTP users. If passkey logins are failing more than OTP logins, your registration or authentication flow has a UX issue.
+- **Median time-to-login before vs after passkeys.** Passkey login should be 3–5 seconds (biometric tap). OTP login is 15–30 seconds (wait for SMS, read code, type code). The improvement should be measurable.
+- **Support tickets tagged "OTP not received" or "smishing."** Passkey users should generate zero "OTP not received" tickets on login (they are not using OTP for login). Smishing reports should decline as more users move to passkeys.
+- **Chargeback or fraud loss rate on step-up flows.** If passkeys are used for payment step-up alongside OTP, measure whether fraud losses on those flows decrease compared to OTP-only step-up.
+- **OTP cost reduction.** Passkey logins do not trigger an SMS OTP, saving ₹0.25 per login. At 100,000 logins/month, a 50% passkey adoption rate saves ₹12,500/month on OTP costs alone.
 
+## Frequently Asked Questions
 
+**Q: Can passkeys fully replace SMS OTP in an Indian app?**
 
-## FAQ
+A: Not today. Approximately 15–20% of Indian users are on devices that do not support passkeys (older Android, feature phones). Cross-device logins (log in on laptop, verify on phone) also require SMS OTP. Passkeys should be the primary factor for supported devices, with SMS OTP as the universal fallback.
 
-Passkeys and SMS OTP can coexist for years. Most Indian apps will keep
-        SMS for reachability while passkeys absorb returning users on modern
-        devices. For SMS-only flows, providers like 
-        [StartMessaging](/otp-api) keep integration simple
-        while you migrate the login surface.
+**Q: Do Indian regulators accept passkeys as a valid authentication factor?**
 
+A: Yes. RBI's 2026 authentication framework recognises device-bound credentials (including FIDO2/WebAuthn passkeys) as a valid "something you have" factor. Combined with a biometric (something you are) on the same device, passkeys satisfy the two-factor requirement for digital payments.
+
+**Q: What happens if a user loses their phone and their passkey?**
+
+A: If passkeys are synced via Google Password Manager or iCloud Keychain, the credential survives on other devices. If the passkey was device-local and not synced, the user needs a recovery path — recovery codes, in-branch verification, or video KYC. Avoid using SMS OTP alone for recovery, as it reintroduces SIM swap risk.
+
+Passkeys and SMS OTP can coexist for years. Most Indian apps will keep SMS for reachability while passkeys absorb returning users on modern devices. For the SMS OTP component, [StartMessaging](/otp-api) keeps integration simple — ₹0.25 per OTP, [no DLT registration required](/dlt-free-otp), and built-in rate limiting. [Sign up for free](https://app.startmessaging.com/register).

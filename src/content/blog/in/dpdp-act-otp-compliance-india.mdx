@@ -1,8 +1,8 @@
-﻿---
+---
 title: "DPDP Act and OTP Compliance in India"
 description: "How the Digital Personal Data Protection Act 2023 affects OTP and SMS workflows: consent, purpose limitation, data minimisation, retention, and OTP-specific patterns."
 publishedAt: "2026-05-05"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-22"
 category: compliance
 country: "in"
 author: "StartMessaging Team"
@@ -15,81 +15,93 @@ keywords:
 relatedSlugs:
   - "otp-data-privacy-india"
   - "trai-message-scrubbing-india"
-  - "rbi-2fa-2026-mandate"
+  - "rbi-authentication-directions-2025-developer-guide"
   - "otp-security-best-practices"
 featured: false
 ---
 
+*Disclaimer: This is informational content, not legal advice. Consult a data-protection officer or legal counsel for your specific DPDP compliance obligations.*
 
-The Digital Personal Data Protection Act 2023 (DPDP) reshaped how
-        Indian businesses handle personal data. OTP — being a phone number
-        plus authentication code — is squarely in scope. This guide explains
-        what changes for OTP flows.
+The Digital Personal Data Protection Act 2023 (DPDP) reshaped how Indian businesses handle personal data, and OTP workflows sit squarely in scope. Every OTP you send involves processing personal data: a phone number (personal identifier), a one-time code (authentication credential), an IP address (location data), and a timestamp (behavioural data). If you send OTPs to Indian users, DPDP applies to your OTP pipeline — and getting it wrong creates real regulatory exposure. This guide explains each DPDP obligation as it applies to OTP and SMS workflows, with specific implementation patterns.
 
+## Consent and Lawful Basis for OTP Processing
 
-## Overview of DPDP Act
+DPDP requires a lawful basis for processing personal data. For OTP, the lawful basis depends on why you are sending the code:
 
+- **Transactional OTP (login, payment confirmation, account recovery):** The lawful basis is "performance of contract" — the user signed up for your service, and OTP authentication is a necessary part of delivering that service. You do not need a separate consent pop-up for every OTP send, but your privacy policy must disclose that phone numbers are used for authentication.
+- **Service-explicit OTP (order confirmation, delivery notification):** Also covered under performance of contract if the notification is directly related to a service the user purchased. The user placed an order; the delivery OTP is part of fulfilling that order.
+- **Marketing and promotional SMS:** Requires separate, informed, affirmative consent. DPDP's consent standard is higher than TRAI's existing DLT consent framework — the user must be told specifically what data will be used, for what purpose, and how to withdraw consent. A pre-checked "I agree to receive promotional messages" checkbox does not meet DPDP's standard.
 
-- Lawful basis for processing.
-- Purpose limitation.
-- Data minimisation.
-- Reasonable security safeguards.
-- User rights (access, correction, erasure).
-- Breach notification obligations.
+The critical distinction: phone numbers collected for OTP authentication cannot be repurposed for marketing without obtaining fresh consent under a different purpose declaration. If your signup flow collects a phone number "to verify your identity via OTP," you cannot later add that number to a promotional SMS list without a separate consent event.
 
+## Purpose Limitation in OTP Workflows
 
+DPDP's purpose-limitation principle requires that personal data collected for one stated purpose is not used for a different purpose without new consent. For OTP workflows, this creates specific constraints:
 
-## Consent for OTP Processing
+- **OTP phone numbers are collected for authentication.** That is their stated purpose. Using those numbers for marketing, analytics segmentation, or third-party data sharing violates purpose limitation.
+- **OTP request metadata has a limited purpose.** The IP address, device fingerprint, and timestamp collected during OTP verification exist for fraud detection and audit compliance. Using this data for ad targeting, user profiling, or behavioural analytics is a separate purpose that requires separate disclosure and consent.
+- **Analytics on OTP data is permissible within bounds.** You can analyse OTP delivery rates, verification success rates, and failure patterns for service improvement — this falls under the original authentication purpose. You cannot correlate OTP request times with purchase behaviour to build marketing profiles without disclosure.
 
-Consent for OTP-based authentication is typically captured at
-        sign-up under "performance of contract". Marketing SMS,
-        on-call notifications, and service-explicit messages need separate
-        consent.
+Document your purpose for each data element in your Record of Processing Activities (ROPA). If an auditor asks "why do you store the IP address from OTP requests?", your answer should be "fraud detection and regulatory audit" — not "we might use it for geo-targeted ads later."
 
+## Data Minimisation for OTP Systems
 
-## Purpose Limitation
+DPDP's data-minimisation principle states: do not collect or retain more personal data than is necessary for the stated purpose. For OTP systems, this translates to specific technical decisions:
 
-Phone number captured for OTP cannot be repurposed for marketing
-        without separate consent. Document the purpose at collection and
-        honour it.
+- **Do not store plaintext OTP codes.** After the OTP is generated and sent, store only a hash (SHA-256 or bcrypt) of the code. When the user submits their verification, hash the submitted code and compare hashes. There is no legitimate reason to retain the plaintext OTP after verification — and retaining it creates a data breach liability.
+- **Store the OTP requestId, not the full SMS body.** Your OTP provider returns a requestId that uniquely identifies the send event. Store that ID for your audit trail, not the full SMS text (which contains the user's phone number and OTP code together).
+- **Collect IP address and device fingerprint only if required for fraud detection.** If your risk model does not use these signals, do not collect them. If you do collect them, document fraud detection as the purpose and set a retention period aligned with that purpose.
+- **Do not store phone numbers longer than the account lifecycle.** When a user deletes their account, their phone number should be removed from your OTP logs (or anonymised) unless a regulatory retention mandate requires otherwise.
 
+A practical test: for each data element in your OTP database, ask "if this element were leaked in a breach, would it cause harm?" If yes, either stop collecting it, hash it, or set a short retention window.
 
-## Data Minimisation
+## Retention Rules for OTP Data
 
+DPDP does not prescribe specific retention periods — it says data should be retained only as long as necessary for the stated purpose, or as required by law. For OTP data, the retention period depends on the use case:
 
-- Don't collect what you don't need.
-- OTP requestId is enough — no need to store the plaintext code.
-- IP / device fingerprint only if required for fraud control.
+- **Financial transaction OTPs (payment confirmation, fund transfer):** Retain for 7–10 years per RBI/SEBI requirements. The regulatory mandate overrides DPDP's minimisation principle — you must keep the audit record even if DPDP would suggest a shorter period. However, retain the minimum necessary fields (requestId, status, timestamp, purpose) rather than the full data set.
+- **Non-financial OTPs (signup verification, profile update, password reset):** No regulatory mandate requires long-term retention. Set a retention period aligned with your operational needs — 90 days to 12 months is typical. After the retention window, delete or anonymise the records.
+- **Marketing consent OTPs:** If you send an OTP to verify consent for marketing communications, retain the consent record (not the OTP itself) for as long as you process data under that consent, plus any statutory limitation period.
+- **Phone numbers of deleted accounts:** When a user exercises their right to erasure (DPDP Section 14), delete their phone number from OTP logs unless a regulatory retention mandate applies. For financial accounts, the regulatory mandate takes precedence; for non-financial accounts, honour the erasure request.
 
+Build your retention policy as a configuration table — purpose, data elements, retention period, deletion method — and review it annually.
 
+## Breach Notification for OTP Data
 
-## Retention Rules
+DPDP requires notification to the Data Protection Board of India and affected individuals in the event of a personal-data breach. OTP data breaches can qualify:
 
+- **Plaintext OTP code leakage:** If you stored OTPs in plaintext (which you should not) and your database is breached, the attacker has authentication credentials that could be used for account takeover. This is a notifiable breach.
+- **Phone number database leakage:** Your OTP log contains phone numbers linked to user accounts. A breach exposes which phone numbers use your service, which can be used for phishing, SIM swap attacks, or social engineering. This is likely notifiable, especially at scale.
+- **Hashed OTP leakage:** If you stored OTPs as hashes and the hashing is strong (bcrypt with appropriate cost factor), the leaked data has minimal utility to an attacker. Whether this constitutes a notifiable breach depends on what other data was leaked alongside the hashes.
 
-- OTP logs: as long as needed for the stated purpose, plus statutory minimums (financial flows = 7+ years).
-- Marketing data: until consent withdrawn.
-- Phone numbers: bound to the account lifecycle plus statutory retention.
+The mitigation path is preventive: hash OTPs, minimise what you store, encrypt at rest, and restrict access. If you do experience a breach, the notification timeline under DPDP is "without unreasonable delay" to the Data Protection Board, and "as soon as reasonably practicable" to affected individuals.
 
+## OTP-Specific DPDP Implementation Patterns
 
+Putting it all together, here are the specific patterns every Indian OTP sender should implement for DPDP compliance:
 
-## Breach Notification
+- **Hash OTPs server-side before storage.** Generate the OTP, send it via SMS, hash it immediately, and store only the hash. Verify by comparing hashes, not plaintext.
+- **Capture purpose in the OTP audit row.** Each OTP request should log its purpose — "login", "payment", "signup", "password-reset". This makes purpose-limitation audits straightforward.
+- **Implement right-to-erasure on the phone-number column.** When a user requests account deletion, your system should be able to delete or anonymise their phone number across all OTP log tables, subject to regulatory retention overrides.
+- **Maintain an access-request export pipeline.** DPDP gives users the right to access their data. You should be able to export all OTP-related records for a given phone number on request — requestIds, timestamps, purposes, statuses.
+- **Set up automated retention-window enforcement.** Do not rely on manual deletion. Use database TTLs, scheduled jobs, or retention-policy features in your data store to automatically purge OTP records past their retention window.
 
-DPDP requires notification to the Data Protection Board and affected
-        individuals on a personal-data breach. OTP plaintext leakage qualifies.
+## Frequently Asked Questions
 
+**Q: Does DPDP require me to get consent before sending an OTP?**
 
-## OTP-Specific Patterns
+A: Not for transactional OTPs (login, payment, account recovery). These fall under "performance of contract" — you are sending the OTP because the user initiated an action that requires authentication. You do need consent for marketing SMS, and that consent must be informed, specific, and withdrawable.
 
+**Q: Can I use OTP phone numbers for marketing without separate consent?**
 
-- Hash OTPs server-side, store the hash, never log plaintext.
-- Capture purpose in the OTP audit row.
-- Implement right-to-erasure on the phone-number column.
-- Maintain access-request export pipeline.
+A: No. DPDP's purpose-limitation principle prohibits repurposing phone numbers collected for authentication. If you collected the number "for OTP verification," you cannot add it to a marketing list without obtaining fresh consent under a separate purpose declaration.
 
+**Q: What happens if my OTP database is breached?**
 
+A: If you stored OTPs in plaintext, the breach exposes authentication credentials and is almost certainly notifiable under DPDP. If you hashed OTPs (which you should), the exposure is limited to phone numbers and metadata. Notification depends on the scale and sensitivity. Either way, hash your OTPs, encrypt at rest, and minimise what you store — prevention is cheaper than notification.
 
-## FAQ
+**Q: How does DPDP interact with RBI's OTP audit-retention requirements?**
 
-[StartMessaging](/dlt-free-otp) hashes OTPs by
-        default and provides DLR / audit logs in a DPDP-friendly format.
+A: RBI mandates 7–10 years of financial-transaction audit logs. DPDP says retain only as long as necessary. For financial OTPs, the RBI mandate overrides DPDP's minimisation principle — you must keep the records. For non-financial OTPs (signup, profile update), DPDP's minimisation principle applies and you should set shorter retention windows (90 days to 12 months).
 
+[StartMessaging](/dlt-free-otp) hashes OTPs by default, provides delivery receipts in a DPDP-friendly format, and does not store plaintext codes — so your provider-side data is minimised from day one. [Sign up](https://app.startmessaging.com/register) to start at ₹0.25 per OTP.

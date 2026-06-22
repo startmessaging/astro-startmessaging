@@ -1,8 +1,8 @@
-﻿---
+---
 title: "SEBI 2FA Rules for Trading Apps in India"
 description: "SEBI 2FA rules summarised for stock-broking and trading-app developers: every-login enforcement, biometric alternatives, audit retention, and pitfalls to avoid."
 publishedAt: "2026-05-05"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-22"
 category: compliance
 country: "in"
 author: "StartMessaging Team"
@@ -14,59 +14,98 @@ keywords:
   - "sebi otp"
 relatedSlugs:
   - "otp-stock-broking-apps-india"
-  - "rbi-2fa-2026-mandate"
+  - "rbi-authentication-directions-2025-developer-guide"
   - "rbi-afa-guidelines-otp-2026"
   - "otp-mutual-fund-apps-india"
 featured: false
 ---
 
+*Disclaimer: This is informational content, not legal advice. Consult a compliance officer for your specific regulatory obligations.*
 
-SEBI's 2FA framework for stockbrokers is one of the strictest
-        in financial services. Every login requires fresh second factor.
-        Most brokers default to SMS OTP; modern brokers layer biometric on
-        registered devices.
+SEBI's two-factor authentication framework for stockbrokers and depository participants is one of the strictest in Indian financial services. Unlike RBI's risk-based approach — where low-value transactions can use lighter authentication — SEBI mandates fresh 2FA on every single login. No trusted-device bypass, no "remember this browser" cookie. Every session starts with two factors. If you are building or maintaining a trading app, this guide covers what SEBI requires, how to implement it without killing your login conversion, and the audit trail expectations that examiners check.
 
+## The Every-Login 2FA Mandate
 
-## Overview
+SEBI circulars require all registered stockbrokers and depository participants to enforce two-factor authentication on every user login. This is not a recommendation — it is a licensing condition. Persistent sessions are capped, and brokers cannot offer "stay logged in" options that bypass the second factor.
 
+The mandate stems from SEBI's concern about unauthorised trading. A stolen password on a trading account can result in market manipulation, front-running, or draining the demat account. The second factor — typically SMS OTP — ensures that even if the password is compromised, the attacker cannot log in without access to the registered mobile device.
 
-- Every-login 2FA.
-- Order-placement step-up at broker discretion.
-- Mandatory cool-down on failed attempts.
-- Audit log of authentication events.
+What makes SEBI's approach stricter than RBI's:
 
+- **No trusted-device suppression.** RBI allows risk-based auth where low-risk logins on recognised devices can skip the second factor. SEBI does not.
+- **No session extension without re-auth.** Intra-day sessions are time-limited. If a trader's session expires during market hours, they must re-authenticate with both factors.
+- **Mandatory cool-down on failed attempts.** SEBI expects brokers to lock accounts after repeated failed 2FA attempts, with escalating cool-down periods.
 
+## Biometric as a Second Factor
 
-## Every-Login Mandate
+SEBI permits platform-grade biometric authentication (fingerprint, face recognition) as a second factor on registered mobile devices. The key requirement is that the biometric is tied to a specific device registration — the broker must maintain a record linking the user's identity to the device's biometric hardware.
 
-Trusted-device suppression is not allowed. Persistent sessions are
-        capped per SEBI guidance.
+Implementation pattern:
 
+- During onboarding, the user registers their device by completing KYC verification and enrolling a biometric on that specific device.
+- The broker's backend stores a device identifier (Android Keystore attestation or iOS Secure Enclave key) linked to the user account.
+- On subsequent logins from the registered device, the user provides their password (factor 1) and biometric confirmation (factor 2).
+- Logins from unregistered devices fall back to SMS OTP as the second factor.
 
-## Biometric as Second Factor
+The biometric approach reduces OTP costs for repeat logins — you only send SMS OTPs when the user logs in from a new or unregistered device. For most brokers, 60–80% of logins happen on a single registered mobile device, so the OTP volume reduction is significant.
 
-Platform-grade biometric on a registered mobile is permitted. The
-        device registration ties biometric proof to the user identity.
+## Order-Placement Step-Up Authentication
 
+Beyond login, SEBI leaves order-placement step-up at the broker's discretion, but most major brokers implement it for high-risk actions:
 
-## Order-Placement Step-Up
+- **High-value orders (above ₹5 lakh):** Fresh OTP before order execution. This protects against scenarios where an attacker gains access to an active session.
+- **F&O margin calls:** OTP confirmation before margin utilisation, especially for options writing where losses can exceed the account balance.
+- **Pledge and unpledge actions:** Fresh OTP required. Pledging shares as collateral is a high-risk action that SEBI expects to be gated.
+- **Off-hours orders:** Orders placed during pre-market or after-hours sessions trigger step-up authentication because they deviate from the user's normal pattern.
+- **New segment activation:** The first trade in a new segment (e.g., moving from equity to F&O) requires step-up plus risk disclosure consent acknowledgement.
 
+The step-up OTP is separate from the login OTP — use a different `purpose` tag in your OTP audit log so examiners can distinguish login authentication from order-level authentication.
 
-- High-value orders trigger fresh OTP.
-- F&O margin calls — step-up.
-- Pledge / unpledge — fresh OTP.
+## Audit Trail and Retention Requirements
 
+SEBI's bookkeeping rules for stockbrokers mandate a minimum 8-year retention period for authentication events. Every OTP request, verification attempt, and session event must be logged with sufficient detail for post-incident forensic review.
 
+For each authentication event, retain at minimum:
 
-## Audit Retention
+- `requestId` — the unique identifier from your OTP provider
+- `action` — login, order-step-up, pledge, withdrawal
+- `status` — sent, verified, failed, expired
+- `IP address` — the client IP at the time of the authentication event
+- `deviceId` — device fingerprint or hardware identifier
+- `timestamp` — server-side UTC timestamp, not client-reported
+- `attempts used` — how many verification attempts were made before success or lockout
 
-Minimum 8 years per stockbroker bookkeeping rules. Retain
-        (requestId, action, status, IP, deviceId, timestamp).
+Store these records in a tamper-evident format. SEBI examiners specifically look for authentication gaps — sessions where no 2FA event is recorded, or where the login event timestamp does not correspond to any OTP request. These gaps trigger deeper investigation.
 
+## OTP Delivery Requirements for Trading Apps
 
-## FAQ
+Trading apps have stricter OTP delivery requirements than most consumer apps because a failed OTP blocks the trader from the market. During market hours (9:15 AM – 3:30 PM IST), a 30-second OTP delivery delay can mean a missed trade worth lakhs.
 
-[StartMessaging](/dlt-free-otp) ships
-        sub-second-latency SMS OTPs that meet SEBI's every-login bar
-        for production trading apps.
+Production patterns for broker OTP delivery:
 
+- **Multi-provider failover.** Never depend on a single SMS provider. If your primary provider's delivery degrades, automatic failover to a secondary provider should happen within 5 seconds.
+- **Voice OTP fallback.** If SMS does not arrive within 30 seconds, offer automated voice OTP. International traders roaming abroad may have SMS blocked while voice calls work.
+- **Sub-second API response.** Your OTP provider's API latency matters. A provider that takes 2–3 seconds to accept the send request adds to the trader's wait time on top of the SMS delivery delay.
+- **Per-phone rate limiting.** Trading apps are targets for [OTP pumping attacks](/blog/prevent-otp-fraud) during high-volume F&O margin-call windows. Strict per-phone rate limits prevent abuse without blocking legitimate traders.
+
+[StartMessaging](/dlt-free-otp) delivers sub-second API response times with multi-provider routing optimised for the Indian market — well-suited to SEBI 2FA workloads where every missed login OTP is a customer escalation.
+
+## Frequently Asked Questions
+
+**Q: Can a trading app use "remember this device" to skip OTP on subsequent logins?**
+
+A: No. SEBI mandates fresh two-factor authentication on every login session. Trusted-device suppression is not permitted for registered stockbrokers and depository participants. You can use biometric on a registered device as the second factor (instead of OTP), but you cannot skip the second factor entirely.
+
+**Q: Does SEBI require OTP for every trade, or just login?**
+
+A: SEBI mandates 2FA for every login. Order-placement step-up (OTP before executing a trade) is at the broker's discretion, but most major brokers implement it for high-value orders, F&O margin calls, and pledge/unpledge actions. It is considered best practice even where not explicitly mandated.
+
+**Q: How long must I retain OTP authentication logs for SEBI compliance?**
+
+A: Minimum 8 years per SEBI's stockbroker bookkeeping rules. Retain the full authentication event record: requestId, action, status, IP address, deviceId, timestamp, and attempts used. Store in a tamper-evident format — SEBI examiners specifically check for authentication gaps.
+
+**Q: What happens if OTP delivery fails during market hours?**
+
+A: A failed OTP blocks the trader from logging in, which can result in missed trades and customer escalations. Implement multi-provider SMS failover with automatic switchover within 5 seconds, and offer voice OTP as a secondary channel. Your OTP provider should have 97–99% delivery rates with sub-second API response times.
+
+For production trading apps that need reliable, low-latency OTP delivery, [sign up for StartMessaging](https://app.startmessaging.com/register) — ₹0.25 per OTP, DLT compliance handled, and multi-provider routing built in.
