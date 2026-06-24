@@ -54,7 +54,7 @@ const uniqueId = `code-${Math.random().toString(36).slice(2, 8)}`;
       </div>
     )}
 
-    <div class="max-w-4xl mx-auto code-showcase-wrapper" style={`--tab-color: ${tabColor};`}>
+    <div class="max-w-4xl mx-auto code-showcase-wrapper" dir="ltr" style={`--tab-color: ${tabColor}; text-align: left;`}>
       {/* Tab buttons */}
       <div class:list={["flex gap-0 overflow-x-auto rounded-t-lg", tabBgClass, borderClass]}>
         {snippets.map((snippet: any, idx: number) => (

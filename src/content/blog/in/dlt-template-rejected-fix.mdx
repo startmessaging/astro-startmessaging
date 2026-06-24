@@ -1,86 +1,152 @@
-﻿---
-title: "DLT Template Rejected? Common Reasons and Fixes"
-description: "When your DLT SMS template is rejected — the precise causes Indian operators flag, how to fix variable markers, category mismatches, and language issues, and how to skip DLT entirely."
+---
+title: "DLT Template Rejected? Common Reasons and How to Fix"
+description: "Your DLT SMS template got rejected. Learn the exact causes Indian operators flag, fix variable markers and category mismatches, and skip DLT entirely."
 publishedAt: "2026-05-15"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-24"
 category: compliance
 country: "in"
 author: "StartMessaging Team"
 keywords:
   - "dlt template rejected"
-  - "jio template rejection"
-  - "airtel template approval"
-  - "dlt approval failed"
-  - "fix dlt template"
+  - "dlt template rejection reasons india"
+  - "fix dlt template approval"
+  - "jio dlt template rejected"
+  - "airtel dlt template approval"
+  - "dlt template variable syntax"
+  - "dlt category mismatch fix"
+  - "dlt template resubmit india"
 relatedSlugs:
+  - "what-is-dlt-registration-india"
   - "dlt-template-approval-guide"
   - "dlt-template-variables-rules-india"
   - "what-is-sms-sender-id"
-  - "dlt-registration-step-by-step-india"
 featured: false
 ---
 
+DLT template rejection is the single most common blocker Indian developers hit when trying to go live with SMS OTP or transactional messaging. You have registered your entity, submitted your sender ID, waited days for approval, and now the portal says "Rejected" with a vague one-line reason. The frustrating part is that most rejections trace back to one of four predictable causes, and nearly all are fixable on resubmit once you understand what the operator's scrubbing engine actually checks.
 
-DLT template rejection is the #1 reason Indian devs get blocked on
-        a launch. Most rejections trace to one of four predictable causes —
-        and almost all are fixable on resubmit.
+This guide breaks down each rejection category with specific examples, shows you how to fix the template on first resubmit, and explains how to bypass the entire DLT template cycle when you need to ship faster.
 
+## Why DLT Templates Get Rejected: The Four Core Causes
 
-## Top Rejection Causes
+TRAI's DLT framework requires every commercial SMS sent in India to match a pre-approved template registered on an operator portal. The approval process is not manual review by a human — it is an automated scrubbing engine that checks syntax, content policy, category alignment, and variable formatting. Understanding what the scrubbing engine flags helps you avoid common rejection patterns.
 
+The four categories that account for over 90% of template rejections are: variable marker syntax errors, category mismatches between your template type and your entity registration, banned or restricted keywords in the message body, and deviations from the DLT template format standards.
 
-- Wrong variable markers.
-- Category mismatch (transactional template marked promotional).
-- Banned keywords (operator-name impersonation, etc.).
-- Body deviates from template format.
+### Variable Marker Syntax Errors
 
+This is the most common rejection reason. DLT templates use a specific variable syntax — `{#var#}` — to mark dynamic content like OTP codes, user names, order IDs, or expiry times. The scrubbing engine is extremely strict about this format. Any deviation triggers an immediate rejection.
 
+Common variable mistakes that cause rejections:
 
-## Variable Marker Issues
+- **Wrong delimiters:** Using `{variable}`, `{{var}}`, `<var>`, or `%var%` instead of `{#var#}`. Only the `{#var#}` syntax is accepted.
+- **Spaces inside markers:** Writing `{# var #}` or `{ #var# }` instead of `{#var#}`. No spaces are allowed inside the variable markers.
+- **Non-sequential variables:** If your template has multiple variables, they must appear in logical order. Placing the second variable before the first in the message body can trigger rejection on some portals.
+- **Variables inside variables:** Nesting variable markers like `{#var{#var#}#}` is not valid and causes parsing failures.
+- **Too many variables:** Templates where more than 50% of the content is dynamic (all variables, minimal static text) are flagged as potential spam vectors. The scrubbing engine expects a clear static structure with variables filling specific data points.
 
+A correctly formatted OTP template looks like this:
 
-- Use `{#var#}` exactly, no spaces.
-- Variables must be sequential — first `{#var#}`, then second, etc.
-- Don't embed variables inside other variables.
+```
+Your OTP for {#var#} is {#var#}. Valid for {#var#} minutes. Do not share this code with anyone. - {#var#}
+```
 
+Each `{#var#}` maps to a specific dynamic value — app name, OTP code, expiry time, and brand name respectively. The static text around the variables should make the message purpose clear without the variables being filled in.
 
+### Category Mismatch
 
-## Category Mismatch
+Every DLT template is registered under a content category: transactional, promotional, or service (implicit/explicit). The category must match both your entity registration type and the actual content of the message. The scrubbing engine checks for alignment between these three layers.
 
-OTP template under promotional category? Operator rejects it. Make
-        sure category matches use case. See 
-        [transactional vs promotional](/blog/transactional-vs-promotional-sms-india)
-        .
+The most common category mismatch is registering an OTP template under the "Promotional" category. OTPs are transactional messages — they are triggered by a user action (login, signup, password reset) and are not marketing content. Submitting an OTP template as promotional triggers an automatic rejection because the message content does not match promotional content patterns.
 
+The reverse also happens: submitting a marketing offer as "Transactional" to avoid DND filtering. Operators have become increasingly sophisticated at detecting this, and the rejection message typically reads "Content does not match selected category."
 
-## Wording / Keyword Issues
+If you are unclear about which category your message belongs to, read our comparison of [transactional vs promotional SMS](/blog/transactional-vs-promotional-sms-india) to understand the distinction. For OTP and authentication messages, always select the Transactional category. For order confirmations, shipping updates, and account alerts, select Service Implicit (if the user has an existing relationship with your business) or Service Explicit (if the user specifically opted in to receive these messages).
 
+### Banned and Restricted Keywords
 
-- Avoid "RBI", "BANK" without proper authorisation.
-- No claims of guaranteed returns.
-- No ALL-CAPS spam wording.
+DLT portals maintain a blocklist of keywords and phrases that trigger automatic rejection. These keywords are designed to prevent impersonation, fraud, and misleading communications. The list is not publicly documented, but patterns are well-known from developer experience.
 
+Keywords and phrases that commonly trigger rejection:
 
+- **Financial institution names:** Using "RBI", "SBI", "HDFC", "ICICI", or any bank name in your template without being that institution. Even referencing "as per RBI guidelines" in a non-bank entity template can cause rejection.
+- **Government body references:** "TRAI", "SEBI", "IRDAI", "Income Tax Department" — unless your entity is actually that government body.
+- **Guaranteed return claims:** "Guaranteed returns", "100% profit", "risk-free investment" — flagged as potential financial fraud.
+- **ALL CAPS spam patterns:** Entire words or phrases in uppercase (beyond standard acronyms) are flagged as spam-style messaging.
+- **URL shorteners:** Some portals reject templates containing bit.ly, tinyurl, or other URL shortener domains because they obscure the destination link.
 
-## How to Resubmit Successfully
+The fix is straightforward: remove or rephrase the flagged keyword. If your business legitimately needs to reference a financial institution, ensure your entity registration documents clearly establish the relationship and submit a clarification note with the template.
 
+### Body Format Deviations
 
-- Read the rejection reason carefully.
-- Fix exactly that — don't over-engineer the template.
-- Resubmit through the same portal.
-- Repeat across all operator portals if needed.
+The DLT template body has formatting rules that are less obvious than variable syntax but equally strict. The scrubbing engine compares the actual SMS sent against the registered template character by character, accounting for variable substitution. Any deviation — even a missing period or an extra space — causes the message to be blocked at send time.
 
+Common format issues:
 
+- **Line breaks in the template that do not match the sent message.** If your template has `\n` line breaks, your SMS API must send the message with identical line breaks.
+- **Trailing spaces or invisible characters.** Copy-pasting templates from word processors or email often introduces invisible Unicode characters that do not match the registered template.
+- **Missing brand identifier.** Some operators require a brand name or sender reference at the end of the message (e.g., "- StartMessaging"). If your template includes it but your API does not send it, the message is blocked.
+- **Character encoding mismatches.** Templates registered with Unicode characters but messages sent in GSM-7 encoding (or vice versa) cause comparison failures.
 
-## How to Skip DLT
+## How to Resubmit and Get Approved on the First Retry
 
-Use a DLT-free OTP API. [StartMessaging](/dlt-free-otp) 
-        absorbs template approvals on your behalf — no rejection, no
-        resubmission cycle.
+When your template is rejected, the portal provides a rejection reason. Read it carefully — the reason, however brief, points directly to the issue. Do not guess or change multiple things at once. Fix the specific problem the rejection reason identifies.
 
+### Step-by-Step Resubmission Process
 
-## FAQ
+1. **Read the rejection reason verbatim.** Log into your DLT portal (Jio Vilpower, Airtel DLT, Vi DLT, or BSNL DLT) and find the exact rejection reason text.
+2. **Identify the category.** Map the reason to one of the four categories above. "Invalid variable" = variable syntax. "Category mismatch" = category issue. "Content policy" = banned keywords. "Format error" = body deviation.
+3. **Fix exactly that issue.** Do not over-engineer the template. If the rejection is about a variable marker, fix the marker. Do not also change the wording, add new variables, or switch categories at the same time. Each change introduces a new potential rejection point.
+4. **Test the template locally.** Before resubmitting, verify your template renders correctly with sample values. Replace each `{#var#}` with a realistic value and read the full message. Does it make sense? Is the category correct? Are there any banned keywords?
+5. **Resubmit through the same portal.** Submit the corrected template and wait for approval. Jio Vilpower typically approves within 1–2 business days. Airtel and Vi take 2–5 business days. BSNL can take up to 7 business days.
+6. **If rejected again, submit a support ticket.** Most portals have a support or grievance mechanism. Include your entity ID, template ID, rejection reason, and the specific change you made. Escalation often results in faster human review.
 
-DLT is solvable but tedious; outsourcing it to a managed provider
-        is the fastest path for most teams.
+### Cross-Portal Consistency
 
+If you are registered on one DLT portal but your SMS traffic routes through a different operator's network, the template must be approved on the originating portal. However, template approvals are shared across the DLT ecosystem — a template approved on Jio Vilpower should work on Airtel and Vi routes. If it does not, the issue is typically a propagation delay (24–48 hours) or a template ID mismatch in your SMS provider's configuration.
+
+## Portal-Specific Rejection Patterns
+
+Each DLT portal has slightly different scrubbing rules and approval timelines. Knowing the portal-specific patterns helps you prepare templates that pass on the first submission.
+
+### Jio Vilpower (trueconnect.jio.com)
+
+Jio's portal is the most popular among developers. Approval times are generally 1–2 business days. Jio is strict about variable count — templates with more than 4 variables are frequently flagged for manual review. Jio also rejects templates with URLs that do not match the domain registered in your entity profile.
+
+### Airtel DLT (dltconnect.airtel.in)
+
+Airtel's portal has a cleaner interface and moderate approval times (2–3 business days). Airtel is particularly strict about category alignment — OTP templates submitted as "Service Explicit" instead of "Transactional" are rejected more often on Airtel than on other portals. Airtel also requires the brand name at the end of the template body.
+
+### Vi DLT (vilpower.in)
+
+Vi's portal is functional but slower. Approval times range from 3–5 business days. Vi is strict about character length — templates exceeding 160 characters (single SMS segment) for transactional messages occasionally face additional scrutiny. Vi also has stricter keyword filtering for financial services templates.
+
+### BSNL DLT (www.ucc-bsnl.co.in)
+
+BSNL's portal is the slowest, with approval times of 5–7 business days. The interface is dated and occasionally experiences downtime. BSNL is less strict about template content but more particular about entity document verification. If your entity registration on BSNL is incomplete or pending, all template submissions will be rejected regardless of content.
+
+## Skip DLT Template Hassles Entirely
+
+The entire DLT template approval cycle — writing templates, submitting them, waiting days for approval, handling rejections, resubmitting, waiting again — exists because you are sending SMS directly through telecom operator infrastructure. If you use a managed OTP API that handles DLT compliance on your behalf, you skip all of it.
+
+[StartMessaging's OTP API](/otp-api) maintains pre-approved entities, sender IDs, and OTP templates across all major Indian operators. When you call the API, your OTP is sent through fully compliant infrastructure that has already passed DLT approval. You do not need to register on any DLT portal, submit any templates, or handle any rejections.
+
+The result: you go from zero to sending OTPs in under five minutes, at ₹0.25 per OTP. No paperwork, no waiting, no template rejections. Read our detailed guide on [sending OTPs without DLT registration](/send-otp-without-dlt) or check the [DLT-free OTP page](/dlt-free-otp) for the full feature breakdown.
+
+## Frequently Asked Questions
+
+**Q: How long does DLT template approval take after resubmission?**
+
+A: Resubmission approval times vary by portal. Jio Vilpower is the fastest at 1–2 business days. Airtel takes 2–3 business days. Vi takes 3–5 business days. BSNL is the slowest at 5–7 business days. If your template was rejected and you fix the exact issue flagged, resubmission approval is typically faster than the initial submission because the entity and header are already approved.
+
+**Q: Can I use the same DLT template across all Indian telecom operators?**
+
+A: Yes. DLT template approvals are shared across the DLT ecosystem. A template approved on Jio Vilpower works on Airtel, Vi, and BSNL routes. However, there is a propagation delay of 24–48 hours after approval before the template is recognized across all operators. If your SMS is blocked on a specific operator despite having an approved template, check for template ID mismatches in your SMS provider's configuration.
+
+**Q: What is the difference between `{#var#}` and other variable formats in DLT templates?**
+
+A: DLT portals only accept the `{#var#}` syntax for dynamic content. Other formats like `{variable}`, `{{var}}`, `%s`, or `<var>` are not valid and will cause immediate rejection. Each `{#var#}` acts as a placeholder for one dynamic value (OTP code, user name, amount, etc.). The variables are substituted at send time by your SMS provider. There is no way to name or type variables — they are positional, matched in the order they appear in the template.
+
+**Q: Can StartMessaging send OTPs without any DLT template registration?**
+
+A: Yes. StartMessaging handles all DLT compliance internally. We maintain registered entities, approved sender IDs, and pre-approved OTP templates across Jio, Airtel, Vi, and BSNL. When you use our [OTP API](/otp-api), you do not need to register on any DLT portal, submit any templates, or handle any approvals. Your OTPs are sent at ₹0.25 per message through fully compliant infrastructure. [Sign up free](https://app.startmessaging.com/register) and send your first OTP in under five minutes.

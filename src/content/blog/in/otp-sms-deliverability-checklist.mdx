@@ -1,113 +1,173 @@
-﻿---
+---
 title: "OTP SMS Deliverability Checklist for Production Apps"
-description: "Improve OTP delivery: E.164 numbers, DLT template ID match, TRAI scrubbing awareness, timing, retries, and monitoring for transactional SMS in India."
+description: "Production checklist to improve OTP delivery rates in India. Covers E.164 formatting, DLT template matching, TRAI scrubbing, retries, and monitoring."
 publishedAt: "2026-04-07"
-updatedAt: "2026-06-19"
+updatedAt: "2026-06-24"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
 keywords:
-  - "OTP deliverability"
-  - "SMS OTP delivery rate"
-  - "improve OTP delivery"
-  - "SMS not received OTP"
-  - "E.164 phone format India"
-  - "OTP retry best practices"
-  - "transactional SMS delivery"
-  - "DLT template approval SMS"
-  - "SMS template ID mismatch India"
-  - "TRAI SMS scrubbing"
-  - "service implicit SMS delivery"
-  - "DLT SMS variable tagging OTP"
-  - "OTP SMS API India reliability"
+  - "otp deliverability india"
+  - "sms otp delivery rate improve"
+  - "otp not received india"
+  - "e.164 phone format india"
+  - "otp retry best practices"
+  - "transactional sms delivery rate"
+  - "dlt template id mismatch"
+  - "trai sms scrubbing otp"
+  - "otp sms api india reliability"
+  - "sms delivery monitoring india"
 relatedSlugs:
   - "otp-delivery-rates-india"
   - "otp-verification-flow"
   - "best-otp-api-india"
+  - "otp-expiry-attempt-limits"
 featured: false
 ---
 
+Poor OTP deliverability shows up as login failures, abandoned carts, and angry support tickets. When a user taps "Send OTP" and nothing arrives within 10 seconds, they leave — and most do not come back. The frustrating part is that many delivery failures are not carrier issues or network problems. They are preventable bugs in how your app formats numbers, matches DLT templates, handles retries, and monitors delivery health.
 
-Poor OTP deliverability shows up as login failures, abandoned carts, and
-        angry support tickets. Many issues are fixable with disciplined
-        formatting, compliant templates, and good instrumentation. Use this
-        checklist before you blame users or switch SMS providers.
+This checklist covers the specific technical steps Indian developers should implement before blaming carriers or switching SMS providers. Each item addresses a real failure mode that causes OTP non-delivery in production, with the fix that resolves it.
 
+## Checklist 1: Clean Phone Number Formatting
 
-## Start With Clean Phone Data
+Phone number formatting errors are the most common cause of silent OTP failures — the SMS API accepts the request, returns a success response, but the message never arrives because the number is malformed at the carrier level.
 
-Normalize every phone number to E.164 before you call your SMS API. For
-        India, that typically means +91 followed by ten digits, with no
-        leading zero in the national portion. Reject or correct obviously
-        invalid input at signup instead of at send time.
+### Normalize Every Number to E.164
 
+E.164 is the international phone number format: a `+` sign followed by the country code and national number with no spaces, dashes, or parentheses. For India, the correct format is `+91` followed by exactly 10 digits. No leading zero in the national portion.
 
-If you accept international numbers, maintain per-country rules and
-        test with real SIMs on major operators. Our 
-        [API documentation](/otp-api) 
-        describes the expected phone format for sends.
+Valid Indian E.164 numbers:
+- `+919876543210` — correct
+- `+91 9876543210` — incorrect (space after country code)
+- `919876543210` — incorrect (missing `+` prefix)
+- `+910987654321` — incorrect (leading zero in national number)
+- `09876543210` — incorrect (local format with trunk prefix)
 
+Implement E.164 validation at the point of phone number entry in your app, not at send time. Rejecting or auto-correcting invalid numbers during signup prevents delivery failures downstream.
 
-## Template and Message Content
+```javascript
+function normalizeIndianPhone(input) {
+  // Strip all non-digit characters
+  const digits = input.replace(/\D/g, '');
 
-On Indian routes, your OTP body must follow an approved DLT template.
-        Variables should map cleanly: OTP value, optional app name, and expiry
-        minutes if you include them. Avoid adding promotional sentences or
-        links that are not part of the registered pattern.
+  // Handle common Indian formats
+  if (digits.length === 10) return `+91${digits}`;
+  if (digits.length === 12 && digits.startsWith('91')) return `+${digits}`;
+  if (digits.length === 11 && digits.startsWith('0')) return `+91${digits.slice(1)}`;
 
+  return null; // Invalid — reject at signup
+}
+```
 
-If you manage templates yourself, budget time for approval churn. If
-        you use a 
-        [hosted OTP service](/)
-        , confirm which placeholders the provider expects and test end-to-end
-        in staging with production-like templates.
+### Validate Before Sending
 
+Beyond format, verify that the number is a mobile number (not a landline). Indian mobile numbers start with 6, 7, 8, or 9 after the country code. A number starting with +91-2 or +91-1 is a landline and cannot receive SMS. Our [API documentation](/otp-api) describes the expected phone format and returns clear error codes for invalid numbers.
 
-## Timing and User Experience
+### Handle International Numbers
 
-Users abandon flows when OTPs arrive late or when the UI does not
-        explain what to expect. Show clear copy that an SMS is coming, display a
-        visible cooldown before resend, and support paste from SMS where
-        platforms allow it.
+If your app accepts non-Indian numbers, maintain per-country validation rules. Each country has different number lengths and valid prefixes. Using a library like `libphonenumber` (Google's open-source phone number parser) is the most reliable approach. Do not build custom regex patterns for every country — the edge cases are extensive.
 
+## Checklist 2: DLT Template and Message Content Alignment
 
-Align OTP validity with realistic delivery times: codes that expire in
-        under two minutes cause unnecessary failures on congested networks.
-        Refer to 
-        [expiry and attempt limits](/blog/otp-expiry-attempt-limits) 
-        for balanced defaults.
+On Indian routes, your OTP message body must match an approved DLT template character for character, with variable substitution being the only allowed difference. The TRAI scrubbing engine compares each outbound SMS against registered templates in real time. Messages that do not match an approved template are blocked at the operator level — the user never receives them.
 
+### Common Template Mismatch Failures
 
-## Retries and Provider Failover
+- **Extra whitespace:** Your API sends "Your OTP is 1234 " (trailing space) but the template is "Your OTP is `{#var#}`" (no trailing space). The extra space causes a mismatch and the message is blocked.
+- **Missing brand signature:** Your template ends with "- YourBrand" but your API does not append the brand name. The missing signature causes a mismatch.
+- **Line break differences:** Your template uses `\n` for line breaks but your API sends `\r\n` (Windows-style line breaks). Different line break characters cause comparison failures.
+- **Character encoding:** Your template uses Unicode characters (like ₹ or —) but your SMS is encoded in GSM-7. Characters outside the GSM-7 character set are either dropped or replaced, causing template mismatches.
 
-Implement exponential backoff for automatic retries on your side only
-        where your provider documents it; blind retries can duplicate messages
-        or violate rate limits. Prefer providers that offer multi-carrier
-        failover and transparent status codes so you can distinguish soft
-        failures from hard invalid numbers.
+### Test Template Matching in Staging
 
+Before going to production, send test messages with your actual DLT template and verify delivery on real SIMs across Jio, Airtel, Vi, and BSNL. Do not rely on sandbox environments alone — real carrier scrubbing behaviour can differ from sandbox simulation. If you use a managed service like [StartMessaging](/otp-api), DLT template matching is handled automatically because our infrastructure uses pre-approved templates that are guaranteed to pass scrubbing.
 
-For operational playbooks when delivery drops, see 
-        [OTP delivery rates in India](/blog/otp-delivery-rates-india) 
-        and our 
-        [provider migration checklist](/blog/migrate-sms-provider-checklist)
-        .
+### Avoid Content That Triggers Scrubbing
 
+Even with a valid template, certain content patterns in your dynamic variables can trigger additional scrubbing. Avoid placing URLs, phone numbers, or anything that looks like promotional content inside your OTP variable values. The variable should contain only the OTP code and basic metadata (app name, expiry time). Keep variables clean and predictable.
 
-## What to Measure
+## Checklist 3: Timing, Expiry, and User Experience
 
-Track at minimum: send acceptance rate, delivery success rate (where
-        available), time-to-deliver, verify success rate, and cost per successful
-        verification. Slice by carrier or region if your provider exposes it.
+OTP delivery failures are not always technical — sometimes the message arrives but the user experience around it causes the verification to fail. Codes that expire too quickly, UIs that do not explain what to expect, and resend buttons that trigger too soon all contribute to perceived delivery failures.
 
+### Set Realistic Expiry Times
 
-When you compare vendors, use the same traffic profile and time window.
-        Our 
-        [OTP API pricing comparison for India](/blog/otp-api-pricing-comparison-india) 
-        explains how to compare total cost, not only per-SMS price.
+OTP codes that expire in under 2 minutes cause unnecessary failures on congested networks. During peak hours (9–11 AM, 7–9 PM IST), carrier networks in tier-2 and tier-3 cities can take 8–15 seconds for SMS delivery. Add DLT scrubbing latency (1–3 seconds) and handset processing time, and a 60-second expiry is dangerously tight.
 
+Recommended expiry settings:
+- **Minimum:** 2 minutes (120 seconds)
+- **Recommended:** 5 minutes (300 seconds)
+- **Maximum:** 10 minutes (600 seconds) — beyond this, the security benefit of a time-limited code diminishes
 
-## FAQ
+Read our detailed guide on [OTP expiry and attempt limits](/blog/otp-expiry-attempt-limits) for balanced defaults based on risk level.
 
-Additional short answers appear in the FAQ section above.
+### Show Clear UI Copy
 
+When the user taps "Send OTP," your UI should immediately:
+
+1. Show a message confirming that an SMS is being sent to the displayed phone number (mask the middle digits for privacy: +91 98****3210)
+2. Display a visible countdown timer before the resend button becomes active (30–60 seconds recommended)
+3. Support paste from SMS where the platform allows it — on Android, use the [SMS Retriever API](/blog/otp-autofill-android-ios-sms-retriever) for zero-touch autofill
+
+Users who see clear feedback ("SMS sent — arriving in a few seconds") are significantly less likely to file support tickets or abandon the flow compared to users who see no feedback and a greyed-out screen.
+
+### Rate-Limit Resend Requests
+
+Expose a resend button only after a cooldown period. Implementing escalating cooldowns (30 seconds for first resend, 60 seconds for second, 120 seconds for third) prevents both user frustration and SMS pumping attacks. After 3–5 failed attempts on the same number, block further OTP requests for that number for 15–30 minutes.
+
+## Checklist 4: Retries, Failover, and Provider Resilience
+
+Automatic retries sound helpful in theory, but blind retries can duplicate messages, violate rate limits, and create a worse experience than a single failed delivery. Implement retries carefully with explicit rules.
+
+### Retry Rules
+
+- **Do not retry on user-initiated resend.** When the user taps "Resend OTP," generate a new code, invalidate the old one, and send a fresh message. Do not replay the original API call.
+- **Do retry on transient provider errors.** If your SMS API returns a 5xx error or a timeout, retry once with exponential backoff (wait 2 seconds, then 4 seconds). Do not retry more than twice — if the provider is down, a third attempt will not help.
+- **Do not retry on hard errors.** If the API returns a 4xx error (invalid number, blocked number, insufficient balance), retrying is pointless. Log the error and surface it to the user as an appropriate message.
+
+### Multi-Provider Failover
+
+If your product sends high volumes (50,000+ OTPs/month), configure a secondary SMS provider as failover. The architecture is straightforward: attempt delivery through Provider A, and if Provider A returns a failure or does not deliver within your SLA (typically 5–10 seconds), automatically retry through Provider B with the same OTP code.
+
+Prefer providers that offer transparent delivery status codes so you can distinguish between soft failures (temporary carrier congestion) and hard failures (invalid number, DND-blocked number). [StartMessaging's API](/otp-api) provides detailed delivery status callbacks and handles multi-carrier failover internally, so you get built-in resilience without managing multiple provider integrations.
+
+## Checklist 5: What to Measure and Monitor
+
+You cannot improve OTP deliverability without measuring it. At minimum, track these five metrics and set up alerts for anomalies.
+
+### Core Metrics
+
+| Metric | What it tells you | Alert threshold |
+|---|---|---|
+| Send acceptance rate | % of API calls that return success | Below 98% — investigate API errors |
+| Delivery success rate | % of sent messages confirmed delivered | Below 95% — investigate carrier issues |
+| Time-to-deliver (P50/P95) | How long messages take to reach the user | P95 above 10 seconds — investigate routing |
+| Verify success rate | % of delivered OTPs that are correctly entered | Below 85% — investigate UX or expiry issues |
+| Cost per successful verification | Total SMS cost ÷ successful verifications | Rising trend — investigate retry waste |
+
+### Slice by Carrier and Region
+
+If your SMS provider exposes carrier-level delivery data, slice your metrics by carrier (Jio, Airtel, Vi, BSNL) and by region (metro, tier-2, tier-3). Delivery issues are often carrier-specific or region-specific — a national average of 96% delivery can mask a 70% delivery rate on BSNL in specific circles.
+
+### Vendor Comparison Methodology
+
+When comparing SMS vendors, use the same traffic profile and the same time window. Sending 100 test messages on a Saturday afternoon and comparing the delivery rate to your production provider's weekday metrics is not a valid comparison. Our [OTP API pricing comparison for India](/blog/otp-api-pricing-comparison-india) explains how to compare total cost of verification (including failed deliveries and retries), not just per-SMS price.
+
+## Frequently Asked Questions
+
+**Q: Why is my OTP not being received on BSNL numbers in India?**
+
+A: BSNL has consistently lower SMS delivery rates than Jio, Airtel, and Vi, particularly in rural circles. Common causes include slower DLT scrubbing infrastructure, network congestion during peak hours, and outdated SMSC (Short Message Service Centre) hardware in certain circles. If you see a pattern of BSNL failures, consider adding voice OTP as a fallback for BSNL numbers specifically. StartMessaging's multi-carrier routing automatically selects the optimal route for BSNL delivery.
+
+**Q: Should I use SMS Retriever API or request SMS permission for OTP autofill?**
+
+A: Use SMS Retriever API. Requesting `READ_SMS` permission is invasive, triggers Google Play policy reviews, and makes users uncomfortable. SMS Retriever requires no runtime permission — it listens for SMS messages containing a specific hash and auto-fills the OTP code without accessing the full SMS inbox. Read our [SMS Retriever implementation guide](/blog/otp-autofill-android-ios-sms-retriever) for the step-by-step setup.
+
+**Q: What delivery rate should I expect for OTP SMS in India?**
+
+A: With a properly configured DLT-compliant setup, you should see 95–98% delivery rates on Jio and Airtel, 92–96% on Vi, and 85–93% on BSNL. If your rates are below these benchmarks, the issue is likely in your template matching, number formatting, or provider routing — not in the carrier network. Read our [OTP delivery rate benchmarks for India](/blog/otp-delivery-rates-india) for detailed carrier-by-carrier data.
+
+**Q: How does StartMessaging handle OTP deliverability automatically?**
+
+A: StartMessaging's OTP API handles E.164 normalization, DLT template matching, multi-carrier routing, automatic retries on transient failures, and real-time delivery tracking — all at ₹0.25 per OTP. You send one API call with a phone number, and the platform handles number validation, template compliance, carrier selection, and delivery confirmation. [Sign up free](https://app.startmessaging.com/register) and test delivery on your own numbers.
