@@ -50,6 +50,7 @@ const blog = defineCollection({
     relatedSlugs:   z.array(z.string()).default([]),
     featured:       z.boolean().default(false),
     ogImage:        z.string().optional(),
+    image:          z.string().optional(),
   }),
 });
 

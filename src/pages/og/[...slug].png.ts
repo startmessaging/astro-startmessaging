@@ -31,6 +31,20 @@ const COUNTRY_SLUGS = new Set(['in', 'br', 'mx', 'id', 'ae', 'tr', 'ng']);
 // Country → WhatsApp theme mapping
 const WA_COUNTRIES = new Set(['br', 'mx', 'id', 'ae', 'tr', 'ng']);
 
+function formatTitle(rawSlug: string): string {
+  return rawSlug
+    .split(/[-/]/)
+    .map((w) => {
+      const lower = w.toLowerCase();
+      if (lower === 'vs') return 'vs';
+      if (['sms', 'otp', 'rcs', 'dlt', 'trai', 'api', 'ivr', 'cli', 'og', 'seo', 'gfm'].includes(lower)) {
+        return w.toUpperCase();
+      }
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    })
+    .join(' ');
+}
+
 function parseSlug(slug: string | undefined): {
   title: string;
   theme: 'sms' | 'whatsapp';
@@ -40,25 +54,24 @@ function parseSlug(slug: string | undefined): {
     return { title: 'StartMessaging', theme: 'sms', pill: 'SMS & WhatsApp Platform' };
   }
 
-  // Expected patterns:
-  //   in/blog/send-otp-without-dlt          → Blog post
-  //   br/blog/whatsapp-api-brazil           → Blog post (WhatsApp)
-  //   limits                                 → Marketing page
-  //   use-cases/otp-authentication          → Marketing sub-page
-  //   br/pricing                            → Country-specific marketing page
   const parts = slug.split('/');
   const country = parts[0];
   const isBlog = parts[1] === 'blog';
   const isCountryPath = COUNTRY_SLUGS.has(country);
 
-  // Handle blog posts: /[country]/blog/[slug]
+  // Handle India/root blog posts (no country prefix: blog/[slug])
+  if (country === 'blog' && parts.length > 1) {
+    const rawSlug = parts.slice(1).join('/');
+    const title = formatTitle(rawSlug);
+    const theme = rawSlug.toLowerCase().includes('whatsapp') ? 'whatsapp' : 'sms';
+    const pill = theme === 'whatsapp' ? 'WhatsApp Business API' : 'SMS & OTP API';
+    return { title, theme, pill };
+  }
+
+  // Handle blog posts with country prefix: /[country]/blog/[slug]
   if (isBlog && isCountryPath) {
     const rawSlug = parts.slice(2).join('/');
-    const title = rawSlug
-      .split('-')
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(' ');
-
+    const title = formatTitle(rawSlug);
     const theme = WA_COUNTRIES.has(country) ? 'whatsapp' : 'sms';
     const pill = theme === 'whatsapp' ? 'WhatsApp Business API' : 'SMS & OTP API';
     return { title, theme, pill };
@@ -67,28 +80,20 @@ function parseSlug(slug: string | undefined): {
   // Handle country-specific marketing pages: /[country]/[page]
   if (isCountryPath && !isBlog) {
     const pagePath = parts.slice(1).join('/');
-    const title = pagePath
-      .split(/[-/]/)
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(' ');
-
+    const title = formatTitle(pagePath);
     const theme = WA_COUNTRIES.has(country) ? 'whatsapp' : 'sms';
     const pill = theme === 'whatsapp' ? 'WhatsApp Business API' : 'SMS & WhatsApp Platform';
     return { title, theme, pill };
   }
 
   // Handle India marketing pages (no country prefix): /limits, /use-cases/otp
-  const title = slug
-    .split(/[-/]/)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
-
-  // Determine theme based on content (WhatsApp in slug → whatsapp theme)
+  const title = formatTitle(slug);
   const theme = slug.toLowerCase().includes('whatsapp') ? 'whatsapp' : 'sms';
   const pill = theme === 'whatsapp' ? 'WhatsApp Business API' : 'SMS & WhatsApp Platform';
   
   return { title, theme, pill };
 }
+
 
 export const GET: APIRoute = async ({ params }) => {
   const slug = params.slug as string | undefined;
@@ -196,7 +201,7 @@ export const GET: APIRoute = async ({ params }) => {
                     border: `1px solid ${accent}`,
                     borderRadius: '100px',
                     padding: '6px 16px',
-                    width: 'fit-content',
+                    alignSelf: 'flex-start',
                   },
                   children: [
                     {
@@ -271,11 +276,87 @@ export const GET: APIRoute = async ({ params }) => {
                 type: 'div',
                 props: {
                   style: {
-                    fontSize: '22px',
-                    fontWeight: 700,
-                    color: primary,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
                   },
-                  children: 'StartMessaging',
+                  children: [
+                    {
+                      type: 'svg',
+                      props: {
+                        xmlns: 'http://www.w3.org/2000/svg',
+                        width: '32',
+                        height: '32',
+                        viewBox: '0 0 32 32',
+                        fill: 'none',
+                        children: [
+                          {
+                            type: 'defs',
+                            props: {
+                              children: [
+                                {
+                                  type: 'linearGradient',
+                                  props: {
+                                    id: 'sms-grad',
+                                    x1: '0%',
+                                    y1: '0%',
+                                    x2: '100%',
+                                    y2: '100%',
+                                    children: [
+                                      { type: 'stop', props: { offset: '0%', 'stop-color': theme === 'whatsapp' ? '#003d3a' : '#27187e' } },
+                                      { type: 'stop', props: { offset: '100%', 'stop-color': theme === 'whatsapp' ? '#2dd4bf' : '#818cf8' } },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                          {
+                            type: 'rect',
+                            props: {
+                              width: '32',
+                              height: '32',
+                              rx: '8',
+                              fill: theme === 'whatsapp' ? '#f0fdf9' : '#f7f7ff',
+                            },
+                          },
+                          {
+                            type: 'path',
+                            props: {
+                              d: 'M18 13a2 2 0 0 1-2 2H10l-4 4V8c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z',
+                              fill: 'none',
+                              stroke: 'url(#sms-grad)',
+                              'stroke-width': '2.5',
+                              'stroke-linecap': 'round',
+                              'stroke-linejoin': 'round',
+                            },
+                          },
+                          {
+                            type: 'path',
+                            props: {
+                              d: 'M22 13h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1',
+                              fill: 'none',
+                              stroke: 'url(#sms-grad)',
+                              'stroke-width': '2.5',
+                              'stroke-linecap': 'round',
+                              'stroke-linejoin': 'round',
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      type: 'span',
+                      props: {
+                        style: {
+                          fontSize: '24px',
+                          fontWeight: 700,
+                          color: primary,
+                        },
+                        children: 'StartMessaging',
+                      },
+                    },
+                  ],
                 },
               },
               {

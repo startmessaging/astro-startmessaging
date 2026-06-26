@@ -11,6 +11,12 @@ import RelatedPosts from '@/components/blog/RelatedPosts.astro';
 import Breadcrumbs from '@/components/blog/Breadcrumbs.astro';
 import TableOfContents from '@/components/blog/TableOfContents.astro';
 import { urlPrefix, type Country } from '@/config/countries';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Match any files under src/assets/images
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*.{jpeg,jpg,png,gif,webp}');
+
 
 interface TocEntry {
   depth: number;
@@ -38,6 +44,8 @@ interface Props {
     canonicalCountry?: string;
     /** SEO keywords from frontmatter — forwarded to <meta name="keywords"> via BaseLayout. */
     keywords?: string[];
+    /** Optional featured blog image path (relative to public/), e.g. "/blog/images/hero.webp" */
+    image?: string;
   };
   country: string;
   slug: string;
@@ -74,8 +82,23 @@ if (frontmatter.canonicalCountry) {
     : `${canonicalPrefix}/blog/${slug}`;
 }
 
+// Resolve image asset dynamically if it exists in src/assets/images/blog/ or src/assets/images/
+let imageSrcPath = '';
+if (frontmatter.image) {
+  if (frontmatter.image.startsWith('/blog/images/')) {
+    imageSrcPath = frontmatter.image.replace(/^\/blog\/images\//, '/src/assets/images/blog/');
+  } else if (frontmatter.image.startsWith('/images/')) {
+    imageSrcPath = frontmatter.image.replace(/^\/images\//, '/src/assets/images/');
+  }
+}
+const imageResolver = images[imageSrcPath];
+const imageAsset = imageResolver ? (await imageResolver()).default : null;
+
 // Compute dynamic blog post OG image URL when frontmatter does not define a custom static one
-const computedOgImage = frontmatter.ogImage ?? (prefix ? `/og${prefix}/blog/${slug}.png` : `/og/blog/${slug}.png`);
+// Defaults to the optimized custom imageAsset if uploaded, then falls back to dynamic OG function
+const computedOgImage = frontmatter.ogImage ?? imageAsset?.src ?? (prefix ? `/og${prefix}/blog/${slug}.png` : `/og/blog/${slug}.png`);
+
+
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -150,6 +173,17 @@ const breadcrumbSchema = {
           }}
           country={country}
         />
+        {imageAsset && (
+          <Image
+            src={imageAsset}
+            alt={frontmatter.title}
+            widths={[360, 540, 720, 960, 1200]}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 900px"
+            class="w-full h-auto rounded-lg mb-8 shadow-sm object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        )}
         <div class:list={["prose prose-neutral dark:prose-invert max-w-none prose-headings:font-bold prose-code:before:content-none prose-code:after:content-none", proseLinkColor]}>
           <slot />
         </div>
