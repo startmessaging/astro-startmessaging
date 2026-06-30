@@ -217,69 +217,71 @@ const ipToCountryJson = JSON.stringify(IP_TO_COUNTRY);
     const el = document.getElementById('country-notice');
     if (!el) return;
 
-    // Check cookies — already chose/dismissed
-    if (getCookie('sm_country') || getCookie('sm_notice_dismissed')) return;
-
     const currentCountry = el.dataset.currentCountry || 'in';
     const currentPath = el.dataset.currentPath || '/';
     const countryConfig: Record<string, { name: string; lang: string; prefix: string }> =
       JSON.parse(el.dataset.countryConfig || '{}');
     const ipMap: Record<string, string> = JSON.parse(el.dataset.ipMap || '{}');
 
-    try {
-      const res = await fetch('/api/geo', { cache: 'no-store' });
-      if (!res.ok) return;
-      const { country: ipCountry } = await res.json();
+    // If dismissed for this specific country URL this session → skip
+    if (sessionStorage.getItem(`sm_dismissed_${currentCountry}`)) return;
 
-      // Map IP country → our site country
-      const detectedCountry = ipMap[ipCountry];
+    // Determine preferred country: saved cookie choice OR detect via IP
+    let preferredCountry: string | null = getCookie('sm_country');
 
-      // No match, or same as current → do nothing
-      if (!detectedCountry || detectedCountry === currentCountry) return;
-
-      const cfg = countryConfig[detectedCountry];
-      if (!cfg) return;
-
-      // Build target URL: swap country prefix
-      const stripped = currentPath.replace(/^\/(br|mx|id|ae|tr|ng)(\/|$)/, '/');
-      const targetPath = cfg.prefix + (stripped === '/' ? '' : stripped);
-
-      // Populate banner
-      const flagEl = document.getElementById('cn-flag');
-      const titleEl = document.getElementById('cn-title');
-      const subtitleEl = document.getElementById('cn-subtitle');
-      const continueBtn = document.getElementById('cn-continue') as HTMLAnchorElement;
-      const dismissBtn = document.getElementById('cn-dismiss');
-
-      if (flagEl) flagEl.textContent = FLAGS[detectedCountry] || '🌍';
-      if (titleEl) titleEl.textContent = `It looks like you're in ${cfg.name}.`;
-      if (subtitleEl) subtitleEl.textContent = `View StartMessaging ${cfg.name} (${LANG_NAMES[cfg.lang] || cfg.lang})?`;
-      if (continueBtn) {
-        continueBtn.href = targetPath || '/';
-        continueBtn.addEventListener('click', () => {
-          setCookie('sm_country', detectedCountry, 30);
-        });
+    if (!preferredCountry) {
+      try {
+        const res = await fetch('/api/geo', { cache: 'no-store' });
+        if (!res.ok) return;
+        const { country: ipCountry } = await res.json();
+        preferredCountry = ipMap[ipCountry] || null;
+      } catch {
+        return; // Geo detection failed — silently do nothing
       }
-
-      if (dismissBtn) {
-        dismissBtn.addEventListener('click', () => {
-          setCookie('sm_notice_dismissed', '1', 7);
-          el.classList.remove('country-notice--visible');
-          setTimeout(() => { el.style.display = 'none'; }, 400);
-        });
-      }
-
-      // Show banner with animation
-      el.style.display = 'block';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.classList.add('country-notice--visible');
-        });
-      });
-
-    } catch {
-      // Geo detection failed — silently do nothing
     }
+
+    // No detected country, or already on preferred country → do nothing
+    if (!preferredCountry || preferredCountry === currentCountry) return;
+
+    const cfg = countryConfig[preferredCountry];
+    if (!cfg) return;
+
+    // Build target URL: swap country prefix
+    const stripped = currentPath.replace(/^\/(br|mx|id|ae|tr|ng)(\/|$)/, '/');
+    const targetPath = cfg.prefix + (stripped === '/' ? '' : stripped);
+
+    // Populate banner
+    const flagEl = document.getElementById('cn-flag');
+    const titleEl = document.getElementById('cn-title');
+    const subtitleEl = document.getElementById('cn-subtitle');
+    const continueBtn = document.getElementById('cn-continue') as HTMLAnchorElement;
+    const dismissBtn = document.getElementById('cn-dismiss');
+
+    if (flagEl) flagEl.textContent = FLAGS[preferredCountry] || '🌍';
+    if (titleEl) titleEl.textContent = `It looks like you're in ${cfg.name}.`;
+    if (subtitleEl) subtitleEl.textContent = `View StartMessaging ${cfg.name} (${LANG_NAMES[cfg.lang] || cfg.lang})?`;
+    if (continueBtn) {
+      continueBtn.href = targetPath || '/';
+      continueBtn.addEventListener('click', () => {
+        setCookie('sm_country', preferredCountry!, 30);
+      });
+    }
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', () => {
+        sessionStorage.setItem(`sm_dismissed_${currentCountry}`, '1');
+        el.classList.remove('country-notice--visible');
+        setTimeout(() => { el.style.display = 'none'; }, 400);
+      });
+    }
+
+    // Show banner with animation
+    el.style.display = 'block';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.classList.add('country-notice--visible');
+      });
+    });
   }
 
   function getCookie(name: string): string | null {
