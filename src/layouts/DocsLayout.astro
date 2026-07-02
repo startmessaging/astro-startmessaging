@@ -30,6 +30,12 @@ const c = country as Country;
 const prefix = urlPrefix(c);
 const lang = COUNTRY_CONFIG[c]?.lang ?? 'en';
 
+// Docs are English-only MDX with code blocks — force LTR for RTL countries (e.g. AE)
+// so English content and code snippets render correctly.
+const isRtlCountry = COUNTRY_CONFIG[c]?.dir === 'rtl';
+const docsLangOverride = isRtlCountry ? 'en' : undefined;
+const docsDirOverride = isRtlCountry ? ('ltr' as const) : undefined;
+
 // Determine theme dynamically based on country and url pathname
 let theme = 'sms';
 if (country !== 'in') {
@@ -104,6 +110,8 @@ const breadcrumbSchema = {
   pageCountries={pageCountries}
   slug={`docs/${product}/${slug}`}
   theme={theme}
+  langOverride={docsLangOverride}
+  dirOverride={docsDirOverride}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="lg:grid lg:grid-cols-[240px_1fr_200px] lg:gap-8 xl:gap-12">

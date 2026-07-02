@@ -34,9 +34,12 @@ interface Props {
   pageCountries?: string[];
   slug?: string;
   theme?: string;
+  /** Override lang/dir — forwarded to BaseLayout (e.g. English docs on RTL pages). */
+  langOverride?: string;
+  dirOverride?: 'ltr' | 'rtl';
 }
 
-const { seo, country, pageCountries, slug } = Astro.props;
+const { seo, country, pageCountries, slug, langOverride, dirOverride } = Astro.props;
 
 // Determine theme dynamically based on country and url pathname / page content
 let theme = Astro.props.theme || 'sms';
@@ -66,7 +69,7 @@ const legal       = getFooterLegal(c);
 const homeHref    = prefix || '/';
 ---
 
-<BaseLayout {seo} {country} {pageCountries} {slug} {theme}>
+<BaseLayout {seo} {country} {pageCountries} {slug} {theme} {langOverride} {dirOverride}>
 
   <!-- ─── Navigation ──────────────────────────────────────────────────── -->
   <Navbar country={country} currentPath={Astro.url.pathname} theme={theme} />

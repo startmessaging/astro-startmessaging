@@ -59,6 +59,10 @@ interface Props {
   pageCountries?: string[];
   slug?: string;
   theme?: string;
+  /** Override the country-derived lang (e.g. 'en' for English docs on RTL pages). */
+  langOverride?: string;
+  /** Override the country-derived dir (e.g. 'ltr' for English docs on RTL pages). */
+  dirOverride?: 'ltr' | 'rtl';
 }
 
 const {
@@ -67,12 +71,14 @@ const {
   pageCountries = ALL_COUNTRIES as string[],
   slug = '',
   theme = 'sms',
+  langOverride,
+  dirOverride,
 } = Astro.props;
 
 const c = country as Country;
 const cfg = COUNTRY_CONFIG[c];
-const lang = cfg?.lang ?? 'en';
-const dir = cfg?.dir ?? 'ltr';
+const lang = langOverride ?? cfg?.lang ?? 'en';
+const dir = dirOverride ?? cfg?.dir ?? 'ltr';
 
 const title       = r(seo.title, c);
 const description = r(seo.description, c);
