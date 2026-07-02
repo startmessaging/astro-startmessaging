@@ -1,0 +1,371 @@
+---
+title: "Voice OTP in India: 2026 Developer & Build Guide"
+description: "Rural network gaps and SMS delays increase OTP failures in India. Learn when to use Voice OTP, how it works under TRAI, and how to build a Node.js fallback."
+publishedAt: "2026-07-02"
+category: "guides"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "voice otp india"
+  - "voice otp api india"
+  - "voice otp vs sms otp india"
+  - "voice call otp india developer"
+  - "ivr otp india"
+  - "voice otp for rural india"
+  - "voice otp bsnl india"
+  - "otp delivery rural india"
+  - "voice otp node.js india"
+  - "automated voice call otp india"
+relatedSlugs:
+  - "dpdp-act-sms-otp-india-developer-compliance-guide-2027"
+  - "sms-pumping-fraud-india-otp-detection-prevention"
+  - "cash-on-delivery-otp-verification-india-ecommerce-cod-fraud"
+  - "sms-otp-slow-delivery-fix-india"
+image: "/blog/images/voice-otp-india-developer-guide-when-to-use-build-2026.webp"
+featured: false
+---
+
+Ramesh, an agricultural coordinator in a remote district of Himachal Pradesh, was trying to log into a cooperative banking app to verify a fertilizer subsidy. The screen displayed a countdown: "Resending OTP in 59 seconds." But Ramesh's phone, connected to a BSNL cell tower five kilometers away, remained silent. By the time the SMS arrived forty minutes later in a bulk burst, the session had long expired. Ramesh wasn't alone; over 18% of the bank's rural sign-ups were abandoning checkouts because of the same SMS delivery gap.
+
+For developers building verification pipelines for the Indian market, solving the last-mile delivery challenge is critical. While urban centers enjoy high-speed 5G connectivity, deep rural and semi-urban geographies frequently experience network congestion and high SMS latencies. Standard SMS-based verification flows fail regularly under these conditions, particularly on state-owned networks like BSNL. For these user segments, voice-based verification—delivering a verification code via an automated voice call—is the most reliable alternative.
+
+---
+
+## What Voice OTP Is and How It Differs From SMS OTP
+
+Voice OTP is an automated outbound phone call placed directly to a user's mobile or landline number. When the customer answers the call, an Interactive Voice Response (IVR) system powered by a text-to-speech (TTS) engine reads the verification code aloud. The message is typically played twice, separated by a brief pause, to ensure the customer can write down the numbers. Because this method relies on standard voice channel routing rather than cellular data or SMS queues, it bypasses messaging delays and works on any phone that can receive calls.
+
+Developers often confuse voice OTP with other voice-based verification systems, which can lead to integration errors. The following three technologies are distinct and serve different purposes:
+
+1.  **Voice OTP (Interactive Voice Response):** An outbound call where a text-to-speech engine or pre-recorded audio file reads a dynamic 4-to-6 digit code to the listener. This post focuses on implementing this specific channel.
+2.  **Missed Call Verification:** A verification flow where the system displays a phone number to the user and prompts them to call it. Once the call rings, the system automatically drops the call and verifies the user's identity based on their caller ID (CLI). This is a different product with a different pricing model.
+3.  **Flash Call Verification:** An automated verification method where the app requests a call to the user's device. The application reads the incoming caller ID directly from the device's call logs to verify the user without requiring them to answer the call. This method is limited to Android devices with call log permissions and is not supported on iOS or feature phones. For a deeper look, see our guide on [flash call verification vs SMS OTP](/blog/flash-call-verification-india-vs-sms-otp-developer-review).
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                   Comparison of Voice Verification Channels             │
+└────────────────────────────────────────────────────────────────────────┘
+  [Voice OTP / IVR]           [Missed Call Auth]          [Flash Call Auth]
+  • User answers call         • User calls system         • App reads call logs
+  • TTS reads code aloud      • Call drops automatically  • Bypasses user input
+  • Works on all phones       • Verifies caller ID        • Limited to Android
+```
+
+### Call Completion Rates vs. SMS Delivery
+In areas with weak signal coverage or congested SMS gateways, voice calls have higher delivery priority on carrier networks. Voice OTP channels typically achieve an 85% to 90% answer rate on the first attempt. With a single automated retry, completion rates rise to 93% to 95%.
+
+For users with feature phones (which make up roughly 15% of the mobile market in India), voice calls are more visible than SMS messages. Feature phones often have limited storage, and when a user's SMS inbox is full, incoming SMS verification codes are blocked by the device. A voice call bypasses this storage limit entirely.
+
+### Cost Dynamics of Voice OTP in India
+Voice OTP is more expensive than standard SMS verification. In India, a transactional SMS OTP costs between ₹0.12 and ₹0.25, while a voice OTP call ranges from ₹0.35 to ₹0.65 depending on call duration (typically billed in 15-second increments).
+
+While the cost per transaction is higher, voice verification is often more cost-effective when evaluating customer acquisition costs. If an SMS fails to deliver, the merchant loses a customer signup. Paying an extra ₹0.30 to verify that customer via voice call is a small price to pay to secure the acquisition.
+
+---
+
+## When Voice OTP Is the Right Answer for Your App
+
+Because voice calls are more expensive than SMS and can disrupt users in quiet environments, they should be used strategically. E-commerce and fintech brands should implement a clear routing framework to determine when to use voice calls.
+
+---
+
+### Use Voice OTP as the Primary Channel When:
+
+*   **Your User Base is Rural:** If a high percentage of your users reside in districts where BSNL is the dominant carrier (such as parts of Jammu & Kashmir, the Northeast states, and rural hill districts), standard SMS delivery will be inconsistent.
+*   **Your Target Audience is Older:** If your application serves users aged 55 and older, voice calls are often preferred. This demographic answers phone calls more reliably than they read or navigate SMS notification headers, especially on feature phones.
+*   **You Build for the BFSI or Government Sectors:** Financial services, agricultural apps, and pension portals serve a large number of feature phone users who rely on voice verification for access.
+*   **Operator SMS Latency is High:** If your analytics show that SMS delivery times for a specific operator or regional circle consistently exceed 8% latency, route those signups to voice immediately.
+
+---
+
+### Use Voice OTP as a Secondary Fallback When:
+
+*   **The SMS Delivery Webhook Times Out:** If your system does not receive a "delivered" status callback from your SMS gateway within 30 to 45 seconds, escalate the verification request to voice automatically. For troubleshooting slow SMS delivery, see our guide on [resolving delayed SMS delivery](/blog/sms-otp-slow-delivery-fix-india).
+*   **The User Requests a Call:** Always include a "Call me instead" button on your OTP input screen. This allows users who are not receiving SMS codes to request a voice call manually.
+*   **The Number Belongs to the BSNL Network:** Use a phone number intelligence lookup to identify BSNL numbers during signup. If a number is identified as BSNL, route the verification to voice to bypass messaging queues.
+
+---
+
+### Do Not Use Voice OTP as the Primary Channel When:
+
+*   **Users are in Professional Environments:** If your product is primarily used in offices, hospitals, or libraries, unexpected phone calls can be disruptive and lead to rejected calls.
+*   **Your App is Focused on Urban Demographics:** If your user base is concentrated in Tier 1 metros where SMS delivery rates are above 97%, the extra cost of voice calls is not justified.
+*   **Transactions are Frequent:** Do not use voice OTP for high-frequency actions like session refreshes or minor profile updates. Use voice calls only for high-value actions like registration, password resets, and transaction approvals.
+
+---
+
+## How Indian Telecom Handles Voice OTP Calls
+
+Voice traffic in India is regulated by the Telecom Regulatory Authority of India (TRAI). However, the infrastructure used for voice calls differs from the Distributed Ledger Technology (DLT) framework used for SMS.
+
+```
+┌──────────────────────────────────────────────────────────┐
+│              Voice OTP Outbound Call Path                │
+└──────────────────────────────────────────────────────────┘
+  [Backend API Trigger] ──> [Voice Provider Gateway] ──> [Carrier Voice Network]
+                                                                │
+  ┌─────────────────────────────────────────────────────────────┘
+  ▼
+  [Airtel / Jio / Vi / BSNL PSTN Interconnect] ──> [End-User Device Rings]
+```
+
+### Exemption from DLT Registration
+The most significant operational benefit of voice OTP is that it does not require DLT template registration. Because the DLT registry only covers SMS traffic, voice services are exempt. 
+
+Developers can update their voice scripts and verification messages without waiting for carrier template approvals. This makes voice calls a useful fallback when SMS templates are delayed or rejected in the DLT portal.
+
+### DND and NDNC Regulations
+Commercial promotional calls are strictly regulated under the National Do Not Call (NDNC) registry. However, voice calls containing OTPs are classified as **Service Implicit** transactions. 
+
+As long as your voice provider routes your traffic through transactional voice gateways, your calls will bypass DND blocks. Ensure your provider does not use promotional routes, as those calls will be blocked for users registered on DND.
+
+### Caller ID Formatting
+When a voice call is placed to a user, the incoming number format is critical for call completion rates. Calls displaying "unknown" or "private number" are often rejected by users or blocked by spam filters (like Truecaller).
+
+Ensure your voice provider routes calls using a clean, numeric caller ID (such as a local landline number or a registered carrier shortcode). A recognizable caller ID increases answer rates by up to 35%.
+
+### Verification Call Retry Logic
+If a customer does not answer the verification call, do not spam them with consecutive dial attempts. The best-practice retry pattern is:
+
+1.  **Call 1:** Place the first call and let it ring for 30 seconds.
+2.  **Wait:** If unanswered, wait 45 seconds before attempting a retry.
+3.  **Call 2:** Place a second call. If this call is also unanswered, stop automated dial attempts.
+4.  **Fallback:** Update the user interface to show a "Resend via SMS" button, allowing the user to request a text message manually.
+
+---
+
+## Full Implementation in Node.js
+
+To build a reliable verification system, your backend should support both SMS and Voice OTP, with automated logic to switch channels when delivery delays occur.
+
+```
+                   ┌──────────────────────────────────────┐
+                   │           App Backend                │
+                   └──────────┬──────────────┬────────────┘
+                              │              │
+                   (1) Check  │              │ (2) Store in Redis
+                       Prefix │              ▼
+                              │      ┌───────────────┐
+                              ▼      │   Redis DB    │
+                      Is BSNL Range? └───────────────┘
+                              │
+             ┌─── Yes ────────┴──────── No ───┐
+             ▼                                ▼
+     ┌───────────────┐                ┌───────────────┐
+     │ Send Voice    │                │ Send SMS      │
+     │ Gateway API   │                │ API Route     │
+     └───────────────┘                └───────┬───────┘
+                                              │
+                                       (3) DLR Timeout?
+                                              ▼
+                                      ┌───────────────┐
+                                      │ Trigger Voice │
+                                      │ Fallback Call │
+                                      └───────────────┘
+```
+
+The Node.js implementation below demonstrate how to cache verification codes in Redis, identify BSNL numbers, send an SMS, and escalate to a voice call if delivery callbacks are delayed:
+
+```javascript
+const express = require('express');
+const axios = require('axios');
+const redis = require('redis');
+const crypto = require('crypto');
+
+const app = express();
+app.use(express.json());
+
+// Initialize Redis Client
+const redisClient = redis.createClient({ url: process.env.REDIS_URL });
+redisClient.connect().catch(console.error);
+
+// API Configurations
+const SMS_API_URL = 'https://api.startmessaging.com/v1/sms/send';
+const VOICE_API_URL = 'https://api.startmessaging.com/v1/voice/otp';
+const API_KEY = process.env.STARTMESSAGING_API_KEY;
+
+// BSNL Mobile Number Series (TRAI allocated prefix ranges)
+const BSNL_PREFIXES = ['94', '95', '73', '77', '90'];
+
+function isBsnlNumber(phoneNumber) {
+  // Normalize number format (remove country code +91 or 91)
+  const cleanNumber = phoneNumber.trim().replace(/^(\+91|91)/, '');
+  const prefix = cleanNumber.substring(0, 2);
+  return BSNL_PREFIXES.includes(prefix);
+}
+
+/**
+ * Endpoint to initiate verification
+ */
+app.post('/api/auth/send-verification', async (req, res) => {
+  const { phoneNumber } = req.body;
+
+  if (!phoneNumber) {
+    return res.status(400).json({ success: false, error: 'Phone number required.' });
+  }
+
+  try {
+    // 1. Generate 6-digit OTP code
+    const otpCode = crypto.randomInt(100000, 999999).toString();
+    
+    // 2. Cache in Redis for 10 minutes (600s)
+    const redisKey = `otp:${phoneNumber}`;
+    await redisClient.set(redisKey, JSON.stringify({
+      otpCode,
+      attempts: 0
+    }), { EX: 600 });
+
+    // 3. Channel Selection Logic
+    if (isBsnlNumber(phoneNumber)) {
+      // BSNL Range: Use Voice OTP as primary channel
+      console.log(`BSNL range detected. Routing primary verification to Voice API.`);
+      const voiceResponse = await triggerVoiceCall(phoneNumber, otpCode);
+      return res.status(200).json({
+        success: true,
+        channel: 'voice',
+        callId: voiceResponse.callId
+      });
+    }
+
+    // Default: Send SMS OTP
+    const smsResponse = await triggerSms(phoneNumber, otpCode);
+    
+    // Start a background timer to check for SMS delivery status
+    startSmsDeliveryMonitor(phoneNumber, smsResponse.requestId, otpCode);
+
+    return res.status(200).json({
+      success: true,
+      channel: 'sms',
+      requestId: smsResponse.requestId
+    });
+
+  } catch (error) {
+    console.error('Verification error:', error.message);
+    return res.status(500).json({ success: false, error: 'Failed to send verification.' });
+  }
+});
+
+async function triggerSms(phoneNumber, otpCode) {
+  const response = await axios.post(SMS_API_URL, {
+    to: phoneNumber,
+    message: `Your account verification code is ${otpCode}. Valid for 10 minutes.`,
+    sender: 'STMSG',
+    templateId: '1207161829038491823'
+  }, {
+    headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' }
+  });
+  return response.data;
+}
+
+async function triggerVoiceCall(phoneNumber, otpCode) {
+  const response = await axios.post(VOICE_API_URL, {
+    to: phoneNumber,
+    code: otpCode,
+    language: 'en-IN', // Indian English TTS voice
+    repeatCount: 2
+  }, {
+    headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' }
+  });
+  return response.data;
+}
+
+/**
+ * Background monitor to trigger Voice OTP fallback if SMS delivery report (DLR) is delayed
+ */
+function startSmsDeliveryMonitor(phoneNumber, requestId, otpCode) {
+  // Wait 30 seconds before checking SMS delivery status
+  setTimeout(async () => {
+    try {
+      // Check if user has already verified their code to avoid duplicate calls
+      const redisKey = `otp:${phoneNumber}`;
+      const cached = await redisClient.get(redisKey);
+      if (!cached) return; // User already verified, data cleared from cache
+
+      // Check SMS delivery status with API provider
+      const statusResponse = await axios.get(`https://api.startmessaging.com/v1/sms/status/${requestId}`, {
+        headers: { 'Authorization': `Bearer ${API_KEY}` }
+      });
+
+      const deliveryStatus = statusResponse.data.status;
+      if (deliveryStatus !== 'delivered') {
+        console.log(`SMS ${requestId} delivery delayed (status: ${deliveryStatus}). Triggering Voice OTP fallback call.`);
+        await triggerVoiceCall(phoneNumber, otpCode);
+      }
+    } catch (err) {
+      console.error('Failed in SMS delivery monitor:', err.message);
+    }
+  }, 30000);
+}
+```
+
+This Node.js backend implements an automated fallback flow. It checks mobile number prefixes to identify BSNL users and routes them directly to the voice API, while monitoring SMS delivery status to escalate slower transactions to voice calls automatically.
+
+To ensure your multi-channel system performs well, monitor these three key performance indicators:
+
+1.  **Channel Distribution Rate:** Track what percentage of verification requests go through SMS vs. Voice. If voice calls exceed 15% of your traffic, optimize your SMS configurations.
+2.  **Voice Completion Rate (Target: >88%):** The percentage of voice calls successfully answered and verified. If this is low, check your caller ID settings.
+3.  **blended OTP Acquisition Cost:** Monitor the average cost to verify a user across both channels. A balanced setup should see only a slight cost increase while delivering much higher verification rates.
+
+---
+
+## Cost Model and ROI at Scale
+
+To justify the higher cost of voice calls to your finance team, calculate the return on investment (ROI) based on customer acquisition metrics.
+
+Let's compare the costs of using SMS-only verification vs. a multi-channel setup with Voice fallback:
+
+| Metrics | Scenario A: SMS Only | Scenario B: SMS + Voice Fallback |
+| :--- | :--- | :--- |
+| **Total Signup Attempts** | 100,000 | 100,000 |
+| **SMS Delivery Success Rate** | 93% (7% failed delivery) | 93% |
+| **Successful Verifications** | 93,000 | 93,000 (SMS) + 5,500 (Voice) |
+| **Abandoned Registrations** | 7,000 | 1,500 (80% recovery rate) |
+| **Blended Verification Cost** | ₹15,000 (at ₹0.15 per SMS) | ₹15,000 (SMS) + ₹2,750 (5,500 voice calls at ₹0.50) |
+| **Total Program Cost** | ₹15,000 | ₹17,750 (an increase of ₹2,750) |
+
+In Scenario A, the brand loses 7,000 potential registrations due to failed SMS delivery. In Scenario B, the system triggers voice calls to recover 5,500 of those users.
+
+For a business with a Customer Lifetime Value (LTV) of ₹1,500, recovering 5,500 signups generates ₹82.5 lakh in additional value. 
+
+Spending ₹2,750 on voice verification to secure this value represents an exceptional return on investment.
+
+---
+
+## Frequently Asked Questions
+
+**Q: Does voice OTP require DLT registration in India?**
+
+A: No, TRAI regulations for DLT registration only apply to SMS traffic. Outbound voice calls and IVR services do not require template pre-registration, allowing you to update your scripts and codes without waiting for carrier approvals.
+
+**Q: What is the difference between voice OTP, missed call verification, and flash call verification?**
+
+A: Voice OTP is an outbound call where a text-to-speech engine reads a code aloud. Missed call verification requires the user to place a call to a number displayed on the screen. Flash call verification uses an automated call to the user's phone, which an Android application reads directly from call logs to verify identity.
+
+**Q: How does voice OTP handle users who don't pick up?**
+
+A: The system wait for a delivery response from the voice gateway. If a call goes unanswered, busy, or is rejected, the system waits 45 seconds before placing a second call. If that attempt also fails, the backend stops call attempts and prompts the user to request an SMS.
+
+**Q: Is voice OTP compliant with RBI's authentication directions?**
+
+A: Yes, the RBI's 2025 Authentication Directions permit voice-based authentication as a valid out-of-band factor, provided the call is routed through secure voice gateways and logs are recorded for compliance audits. For more details on compliance, see our [RBI developer guide](/blog/rbi-authentication-directions-2025-developer-guide).
+
+**Q: What does a voice OTP call sound like to the end user?**
+
+A: When the customer answers, they hear a clear, computer-generated voice stating: *"Hello, your verification code is 4, 8, 2, 9, 1, 0. I repeat, your code is 4, 8, 2, 9, 1, 0. Thank you."*
+
+**Q: Can I use voice OTP for BSNL users specifically?**
+
+A: Yes, you can identify BSNL phone numbers by checking their prefixes against carrier ranges allocated by TRAI. If a number is identified as BSNL, your backend can route the verification request to the voice API immediately, avoiding SMS network queues.
+
+---
+
+## Multi-Channel Verification with StartMessaging
+
+Building a reliable fallback system requires an API partner that can manage both SMS and Voice OTP seamlessly. StartMessaging provides a unified platform to handle your verification traffic:
+
+*   **Unified API Endpoints:** Send SMS and trigger Voice fallback calls using a single API key, reducing backend complexity.
+*   **Indian Carrier Interconnects:** Route your voice calls through high-priority gateways to ensure fast delivery and clean caller IDs.
+*   **BSNL Number Verification:** Utilize our prefix verification services to automatically route calls to networks with high SMS latency.
+*   **DPDP Compliance:** Automate your log handling to purge personal data within 90 days, keeping your verification systems compliant with national privacy laws.
+
+Ready to improve your delivery rates? [Create a free account on StartMessaging](https://app.startmessaging.com/register) to integrate secure SMS and Voice OTP APIs today.
