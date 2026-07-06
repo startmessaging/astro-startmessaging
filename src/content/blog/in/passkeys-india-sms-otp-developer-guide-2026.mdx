@@ -1,0 +1,242 @@
+---
+title: "Passkeys in India: Does Your App Still Need SMS OTP? (2026)"
+description: "Visa Payment Passkeys are live in India. Discover what they mean for developer authentication flows and why SMS OTP remains the essential fallback path."
+publishedAt: "2026-07-06"
+category: "guides"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "passkeys india 2026"
+  - "passkeys vs otp india"
+  - "passkey replace sms otp india"
+  - "visa payment passkey india developer"
+  - "fido2 passkey india app"
+  - "rbi alternative authentication india passkey"
+  - "passkey sms fallback india"
+  - "do i still need otp india passkeys"
+  - "passkey india fintech developer"
+  - "sms otp future india 2026"
+relatedSlugs:
+  - "rbi-authentication-directions-2025-developer-guide"
+  - "dpdp-act-sms-otp-india-developer-compliance-guide-2027"
+  - "cash-on-delivery-otp-verification-india-ecommerce-cod-fraud"
+featured: false
+image: "/blog/images/passkeys-india-sms-otp-developer-guide-2026.webp"
+---
+
+Ravi watched the checkout funnel of his Bengaluru-based fintech application drop by 12% in a single hour. The cause was not a database deadlock or a server crash; it was a cluster of delayed SMS OTPs from local carriers that arrived long after the five-minute expiry window had closed. When Visa announced on July 2, 2026, that Visa Payment Passkey is live in India, Ravi's immediate thought was that his team could finally decommission their expensive SMS gateway integration. If every user could authenticate card transactions or log in with a quick biometric scan, the developer headache of carrier routing, DLT template approvals, and message scrubbing would disappear overnight. But as Ravi began checking user device analytics and plotting the registration flows, he faced a stark reality: passkeys cannot replace the SMS verification code yet, and building a secure application in the Indian market requires a hybrid authentication architecture.
+
+For years, developers in the Indian startup ecosystem built user verification flows with a simple, linear checklist: accept a phone number, trigger an SMS through an API, and log the outcome in a database. If the delivery failed, you checked the logs to see the recipient number and the error code. The launch of the Visa Payment Passkey solution, built in line with the Reserve Bank of India's (RBI) September 2025 Framework on Alternative Authentication Mechanisms, is changing the technical options available. While this framework encourages adoption of secure authentication beyond traditional codes, the demographic and device constraints in India mean that the fallback window for SMS OTP is years long, not months. Developers must adapt by learning how to coordinate both options rather than trying to choose one over the other.
+
+---
+
+## What Just Happened: The Arrival of Passkeys in India
+
+The landscape of digital payments in India shifted on July 2, 2026, when Visa officially launched its Visa Payment Passkey service in India, partnering with IDFC FIRST Bank as its launch ally. This is not another proprietary app or closed biometric login system. It is a implementation of FIDO2 and WebAuthn standards, specifically designed to secure card-not-present transactions. The service is already live for select cardholders at prominent consumer platforms including Myntra, Paytm, MakeMyTrip, Tata Starbucks, Reliance Digital, and EatSure, with plans to expand rapidly across the banking sector. Mastercard is also rolling out passkeys in India, signaling a coordinated industry push away from reliance on dynamic passcodes.
+
+To understand what this means for developers, we must clarify what a passkey actually is. Unlike a traditional password or a one-time code, which is sent over the network and can be intercepted, a passkey relies on asymmetric cryptography. When a user enrolls their device, the application triggers a FIDO2 credential creation request. The user's device generates a unique cryptographic key pair:
+1. A private key, which is stored securely in the device's hardware enclave (such as Apple's Secure Enclave or Android's keystore) and never leaves the device.
+2. A public key, which is sent to the application server and stored in the database.
+
+When authenticating a payment or logging in, the server sends a cryptographic challenge. The user's device prompts them for local biometric verification—such as a fingerprint scan, Face ID, or a device PIN—to unlock the private key. The private key signs the challenge, and the device sends the signature back to the server. The server verifies the signature using the stored public key. If the signature matches, authentication succeeds. No code is transmitted, no carrier is involved, and there is no text message to wait for.
+
+This technology is fundamentally different from previous attempts to bypass SMS. In the past, apps relied on custom biometric SDKs or proprietary device-binding solutions that required heavy maintenance and had poor compatibility. FIDO2 is now supported natively by major operating systems and browsers, including iOS 16+, Android 9+, Google Chrome, Apple Safari, and Microsoft Edge. This means the infrastructure to run cryptographic authentication is already sitting inside the pockets of millions of Indian consumers. The regulatory path is also clear: the RBI's September 2025 Alternative Authentication Framework explicitly created the compliance runway for banks and payment processors to replace SMS OTPs with biometrics and cryptographic keys for digital transactions, aiming to combat rising financial fraud.
+
+---
+
+## The India Coverage Gap: Why Passkeys Cannot Replace SMS OTP Yet
+
+Why can't developers delete their SMS integrations today? The primary barrier is device eligibility. FIDO2 passkeys require Android 9 or iOS 16. While India has over 750 million smartphone users, a significant share run budget smartphones purchased between 2019 and 2022 that are stuck on Android 7 or 8. These legacy operating systems lack the credential manager APIs and system-level keystores needed to store and register passkeys.
+
+Beyond smartphones, developers must account for approximately 150 million active feature phone users in India. These users rely on basic devices running platforms like KaiOS or simple proprietary systems that have no capability to execute WebAuthn scripts or process biometric checks. When we calculate the actual eligible population, only about 400 to 450 million devices in India can support passkeys. This leaves 300 to 350 million active mobile users completely shut out of the passkey ecosystem. For these users, SMS OTP remains the only functional method of authentication.
+
+```
++-------------------------------------------------------+
+|                INDIA'S MOBILE USERS (900M+)           |
++-------------------------------------------------------+
+|  Passkey-Eligible (400M-450M)   |  Non-Eligible (450M+) |
+|  - Modern Android (9+)          |  - Older Android (7/8)|
+|  - Modern iOS (16+)             |  - Feature Phones     |
+|  - Biometric Capability         |  - No Biometrics      |
++-------------------------------------------------------+
+```
+
+User behavior also poses challenges. Passkey registration is not automatic; users must explicitly approve credential creation and map it to a biometric profile. While simple for tech-savvy audiences, registration interfaces can confuse users in Tier 2/3 cities or older age groups. Early pilot statistics indicate that registration rates hover around 30% to 40% of eligible users. The remaining 60% to 70% skip the setup or fail to complete it, making SMS fallback a necessity.
+
+Merchant and database coverage constraints also limit passkey utility. The current Visa launch is limited to card-not-present payment flows involving specific banks and merchants. The vast majority of daily transactions in India flow through UPI apps, net banking, insurance systems, and government portals where SMS OTP remains the standard authentication option. For general app logins, password resets, account activations, and profile updates, there is no system-level passkey network that connects all services. A startup building a SaaS platform, a logistics tracker, or a local edtech app has no centralized passkey database to query. The developer is responsible for building their own auth system, and without SMS, they cannot onboard new users.
+
+Beyond payments, we must separate payment authentication from app-level verification. The Visa Payment Passkey is designed to replace the 3D Secure (3DS) code sent by the bank during a card payment. It does not handle the signup flow when a user installs a shopping app, nor does it secure the verification of a delivery agent in the field. When an e-commerce platform needs to prevent cash-on-delivery abuse, as discussed in our guide on [verifying orders to prevent cash-on-delivery fraud](/blog/cash-on-delivery-otp-verification-india-ecommerce-cod-fraud), they need a direct, lightweight method to verify the user's presence. SMS OTP satisfies this requirement because it acts as a low-friction proof of phone possession that works across all device classes.
+
+---
+
+## Where Passkeys Excel: The Security and Cost Advantages
+
+Understanding where passkeys excel helps design the hybrid flow. The primary advantage is defense against credential theft. Traditional SMS OTPs remain vulnerable to phishing clones and SIM swap attacks, where attackers intercept codes. We have covered these vulnerabilities in our guide on [protecting against SIM swap attacks](/blog/sim-swap-otp-protection-india).
+
+Passkeys are completely phishing-resistant because the cryptographic exchange binds directly to the domain name of the application. If a user visits a fake clone of your app, the browser will refuse to supply the passkey because the origin domain does not match the registered domain. Because the private key never leaves the secure enclave of the user's physical phone, there is no code to intercept, and compromising a carrier network does not expose the user's account.
+
+```
+Traditional OTP Flow (Vulnerable to Interception):
+User Request -> SMS Gateway -> Telecom Network -> SMS Intercepted -> Attacker Access
+
+Passkey Flow (Phishing-Resistant):
+Server Challenge -> Browser Origin Check -> Secure Enclave Signature -> Verification
+```
+
+Checkout experience is another benefit. Entering a code requires waiting for the SMS, copying it, and typing it, which adds friction on congested carrier networks. Biometric checks take under two seconds and require a single tap. Visa estimates that removing carrier delays and manual errors raises checkout success rates by 2% to 3%. For high-volume e-commerce, this translates to lakhs in recovered transaction revenue.
+
+Finally, passkeys provide long-term cost benefits at scale. When an application runs a cryptographic verification check using a passkey, the operation is executed locally on the user's device and checked on your server. This process incurs no transactional cost. For large banks or major e-commerce platforms that process crores of transactions monthly, every transaction shifted from SMS to passkeys eliminates carrier transit fees. While developers must invest upfront engineering resources to build the registration and storage logic, the operational cost of authenticating an enrolled user drops to zero.
+
+---
+
+## The Hybrid Authentication Architecture: Passkeys as Primary, SMS OTP as Fallback
+
+Recognizing that passkeys are highly secure but lack universal coverage, the standard architectural pattern for modern Indian applications is a hybrid, two-tier system. The logic is simple: attempt passkey authentication if the user has an enrolled device and the environment supports it; if the passkey check fails, is skipped, or is unsupported, automatically fall back to SMS OTP.
+
+```
+                  +-----------------------------------+
+                  |      Initiate Verification        |
+                  +-----------------------------------+
+                                    |
+                                    v
+                  +-----------------------------------+
+                  |     Is FIDO2 / WebAuthn supported?|
+                  +-----------------------------------+
+                               /         \
+                       Yes    /           \   No
+                             /             \
+                            v               v
+            +-----------------------+   +-----------------------+
+            | Is Passkey Registered?|   | Send SMS OTP via API  |
+            +-----------------------+   +-----------------------+
+                   /         \
+           Yes    /           \   No
+                 /             \
+                v               v
+    +-------------------+   +-----------------------+
+    | Prompt Biometric  |   | Send SMS OTP via API  |
+    +-------------------+   +-----------------------+
+            |
+            v
+    [Authentication Success]
+```
+
+### 1. Detecting Device and Platform Capability
+
+Before prompting a user to use a passkey, your frontend must check if the current browser or native application environment supports WebAuthn and credential management. In a web-based React or Node.js environment, this is achieved by querying the `window.PublicKeyCredential` API:
+
+```javascript
+// Check if the current device and browser support passkeys
+async function isPasskeySupported() {
+  if (window.PublicKeyCredential) {
+    try {
+      // Verify if the platform has a biometric authenticator (FaceID / Fingerprint)
+      const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+      return !!available;
+    } catch (err) {
+      console.error("Capability check failed:", err);
+      return false;
+    }
+  }
+  return false;
+}
+```
+
+On native platforms, developers should use platform-specific APIs. For Android applications, use Google's Credential Manager API, which unifies passkeys, passwords, and federated identity checks. For iOS applications, implement ASAuthorizationController to handle passkey assertions natively.
+
+### 2. Implementing the Fallback Logic
+
+If the platform check returns `false` or the user is not registered, the system sends an SMS OTP. The following Node.js backend controller routes requests dynamically between the passkey verification challenge and the StartMessaging SMS API:
+
+```javascript
+// authController.js
+import axios from 'axios';
+
+export async function loginChallenge(req, res) {
+  const { userId, phoneNumber } = req.body;
+  try {
+    const credentials = await db.query('SELECT * FROM user_passkeys WHERE user_id = ?', [userId]);
+    if (credentials && credentials.length > 0) {
+      const challenge = generateWebAuthnChallenge(credentials);
+      return res.status(200).json({ method: 'passkey', challengeData: challenge });
+    }
+    // Fallback path
+    const response = await axios.post('https://api.startmessaging.com/v1/otp/send', {
+      to: phoneNumber,
+      senderId: 'STRMSG',
+      templateId: '1207161728392019',
+      length: 6,
+      expiry: 300
+    }, {
+      headers: { 'Authorization': `Bearer ${process.env.STARTMESSAGING_API_KEY}`, 'Content-Type': 'application/json' }
+    });
+    if (response.status === 200) {
+      return res.status(200).json({ method: 'sms', message: 'OTP sent to registered number.' });
+    }
+    return res.status(500).json({ error: 'Failed to dispatch verification code.' });
+  } catch (error) {
+    console.error("Auth error:", error);
+    return res.status(500).json({ error: 'Internal server error.' });
+  }
+}
+```
+
+### 3. The Onboarding Flow
+
+To ensure high enrollment without compromising security, developers should prompt passkey registration after a successful SMS verification. The user enters their mobile number and verifies the SMS code. If the frontend detects FIDO2 capability, it displays an option to enable one-tap biometric login. If the user agrees, the device generates the key pair, saves the private key locally, and registers the public key with your backend. Future logins bypass SMS in favor of the passkey.
+
+This onboarding flow ensures that initial registration is backed by proof of phone possession. Because the user is already authenticated when enrolling their device, you maintain the cryptographic link between the phone number and the hardware credential. To maintain regulatory alignment, developers must coordinate this data collection with new privacy laws. For details on handling user consents and phone verification databases, see our guide on [compliance with the DPDP Act](/blog/dpdp-act-sms-otp-india-developer-compliance-guide-2027).
+
+---
+
+## Managing Your Authentication Strategy and SMS OTP Spend in 2026
+
+With passkey adoption scaling slowly, developers must optimize their auth budgets and architecture for the current reality. Do not reduce your investment in SMS infrastructure. Since SMS OTP will handle the majority of your traffic for the next three to five years, your primary goal should be to make this fallback layer fast, reliable, and compliant.
+
+Start by monitoring your user base. Use your frontend analytics to track the operating system version and browser capabilities of your visitors. If your data shows that 70% of your active users run older Android versions or access your service via embedded web views that restrict WebAuthn APIs, prioritize SMS optimizations. You can plan your passkey integration for a later quarter when your demographic shifts.
+
+```
+Actionable Checklist for Q3/Q4 2026:
+1. Audit Device OS Distribution: Identify FIDO2 support ratios among actual active users.
+2. Review DLT Templates: Keep templates clean and compliant with current TRAI regulations.
+3. Harden Retries: Implement rate limits and failover paths to manage SMS delivery cost.
+4. Integrate API Fallbacks: Connect to a high-throughput provider like StartMessaging.
+```
+
+Ensure your SMS templates comply with DLT regulations. Templates that miss a registered PE-ID match are blocked before carrier transmission. Review the latest [DLT template approval rules](/blog/dlt-template-variables-rules-india) to ensure template updates don't lock out fallback traffic.
+
+Maintain a clear failover plan. If your primary messaging route suffers carrier congestion, your auth handler should automatically route fallback codes to a backup channel, such as [WhatsApp OTP with SMS fallback](/blog/whatsapp-otp-india-developer-guide-authentication-template-sms-fallback). This guarantees delivery even during network outages.
+
+StartMessaging provides an API tailored for this hybrid layout. At a transparent rate of ₹0.25 per message with no monthly maintenance fees, it allows developers to run a high-performance fallback pipeline without paying premium enterprise rates. By pairing a free, device-based passkey layer for high-end devices with StartMessaging's cost-effective API for feature phones and legacy systems, teams can minimize their total auth spend while keeping checkout rates high.
+
+---
+
+## Frequently Asked Questions
+
+**Q: Does the Visa Payment Passkey replace SMS OTP for all Indian users?**
+
+A: No. Visa Payment Passkey secures card-not-present payment transactions on compatible systems. It does not handle general user logins, signups, or password resets. Because it requires Android 9+ or iOS 16+, it is also unavailable to millions of Indian users on older smartphones or feature phones, meaning SMS OTP remains the universal fallback.
+
+**Q: Do I need to change my authentication flow after RBI's September 2025 alternative authentication framework?**
+
+A: The RBI framework permits secure alternative authentication options like biometrics. It does not mandate the removal of SMS OTP. You should update your systems to support passkeys as a primary factor for eligible devices while maintaining a secure SMS path for non-eligible users. For a complete compliance review, read our guide on the [RBI 2FA authentication guidelines](/blog/rbi-authentication-directions-2025-developer-guide).
+
+**Q: What percentage of Indian smartphone users can use passkeys today?**
+
+A: Roughly 55% to 60% of active smartphone users in India use devices that support passkeys. The remaining 40% to 45% use older operating systems or budget devices that lack passkey support. If feature phones are included, nearly half of the active mobile base in India cannot run passkeys.
+
+**Q: How do I implement passkeys with SMS OTP fallback in a Node.js app?**
+
+A: Query your database for registered public keys. If they exist, return a WebAuthn challenge to the client. If they do not exist, or if the client device reports that it does not support passkeys, invoke the StartMessaging API to send a verification code to the user's mobile number.
+
+**Q: Is SMS OTP still RBI-compliant after the new authentication framework?**
+
+A: Yes. Carrier verification codes remain a fully compliant Additional Factor of Authentication (AFA) under RBI regulations. While the central bank encourages the adoption of cryptographic and biometric mechanisms to combat social engineering, SMS OTP is still accepted for the majority of transaction tiers.
+
+**Q: How long until passkeys replace SMS OTP in India?**
+
+A: A complete transition will take at least three to five years. This timeline is governed by the natural replacement cycle of mobile devices in India and the slow adoption of biometric registration among non-technical demographics. Until feature phones and legacy Android devices disappear, SMS OTP remains a structural necessity.
+
+---
+
+Ravi completed the implementation of the hybrid controller in his staging environment and ran a simulation. When he tested the login flow on a modern Android device, the screen prompted him for a biometric scan, authenticating the session in under two seconds. When he simulated a user logging in from a legacy device, the backend detected the limitation and dispatched a StartMessaging verification code, which arrived in under three seconds. The checkout abandonment rate dropped, and the monthly auth bill fell by 30% as enrolled users moved to the free passkey path. If you are building or scaling a digital platform in India, you can optimize your costs and secure your user base by integrating the same hybrid flow. Learn more about the [StartMessaging API features](/features) or sign up on the [developer platform](https://app.startmessaging.com/register) to claim your free testing credits today.
