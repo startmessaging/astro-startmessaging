@@ -1,0 +1,430 @@
+---
+title: "OTP Authentication for Real-Money Gaming Apps in India: MeitY 2026 Rules, KYC, and What to Build"
+description: "Learn how to implement otp real money gaming india 2026 compliance. A technical guide on MeitY gaming rules, OGRAI registration, age verification, KYC OTP flows, and anti-abuse for fantasy sports and skill gaming apps."
+publishedAt: "2026-07-19"
+updatedAt: "2026-07-19"
+category: "use-cases"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "otp real money gaming india 2026"
+  - "meity gaming app otp verification"
+  - "age verification sms otp india gaming"
+  - "OGRAI compliance developer otp"
+  - "kyc otp gaming app india"
+  - "real money gaming otp india meity"
+  - "fantasy sports otp verification india 2026"
+  - "gaming app withdrawal otp india compliance"
+relatedSlugs:
+  - "otp-gaming-fantasy-india"
+  - "uidai-aadhaar-otp-rules"
+  - "digilocker-eaadhaar-kyc-flow-india-developers"
+  - "dpdp-act-sms-otp-india-developer-compliance-guide-2027"
+  - "otp-bombing-api-protection-india-developer-guide-2026"
+featured: false
+image: "/blog/images/otp-authentication-real-money-gaming-india-meity-2026-compliance.webp"
+---
+
+Vikram's team at a Bengaluru fantasy cricket startup had three weeks to comply. The Promotion and Regulation of Online Gaming Rules 2026, notified by MeitY and effective May 1, 2026, had turned their existing OTP flow — a basic phone verification at signup — into a compliance gap. The new rules require verifiable age checks to block minors, Indian data localisation for all player KYC and transaction records, real-time reporting of suspicious transactions to the newly formed Online Gaming Regulatory Authority of India (OGRAI), and mandatory platform registration. Every one of these requirements touches the authentication and OTP layer. Vikram's signup OTP was not enough. He needed separate OTP moments for age verification, withdrawal authorisation, and re-login after session expiry — each with different risk tolerances, template designs, and rate limiting strategies. This guide covers exactly what the MeitY 2026 rules demand from your OTP implementation, the specific flows to build, and the anti-abuse patterns that gaming apps need beyond what standard e-commerce or fintech platforms implement.
+
+---
+
+## Why Gaming Apps Need OTP Differently
+
+Unlike e-commerce or banking, real-money gaming (RMG) apps have three distinct OTP moments, each with different stakes and user experience pressure:
+
+| OTP Moment | Risk Level | UX Pressure | What's at Stake |
+| :--- | :--- | :--- | :--- |
+| **Signup KYC** | High | Medium — user is motivated to play | A minor slipping through age verification; a bonus abuser creating duplicate accounts |
+| **Re-login after session expiry** | Medium | Very High — user wants to rejoin a live contest | Abandonment if OTP delivery takes >10 seconds during a live IPL match |
+| **Withdrawal authorisation** | Critical | Low — user will wait for their money | Fraudulent cashout from a compromised account; compliance audit trail for OGRAI |
+
+In e-commerce, a failed OTP at checkout means a lost sale. In gaming, a failed OTP during a live fantasy contest means an angry user who may never return — and a support ticket during your highest-traffic window. Conversely, a weak OTP at withdrawal means real money leaving your platform to a fraudster, with OGRAI audit liability attached.
+
+Each moment needs its own template, its own rate limits, and its own failure handling. Treating all three as the same `/send-otp` call is the mistake most gaming startups make — and the gap that MeitY 2026 compliance exposes.
+
+---
+
+## What MeitY 2026 Actually Requires from Your Authentication Stack
+
+The Promotion and Regulation of Online Gaming Rules 2026 creates four compliance obligations that directly affect your OTP and authentication implementation:
+
+### 1. Age Verification — Block Minors
+
+The rules mandate that online gaming platforms must verify that every player is 18 years or older before allowing access to real-money games. A phone number OTP alone does not satisfy this — a 15-year-old can enter a parent's number. You need OTP as the first step in a multi-step age verification flow.
+
+### 2. Indian Data Localisation
+
+All player KYC data and transaction records must reside on servers physically located in India. This affects where your OTP delivery logs, verification records, and session data are stored. If your SMS provider routes OTP delivery through servers outside India, or stores delivery logs in AWS us-east-1, you have a compliance gap.
+
+### 3. Real-Time Suspicious Transaction Reporting
+
+Platforms must report suspicious transactions to OGRAI in real time. This means your OTP verification layer needs to generate auditable event logs — not just "OTP sent" and "OTP verified," but structured records that include timestamps, device fingerprints, IP addresses, and transaction context (deposit, withdrawal, contest entry).
+
+### 4. OGRAI Registration
+
+Every RMG platform must register with OGRAI and maintain compliance records. Your OTP audit trail becomes part of your regulatory filing. Treat OTP logs as compliance artefacts, not just debugging data.
+
+| MeitY Requirement | What It Means for Your OTP Stack |
+| :--- | :--- |
+| Age verification (18+) | OTP + Aadhaar/DigiLocker age check before first real-money deposit |
+| Data localisation | OTP logs, KYC records, and session data on Indian servers only |
+| Suspicious transaction reporting | Structured OTP event logs with device/IP context for OGRAI |
+| OGRAI registration | OTP audit trail as part of compliance documentation |
+
+---
+
+## Age Verification via OTP + Aadhaar Linkage
+
+A phone number confirms device possession. It does not confirm age. MeitY 2026 requires verifiable age checks, not self-declaration checkboxes. The compliant path combines mobile OTP with DigiLocker or Aadhaar XML verification to extract the date of birth from a government-issued identity document.
+
+### The Compliant Flow
+
+```
+User Signup Flow (Age-Verified):
+
+[Enter Phone] → [Send OTP] → [Verify OTP] → [Phone Confirmed]
+                                                     │
+                                                     ▼
+                                         [DigiLocker / Aadhaar Flow]
+                                                     │
+                                              ┌──────┴──────┐
+                                              │             │
+                                        [Age ≥ 18]    [Age < 18]
+                                              │             │
+                                              ▼             ▼
+                                       [KYC Complete]  [Registration
+                                       [Allow Deposit]  Blocked]
+```
+
+**Step 1 — Mobile OTP:** Send an SMS OTP to verify the user controls the phone number. This is your standard application OTP through your SMS provider.
+
+**Step 2 — DigiLocker document pull:** After phone verification, redirect the user to DigiLocker to consent to sharing their Aadhaar XML or driving licence. DigiLocker returns a signed XML document containing the date of birth. Parse the DOB field and calculate age. For details on the DigiLocker integration flow, see our guide on [DigiLocker and eAadhaar KYC for developers](/blog/digilocker-eaadhaar-kyc-flow-india-developers).
+
+**Step 3 — Age gate:** If the calculated age is below 18, block the registration. Do not allow the user to proceed to deposit or gameplay. Store the verification result (age-verified: true/false, verification method, timestamp) in your KYC database.
+
+### The Aadhaar Sub-AUA Licensing Requirement
+
+If you choose direct Aadhaar e-KYC (instead of DigiLocker), you need a Sub-AUA (Sub-Authentication User Agency) licence from UIDAI. This involves partnering with a licensed AUA/KUA, signing an agreement, and integrating with their API wrapper around UIDAI's authentication service. The OTP in this flow is issued by UIDAI — it is separate from your application OTP and flows through UIDAI's infrastructure, not your SMS provider. See our detailed breakdown of [UIDAI Aadhaar OTP rules](/blog/uidai-aadhaar-otp-rules) for the licensing and compliance details.
+
+For most gaming startups, the **DigiLocker path is simpler** — no Sub-AUA licence required, the user consents through a familiar interface, and the signed XML provides the DOB you need for age verification.
+
+---
+
+## KYC OTP Flow for Withdrawals
+
+Withdrawal is the highest-risk OTP moment in a gaming app. Real money is leaving your platform. Under MeitY 2026, this transaction must be logged with full context for OGRAI reporting. The flow requires PAN verification (for TDS compliance on winnings above ₹10,000) and an OTP-gated confirmation before funds are released.
+
+```javascript
+// withdrawal-otp.js — OTP-gated withdrawal with audit logging
+const crypto = require('crypto');
+
+async function initiateWithdrawal(userId, amount, bankAccountId) {
+  // Step 1: Validate withdrawal eligibility
+  const user = await db.users.findById(userId);
+
+  if (!user.kycVerified) {
+    throw new Error('KYC verification required before withdrawal.');
+  }
+
+  if (!user.panVerified && amount > 10000) {
+    throw new Error('PAN verification required for withdrawals above ₹10,000.');
+  }
+
+  // Step 2: Create pending withdrawal record
+  const withdrawalId = crypto.randomUUID();
+  const bankAccount = await db.bankAccounts.findById(bankAccountId);
+
+  await db.withdrawals.create({
+    id: withdrawalId,
+    userId,
+    amount,
+    bankAccountLast4: bankAccount.accountNumber.slice(-4),
+    status: 'pending_otp',
+    createdAt: new Date(),
+    ipAddress: req.ip,
+    deviceFingerprint: req.body.fingerprint,
+  });
+
+  // Step 3: Send withdrawal confirmation OTP
+  const otpResponse = await smsProvider.sendOtp(user.phone, {
+    template: 'withdrawal_confirmation',
+    variables: {
+      amount: amount.toLocaleString('en-IN'),
+      bankLast4: bankAccount.accountNumber.slice(-4),
+    },
+  });
+
+  // Step 4: Log for OGRAI compliance
+  await auditLog.record({
+    event: 'withdrawal_otp_sent',
+    userId,
+    withdrawalId,
+    amount,
+    phone: user.phone,
+    ipAddress: req.ip,
+    deviceFingerprint: req.body.fingerprint,
+    timestamp: new Date().toISOString(),
+    otpRequestId: otpResponse.requestId,
+  });
+
+  return { withdrawalId, message: 'OTP sent for withdrawal confirmation.' };
+}
+
+async function confirmWithdrawal(userId, withdrawalId, otpCode) {
+  const withdrawal = await db.withdrawals.findOne({
+    id: withdrawalId,
+    userId,
+    status: 'pending_otp',
+  });
+
+  if (!withdrawal) {
+    throw new Error('Invalid or expired withdrawal request.');
+  }
+
+  // Verify OTP
+  const verified = await smsProvider.verifyOtp(withdrawal.phone, otpCode);
+
+  if (!verified) {
+    // Log failed attempt for fraud detection
+    await auditLog.record({
+      event: 'withdrawal_otp_failed',
+      userId,
+      withdrawalId,
+      ipAddress: req.ip,
+      timestamp: new Date().toISOString(),
+    });
+    throw new Error('Invalid OTP. Please try again.');
+  }
+
+  // OTP verified — process withdrawal
+  await db.withdrawals.update(withdrawalId, {
+    status: 'processing',
+    verifiedAt: new Date(),
+  });
+
+  // Log successful verification for OGRAI
+  await auditLog.record({
+    event: 'withdrawal_otp_verified',
+    userId,
+    withdrawalId,
+    amount: withdrawal.amount,
+    timestamp: new Date().toISOString(),
+  });
+
+  await payoutService.initiate(withdrawal);
+
+  return { status: 'processing', message: 'Withdrawal confirmed and processing.' };
+}
+```
+
+The audit logging in this flow is not optional — it is a MeitY 2026 compliance requirement. Every OTP send, every verification attempt (successful or failed), and every withdrawal initiation must be logged with sufficient context for OGRAI reporting. Store these logs on Indian servers with a minimum 5-year retention period.
+
+---
+
+## DLT Templates for Gaming OTPs
+
+Gaming OTPs fall under the **transactional** category in India's DLT framework. This matters because transactional messages can be sent 24/7 (no time restrictions), are not subject to DND preferences, and have higher delivery priority on operator networks. However, getting your DLT templates approved requires specific attention to gaming-related content.
+
+### Template Examples for Gaming
+
+**Signup OTP:**
+```
+Welcome to {#var#}. Your verification code is {#var#}. Valid for {#var#} minutes. Do not share this code.
+```
+
+**Withdrawal OTP:**
+```
+Withdrawal of Rs {#var#} to bank A/C ending {#var#}. Your OTP is {#var#}. Valid for 5 min. If not initiated by you, contact support immediately.
+```
+
+**Re-login OTP:**
+```
+Your {#var#} login OTP is {#var#}. Valid for {#var#} minutes. Do not share this with anyone.
+```
+
+### Approval Tips for Gaming Companies
+
+- **Do not mention betting, gambling, or wagering** in template text. Use terms like "skill game," "contest," or "tournament." DLT portals have automated keyword filters that reject gambling-related language.
+- **Register templates under the "OTP" content type**, not "promotional." Promotional templates for gaming face stricter scrutiny and time-window restrictions.
+- **Include your brand name** in the sender ID and template footer. Unnamed gaming templates have higher rejection rates.
+- **Keep templates under 160 characters** where possible to avoid [multi-part SMS encoding issues](/blog/otp-160-character-limit-fix) that delay delivery.
+
+If DLT registration and template management is overhead your team does not want to handle, StartMessaging [handles DLT without separate registration](/dlt-free-otp) — your templates are pre-approved and managed on your behalf. For a deeper dive into DLT template rules, see our [DLT template approval guide](/blog/dlt-template-approval-guide).
+
+---
+
+## Anti-Abuse for Gaming: Beyond Standard Rate Limiting
+
+Gaming apps face a unique abuse pattern that e-commerce and banking do not: **multi-accounting for bonus exploitation.** Affiliate fraud rings create dozens of accounts using different phone numbers to claim welcome bonuses, referral rewards, and first-deposit matches. Standard per-number rate limiting does not catch this — each account uses a different number.
+
+### Rate Limit by Device Fingerprint, Not Just Phone Number
+
+```javascript
+// gaming-anti-abuse.js — Multi-account detection for gaming OTP
+const Redis = require('ioredis');
+const redis = new Redis(process.env.REDIS_URL);
+
+const MAX_SIGNUPS_PER_DEVICE = 2;  // Allow 1 re-registration
+const MAX_OTP_PER_DEVICE_PER_DAY = 5;
+const DEVICE_WINDOW = 86400000; // 24 hours
+
+async function checkGamingAbuseSignals(phoneNumber, fingerprint, ipAddress) {
+  const now = Date.now();
+  const signals = [];
+
+  // Signal 1: How many different phone numbers has this device
+  // requested OTPs for?
+  if (fingerprint) {
+    const devicePhonesKey = `gaming:device-phones:${fingerprint}`;
+    await redis.sadd(devicePhonesKey, phoneNumber);
+    await redis.expire(devicePhonesKey, 2592000); // 30-day window
+    const uniquePhones = await redis.scard(devicePhonesKey);
+
+    if (uniquePhones > MAX_SIGNUPS_PER_DEVICE) {
+      signals.push({
+        type: 'multi_account',
+        severity: 'high',
+        detail: `Device fingerprint ${fingerprint.slice(0, 8)}... ` +
+          `has requested OTPs for ${uniquePhones} different numbers`,
+      });
+    }
+
+    // Signal 2: Total OTP requests from this device today
+    const deviceDayKey = `gaming:device-day:${fingerprint}`;
+    await redis.zremrangebyscore(deviceDayKey, 0, now - DEVICE_WINDOW);
+    const dayCount = await redis.zcard(deviceDayKey);
+
+    if (dayCount >= MAX_OTP_PER_DEVICE_PER_DAY) {
+      return {
+        allowed: false,
+        reason: 'Too many verification attempts. Try again tomorrow.',
+        signals,
+      };
+    }
+
+    await redis.zadd(deviceDayKey, now, `${now}:${phoneNumber}`);
+    await redis.expire(deviceDayKey, 86400);
+  }
+
+  // Signal 3: Is this phone number linked to any previously
+  // banned accounts?
+  const bannedHash = await redis.sismember(
+    'gaming:banned-phones',
+    phoneNumber
+  );
+  if (bannedHash) {
+    return {
+      allowed: false,
+      reason: 'This number cannot be used for registration.',
+      signals: [{ type: 'banned_number', severity: 'critical' }],
+    };
+  }
+
+  // Signal 4: Multiple registrations from the same IP in a
+  // short window (affiliate fraud pattern)
+  const ipKey = `gaming:ip-signups:${ipAddress}`;
+  await redis.zremrangebyscore(ipKey, 0, now - 3600000); // 1-hour window
+  const ipSignups = await redis.zcard(ipKey);
+
+  if (ipSignups > 3) {
+    signals.push({
+      type: 'ip_cluster',
+      severity: 'medium',
+      detail: `${ipSignups + 1} signup OTP requests from IP ` +
+        `${ipAddress} in the last hour`,
+    });
+  }
+
+  await redis.zadd(ipKey, now, `${now}:${phoneNumber}`);
+  await redis.expire(ipKey, 3600);
+
+  // Allow the OTP but flag signals for fraud team review
+  return {
+    allowed: signals.every(s => s.severity !== 'critical'),
+    reason: signals.length > 0 ? 'Flagged for review' : null,
+    signals,
+  };
+}
+
+module.exports = { checkGamingAbuseSignals };
+```
+
+The key difference from standard [OTP rate limiting](/blog/otp-rate-limiting-guide) is the 30-day device fingerprint window. A standard e-commerce rate limiter uses a 1-hour or 24-hour window because legitimate users may change phones. Gaming bonus abuse operates over days or weeks — the fraud ring creates accounts gradually to avoid triggering short-term rate limits. A 30-day device window catches this pattern. For more on protecting OTP endpoints from automated attacks, see our guide on [OTP bombing defence](/blog/otp-bombing-api-protection-india-developer-guide-2026).
+
+---
+
+## Data Localisation and OTP Logs
+
+MeitY 2026 requires that all player KYC data and transaction records reside on servers physically located in India. This has direct implications for your OTP delivery infrastructure.
+
+### What "Data Localisation" Means for OTP Logs
+
+Your OTP delivery logs contain personal data: phone numbers, timestamps, IP addresses, device fingerprints, and transaction context (withdrawal amounts, account identifiers). Under MeitY 2026, all of this must be stored on Indian servers. This means:
+
+- **Your OTP provider's delivery logs must reside in India.** If your SMS provider stores delivery receipts and message logs in data centres outside India, those logs are non-compliant.
+- **Your application's OTP database must be on Indian infrastructure.** Redis instances, PostgreSQL databases, and audit logs that store OTP records need to be in Indian regions (AWS ap-south-1 Mumbai, GCP asia-south1 Mumbai, Azure Central India).
+- **Backup and disaster recovery copies count.** If your database replicates to a region outside India for DR, the replicated OTP data is non-compliant.
+
+This requirement overlaps with the [DPDP Act's data localisation provisions](/blog/dpdp-act-sms-otp-india-developer-compliance-guide-2027). If you are already DPDP-compliant for your OTP data handling, you likely meet MeitY 2026's localisation requirement as well — but verify that your SMS provider's infrastructure is also India-resident.
+
+### OTP Log Retention for OGRAI Audits
+
+OGRAI can request OTP verification records as part of compliance audits. Retain the following fields for a minimum of 5 years:
+
+| Field | Purpose | Example |
+| :--- | :--- | :--- |
+| `otpRequestId` | Unique identifier for the OTP send event | `otp_req_7f8a2c3d` |
+| `userId` | Internal user identifier | `usr_12345` |
+| `phone` (hashed) | Masked or hashed phone number | `sha256(+919876543210)` |
+| `event` | Action type | `signup_verify`, `withdrawal_confirm` |
+| `status` | Verification result | `verified`, `failed`, `expired` |
+| `ipAddress` | Source IP of the request | `103.21.58.xxx` |
+| `deviceFingerprint` | Browser/device identifier | `fp_a1b2c3d4` |
+| `timestamp` | ISO 8601 timestamp | `2026-07-19T14:30:00+05:30` |
+| `amount` (if withdrawal) | Transaction amount | `₹5,000` |
+
+Hash or mask the phone number in long-term storage. Raw phone numbers in a 5-year archive create [DPDP data minimisation](/blog/otp-data-privacy-india) exposure. The OTP request ID provides the linkage if you need to trace back to the original phone number during a formal audit.
+
+---
+
+## StartMessaging for Gaming Startups
+
+Gaming traffic is inherently spiky — IPL match nights, weekend tournaments, and seasonal events create 10–20x OTP volume surges followed by quiet periods. A provider that charges monthly minimums or requires committed volumes penalises this pattern.
+
+StartMessaging's [pay-as-you-go pricing](/pricing) at ₹0.25 per OTP with no monthly fees or volume commitments makes it natural for gaming startups running variable monthly volumes. You pay only for what you send. Other features relevant to gaming:
+
+- **No DLT registration required** — [StartMessaging handles DLT](/dlt-free-otp) on your behalf, including template management and scrubbing.
+- **Indian data residency** — delivery logs and OTP records are stored on Indian infrastructure, meeting MeitY 2026 localisation requirements.
+- **Built-in abuse detection** — edge-level filtering that drops sends to flagged number ranges before they hit the operator network, protecting against [SMS pumping](/blog/sms-pumping-fraud-india-otp-detection-prevention) and [OTP bombing](/blog/otp-bombing-api-protection-india-developer-guide-2026) attacks that gaming apps attract during high-profile events.
+- **Direct operator routing** — bypasses [grey-route intermediaries](/blog/direct-route-vs-grey-route-sms-india-otp-delivery) for faster delivery during peak traffic windows.
+
+[Get started with StartMessaging](https://app.startmessaging.com/register) — integrate in under 30 minutes with our [Node.js OTP guide](/blog/send-otp-nodejs).
+
+---
+
+## Frequently Asked Questions
+
+**Q: Does a fantasy sports app need DLT registration to send OTPs?**
+
+A: Yes, all SMS sent to Indian mobile numbers must pass through DLT-scrubbed routes, regardless of the sender's industry. Fantasy sports, rummy, and skill-game apps are not exempt. You need a registered principal entity (PE) ID, approved sender ID, and approved message templates. If you want to skip the DLT registration process, [StartMessaging handles DLT on your behalf](/dlt-free-otp) — you integrate the API and send OTPs without managing the DLT portal yourself.
+
+**Q: How do I verify age via OTP without Aadhaar?**
+
+A: OTP alone cannot verify age — it confirms phone number possession, not identity. Without Aadhaar, the alternative paths are: (1) DigiLocker document pull for a driving licence or passport, which contains the DOB; (2) PAN-based verification, which confirms the user is a taxpayer (implying 18+) but does not directly provide DOB; (3) Video KYC with a live agent who visually verifies a government ID. For most gaming apps, the DigiLocker path (see our [DigiLocker KYC guide](/blog/digilocker-eaadhaar-kyc-flow-india-developers)) combined with phone OTP is the most practical approach.
+
+**Q: Can I use the same OTP template for login and withdrawal?**
+
+A: You technically can under DLT rules if the template is generic enough. However, from a security perspective, you should not. Withdrawal OTPs should include the amount and destination bank account details in the message body so the user can verify the transaction context. A generic "Your OTP is `{#var#}`" template for a ₹50,000 withdrawal gives the user no way to detect a fraudulent request. Use separate templates — one for login/signup and one for [withdrawal confirmation with transaction context](/blog/otp-gaming-fantasy-india).
+
+**Q: What happens if a minor completes OTP verification using a parent's phone number?**
+
+A: Under MeitY 2026, the platform is liable for allowing an underage player to access real-money games. Phone OTP alone does not verify age — this is precisely why the rules require a second verification step (Aadhaar/DigiLocker). If your app allows real-money gameplay after only phone OTP, without age verification, you are non-compliant. The practical mitigation: gate real-money deposits (not just signup) behind the age verification flow. Allow the user to create an account with phone OTP, but block any deposit or contest entry until the DigiLocker/Aadhaar age check is complete.
+
+**Q: Does OGRAI require real-time OTP data sharing, or is it audit-based?**
+
+A: The current MeitY 2026 framework is primarily audit-based — OGRAI can request records, and you must produce them within the specified timeframe. However, the suspicious transaction reporting requirement is real-time: if your fraud detection system flags an anomalous OTP pattern (e.g., multiple failed withdrawal OTP attempts from different IPs for the same account), you are expected to report it promptly. Build your OTP audit logging to support both use cases — structured event logs that can be queried for audits and webhook-triggered alerts for real-time suspicious activity reporting.
+
+---
+
+MeitY 2026 transforms OTP from a simple signup gate into a compliance-critical infrastructure layer for gaming apps. The three OTP moments — signup KYC, re-login, and withdrawal — each require purpose-built flows with appropriate templates, rate limits, and audit logging. Build age verification as a two-step process (phone OTP + DigiLocker), log every OTP event with OGRAI-auditable context, rate limit by device fingerprint to catch multi-accounting, and store everything on Indian servers. If you need an OTP provider that handles DLT, offers pay-as-you-go pricing for spiky gaming traffic, and keeps delivery logs in India, [sign up for StartMessaging](https://app.startmessaging.com/register).
