@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
-import { buildService, buildFaqPage, buildContactPage, buildProductOffer } from '@/lib/jsonld';
+import { buildService, buildContactPage, buildProductOffer } from '@/lib/jsonld';
 import { r } from '@/i18n/r';
 
 export async function getStaticPaths() {
@@ -53,19 +53,12 @@ if (isServicePage) {
   );
 }
 
-// 2. FAQPage schema - extract from faqSection
-const faqSection = page.data.sections?.find?.((s: any) => s.type === 'faqSection');
-if (faqSection?.props?.items && Array.isArray(faqSection.props.items)) {
-  const faqItems = faqSection.props.items
-    .filter((item: any) => !item.countries || item.countries.includes(country))
-    .map((item: any) => ({
-      question: r(item.question, country),
-      answer: r(item.answer, country),
-    }));
-  if (faqItems.length > 0) {
-    schemas.push(buildFaqPage(faqItems));
-  }
-}
+// 2. FAQPage schema is NOT built here. FaqSection.astro emits it itself, and
+// only when the section actually renders — so it inherits the section's
+// `countries` gate for free. Building it here as well put two identical
+// FAQPage blocks on every page carrying an FAQ, and this copy could not see
+// the section-level gate, so an India-only FAQ leaked its questions into the
+// structured data of all six other countries.
 
 // 3. ContactPage schema for contact page
 if (slug === 'contact') {

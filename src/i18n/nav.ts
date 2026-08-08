@@ -118,6 +118,7 @@ export function getFooterColumns(country: Country): FooterColumn[] {
   const companyLinks: FooterLink[] = [
     { label: t('footer.about', country), href: `${prefix}/about` },
     { label: t('footer.contact', country), href: `${prefix}/contact` },
+    { label: t('footer.partners', country), href: `${prefix}/partners` },
     { label: t('footer.videos', country), href: `${prefix}/videos` },
     { label: t('footer.blog', country), href: `${prefix}/blog` },
     { label: t('footer.docsWhatsapp', country), href: `${prefix}/docs/whatsapp/getting-started` }
