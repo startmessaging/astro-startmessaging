@@ -90,10 +90,13 @@ const ogImage = new URL(resolvedOgImage, Astro.site).href;
 // OG type: configurable — 'article' for blog posts, 'website' for everything else
 const ogType = seo.ogType ?? 'website';
 
-// Canonical: prefer explicit override (for duplicate blog posts), else self URL.
+// Canonical: prefer explicit override (for duplicate blog posts), else self URL (stripped of trailing slashes).
+const cleanPathname = Astro.url.pathname.length > 1 ? Astro.url.pathname.replace(/\/+$/, '') : '/';
 const canonicalURL = seo.canonical
-  ? new URL(seo.canonical, Astro.site)
-  : new URL(Astro.url.pathname, Astro.site);
+  ? new URL(seo.canonical.length > 1 ? seo.canonical.replace(/\/+$/, '') : '/', Astro.site)
+  : new URL(cleanPathname, Astro.site);
+
+const siteOrigin = Astro.site?.origin ?? 'https://startmessaging.com';
 
 // hreflang: region-specific alternates for every country this page is built for
 const hreflangLinks = pageCountries
@@ -103,7 +106,7 @@ const hreflangLinks = pageCountries
     const pagePath = slug ? `${prefix}/${slug}` : (prefix || '/');
     return {
       hreflang: HREFLANG[pc as Country],
-      href: new URL(pagePath, Astro.site).href,
+      href: `${siteOrigin}${pagePath.length > 1 ? pagePath.replace(/\/+$/, '') : '/'}`,
     };
   });
 

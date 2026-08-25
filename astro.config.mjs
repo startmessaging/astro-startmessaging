@@ -115,6 +115,7 @@ console.log(`📅 Content date map: ${contentDateMap.size} URLs mapped, ${todayC
  */
 export default defineConfig({
   site: SITE,
+  trailingSlash: 'never',
 
   output: 'static',
   adapter: vercel({

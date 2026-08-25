@@ -1,155 +1,331 @@
-﻿---
-title: "How to Send OTP in .NET / C# (ASP.NET Core 2026 Guide)"
-description: "Send and verify SMS OTPs from a .NET 8 / ASP.NET Core API using the StartMessaging REST API. Includes HttpClient, typed clients, controller actions, and DI setup."
-publishedAt: "2026-04-17"
-updatedAt: "2026-06-19"
-category: tutorials
+---
+title: "How to Send OTP in .NET / C# (2026 Developer Guide)"
+description: "Step-by-step tutorial for sending and verifying SMS OTPs in .NET 8 / C# using HttpClient, IHttpClientFactory, and the StartMessaging API in India."
+publishedAt: "2026-02-10"
+updatedAt: "2026-08-26"
+category: "tutorials"
 country: "in"
 author: "StartMessaging Team"
 keywords:
-  - "send otp dotnet"
-  - "send otp c#"
-  - "asp.net core otp"
-  - ".net 8 sms otp api"
-  - "c# phone verification"
-  - "startmessaging .net"
-  - "httpclient otp"
-  - "otp api india c#"
-  - "csharp otp without dlt"
-  - "dotnet core sms otp india"
+  - "send otp dotnet csharp"
+  - "csharp sms otp api"
+  - "dotnet 8 send otp sms"
+  - "startmessaging dotnet sdk"
+  - "asp.net core otp verification"
+  - "ihttpclientfactory sms api csharp"
+  - "otp verification csharp dotnet"
 relatedSlugs:
   - "send-otp-nodejs"
+  - "send-otp-python"
   - "send-otp-java-spring-boot"
-  - "idempotency-keys-otp"
+  - "otp-verification-flow"
+image: "/blog/images/send-otp-dotnet-csharp.webp"
 featured: false
 ---
 
+When Rahul, a senior backend engineer at a Mumbai enterprise logistics SaaS company, was tasked with integrating SMS OTP verification into their ASP.NET Core web API, he needed an implementation pattern that followed enterprise .NET best practices. While building high-concurrency microservices in .NET 8, instantiating raw `HttpClient` instances inside API controllers can lead to socket exhaustion under heavy traffic. Furthermore, navigating Indian DLT template approvals and carrier scrubbing rules can delay product rollouts by weeks. Searching for a reliable **send otp dotnet csharp** implementation, Rahul needed an idiomatic C# pattern using `IHttpClientFactory`, strongly-typed DTOs, dependency injection, and clean error handling paired with a low-latency SMS API.
 
-Adding phone OTP to an ASP.NET Core API is a great fit for 
-        `HttpClient` and the typed-client pattern. This guide wires
-        up the [StartMessaging OTP API](/otp-api) from a .NET
-        8 minimal API in under 100 lines of code.
+This tutorial provides a complete, step-by-step developer guide for sending and verifying SMS OTPs in .NET 8 / C# using ASP.NET Core and the [StartMessaging API](/otp-api). We cover environment configuration, strongly-typed request envelopes, dependency injection registration, controller implementation, and production error handling.
 
+---
 
-## Prerequisites
+## Prerequisites for .NET 8 / C# Integration
 
+Before writing code, ensure you have the following prerequisites ready:
 
-- .NET 6, 7, or 8 SDK installed.
-- A free  [StartMessaging account](https://app.startmessaging.com/register)  and an API key.
+* **.NET 8.0 SDK** (or .NET 7 / .NET 6 LTS) installed on your machine.
+* **A StartMessaging account** — [sign up for free](https://app.startmessaging.com/register) to get API credentials.
+* **An API Key** — generated from the [API Keys section](https://app.startmessaging.com/api-keys) in your dashboard (starts with `sm_live_`).
 
+---
 
+## Step 1: Configure App Settings & Environment Variables
 
-Add the key to `appsettings.json` or user secrets:
+In ASP.NET Core applications, store your API credentials in `appsettings.json` or `appsettings.Development.json` using the `Options` pattern:
 
-      
-```
+```json
 {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
   "StartMessaging": {
     "ApiKey": "sm_live_xxxxxxxxxxxxxxxxxxxx",
     "BaseUrl": "https://api.startmessaging.com"
-  }
+  },
+  "AllowedHosts": "*"
 }
 ```
 
+---
 
-## Register a Typed HttpClient
-      
-```typescript
-// Program.cs
-builder.Services.AddHttpClient<StartMessagingClient>(client =>
+## Step 2: Define Strongly-Typed Request & Response DTOs
+
+Create `StartMessagingDtos.cs` to map request payloads and JSON envelopes:
+
+```csharp
+using System.Text.Json.Serialization;
+
+namespace StartMessagingOtp.Models
 {
-    var cfg = builder.Configuration.GetSection("StartMessaging");
-    client.BaseAddress = new Uri(cfg["BaseUrl"]!);
-    client.DefaultRequestHeaders.Add("X-API-Key", cfg["ApiKey"]);
-    client.Timeout = TimeSpan.FromSeconds(10);
-});
+    // --- Send OTP Models ---
+    public record SendOtpRequest(
+        [property: JsonPropertyName("phoneNumber")] string PhoneNumber
+    );
+
+    public record SendOtpData(
+        [property: JsonPropertyName("requestId")] string RequestId,
+        [property: JsonPropertyName("expiresAt")] string ExpiresAt,
+        [property: JsonPropertyName("attemptsLeft")] int AttemptsLeft
+    );
+
+    public record SendOtpResponse(
+        [property: JsonPropertyName("success")] bool Success,
+        [property: JsonPropertyName("statusCode")] int StatusCode,
+        [property: JsonPropertyName("requestId")] string ApiRequestId,
+        [property: JsonPropertyName("timestamp")] string Timestamp,
+        [property: JsonPropertyName("data")] SendOtpData Data,
+        [property: JsonPropertyName("message")] string? Message
+    );
+
+    // --- Verify OTP Models ---
+    public record VerifyOtpRequest(
+        [property: JsonPropertyName("requestId")] string RequestId,
+        [property: JsonPropertyName("otpCode")] string OtpCode
+    );
+
+    public record VerifyOtpData(
+        [property: JsonPropertyName("verified")] bool Verified
+    );
+
+    public record VerifyOtpResponse(
+        [property: JsonPropertyName("success")] bool Success,
+        [property: JsonPropertyName("statusCode")] int StatusCode,
+        [property: JsonPropertyName("data")] VerifyOtpData Data,
+        [property: JsonPropertyName("message")] string? Message
+    );
+}
 ```
 
+---
 
-## Send an OTP
-      
-```typescript
-public sealed class StartMessagingClient
+## Step 3: Implement Typed Service with IHttpClientFactory
+
+Create `StartMessagingService.cs` utilizing `IHttpClientFactory` to prevent socket exhaustion and manage API headers:
+
+```csharp
+using System.Net.Http.Json;
+using Microsoft.Extensions.Options;
+using StartMessagingOtp.Models;
+
+namespace StartMessagingOtp.Services
 {
-    private readonly HttpClient _http;
-    public StartMessagingClient(HttpClient http) => _http = http;
-
-    public record SendOtpResult(string RequestId, DateTime ExpiresAt, int AttemptsLeft);
-    private record SendEnvelope(SendOtpResult Data);
-
-    public async Task<SendOtpResult> SendOtpAsync(string phoneNumber, CancellationToken ct = default)
+    public class StartMessagingOptions
     {
-        var body = new { phoneNumber, idempotencyKey = Guid.NewGuid().ToString() };
-        var res = await _http.PostAsJsonAsync("/otp/send", body, ct);
-        res.EnsureSuccessStatusCode();
-        var env = await res.Content.ReadFromJsonAsync<SendEnvelope>(cancellationToken: ct);
-        return env!.Data;
+        public string ApiKey { get; set; } = string.Empty;
+        public string BaseUrl { get; set; } = "https://api.startmessaging.com";
+    }
+
+    public interface IStartMessagingService
+    {
+        Task<SendOtpResponse> SendOtpAsync(string phoneNumber);
+        Task<bool> VerifyOtpAsync(string requestId, string otpCode);
+    }
+
+    public class StartMessagingService : IStartMessagingService
+    {
+        private readonly HttpClient _httpClient;
+
+        public StartMessagingService(HttpClient httpClient, IOptions<StartMessagingOptions> options)
+        {
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(options.Value.BaseUrl);
+            _httpClient.DefaultRequestHeaders.Add("X-API-Key", options.Value.ApiKey);
+        }
+
+        /// <summary>
+        /// Dispatches an OTP via StartMessaging pre-approved DLT-free route
+        /// </summary>
+        public async Task<SendOtpResponse> SendOtpAsync(string phoneNumber)
+        {
+            var payload = new SendOtpRequest(phoneNumber);
+            var response = await _httpClient.PostAsJsonAsync("/otp/send", payload);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorPayload = await response.Content.ReadFromJsonAsync<SendOtpResponse>();
+                throw new HttpRequestException(errorPayload?.Message ?? $"Failed to send OTP. HTTP Status: {response.StatusCode}");
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<SendOtpResponse>();
+            return result ?? throw new InvalidOperationException("Empty response received from StartMessaging API.");
+        }
+
+        /// <summary>
+        /// Verifies a user-submitted OTP code against the requestId
+        /// </summary>
+        public async Task<bool> VerifyOtpAsync(string requestId, string otpCode)
+        {
+            var payload = new VerifyOtpRequest(requestId, otpCode);
+            var response = await _httpClient.PostAsJsonAsync("/otp/verify", payload);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorPayload = await response.Content.ReadFromJsonAsync<VerifyOtpResponse>();
+                throw new HttpRequestException(errorPayload?.Message ?? $"Verification failed. HTTP Status: {response.StatusCode}");
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<VerifyOtpResponse>();
+            return result?.Data?.Verified ?? false;
+        }
     }
 }
 ```
 
+---
 
-## Verify the OTP
-      
-```typescript
-public record VerifyResult(bool Verified);
-private record VerifyEnvelope(VerifyResult Data);
+## Step 4: Register Services in Program.cs
 
-public async Task<bool> VerifyOtpAsync(string requestId, string code, CancellationToken ct = default)
+Configure Dependency Injection in `Program.cs`:
+
+```csharp
+using StartMessagingOtp.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Bind StartMessaging options from appsettings.json
+builder.Services.Configure<StartMessagingOptions>(
+    builder.Configuration.GetSection("StartMessaging"));
+
+// Register Typed HttpClient for StartMessagingService
+builder.Services.AddHttpClient<IStartMessagingService, StartMessagingService>();
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    var body = new { requestId, otpCode = code };
-    var res = await _http.PostAsJsonAsync("/otp/verify", body, ct);
-    if (!res.IsSuccessStatusCode) return false;
-    var env = await res.Content.ReadFromJsonAsync<VerifyEnvelope>(cancellationToken: ct);
-    return env!.Data.Verified;
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
+```
+
+---
+
+## Step 5: Create ASP.NET Core API Controller
+
+Create `AuthController.cs` exposing clean REST endpoints:
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using StartMessagingOtp.Services;
+
+namespace StartMessagingOtp.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
+    {
+        private readonly IStartMessagingService _smsService;
+        private readonly ILogger<AuthController> _logger;
+
+        public AuthController(IStartMessagingService smsService, ILogger<AuthController> logger)
+        {
+            _smsService = smsService;
+            _logger = logger;
+        }
+
+        /// <summary>
+        /// POST: api/auth/send-otp
+        /// </summary>
+        [HttpPost("send-otp")]
+        public async Task<IActionResult> SendOtp([FromBody] SendOtpDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.PhoneNumber))
+            {
+                return BadRequest(new { error = "Phone number is required." });
+            }
+
+            try
+            {
+                var response = await _smsService.SendOtpAsync(dto.PhoneNumber);
+                return Ok(new
+                {
+                    success = true,
+                    requestId = response.Data.RequestId,
+                    expiresAt = response.Data.ExpiresAt,
+                    message = "OTP sent successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error sending OTP to {PhoneNumber}", dto.PhoneNumber);
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// POST: api/auth/verify-otp
+        /// </summary>
+        [HttpPost("verify-otp")]
+        public async Task<IActionResult> VerifyOtp([FromBody] VerifyOtpDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.RequestId) || string.IsNullOrWhiteSpace(dto.OtpCode))
+            {
+                return BadRequest(new { error = "RequestId and OtpCode are required." });
+            }
+
+            try
+            {
+                var isVerified = await _smsService.VerifyOtpAsync(dto.RequestId, dto.OtpCode);
+                if (isVerified)
+                {
+                    return Ok(new { success = true, verified = true, message = "Authentication successful." });
+                }
+
+                return BadRequest(new { success = false, verified = false, error = "Invalid or expired OTP." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error verifying OTP for RequestId {RequestId}", dto.RequestId);
+                return StatusCode(400, new { error = ex.Message });
+            }
+        }
+    }
+
+    public record SendOtpDto(string PhoneNumber);
+    public record VerifyOtpDto(string RequestId, string OtpCode);
 }
 ```
 
+---
 
-## Minimal API Endpoints
-      
-```typescript
-app.MapPost("/auth/send-otp", async (SendOtpRequest req, StartMessagingClient sm) =>
-{
-    var data = await sm.SendOtpAsync(req.PhoneNumber);
-    return Results.Ok(new { data.RequestId, data.ExpiresAt });
-});
+## Frequently Asked Questions
 
-app.MapPost("/auth/verify-otp", async (VerifyOtpRequest req, StartMessagingClient sm) =>
-{
-    var ok = await sm.VerifyOtpAsync(req.RequestId, req.OtpCode);
-    return ok ? Results.Ok(new { verified = true }) : Results.Unauthorized();
-});
+**Q: How do I handle HttpClient socket exhaustion in .NET 8 when sending high-volume SMS OTPs?**
 
-public record SendOtpRequest(string PhoneNumber);
-public record VerifyOtpRequest(string RequestId, string OtpCode);
-```
+A: Avoid instantiating `new HttpClient()` inside controller methods. Use ASP.NET Core’s built-in `IHttpClientFactory` paired with a Typed Client (e.g., `builder.Services.AddHttpClient<IStartMessagingService, StartMessagingService>()`). This manages underlying `HttpMessageHandler` lifetimes automatically, recycling sockets while avoiding DNS refresh issues.
 
+**Q: Do I need DLT registration to send OTPs from C# in India?**
 
-## Error Handling
+A: Not when using StartMessaging. StartMessaging routes messages through pre-approved enterprise DLT headers, allowing your C# application to send OTPs immediately at ₹0.25/OTP without registering a Principal Entity ID (PE-ID) or submitting DLT content templates.
 
-Wrap calls in `try/catch (HttpRequestException)` and handle
-        the common status codes: 400 invalid phone, 401 bad API key, 402
-        wallet empty, 429 rate limited. See our full 
-        [OTP rate limiting guide](/blog/otp-rate-limiting-guide) 
-        for production patterns.
+**Q: What error codes does the StartMessaging API return during HTTP failures?**
 
+A: The StartMessaging API returns standard HTTP status codes: `400 Bad Request` for invalid E.164 phone formatting, `401 Unauthorized` for missing/invalid `X-API-Key` headers, `429 Too Many Requests` when rate limits are breached, and `402 Payment Required` when wallet balance is exhausted.
 
-## Best Practices
+---
 
+After integrating `StartMessagingService` into his ASP.NET Core microservice cluster, Rahul launched phone verification for his logistics SaaS platform. His C# application achieved sub-3-second OTP delivery at ₹0.25/OTP, while `IHttpClientFactory` handled socket pooling cleanly during peak traffic spikes.
 
-- **Use IHttpClientFactory.** Never `new HttpClient()` per request.
-- **Set a 10-second timeout** so a slow upstream cannot stall your thread pool.
-- **Validate phone numbers** using  `libphonenumber-csharp`.
-- **Add idempotency keys** to every send call — see  [why](/blog/idempotency-keys-otp).
-- **Cache the typed client's config** via DI; do not read appsettings on every request.
-
-
-
-## FAQ
-
-Compare against Twilio in our 
-        [Twilio vs StartMessaging](/blog/twilio-vs-startmessaging) 
-        breakdown, or check 
-        [pricing at Rs 0.25 per OTP](/pricing).
-
+Ready to add high-speed OTP verification to your .NET app? [Sign up for StartMessaging](https://app.startmessaging.com/register) to send DLT-free OTPs at ₹0.25/OTP, or explore our [SMS API documentation](/docs/sms/getting-started) to test your C# integration in under 5 minutes.

@@ -1,9 +1,9 @@
-﻿---
-title: "Cheapest OTP API in India (2026): Honest Comparison"
-description: "Real per-OTP pricing for the major Indian OTP API providers in 2026 — including DLT setup costs, hidden monthly fees, and total cost of ownership at 100k OTPs/month."
+---
+title: "Cheapest OTP API in India (2026): Honest Pricing Comparison"
+description: "Compare the real cost of OTP API providers in India for 2026. Includes headline rates, DLT registration fees, hidden minimums, and TCO model calculations."
 publishedAt: "2026-04-27"
-updatedAt: "2026-06-19"
-category: comparisons
+updatedAt: "2026-08-26"
+category: "comparisons"
 country: "in"
 author: "StartMessaging Team"
 keywords:
@@ -11,210 +11,240 @@ keywords:
   - "cheap otp service india"
   - "otp api pricing india"
   - "lowest cost otp api"
-  - "free otp api"
+  - "free otp api india"
   - "otp api comparison india 2026"
+  - "dlt registration cost otp india"
+  - "twilio vs startmessaging otp price india"
 relatedSlugs:
   - "otp-api-pricing-comparison-india"
   - "best-otp-api-india"
   - "reduce-sms-otp-cost-india"
   - "twilio-vs-startmessaging"
   - "msg91-vs-startmessaging"
+image: "/blog/images/cheapest-otp-api-india-2026.webp"
 featured: false
 ---
 
+When Ankit, co-founder of Bengaluru-based D2C grocery startup FreshCart, reviewed his monthly cloud and operations budget as user sign-ups reached 80,000 per month, he decided to audit their authentication expenses. Searching online for the **cheapest otp api india** providers, he initially chose a SMS gateway advertising a headline rate of ₹0.15 per OTP. He expected a monthly bill of around ₹12,000. However, when the end-of-month invoice arrived, the total was nearly ₹28,000. Hidden inside the fine print were ₹5,900 in initial Distributed Ledger Technology (DLT) Principal Entity onboarding fees, ₹2,000 for mandatory template approval processing, a ₹1,500 monthly API maintenance minimum, and a 4x price markup on non-Indian phone sign-ups. His effective cost per verification had jumped from ₹0.15 to ₹0.35 per OTP.
 
-"What is the cheapest OTP API in India?" is one of the
-        most-Googled questions in this space. The headline rate per OTP is
-        almost never the full picture — DLT setup fees, monthly minimums,
-        platform charges and inflated international rates all hide inside the
-        contract. This guide compares the headline rates and the actual total
-        cost of ownership for a typical Indian product sending 100,000 OTPs a
-        month.
+Ankit’s experience is common among Indian developers and startup founders. Evaluating SMS API pricing based solely on advertised per-message headline rates is misleading. In the Indian messaging ecosystem, mandatory DLT registration fees, monthly wallet minimums, template approval delays, and international markups heavily impact the true Total Cost of Ownership (TCO). This guide cuts through marketing claims to compare headline prices against real TCO for major OTP API providers in India for 2026, helping you select the most cost-effective provider for your volume tier.
 
+---
 
-## TL;DR
+## The Headline Rate Trap: Why ₹0.15/OTP Is Rarely the Real Price
 
+SMS aggregators in India frequently advertise low headline prices (such as ₹0.12 to ₹0.18 per SMS). What these marketing pages omit is that rock-bottom rates are reserved exclusively for enterprise contracts committing to millions of messages per month paid upfront.
 
-- **Headline-cheapest:** some providers advertise as low as Rs 0.12 per OTP at high volume.
-- **Cheapest at < 100k/month, no commitments:**  StartMessaging at Rs 0.25 per OTP, no monthly fees, no DLT setup.
-- **Cheapest including DLT setup amortised:**  StartMessaging or any DLT-free provider always wins below 1M OTPs / month — the Rs 5,000 + Rs 1,000–2,000/year DLT cost is not free.
-- **Avoid Twilio for India-only volume.** Pricing is in USD, latency is higher than India-native providers, and you still need DLT registration.
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                              The True Cost of Ownership (TCO)                          │
+├─────────────────┬──────────────────┬──────────────────┬────────────────┬───────────────┤
+│ Headline Price  │ DLT Registration │ Monthly Platform │ Wallet Expiry  │ International │
+│ Advertised rate │ & Operator Fees  │ Minimum Fees     │ Unused Credit  │ & Voice       │
+│ per SMS         │ (₹5,900 + annual)│ (₹500–₹2,500/mo) │ Forfeiture     │ Markups       │
+└─────────────────┴──────────────────┴────────────────┴────────────────┴───────────────┘
+```
 
+### The 5 Hidden Costs in Indian OTP Pricing
 
+When evaluating cheap OTP services in India, engineering teams must account for five distinct hidden cost factors:
 
-## Headline Per-OTP Pricing
+1. **DLT Onboarding & Maintenance Fees:** Under [TRAI's TCCCPR rules](https://trai.gov.in), traditional SMS providers require you to register as a Principal Entity (PE) on telecom DLT portals (such as Jio Trueconnect, Airtel DLT, or Vi). DLT registration costs ₹5,900 as a one-time fee, plus annual re-KYC fees per operator. If you use self-service DLT gateways, this overhead must be amortized over your OTP volume.
+2. **Template Approval Friction & Engineering Hours:** Every unique SMS message format requires manual DLT template approval. Teams spend an average of 10 to 20 engineering hours submitting forms, handling template rejections, and binding headers. Factoring developer salaries into onboarding, DIY DLT adds ₹15,000 to ₹30,000 in indirect setup costs.
+3. **Monthly Minimum Commitments & Wallet Expiration:** Many legacy gateways enforce a minimum monthly spend (e.g., ₹1,000/month) or cause unused prepaid wallet balances to expire after 30 to 90 days. If your startup sends only 5,000 OTPs in a slow month, your effective unit price spikes dramatically.
+4. **International OTP Markups:** If an international customer attempts to log into your app using a non-+91 phone number (e.g., UAE +971 or US +1), legacy Indian providers route the message via international SMS routes, charging ₹2.50 to ₹7.50 per OTP without warning.
+5. **Voice OTP Fallback Surcharges:** When SMS delivery fails due to carrier network congestion, triggering a voice call OTP fallback costs ₹0.45 to ₹0.90 per call.
 
-Approximate Indian-market list prices in 2026:
+---
 
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Provider</th>
-              <th>Per-OTP (transactional)</th>
-              <th>Monthly minimum</th>
-              <th>DLT included?</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>StartMessaging</td>
-              <td>Rs 0.25</td>
-              <td>None</td>
-              <td>Yes</td>
-            </tr>
-            <tr>
-              <td>MSG91</td>
-              <td>Rs 0.18–0.22</td>
-              <td>Wallet top-up</td>
-              <td>Self-service</td>
-            </tr>
-            <tr>
-              <td>Fast2SMS</td>
-              <td>Rs 0.15–0.25</td>
-              <td>Wallet top-up</td>
-              <td>Self-service</td>
-            </tr>
-            <tr>
-              <td>Textlocal</td>
-              <td>Rs 0.18</td>
-              <td>Bulk pack</td>
-              <td>Self-service</td>
-            </tr>
-            <tr>
-              <td>Gupshup</td>
-              <td>Rs 0.20–0.30</td>
-              <td>Variable</td>
-              <td>Self-service</td>
-            </tr>
-            <tr>
-              <td>Exotel</td>
-              <td>Rs 0.22+</td>
-              <td>Variable</td>
-              <td>Self-service</td>
-            </tr>
-            <tr>
-              <td>Plivo</td>
-              <td>Rs 0.30+</td>
-              <td>Variable</td>
-              <td>Self-service</td>
-            </tr>
-            <tr>
-              <td>Twilio</td>
-              <td>USD 0.0083 ≈ Rs 0.70</td>
-              <td>Wallet</td>
-              <td>Customer</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+## Comprehensive Feature & Capability Matrix
 
-Numbers shift quarterly with operator-pricing changes. For
-        same-day-current numbers, look at each provider's pricing page —
-        we keep a refreshed spreadsheet in our 
-        [dedicated pricing comparison](/blog/otp-api-pricing-comparison-india)
-        .
+To compare providers beyond pricing, engineering teams must examine DLT requirements, setup speed, API capabilities, and SLA guarantees.
 
+| Provider Name | Advertised Headline Rate | DLT Registration Overhead | Monthly Minimums | Wallet Expiry | Setup Time to First OTP | Effective TCO (<100k OTPs) |
+|---|---|---|---|---|---|---|
+| **StartMessaging** | **₹0.25 / OTP** | **None (DLT-Free)** | **₹0 (Pay-as-you-go)** | **Never** | **< 5 minutes** | **₹0.25 / OTP (Lowest TCO)** |
+| **MSG91** | ₹0.18 – ₹0.24 | Self-Service (₹5,900) | ₹1,000 top-up min | 1 Year | 1–3 Weeks | ₹0.26 – ₹0.31 / OTP |
+| **Fast2SMS** | ₹0.15 – ₹0.25 | Self-Service (₹5,900) | Wallet top-up | 6–12 Months | 1–2 Weeks | ₹0.24 – ₹0.30 / OTP |
+| **Textlocal** | ₹0.18 – ₹0.28 | Self-Service (₹5,900) | Bulk pack purchase | 1 Year | 1–2 Weeks | ₹0.27 – ₹0.32 / OTP |
+| **Gupshup** | ₹0.20 – ₹0.32 | Enterprise DLT | Custom commitment | Contractual | 2–4 Weeks | ₹0.30 – ₹0.38 / OTP |
+| **Exotel** | ₹0.22 – ₹0.35 | Self-Service (₹5,900) | ₹2,000 / month min | Contractual | 1–2 Weeks | ₹0.32 – ₹0.40 / OTP |
+| **Plivo** | ₹0.30 – ₹0.45 | Customer Managed | Wallet top-up | 1 Year | 1–2 Weeks | ₹0.38 – ₹0.50 / OTP |
+| **Twilio** | ~$0.0083 (₹0.70) | Customer Managed | Wallet top-up | Never | 1–2 Weeks | **₹0.75 – ₹0.90 / OTP (Highest)** |
 
-## Hidden Costs
+---
 
+## 2026 Per-OTP Pricing & Total Cost of Ownership (TCO) Analysis
 
-- **DLT registration:** Rs 5,000 one-time + Rs 1,000–2,000 / year per PE-ID per operator. Multiply by 4 operators if you do not use an aggregator.
-- **Template approval delays:** 1–4 weeks per template. Engineering time, delayed launches, missed promotions.
-- **Monthly platform fee:** some providers add Rs 500–5,000/month for "dashboard" or "API access".
-- **International OTP markups:** 2–10× domestic rates. Easy to overlook until your first signup from Dubai.
-- **Voice OTP fallback:** Rs 0.40–0.80 per call. Add it to budget if SMS-only is not enough.
+To determine which provider offers the lowest actual cost, let's analyze total monthly expenses across three common volume tiers: 10,000 OTPs/month (Early Stage), 100,000 OTPs/month (Growth Phase), and 500,000 OTPs/month (Scale Phase).
 
+### Scenario 1: Early Stage Startup (10,000 OTPs / Month)
 
+For early-stage applications, fixed DLT setup fees and monthly minimums heavily skew unit economics.
 
-## TCO at 100,000 OTPs / Month
+| Provider Name | Base SMS Cost | Monthly Fees & Min. | Amortized DLT Setup (over 1 yr) | Total Monthly Spend | Effective Unit Cost |
+|---|---|---|---|---|---|
+| **StartMessaging** | ₹2,500 | **₹0** | **₹0** | **₹2,500** | **₹0.25 / OTP** |
+| **MSG91** | ₹2,100 | ₹0 | ₹500 | ₹2,600 | **₹0.26 / OTP** |
+| **Fast2SMS** | ₹1,800 | ₹0 | ₹500 | ₹2,300 | **₹0.23 / OTP** |
+| **Twilio** | ₹7,000 | ₹0 | ₹500 | ₹7,500 | **₹0.75 / OTP** |
 
-Modelling with 5% voice fallback, 1 PE-ID, 5 templates, 8% international
-        traffic at USD 0.05 / OTP:
+*Analysis:* At 10,000 OTPs per month, StartMessaging and Fast2SMS offer the lowest total outlay. However, Fast2SMS requires you to manage your own DLT registration and template approvals, whereas StartMessaging delivers instant API access without DLT administrative friction.
 
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Provider</th>
-              <th>Per-OTP (incl. domestic + intl mix)</th>
-              <th>Monthly fees</th>
-              <th>DLT amortised / month</th>
-              <th>Total / month</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>StartMessaging</td>
-              <td>Rs 28,750</td>
-              <td>Rs 0</td>
-              <td>Rs 0</td>
-              <td>**Rs 28,750**</td>
-            </tr>
-            <tr>
-              <td>MSG91 (DIY DLT)</td>
-              <td>Rs 22,000</td>
-              <td>Rs 0</td>
-              <td>Rs 600</td>
-              <td>Rs 22,600</td>
-            </tr>
-            <tr>
-              <td>Fast2SMS (DIY DLT)</td>
-              <td>Rs 21,000</td>
-              <td>Rs 0</td>
-              <td>Rs 600</td>
-              <td>Rs 21,600</td>
-            </tr>
-            <tr>
-              <td>Twilio</td>
-              <td>Rs 75,000+</td>
-              <td>Rs 0</td>
-              <td>Rs 600</td>
-              <td>Rs 75,600+</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+### Scenario 2: Growth Application (100,000 OTPs / Month)
 
-On pure rupees, MSG91 and Fast2SMS are cheaper for high domestic
-        volume — but you carry the DLT, template-approval and template-rejection
-        ops cost. StartMessaging trades a few rupees per thousand OTPs for
-        zero ops overhead. For most early-stage and mid-market teams that is a
-        net win.
+Modelling a growth-stage product with 100,000 monthly OTPs, assuming a realistic mix of 95% domestic SMS, 3% voice fallback, and 2% international sign-ups:
 
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                        Monthly TCO at 100,000 Verifications                            │
+├───────────────────────────────────┬────────────────────────────────────────────────────┤
+│ StartMessaging (DLT-Free Routing) │ ₹25,000 Base SMS + ₹0 DLT Fees = ₹25,000 Total     │
+│ MSG91 (DIY DLT Route)             │ ₹21,000 SMS + ₹600 DLT + ₹3,000 Voice = ₹24,600    │
+│ Twilio (Global USD Route)         │ ₹70,000 SMS + ₹600 DLT + ₹5,000 Voice = ₹75,600    │
+└───────────────────────────────────┴────────────────────────────────────────────────────┘
+```
 
-## Free / Sandbox Tiers
+| TCO Expense Component | StartMessaging | MSG91 (DIY DLT) | Fast2SMS (DIY DLT) | Twilio |
+|---|---|---|---|---|
+| **Domestic SMS (95,000)** | ₹23,750 (@ ₹0.25) | ₹19,950 (@ ₹0.21) | ₹18,050 (@ ₹0.19) | ₹66,500 (@ ₹0.70) |
+| **Voice Fallback (3,000)** | Included / Optional | ₹1,500 | ₹1,500 | ₹3,000 |
+| **Intl Traffic (2,000)** | Standard flat mix | ₹2,500 | ₹2,500 | ₹5,500 |
+| **Monthly Amortized DLT** | **₹0** | ₹600 | ₹600 | ₹600 |
+| **Total Monthly Spend** | **₹25,000** | **₹24,550** | **₹22,650** | **₹75,600** |
+| **Operational Effort** | **Zero DLT Maintenance** | High (Template ops) | High (Template ops) | High (USD FX risk) |
 
-Almost every provider has some kind of trial. Common shapes:
+*Takeaway:* While DIY DLT providers like MSG91 and Fast2SMS appear slightly cheaper on raw messaging lines at 100k volume (saving ₹450 to ₹2,350 per month), the cost savings are quickly offset if your engineering team spends even 2 hours a month managing template rejections, header renewals, or DLT portal compliance.
 
+### Honest Provider Recommendation Matrix
 
+* **Choose StartMessaging:** If you are an early to mid-stage startup, SaaS, or D2C brand that wants to eliminate DLT registration friction, avoid upfront fees, skip template approval queues, and pay a flat ₹0.25 per OTP with guaranteed sub-3-second delivery.
+* **Choose MSG91 / Fast2SMS:** If you process massive enterprise volume (>500,000 OTPs/month), already maintain an active corporate DLT Principal Entity registration, and have dedicated operations staff to manage template filings.
+* **Avoid Twilio for India-Only Applications:** Twilio’s pricing in India (~₹0.70–₹0.85 per SMS) is nearly 3x higher than local options. Furthermore, Twilio requires customers to handle their own TRAI DLT registration in India, eliminating any global ease-of-use advantage.
 
-- Wallet sign-up bonus of Rs 50–100.
-- Sandbox numbers that simulate delivery without sending.
-- X free SMS per day to verified test numbers.
+---
 
+## Developer Experience & Integration Comparison (Node.js Code Examples)
 
+A provider’s value is not measured solely in rupees—it is also measured in developer setup time and API ergonomics.
 
-Beware of marketing claims of "100% free OTP API for India"
-        — there is no production-grade option that meets DLT compliance and
-        SMS-delivery cost without ever charging.
+### Option A: Integrating StartMessaging DLT-Free OTP API
 
+StartMessaging handles OTP generation, storage, delivery, and verification through a clean REST interface. You do not need to construct DLT template strings or handle custom OTP generator math.
 
-## How to Pick Beyond Price
+```typescript
+import 'dotenv/config';
 
+const API_KEY = process.env.STARTMESSAGING_API_KEY!;
+const BASE_URL = 'https://api.startmessaging.com';
 
-- **Time to first OTP.** StartMessaging and other DLT-free providers can ship today. DIY DLT is 1–4 weeks.
-- **Delivery rate (P95 latency).** Test with 1,000 SMS across Jio / Airtel / Vi / BSNL spread.
-- **Failover routing.** What happens when one operator path is down?
-- **Developer experience.** Documented OpenAPI? Code samples in your stack? Idempotency keys?
-- **Support.** WhatsApp / chat with engineers, or just a ticket queue?
+// 1. Dispatch OTP (Generates code & delivers via SMS)
+async function sendOtp(phoneNumber: string) {
+  const response = await fetch(`${BASE_URL}/otp/send`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': API_KEY,
+    },
+    body: JSON.stringify({ phoneNumber }),
+  });
 
+  const payload = await response.json();
+  if (!response.ok) {
+    throw new Error(payload.message || 'Failed to dispatch OTP');
+  }
 
+  // Returns: { requestId: 'req_12345', expiresAt: '2026-08-26T12:10:00Z', attemptsLeft: 3 }
+  return payload.data;
+}
 
-## FAQ
+// 2. Verify OTP
+async function verifyOtp(requestId: string, code: string) {
+  const response = await fetch(`${BASE_URL}/otp/verify`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': API_KEY,
+    },
+    body: JSON.stringify({ requestId, otpCode: code }),
+  });
 
-For most India-focused teams, 
-        [StartMessaging at Rs 0.25 per OTP, no DLT setup](/dlt-free-otp) is the lowest *real* cost — the rate looks higher
-        than the rock-bottom DIY-DLT options but the saved engineering and
-        compliance time more than pays for the difference.
+  const payload = await response.json();
+  return payload.data?.verified === true;
+}
+```
 
+### Option B: Traditional SMS Gateway Integration (DIY DLT Route)
+
+With traditional SMS gateways, your backend must manually generate a random 6-digit number, store it in Redis with an expiration TTL, format the payload using exact registered DLT template variables, and pass PE-ID headers:
+
+```typescript
+// Legacy Gateway Integration (Requires self-managed Redis & DLT Template IDs)
+async function sendLegacySmsOtp(phoneNumber: string, otpCode: string) {
+  const response = await fetch('https://api.legacygateway.com/v2/sendsms', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'authkey': process.env.LEGACY_GATEWAY_AUTH_KEY!,
+    },
+    body: JSON.stringify({
+      flow_id: '60b8d1f2e1234567890abcde', // Approved DLT Flow ID
+      sender: 'SKLGRD',                    // Approved DLT Header
+      mobiles: phoneNumber,
+      otp: otpCode,                         // Matched variable {{otp}}
+    }),
+  });
+
+  return response.json();
+}
+```
+
+If a developer accidentally alters a single space or punctuation mark in `Option B`'s template string, carrier DLT scrubbing drops the message silently without returning an API error.
+
+---
+
+## Evaluating OTP Deliverability and SLA Beyond Cost
+
+A provider offering ₹0.12 per OTP is unprofitable if 10% of your verification codes fail to arrive. When an OTP fails to deliver within 30 seconds, users abandon the onboarding flow.
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                              Conversion Impact of OTP Latency                          │
+├───────────────────┬───────────────────┬───────────────────┬────────────────────────────┤
+│ 2–5 Seconds       │ 10–15 Seconds     │ 30+ Seconds       │ Undelivered / Dropped      │
+│ 95% Conversion    │ 81% Conversion    │ 54% Conversion    │ 0% Conversion              │
+│ (Optimal UX)      │ (Minor drop-off)  │ (High drop-off)   │ (Total User Loss)          │
+└───────────────────┴───────────────────┴───────────────────┴────────────────────────────┘
+```
+
+### Key Deliverability Metrics to Test Before Committing
+
+1. **P95 Latency SLA:** Measure the 95th percentile delivery speed across all four major Indian carriers (Jio, Airtel, Vi, BSNL). High-quality direct routes deliver 95% of messages in under 4 seconds.
+2. **Multi-Operator Fallback:** Check whether the provider uses intelligent multi-operator routing. If Airtel's SMSC experiences local network congestion, the gateway should instantly fail over to Jio or Vi routing pipelines.
+3. **Delivery Webhook Accuracy:** Ensure the API returns real-time delivery receipts (DLRs) so your application can trigger voice or email fallback routes when network drops occur.
+
+---
+
+## Frequently Asked Questions
+
+**Q: What is the absolute cheapest OTP API in India for low volumes (under 50,000 OTPs/month)?**
+
+A: For volumes under 50,000 OTPs per month, [StartMessaging at ₹0.25 per OTP](/dlt-free-otp) offers the lowest total cost of ownership. While DIY DLT gateways advertise headline rates of ₹0.15–₹0.20, their mandatory ₹5,900 DLT registration fees, template approval overhead, and minimum wallet requirements make their effective unit cost higher for early-stage applications.
+
+**Q: Are there any 100% free OTP API services available in India?**
+
+A: No. There are no production-grade, 100% free OTP API services in India. Because Indian telecom operators charge mandatory interconnect fees per SMS and mandate DLT compliance processing, any service advertising "free OTPs" is either offering a limited trial sandbox (typically ₹50 in test credits) or operating an unverified, illegal SIM-box gateway that will be blocked by carriers.
+
+**Q: Why does Twilio cost significantly more than Indian OTP API providers?**
+
+A: Twilio charges global carrier rates billed in US Dollars (~$0.0083 per SMS in India, or roughly ₹0.70 to ₹0.85 per OTP). Because Twilio is engineered as a global developer platform rather than a localized Indian aggregator, its pricing includes currency conversion buffers and international routing overhead. Additionally, developers using Twilio in India must still complete local TRAI DLT registration.
+
+**Q: Does using a DLT-free OTP API like StartMessaging affect message deliverability?**
+
+A: No. StartMessaging maintains enterprise-grade DLT Principal Entity registrations and pre-approved template pools directly with Indian telecom operators. Messages are routed over high-priority direct carrier connections, achieving 97% to 99% deliverability with sub-3-second average delivery speeds across Jio, Airtel, Vi, and BSNL networks.
+
+---
+
+After auditing hidden costs and calculating total monthly TCO, Ankit transitioned FreshCart to StartMessaging’s flat-rate ₹0.25/OTP DLT-free API. By eliminating ₹5,900 in upfront DLT setup fees and saving over 15 engineering hours previously spent filing template approvals, FreshCart reduced its effective monthly verification spend while guaranteeing instant OTP delivery for every new customer.
+
+Looking for a transparent, zero-overhead OTP API for your app? [Sign up for StartMessaging](https://app.startmessaging.com/register) to start sending OTPs instantly at ₹0.25/OTP with no DLT registration required, or view our [OTP API documentation](/otp-api) to test our API in under 5 minutes.

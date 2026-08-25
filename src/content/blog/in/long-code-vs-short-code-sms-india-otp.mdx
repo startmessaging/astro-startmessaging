@@ -1,0 +1,347 @@
+---
+title: "Long Code vs Short Code SMS API in India: OTP Cost & Speed Guide"
+description: "Compare Long Code vs Short Code SMS API in India for OTP delivery. Learn throughput limits, TRAI DLT header rules, costs, and 2026 developer best practices."
+publishedAt: "2026-08-26"
+updatedAt: "2026-08-26"
+category: "guides"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "long code vs short code sms india otp"
+  - "long code sms api india"
+  - "short code sms pricing india"
+  - "10 digit long code sms otp"
+  - "5 or 6 digit short code sms india"
+  - "dlt header vs long code sms"
+  - "otp delivery throughput india sms"
+  - "best sms route for otp verification india"
+relatedSlugs:
+  - "direct-route-vs-grey-route-sms-india-otp-delivery"
+  - "what-is-sms-sender-id"
+  - "what-is-sms-tps"
+  - "promotional-vs-transactional-sms-india-decision-guide"
+image: "/blog/images/long-code-vs-short-code-sms-india-otp.webp"
+featured: false
+---
+
+When Deepa, backend lead at Indian edtech platform SkillGrid, started preparing the application for nationwide student enrollment, she ran into a technical disagreement during infrastructure planning. During open registration, student sign-ups were projected to spike beyond 25,000 authentication requests per hour. While evaluating SMS infrastructure, her team debated three different sender options: 10-digit Virtual Long Codes, dedicated 5-or-6-digit Short Codes, and 6-character Alphanumeric Sender Headers (such as `SKLGRD` or `STARTM`). The junior engineers suggested buying a cheap 10-digit virtual long code to handle OTPs, assuming all SMS routes operate identically. However, Deepa knew that evaluating **long code vs short code sms india otp** suitability involves fundamental trade-offs across delivery throughput, carrier rate limits, TRAI Distributed Ledger Technology (DLT) compliance rules, and monthly infrastructure costs.
+
+Choosing the wrong number type for authentication in India can cripple your login conversion rates. A 10-digit long code throttled by carrier rate limits will queue OTPs for minutes during traffic spikes, while an expensive dedicated short code can burn through startup capital with monthly rental fees. This guide provides a detailed technical comparison of Long Codes, Short Codes, and 6-Character Alphanumeric Sender Headers in India, explaining carrier throughput constraints, DLT regulations, cost structures, and how to select the optimal route for your application.
+
+---
+
+## What Are Long Codes, Short Codes, and Alphanumeric Sender Headers in India?
+
+Before evaluating throughput and cost metrics, developers must understand the technical definitions and regulatory classifications of the three primary messaging identifiers used across Indian telecom networks (Bharti Airtel, Reliance Jio, Vodafone Idea, and BSNL).
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                              Indian SMS Number Formats                                 │
+├──────────────────────────┬──────────────────────────┬──────────────────────────────────┤
+│ 10-Digit Long Code (VMN) │ 5/6-Digit Short Code     │ 6-Char Alphanumeric Header       │
+│ e.g., +91 98765 43210    │ e.g., 56161 or 57575     │ e.g., STARTM or SKLGRD           │
+│ Two-way (Inbound/Outbound)│ Two-way (Inbound/Outbound)│ One-way (Outbound Transactional) │
+└──────────────────────────┴──────────────────────────┴──────────────────────────────────┘
+```
+
+### 1. Long Codes (Virtual Mobile Numbers - VMNs)
+
+A Long Code in India is a standard 10-digit phone number formatted with the national country code (e.g., `+91 98765 43210`). Often referred to as Virtual Mobile Numbers (VMNs) or Long Virtual Numbers (LVNs), these numbers support two-way messaging—meaning users can both receive messages from and send replies back to the number.
+
+Long codes are primarily configured for inbound interactions such as customer feedback collection, keyword-based survey responses, and missed-call verification flows. Because long codes resemble personal mobile numbers, major Indian carriers restrict their automated outbound sending speed to protect networks against spam.
+
+### 2. Short Codes
+
+A Short Code is a abbreviated 5-digit or 6-digit numeric address (such as `56161`, `57575`, or `58888`) provisioned directly at telecom operator switches. Short codes are designed specifically for high-throughput, national-scale campaigns and two-way messaging workflows.
+
+Short codes allow consumer interaction (e.g., texting "START" or "HELP" to `56161`), but they require extensive carrier provisioning, upfront setup fees, and heavy monthly maintenance rentals ranging from ₹15,000 to ₹40,000 per month per operator.
+
+### 3. Alphanumeric Sender Headers (6-Character DLT Headers)
+
+In India, outbound transactional messaging—especially authentication OTPs—is predominantly sent using 6-character Alphanumeric Headers (e.g., `STARTM`, `PAYVLT`, or `SKLGRD`). Regulated under [TRAI's TCCCPR framework](https://trai.gov.in), these headers identify the registered Principal Entity (PE) sending the message.
+
+Alphanumeric headers are strictly one-way (outbound-only) transmission tags. They cannot receive SMS replies from users. However, because they are pre-bound to approved DLT transactional templates and enterprise routing channels, carrier switches grant them the highest delivery priority and virtually uncapped Transactions Per Second (TPS) throughput.
+
+---
+
+## Technical Comparison: Long Code vs. Short Code vs. Alphanumeric Header
+
+To evaluate suitability for OTP verification, developers must analyze technical capabilities across latency, throughput, two-way functionality, and regulatory overhead.
+
+| Technical Metric | 10-Digit Long Code (VMN) | 5/6-Digit Short Code | 6-Char Alphanumeric Header |
+|---|---|---|---|
+| **Primary Channel Use** | Inbound feedback, two-way SMS | National campaigns, 2-way polls | Transactional OTPs & Alerts |
+| **Outbound Throughput (TPS)** | Low (1–5 TPS per number) | High (100–500+ TPS) | Enterprise-grade (500+ TPS) |
+| **Average Delivery SLA** | 15–45 seconds (queue delay) | 2–5 seconds | 2–5 seconds (direct route) |
+| **Two-Way (Inbound) Support** | Supported (User can reply) | Supported (User can reply) | Not Supported (Outbound only) |
+| **TRAI DLT Classification** | Service / Promotional VMN | Dedicated Commercial Code | Service Implicit / Transactional |
+| **Monthly Fixed Overhead** | ₹500–₹2,000 / month | ₹15,000–₹40,000 / month | Zero (via StartMessaging API) |
+| **Handset Spam Filtering Risk**| High (Flagged as personal/spam) | Low | Minimal (Verified DLT Header) |
+| **OTP Suitability Rating** | Unsuitable for production | Overkill & Expensive | **Optimal Industry Standard** |
+
+### Throughput (TPS) Mechanics: Why Long Codes Bottle-Neck OTPs
+
+Transactions Per Second (TPS) defines how many SMS messages an infrastructure pipe can dispatch per second. Understanding TPS bottlenecks explains why Deepa’s team encountered delays when testing long codes.
+
+A standard 10-digit Long Code provisioned on an Indian operator switch is enforced with a low rate limit (typically 1 to 5 TPS). If 1,000 users attempt to log into your application simultaneously during a marketing campaign:
+
+```
+[1,000 Concurrent OTP Requests] ──> [Long Code Queue (Max 2 TPS)] ──> 500 Seconds Total Clear Time
+```
+
+Under a 2 TPS cap, the 1,000th user's OTP remains queued in the database for over 8 minutes. Because authentication OTPs expire within 5 to 10 minutes, most users abandon the login flow long before the message arrives.
+
+In contrast, 6-character Alphanumeric Sender Headers routed through enterprise aggregators bypass single-number queue caps. They distribute traffic dynamically across multi-operator SMSC channels at 500+ TPS, delivering OTPs to handsets within 2 to 5 seconds.
+
+---
+
+## Why Standard Long Codes Are Unsuitable for High-Volume OTP Delivery in India
+
+While long codes are inexpensive to provision for receiving inbound customer feedback, using them for outbound OTP delivery introduces serious technical hazards in the Indian telecom market.
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                        Long Code OTP Failure Vectors in India                          │
+├───────────────────┬───────────────────┬───────────────────┬────────────────────────────┤
+│ Carrier Rate Caps │ Spam Heuristics   │ DLT Scrubbing     │ Missing Priority           │
+│ 1–5 TPS per VMN   │ OS filters        │ Routing blocks    │ Queued behind              │
+│ causes delays     │ numeric senders   │ without PE-ID     │ promotional blasts         │
+└───────────────────┴───────────────────┴───────────────────┴────────────────────────────┘
+```
+
+### 1. Carrier Anti-Spam Scrubbing and OEM Filters
+
+Indian mobile subscribers receive dozens of unrequested promotional calls and messages daily. To combat smishing and spam, major telecom operators and smartphone operating systems (such as Truecaller, Xiaomi MIUI, and Google Messages) apply strict heuristic filtering to incoming SMS messages sent from standard 10-digit numbers.
+
+When an automated application sends hundreds of identical 6-digit verification codes from a single 10-digit long code, carrier algorithms classify the behavior as an unauthorized personal SIM gateway or spam bot. The carrier automatically throttles or suspends the number, causing silent delivery drops.
+
+### 2. TRAI DLT Compliance Conflicts
+
+Under [TRAI regulations](https://trai.gov.in), all commercial SMS in India must be scrubbed against registered DLT templates. DLT regulations require transactional headers to use approved 6-character alphanumeric identifiers tied to an active Principal Entity ID (PE-ID).
+
+Attempting to route transactional OTP templates over long-code VMN channels violates DLT routing policies on major carrier switches. Carriers classify long-code outbound traffic under Service Explicit or Promotional categories, subjecting messages to NCPR (National Customer Preference Register) DND scrubbing. If a user has active DND (Do Not Disturb) enabled on their phone, an OTP sent via a promotional long code is blocked immediately.
+
+---
+
+## Cost & Infrastructure Analysis: Long Code vs Short Code vs StartMessaging DLT-Free Routing
+
+Choosing an SMS delivery route requires balancing fixed monthly operational expenses (OPEX) against per-message variable costs.
+
+### Breakdown of Cost Structures in India
+
+1. **Dedicated Short Code Costs:**
+   * Initial Provisioning Fee: ₹25,000 – ₹50,000 (one-time)
+   * Monthly Operator Rental: ₹15,000 – ₹40,000 per month (fixed, non-refundable)
+   * Per-SMS Cost: ₹0.12 – ₹0.20 per dispatch
+   * Minimum Commitment: 6 to 12-month contract lock-in
+2. **Dedicated 10-Digit Long Code (VMN) Costs:**
+   * Monthly Rental: ₹500 – ₹2,000 per month per VMN
+   * Per-SMS Cost: ₹0.15 – ₹0.25 per dispatch
+   * Throughput Limitation: Requires purchasing dozens of VMNs to scale TPS
+3. **StartMessaging OTP API (Alphanumeric Header Routing):**
+   * Setup Fee: **₹0**
+   * Monthly Rental: **₹0**
+   * DLT Registration Overhead: **Zero** (DLT-free pre-approved routing)
+   * Per-OTP Flat Rate: **₹0.25 / OTP** (Pay-as-you-go)
+
+### Monthly Cost Comparison Table for 50,000 OTP Verifications
+
+Let's evaluate the total monthly expense for an Indian startup processing 50,000 OTP verifications per month:
+
+| Cost Component | Dedicated Short Code Route | Multiple Long Code VMN Pool (10 VMNs) | StartMessaging DLT-Free API |
+|---|---|---|---|
+| **Monthly Fixed Rental** | ₹30,000 | ₹10,000 (10 x ₹1,000) | **₹0** |
+| **Per-SMS Rate** | ₹0.15 | ₹0.18 | ₹0.25 |
+| **Variable Messaging Cost**| ₹7,500 (50k x ₹0.15) | ₹9,000 (50k x ₹0.18) | ₹12,500 (50k x ₹0.25) |
+| **Total Monthly Spend** | **₹37,500** | **₹19,000** | **₹12,500** |
+| **Effective Cost Per OTP** | **₹0.75 / OTP** | **₹0.38 / OTP** (Stuck at low TPS) | **₹0.25 / OTP (All-Inclusive)** |
+
+For startups and scaling applications processing under 500,000 OTPs per month, dedicated short codes are cost-prohibitive due to fixed monthly rentals. StartMessaging's pay-as-you-go model eliminates fixed OPEX completely while providing high-TPS alphanumeric header delivery.
+
+---
+
+## Step-by-Step Implementation: Integrating High-TPS OTP Dispatch in Node.js
+
+To achieve sub-3-second delivery without managing short-code infrastructure or DLT portal approvals, developers can integrate the [StartMessaging OTP API](/otp-api) using native Node.js `fetch`.
+
+### Step 1: Set Up API Credentials
+
+Obtain your live API key from the [StartMessaging Dashboard](https://app.startmessaging.com/api-keys) and save it to your environment variables:
+
+```bash
+# .env
+STARTMESSAGING_API_KEY=sm_live_xxxxxxxxxxxxxxxxxxxx
+STARTMESSAGING_BASE_URL=https://api.startmessaging.com
+```
+
+### Step 2: Implement High-Throughput OTP Dispatch Controller
+
+Create `otp-service.ts` to execute asynchronous OTP dispatching:
+
+```typescript
+import 'dotenv/config';
+
+const API_KEY = process.env.STARTMESSAGING_API_KEY!;
+const BASE_URL = process.env.STARTMESSAGING_BASE_URL || 'https://api.startmessaging.com';
+
+interface SendOtpResponse {
+  success: boolean;
+  data?: {
+    requestId: string;
+    expiresAt: string;
+    attemptsLeft: number;
+  };
+  error?: string;
+}
+
+/**
+ * Dispatches an authentication OTP via StartMessaging high-TPS 6-character header route
+ * @param phoneNumber Mobile number formatted in E.164 (e.g., +919876543210)
+ */
+export async function sendHighSpeedOtp(phoneNumber: string): Promise<SendOtpResponse> {
+  try {
+    // Validate E.164 phone number formatting for India
+    const phoneRegex = /^\+91[6-9]\d{9}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      throw new Error('INVALID_PHONE_NUMBER: Must be a valid 10-digit Indian mobile number with +91 prefix.');
+    }
+
+    const response = await fetch(`${BASE_URL}/otp/send`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': API_KEY,
+      },
+      body: JSON.stringify({
+        phoneNumber,
+      }),
+    });
+
+    const payload = await response.json();
+
+    if (!response.ok) {
+      console.error(`[OTP Dispatch Error] HTTP ${response.status}:`, payload.message);
+      return {
+        success: false,
+        error: payload.message || 'Failed to dispatch OTP via primary route.',
+      };
+    }
+
+    return {
+      success: true,
+      data: payload.data,
+    };
+  } catch (error: any) {
+    console.error('[Network Error] Failed to connect to StartMessaging API:', error.message);
+    return {
+      success: false,
+      error: error.message || 'Internal network error.',
+    };
+  }
+}
+
+// Example Execution
+async function run() {
+  const recipient = '+919876543210';
+  console.log(`Sending high-speed OTP to ${recipient}...`);
+  const result = await sendHighSpeedOtp(recipient);
+
+  if (result.success && result.data) {
+    console.log('OTP Dispatched Successfully!');
+    console.log('Request ID:', result.data.requestId);
+    console.log('Expires At:', result.data.expiresAt);
+  } else {
+    console.error('Dispatch Failed:', result.error);
+  }
+}
+
+run();
+```
+
+### Step 3: Implement Atomic OTP Verification
+
+Validate submitted codes against the generated `requestId`:
+
+```typescript
+/**
+ * Verifies a user-submitted OTP against StartMessaging
+ * @param requestId The request ID returned during OTP dispatch
+ * @param code The 6-digit OTP code entered by the user
+ */
+export async function verifyOtpCode(requestId: string, code: string): Promise<boolean> {
+  const response = await fetch(`${BASE_URL}/otp/verify`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': API_KEY,
+    },
+    body: JSON.stringify({
+      requestId,
+      otpCode: code,
+    }),
+  });
+
+  const payload = await response.json();
+
+  if (!response.ok) {
+    throw new Error(payload.message || 'OTP Verification failed.');
+  }
+
+  return payload.data?.verified === true;
+}
+```
+
+---
+
+## How to Choose the Right SMS Number Type for Your Indian Application
+
+Selecting between Long Codes, Short Codes, and Alphanumeric Sender Headers depends on your application's communication directional requirements and volume scale.
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                              SMS Route Decision Matrix                                 │
+├──────────────────────────┬──────────────────────────┬──────────────────────────────────┤
+│ Use Case Requirements    │ Recommended Route        │ Operational Rationale            │
+├──────────────────────────┼──────────────────────────┼──────────────────────────────────┤
+│ Outbound OTPs, 2FA,      │ 6-Char Alphanumeric      │ Highest TPS, zero fixed OPEX,    │
+│ Transactional Login Codes│ Header (StartMessaging)  │ sub-3s delivery SLA in India     │
+├──────────────────────────┼──────────────────────────┼──────────────────────────────────┤
+│ Inbound Feedback, Missed │ 10-Digit Long Code       │ Low-cost two-way communication;  │
+│ Call Support, Customer SMS│ (Virtual Mobile Number)  │ handles user-initiated replies   │
+├──────────────────────────┼──────────────────────────┼──────────────────────────────────┤
+│ Enterprise 2-Way TV      │ Dedicated 5/6-Digit      │ High-volume 2-way interactivity; │
+│ Voting & Mass Campaign   │ Short Code               │ requires ₹30k/mo budget          │
+└──────────────────────────┴──────────────────────────┴──────────────────────────────────┘
+```
+
+### Decision Summary Guidelines
+
+* **Choose 6-Character Alphanumeric Headers (via StartMessaging):** If your primary requirement is sending authentication OTPs, login verification codes, password resets, or order status alerts to Indian users. It provides maximum deliverability speed (2–5s SLA) and enterprise throughput without fixed monthly contract fees.
+* **Choose 10-Digit Long Codes (VMNs):** If you need an inbound mechanism where customers text your system (e.g., "Text FEEDBACK to +919876543210") or trigger missed-call verification. Never use long codes for primary outbound OTP verification.
+* **Choose Dedicated Short Codes:** Only if you are an enterprise organization executing nationwide two-way interactive campaigns (e.g., reality TV voting or bank balance checks via SMS) with a dedicated budget exceeding ₹30,000 per month for fixed operator rentals.
+
+---
+
+## Frequently Asked Questions
+
+**Q: Can I send OTPs using a standard 10-digit mobile number (long code) in India?**
+
+A: While technically possible via unverified SIM gateways, sending OTPs using standard 10-digit long codes is strongly discouraged for production applications in India. Long codes suffer from strict operator rate limits (1–5 TPS), heavy queue delays during traffic spikes, and aggressive handset anti-spam filtering. Furthermore, routing transactional templates over long codes risks non-compliance with TRAI DLT regulations.
+
+**Q: What is the main difference between a short code and an alphanumeric sender header in India?**
+
+A: Short codes are 5 or 6-digit numeric addresses (e.g., `56161`) that support two-way messaging (both sending and receiving SMS), but they require expensive monthly operator rentals (₹15,000–₹40,000/month). Alphanumeric sender headers are 6-character text tags (e.g., `STARTM`) used exclusively for one-way outbound transactional messages. Headers provide high delivery speed and enterprise throughput at a fraction of the cost.
+
+**Q: Why do dedicated short codes cost significantly more than standard SMS APIs in India?**
+
+A: Dedicated short codes require individual provisioning across every telecom operator switch in India (Jio, Airtel, Vi, BSNL). Telecom operators charge recurring monthly lease fees to reserve the short code across their nationwide routing ledgers. Standard SMS APIs, such as StartMessaging, aggregate enterprise header capacity to deliver the same high delivery speeds without passing fixed monthly rental fees onto developers.
+
+**Q: How does TRAI DLT compliance affect long code vs short code routing?**
+
+A: TRAI's TCCCPR 2018 regulations mandate that all commercial SMS sent in India must be registered on a blockchain DLT portal. Transactional messages and OTPs are assigned pre-approved 6-character alphanumeric headers linked to approved DLT template IDs. Long codes and promotional short codes are subject to NCPR Do Not Disturb (DND) scrubbing filters, which block promotional messages sent to users registered on DND lists.
+
+---
+
+By selecting 6-character alphanumeric header routing over standard long codes, Deepa eliminated throughput bottlenecks for SkillGrid. During open enrollment, student login OTPs arrived in under 3 seconds at ₹0.25/OTP—without paying monthly short-code rental fees or navigating DLT portal approval queues.
+
+Evaluating SMS providers for your app? [Sign up for StartMessaging](https://app.startmessaging.com/register) to access high-speed, DLT-free OTP delivery at ₹0.25/OTP, or read our [OTP API documentation](/otp-api) to send your first verification code in under 5 minutes.
