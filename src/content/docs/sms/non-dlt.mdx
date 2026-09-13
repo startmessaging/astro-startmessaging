@@ -15,14 +15,14 @@ StartMessaging is a fully DLT-registered OTP provider. We have already completed
 
 When you send an OTP through our API, the message is routed through our pre-approved DLT channels. Telecom operators see a valid, registered message — so your OTPs get delivered just like any other DLT-compliant SMS.
 
-This means you get full DLT compliance without any of the registration burden. No entity forms, no document uploads, no template approvals, no waiting.
+This means you get full DLT compliance without any of the registration burden. No DLT entity registration, no template approvals, no operator portals, no waiting.
 
 ---
 
 ## Step-by-Step Guide
 
 ### Step 1: Create Your Account
-Sign up at [app.startmessaging.com](https://app.startmessaging.com) with your email. No company documents or KYC required to get started.
+Sign up at [app.startmessaging.com](https://app.startmessaging.com) with your email, then complete the one-time KYC step in onboarding by uploading either a company registration document or a personal government ID. No DLT entity registration or template approvals needed.
 
 ### Step 2: Generate an API Key
 Go to the **API Keys** page in your dashboard and click "Create API Key". Copy the key — it is shown only once. The key starts with `sm_live_` prefix.
@@ -91,7 +91,7 @@ curl -X POST https://api.startmessaging.com/otp/verify \
 
 <Accordion>
   <AccordionItem title="Do I need any documents to sign up?">
-    No. You can sign up with just an email address. No company registration, PAN card, GST certificate, or any other documents are required.
+    You sign up with just an email address, but before you can send live messages, onboarding asks for a one-time KYC: upload either a company registration document (for businesses) or a personal government ID (for individuals and solo developers). That is the only paperwork — there is no DLT entity registration, no template approvals, and no operator portal to deal with.
   </AccordionItem>
   <AccordionItem title="What phone number format should I use?">
     Use E.164 format: country code + number. For India, that is +91 followed by the 10-digit mobile number. Example: `+919876543210`.
