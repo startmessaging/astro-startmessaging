@@ -1,0 +1,187 @@
+---
+title: "WhatsApp Business API Pricing in India 2026: Full Rate Card"
+description: "WhatsApp Business API pricing in India 2026: Meta's ₹ rate card for all four categories, volume tiers, GST, BSP markup, and how to cut your monthly bill."
+publishedAt: "2026-09-14"
+updatedAt: "2026-09-14"
+category: "guides"
+country: "in"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp business api pricing india 2026"
+  - "whatsapp api rate card india rupees"
+  - "whatsapp marketing message cost india"
+  - "whatsapp utility message price india"
+  - "whatsapp api volume discount tiers"
+  - "whatsapp business api gst india"
+  - "bsp markup whatsapp api india"
+  - "reduce whatsapp api cost"
+relatedSlugs:
+  - "whatsapp-api-pricing-change-october-2026"
+  - "whatsapp-business-api-guide"
+  - "sms-otp-vs-whatsapp-otp"
+  - "whatsapp-otp-india-developer-guide-authentication-template-sms-fallback"
+featured: false
+image: "/blog/images/whatsapp-business-api-pricing-india-2026.webp"
+---
+
+Arjun had three BSP quotes open in three browser tabs. All three claimed to charge "Meta's official rates." All three produced a different monthly estimate for the same 4.7 lakh messages — and the gap between the cheapest and the most expensive was ₹48,000 a month. None of the quotes was lying. They were just quoting different layers of the same bill. Understanding WhatsApp Business API pricing in India in 2026 means understanding that your invoice has three stacked components, and only one of them is set by Meta.
+
+This is the reference version: every India rate in rupees, the volume tier tables, what GST does to both layers, and the levers that actually move the number at the bottom of the invoice.
+
+## How WhatsApp Billing Actually Works in 2026
+
+Meta retired conversation-based pricing on 1 July 2025. Before that date you paid for a 24-hour *conversation* regardless of how many messages it contained. Now you pay per delivered template message, which changes the economics of every flow you have ever built.
+
+### You are billed per delivered template, not per conversation
+
+The rule is narrow and worth memorising: you are charged when a template message is delivered. A template that fails to deliver — invalid number, user blocked you, handset unreachable past the retry window — is not billed. Template creation is free. Approval is free. Your business phone number and green-tick verification cost nothing.
+
+What this replaced matters. Under the old model, an order-update flow that sent four messages inside one conversation cost you one conversation fee. Today it costs four message fees. Chatty flows that were economically invisible in 2024 are now line items.
+
+### The four categories, and what decides which one you pay
+
+Every template you send is classified into one of four categories, and the category — not the content length, not the media — sets the price.
+
+- **Marketing** — promotions, offers, cart recovery, re-engagement, product launches. By far the most expensive.
+- **Utility** — order confirmations, shipping updates, payment receipts, appointment reminders. Must relate to an existing transaction.
+- **Authentication** — OTPs and login codes, sent through authentication templates.
+- **Service** — free-form, non-template replies inside an open 24-hour customer service window. Billable from 1 October 2026.
+
+Meta reviews and can reclassify templates. A "utility" template that reads like a promotion gets moved to marketing, and you pay ₹0.8631 instead of ₹0.1150 — a 7.5× jump — with no notification beyond the category shown in your template manager. Our [WhatsApp message template guide](/blog/top-whatsapp-message-template-tips) covers how to keep transactional templates on the right side of that line.
+
+### The 24-hour window and the 72-hour free entry point
+
+Each inbound customer message opens or reopens a 24-hour customer service window. Inside it you can send free-form messages without a template. Those free-form messages are service messages, and from 1 October 2026 they are billed after the first 1,000 per business phone number per month.
+
+Separately, conversations that start from a Click-to-WhatsApp ad or a Facebook Page call-to-action button open a **free entry point window** that stays open for 72 hours. Inside that window, every message type is free — marketing included. For a brand running paid social at scale this is the single largest structural discount available on the platform, and most teams never measure how much of their volume qualifies.
+
+## The India Rate Card in Rupees
+
+India is billed in rupees rather than in dollars converted at an unpredictable rate, so these are literal invoice numbers. The card below reflects Meta's rates effective 1 July 2026.
+
+| Category | List rate per delivered message | Notes |
+|---|---|---|
+| Marketing | ₹0.8631 | No volume discount at any spend level |
+| Utility | ₹0.1150 | Volume tiers available; billable in-window from 1 Oct 2026 |
+| Authentication | ₹0.1150 | Volume tiers available; domestic Indian numbers |
+| Authentication-International | ₹2.4971 | Authentication messages that fall under the international rate |
+| Service | ₹0.1150 | From 1 Oct 2026, after 1,000 free per number per month |
+
+The ratio is the thing to internalise. A marketing message costs **7.5 times** a utility or authentication message. Nothing else in your pricing model comes close to that multiplier, which means category discipline beats every other cost optimisation you can attempt.
+
+Meta publishes the authoritative, continuously updated card — including downloadable CSV and PDF rate files per currency — in the [WhatsApp Business Platform pricing documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing). Rates change; check that file against your invoice rather than trusting any vendor summary, this one included.
+
+The two changes arriving on 1 October 2026 — service messages becoming billable and utility templates losing their in-window waiver — are covered in detail in our [1 October 2026 WhatsApp pricing change guide](/blog/whatsapp-api-pricing-change-october-2026), including the payment-method deadline that can stop delivery outright.
+
+## Volume Discount Tiers for Utility and Authentication
+
+Meta applies market-specific volume tiers, calculated per market *and* per category. India's tiers step down in 6% increments to a floor of −30%, which is deeper than the 5%-step, 20%-floor structure used in several other markets.
+
+Utility tiers, monthly delivered volume:
+
+| Tier | Monthly volume | Rate | Discount |
+|---|---|---|---|
+| List | 0 – 2,50,00,000 | ₹0.1150 | 0% |
+| 1 | 2,50,00,001 – 5,00,00,000 | ₹0.1081 | −6% |
+| 2 | 5,00,00,001 – 10,00,00,000 | ₹0.1012 | −12% |
+| 3 | 10,00,00,001 – 20,00,00,000 | ₹0.0943 | −18% |
+| 4 | 20,00,00,001 – 30,00,00,000 | ₹0.0874 | −24% |
+| 5 | 30,00,00,001 and above | ₹0.0805 | −30% |
+
+Authentication tiers start far earlier, which is good news for any consumer app doing OTP at scale:
+
+| Tier | Monthly volume | Rate | Discount |
+|---|---|---|---|
+| List | 0 – 7,50,000 | ₹0.1150 | 0% |
+| 1 | 7,50,001 – 1,50,00,000 | ₹0.1081 | −6% |
+| 2 | 1,50,00,001 – 2,00,00,000 | ₹0.1012 | −12% |
+| 3 | 2,00,00,001 – 5,00,00,000 | ₹0.0943 | −18% |
+| 4 | 5,00,00,001 – 10,00,00,000 | ₹0.0874 | −24% |
+| 5 | 10,00,00,001 and above | ₹0.0805 | −30% |
+
+Three caveats before you build a forecast on these. Marketing messages get no volume discount at any volume. Service messages get no volume discount either — replying to 10,000 customers costs exactly ten times replying to 1,000. And tier cutoffs are revised by Meta periodically, so treat the bands as current-as-of-this-card rather than permanent; the downloadable rate card CSV is the only version that is guaranteed to match your billing.
+
+For most Indian businesses reading this, the honest conclusion is that volume tiers will not apply to you. Utility discounts start at 2.5 crore messages a month. Authentication at 7.5 lakh is reachable for a mid-size consumer app, and that is the tier worth planning around.
+
+## The Costs Nobody Puts in the Quote
+
+Arjun's ₹48,000 gap lived entirely in this section. Meta's rate card is one layer of three.
+
+### BSP platform fees and per-message markup
+
+Your Business Solution Provider sits between you and Meta, and charges for that. Indian BSPs commonly bill a monthly platform subscription in the ₹1,500–₹2,500 range, and many add a per-message markup on top of Meta's rate — market practice runs roughly 10–30%, with some providers openly quoting around 26%. That markup is usually not on the pricing page. You find it by asking directly: *"Is your per-message rate Meta's published rate, or Meta's rate plus a margin? What is the margin?"*
+
+Run Arjun's numbers to see why the question matters. His monthly mix: 2,00,000 marketing, 1,50,000 utility, 80,000 authentication, 40,000 service messages.
+
+| Category | Volume | Rate | Meta charge |
+|---|---|---|---|
+| Marketing | 2,00,000 | ₹0.8631 | ₹1,72,620 |
+| Utility | 1,50,000 | ₹0.1150 | ₹17,250 |
+| Authentication | 80,000 | ₹0.1150 | ₹9,200 |
+| Service (39,000 billable) | 40,000 | ₹0.1150 | ₹4,485 |
+| **Meta subtotal** | | | **₹2,03,555** |
+
+At pass-through pricing plus 18% GST, that bill is ₹2,40,195. At a 20% per-message markup plus GST, the same traffic costs ₹2,88,234. The difference is ₹48,039 a month — ₹5.76 lakh a year — for identical messages delivered by the identical Meta infrastructure.
+
+### GST applies to both layers
+
+18% GST sits on top of Meta's messaging charges *and* on your BSP's platform fee. A ₹0.8631 marketing message costs ₹1.0185 delivered. A ₹0.1150 utility message costs ₹0.1357. Businesses registered under the regular GST scheme can generally claim input tax credit on both, which changes the effective cost materially — confirm the treatment with your CA rather than assuming it, since it depends on your registration and the provider's invoicing.
+
+### Per-message billing punishes chatty flows
+
+The 2025 shift from conversation to per-message pricing is still not fully priced into most teams' flows. A three-step onboarding sequence, a bot that acknowledges before it triages, a "how did we do?" follow-up — each was one line in a conversation fee and is now its own charge. Audit any automation built before July 2025 against the current model; the flows that were designed to feel responsive are often the ones now generating the most billable messages.
+
+## What You Are Not Charged For
+
+Worth stating plainly, because several vendors quietly bill for things Meta gives away:
+
+- **Undelivered messages.** Billing triggers on delivery, not on send.
+- **Template creation and approval.** Unlimited, free, including rejected and resubmitted templates.
+- **Incoming messages.** Customers can send you fifty messages; you pay nothing.
+- **The business phone number and green-tick verification.** No Meta fee.
+- **Free entry point conversations.** Click-to-WhatsApp ad and Page CTA chats stay free for 72 hours, all message types included.
+
+## Six Levers That Actually Reduce the Bill
+
+Ranked by how much they move the number, not by how easy they are.
+
+- **Fix your category mix first.** Marketing is 85% of Arjun's Meta spend on 30% of his volume. Every marketing message you can legitimately restructure as a [utility template](/whatsapp/utility) — a genuine order or account update rather than a promotion wearing a transactional hat — costs 7.5× less. This is not a licence to mislabel; Meta reclassifies and you pay the difference anyway.
+- **Route paid-social traffic through Click-to-WhatsApp.** Free entry point conversations carry a 72-hour window in which every message type is free. Tag conversations by entry point so you can see what share of volume already qualifies, then shift ad spend accordingly.
+- **Try Meta's Max Pricing for marketing.** Meta's [marketing message max pricing](https://developers.facebook.com/documentation/business-messaging/whatsapp/marketing-messages/pricing) lets you set a ceiling per delivery — Meta charges that price or lower. It is in limited beta as of 15 May 2026, optional through 2026, with general availability planned for Q2 2027. You set it via `optimization_spec` in the Message Templates API, with `bid_amount` expressed per 1,000 deliveries in the smallest currency unit, so ₹0.87 per delivery is 87 paise × 1,000 = `87000`.
+- **Consolidate messages in every flow.** One complete message beats three fragments now that each fragment is a charge. This applies to agent replies, bot flows and [marketing sequences](/whatsapp/marketing) alike.
+- **Negotiate the markup, not the rate.** You cannot negotiate Meta's rate card. You can absolutely negotiate whether your provider adds 26% to it. At Arjun's volume that conversation is worth ₹5.76 lakh a year.
+- **Pick the right channel per use case.** A [WhatsApp authentication template](/whatsapp/authentication) at ₹0.1150 undercuts SMS OTP at ₹0.25 per message — but only reaches users who have WhatsApp installed and have opted in. SMS reaches every handset on Jio, Airtel, Vi and BSNL with no app dependency. Our [SMS OTP versus WhatsApp OTP comparison](/blog/sms-otp-vs-whatsapp-otp) covers the delivery, latency and fallback trade-offs that decide this properly.
+
+## How StartMessaging Prices WhatsApp
+
+StartMessaging passes Meta's per-message rates through at cost. The India rate card above is what you pay — ₹0.8631 marketing, ₹0.1150 utility, ₹0.1150 authentication, plus 18% GST — with no per-message margin layered on top. Volume tier discounts, when you reach them, flow through at Meta's rate rather than being absorbed.
+
+The platform itself is a flat subscription: a Free tier at $0/month for sandbox testing and initial flows with full REST API access, a Premium tier at $49/month adding the no-code chatbot builder, campaign analytics and up to five agent seats, and a custom Enterprise tier for high-volume senders needing an SLA. No setup fees, no cancellation charges, month-to-month. Full details are on the [WhatsApp Business API pricing page](/pricing), and the [complete WhatsApp Business API guide](/blog/whatsapp-business-api-guide) covers what the platform does beyond billing.
+
+On the India SMS side — a genuinely different channel, not a WhatsApp substitute — transactional SMS runs at a flat ₹0.25 per message with no DLT registration to manage on your end.
+
+## Frequently Asked Questions
+
+**Q: How much does a WhatsApp message cost in India in 2026?**
+
+A: Meta's list rates for India are ₹0.8631 per marketing message and ₹0.1150 per utility, authentication or service message, all exclusive of 18% GST. Authentication messages falling under the international rate are ₹2.4971. On top of Meta's rate you may pay a BSP platform subscription and, with some providers, a per-message markup of roughly 10–30%.
+
+**Q: Do WhatsApp marketing messages get volume discounts?**
+
+A: No. Marketing messages are billed at the full ₹0.8631 rate regardless of volume. Volume tiers apply only to utility and authentication messages, stepping down in 6% increments to a −30% floor in India. Service messages also get no volume discount.
+
+**Q: Is GST charged on WhatsApp Business API messages in India?**
+
+A: Yes, 18% GST applies to both Meta's messaging charges and your BSP's platform fee. A ₹0.8631 marketing message costs ₹1.0185 delivered, and a ₹0.1150 utility message costs ₹0.1357. Businesses on the regular GST scheme can generally claim input tax credit on both; confirm your specific treatment with your accountant.
+
+**Q: Am I charged if a WhatsApp message is not delivered?**
+
+A: No. Billing triggers on delivery of a template message, not on the send attempt. Template creation, template approval, incoming customer messages, your business phone number and green-tick verification are all free of Meta charges.
+
+**Q: What is the cheapest way to send OTPs on WhatsApp in India?**
+
+A: Use authentication templates, which are billed at ₹0.1150 and qualify for volume tiers starting at 7,50,001 messages a month. Do not send OTPs through marketing templates — the rate is 7.5× higher and Meta may reject the template. If your users are not reliably on WhatsApp, SMS OTP at ₹0.25 offers universal handset reach without an opt-in requirement.
+
+Arjun picked the pass-through quote. Same messages, same Meta infrastructure, ₹5.76 lakh a year that stays in the business instead of becoming somebody's margin. The three-tab comparison took an afternoon; the saving compounds every month after that.
+
+If you are running the same comparison, the questions worth asking every provider are short: is your per-message rate Meta's published rate or Meta's rate plus a margin, do volume tier discounts pass through to me, and what does the platform fee cover. StartMessaging's answers are on the [pricing page](/pricing), and the [message templates documentation](/docs/whatsapp/message-templates) shows how the categories work in practice. WhatsApp onboarding for Indian businesses is currently sales-assisted while we finalise self-serve provisioning — [talk to our team](/contact) with your monthly volume mix and we will model your actual bill against Meta's current card before you commit to anything.
