@@ -4,6 +4,7 @@
  * Substantive content describing the product, services, API, and supported countries.
  */
 import type { APIRoute } from 'astro';
+import { WA_APP_URL, WA_API_BASE } from '@/lib/constants';
 
 export const prerender = true;
 
@@ -11,10 +12,10 @@ export const GET: APIRoute = async ({ site }) => {
   const siteUrl = site?.href ?? 'https://startmessaging.com';
 
   const content = `# StartMessaging
-> SMS OTP & WhatsApp Business API Platform
+> WhatsApp CRM & SMS OTP Platform
 
 ## About
-StartMessaging is a business messaging platform offering SMS OTP verification and WhatsApp Business API services. The platform provides REST APIs for developers to integrate phone number verification (OTP) and WhatsApp messaging into their applications.
+StartMessaging offers a WhatsApp CRM built on the official WhatsApp Business Platform (global) and an SMS OTP API (India). Both come with REST APIs for developers.
 
 ## Products
 
@@ -27,25 +28,26 @@ StartMessaging is a business messaging platform offering SMS OTP verification an
 - INR prepaid wallet billing with no monthly fees
 - API key authentication via X-API-Key header
 
-### Auth API (India Only)
+### Auth API (India Only, coming soon)
 - Managed OTP verification flow
 - Send OTP and verify OTP endpoints
 - Configurable expiry (default 5 minutes)
 - 3 verification attempts per OTP
 - Idempotency key support
 
-### WhatsApp Business API (Global — 7 Countries)
-- Official Meta Business Solution Provider
-- Broadcast messaging to opted-in contact lists
-- Campaign management with segmentation
-- Marketing automation with triggers
-- Authentication (OTP via WhatsApp)
-- Utility/transactional messages
-- Auto-trigger workflows
-- Chatbot and agent routing
-- Message template management
-- Webhook delivery receipts
-- Media message support (images, documents, video)
+### WhatsApp CRM (Global — 7 Countries)
+- StartMessaging is a Meta Tech Provider: customers connect their own WhatsApp Business Account through Meta Embedded Signup
+- Meta bills WhatsApp messages directly to the customer's own WhatsApp Business Account; StartMessaging charges only a flat CRM subscription (no per-message markup, no wallet)
+- App: ${WA_APP_URL}
+- Template builder: marketing, utility and authentication templates; carousel, limited-time offer, copy-code, URL, quick-reply, WhatsApp Form, catalog buttons; 16 languages
+- Campaigns: approved template to tagged contacts or a CSV audience, variable mapping, opted-out contacts skipped, pause/resume, delivery analytics
+- Shared team inbox: assignment, round-robin, quick replies, 24-hour window timer, interactive buttons and lists
+- CRM: contacts, tags, custom attributes, notes, kanban pipeline, CSV import/export, opt-in/opt-out handling, Click-to-WhatsApp ad attribution
+- Automation: keyword auto-replies and a visual chatbot flow builder
+- WhatsApp Forms (Meta Flows) with answers delivered to the inbox, API and webhooks
+- Analytics: agent performance, template performance, message errors, Meta volume by pricing category
+- Developer API: REST at ${WA_API_BASE}/api/v1 with Bearer API keys and scopes, idempotency keys, cursor pagination, signed webhooks (12 event types), OpenAPI reference
+- Plans: 14-day free trial, then Basic or Advanced (prices to be announced)
 
 ## Supported Countries
 | Country | Currency | Language | Products |
@@ -60,12 +62,12 @@ StartMessaging is a business messaging platform offering SMS OTP verification an
 
 ## Pricing
 - SMS OTP (India): ₹0.25 per OTP (flat rate, no DLT required)
-- WhatsApp: Per-conversation pricing based on Meta's rates, varies by country and message category
-- No monthly fees, no minimum commitment
-- Prepaid wallet model
+- SMS: no monthly fees, no minimum commitment, prepaid wallet
+- WhatsApp CRM: flat subscription after a 14-day free trial (prices to be announced); Meta bills message charges directly to your WhatsApp Business Account
 
-## API Base URL
-- [API Base URL](https://api.startmessaging.com)
+## API Base URLs
+- [SMS API](https://api.startmessaging.com)
+- [WhatsApp API](${WA_API_BASE}/api/v1) — OpenAPI: ${WA_API_BASE}/api/v1/openapi.json
 
 ## Documentation
 - [WhatsApp API](${siteUrl}docs/whatsapp/getting-started)
@@ -81,16 +83,10 @@ StartMessaging is a business messaging platform offering SMS OTP verification an
 - [Blog](${siteUrl}blog)
 - [Contact](${siteUrl}contact)
 
-## SDKs
-- Node.js: @startmessaging/node
-- Python: startmessaging
-- PHP: startmessaging/php-sdk
-- Java: com.startmessaging:sdk
-- Go: github.com/startmessaging/go-sdk
-
 ## Contact
 - [Website Contact Page](${siteUrl}contact)
-- [Console Application](https://app.startmessaging.com)
+- [SMS Console](https://app.startmessaging.com)
+- [WhatsApp CRM](${WA_APP_URL})
 `;
 
   return new Response(content, {

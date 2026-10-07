@@ -1,126 +1,300 @@
 ---
 title: "Message Templates"
-description: "Create, manage, and send WhatsApp message templates. Template categories, approval process, and dynamic parameters."
+description: "WhatsApp message template categories, Meta billing rules, components and limits, button types, the read-only templates API and how to send WhatsApp OTP codes with an authentication template."
 product: whatsapp
 order: 4
 ---
 
-## What Are Message Templates?
+A **message template** is a message format Meta approves in advance. Templates are the only messages you can send to start a conversation, or to reach a customer after their 24-hour window has closed.
 
-Message templates are pre-approved message formats that allow you to send outbound notifications to customers outside the 24-hour conversation window. Every outbound message that initiates a new conversation must use an approved template.
+- Templates are **created and submitted in the dashboard** (Templates → Create template). Meta reviews every one.
+- The API is **read-only** for templates: list them, read their status and components, and send approved ones with `POST /api/v1/messages`.
 
-## Template Categories
+## Categories and Meta billing
 
-WhatsApp classifies templates into three categories, each with different pricing:
+Every template has one of three categories. Meta sets the price by category and bills it **directly to your WhatsApp Business Account**. StartMessaging never charges per message.
 
-| Category | Use Case | Examples |
-|----------|----------|---------|
-| **Utility** | Transaction-related | Order confirmations, shipping updates, payment receipts |
-| **Authentication** | OTP/verification | Login codes, password resets, 2FA |
-| **Marketing** | Promotions | Offers, product launches, re-engagement |
+| Category | Use it for | Billed by Meta |
+|---|---|---|
+| **Marketing** | Promotions, offers, announcements, re-engagement | Every delivered message |
+| **Utility** | Updates about something the customer started: orders, bookings, payments, account alerts | Every delivered message, except inside an open customer service window, where it is free |
+| **Authentication** | One-time passwords and login codes | Every delivered message |
 
-## Creating a Template
+Free-form replies inside the 24-hour customer service window (text, media, interactive) are free from Meta.
 
-### Via Dashboard
+Pick the category honestly. Promotional content filed as Utility is usually rejected or moved to Marketing. Meta can also **recategorise** an approved template (for example Utility to Marketing), which changes what each message costs. The dashboard flags recategorised templates, and the API always returns Meta's current category.
 
-1. Go to **Templates → Create Template**
-2. Select the category (Utility, Authentication, or Marketing)
-3. Choose the language(s)
-4. Build the template structure:
-   - **Header** (optional): text, image, video, or document
-   - **Body** (required): the message text with optional parameters `{{1}}`, `{{2}}`...
-   - **Footer** (optional): small text below the body
-   - **Buttons** (optional): quick reply or call-to-action buttons
-5. Submit for approval
+## Template types
 
-### Via API
+When you create a template you choose a type:
+
+| Type | What it is |
+|---|---|
+| **Standard** | Header, body, footer and buttons |
+| **Limited-time offer** | A marketing offer with an optional countdown. Needs a copy-code button and a URL button, and can't have a footer. |
+| **Authentication** | A one-time-password template. Meta writes the body text ("123456 is your verification code"), with an optional security warning, code expiry and a copy-code button. |
+| **Carousel** | 2 to 10 cards that scroll sideways, each with its own image or video, text and buttons |
+
+## Components and limits
+
+| Component | Rules |
+|---|---|
+| **Header** (optional) | Text up to 60 characters, or media: image, video or document. Location headers can be created too. Media headers need a sample file for Meta's review. |
+| **Body** (required) | Up to 1,024 characters. Variables are positional (`{{1}}`, `{{2}}`) or named (`{{first_name}}`). Meta needs a sample value for every variable. |
+| **Footer** (optional) | Up to 60 characters |
+| **Buttons** (optional) | Up to 10 in total, at most 2 URL buttons and 1 phone-number button. Button labels up to 25 characters. Keep quick-reply buttons together. |
+
+The template's **name** (its Meta ID) uses lowercase letters, numbers and underscores, and like the language it can't be changed after creation. The name your team sees in the dashboard is a separate display name. Over the API you always send the Meta name.
+
+### Button types
+
+| Button | Notes |
+|---|---|
+| Quick reply | A custom reply the customer taps; arrives as `reply.kind: "quick_reply"` on `message.received` |
+| Visit website (URL) | Static link, or a dynamic link whose end is filled at send time. Only one URL button per template may have a variable. |
+| Call phone number | One per template |
+| Call on WhatsApp / video call | Calling must be turned on in WhatsApp Manager |
+| Copy offer code | Coupon code up to 20 characters; Marketing templates only |
+| Complete flow | Opens a WhatsApp Form (Meta Flow); answers arrive in `form` |
+| Request contact info, catalog, multi-product | Use your WhatsApp profile or product catalog in Meta |
+
+## Review and statuses
+
+Meta reviews every template, and review time is set by Meta. The template's status tells you whether it can be sent:
+
+| Status | Meaning |
+|---|---|
+| `PENDING` | In review with Meta. Can't be sent yet. |
+| `APPROVED` | Can be sent |
+| `REJECTED` | Meta rejected it; `rejectionReason` says why. Fix and resubmit in the dashboard. |
+| `PAUSED` | Paused by Meta for low quality. It can return to Approved on its own. |
+| `DISABLED` | Disabled by Meta. It won't come back. |
+
+Only `APPROVED` templates can be sent. Any other status answers `422 TEMPLATE_NOT_APPROVED` with `details.status`. Editing an approved template in the dashboard sends it back to review (`PENDING`), and it can't be sent until Meta approves it again. Duplicate it instead if you need the original to keep working.
+
+## List templates
+
+`GET /api/v1/templates` lists your templates, newest first. Needs the `templates:read` scope. It is a paginated list (see [Pagination & Idempotency](/docs/whatsapp/pagination-and-idempotency)).
+
+| Query parameter | Description |
+|---|---|
+| `status` | `APPROVED`, `PENDING`, `REJECTED`, `PAUSED` or `DISABLED` |
+| `category` | `MARKETING`, `UTILITY` or `AUTHENTICATION` |
+| `language` | Exact language code, for example `en_US` or `hi` |
+| `name` | Exact template name. The quick way to check a template is approved before you send it. |
+| `limit` | 1 to 100, default 25 |
+| `cursor` | The `nextCursor` from the previous page |
 
 ```bash
-curl -X POST https://api.startmessaging.com/v1/templates \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "order_shipped",
-    "language": "en",
-    "category": "utility",
-    "components": [
-      {
-        "type": "header",
-        "format": "text",
-        "text": "Order Shipped! 🚚"
-      },
-      {
-        "type": "body",
-        "text": "Hi {{1}}, your order {{2}} has been shipped and will arrive by {{3}}. Track it here: {{4}}"
-      },
-      {
-        "type": "footer",
-        "text": "StartMessaging"
-      },
-      {
-        "type": "buttons",
-        "buttons": [
-          { "type": "url", "text": "Track Order", "url": "https://track.example.com/{{1}}" }
-        ]
-      }
-    ]
-  }'
+curl "{{WA_API_BASE}}/api/v1/templates?status=APPROVED&name=order_confirmation" \
+  -H "Authorization: Bearer sm_live_your_api_key"
 ```
-
-## Template Approval
-
-- **Utility & Authentication**: Usually approved within 1 hour
-- **Marketing**: May take up to 24 hours; subject to stricter review
-- **Rejection reasons**: Misleading content, missing opt-out, promotional content in utility category
-
-Check template status:
-
-```bash
-curl https://api.startmessaging.com/v1/templates?status=pending \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```
-
-## Using Parameters
-
-Parameters are placeholders (`{{1}}`, `{{2}}`, etc.) that get replaced with dynamic content when sending:
 
 ```json
 {
-  "to": "5511999999999",
-  "type": "template",
-  "template": {
-    "name": "order_shipped",
-    "language": { "code": "en" },
-    "components": [
+  "data": {
+    "items": [
       {
-        "type": "body",
-        "parameters": [
-          { "type": "text", "text": "Maria" },
-          { "type": "text", "text": "#ORD-1234" },
-          { "type": "text", "text": "January 20, 2026" },
-          { "type": "text", "text": "https://track.example.com/ORD-1234" }
-        ]
+        "id": "7d2c4b1a-3e5f-4a6b-9c8d-0e1f2a3b4c5d",
+        "name": "order_confirmation",
+        "displayName": "Order confirmation",
+        "language": "en_US",
+        "category": "UTILITY",
+        "status": "APPROVED",
+        "rejectionReason": null,
+        "components": [
+          { "type": "BODY", "text": "Hi {{1}}, your order {{2}} is confirmed." }
+        ],
+        "createdAt": "2026-09-20T06:30:00.000Z",
+        "updatedAt": "2026-09-21T09:00:00.000Z"
       }
-    ]
+    ],
+    "nextCursor": null
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z" }
+}
+```
+
+| Field | Description |
+|---|---|
+| `name` | The name WhatsApp knows the template by. Send it as `template.name`. It never changes. |
+| `displayName` | What your team renamed it to in the dashboard; never sent to WhatsApp. `null` if never renamed. |
+| `language` | Language code. A name exists once per language, so send the pair. |
+| `category` | Meta's current category, which can differ from the one submitted |
+| `status` | Meta's current review status |
+| `rejectionReason` | Meta's reason when the template was rejected |
+| `components` | The template's parts in Meta's own format (`HEADER`, `BODY`, `FOOTER`, `BUTTONS`). The placeholders are what `parameters` fill when you send it. |
+| `updatedAt` | When it last changed, including a review decision from Meta |
+
+## Get a template
+
+`GET /api/v1/templates/{id}` returns one template in the same shape. Needs `templates:read`. An unknown id (or one from another workspace) answers `404 TEMPLATE_NOT_FOUND`.
+
+```bash
+curl {{WA_API_BASE}}/api/v1/templates/7d2c4b1a-3e5f-4a6b-9c8d-0e1f2a3b4c5d \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+Templates can't be created, edited or deleted through the API. Use the dashboard, which shows a live phone preview, needs a sample for every variable and explains rejection reasons.
+
+## Status changes: template.status_updated
+
+Subscribe to the `template.status_updated` [webhook](/docs/whatsapp/webhooks) (needs `templates:read`) instead of polling. It fires when Meta approves, rejects, pauses or disables a template, and when an edit in the dashboard sends a template back to review (`status: "PENDING"`).
+
+```json
+{
+  "id": "evt_…",
+  "type": "template.status_updated",
+  "createdAt": "2026-10-02T10:00:00.000Z",
+  "workspaceId": "6f1e2d3c-4b5a-4968-8776-5a4b3c2d1e0f",
+  "data": {
+    "template": {
+      "id": "7d2c4b1a-3e5f-4a6b-9c8d-0e1f2a3b4c5d",
+      "name": "order_confirmation",
+      "language": "en_US",
+      "category": "UTILITY",
+      "status": "APPROVED",
+      "previousStatus": "PENDING",
+      "rejectionReason": null
+    }
   }
 }
 ```
 
-## Template Best Practices
+## Sending templates
 
-1. **Keep it concise** — shorter templates have higher read rates
-2. **Use the correct category** — miscategorized templates get rejected
-3. **Include a clear CTA** — tell the user what to do next
-4. **Add personalization** — use parameters for names and order details
-5. **Test in sandbox** before going live
+Send an approved template with `POST /api/v1/messages` and `type: "template"`. The fields are described on [Send Messages](/docs/whatsapp/send-message#template-messages):
+
+- `parameters` fill the body variables, in order or by name.
+- `headerMediaUrl` is required when the header is an image, video or document.
+- `buttonParameters` give send-time values to dynamic buttons: a URL variable (`subType: "url"`), a coupon code (`subType: "copy_code"`, `couponCode`) or a WhatsApp Form flow token (`subType: "flow"`).
+
+Each template in the dashboard has a **Send via API** panel that shows exactly what that template needs and a request you can copy.
+
+### What the API can't send yet
+
+Some templates can be created and sent from the dashboard but not through the API:
+
+- **Carousel templates.** Each card needs its own media, and the API has no field for it.
+- **Location headers.** The API has no field for the location, so WhatsApp would refuse the message.
+- **Text headers with a variable.** The API can't fill a header variable yet. Use a template without a header variable.
+
+## WhatsApp OTP with an authentication template
+
+You can deliver one-time passwords over WhatsApp by sending an **Authentication** template through `POST /api/v1/messages`. There is no separate OTP or verify endpoint:
+
+- **You generate the code and verify it yourself.** StartMessaging only delivers the message.
+- **There is no SMS fallback.** If the customer is not on WhatsApp the send fails (for example `422 MESSAGE_UNDELIVERABLE`); fall back to your own SMS provider if you need one.
+
+### The code goes in twice
+
+WhatsApp requires the code **in the body parameter and again in the button parameter at index 0 with `subType: "url"`**. Without both, WhatsApp rejects the message.
+
+```json
+{
+  "to": "+919876543210",
+  "type": "template",
+  "template": {
+    "name": "login_otp",
+    "language": "en_US",
+    "parameters": [{ "text": "482913" }],
+    "buttonParameters": [{ "index": 0, "subType": "url", "text": "482913" }]
+  },
+  "clientReference": "login-attempt-7f3a2c"
+}
+```
+
+`clientReference` lets the `message.delivered` and `message.failed` webhooks name the login attempt, so you can show "code sent" or offer another channel.
+
+### Example (Node.js)
+
+```javascript
+import { randomInt, createHash, randomUUID } from 'node:crypto';
+
+export async function sendWhatsAppOtp(phone, attemptId) {
+  const code = String(randomInt(0, 1_000_000)).padStart(6, '0');
+
+  // Store only a hash of the code, with an expiry that matches your template.
+  await db.otpAttempts.insert({
+    id: attemptId,
+    phone,
+    codeHash: createHash('sha256').update(code).digest('hex'),
+    expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+    attempts: 0,
+  });
+
+  const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `otp-${attemptId}`,
+    },
+    body: JSON.stringify({
+      to: phone,
+      type: 'template',
+      template: {
+        name: 'login_otp',
+        language: 'en_US',
+        parameters: [{ text: code }],
+        buttonParameters: [{ index: 0, subType: 'url', text: code }],
+      },
+      clientReference: `login-attempt-${attemptId}`,
+    }),
+  });
+
+  if (!res.ok) {
+    const { error } = await res.json();
+    throw new Error(`${error.code}: ${error.message}`);
+  }
+}
+```
+
+### Example (Python)
+
+```python
+import os, secrets, requests
+
+def send_whatsapp_otp(phone: str, attempt_id: str) -> str:
+    code = f"{secrets.randbelow(1_000_000):06d}"
+    # Store a hash of the code and an expiry before sending.
+    res = requests.post(
+        "{{WA_API_BASE}}/api/v1/messages",
+        headers={
+            "Authorization": f"Bearer {os.environ['SM_API_KEY']}",
+            "Idempotency-Key": f"otp-{attempt_id}",
+        },
+        json={
+            "to": phone,
+            "type": "template",
+            "template": {
+                "name": "login_otp",
+                "language": "en_US",
+                "parameters": [{"text": code}],
+                "buttonParameters": [{"index": 0, "subType": "url", "text": code}],
+            },
+            "clientReference": f"login-attempt-{attempt_id}",
+        },
+    )
+    res.raise_for_status()
+    return code
+```
+
+Good practice for your own verification step: compare hashes in constant time, expire codes after a few minutes, limit attempts per code and resends per number, and invalidate the code once it is used.
 
 ## FAQ
 
-**How many templates can I create?**
-There's no limit on the number of templates. However, only approved templates can be used for sending messages.
+**Can I create or submit templates through the API?**
+No. Templates are created and submitted in the dashboard, where Meta's sample-value and media rules are checked before submission. The API lists templates and sends approved ones.
 
-**Can I edit an approved template?**
-No — you must create a new template and submit it for approval. You can delete the old one after the new one is approved.
+**How long does Meta take to review a template?**
+Meta sets the review time. The template stays `PENDING` until Meta decides; subscribe to `template.status_updated` to know the moment it changes.
 
-**What happens if my template is rejected?**
-You'll receive a rejection notification with the reason. Fix the issue and resubmit.
+**My send failed with TEMPLATE_NOT_FOUND. Why?**
+Check that you sent the Meta name (not the display name) and the exact language code. The same name in another language is a different template.
+
+**Does StartMessaging have an OTP or verify API for WhatsApp?**
+No. Send an Authentication template with `POST /api/v1/messages`, putting the code in both `parameters` and `buttonParameters`. Generating, storing and verifying the code is up to your system, and there is no automatic SMS fallback.
+
+**Why did Meta change my template's category?**
+Meta can move a template between Utility and Marketing after approval when its content looks promotional. This changes its price. The dashboard flags it, and the API returns the current category.

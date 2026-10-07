@@ -1,19 +1,25 @@
 {
-  "countries": ["in", "br", "mx", "id", "ae", "tr", "ng"],
+  "countries": [
+    "in"
+  ],
   "theme": "sms",
-  "updatedAt": "2026-07-02",
+  "updatedAt": "2026-10-07",
   "seo": {
     "title": {
-      "en": "Auth API & OTP Verification Toolkit — SMS & WhatsApp — StartMessaging",
-      "pt": "API de Auth e Toolkit de Verificação de OTP — SMS e WhatsApp — StartMessaging",
-      "es": "API de Auth y Toolkit de Verificación de OTP — SMS y WhatsApp — StartMessaging",
-      "id": "API Auth & Toolkit Verifikasi OTP — SMS & WhatsApp — StartMessaging",
-      "ar": "واجهة Auth ومجموعة أدوات التحقق من OTP — SMS وواتساب — StartMessaging",
-      "tr": "Auth API ve OTP Doğrulama Araç Seti — SMS ve WhatsApp — StartMessaging"
+      "en": "Auth API & OTP Verification Toolkit — SMS — StartMessaging",
+      "pt": "API de Auth e Toolkit de Verificação de OTP — SMS — StartMessaging",
+      "es": "API de Auth y Toolkit de Verificación de OTP — SMS — StartMessaging",
+      "id": "API Auth & Toolkit Verifikasi OTP — SMS — StartMessaging",
+      "ar": "واجهة Auth ومجموعة أدوات التحقق من OTP — SMS — StartMessaging",
+      "tr": "Auth API ve OTP Doğrulama Araç Seti — SMS — StartMessaging"
     },
     "description": {
-      "en": "Complete authentication API with OTP verification, phone number validation, and multi-channel delivery via SMS and WhatsApp.",
-      "ar": "واجهة برمجة مصادقة كاملة مع التحقق من OTP والتحقق من صحة أرقام الهاتف والتوصيل متعدد القنوات عبر SMS وواتساب."
+      "en": "Authentication API with SMS OTP verification and phone number validation through a single REST API. More channels are planned.",
+      "pt": "API de autenticação com verificação de OTP por SMS e validação de números de telefone em uma única API REST. Mais canais estão planejados.",
+      "es": "API de autenticación con verificación de OTP por SMS y validación de números de teléfono en una única API REST. Hay más canales planificados.",
+      "id": "API autentikasi dengan verifikasi OTP via SMS dan validasi nomor telepon melalui satu REST API. Lebih banyak kanal sedang direncanakan.",
+      "ar": "واجهة مصادقة مع التحقق من OTP عبر SMS والتحقق من صحة أرقام الهاتف عبر واجهة REST API واحدة. المزيد من القنوات مخطط لها.",
+      "tr": "Tek bir REST API üzerinden SMS ile OTP doğrulama ve telefon numarası doğrulaması sunan kimlik doğrulama API'si. Daha fazla kanal planlanıyor."
     },
     "ogImage": "/og/auth-api.jpg"
   },
@@ -38,12 +44,12 @@
           "tr": "Auth API — Kullanıcıları Anında Doğrulayın"
         },
         "subtitle": {
-          "en": "A complete user verification toolkit: send OTPs via SMS/WhatsApp, verify codes, and validate phone formats — all through a single REST API.",
-          "pt": "Kit completo de verificação: envie OTPs via SMS/WhatsApp, verifique códigos e valide números — tudo em uma única API REST.",
-          "es": "Kit completo de verificación: envíe OTPs vía SMS/WhatsApp, verifique códigos y valide números — todo en una única API REST.",
-          "id": "Toolkit verifikasi lengkap: kirim OTP via SMS/WhatsApp, verifikasi kode, dan validasi format nomor — semuanya melalui satu REST API.",
-          "ar": "مجموعة أدوات تحقق كاملة: إرسال OTP عبر SMS/واتساب والتحقق من الرموز والتحقق من صيغة الرقم — كل ذلك عبر واجهة REST API واحدة.",
-          "tr": "Eksiksiz doğrulama araç seti: SMS/WhatsApp ile OTP gönderin, kodları doğrulayın ve numara biçimini kontrol edin — hepsi tek bir REST API ile."
+          "en": "A complete user verification toolkit: send OTPs via SMS, verify codes, and validate phone formats — all through a single REST API.",
+          "pt": "Kit completo de verificação: envie OTPs via SMS, verifique códigos e valide números — tudo em uma única API REST.",
+          "es": "Kit completo de verificación: envíe OTPs vía SMS, verifique códigos y valide números — todo en una única API REST.",
+          "id": "Toolkit verifikasi lengkap: kirim OTP via SMS, verifikasi kode, dan validasi format nomor — semuanya melalui satu REST API.",
+          "ar": "مجموعة أدوات تحقق كاملة: إرسال OTP عبر SMS والتحقق من الرموز والتحقق من صيغة الرقم — كل ذلك عبر واجهة REST API واحدة.",
+          "tr": "Eksiksiz doğrulama araç seti: SMS ile OTP gönderin, kodları doğrulayın ve numara biçimini kontrol edin — hepsi tek bir REST API ile."
         },
         "primaryCta": {
           "en": "Try Auth API",
@@ -56,17 +62,29 @@
       "type": "featureSplit",
       "props": {
         "heading": {
-          "en": "Multi-Channel Verification Routing",
-          "ar": "توجيه التحقق متعدد القنوات"
+          "en": "SMS OTP Delivery You Can Track",
+          "pt": "Entrega de OTP por SMS com Rastreamento",
+          "es": "Entrega de OTP por SMS con Seguimiento",
+          "id": "Pengiriman OTP SMS yang Dapat Dilacak",
+          "ar": "تسليم OTP عبر SMS مع إمكانية التتبع",
+          "tr": "Takip Edilebilir SMS OTP Teslimatı"
         },
         "body": {
-          "en": "Deliver OTP codes with smart failovers. Tries WhatsApp first for higher conversion rates and automatically falls back to transactional SMS if not delivered in 30 seconds.",
-          "ar": "أرسل رموز OTP مع آلية تجاوز ذكية. يجرب واتساب أولاً لمعدلات تحويل أعلى ثم ينتقل تلقائياً إلى SMS إذا لم يتم التسليم خلال 30 ثانية."
+          "en": "Deliver OTP codes over transactional SMS and track the delivery status of each one in real time. The Auth API is SMS-only for now; more channels are planned.",
+          "pt": "Envie códigos OTP por SMS transacional e acompanhe o status de entrega de cada um em tempo real. Por enquanto, a API de Auth funciona apenas com SMS; mais canais estão planejados.",
+          "es": "Envíe códigos OTP por SMS transaccional y siga el estado de entrega de cada uno en tiempo real. Por ahora, la API de Auth funciona solo con SMS; hay más canales planificados.",
+          "id": "Kirim kode OTP melalui SMS transaksional dan lacak status pengiriman masing-masing secara real-time. Untuk saat ini API Auth hanya mendukung SMS; lebih banyak kanal sedang direncanakan.",
+          "ar": "أرسل رموز OTP عبر SMS المعاملاتية وتتبّع حالة تسليم كل رمز في الوقت الفعلي. تعمل واجهة Auth حالياً عبر SMS فقط، والمزيد من القنوات مخطط لها.",
+          "tr": "OTP kodlarını işlemsel SMS ile gönderin ve her birinin teslimat durumunu gerçek zamanlı takip edin. Auth API şimdilik yalnızca SMS destekliyor; daha fazla kanal planlanıyor."
         },
         "bullets": [
           {
-            "en": "WhatsApp-first with SMS fallback",
-            "ar": "واتساب أولاً مع احتياطي SMS"
+            "en": "Transactional SMS delivery",
+            "pt": "Entrega por SMS transacional",
+            "es": "Entrega por SMS transaccional",
+            "id": "Pengiriman SMS transaksional",
+            "ar": "تسليم عبر SMS المعاملاتية",
+            "tr": "İşlemsel SMS teslimatı"
           },
           {
             "en": "Real-time delivery analytics",
@@ -77,10 +95,14 @@
             "ar": "فحص تنسيق أرقام الهاتف العالمية E.164"
           }
         ],
-        "image": "/images/auth-fallback.webp",
+        "image": "/images/non-dlt-flow.webp",
         "imageAlt": {
-          "en": "WhatsApp to SMS Fallback Timeline",
-          "ar": "الجدول الزمني للتحويل من واتساب إلى SMS"
+          "en": "Transactional SMS OTP Delivery Flow",
+          "pt": "Fluxo de Entrega de OTP por SMS Transacional",
+          "es": "Flujo de Entrega de OTP por SMS Transaccional",
+          "id": "Alur Pengiriman OTP SMS Transaksional",
+          "ar": "مخطط تسليم OTP عبر SMS المعاملاتية",
+          "tr": "İşlemsel SMS OTP Teslimat Akışı"
         },
         "reversed": false
       }
@@ -139,8 +161,12 @@
               "ar": "GET /messages/:id"
             },
             "description": {
-              "en": "Fetch the real-time delivery status of the SMS or WhatsApp message.",
-              "ar": "الحصول على حالة تسليم رسالة SMS أو واتساب في الوقت الفعلي."
+              "en": "Fetch the real-time delivery status of an SMS OTP message.",
+              "pt": "Consulte em tempo real o status de entrega de uma mensagem OTP por SMS.",
+              "es": "Consulte en tiempo real el estado de entrega de un mensaje OTP por SMS.",
+              "id": "Ambil status pengiriman real-time dari pesan OTP SMS.",
+              "ar": "الحصول على حالة تسليم رسالة OTP عبر SMS في الوقت الفعلي.",
+              "tr": "Bir SMS OTP mesajının gerçek zamanlı teslimat durumunu alın."
             }
           },
           {
@@ -262,8 +288,12 @@
               "ar": "ما هي طرق التحقق التي تدعمها واجهة Auth؟"
             },
             "answer": {
-              "en": "The Auth API supports: 1) OTP verification via SMS, 2) OTP verification via WhatsApp, 3) WhatsApp-first with SMS fallback, 4) Phone number format validation, and 5) Carrier/reachability lookup. All methods are available through a single unified API.",
-              "ar": "تدعم واجهة Auth: 1) التحقق من OTP عبر SMS، 2) التحقق من OTP عبر واتساب، 3) واتساب أولاً مع احتياطي SMS، 4) التحقق من تنسيق رقم الهاتف، و5) فحص شركة الاتصالات/إمكانية الوصول. جميع الطرق متاحة عبر واجهة API موحدة واحدة."
+              "en": "For now the Auth API is SMS-only. It supports: 1) OTP delivery via transactional SMS, 2) OTP code verification, 3) Phone number format validation, and 4) Carrier/reachability lookup — all through a single API. More channels are planned.",
+              "pt": "Por enquanto, a API de Auth funciona apenas com SMS. Ela oferece: 1) envio de OTP por SMS transacional, 2) verificação do código OTP, 3) validação do formato do número de telefone e 4) consulta de operadora/alcançabilidade — tudo em uma única API. Mais canais estão planejados.",
+              "es": "Por ahora, la API de Auth funciona solo con SMS. Ofrece: 1) envío de OTP por SMS transaccional, 2) verificación del código OTP, 3) validación del formato del número de teléfono y 4) consulta de operador/alcanzabilidad — todo en una única API. Hay más canales planificados.",
+              "id": "Untuk saat ini API Auth hanya mendukung SMS. Fiturnya: 1) pengiriman OTP via SMS transaksional, 2) verifikasi kode OTP, 3) validasi format nomor telepon, dan 4) pencarian operator/keterjangkauan — semuanya melalui satu API. Lebih banyak kanal sedang direncanakan.",
+              "ar": "تعمل واجهة Auth حالياً عبر SMS فقط. وهي تدعم: 1) إرسال OTP عبر SMS المعاملاتية، 2) التحقق من رمز OTP، 3) التحقق من تنسيق رقم الهاتف، و4) فحص شركة الاتصالات/إمكانية الوصول — كل ذلك عبر واجهة API واحدة. المزيد من القنوات مخطط لها.",
+              "tr": "Auth API şimdilik yalnızca SMS destekliyor. Sunduğu özellikler: 1) işlemsel SMS ile OTP gönderimi, 2) OTP kodu doğrulama, 3) telefon numarası biçim doğrulaması ve 4) operatör/erişilebilirlik sorgusu — hepsi tek bir API üzerinden. Daha fazla kanal planlanıyor."
             }
           }
         ]
@@ -286,8 +316,12 @@
           },
           {
             "label": {
-              "en": "WhatsApp Auth API",
-              "ar": "واجهة مصادقة واتساب"
+              "en": "WhatsApp Authentication Templates",
+              "pt": "Modelos de Autenticação do WhatsApp",
+              "es": "Plantillas de Autenticación de WhatsApp",
+              "id": "Template Autentikasi WhatsApp",
+              "ar": "قوالب المصادقة في واتساب",
+              "tr": "WhatsApp Kimlik Doğrulama Şablonları"
             },
             "href": "/whatsapp/authentication"
           },

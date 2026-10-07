@@ -1,172 +1,505 @@
 ---
 title: "Webhooks"
-description: "Receive real-time message delivery updates, incoming messages, and status changes via webhooks. Setup, verification, and event types."
+description: "Receive signed WhatsApp events from StartMessaging: incoming messages, delivery receipts, contact consent, conversation changes, template reviews and campaign completion. Setup, payloads, signature verification and retries."
 product: whatsapp
-order: 6
+order: 8
 ---
 
 ## Overview
 
-Webhooks allow you to receive real-time notifications when events occur — incoming messages, delivery status updates, template approvals, and more. Instead of polling our API, we push events directly to your server.
+Webhooks push events to your server as they happen, so you do not have to poll. Each delivery is an HTTPS `POST` with a JSON body, signed with your endpoint's secret.
 
-## Setting Up Webhooks
+You can add endpoints in two ways:
 
-### Via Dashboard
+- **Dashboard:** **Developers → Webhooks → Add endpoint.** Enter a public `https://` URL, an optional description and the events to receive. The signing secret is shown on the endpoint's details, where you can also send a test event, see the delivery log, redeliver, rotate the secret and turn the endpoint off or on.
+- **API:** `GET /api/v1/webhooks`, `POST /api/v1/webhooks` and `DELETE /api/v1/webhooks/{id}`, with the `webhooks:manage` scope. This is the subscribe/unsubscribe pair Zapier, Make and Pabbly-style tools use.
 
-1. Navigate to **Settings → Webhooks**
-2. Enter your **Webhook URL** (must be HTTPS)
-3. Set your **Webhook Secret** (used for signature verification)
-4. Select the **events** you want to receive
-5. Click **Save & Verify**
+Endpoints per workspace depend on your plan: **Trial 2, Basic 5, Advanced 20.** Disabled endpoints count too. Adding one beyond the limit answers `403 PLAN_LIMIT_REACHED` with `details.limit: "max_api_webhooks"`.
 
-### Via API
+## Events
+
+| Event | When | Read scope |
+|---|---|---|
+| `message.received` | A customer messaged your workspace. | `messages:read` |
+| `message.sent` | Meta accepted an outbound message (dashboard, API, automation or campaign). | `messages:read` |
+| `message.delivered` | Delivery receipt: the message reached the phone. | `messages:read` |
+| `message.read` | Read receipt. | `messages:read` |
+| `message.failed` | Meta reported the message could not be delivered. | `messages:read` |
+| `contact.created` | A contact was created (inbound message, dashboard or API; not per row of a CSV import). | `contacts:read` |
+| `contact.opted_out` | Consent withdrawn (STOP, WhatsApp marketing preference, dashboard, API). | `contacts:read` |
+| `contact.opted_in` | Consent given back (START, dashboard, API). | `contacts:read` |
+| `conversation.assigned` | A conversation's assignment changed. | `conversations:read` |
+| `conversation.resolved` | A conversation's resolution changed. | `conversations:read` |
+| `template.status_updated` | A template's review status changed. | `templates:read` |
+| `campaign.completed` | A campaign finished sending. | `campaigns:read` |
+
+There is also a `ping` event, sent only by **Send test** in the dashboard (see below).
+
+## Subscribe through the API
+
+`POST /api/v1/webhooks` with `url`, `events` (at least one) and an optional `description` (up to 200 characters). Besides `webhooks:manage`, the key must hold the **read scope of every event family** it subscribes to (table above). A missing one is `403 INSUFFICIENT_SCOPE`, and `details.missing` lists every scope to add.
 
 ```bash
-curl -X PUT https://api.startmessaging.com/v1/webhooks \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+curl -X POST "{{WA_API_BASE}}/api/v1/webhooks" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
   -H "Content-Type: application/json" \
   -d '{
-    "url": "https://your-server.com/webhooks/whatsapp",
-    "secret": "your_webhook_secret_key",
-    "events": ["message.received", "message.status", "template.status"]
+    "url": "https://example.com/webhooks/startmessaging",
+    "description": "Order system",
+    "events": ["message.received", "message.delivered", "message.failed"]
   }'
 ```
 
-## Webhook Verification
-
-When you set up a webhook, we send a GET verification request:
-
-```
-GET https://your-server.com/webhooks/whatsapp?hub.mode=subscribe&hub.challenge=CHALLENGE_STRING&hub.verify_token=YOUR_SECRET
-```
-
-Your server must respond with the `hub.challenge` value and a `200` status:
-
 ```javascript
-app.get('/webhooks/whatsapp', (req, res) => {
-  const mode = req.query['hub.mode'];
-  const challenge = req.query['hub.challenge'];
-  const token = req.query['hub.verify_token'];
-
-  if (mode === 'subscribe' && token === process.env.WEBHOOK_SECRET) {
-    res.status(200).send(challenge);
-  } else {
-    res.status(403).send('Forbidden');
-  }
+const res = await fetch("{{WA_API_BASE}}/api/v1/webhooks", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer sm_live_your_api_key",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    url: "https://example.com/webhooks/startmessaging",
+    description: "Order system",
+    events: ["message.received", "message.delivered", "message.failed"],
+  }),
 });
+const { data } = await res.json();
+// Store data.secret now: it is how you verify deliveries.
+console.log(data.webhook.id, data.secret);
 ```
 
-## Event Types
+```python
+import requests
 
-### `message.received` — Incoming Message
+res = requests.post(
+    "{{WA_API_BASE}}/api/v1/webhooks",
+    headers={"Authorization": "Bearer sm_live_your_api_key"},
+    json={
+        "url": "https://example.com/webhooks/startmessaging",
+        "description": "Order system",
+        "events": ["message.received", "message.delivered", "message.failed"],
+    },
+)
+data = res.json()["data"]
+print(data["webhook"]["id"], data["secret"])  # store the secret now
+```
+
+Response (`201 Created`):
 
 ```json
 {
-  "event": "message.received",
-  "timestamp": "2026-01-15T10:30:00Z",
   "data": {
-    "message_id": "msg_incoming_123",
-    "from": "5511999999999",
-    "type": "text",
-    "text": { "body": "Hi, I need help with my order" },
-    "timestamp": "2026-01-15T10:30:00Z",
-    "contact": {
-      "name": "João Silva",
-      "wa_id": "5511999999999"
+    "webhook": {
+      "id": "3f1c2a4e-8d7b-4c1a-9e2f-0a1b2c3d4e5f",
+      "url": "https://example.com/webhooks/startmessaging",
+      "description": "Order system",
+      "events": ["message.received", "message.delivered", "message.failed"],
+      "status": "active",
+      "disabledReason": null,
+      "consecutiveFailedDeliveries": 0,
+      "lastSuccessAt": null,
+      "lastFailureAt": null,
+      "createdAt": "2026-10-01T09:30:00.000Z",
+      "createdVia": "api"
+    },
+    "secret": "whsec_9XqvR2c1Jm4TbW7yZp0LkA3sD6fG8hN5eU1iO2rQ4tY"
+  },
+  "meta": { "requestId": "...", "timestamp": "2026-10-01T09:30:00.000Z" }
+}
+```
+
+- `GET /api/v1/webhooks` lists every endpoint in the workspace (made in the dashboard or the API), newest first. Secrets are never listed.
+- `DELETE /api/v1/webhooks/{id}` deletes an endpoint (`204`). It works even after your subscription has lapsed.
+- `POST /api/v1/webhooks` accepts an `Idempotency-Key` header.
+
+### Endpoints created with an API key
+
+An endpoint created through the API lives inside its key's grant. It receives an event only while that key is not revoked and still holds the event family's read scope, checked again before every attempt, including retries and redeliveries.
+
+- **Revoking the key** disables the endpoints it created (`disabledReason: "key_revoked"`).
+- **Narrowing the key's scopes** drops the event families it can no longer read from those endpoints. An endpoint left with none is disabled (`disabledReason: "key_scope_reduced"`).
+- Neither can be switched back on beyond the key's current grant.
+- Endpoints a member creates in the dashboard belong to no key and are bound by none.
+
+## URL rules
+
+- HTTPS only, on port **443**, resolving only to **public** internet addresses.
+- No username or password in the URL; verify deliveries with the signing secret instead.
+- Up to **2,048 characters** once encoded (each non-ASCII character or space takes several).
+
+Saving an endpoint checks what it can without DNS and refuses a bad URL with `422 WEBHOOK_URL_NOT_ALLOWED`. `details.reason` is one of:
+
+| Reason | Fix |
+|---|---|
+| `invalid_url` | Enter a full URL starting with `https://`. |
+| `unsupported_scheme` / `https_required` | Use an `https://` address. |
+| `credentials_not_allowed` | Remove the username and password. |
+| `port_not_allowed` | Use the standard HTTPS port, 443. |
+| `private_address` | `localhost` or an IP on a private or local network. Use a public address. |
+| `url_too_long` | Keep it under 2,048 characters once encoded. |
+
+A hostname is resolved on every connection, not when saved. One that resolves to a private, loopback or link-local address is accepted, but every delivery to it fails with `blocked_address` in the delivery log. Click **Send test** right after saving to catch this.
+
+## The envelope
+
+Every delivery has the same body:
+
+```json
+{
+  "id": "evt_5b2e8f9a-1c3d-4e5f-8a9b-0c1d2e3f4a5b",
+  "type": "message.received",
+  "createdAt": "2026-10-02T10:15:00.000Z",
+  "workspaceId": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
+  "data": { }
+}
+```
+
+`id` is the event id, the same across retries and redeliveries: use it to deduplicate. `data` depends on `type`, as below.
+
+## Payloads
+
+### message.received
+
+```json
+{
+  "id": "evt_5b2e8f9a-1c3d-4e5f-8a9b-0c1d2e3f4a5b",
+  "type": "message.received",
+  "createdAt": "2026-10-02T10:15:00.000Z",
+  "workspaceId": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
+  "data": {
+    "message": {
+      "id": "c4e1b2a3-9d8f-4e7a-b6c5-0a1b2c3d4e5f",
+      "conversationId": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+      "contactId": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+      "from": "+919812345678",
+      "type": "text",
+      "text": "Yes, confirm order",
+      "media": null,
+      "reply": { "kind": "quick_reply", "id": "COD_CONFIRM", "title": "Yes, confirm order" },
+      "context": { "messageId": "7d1e2f3a-4b5c-4d6e-8f9a-0b1c2d3e4f5a", "clientReference": "order-1042" },
+      "form": null,
+      "referral": null,
+      "timestamp": "2026-10-02T10:15:00.000Z"
+    },
+    "contact": { "id": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d", "phone": "+919812345678", "name": "Asha Verma" }
+  }
+}
+```
+
+| Field | Description |
+|---|---|
+| `type` | `text`, `template`, `image`, `video`, `audio`, `document`, `sticker` or `interactive`. `interactive` is a tap on your reply buttons or list (see `reply.kind`) or a submitted WhatsApp Form (`form` is set). Kinds the API does not model (location, contact card, reaction, a tap on a template's quick-reply button) are `text`: a placeholder such as `[location]`, or the button's label for a quick reply. Branch on `reply`, not on the text. |
+| `text` | The message's words. An uncaptioned photo has `text: null`; a caption is also in `media.caption`. For a submitted form it is a one-line summary (at most 300 characters), such as `Full name: Asha Rao · City: Pune`. Read the answers from `form`. |
+| `media` | `type`, `mimeType`, `filename`, `caption`, or `null`. Metadata only: no download URL. |
+| `reply` | What the customer tapped, or `null`. `kind` is `button` (interactive reply button), `list` (list row) or `quick_reply` (a template quick-reply button). `id` is the id you gave the option, or the quick-reply button's payload. Branch on `id`; `title` is the label as the customer saw it and can change with translation. |
+| `context` | Set when the customer replied to a specific message (tapping a button on it counts). `messageId` is our id for that message, or `null` when it is not one of this workspace's; `clientReference` is the reference it was sent with. A forwarded message is not a reply. |
+| `referral` | Set on the first message from a Click-to-WhatsApp ad or boosted post: `sourceType`, `sourceId`, `sourceUrl`, `headline`, `body`, `ctwaClid` (any of them `null` when Meta left it out). `ctwaClid` is the click id Meta's Conversions API takes. |
+| `form` | Set when the customer submitted a WhatsApp Form or WhatsApp's address request. See below. |
+| `contact` | `id`, `phone`, `name`, or `null`. |
+
+A submitted WhatsApp Form:
+
+```json
+"form": {
+  "kind": "flow",
+  "flowToken": "lead-77",
+  "flowId": "1234567890123456",
+  "flowName": "Lead capture",
+  "fields": [
+    { "key": "screen_0_Full_name_0", "label": "Full name", "value": "Asha Rao" },
+    { "key": "screen_0_City_1", "label": "City", "value": "Pune" },
+    { "key": "screen_0_Opt_in_2", "label": "Opt in", "value": true }
+  ],
+  "raw": null
+}
+```
+
+- `kind` is `flow` for a WhatsApp Form and `address_message` for an address request. Treat any other value as a form too.
+- `flowToken` is the token the form was sent with. Set it per send with `template.buttonParameters: [{ "index": 0, "subType": "flow", "text": "lead-77" }]` and match the answers to your record with it. It is `unused` when the send gave none.
+- `flowId` and `flowName` say which Flow it was, when that is certain; `null` otherwise.
+- `fields` lists every answer in WhatsApp's order. Map on `key` (WhatsApp's response key; nested answers are flattened with dots, such as `values.city`). `label` is a readable label made from the key. `value` is a string, boolean, number, array or `null`.
+- `raw` is WhatsApp's answer as received, only when it could not be read as JSON (then `fields` is empty).
+
+### message.sent, message.delivered, message.read, message.failed
+
+```json
+{
+  "id": "evt_0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d",
+  "type": "message.failed",
+  "createdAt": "2026-10-02T10:16:00.000Z",
+  "workspaceId": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
+  "data": {
+    "message": {
+      "id": "7d1e2f3a-4b5c-4d6e-8f9a-0b1c2d3e4f5a",
+      "conversationId": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+      "to": "+919812345678",
+      "status": "failed",
+      "failureCode": 131026,
+      "failureReason": "Message undeliverable",
+      "campaignId": null,
+      "clientReference": "order-1042",
+      "timestamp": "2026-10-02T10:16:00.000Z"
     }
   }
 }
 ```
 
-### `message.status` — Delivery Status Update
+- `status` is `sent`, `delivered`, `read` or `failed`.
+- `failureCode` and `failureReason` are Meta's own error code and explanation on `message.failed`; `null` otherwise.
+- `campaignId` is set when the message was sent by a campaign.
+- `clientReference` is the reference you sent with the message through the API, on **every** status event for it; `null` for messages sent from the inbox, automations or campaigns.
+
+### contact.created, contact.opted_out, contact.opted_in
 
 ```json
 {
-  "event": "message.status",
-  "timestamp": "2026-01-15T10:30:05Z",
+  "id": "evt_1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e",
+  "type": "contact.created",
+  "createdAt": "2026-10-02T10:00:00.000Z",
+  "workspaceId": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
   "data": {
-    "message_id": "msg_abc123",
-    "status": "delivered",
-    "recipient": "5511999999999",
-    "timestamp": "2026-01-15T10:30:05Z"
+    "contact": {
+      "id": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+      "phone": "+919812345678",
+      "name": "Asha Verma",
+      "email": null,
+      "tags": [],
+      "optedIn": true,
+      "source": "whatsapp",
+      "createdAt": "2026-10-02T10:00:00.000Z"
+    }
   }
 }
 ```
 
-Status values: `sent` → `delivered` → `read` (or `failed`)
+A contact created already opted out (its number opted out before) arrives as `contact.created` with `optedIn: false` and no `contact.opted_out`. See [Contacts & Tags](/docs/whatsapp/contacts).
 
-### `template.status` — Template Approval
+### conversation.assigned, conversation.resolved
 
 ```json
 {
-  "event": "template.status",
-  "timestamp": "2026-01-15T12:00:00Z",
+  "id": "evt_8a7b6c5d-4e3f-4a2b-9c1d-0e9f8a7b6c5d",
+  "type": "conversation.resolved",
+  "createdAt": "2026-10-02T11:00:00.000Z",
+  "workspaceId": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
   "data": {
-    "template_name": "order_shipped",
-    "status": "approved",
-    "language": "en"
+    "conversation": {
+      "id": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+      "contactId": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+      "contactPhone": "+919812345678",
+      "status": "resolved",
+      "assignedToUserId": "5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d"
+    },
+    "actor": { "type": "member", "id": "5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d" }
   }
 }
 ```
 
-## Signature Verification
+`actor.type` is `member`, `api_key`, `staff` or `system` (its `id` is `null`). See [Conversations](/docs/whatsapp/conversations).
 
-Every webhook payload includes an `X-Signature-256` header. Always verify it:
+### template.status_updated
 
-```python
-import hmac
-import hashlib
-
-def verify_signature(payload: bytes, signature: str, secret: str) -> bool:
-    expected = hmac.new(
-        secret.encode(),
-        payload,
-        hashlib.sha256
-    ).hexdigest()
-    return hmac.compare_digest(f"sha256={expected}", signature)
+```json
+{
+  "id": "evt_3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f",
+  "type": "template.status_updated",
+  "createdAt": "2026-10-02T12:00:00.000Z",
+  "workspaceId": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
+  "data": {
+    "template": {
+      "id": "6e7f8a9b-0c1d-4e2f-3a4b-5c6d7e8f9a0b",
+      "name": "order_ready_for_pickup",
+      "language": "en_US",
+      "category": "UTILITY",
+      "status": "APPROVED",
+      "previousStatus": "PENDING",
+      "rejectionReason": null
+    }
+  }
+}
 ```
+
+`status` is `APPROVED`, `PENDING`, `REJECTED`, `PAUSED` or `DISABLED`. The event fires on Meta's decision, and also when an edit in the dashboard sends an approved, rejected or paused template back to review (`status: "PENDING"`).
+
+### campaign.completed
+
+```json
+{
+  "id": "evt_2c3d4e5f-6a7b-4c8d-9e0f-1a2b3c4d5e6f",
+  "type": "campaign.completed",
+  "createdAt": "2026-10-20T05:02:41.000Z",
+  "workspaceId": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
+  "data": {
+    "campaign": {
+      "id": "e2d4c6b8-a1f3-4e5d-8c7b-9a0f1e2d3c4b",
+      "name": "Diwali offer",
+      "status": "COMPLETED",
+      "completedAt": "2026-10-20T05:02:41.000Z",
+      "stats": { "total": 1200, "sent": 1180, "delivered": 1102, "read": 640, "failed": 20, "skipped": 14 }
+    }
+  }
+}
+```
+
+`stats.skipped` counts opted-out recipients. See [Campaigns](/docs/whatsapp/campaigns).
+
+### ping
+
+**Send test** in the dashboard posts a `ping` event, `"data": { "ping": true }`, signed like any other and sent whatever the endpoint subscribes to. Answer it with a 2xx.
+
+## Headers
+
+| Header | Value |
+|---|---|
+| `Content-Type` | `application/json` |
+| `X-SM-Event` | The event type, such as `message.received`. |
+| `X-SM-Event-Id` | `evt_...`, identical across retries and redeliveries, and equal to the body's `id`. |
+| `X-SM-Delivery` | The id of this delivery's attempt series (as shown in the delivery log). |
+| `X-SM-Timestamp` | Unix seconds, fresh on every attempt. |
+| `X-SM-Signature` | `v1=` followed by the hex HMAC-SHA256. During a secret rotation, several comma-separated `v1=` values. |
+
+## Verify signatures
+
+Verify every delivery before trusting it:
+
+1. Take the **raw** request body exactly as received. Parsing and re-serialising JSON changes the bytes.
+2. Compute HMAC-SHA256 of `X-SM-Timestamp`, a dot, and the raw body: `"<timestamp>.<raw body>"`.
+3. The key is the **whole signing secret, including the `whsec_` prefix**, as text. Do not strip the prefix or base64-decode the rest. Libraries written for the Standard Webhooks `whsec_` format do exactly that, and will reject every delivery.
+4. Compare the hex digest, in constant time, with each `v1=` value in `X-SM-Signature`. Accept the delivery if **any** one matches.
+5. Refuse a timestamp more than **5 minutes** from your clock: that is what a replay looks like.
+
+`X-SM-Signature` carries one `v1=` value per signing secret: the current secret first, then each secret a rotation retired within the last 24 hours (at most four values). When you **Rotate secret** in the dashboard, the old secret keeps signing for 24 hours alongside the new one, so you can update your server without missing events.
+
+### Node.js
 
 ```javascript
-const crypto = require('crypto');
+import { createHmac, timingSafeEqual } from "node:crypto";
 
-function verifySignature(payload, signature, secret) {
-  const expected = 'sha256=' + crypto
-    .createHmac('sha256', secret)
-    .update(payload)
-    .digest('hex');
-  return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expected)
+// rawBody: the request body exactly as received (a Buffer or string),
+// before any JSON parsing. secret: the whole "whsec_..." string.
+export function verifySignature(rawBody, headers, secret) {
+  const timestamp = String(headers["x-sm-timestamp"] ?? "");
+  // Refuse a missing timestamp, and anything older than 5 minutes.
+  if (!/^\d+$/.test(timestamp)) return false;
+  if (Math.abs(Date.now() / 1000 - Number(timestamp)) > 300) return false;
+
+  const expected = Buffer.from(
+    createHmac("sha256", secret)
+      .update(`${timestamp}.`)
+      .update(rawBody)
+      .digest("hex"),
   );
+
+  // While a secret is being rotated, several signatures arrive; accept any.
+  return String(headers["x-sm-signature"] ?? "")
+    .split(",")
+    .some((part) => {
+      const signature = Buffer.from(part.trim().replace(/^v1=/, ""));
+      // Compare byte lengths first: timingSafeEqual throws on a mismatch.
+      return (
+        signature.length === expected.length &&
+        timingSafeEqual(signature, expected)
+      );
+    });
 }
 ```
 
-## Retry Policy
+With Express, read the raw body for this route only:
 
-If your server returns a non-2xx response, we retry with exponential backoff:
+```javascript
+import express from "express";
 
-| Attempt | Delay |
-|---------|-------|
-| 1st retry | 30 seconds |
-| 2nd retry | 2 minutes |
-| 3rd retry | 15 minutes |
-| 4th retry | 1 hour |
-| 5th retry | 6 hours |
+const app = express();
+const seen = new Set(); // use your database or Redis in production
 
-After 5 failed retries, the webhook is marked as **failing** and you'll receive an email alert.
+app.post(
+  "/webhooks/startmessaging",
+  express.raw({ type: "application/json" }),
+  (req, res) => {
+    if (!verifySignature(req.body, req.headers, process.env.SM_WEBHOOK_SECRET)) {
+      return res.sendStatus(401);
+    }
+    const event = JSON.parse(req.body.toString("utf8"));
+    res.sendStatus(200); // answer within 5 seconds, then do the work
+    if (seen.has(event.id)) return; // at-least-once: deduplicate on the body's id
+    seen.add(event.id);
+    queueForProcessing(event);
+  },
+);
+```
 
-## Best Practices
+### Python
 
-1. **Respond quickly** — return `200 OK` within 5 seconds, then process asynchronously
-2. **Use a message queue** — push webhook events to a queue (SQS, RabbitMQ, Redis) for reliable processing
-3. **Handle duplicates** — use `message_id` for idempotent processing
-4. **Always verify signatures** — prevent spoofed webhook calls
-5. **Monitor webhook health** — check the Webhooks dashboard for delivery stats
+```python
+import hashlib
+import hmac
+import time
+
+
+# raw_body: the request body bytes exactly as received.
+# headers: case-insensitive, as Flask and Django provide them.
+# secret: the whole "whsec_..." string.
+def verify_signature(raw_body: bytes, headers, secret: str) -> bool:
+    timestamp = headers.get("X-SM-Timestamp", "")
+    # ASCII digits only: str.isdigit() also accepts characters like "²".
+    if not (timestamp.isascii() and timestamp.isdigit()):
+        return False
+    # Refuse anything older than 5 minutes.
+    if abs(time.time() - int(timestamp)) > 300:
+        return False
+
+    expected = hmac.new(
+        secret.encode(), f"{timestamp}.".encode() + raw_body, hashlib.sha256
+    ).hexdigest()
+
+    # While a secret is being rotated, several signatures arrive; accept any.
+    for part in headers.get("X-SM-Signature", "").split(","):
+        signature = part.strip().removeprefix("v1=")
+        # compare_digest raises TypeError on a non-ASCII str.
+        if signature.isascii() and hmac.compare_digest(signature, expected):
+            return True
+    return False
+```
+
+With Flask:
+
+```python
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.post("/webhooks/startmessaging")
+def startmessaging_webhook():
+    if not verify_signature(request.get_data(), request.headers, WEBHOOK_SECRET):
+        return "", 401
+    event = request.get_json()
+    enqueue(event)  # deduplicate on event["id"] in your worker
+    return "", 200
+```
+
+Every check fails closed: a missing or non-numeric timestamp, a missing signature or a malformed `v1=` value returns `false` (answer `401`), never an exception.
+
+## Delivery and retries
+
+- **At least once.** Retries and manual redeliveries repeat an event. Deduplicate on the body's `id` after the signature checks out. It equals `X-SM-Event-Id`, but only the body is signed, so a replayed request could change the header and not the `id`.
+- **Unordered.** Events can arrive out of order; use the timestamps in `data`.
+- **Answer with a 2xx within 5 seconds**, then do the work afterwards (queue it). Anything else, including any redirect or a timeout, is a failure.
+- **Retries** after a failure: 1 minute, 5 minutes, 30 minutes, 2 hours, 6 hours and 12 hours. Seven attempts in about 20 hours, each signed with a fresh timestamp.
+- **Auto-disable.** An endpoint whose deliveries keep using up every retry (50 in a row, or failing for 24 hours) is turned off and flagged in the dashboard (`disabledReason: "failing"`). Fix it, turn it back on in **Developers → Webhooks**, then redeliver what failed from its delivery log. Events are not kept while an endpoint is off, and a redelivery is refused while it is off.
 
 ## FAQ
 
-**What if my server is down?**
-We retry with exponential backoff for up to 24 hours. After that, events are dropped. Set up redundancy or a queue to avoid missed events.
+**Why does signature verification always fail?**
+The usual causes: hashing parsed-and-re-serialised JSON instead of the raw body, stripping the `whsec_` prefix or base64-decoding the secret (use the whole string as text), or forgetting the dot between the timestamp and the body.
 
-**Can I receive webhooks for multiple numbers?**
-Yes — all events from all connected numbers are sent to your configured webhook URL. The `from` field identifies the source number.
+**Do I need to answer a verification challenge?**
+No. There is no `hub.challenge` handshake. Save the endpoint, then use **Send test** to check it answers a signed `ping` with a 2xx.
+
+**Can I receive webhooks on localhost or a private IP?**
+No. Endpoints must be public HTTPS on port 443. For local development, use a tunnelling service that gives you a public HTTPS URL.
+
+**Will I get the same event twice?**
+Possibly. Delivery is at least once. Store each event's `id` and skip ones you have already handled.
+
+**How do I change the secret without downtime?**
+Click **Rotate secret**. The old secret keeps signing alongside the new one for 24 hours, so deliveries carry both `v1=` values while you update your server.

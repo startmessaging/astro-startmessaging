@@ -1,33 +1,25 @@
 {
   "countries": [
-    "in",
-    "br",
-    "mx",
-    "id",
-    "ae",
-    "tr",
-    "ng"
+    "in"
   ],
   "theme": "sms",
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-10-07",
   "seo": {
     "title": {
-      "en": "OTP Authentication Use Case — StartMessaging",
-      "pt": "Verificação de OTP WhatsApp e SMS — StartMessaging",
-      "es": "Verificación de OTP WhatsApp y SMS — StartMessaging",
-      "id": "Autentikasi OTP WhatsApp & SMS — StartMessaging",
-      "ar": "التحقق باستخدام OTP وحالات الاستخدام — StartMessaging",
-      "tr": "WhatsApp ve SMS OTP Doğrulama Kullanımı — StartMessaging",
-      "ng": "OTP Authentication Use Case — StartMessaging"
+      "en": "SMS OTP Authentication Use Case — StartMessaging",
+      "pt": "Verificação OTP por SMS — StartMessaging",
+      "es": "Verificación OTP por SMS — StartMessaging",
+      "id": "Autentikasi OTP via SMS — StartMessaging",
+      "ar": "التحقق برمز OTP عبر SMS — StartMessaging",
+      "tr": "SMS ile OTP Doğrulama Kullanımı — StartMessaging"
     },
     "description": {
-      "en": "Implement phone-based OTP verification via WhatsApp and SMS. Secure user signups, signins, 2FA, and high-value payments.",
-      "pt": "Implemente verificação OTP via WhatsApp e SMS. Proteja cadastros, logins, 2FA e transações financeiras.",
-      "es": "Implemente verificación OTP vía WhatsApp y SMS. Proteja registros, inicios de sesión, 2FA y transacciones.",
-      "id": "Implementasikan verifikasi OTP melalui WhatsApp dan SMS. Amankan pendaftaran, login, 2FA, dan transaksi.",
-      "ar": "نفّذ التحقق من OTP بالهاتف عبر واتساب وSMS. أمّن تسجيلات الدخول والتحقق الثنائي والمدفوعات.",
-      "tr": "WhatsApp ve SMS üzerinden OTP doğrulaması uygulayın. Üye kayıtlarını, girişleri, 2FA ve ödeme onaylarını güvenceye alın.",
-      "ng": "Implement phone-based OTP verification via WhatsApp and SMS. Secure user signups, signins, 2FA, and high-value payments."
+      "en": "Send the one-time codes your app generates by SMS to secure sign-ups, logins, 2FA and payments. For WhatsApp OTP, use WhatsApp authentication templates.",
+      "pt": "Envie por SMS os códigos de uso único gerados pelo seu app para proteger cadastros, logins, 2FA e pagamentos. Para OTP no WhatsApp, use templates de autenticação do WhatsApp.",
+      "es": "Envíe por SMS los códigos de un solo uso que genera su app para proteger registros, inicios de sesión, 2FA y pagos. Para OTP por WhatsApp, use plantillas de autenticación de WhatsApp.",
+      "id": "Kirim kode sekali pakai yang dibuat aplikasi Anda melalui SMS untuk mengamankan pendaftaran, login, 2FA, dan pembayaran. Untuk OTP WhatsApp, gunakan templat autentikasi WhatsApp.",
+      "ar": "أرسل عبر SMS الرموز لمرة واحدة التي يولدها تطبيقك لتأمين التسجيل وتسجيل الدخول والمصادقة الثنائية والمدفوعات. ولرموز OTP عبر واتساب، استخدم قوالب المصادقة في واتساب.",
+      "tr": "Kayıtları, girişleri, 2FA'yı ve ödemeleri güvenceye almak için uygulamanızın ürettiği tek kullanımlık kodları SMS ile gönderin. WhatsApp OTP için WhatsApp kimlik doğrulama şablonlarını kullanın."
     },
     "ogImage": "/og/otp-api.jpg"
   },
@@ -54,13 +46,12 @@
           "ng": "Secure User Verification with OTP"
         },
         "subtitle": {
-          "en": "Add phone-based OTP verification to your app in minutes. Support sign-up verification, two-factor authentication, password resets, and transaction confirmations via WhatsApp or SMS.",
-          "pt": "Adicione verificação OTP por telefone ao seu app em minutos. Suporte para verificação de cadastro, 2FA, redefinição de senha e confirmações de transação via WhatsApp ou SMS.",
-          "es": "Agregue verificación OTP por teléfono a su app en minutos. Soporte para verificación de registro, 2FA, restablecimiento de contraseña y confirmaciones vía WhatsApp o SMS.",
-          "id": "Tambahkan verifikasi OTP berbasis telepon ke aplikasi Anda dalam hitungan menit. Dukungan untuk verifikasi pendaftaran, 2FA, reset password, dan konfirmasi transaksi via WhatsApp atau SMS.",
-          "ar": "أضف التحقق من OTP بالهاتف إلى تطبيقك في دقائق. دعم التحقق من التسجيل والمصادقة الثنائية وإعادة تعيين كلمة المرور وتأكيد المعاملات عبر واتساب أو SMS.",
-          "tr": "Dakikalar içinde uygulamanıza telefon tabanlı OTP doğrulaması ekleyin. Kayıt doğrulaması, 2FA, şifre sıfırlama ve işlem onaylarını WhatsApp veya SMS ile destekleyin.",
-          "ng": "Add phone-based OTP verification to your app in minutes. Support sign-up verification, two-factor authentication, password resets, and transaction confirmations via WhatsApp or SMS."
+          "en": "Send the one-time codes your app generates to Indian mobile numbers by SMS, for sign-up verification, two-factor authentication, password resets and transaction confirmations. Prefer WhatsApp? Send codes with WhatsApp authentication templates instead.",
+          "pt": "Envie por SMS, para números de celular da Índia, os códigos de uso único gerados pelo seu app, para verificação de cadastro, 2FA, redefinição de senha e confirmação de transações. Prefere WhatsApp? Envie os códigos com templates de autenticação do WhatsApp.",
+          "es": "Envíe por SMS a números móviles de India los códigos de un solo uso que genera su app, para verificar registros, 2FA, restablecer contraseñas y confirmar transacciones. ¿Prefiere WhatsApp? Envíe los códigos con plantillas de autenticación de WhatsApp.",
+          "id": "Kirim kode sekali pakai yang dibuat aplikasi Anda ke nomor seluler India melalui SMS, untuk verifikasi pendaftaran, 2FA, reset kata sandi, dan konfirmasi transaksi. Lebih suka WhatsApp? Kirim kode dengan templat autentikasi WhatsApp.",
+          "ar": "أرسل عبر SMS إلى أرقام الجوال الهندية الرموز لمرة واحدة التي يولدها تطبيقك، للتحقق من التسجيل والمصادقة الثنائية وإعادة تعيين كلمة المرور وتأكيد المعاملات. تفضّل واتساب؟ أرسل الرموز بقوالب المصادقة في واتساب.",
+          "tr": "Uygulamanızın ürettiği tek kullanımlık kodları kayıt doğrulama, 2FA, şifre sıfırlama ve işlem onayları için Hindistan cep numaralarına SMS ile gönderin. WhatsApp mı tercih ediyorsunuz? Kodları WhatsApp kimlik doğrulama şablonlarıyla gönderin."
         },
         "primaryCta": {
           "en": "Add OTP Verification",
@@ -118,13 +109,12 @@
               "ng": "Your app calls our API"
             },
             "description": {
-              "en": "POST /otp/send with the phone number. We generate a random code and deliver it via WhatsApp (preferred) or SMS.",
-              "pt": "POST /otp/send com o número do telefone. Geramos um código aleatório e o entregamos via WhatsApp (preferencial) ou SMS.",
-              "es": "POST /otp/send con el número de teléfono. Generamos un código aleatorio y lo entregamos vía WhatsApp (preferido) o SMS.",
-              "id": "POST /otp/send dengan nomor telepon. Kami menghasilkan kode acak dan mengirimkannya via WhatsApp (opsi utama) atau SMS.",
-              "ar": "إرسال طلب POST إلى otp/send/ مع رقم الهاتف. نقوم بتوليد رمز عشوائي وإرساله عبر واتساب (مفضل) أو SMS.",
-              "tr": "Telefon numarası ile POST /otp/send çağrısı. Rastgele bir kod oluşturup WhatsApp (tercih edilen) veya SMS ile göndeririz.",
-              "ng": "POST /otp/send with the phone number. We generate a random code and deliver it via WhatsApp (preferred) or SMS."
+              "en": "Generate a random code, store a hash of it with an expiry, then POST /otp/send with the phone number and the code in variables.otp. We deliver it by SMS.",
+              "pt": "Gere um código aleatório, guarde um hash dele com validade e chame POST /otp/send com o número de telefone e o código em variables.otp. Nós o entregamos por SMS.",
+              "es": "Genere un código aleatorio, guarde un hash con su caducidad y llame a POST /otp/send con el número de teléfono y el código en variables.otp. Nosotros lo entregamos por SMS.",
+              "id": "Buat kode acak, simpan hash-nya beserta masa berlaku, lalu POST /otp/send dengan nomor telepon dan kode di variables.otp. Kami mengirimkannya melalui SMS.",
+              "ar": "ولّد رمزاً عشوائياً واحفظ تجزئة (hash) له مع مدة صلاحية، ثم أرسل POST /otp/send برقم الهاتف والرمز في variables.otp. نتولى تسليمه عبر SMS.",
+              "tr": "Rastgele bir kod üretin, kodun hash'ini geçerlilik süresiyle saklayın, ardından telefon numarası ve variables.otp içindeki kodla POST /otp/send çağırın. Kodu SMS ile biz iletiriz."
             }
           },
           {
@@ -158,13 +148,12 @@
               "ng": "Your app verifies the code"
             },
             "description": {
-              "en": "POST /otp/verify with the request_id and code. We confirm the match and return verified: true/false.",
-              "pt": "POST /otp/verify com o request_id e código. Confirmamos a correspondência e retornamos verificado: true/false.",
-              "es": "POST /otp/verify con el request_id y código. Confirmamos la coincidencia y devolvemos verificado: true/false.",
-              "id": "POST /otp/verify dengan request_id dan kode. Kami mengonfirmasi kecocokan dan mengembalikan verified: true/false.",
-              "ar": "إرسال طلب POST إلى otp/verify/ مع معرف الطلب والرمز. نتحقق من التطابق ونرجع النتيجة true/false.",
-              "tr": "request_id ve kod ile POST /otp/verify çağrısı. Eşleşmeyi onaylayıp verified: true/false sonucunu döneriz.",
-              "ng": "POST /otp/verify with the request_id and code. We confirm the match and return verified: true/false."
+              "en": "Compare the entered code with the stored hash, check the expiry and attempt count, then mark the code as used. Verification happens in your own backend.",
+              "pt": "Compare o código digitado com o hash guardado, verifique a validade e o número de tentativas e marque o código como usado. A verificação acontece no seu próprio backend.",
+              "es": "Compare el código introducido con el hash guardado, revise la caducidad y el número de intentos y marque el código como usado. La verificación ocurre en su propio backend.",
+              "id": "Bandingkan kode yang dimasukkan dengan hash yang disimpan, periksa masa berlaku dan jumlah percobaan, lalu tandai kode sebagai terpakai. Verifikasi dilakukan di backend Anda sendiri.",
+              "ar": "قارن الرمز المُدخل بالتجزئة المحفوظة، وتحقق من الصلاحية وعدد المحاولات، ثم علّم الرمز كمستخدَم. يتم التحقق في الواجهة الخلفية الخاصة بك.",
+              "tr": "Girilen kodu saklanan hash ile karşılaştırın, geçerlilik süresini ve deneme sayısını kontrol edin, ardından kodu kullanılmış olarak işaretleyin. Doğrulama kendi arka ucunuzda yapılır."
             }
           }
         ]
@@ -174,50 +163,45 @@
       "type": "featureSplit",
       "props": {
         "heading": {
-          "en": "Fast, High-Delivery OTP Verification",
-          "pt": "Verificação OTP Rápida e com Alta Taxa de Entrega",
-          "es": "Verificación OTP Rápida y de Alta Entrega",
-          "id": "Verifikasi OTP Cepat dengan Tingkat Pengiriman Tinggi",
-          "ar": "تحقق سريع وموثوق من رمز OTP",
-          "tr": "Hızlı ve Yüksek Teslimat Oranlı OTP Doğrulama",
-          "ng": "Fast, High-Delivery OTP Verification"
+          "en": "OTP by SMS, or by WhatsApp: Your Choice",
+          "pt": "OTP por SMS ou pelo WhatsApp: Você Escolhe",
+          "es": "OTP por SMS o por WhatsApp: Usted Elige",
+          "id": "OTP via SMS atau WhatsApp: Pilihan Anda",
+          "ar": "OTP عبر SMS أو واتساب: الخيار لك",
+          "tr": "SMS ile ya da WhatsApp ile OTP: Seçim Sizin"
         },
         "body": {
-          "en": "OTP delivery failures directly cause customer drop-offs. By routing authentication codes WhatsApp-first, you bypass network congestion and carrier spam block lists. Supported Android devices enable single-tap verification autofills, boosting conversions.",
-          "pt": "Falhas na entrega de OTP causam diretamente a desistência de clientes. Ao direcionar códigos de autenticação primeiro pelo WhatsApp, você evita congestionamentos de rede e listas de bloqueio das operadoras. Dispositivos Android suportados habilitam o preenchimento automático com um toque, aumentando as conversões.",
-          "es": "Los fallos en la entrega de OTP provocan directamente el abandono de los clientes. Al enrutar los códigos de autenticación primero por WhatsApp, evita la congestión de la red y las listas de bloqueo de spam de las operadoras. Los dispositivos Android compatibles permiten el autocompletado con un solo toque, mejorando las conversiones.",
-          "id": "Kegagalan pengiriman OTP secara langsung menyebabkan pelanggan pergi. Dengan mengirimkan kode autentikasi via WhatsApp terlebih dahulu, Anda menghindari kemacetan jaringan dan daftar blokir spam operator. Perangkat Android yang didukung mengaktifkan pengisian otomatis verifikasi sekali ketuk, meningkatkan konversi.",
-          "ar": "تتسبب الإخفاقات في تسليم الرموز مباشرة في خسارة العملاء. عبر توجيه رموز التحقق عبر واتساب أولاً، ستتجنب ازدحام شبكة الهاتف وقوائم حظر البريد العشوائي. تتيح أجهزة أندرويد المدعومة التعبئة التلقائية للتحقق بنقرة واحدة، مما يرفع نسب التسجيل الناجح.",
-          "tr": "OTP teslimat hataları doğrudan müşteri kayıplarına yol açar. Kimlik doğrulama kodlarını öncelikle WhatsApp üzerinden yönlendirerek ağ tıkanıklıklarını ve operatör spam engelleme listelerini aşarsınız. Desteklenen Android cihazlar tek dokunuşla doğrulama doldurmayı etkinleştirerek dönüşümleri artırır.",
-          "ng": "OTP delivery failures directly cause customer drop-offs. By routing authentication codes WhatsApp-first, you bypass network congestion and carrier spam block lists. Supported Android devices enable single-tap verification autofills, boosting conversions."
+          "en": "The SMS OTP API delivers your codes by SMS. To send codes on WhatsApp instead, use a WhatsApp authentication template with a copy-code button, sent through the WhatsApp Messages API (POST /api/v1/messages), which is a separate product. The two never fall back to each other automatically: if you offer both, your app decides which channel to use and when to resend.",
+          "pt": "A API de OTP por SMS entrega seus códigos por SMS. Para enviar os códigos pelo WhatsApp, use um template de autenticação do WhatsApp com botão de copiar código, enviado pela API de Mensagens do WhatsApp (POST /api/v1/messages), que é um produto separado. Um nunca recorre ao outro automaticamente: se você oferecer os dois, seu app decide qual canal usar e quando reenviar.",
+          "es": "La API de OTP por SMS entrega sus códigos por SMS. Para enviarlos por WhatsApp, use una plantilla de autenticación de WhatsApp con botón de copiar código, enviada mediante la API de Mensajes de WhatsApp (POST /api/v1/messages), que es un producto aparte. Ninguno recurre al otro automáticamente: si ofrece ambos, su app decide qué canal usar y cuándo reenviar.",
+          "id": "SMS OTP API mengirim kode Anda melalui SMS. Untuk mengirim kode lewat WhatsApp, gunakan templat autentikasi WhatsApp dengan tombol salin kode, dikirim melalui WhatsApp Messages API (POST /api/v1/messages), yang merupakan produk terpisah. Keduanya tidak pernah saling menggantikan secara otomatis: jika Anda menawarkan keduanya, aplikasi Anda yang menentukan saluran dan waktu kirim ulang.",
+          "ar": "تسلّم واجهة SMS OTP رموزك عبر SMS. ولإرسال الرموز على واتساب بدلاً من ذلك، استخدم قالب مصادقة في واتساب مع زر نسخ الرمز يُرسل عبر API رسائل واتساب (POST /api/v1/messages)، وهو منتج منفصل. لا يتحول أي منهما إلى الآخر تلقائياً: إذا وفرت الاثنين، يقرر تطبيقك القناة المستخدمة ومتى تُعاد المحاولة.",
+          "tr": "SMS OTP API'si kodlarınızı SMS ile iletir. Kodları WhatsApp'tan göndermek isterseniz, ayrı bir ürün olan WhatsApp Mesaj API'si (POST /api/v1/messages) üzerinden gönderilen, kod kopyalama butonlu bir WhatsApp kimlik doğrulama şablonu kullanın. İkisi birbirine asla otomatik geçmez: ikisini de sunuyorsanız hangi kanalın kullanılacağına ve ne zaman yeniden gönderileceğine uygulamanız karar verir."
         },
         "bullets": [
           {
-            "en": "99%+ delivery rate via WhatsApp channels",
-            "pt": "Taxa de entrega superior a 99% via canais do WhatsApp",
-            "es": "Tasa de entrega de más del 99% a través de canales de WhatsApp",
-            "id": "Tingkat pengiriman 99%+ melalui saluran WhatsApp",
-            "ar": "معدل تسليم يتجاوز 99% عبر قنوات واتساب",
-            "tr": "WhatsApp kanalları ile %99+ teslimat oranı",
-            "ng": "99%+ delivery rate via WhatsApp channels"
+            "en": "Track SMS delivery with GET /messages/{id}",
+            "pt": "Acompanhe a entrega do SMS com GET /messages/{id}",
+            "es": "Siga la entrega del SMS con GET /messages/{id}",
+            "id": "Lacak pengiriman SMS dengan GET /messages/{id}",
+            "ar": "تتبّع تسليم SMS عبر GET /messages/{id}",
+            "tr": "SMS teslimatını GET /messages/{id} ile izleyin"
           },
           {
-            "en": "Auto-fallback to DLT-compliant SMS",
-            "pt": "Redirecionamento automático para SMS compatível com DLT",
-            "es": "Envío automático de respaldo a SMS compatible con DLT",
-            "id": "Fallback otomatis ke SMS yang patuh DLT",
-            "ar": "إرسال بديل تلقائي عبر SMS متوافق مع DLT",
-            "tr": "DLT uyumlu SMS'e otomatik geri dönüş (fallback)",
-            "ng": "Auto-fallback to DLT-compliant SMS"
+            "en": "DLT-registered or DLT-free SMS routes in India",
+            "pt": "Rotas de SMS com registro DLT ou sem DLT na Índia",
+            "es": "Rutas de SMS con registro DLT o sin DLT en India",
+            "id": "Rute SMS terdaftar DLT atau bebas DLT di India",
+            "ar": "مسارات SMS مسجلة في DLT أو بدون DLT في الهند",
+            "tr": "Hindistan'da DLT kayıtlı veya DLT'siz SMS rotaları"
           },
           {
-            "en": "Android one-tap auto-fill button support",
-            "pt": "Suporte a botão de preenchimento automático com um toque no Android",
-            "es": "Soporte para botón de autocompletado con un toque en Android",
-            "id": "Dukungan tombol pengisian otomatis sekali ketuk Android",
-            "ar": "دعم زر التعبئة التلقائية بنقرة واحدة على أندرويد",
-            "tr": "Android tek dokunuşla otomatik doldurma butonu desteği",
-            "ng": "Android one-tap auto-fill button support"
+            "en": "WhatsApp OTP via authentication templates with a copy-code button",
+            "pt": "OTP no WhatsApp com templates de autenticação e botão de copiar código",
+            "es": "OTP por WhatsApp con plantillas de autenticación y botón de copiar código",
+            "id": "OTP WhatsApp melalui templat autentikasi dengan tombol salin kode",
+            "ar": "OTP عبر واتساب بقوالب مصادقة مع زر نسخ الرمز",
+            "tr": "Kod kopyalama butonlu kimlik doğrulama şablonlarıyla WhatsApp OTP"
           }
         ],
         "image": "/images/otp-verification.webp",
@@ -258,13 +242,12 @@
           "ng": "WhatsApp OTP Verification vs. Traditional SMS OTP vs. Email Authentication"
         },
         "subheading": {
-          "en": "Compare delivery rates, latency speed, user setup complexity, and costs.",
-          "pt": "Compare taxas de entrega, velocidade de latência, complexidade de configuração do usuário e custos.",
-          "es": "Compare tasas de entrega, velocidad de latencia, complejidad de configuración del usuario y costos.",
-          "id": "Bandingkan tingkat pengiriman, kecepatan latensi, kompleksitas pengaturan pengguna, dan biaya.",
-          "ar": "قارن معدلات التسليم، وسرعة الاستجابة، وسهولة الإعداد للمستخدم، والتكاليف.",
-          "tr": "Teslimat oranlarını, gecikme süresini, kullanıcı kurulum karmaşıklığını ve maliyetleri karşılaştırın.",
-          "ng": "Compare delivery rates, latency speed, user setup complexity, and costs."
+          "en": "Compare how each channel delivers and protects one-time codes.",
+          "pt": "Compare como cada canal entrega e protege códigos de uso único.",
+          "es": "Compare cómo cada canal entrega y protege los códigos de un solo uso.",
+          "id": "Bandingkan cara setiap saluran mengirim dan melindungi kode sekali pakai.",
+          "ar": "قارن كيف تسلّم كل قناة الرموز لمرة واحدة وتحميها.",
+          "tr": "Her kanalın tek kullanımlık kodları nasıl ilettiğini ve koruduğunu karşılaştırın."
         },
         "columns": [
           {
@@ -316,98 +299,88 @@
         "rows": [
           [
             {
-              "en": "Delivery Success Ratio",
-              "pt": "Taxa de Sucesso na Entrega",
-              "es": "Tasa de Éxito de Entrega",
-              "id": "Rasio Keberhasilan Pengiriman",
-              "ar": "نسبة نجاح التسليم",
-              "tr": "Teslimat Başarı Oranı",
-              "ng": "Delivery Success Ratio"
+              "en": "How You Send It",
+              "pt": "Como Enviar",
+              "es": "Cómo Enviarlo",
+              "id": "Cara Mengirim",
+              "ar": "طريقة الإرسال",
+              "tr": "Nasıl Gönderilir"
             },
             {
-              "en": "99%+",
-              "pt": "99%+",
-              "es": "99%+",
-              "id": "99%+",
-              "ar": "99%+",
-              "tr": "%99+",
-              "ng": "99%+"
+              "en": "Authentication template via POST /api/v1/messages",
+              "pt": "Template de autenticação via POST /api/v1/messages",
+              "es": "Plantilla de autenticación vía POST /api/v1/messages",
+              "id": "Templat autentikasi via POST /api/v1/messages",
+              "ar": "قالب مصادقة عبر POST /api/v1/messages",
+              "tr": "POST /api/v1/messages ile kimlik doğrulama şablonu"
             },
             {
-              "en": "82% - 88%",
-              "pt": "82% - 88%",
-              "es": "82% - 88%",
-              "id": "82% - 88%",
-              "ar": "82% - 88%",
-              "tr": "%82 - %88",
-              "ng": "82% - 88%"
+              "en": "SMS OTP API: POST /otp/send (India)",
+              "pt": "API de OTP por SMS: POST /otp/send (Índia)",
+              "es": "API de OTP por SMS: POST /otp/send (India)",
+              "id": "SMS OTP API: POST /otp/send (India)",
+              "ar": "واجهة SMS OTP: POST /otp/send (الهند)",
+              "tr": "SMS OTP API'si: POST /otp/send (Hindistan)"
             },
             {
-              "en": "70% - 80%",
-              "pt": "70% - 80%",
-              "es": "70% - 80%",
-              "id": "70% - 80%",
-              "ar": "70% - 80%",
-              "tr": "%70 - %80",
-              "ng": "70% - 80%"
+              "en": "✗ (Not offered by StartMessaging)",
+              "pt": "✗ (Não oferecido pela StartMessaging)",
+              "es": "✗ (No lo ofrece StartMessaging)",
+              "id": "✗ (Tidak disediakan StartMessaging)",
+              "ar": "✗ (غير متوفر لدى StartMessaging)",
+              "tr": "✗ (StartMessaging sunmuyor)"
             }
           ],
           [
             {
-              "en": "Average Delivery Latency",
-              "pt": "Latência Média de Entrega",
-              "es": "Latencia Media de Entrega",
-              "id": "Rata-rata Latensi Pengiriman",
-              "ar": "متوسط تأخر التسليم",
-              "tr": "Ortalama Teslimat Gecikmesi",
-              "ng": "Average Delivery Latency"
+              "en": "Code Generation & Check",
+              "pt": "Geração e Verificação do Código",
+              "es": "Generación y Verificación del Código",
+              "id": "Pembuatan & Pemeriksaan Kode",
+              "ar": "توليد الرمز والتحقق منه",
+              "tr": "Kod Üretimi ve Kontrolü"
             },
             {
-              "en": "< 2 seconds",
-              "pt": "< 2 segundos",
-              "es": "< 2 segundos",
-              "id": "< 2 detik",
-              "ar": "أقل من ثانيتين",
-              "tr": "< 2 saniye",
-              "ng": "< 2 seconds"
+              "en": "Your app",
+              "pt": "Seu app",
+              "es": "Su app",
+              "id": "Aplikasi Anda",
+              "ar": "تطبيقك",
+              "tr": "Uygulamanız"
             },
             {
-              "en": "10 - 30+ seconds",
-              "pt": "10 - 30+ segundos",
-              "es": "10 - 30+ segundos",
-              "id": "10 - 30+ detik",
-              "ar": "من 10 إلى 30+ ثانية",
-              "tr": "10 - 30+ saniye",
-              "ng": "10 - 30+ seconds"
+              "en": "Your app",
+              "pt": "Seu app",
+              "es": "Su app",
+              "id": "Aplikasi Anda",
+              "ar": "تطبيقك",
+              "tr": "Uygulamanız"
             },
             {
-              "en": "Seconds to minutes",
-              "pt": "Segundos a minutos",
-              "es": "Segundos a minutos",
-              "id": "Detik hingga menit",
-              "ar": "من ثوانٍ إلى دقائق",
-              "tr": "Saniyeler ile dakikalar arası",
-              "ng": "Seconds to minutes"
+              "en": "Your app",
+              "pt": "Seu app",
+              "es": "Su app",
+              "id": "Aplikasi Anda",
+              "ar": "تطبيقك",
+              "tr": "Uygulamanız"
             }
           ],
           [
             {
-              "en": "One-Tap Autofill",
-              "pt": "Preenchimento Automático com Um Toque",
-              "es": "Autocompletado con un Toque",
-              "id": "Pengisian Otomatis Sekali Ketuk",
-              "ar": "التعبئة التلقائية بنقرة واحدة",
-              "tr": "Tek Dokunuşla Otomatik Doldurma",
-              "ng": "One-Tap Autofill"
+              "en": "Code Entry",
+              "pt": "Inserção do Código",
+              "es": "Introducción del Código",
+              "id": "Memasukkan Kode",
+              "ar": "إدخال الرمز",
+              "tr": "Kod Girişi"
             },
             {
-              "en": "✓ (Android system native)",
-              "pt": "✓ (Nativo do sistema Android)",
-              "es": "✓ (Nativo del sistema Android)",
-              "id": "✓ (Bawaan sistem Android)",
-              "ar": "✓ (مدمج في نظام أندرويد)",
-              "tr": "✓ (Android sistemine entegre)",
-              "ng": "✓ (Android system native)"
+              "en": "✓ (Copy-code button in the chat)",
+              "pt": "✓ (Botão de copiar código no chat)",
+              "es": "✓ (Botón de copiar código en el chat)",
+              "id": "✓ (Tombol salin kode di obrolan)",
+              "ar": "✓ (زر نسخ الرمز في المحادثة)",
+              "tr": "✓ (Sohbette kod kopyalama butonu)"
             },
             {
               "en": "✓ (Android & iOS native)",
@@ -430,40 +403,36 @@
           ],
           [
             {
-              "en": "Security Level (E2E)",
-              "pt": "Nível de Segurança (E2E)",
-              "es": "Nivel de Seguridad (E2E)",
-              "id": "Tingkat Keamanan (E2E)",
-              "ar": "مستوى الأمان (E2E)",
-              "tr": "Güvenlik Seviyesi (Uçtan Uca)",
-              "ng": "Security Level (E2E)"
+              "en": "Interception Risk",
+              "pt": "Risco de Interceptação",
+              "es": "Riesgo de Interceptación",
+              "id": "Risiko Intersepsi",
+              "ar": "خطر الاعتراض",
+              "tr": "Ele Geçirilme Riski"
             },
             {
-              "en": "✓ (End-to-End Encrypted)",
-              "pt": "✓ (Criptografia de Ponta a Ponta)",
-              "es": "✓ (Cifrado de Extremo a Extremo)",
-              "id": "✓ (Terenkripsi Ujung-ke-Ujung)",
-              "ar": "✓ (مشفر بين الطرفين)",
-              "tr": "✓ (Uçtan Uca Şifreli)",
-              "ng": "✓ (End-to-End Encrypted)"
+              "en": "Lower (delivered to the WhatsApp app over an encrypted connection)",
+              "pt": "Menor (entregue no app do WhatsApp por conexão criptografada)",
+              "es": "Menor (se entrega en la app de WhatsApp por una conexión cifrada)",
+              "id": "Lebih rendah (dikirim ke aplikasi WhatsApp melalui koneksi terenkripsi)",
+              "ar": "أقل (يُسلَّم إلى تطبيق واتساب عبر اتصال مشفّر)",
+              "tr": "Daha düşük (şifreli bağlantıyla WhatsApp uygulamasına iletilir)"
             },
             {
-              "en": "✗ (Vulnerable to interception)",
-              "pt": "✗ (Vulnerável a interceptação)",
-              "es": "✗ (Vulnerable a interceptación)",
-              "id": "✗ (Rentan terhadap intersepsi)",
-              "ar": "✗ (عرضة للاعتراض والسرقة)",
-              "tr": "✗ (Müdahalelere açık)",
-              "ng": "✗ (Vulnerable to interception)"
+              "en": "Higher (SIM-swap and network attacks)",
+              "pt": "Maior (troca de SIM e ataques à rede)",
+              "es": "Mayor (duplicado de SIM y ataques a la red)",
+              "id": "Lebih tinggi (SIM swap dan serangan jaringan)",
+              "ar": "أعلى (تبديل الشريحة وهجمات الشبكة)",
+              "tr": "Daha yüksek (SIM değiştirme ve ağ saldırıları)"
             },
             {
-              "en": "✗ (Plain text server transfer)",
-              "pt": "✗ (Transferência de servidor em texto simples)",
-              "es": "✗ (Transferencia de servidor en texto simple)",
-              "id": "✗ (Transfer server teks biasa)",
-              "ar": "✗ (نقل نص عادي عبر الخادم)",
-              "tr": "✗ (Düz metin sunucu aktarımı)",
-              "ng": "✗ (Plain text server transfer)"
+              "en": "Depends on the mail provider",
+              "pt": "Depende do provedor de email",
+              "es": "Depende del proveedor de correo",
+              "id": "Tergantung penyedia email",
+              "ar": "يعتمد على مزود البريد",
+              "tr": "E-posta sağlayıcısına bağlıdır"
             }
           ]
         ]
@@ -473,44 +442,33 @@
       "type": "codeShowcase",
       "props": {
         "badge": {
-          "en": "Auth API",
-          "pt": "API de Autenticação",
-          "es": "API de Autenticación",
-          "id": "API Autentikasi",
-          "ar": "واجهة Auth API",
-          "tr": "Kimlik Doğrulama API",
-          "ng": "Auth API"
+          "en": "SMS OTP API",
+          "pt": "API de OTP por SMS",
+          "es": "API de OTP por SMS",
+          "id": "API OTP SMS",
+          "ar": "API رموز OTP عبر SMS",
+          "tr": "SMS OTP API’si"
         },
         "heading": {
-          "en": "Send and Verify One-Time Passwords",
-          "pt": "Envie e Verifique Senhas de Uso Único (OTP)",
-          "es": "Envíe y Verifique Contraseñas de un Solo Uso (OTP)",
-          "id": "Kirim dan Verifikasi Kode OTP (One-Time Password)",
-          "ar": "إرسال والتحقق من كلمات المرور لمرة واحدة",
-          "tr": "Tek Kullanımlık Şifreleri (OTP) Gönderin ve Doğrulayın",
-          "ng": "Send and Verify One-Time Passwords"
-        },
-        "overlayText": {
-          "en": "OTP Verification API Sandbox — Coming Soon",
-          "pt": "Sandbox da API de Verificação OTP — Em Breve",
-          "es": "Sandbox de la API de Verificación OTP — Muy Pronto",
-          "id": "API Sandbox Verifikasi OTP — Segera Hadir",
-          "ar": "بيئة تجريبية لواجهة التحقق من OTP — قريباً",
-          "tr": "OTP Doğrulama API Test Alanı — Yakında",
-          "ng": "OTP Verification API Sandbox — Coming Soon"
+          "en": "Send an OTP by SMS and track delivery",
+          "pt": "Envie um OTP por SMS e acompanhe a entrega",
+          "es": "Envía un OTP por SMS y sigue la entrega",
+          "id": "Kirim OTP via SMS dan lacak pengirimannya",
+          "ar": "أرسل رمز OTP عبر SMS وتتبّع التسليم",
+          "tr": "SMS ile OTP gönderin ve teslimatı izleyin"
         },
         "snippets": [
           {
             "lang": "cURL",
-            "code": "curl -X POST https://api.startmessaging.com/otp/send \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"phoneNumber\": \"+919876543210\",\n    \"templateId\": \"YOUR_TEMPLATE_ID\",\n    \"variables\": {\n      \"otp\": \"123456\",\n      \"appName\": \"YourApp\"\n    }\n  }'"
+            "code": "# 1. Send the OTP (you generate and store the code)\ncurl -X POST https://api.startmessaging.com/otp/send \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"phoneNumber\": \"+919876543210\",\n    \"templateId\": \"YOUR_TEMPLATE_ID\",\n    \"variables\": {\n      \"otp\": \"482913\",\n      \"appName\": \"YourApp\"\n    }\n  }'\n\n# 2. Check delivery with the messageId from the response\ncurl https://api.startmessaging.com/messages/MESSAGE_ID \\\n  -H \"X-API-Key: sm_live_your_api_key_here\""
           },
           {
             "lang": "Node.js",
-            "code": "await fetch(\"https://api.startmessaging.com/otp/send\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    phoneNumber: \"+919876543210\",\n    templateId: \"YOUR_TEMPLATE_ID\",\n    variables: { otp: \"123456\", appName: \"YourApp\" }\n  })\n});"
+            "code": "const otp = String(Math.floor(100000 + Math.random() * 900000));\n// store a hash of otp against the login attempt, with an expiry\n\nconst res = await fetch('https://api.startmessaging.com/otp/send', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'X-API-Key': process.env.SM_API_KEY,\n  },\n  body: JSON.stringify({\n    phoneNumber: '+919876543210',\n    templateId: 'YOUR_TEMPLATE_ID',\n    variables: { otp, appName: 'YourApp' },\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.messageId, data.status); // queued"
           },
           {
             "lang": "Python",
-            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/otp/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"phoneNumber\": \"+919876543210\",\n        \"templateId\": \"YOUR_TEMPLATE_ID\",\n        \"variables\": {\"otp\": \"123456\", \"appName\": \"YourApp\"}\n    }\n)"
+            "code": "import os, secrets, requests\n\notp = f\"{secrets.randbelow(900000) + 100000}\"\n# store a hash of otp against the login attempt, with an expiry\n\nres = requests.post(\n    'https://api.startmessaging.com/otp/send',\n    headers={'X-API-Key': os.environ['SM_API_KEY']},\n    json={\n        'phoneNumber': '+919876543210',\n        'templateId': 'YOUR_TEMPLATE_ID',\n        'variables': {'otp': otp, 'appName': 'YourApp'},\n    },\n)\nprint(res.json()['data']['messageId'])"
           }
         ]
       }
@@ -548,55 +506,48 @@
               "ng": "What's the best practice for OTP expiry time?"
             },
             "answer": {
-              "en": "We recommend 5 minutes for standard sign-up/login OTPs and 2-3 minutes for high-security transactions (payments, password resets). Our API supports configurable expiry from 30 seconds to 30 minutes. Shorter expiry times are more secure but may cause friction for users on slow connections.",
-              "pt": "Recomendamos 5 minutos para OTPs padrão de cadastro/login e 2 a 3 minutos para transações de alta segurança (pagamentos, redefinição de senha). Nossa API suporta expiração configurável de 30 segundos a 30 minutos. Tempos de expiração mais curtos são mais seguros, mas podem causar fricção para usuários em conexões lentas.",
-              "es": "Recomendamos 5 minutos para OTP estándar de registro/inicio de sesión y 2-3 minutos para transacciones de alta seguridad (pagos, restablecimiento de contraseña). Nuestra API admite la expiración configurable desde 30 segundos hasta 30 minutos. Tiempos de expiración más cortos son más seguros pero pueden causar fricción para usuarios con conexiones lentas.",
-              "id": "Kami menyarankan 5 menit untuk OTP pendaftaran/login standar dan 2-3 menit untuk transaksi dengan keamanan tinggi (pembayaran, reset kata sandi). API kami mendukung waktu kedaluwarsa yang dapat dikonfigurasi dari 30 detik hingga 30 menit. Waktu kedaluwarsa yang lebih singkat lebih aman tetapi dapat menyebabkan hambatan bagi pengguna dengan koneksi lambat.",
-              "ar": "نوصي بـ 5 دقائق لرموز OTP القياسية للتسجيل/تسجيل الدخول، و2-3 دقائق للمعاملات عالية الأمان (المدفوعات، وإعادة تعيين كلمة المرور). تدعم واجهتنا انتهاء صلاحية قابل للتكوين من 30 ثانية إلى 30 دقيقة. أوقات انتهاء الصلاحية الأقصر هي الأكثر أماناً ولكنها قد تسبب صعوبة للمستخدمين ذوي الاتصالات البطيئة.",
-              "tr": "Standart kayıt/giriş OTP'leri için 5 dakika, yüksek güvenlikli işlemler (ödemeler, şifre sıfırlama) için ise 2-3 dakika öneriyoruz. API'miz 30 saniyeden 30 dakikaya kadar yapılandırılabilir geçerlilik sürelerini destekler. Daha kısa süreler daha güvenlidir ancak yavaş bağlantıya sahip kullanıcılar için zorluk oluşturabilir.",
-              "ng": "We recommend 5 minutes for standard sign-up/login OTPs and 2-3 minutes for high-security transactions (payments, password resets). Our API supports configurable expiry from 30 seconds to 30 minutes. Shorter expiry times are more secure but may cause friction for users on slow connections."
+              "en": "Because your app generates and stores the code, you choose the expiry. We recommend 5 minutes for standard sign-up and login codes and 2-3 minutes for high-security actions (payments, password resets). Shorter expiry is more secure but can frustrate users on slow connections.",
+              "pt": "Como o seu app gera e guarda o código, você escolhe a validade. Recomendamos 5 minutos para códigos padrão de cadastro e login e 2 a 3 minutos para ações de alta segurança (pagamentos, redefinição de senha). Validades mais curtas são mais seguras, mas podem atrapalhar usuários com conexões lentas.",
+              "es": "Como su app genera y guarda el código, usted elige la caducidad. Recomendamos 5 minutos para códigos estándar de registro e inicio de sesión y 2-3 minutos para acciones de alta seguridad (pagos, restablecimiento de contraseña). Una caducidad más corta es más segura, pero puede molestar a usuarios con conexiones lentas.",
+              "id": "Karena aplikasi Anda yang membuat dan menyimpan kode, Anda yang menentukan masa berlakunya. Kami menyarankan 5 menit untuk kode pendaftaran dan login standar serta 2-3 menit untuk tindakan berkeamanan tinggi (pembayaran, reset kata sandi). Masa berlaku yang lebih singkat lebih aman, tetapi bisa menyulitkan pengguna dengan koneksi lambat.",
+              "ar": "لأن تطبيقك هو من يولّد الرمز ويحفظه، فأنت من يحدد مدة صلاحيته. نوصي بـ 5 دقائق لرموز التسجيل وتسجيل الدخول القياسية، و2-3 دقائق للإجراءات عالية الأمان (المدفوعات، وإعادة تعيين كلمة المرور). المدة الأقصر أكثر أماناً لكنها قد تزعج المستخدمين ذوي الاتصالات البطيئة.",
+              "tr": "Kodu uygulamanız ürettiği ve sakladığı için geçerlilik süresini siz belirlersiniz. Standart kayıt ve giriş kodları için 5 dakika, yüksek güvenlikli işlemler (ödemeler, şifre sıfırlama) için 2-3 dakika öneriyoruz. Daha kısa süreler daha güvenlidir ancak yavaş bağlantılı kullanıcıları zorlayabilir."
             }
           },
           {
             "question": {
-              "en": "Are there local technical conditions for sending OTP verification codes?",
-              "in": "What are the DLT registration rules for fallback SMS OTP in India?",
-              "ng": "How reliable is SMS OTP fallback during network outages in Nigeria?",
-              "tr": "KVKK veri işleme kuralları OTP doğrulama logları için nasıl geçerlidir?",
-              "pt": "Quais são as regras locais para envio de códigos de verificação OTP no Brasil?",
-              "es": "¿Cuáles son las condiciones locales para enviar códigos de verificación OTP en México?",
-              "id": "Bagaimana aturan pengiriman kode OTP di Indonesia?",
-              "ar": "ما هي الشروط التقنية المحلية لإرسال رموز التحقق OTP في الإمارات؟"
+              "en": "Are there local rules for sending OTP verification codes?",
+              "pt": "Existem regras locais para o envio de códigos de verificação OTP?",
+              "es": "¿Existen reglas locales para enviar códigos de verificación OTP?",
+              "id": "Apakah ada aturan lokal untuk mengirim kode verifikasi OTP?",
+              "ar": "هل توجد قواعد محلية لإرسال رموز التحقق OTP؟",
+              "tr": "OTP doğrulama kodları göndermek için yerel kurallar var mı?"
             },
             "answer": {
-              "en": "Yes. OTP parameters and fallback routing vary by regional regulatory standards.",
-              "in": "In India, DLT registration requires you to associate your SMS templates with a registered Principal Entity (PE) ID and a Sender ID (Header). StartMessaging maps these variables dynamically so that if a WhatsApp OTP fails to deliver, the fallback SMS matches DLT compliance and delivers immediately.",
-              "ng": "Network fluctuations are common in Nigeria. By routing OTPs WhatsApp-first, we deliver securely over data connections. If WhatsApp is unavailable, our direct integrations with local telcos (MTN, Airtel, Glo, 9mobile) trigger an immediate, high-priority fallback SMS with premium sender routes to ensure delivery.",
-              "tr": "KVKK kapsamında, OTP doğrulama amacıyla toplanan telefon numaraları ve doğrulama logları kişisel veri statüsündedir. Bu veriler yalnızca doğrulama amacı doğrultusunda işlenmeli ve rıza dışı pazarlama faaliyetlerinde kullanılmamalıdır. Sunucularımız KVKK veri güvenliği standartlarıyla tam uyumludur.",
-              "pt": "No Brasil, o envio de OTP via WhatsApp deve respeitar as diretrizes de opt-in da LGPD. Se houver falha de rede do usuário, nosso fallback automático envia um SMS por meio de rotas nacionais homologadas pela Anatel, garantindo entrega em segundos e conformidade regulatória total.",
-              "es": "En México, el envío de OTP debe cumplir con la regulación de protección de datos de la LFPDPPP. Si el usuario no tiene conexión de datos para recibir WhatsApp, nuestro sistema cambia automáticamente a una ruta SMS de alta prioridad homologada por los operadores locales, asegurando la entrega inmediata.",
-              "id": "Di Indonesia, pengiriman OTP melalui WhatsApp harus mematuhi aturan privasi data pribadi (UU PDP). Jika pengguna tidak aktif di WhatsApp, sistem kami secara otomatis mengalihkan pengiriman ke SMS premium menggunakan sender ID lokal yang terdaftar untuk memastikan keamanan dan kecepatan pengiriman.",
-              "ar": "في دولة الإمارات، يتطلب إرسال رموز التحقق الالتزام بلوائح هيئة تنظيم قطاع الاتصالات (TDRA). يوجه نظامنا رموز OTP عبر قنوات واتساب كخيار أول، وفي حال عدم التوفر، يتم التحويل تلقائياً إلى قنوات SMS محلية عالية الأولوية ومسجلة رسمياً لضمان التسليم الفوري."
+              "en": "Yes. In India, SMS OTPs must use a DLT-registered template and sender ID, or our DLT-free route. Everywhere, local data-protection laws govern how you store phone numbers and verification logs. WhatsApp OTPs must use a Meta-approved authentication template.",
+              "pt": "Sim. Na Índia, OTPs por SMS precisam usar um template e um sender ID registrados no DLT, ou nossa rota sem DLT. Em qualquer país, as leis locais de proteção de dados (como a LGPD no Brasil) regem como você armazena números de telefone e registros de verificação. OTPs pelo WhatsApp precisam usar um template de autenticação aprovado pela Meta.",
+              "es": "Sí. En India, los OTP por SMS deben usar una plantilla y un sender ID registrados en DLT, o nuestra ruta sin DLT. En todos los países, las leyes locales de protección de datos (como la LFPDPPP en México) regulan cómo guarda números de teléfono y registros de verificación. Los OTP por WhatsApp deben usar una plantilla de autenticación aprobada por Meta.",
+              "id": "Ya. Di India, OTP SMS harus menggunakan templat dan sender ID yang terdaftar DLT, atau rute bebas DLT kami. Di mana pun, undang-undang perlindungan data setempat (seperti UU PDP di Indonesia) mengatur cara Anda menyimpan nomor telepon dan log verifikasi. OTP WhatsApp harus menggunakan templat autentikasi yang disetujui Meta.",
+              "ar": "نعم. في الهند، يجب أن تستخدم رموز OTP عبر SMS قالباً ومعرّف مرسل مسجلين في DLT، أو مسارنا الخالي من DLT. وفي كل مكان، تحكم قوانين حماية البيانات المحلية طريقة تخزينك لأرقام الهواتف وسجلات التحقق. أما رموز OTP عبر واتساب فيجب أن تستخدم قالب مصادقة معتمداً من Meta.",
+              "tr": "Evet. Hindistan'da SMS OTP'leri DLT kayıtlı bir şablon ve gönderici kimliği ya da DLT'siz rotamızı kullanmalıdır. Her ülkede telefon numaralarını ve doğrulama kayıtlarını nasıl sakladığınızı yerel veri koruma yasaları (Türkiye'de KVKK gibi) belirler. WhatsApp OTP'leri Meta onaylı bir kimlik doğrulama şablonu kullanmalıdır."
             }
           },
           {
             "question": {
-              "en": "Can we implement automatic fallback if the WhatsApp OTP fails?",
-              "pt": "Podemos implementar fallback automático se o OTP do WhatsApp falhar?",
-              "es": "¿Podemos implementar un respaldo automático si falla el OTP de WhatsApp?",
-              "id": "Apakah kami bisa mengaktifkan fallback otomatis jika OTP WhatsApp gagal?",
-              "ar": "هل يمكننا تفعيل إرسال بديل تلقائي في حال فشل تسليم OTP عبر واتساب؟",
-              "tr": "WhatsApp OTP başarısız olursa otomatik geri dönüş (fallback) uygulayabilir miyiz?",
-              "ng": "Can we implement automatic fallback if the WhatsApp OTP fails?"
+              "en": "Is there automatic fallback between WhatsApp and SMS OTP?",
+              "pt": "Existe fallback automático entre OTP por WhatsApp e por SMS?",
+              "es": "¿Hay respaldo automático entre OTP por WhatsApp y por SMS?",
+              "id": "Apakah ada fallback otomatis antara OTP WhatsApp dan SMS?",
+              "ar": "هل يوجد تحويل تلقائي بين OTP عبر واتساب وعبر SMS؟",
+              "tr": "WhatsApp ve SMS OTP arasında otomatik geçiş var mı?"
             },
             "answer": {
-              "en": "Yes, our API does this automatically. If a WhatsApp message cannot be delivered within a defined timeout (e.g., 30 seconds due to no internet connection), the system automatically routes a fallback SMS OTP to ensure the user receives their verification code without delay.",
-              "pt": "Sim, nossa API faz isso de forma totalmente automática. Se uma mensagem do WhatsApp não puder ser entregue dentro de um tempo limite definido (por exemplo, 30 segundos), o sistema envia automaticamente um SMS OTP para garantir que o usuário receba seu código.",
-              "es": "Sí, nuestra API hace esto de forma totalmente automática. Si un mensaje de WhatsApp no se puede entregar dentro de un tiempo de espera definido (por ejemplo, 30 segundos), el sistema envía automáticamente un SMS OTP de respaldo para asegurar la entrega del código.",
-              "id": "Ya, API kami melakukannya secara otomatis. Jika pesan WhatsApp tidak dapat dikirim dalam batas waktu yang ditentukan (misalnya 30 detik karena tidak ada internet), sistem akan otomatis mengirimkan SMS OTP sebagai cadangan agar pengguna menerima kode verifikasi mereka.",
-              "ar": "نعم، تقوم واجهتنا بذلك تلقائياً. إذا تعذر تسليم رسالة واتساب خلال مهلة زمنية محددة (مثل 30 ثانية بسبب انقطاع الإنترنت)، يقوم النظام تلقائياً بتحويل الرمز وإرساله كرسالة SMS لضمان استلام المستخدم لكود التحقق دون تأخير.",
-              "tr": "Evet, API'miz bunu otomatik olarak gerçekleştirir. Belirlenen bir zaman aşımı süresi içinde (örneğin 30 saniye boyunca internet bağlantısı olmaması durumunda) WhatsApp mesajı iletilemezse, sistem kullanıcının kodunu gecikmeden almasını sağlamak için otomatik olarak bir SMS OTP gönderir.",
-              "ng": "Yes, our API does this automatically. If a WhatsApp message cannot be delivered within a defined timeout (e.g., 30 seconds due to no internet connection), the system automatically routes a fallback SMS OTP to ensure the user receives their verification code without delay."
+              "en": "No. WhatsApp OTP (authentication templates sent through the WhatsApp Messages API) and SMS OTP (POST /otp/send) are separate products with separate accounts and API keys, and neither falls back to the other. If you want a backup channel, build it in your app: offer a 'Send by SMS instead' option, or listen for the WhatsApp message.failed webhook and then call the SMS API yourself.",
+              "pt": "Não. O OTP pelo WhatsApp (templates de autenticação enviados pela API de Mensagens do WhatsApp) e o OTP por SMS (POST /otp/send) são produtos separados, com contas e chaves de API próprias, e nenhum recorre ao outro. Se quiser um canal alternativo, crie-o no seu app: ofereça a opção 'Enviar por SMS' ou escute o webhook message.failed do WhatsApp e chame a API de SMS você mesmo.",
+              "es": "No. El OTP por WhatsApp (plantillas de autenticación enviadas con la API de Mensajes de WhatsApp) y el OTP por SMS (POST /otp/send) son productos distintos, con cuentas y claves de API propias, y ninguno recurre al otro. Si quiere un canal alternativo, constrúyalo en su app: ofrezca la opción 'Enviar por SMS' o escuche el webhook message.failed de WhatsApp y llame usted mismo a la API de SMS.",
+              "id": "Tidak. OTP WhatsApp (templat autentikasi yang dikirim melalui WhatsApp Messages API) dan OTP SMS (POST /otp/send) adalah produk terpisah dengan akun dan kunci API masing-masing, dan keduanya tidak saling menggantikan. Jika Anda ingin saluran cadangan, buat di aplikasi Anda: tawarkan opsi 'Kirim via SMS', atau pantau webhook message.failed WhatsApp lalu panggil API SMS sendiri.",
+              "ar": "لا. رموز OTP عبر واتساب (قوالب مصادقة تُرسل عبر API رسائل واتساب) ورموز OTP عبر SMS (POST /otp/send) منتجان منفصلان لكل منهما حساب ومفاتيح API خاصة، ولا يتحول أي منهما إلى الآخر. إذا أردت قناة بديلة فابنِها في تطبيقك: وفّر خيار 'الإرسال عبر SMS بدلاً من ذلك'، أو استمع إلى ويب هوك message.failed في واتساب ثم استدعِ واجهة SMS بنفسك.",
+              "tr": "Hayır. WhatsApp OTP (WhatsApp Mesaj API'si ile gönderilen kimlik doğrulama şablonları) ve SMS OTP (POST /otp/send) ayrı hesapları ve API anahtarları olan ayrı ürünlerdir; biri diğerine geçmez. Yedek bir kanal istiyorsanız bunu uygulamanızda kurun: 'Bunun yerine SMS ile gönder' seçeneği sunun ya da WhatsApp message.failed webhook'unu dinleyip SMS API'sini kendiniz çağırın."
             }
           },
           {
@@ -610,13 +561,12 @@
               "ng": "Is there a limit on how many OTPs a user can request?"
             },
             "answer": {
-              "en": "Yes, to prevent spam and SMS pumping fraud, we enforce a default rate limit of 3 OTP requests per 5 minutes per phone number. This protects your API balance from exhaustion. You can customize these limits or request increases via your account dashboard.",
-              "pt": "Sim, para evitar spam e fraudes de envio massivo de SMS, aplicamos um limite padrão de 3 solicitações de OTP a cada 5 minutos por número de telefone. Isso protege seu saldo de API contra esgotamento involuntário.",
-              "es": "Sí, para evitar el spam y el fraude de abuso de SMS, aplicamos un límite predeterminado de 3 solicitudes de OTP por cada 5 minutos por número de teléfono. Esto protege el saldo de su API contra el agotamiento de recursos.",
-              "id": "Ya, untuk mencegah spam dan penipuan pengurasan SMS, kami menerapkan batas default 3 permintaan OTP per 5 menit untuk setiap nomor telepon. Ini melindungi saldo API Anda dari kehabisan akibat penyalahgunaan.",
-              "ar": "نعم، لمنع الرسائل العشوائية واحتيال استهلاك رسائل SMS، نطبق حداً افتراضياً يبلغ 3 طلبات OTP لكل 5 دقائق لكل رقم هاتف. يحمي هذا الإجراء رصيدك في واجهة برمجة التطبيقات من الاستنزاف.",
-              "tr": "Evet, spam ve SMS suistimal dolandırıcılığını önlemek için telefon numarası başına 5 dakikada en fazla 3 OTP talebi olacak şekilde varsayılan bir sınır uyguluyoruz. Bu, API bakiyenizin tükenmesini önler. Bu sınırları panelinizden özelleştirebilirsiniz.",
-              "ng": "Yes, to prevent spam and SMS pumping fraud, we enforce a default rate limit of 3 OTP requests per 5 minutes per phone number. This protects your API balance from exhaustion. You can customize these limits or request increases via your account dashboard."
+              "en": "Yes. To prevent spam and SMS-pumping fraud, the SMS OTP API allows at most 3 OTPs per phone number every 5 minutes and answers 429 Too Many Requests beyond that. Add your own resend delay (30-60 seconds) in your app as well.",
+              "pt": "Sim. Para evitar spam e fraudes de SMS pumping, a API de OTP por SMS permite no máximo 3 OTPs por número de telefone a cada 5 minutos e responde 429 Too Many Requests acima disso. Adicione também um intervalo de reenvio (30 a 60 segundos) no seu app.",
+              "es": "Sí. Para evitar el spam y el fraude de SMS pumping, la API de OTP por SMS permite como máximo 3 OTP por número de teléfono cada 5 minutos y responde 429 Too Many Requests si se supera. Añada también su propio intervalo de reenvío (30-60 segundos) en su app.",
+              "id": "Ya. Untuk mencegah spam dan penipuan SMS pumping, SMS OTP API mengizinkan maksimal 3 OTP per nomor telepon setiap 5 menit dan membalas 429 Too Many Requests jika melebihinya. Tambahkan juga jeda kirim ulang sendiri (30-60 detik) di aplikasi Anda.",
+              "ar": "نعم. لمنع الرسائل المزعجة واحتيال ضخ الرسائل (SMS pumping)، تسمح واجهة SMS OTP بحد أقصى 3 رموز لكل رقم هاتف كل 5 دقائق، وترد بـ 429 Too Many Requests عند تجاوز ذلك. أضف أيضاً مهلة إعادة إرسال خاصة بك (30-60 ثانية) في تطبيقك.",
+              "tr": "Evet. Spam ve SMS pumping dolandırıcılığını önlemek için SMS OTP API'si telefon numarası başına 5 dakikada en fazla 3 OTP'ye izin verir ve bunu aşan isteklere 429 Too Many Requests yanıtı döner. Uygulamanıza kendi yeniden gönderme beklemenizi (30-60 saniye) de ekleyin."
             }
           }
         ]
@@ -673,15 +623,14 @@
           },
           {
             "label": {
-              "en": "Pricing Model",
-              "pt": "Modelo de Preços",
-              "es": "Modelo de Precios",
-              "id": "Model Harga",
-              "ar": "نموذج التسعير",
-              "tr": "Fiyatlandırma Modeli",
-              "ng": "Pricing Model"
+              "en": "WhatsApp Authentication Templates",
+              "pt": "Templates de Autenticação do WhatsApp",
+              "es": "Plantillas de Autenticación de WhatsApp",
+              "id": "Templat Autentikasi WhatsApp",
+              "ar": "قوالب المصادقة في واتساب",
+              "tr": "WhatsApp Kimlik Doğrulama Şablonları"
             },
-            "href": "/pricing"
+            "href": "/whatsapp/authentication"
           }
         ]
       }
@@ -699,22 +648,20 @@
           "ng": "Add OTP to Your App Today"
         },
         "subtext": {
-          "en": "Free plan. API key in 30 seconds.",
-          "pt": "Plano gratuito. Chave de API em 30 segundos.",
-          "es": "Plan gratuito. Clave de API en 30 segundos.",
-          "id": "Paket gratis. Kunci API dalam 30 detik.",
-          "ar": "خطة مجانية. احصل على مفتاح API خلال 30 ثانية.",
-          "tr": "Ücretsiz plan. 30 saniyede API anahtarı.",
-          "ng": "Free plan. API key in 30 seconds."
+          "en": "Create an API key in your dashboard and send your first SMS OTP.",
+          "pt": "Crie uma chave de API no seu painel e envie seu primeiro OTP por SMS.",
+          "es": "Cree una clave de API en su panel y envíe su primer OTP por SMS.",
+          "id": "Buat kunci API di dasbor Anda dan kirim OTP SMS pertama Anda.",
+          "ar": "أنشئ مفتاح API من لوحة التحكم وأرسل أول رمز OTP عبر SMS.",
+          "tr": "Panelinizden bir API anahtarı oluşturun ve ilk SMS OTP'nizi gönderin."
         },
         "primaryCta": {
-          "en": "Get Started Free",
-          "pt": "Comece Grátis",
-          "es": "Comience Gratis",
-          "id": "Mulai Secara Gratis",
-          "ar": "ابدأ مجاناً",
-          "tr": "Ücretsiz Başlayın",
-          "ng": "Get Started Free"
+          "en": "Get Started",
+          "pt": "Começar",
+          "es": "Comenzar",
+          "id": "Mulai",
+          "ar": "ابدأ الآن",
+          "tr": "Başlayın"
         },
         "primaryHref": "https://app.startmessaging.com/signup"
       }

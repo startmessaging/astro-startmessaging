@@ -1,147 +1,525 @@
 ---
 title: "Send Messages"
-description: "Send text, template, interactive, and location messages via the WhatsApp Business API. Complete request/response examples."
+description: "Send WhatsApp template, text, image, video, audio, document and interactive messages with POST /api/v1/messages. Request fields, limits, responses and delivery status."
 product: whatsapp
 order: 3
 ---
 
-## Overview
+One endpoint sends every kind of WhatsApp message:
 
-The `/v1/messages` endpoint lets you send messages to any WhatsApp user. Messages can be:
+```http
+POST {{WA_API_BASE}}/api/v1/messages
+```
 
-- **Text messages** — plain text, up to 4,096 characters
-- **Template messages** — pre-approved templates for outbound messaging
-- **Interactive messages** — buttons, lists, and quick replies
-- **Location messages** — share GPS coordinates
-- **Contact messages** — share vCards
+It needs the `messages:send` scope. It sends one message to one number and returns once WhatsApp has accepted it.
 
-## Send a Text Message
+## The 24-hour rule
+
+WhatsApp decides what you may send based on the **customer service window**: the 24 hours after the customer's last message to you.
+
+| Type | Outside the window | Inside the window |
+|---|---|---|
+| `template` (approved) | Yes | Yes |
+| `text` | No | Yes |
+| `image`, `video`, `audio`, `document` | No | Yes |
+| `interactive` | No | Yes |
+
+A free-form message outside the window is refused with `403 MESSAGE_WINDOW_CLOSED`. Send an approved template instead. `GET /api/v1/conversations` reports `windowOpen` for each conversation (see [Conversations](/docs/whatsapp/conversations)).
+
+## Request body
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `to` | string | Yes | Recipient phone number. E.164 (`+919876543210`) is recommended; a national number (`9876543210`) is read in your workspace's country. Up to 32 characters. |
+| `type` | string | Yes | One of `template`, `text`, `image`, `video`, `audio`, `document`, `interactive` |
+| `template` | object | When `type` is `template` | See [Template messages](#template-messages) |
+| `text` | object | When `type` is `text` | See [Text messages](#text-messages) |
+| `media` | object | When `type` is `image`, `video`, `audio` or `document` | See [Media messages](#media-messages) |
+| `interactive` | object | When `type` is `interactive` | See [Interactive messages](#interactive-messages) |
+| `clientReference` | string | No | Your own reference for this message (see [clientReference](#your-own-reference-clientreference)) |
+
+Send exactly the object that matches `type` and no other. A body with `type: "text"` plus a `template` object is a `400 VALIDATION_ERROR`, not a guess.
+
+A number that is not in your contacts yet is added automatically (source `api`), and the message appears in its conversation in the shared team inbox.
+
+### Headers
+
+| Header | Required | Description |
+|---|---|---|
+| `Authorization` | Yes | `Bearer sm_live_your_api_key` |
+| `Content-Type` | Yes | `application/json` (UTF-8, at most 100 KB) |
+| `Idempotency-Key` | Recommended | A unique key per message so a retry never sends twice. See [Pagination & Idempotency](/docs/whatsapp/pagination-and-idempotency). |
+
+## Template messages
+
+Approved templates are the only messages that can start a conversation or reach a customer outside the 24-hour window. Templates are created in the dashboard and reviewed by Meta; see [Message Templates](/docs/whatsapp/message-templates).
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `template.name` | string | Yes | The template's name exactly as Meta approved it (for example `order_confirmation`), not the display name your team sees in the dashboard |
+| `template.language` | string | Yes | Language code, for example `en_US`, `en_GB` or `hi`. The same name in another language is a different template. |
+| `template.parameters` | array | When the body has variables | Body variables in order. Each value is a string of up to 1,024 characters. |
+| `template.headerMediaUrl` | string | When the header is an image, video or document | A public `https` URL of the file. WhatsApp downloads it. |
+| `template.buttonParameters` | array | When a button needs a value | Send-time values for dynamic buttons (see below) |
+
+### Body variables: positional or named
+
+For a template with positional variables (`{{1}}`, `{{2}}`), send the values in order:
+
+```json
+"parameters": [{ "text": "Aarti" }, { "text": "#1042" }]
+```
+
+For a template with named variables (`{{first_name}}`, `{{order_id}}`), send each value with its name:
+
+```json
+"parameters": [
+  { "parameter_name": "first_name", "text": "Aarti" },
+  { "parameter_name": "order_id", "text": "#1042" }
+]
+```
+
+The template's **Send via API** panel in the dashboard shows exactly which values a template needs and a request you can copy.
+
+### Button parameters
+
+Buttons that are fully static need nothing at send time. Buttons with a send-time value need an entry in `buttonParameters`:
+
+| Field | Description |
+|---|---|
+| `index` | Position of the button in the template, counting from 0 (0–9) |
+| `subType` | `url` for a link button with a variable (and for authentication codes), `copy_code` for a coupon button, `flow` for a WhatsApp Form button |
+| `text` | The value for the URL variable, the one-time code, or the flow token for a `flow` button |
+| `couponCode` | The coupon code a `copy_code` button copies |
+
+```json
+"buttonParameters": [
+  { "index": 0, "subType": "url", "text": "ORD-1042" },
+  { "index": 1, "subType": "copy_code", "couponCode": "DIWALI25" }
+]
+```
+
+If a button needs a value and you leave it out, the API answers `422 TEMPLATE_BUTTON_PARAM_REQUIRED` and `details` lists each missing button's `index` and `buttonType`. A template with a media header and no `headerMediaUrl` answers `422 TEMPLATE_HEADER_MEDIA_REQUIRED`.
+
+For one-time passwords, see the [WhatsApp OTP recipe](/docs/whatsapp/message-templates#whatsapp-otp-with-an-authentication-template): the code goes in both `parameters` and `buttonParameters`.
+
+### Example
 
 ```bash
-curl -X POST https://api.startmessaging.com/v1/messages \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+curl -X POST {{WA_API_BASE}}/api/v1/messages \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: order-1042-confirmation" \
+  -d '{
+    "to": "+919876543210",
+    "type": "template",
+    "template": {
+      "name": "order_confirmation",
+      "language": "en_US",
+      "parameters": [{ "text": "Aarti" }, { "text": "#1042" }],
+      "headerMediaUrl": "https://cdn.example.com/orders/1042.jpg"
+    },
+    "clientReference": "order-1042"
+  }'
+```
+
+```javascript
+const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.SM_API_KEY}`,
+    'Content-Type': 'application/json',
+    'Idempotency-Key': 'order-1042-confirmation',
+  },
+  body: JSON.stringify({
+    to: '+919876543210',
+    type: 'template',
+    template: {
+      name: 'order_confirmation',
+      language: 'en_US',
+      parameters: [{ text: 'Aarti' }, { text: '#1042' }],
+    },
+    clientReference: 'order-1042',
+  }),
+});
+const body = await res.json();
+if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+console.log(body.data.id);
+```
+
+```python
+import os, requests
+
+res = requests.post(
+    "{{WA_API_BASE}}/api/v1/messages",
+    headers={
+        "Authorization": f"Bearer {os.environ['SM_API_KEY']}",
+        "Idempotency-Key": "order-1042-confirmation",
+    },
+    json={
+        "to": "+919876543210",
+        "type": "template",
+        "template": {
+            "name": "order_confirmation",
+            "language": "en_US",
+            "parameters": [{"text": "Aarti"}, {"text": "#1042"}],
+        },
+        "clientReference": "order-1042",
+    },
+)
+body = res.json()
+if not res.ok:
+    raise RuntimeError(f"{body['error']['code']}: {body['error']['message']}")
+print(body["data"]["id"])
+```
+
+```php
+<?php
+$payload = [
+    'to' => '+919876543210',
+    'type' => 'template',
+    'template' => [
+        'name' => 'order_confirmation',
+        'language' => 'en_US',
+        'parameters' => [['text' => 'Aarti'], ['text' => '#1042']],
+    ],
+    'clientReference' => 'order-1042',
+];
+
+$ch = curl_init('{{WA_API_BASE}}/api/v1/messages');
+curl_setopt_array($ch, [
+    CURLOPT_POST => true,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer ' . getenv('SM_API_KEY'),
+        'Content-Type: application/json',
+        'Idempotency-Key: order-1042-confirmation',
+    ],
+    CURLOPT_POSTFIELDS => json_encode($payload),
+]);
+$response = json_decode(curl_exec($ch), true);
+echo $response['data']['id'];
+```
+
+## Text messages
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `text.body` | string | Yes | The message text, 1 to 4,096 characters |
+
+Text messages need an open 24-hour window.
+
+```bash
+curl -X POST {{WA_API_BASE}}/api/v1/messages \
+  -H "Authorization: Bearer sm_live_your_api_key" \
   -H "Content-Type: application/json" \
   -d '{
-    "to": "5511999999999",
+    "to": "+919876543210",
     "type": "text",
-    "text": {
-      "body": "Hello! Your order #1234 has been shipped.",
-      "preview_url": false
+    "text": { "body": "Hi Aarti, your order #1042 has shipped and arrives on Friday." }
+  }'
+```
+
+## Media messages
+
+Set `type` to `image`, `video`, `audio` or `document` and describe the file in `media`. Media messages need an open 24-hour window.
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `media.url` | string | Yes | A public `https` URL, without credentials, up to 2,048 characters |
+| `media.caption` | string | No | Text shown under an image, video or document, up to 1,024 characters. **Not allowed on audio.** |
+| `media.filename` | string | No | Documents only: the file name the recipient sees, up to 240 characters |
+
+**Media is sent by URL only.** There is no upload endpoint: WhatsApp downloads the file from your link when it delivers the message, and StartMessaging never fetches it. Make sure the URL is publicly reachable over HTTPS and serves the right `Content-Type`. If WhatsApp can't fetch the file, the send is refused (`422 MESSAGE_REJECTED`) or arrives later as a `message.failed` webhook.
+
+WhatsApp's own limits apply to the file:
+
+| Type | Common formats | Max size |
+|---|---|---|
+| `image` | JPEG, PNG | 5 MB |
+| `video` | MP4 (H.264 video, AAC audio), 3GPP | 16 MB |
+| `audio` | AAC, MP3, OGG (Opus), AMR, M4A | 16 MB |
+| `document` | PDF, DOC(X), XLS(X), PPT(X), TXT and other files | 100 MB |
+
+### Image
+
+```json
+{
+  "to": "+919876543210",
+  "type": "image",
+  "media": {
+    "url": "https://cdn.example.com/products/kurta-blue.jpg",
+    "caption": "Back in stock in your size"
+  }
+}
+```
+
+### Document
+
+```bash
+curl -X POST {{WA_API_BASE}}/api/v1/messages \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "+919876543210",
+    "type": "document",
+    "media": {
+      "url": "https://cdn.example.com/invoices/1042.pdf",
+      "filename": "invoice-1042.pdf",
+      "caption": "Your invoice for order #1042"
     }
   }'
 ```
 
-### Response
+### Audio
 
 ```json
 {
-  "success": true,
-  "message_id": "msg_abc123def456",
-  "status": "accepted",
-  "timestamp": "2026-01-15T10:30:00Z"
+  "to": "+919876543210",
+  "type": "audio",
+  "media": { "url": "https://cdn.example.com/voice/welcome.mp3" }
 }
 ```
 
-## Send a Template Message
+Sending `media.caption` with `type: "audio"` is a `400 VALIDATION_ERROR`, because WhatsApp audio messages have no caption.
 
-Template messages are required for initiating conversations (outside the 24-hour window) or for sending notifications.
+## Interactive messages
+
+Interactive messages show **reply buttons** or a **list menu**. They need an open 24-hour window and the Interactive Messages plan feature; a plan without it answers `403 PLAN_FEATURE_REQUIRED`.
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `interactive.interactiveType` | string | Yes | `button` (up to 3 reply buttons) or `list` (a menu of rows) |
+| `interactive.body` | string | Yes | The message text, up to 1,024 characters |
+| `interactive.header` | object | No | `type`: `text`, `image`, `video` or `document`. `text` (up to 60 characters) for a text header, `mediaUrl` (public `https`) for a media header. |
+| `interactive.footer` | string | No | Small print under the body, up to 60 characters |
+| `interactive.buttons` | array | For `button` | 1 to 3 buttons, each `{ id, title }`. `id` up to 256 characters, `title` up to 20. |
+| `interactive.buttonLabel` | string | For `list` | Label of the button that opens the list, up to 20 characters |
+| `interactive.sections` | array | For `list` | Sections, each with an optional `title` (up to 24 characters; required by WhatsApp when there is more than one section) and `rows` |
+
+Each list row is `{ id, title, description }`: `id` up to 200 characters, `title` up to 24, optional `description` up to 72. WhatsApp allows **10 rows in total** across all sections.
+
+When the customer taps a button or row, you receive a `message.received` webhook with `type: "interactive"` and `reply: { kind, id, title }`. Branch on `id` (the id you set), not on `title`.
+
+### Reply buttons
 
 ```bash
-curl -X POST https://api.startmessaging.com/v1/messages \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+curl -X POST {{WA_API_BASE}}/api/v1/messages \
+  -H "Authorization: Bearer sm_live_your_api_key" \
   -H "Content-Type: application/json" \
   -d '{
-    "to": "5511999999999",
-    "type": "template",
-    "template": {
-      "name": "order_confirmation",
-      "language": { "code": "pt_BR" },
-      "components": [
-        {
-          "type": "body",
-          "parameters": [
-            { "type": "text", "text": "João" },
-            { "type": "text", "text": "#ORD-5678" },
-            { "type": "text", "text": "R$ 149,90" }
-          ]
-        }
+    "to": "+919876543210",
+    "type": "interactive",
+    "interactive": {
+      "interactiveType": "button",
+      "header": { "type": "text", "text": "Order #1042" },
+      "body": "Would you like to reorder your last purchase?",
+      "footer": "Reply STOP to opt out",
+      "buttons": [
+        { "id": "reorder", "title": "Reorder" },
+        { "id": "later", "title": "Not now" }
       ]
     }
   }'
 ```
 
-## Send an Interactive Message (Buttons)
+### List
 
-```bash
-curl -X POST https://api.startmessaging.com/v1/messages \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "to": "5511999999999",
-    "type": "interactive",
-    "interactive": {
-      "type": "button",
-      "body": { "text": "Would you like to track your order?" },
-      "action": {
-        "buttons": [
-          { "type": "reply", "reply": { "id": "track_yes", "title": "Track Order" } },
-          { "type": "reply", "reply": { "id": "track_no", "title": "No Thanks" } }
+```json
+{
+  "to": "+919876543210",
+  "type": "interactive",
+  "interactive": {
+    "interactiveType": "list",
+    "body": "Which size would you like?",
+    "buttonLabel": "Choose a size",
+    "sections": [
+      {
+        "title": "Sizes",
+        "rows": [
+          { "id": "size-s", "title": "Small", "description": "Chest 36–38 in" },
+          { "id": "size-m", "title": "Medium", "description": "Chest 38–40 in" },
+          { "id": "size-l", "title": "Large", "description": "Chest 40–42 in" }
         ]
       }
-    }
-  }'
+    ]
+  }
+}
 ```
 
-## Send a Location Message
+Location and contact-card messages can't be sent through the API.
+
+## Your own reference: clientReference
+
+Send `clientReference` with a message to tie it to your own record: an order number, a login attempt id, a ticket. It is never shown to the customer. It comes back on:
+
+- the send response,
+- `GET /api/v1/messages/{id}`,
+- the conversation's message list,
+- **every** `message.sent`, `message.delivered`, `message.read` and `message.failed` webhook for that message,
+- `message.received` webhooks when the customer replies to that message (`context.clientReference`).
+
+So you can match a receipt or a reply to your record without storing our message id. It is a string of 1 to 256 printable ASCII characters; spaces are allowed, but not only spaces.
+
+`clientReference` is not an idempotency key: two sends with the same reference are two messages. Use the `Idempotency-Key` header to make retries safe.
+
+## Response
+
+`201 Created` means WhatsApp accepted the message.
+
+```json
+{
+  "data": {
+    "id": "3f6c2a1e-8b1d-4c53-9e7a-2b5d8f0c4a11",
+    "status": "sent",
+    "conversationId": "8a1b9c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",
+    "contactId": "5d4c3b2a-1f0e-4d9c-8b7a-6f5e4d3c2b1a",
+    "to": "+919876543210",
+    "type": "template",
+    "clientReference": "order-1042",
+    "createdAt": "2026-10-02T10:00:00.000Z"
+  },
+  "meta": {
+    "requestId": "b7c1e0d2-5a4f-4c3b-9e8d-1f2a3b4c5d6e",
+    "timestamp": "2026-10-02T10:00:00.000Z"
+  }
+}
+```
+
+| Field | Description |
+|---|---|
+| `id` | Message id. Look it up with `GET /api/v1/messages/{id}`. |
+| `status` | `sent` once WhatsApp accepted it |
+| `conversationId` | The inbox conversation the message is in |
+| `contactId` | The recipient contact |
+| `to` | The recipient, normalised to E.164 |
+| `type` | What was sent |
+| `clientReference` | The reference you sent, or `null` |
+| `createdAt` | When WhatsApp accepted it |
+
+### Common send errors
+
+| HTTP | Code | What to do |
+|---|---|---|
+| 400 | `VALIDATION_ERROR` | Fix the body; `error.message` names the field |
+| 400 | `MOBILE_INVALID` | `to` is not a valid mobile number |
+| 400 | `WABA_NOT_CONNECTED` | Reconnect WhatsApp on the Connect page |
+| 402 | `META_PAYMENT_REQUIRED` | Add or fix the payment method in WhatsApp Manager |
+| 403 | `MESSAGE_WINDOW_CLOSED` | Send an approved template instead |
+| 404 | `TEMPLATE_NOT_FOUND` | Check `template.name` and `template.language` |
+| 422 | `TEMPLATE_NOT_APPROVED` | Wait for Meta's approval; `details.status` shows the current status |
+| 422 | `CONTACT_OPTED_OUT` | The customer replied STOP; they must opt back in first |
+| 422 | `MESSAGE_REJECTED` | WhatsApp refused the request itself; `details.metaCode` is Meta's error number |
+| 429 | `RATE_LIMIT_EXCEEDED` | Wait for `Retry-After` seconds |
+| 502 | `WABA_CONNECT_FAILED` | Transient WhatsApp failure; retry later with the same `Idempotency-Key` |
+
+The full list is on [Errors & Limits](/docs/whatsapp/errors-and-limits).
+
+## Get a message
+
+`GET /api/v1/messages/{id}` looks up a message's delivery status. Needs the `messages:read` scope. For real-time updates, subscribe to the `message.*` [webhooks](/docs/whatsapp/webhooks) instead of polling.
 
 ```bash
-curl -X POST https://api.startmessaging.com/v1/messages \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "to": "5511999999999",
-    "type": "location",
-    "location": {
-      "latitude": -23.5505,
-      "longitude": -46.6333,
-      "name": "StartMessaging Office",
-      "address": "São Paulo, SP, Brazil"
-    }
-  }'
+curl {{WA_API_BASE}}/api/v1/messages/3f6c2a1e-8b1d-4c53-9e7a-2b5d8f0c4a11 \
+  -H "Authorization: Bearer sm_live_your_api_key"
 ```
 
-## Message Status
+```json
+{
+  "data": {
+    "id": "3f6c2a1e-8b1d-4c53-9e7a-2b5d8f0c4a11",
+    "conversationId": "8a1b9c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",
+    "direction": "outbound",
+    "type": "template",
+    "status": "delivered",
+    "to": "+919876543210",
+    "from": null,
+    "text": "Hi Aarti, your order #1042 is confirmed.",
+    "templateName": "order_confirmation",
+    "failureCode": null,
+    "failureReason": null,
+    "apiKeyId": "0e9d8c7b-6a5f-4e3d-2c1b-0a9f8e7d6c5b",
+    "clientReference": "order-1042",
+    "form": null,
+    "timestamp": "2026-10-02T10:00:00.000Z"
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:05.000Z" }
+}
+```
 
-After sending, messages go through these statuses:
+| Field | Description |
+|---|---|
+| `direction` | `outbound` (from you) or `inbound` (from the customer) |
+| `type` | `text`, `template`, `image`, `video`, `audio`, `document`, `sticker` or `interactive`. Kinds the API does not model (a location, a contact card, a reaction) read as `text`. |
+| `status` | Delivery status (see below) |
+| `to` / `from` | The customer's number: `to` on outbound messages, `from` on inbound |
+| `text` | The words: the text, a template body with its variables filled in, a caption, or the label of a tapped option. `null` when there are none. |
+| `templateName` | The template sent, for a template message |
+| `failureCode` / `failureReason` | WhatsApp's error code (for example `131049`) and reason when the message failed |
+| `apiKeyId` | The API key that sent it; `null` for messages sent another way |
+| `clientReference` | The reference sent with it through the API; `null` otherwise |
+| `form` | The answers when the customer submitted a WhatsApp Form; `null` otherwise |
 
-| Status | Description |
-|--------|-------------|
-| `accepted` | Message received by StartMessaging |
-| `sent` | Delivered to WhatsApp servers |
-| `delivered` | Delivered to the user's device |
-| `read` | User opened/read the message |
-| `failed` | Delivery failed (see error code) |
+A message of another workspace answers `404 MESSAGE_NOT_FOUND`, exactly like a missing one.
 
-Track delivery via [webhooks](/docs/whatsapp/webhooks).
+### Message statuses
 
-## Error Handling
+| Status | Meaning |
+|---|---|
+| `sent` | WhatsApp accepted the message |
+| `delivered` | It reached the customer's phone |
+| `read` | The customer opened it (only if they have read receipts on) |
+| `failed` | WhatsApp could not deliver it; see `failureCode` and `failureReason` |
 
-Common errors when sending messages:
+Outbound messages move `sent` → `delivered` → `read`, or end in `failed`. Inbound messages read `delivered`. Each change also fires the matching `message.*` webhook.
 
-| Error Code | Description | Solution |
-|------------|-------------|----------|
-| `INVALID_RECIPIENT` | Phone number not on WhatsApp | Verify the number is registered |
-| `TEMPLATE_NOT_FOUND` | Template doesn't exist | Check template name and language |
-| `OUTSIDE_WINDOW` | 24h session expired | Use a template message instead |
-| `RATE_LIMITED` | Too many requests | Implement exponential backoff |
+## List your WhatsApp numbers
+
+`GET /api/v1/phone-numbers` returns the sender numbers of the connected WhatsApp Business Account with WhatsApp's quality rating and messaging limit. Needs no scope. All numbers come back in one page (`nextCursor` is always `null`).
+
+```bash
+curl {{WA_API_BASE}}/api/v1/phone-numbers \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "id": "2b3c4d5e-6f70-4812-9a3b-4c5d6e7f8091",
+        "displayPhoneNumber": "+918010012345",
+        "verifiedName": "Meera Boutique",
+        "qualityRating": "green",
+        "messagingLimitPerDay": 1000,
+        "status": "active"
+      }
+    ],
+    "nextCursor": null
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z" }
+}
+```
+
+| Field | Description |
+|---|---|
+| `qualityRating` | `green`, `yellow`, `red`, or `unknown` (not rated yet, which is not the same as healthy) |
+| `messagingLimitPerDay` | How many customers you may start conversations with per rolling 24 hours. Meta sets it per business portfolio, so every number in the portfolio shares it. `-1` is unlimited; `null` is unknown. |
+| `status` | `pending`, `active`, `flagged` or `banned`. Only an `active` number can send. |
 
 ## FAQ
 
-**Can I send messages to any phone number?**
-You can only send messages to numbers that are registered on WhatsApp. For outbound messaging outside the 24-hour window, you must use an approved template message.
+**Can I upload a file and reuse a media id?**
+No. The API sends media by URL only. Host the file on a public HTTPS URL; WhatsApp downloads it each time you send.
 
-**What's the maximum message size?**
-Text messages support up to 4,096 characters. Template messages have variable limits based on the template structure.
+**Why did my text message fail with MESSAGE_WINDOW_CLOSED?**
+The customer has not messaged you in the last 24 hours. Outside that window WhatsApp delivers only approved templates. Send a template, and switch to free-form messages once the customer replies.
 
-**How do I know if a message was delivered?**
-Set up [webhooks](/docs/whatsapp/webhooks) to receive real-time delivery status updates.
+**Do I need to create the contact before sending?**
+No. A number that is not in your contacts is added automatically with source `api`. On plans with a contact cap, a send to a new number over the cap answers `403 PLAN_LIMIT_REACHED`; numbers you already have can still be messaged.
+
+**Does StartMessaging charge per message?**
+No. Meta bills message charges directly to your WhatsApp Business Account. StartMessaging charges only the CRM subscription.
+
+**Can I send location or contact-card messages?**
+Not through the API. Supported types are `template`, `text`, `image`, `video`, `audio`, `document` and `interactive`.

@@ -1,0 +1,260 @@
+---
+title: "Pagination & Idempotency"
+description: "Response envelopes, cursor-based pagination, incremental sync with updatedSince, and safe retries with the Idempotency-Key header in the StartMessaging WhatsApp API."
+product: whatsapp
+order: 9
+---
+
+This page covers the conventions every endpoint shares: the response envelope, how lists are paged, how to sync changes incrementally, and how to retry a write without doing it twice.
+
+## Response envelope
+
+Every successful response wraps its payload in `data`, with request metadata in `meta`:
+
+```json
+{
+  "data": { "id": "3f6c2a1e-8b1d-4c53-9e7a-2b5d8f0c4a11", "status": "sent" },
+  "meta": {
+    "requestId": "b7c1e0d2-5a4f-4c3b-9e8d-1f2a3b4c5d6e",
+    "timestamp": "2026-10-02T10:00:00.000Z"
+  }
+}
+```
+
+Errors use a different envelope, with a machine-readable `error.code`:
+
+```json
+{
+  "statusCode": 422,
+  "error": {
+    "code": "TEMPLATE_NOT_APPROVED",
+    "message": "…",
+    "details": { "status": "PENDING" }
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z" }
+}
+```
+
+Branch on `error.code`, never on `message`: messages are for humans and may change. Log `meta.requestId` with every call; it identifies the request in **Developers → Logs** and when you contact support. See [Errors & Limits](/docs/whatsapp/errors-and-limits) for every code.
+
+## Pagination
+
+List endpoints use **cursor-based** pagination. They take two query parameters:
+
+| Parameter | Description |
+|---|---|
+| `limit` | Items per page, 1 to 100. Default 25. |
+| `cursor` | The `nextCursor` from the previous page. Leave it out for the first page. |
+
+and return the items with the cursor for the next page:
+
+```json
+{
+  "data": {
+    "items": [ { "id": "…" }, { "id": "…" } ],
+    "nextCursor": "WyIyMDI2LTEwLTAyVDEwOjAwOjAwLjAwMFoiLCI2ZjE…"
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z" }
+}
+```
+
+### Cursor rules
+
+- Pass `nextCursor` back as `cursor` until it is `null`. `null` means there are no more pages.
+- Keep **every other parameter unchanged** while paging. A cursor belongs to the query that produced it.
+- Cursors are **opaque**. Don't parse or build them; their contents may change. A cursor that did not come from us is `400 INVALID_CURSOR`.
+- Cursors are keyset positions, not page numbers, so they stay correct while new rows are inserted during your walk.
+- Lists that are always small (`/tags`, `/pipeline-stages`, `/phone-numbers`) use the same `items` / `nextCursor` shape with `nextCursor: null`.
+
+### Walking every page
+
+```javascript
+async function listAll(path, params = {}) {
+  const items = [];
+  let cursor = null;
+  do {
+    const query = new URLSearchParams({ ...params, limit: '100' });
+    if (cursor) query.set('cursor', cursor);
+    const res = await fetch(`{{WA_API_BASE}}/api/v1${path}?${query}`, {
+      headers: { Authorization: `Bearer ${process.env.SM_API_KEY}` },
+    });
+    const { data } = await res.json();
+    items.push(...data.items);
+    cursor = data.nextCursor;
+  } while (cursor);
+  return items;
+}
+
+const contacts = await listAll('/contacts', { tag: 'vip' });
+```
+
+```python
+import os, requests
+
+def list_all(path, **params):
+    items, cursor = [], None
+    while True:
+        query = {**params, "limit": 100}
+        if cursor:
+            query["cursor"] = cursor
+        res = requests.get(
+            f"{{WA_API_BASE}}/api/v1{path}",
+            headers={"Authorization": f"Bearer {os.environ['SM_API_KEY']}"},
+            params=query,
+        )
+        data = res.json()["data"]
+        items.extend(data["items"])
+        cursor = data["nextCursor"]
+        if not cursor:
+            return items
+```
+
+## Incremental sync with updatedSince
+
+`GET /contacts` and `GET /conversations` accept `updatedSince` (an ISO 8601 timestamp). The list then returns only what changed at or after that instant, **oldest change first** (by `updatedAt`, then `id`). Use it to keep your own database in sync without re-reading everything.
+
+1. **First sync:** pass an `updatedSince` from before the workspace existed, for example `2020-01-01T00:00:00Z`.
+2. **Process rows in order** and upsert them by `id`.
+3. **Checkpoint on the `updatedAt` of the last row you processed.** The walk only moves forward in time, so you can stop anywhere (between pages or in the middle of one) and resume from that value. It is also the next sync's starting point.
+4. **Start each sync a few minutes before your checkpoint.** Changes commit in parallel, so a row can land with an `updatedAt` slightly older than one you have already seen. Seeing a row twice is harmless because you upsert by `id`; missing one is not.
+
+Things to know:
+
+- **A row that changes while you walk is not lost.** Its new `updatedAt` is later than everything you have passed, so it comes round again at the end of the same walk or in the next sync.
+- **Deleted rows drop out** of the list rather than coming back as a change. Use the webhooks if you need to react to deletions or opt-outs.
+- **Keep `updatedSince` unchanged while paging.** The order travels in the cursor: a cursor from a list without `updatedSince` is refused on a list with it, and the reverse (`400 INVALID_CURSOR`).
+- **Without `updatedSince`** the lists keep the dashboard's order (contacts newest first by `createdAt`, conversations by latest activity), and `updatedAt` values arrive in no order, so none of them is a safe checkpoint.
+
+```javascript
+async function syncContacts(checkpoint) {
+  // Re-read a few minutes before the last checkpoint to catch late commits.
+  const since = new Date(new Date(checkpoint).getTime() - 5 * 60 * 1000).toISOString();
+  let cursor = null;
+  let last = checkpoint;
+  do {
+    const query = new URLSearchParams({ updatedSince: since, limit: '100' });
+    if (cursor) query.set('cursor', cursor);
+    const res = await fetch(`{{WA_API_BASE}}/api/v1/contacts?${query}`, {
+      headers: { Authorization: `Bearer ${process.env.SM_API_KEY}` },
+    });
+    const { data } = await res.json();
+    for (const contact of data.items) {
+      await db.contacts.upsert(contact.id, contact);
+      last = contact.updatedAt;
+      await saveCheckpoint(last);
+    }
+    cursor = data.nextCursor;
+  } while (cursor);
+  return last;
+}
+```
+
+## Idempotency
+
+Network failures happen: a request times out, and you can't tell whether it went through. Send an **`Idempotency-Key`** header on a POST, and a retry with the same key returns the first answer instead of doing the work twice. This matters most for `POST /messages`, where a duplicate means the customer gets the same WhatsApp message twice.
+
+```bash
+curl -X POST {{WA_API_BASE}}/api/v1/messages \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: order-10421-shipped" \
+  -d '{
+    "to": "+919812345678",
+    "type": "template",
+    "template": { "name": "order_shipped", "language": "en_US", "parameters": [{ "text": "10421" }] },
+    "clientReference": "order-10421"
+  }'
+```
+
+### Key format
+
+- 1 to 255 printable ASCII characters, **no spaces**.
+- A UUID, or your own id such as `order-10421-shipped`, both work.
+- Anything else is `400 INVALID_IDEMPOTENCY_KEY`.
+
+Use one key per logical operation (one key per message you mean to send), and reuse it only for retries of that same request.
+
+### How a key behaves
+
+| Situation | Result |
+|---|---|
+| Same key, same body, within 24 hours | The original response is returned with the header `Idempotent-Replayed: true`. Nothing is done twice and no send budget is spent. |
+| Same key, different body or different route | `422 IDEMPOTENCY_KEY_REUSED`. A different `clientReference` makes it a different body. |
+| Same key sent from a different API key | `422 IDEMPOTENCY_KEY_REUSED`. A key belongs to the API key that first sent it. |
+| The first request with this key is still running | `409 IDEMPOTENCY_KEY_IN_USE`. Retry shortly. |
+| More than 24 hours later | The key has expired and the request runs again |
+
+"Same body" means the same bytes: the key is matched against the method, the route and the raw request body. When you retry, resend exactly the body you sent the first time rather than re-serialising it with fields in a different order.
+
+### Which outcomes release the key
+
+Some outcomes mean "try again", so they **release** the key and a retry with the same key runs for real. Others are the answer to that request, so they are **stored and replayed**.
+
+| Outcome | Key |
+|---|---|
+| `400` validation errors (including `WABA_NOT_CONNECTED`) | Released: fix the problem and retry with the same key |
+| `402` payment or subscription errors | Released |
+| `409` conflicts | Released |
+| `429` rate limited | Released: wait for `Retry-After`, then retry |
+| `5xx`, including `502 WABA_CONNECT_FAILED` | Released: retry later with the same key |
+| `2xx` success | Stored and replayed |
+| `403`, `404`, `422` | Stored and replayed: the same request fails the same way |
+
+One window can't be closed: if a `502` or a server crash happens after WhatsApp accepted the message but before the result was stored, a retry with the same key can send again. A claim held by a request that stopped mid-way expires after 60 seconds.
+
+### Retry recipe
+
+```javascript
+async function sendWithRetry(payload, key, attempts = 5) {
+  for (let i = 0; i < attempts; i++) {
+    const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.SM_API_KEY}`,
+        'Content-Type': 'application/json',
+        'Idempotency-Key': key,
+      },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) return (await res.json()).data;
+
+    const retryable = res.status === 409 || res.status === 429 || res.status >= 500;
+    if (!retryable) throw new Error((await res.json()).error.code);
+
+    const wait = Number(res.headers.get('Retry-After')) || 2 ** i;
+    await new Promise((r) => setTimeout(r, wait * 1000));
+  }
+  throw new Error('Gave up after retries');
+}
+```
+
+## clientReference vs Idempotency-Key
+
+Both are yours to choose, and they do different jobs:
+
+| | `Idempotency-Key` header | `clientReference` body field |
+|---|---|---|
+| Purpose | Make retries safe: never send twice | Match messages and receipts to your own records |
+| Format | 1 to 255 printable ASCII, no spaces | 1 to 256 printable ASCII, spaces allowed (not only spaces) |
+| Lifetime | 24 hours | Stored with the message |
+| Comes back on | The replayed response (`Idempotent-Replayed: true`) | The send response, `GET /messages/{id}`, conversation message lists and every `message.*` webhook |
+| Two sends with the same value | Second one is replayed, not sent | Two separate messages |
+
+Use both: `Idempotency-Key: order-10421-shipped` to protect the send, and `clientReference: "order-10421"` so the `message.delivered` webhook tells you which order it was about.
+
+## FAQ
+
+**Do GET requests need an Idempotency-Key?**
+No. Reads never change anything, so they are safe to retry as they are. The header is for POST requests.
+
+**How long is an Idempotency-Key remembered?**
+24 hours. After that the same key runs the request again.
+
+**Can I jump to page 5 of a list?**
+No. Lists are cursor-based, so you walk them page by page with `nextCursor`. This keeps results correct while new rows are added.
+
+**What is the largest page I can request?**
+`limit=100`. The default is 25.
+
+**Can I use updatedSince on every list?**
+Only on `GET /contacts` and `GET /conversations`. Other lists are small or are better followed with webhooks.

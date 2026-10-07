@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-10-07",
   "seo": {
     "title": {
       "en": "API Limits & Usage Policies — StartMessaging",
@@ -20,12 +20,12 @@
       "tr": "API Limitleri ve Kullanım Politikaları — StartMessaging"
     },
     "description": {
-      "en": "Detailed SMS API rate limits, per-number security limits, best practices to handle 429 errors, and WhatsApp API limits status.",
-      "pt": "Limites de SMS API, limites de segurança por número e boas práticas para lidar com erros 429 e status dos limites de WhatsApp API.",
-      "es": "Límites detallados de SMS API, límites de seguridad por número, mejores prácticas para manejar errores 429 y estado de límites de WhatsApp API.",
-      "id": "Batas rate SMS API, batas keamanan per nomor, praktik terbaik menangani error 429, dan status batas WhatsApp API.",
-      "ar": "حدود معدل SMS API التفصيلية وحدود الأمان لكل رقم وأفضل الممارسات للتعامل مع أخطاء 429 وحالة حدود WhatsApp API.",
-      "tr": "Ayrıntılı SMS API hız limitleri, numara başına güvenlik limitleri, 429 hatalarını yönetme için en iyi uygulamalar ve WhatsApp API limit durumu."
+      "en": "SMS API rate limits, per-number security limits, WhatsApp API rate limits per plan, message and template limits, webhook limits, and best practices for handling 429 errors.",
+      "pt": "Limites de taxa da API de SMS, limites de segurança por número, limites de taxa da API do WhatsApp por plano, limites de mensagens e modelos, limites de webhooks e boas práticas para lidar com erros 429.",
+      "es": "Límites de tasa de la API de SMS, límites de seguridad por número, límites de tasa de la API de WhatsApp por plan, límites de mensajes y plantillas, límites de webhooks y mejores prácticas para manejar errores 429.",
+      "id": "Batas rate SMS API, batas keamanan per nomor, batas rate API WhatsApp per paket, batas pesan dan template, batas webhook, serta praktik terbaik menangani error 429.",
+      "ar": "حدود معدل SMS API وحدود الأمان لكل رقم وحدود معدل API واتساب لكل خطة وحدود الرسائل والقوالب وحدود webhook وأفضل الممارسات للتعامل مع أخطاء 429.",
+      "tr": "SMS API hız limitleri, numara başına güvenlik limitleri, plana göre WhatsApp API hız limitleri, mesaj ve şablon limitleri, webhook limitleri ve 429 hatalarını yönetmek için en iyi uygulamalar."
     },
     "ogImage": "/og/limits.png"
   },
@@ -166,23 +166,436 @@
       }
     },
     {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "WhatsApp API Limits",
+          "pt": "Limites da API WhatsApp",
+          "es": "Límites de la API de WhatsApp",
+          "id": "Batas API WhatsApp",
+          "ar": "حدود API واتساب",
+          "tr": "WhatsApp API Limitleri"
+        },
+        "heading": {
+          "en": "WhatsApp API — Rate Limits per Plan",
+          "pt": "API do WhatsApp — Limites de Taxa por Plano",
+          "es": "API de WhatsApp — Límites de Tasa por Plan",
+          "id": "API WhatsApp — Batas Rate per Paket",
+          "ar": "API واتساب — حدود المعدل لكل خطة",
+          "tr": "WhatsApp API — Plana Göre Hız Limitleri"
+        },
+        "subheading": {
+          "en": "Limits depend on your workspace's plan. Every API response carries IETF RateLimit-* headers, and every 429 response includes a Retry-After header. Meta's daily messaging limit, set for your business portfolio and shared by all of its WhatsApp numbers, also applies (see below).",
+          "pt": "Os limites dependem do plano do seu workspace. Cada resposta da API traz os cabeçalhos IETF RateLimit-*, e toda resposta 429 inclui o cabeçalho Retry-After. O limite diário de mensagens da Meta, definido para o seu portfólio empresarial e compartilhado por todos os seus números do WhatsApp, também se aplica (veja abaixo).",
+          "es": "Los límites dependen del plan de su workspace. Cada respuesta de la API incluye los encabezados IETF RateLimit-*, y toda respuesta 429 incluye el encabezado Retry-After. También se aplica el límite diario de mensajes de Meta, que se define para su portfolio empresarial y lo comparten todos sus números de WhatsApp (ver abajo).",
+          "id": "Batas bergantung pada paket workspace Anda. Setiap respons API menyertakan header IETF RateLimit-*, dan setiap respons 429 menyertakan header Retry-After. Batas pesan harian Meta, yang ditetapkan untuk portofolio bisnis Anda dan dibagi oleh semua nomor WhatsApp-nya, juga berlaku (lihat di bawah).",
+          "ar": "تعتمد الحدود على خطة مساحة العمل الخاصة بك. تحمل كل استجابة من API رؤوس IETF RateLimit-*، وتتضمن كل استجابة 429 رأس Retry-After. ويُطبَّق أيضاً حد المراسلة اليومي من Meta، الذي يُحدَّد لحافظة أعمالك وتتشاركه جميع أرقام واتساب التابعة لها (انظر أدناه).",
+          "tr": "Limitler çalışma alanınızın planına bağlıdır. Her API yanıtı IETF RateLimit-* başlıklarını taşır ve her 429 yanıtı bir Retry-After başlığı içerir. İşletme portföyünüz için belirlenen ve portföydeki tüm WhatsApp numaralarınızın paylaştığı Meta günlük mesajlaşma limiti de geçerlidir (aşağıya bakın)."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Plan",
+              "pt": "Plano",
+              "es": "Plan",
+              "id": "Paket",
+              "ar": "الخطة",
+              "tr": "Plan"
+            }
+          },
+          {
+            "label": {
+              "en": "Requests per minute",
+              "pt": "Requisições por minuto",
+              "es": "Solicitudes por minuto",
+              "id": "Permintaan per menit",
+              "ar": "الطلبات في الدقيقة",
+              "tr": "Dakika başına istek"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "API sends per hour",
+              "pt": "Envios via API por hora",
+              "es": "Envíos por API por hora",
+              "id": "Pengiriman API per jam",
+              "ar": "عمليات الإرسال عبر API في الساعة",
+              "tr": "Saat başına API gönderimi"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Trial (14 days)",
+              "pt": "Teste (14 dias)",
+              "es": "Prueba (14 días)",
+              "id": "Uji coba (14 hari)",
+              "ar": "التجربة (14 يوماً)",
+              "tr": "Deneme (14 gün)"
+            },
+            "60",
+            "100"
+          ],
+          [
+            "Basic",
+            "300",
+            {
+              "en": "2,000",
+              "pt": "2.000",
+              "es": "2,000",
+              "id": "2.000",
+              "ar": "2,000",
+              "tr": "2.000"
+            }
+          ],
+          [
+            "Advanced",
+            {
+              "en": "1,200",
+              "pt": "1.200",
+              "es": "1,200",
+              "id": "1.200",
+              "ar": "1,200",
+              "tr": "1.200"
+            },
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "WhatsApp API Limits",
+          "pt": "Limites da API WhatsApp",
+          "es": "Límites de la API de WhatsApp",
+          "id": "Batas API WhatsApp",
+          "ar": "حدود API واتساب",
+          "tr": "WhatsApp API Limitleri"
+        },
+        "heading": {
+          "en": "WhatsApp — Message & Template Limits",
+          "pt": "WhatsApp — Limites de Mensagens e Modelos",
+          "es": "WhatsApp — Límites de Mensajes y Plantillas",
+          "id": "WhatsApp — Batas Pesan & Template",
+          "ar": "واتساب — حدود الرسائل والقوالب",
+          "tr": "WhatsApp — Mesaj ve Şablon Limitleri"
+        },
+        "subheading": {
+          "en": "These limits apply to messages and templates created in the dashboard or sent through the API.",
+          "pt": "Esses limites se aplicam a mensagens e modelos criados no painel ou enviados pela API.",
+          "es": "Estos límites se aplican a los mensajes y plantillas creados en el panel o enviados a través de la API.",
+          "id": "Batas ini berlaku untuk pesan dan template yang dibuat di dasbor atau dikirim melalui API.",
+          "ar": "تنطبق هذه الحدود على الرسائل والقوالب التي يتم إنشاؤها في لوحة التحكم أو إرسالها عبر API.",
+          "tr": "Bu limitler panelde oluşturulan veya API üzerinden gönderilen mesajlar ve şablonlar için geçerlidir."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Limit",
+              "pt": "Limite",
+              "es": "Límite",
+              "id": "Batas",
+              "ar": "الحد",
+              "tr": "Limit"
+            }
+          },
+          {
+            "label": {
+              "en": "Value",
+              "pt": "Valor",
+              "es": "Valor",
+              "id": "Nilai",
+              "ar": "القيمة",
+              "tr": "Değer"
+            },
+            "highlight": true
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Template body",
+              "pt": "Corpo do modelo",
+              "es": "Cuerpo de la plantilla",
+              "id": "Isi template",
+              "ar": "نص القالب",
+              "tr": "Şablon gövdesi"
+            },
+            {
+              "en": "1,024 characters",
+              "pt": "1.024 caracteres",
+              "es": "1,024 caracteres",
+              "id": "1.024 karakter",
+              "ar": "1,024 حرفاً",
+              "tr": "1.024 karakter"
+            }
+          ],
+          [
+            {
+              "en": "Text message body",
+              "pt": "Corpo da mensagem de texto",
+              "es": "Cuerpo del mensaje de texto",
+              "id": "Isi pesan teks",
+              "ar": "نص الرسالة النصية",
+              "tr": "Metin mesajı gövdesi"
+            },
+            {
+              "en": "4,096 characters",
+              "pt": "4.096 caracteres",
+              "es": "4,096 caracteres",
+              "id": "4.096 karakter",
+              "ar": "4,096 حرفاً",
+              "tr": "4.096 karakter"
+            }
+          ],
+          [
+            {
+              "en": "Template header and footer text",
+              "pt": "Texto do cabeçalho e do rodapé do modelo",
+              "es": "Texto del encabezado y del pie de la plantilla",
+              "id": "Teks header dan footer template",
+              "ar": "نص ترويسة القالب وتذييله",
+              "tr": "Şablon başlık ve alt bilgi metni"
+            },
+            {
+              "en": "60 characters each",
+              "pt": "60 caracteres cada",
+              "es": "60 caracteres cada uno",
+              "id": "Masing-masing 60 karakter",
+              "ar": "60 حرفاً لكل منهما",
+              "tr": "Her biri 60 karakter"
+            }
+          ],
+          [
+            {
+              "en": "Template buttons",
+              "pt": "Botões do modelo",
+              "es": "Botones de la plantilla",
+              "id": "Tombol template",
+              "ar": "أزرار القالب",
+              "tr": "Şablon düğmeleri"
+            },
+            {
+              "en": "Up to 10 (at most 2 URL buttons and 1 phone button)",
+              "pt": "Até 10 (no máximo 2 botões de URL e 1 de telefone)",
+              "es": "Hasta 10 (como máximo 2 botones de URL y 1 de teléfono)",
+              "id": "Hingga 10 (maksimal 2 tombol URL dan 1 tombol telepon)",
+              "ar": "حتى 10 (بحد أقصى زرّان لعنوان URL وزر هاتف واحد)",
+              "tr": "10'a kadar (en fazla 2 URL düğmesi ve 1 telefon düğmesi)"
+            }
+          ],
+          [
+            {
+              "en": "Interactive reply buttons",
+              "pt": "Botões de resposta interativos",
+              "es": "Botones de respuesta interactivos",
+              "id": "Tombol balasan interaktif",
+              "ar": "أزرار الرد التفاعلية",
+              "tr": "Etkileşimli yanıt düğmeleri"
+            },
+            {
+              "en": "Up to 3 per message",
+              "pt": "Até 3 por mensagem",
+              "es": "Hasta 3 por mensaje",
+              "id": "Hingga 3 per pesan",
+              "ar": "حتى 3 لكل رسالة",
+              "tr": "Mesaj başına en fazla 3"
+            }
+          ],
+          [
+            {
+              "en": "Interactive list rows",
+              "pt": "Linhas de lista interativa",
+              "es": "Filas de lista interactiva",
+              "id": "Baris daftar interaktif",
+              "ar": "صفوف القائمة التفاعلية",
+              "tr": "Etkileşimli liste satırları"
+            },
+            {
+              "en": "Up to 10 (labels up to 20 characters)",
+              "pt": "Até 10 (rótulos de até 20 caracteres)",
+              "es": "Hasta 10 (etiquetas de hasta 20 caracteres)",
+              "id": "Hingga 10 (label hingga 20 karakter)",
+              "ar": "حتى 10 (عناوين بحد أقصى 20 حرفاً)",
+              "tr": "10'a kadar (etiketler en fazla 20 karakter)"
+            }
+          ],
+          [
+            {
+              "en": "Media URLs",
+              "pt": "URLs de mídia",
+              "es": "URLs de medios",
+              "id": "URL media",
+              "ar": "روابط الوسائط",
+              "tr": "Medya URL’leri"
+            },
+            {
+              "en": "Must use https",
+              "pt": "Devem usar https",
+              "es": "Deben usar https",
+              "id": "Wajib menggunakan https",
+              "ar": "يجب أن تستخدم https",
+              "tr": "https kullanmalıdır"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "WhatsApp API Limits",
+          "pt": "Limites da API WhatsApp",
+          "es": "Límites de la API de WhatsApp",
+          "id": "Batas API WhatsApp",
+          "ar": "حدود API واتساب",
+          "tr": "WhatsApp API Limitleri"
+        },
+        "heading": {
+          "en": "WhatsApp — Webhook Limits",
+          "pt": "WhatsApp — Limites de Webhooks",
+          "es": "WhatsApp — Límites de Webhooks",
+          "id": "WhatsApp — Batas Webhook",
+          "ar": "واتساب — حدود Webhook",
+          "tr": "WhatsApp — Webhook Limitleri"
+        },
+        "subheading": {
+          "en": "Webhook endpoints receive message, status and contact events in real time.",
+          "pt": "Os endpoints de webhook recebem eventos de mensagens, status e contatos em tempo real.",
+          "es": "Los endpoints de webhook reciben eventos de mensajes, estados y contactos en tiempo real.",
+          "id": "Endpoint webhook menerima event pesan, status, dan kontak secara real-time.",
+          "ar": "تستقبل نقاط نهاية webhook أحداث الرسائل والحالات وجهات الاتصال في الوقت الفعلي.",
+          "tr": "Webhook uç noktaları mesaj, durum ve kişi olaylarını gerçek zamanlı olarak alır."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Limit",
+              "pt": "Limite",
+              "es": "Límite",
+              "id": "Batas",
+              "ar": "الحد",
+              "tr": "Limit"
+            }
+          },
+          {
+            "label": {
+              "en": "Value",
+              "pt": "Valor",
+              "es": "Valor",
+              "id": "Nilai",
+              "ar": "القيمة",
+              "tr": "Değer"
+            },
+            "highlight": true
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Protocol and port",
+              "pt": "Protocolo e porta",
+              "es": "Protocolo y puerto",
+              "id": "Protokol dan port",
+              "ar": "البروتوكول والمنفذ",
+              "tr": "Protokol ve port"
+            },
+            {
+              "en": "https on port 443 only",
+              "pt": "Somente https na porta 443",
+              "es": "Solo https en el puerto 443",
+              "id": "Hanya https di port 443",
+              "ar": "https على المنفذ 443 فقط",
+              "tr": "Yalnızca 443 numaralı portta https"
+            }
+          ],
+          [
+            {
+              "en": "Endpoint URL length",
+              "pt": "Tamanho da URL do endpoint",
+              "es": "Longitud de la URL del endpoint",
+              "id": "Panjang URL endpoint",
+              "ar": "طول عنوان URL لنقطة النهاية",
+              "tr": "Uç nokta URL uzunluğu"
+            },
+            {
+              "en": "Up to 2,048 characters",
+              "pt": "Até 2.048 caracteres",
+              "es": "Hasta 2,048 caracteres",
+              "id": "Hingga 2.048 karakter",
+              "ar": "حتى 2,048 حرفاً",
+              "tr": "En fazla 2.048 karakter"
+            }
+          ],
+          [
+            {
+              "en": "Response time",
+              "pt": "Tempo de resposta",
+              "es": "Tiempo de respuesta",
+              "id": "Waktu respons",
+              "ar": "وقت الاستجابة",
+              "tr": "Yanıt süresi"
+            },
+            {
+              "en": "Reply with a 2xx status within 5 seconds",
+              "pt": "Responder com status 2xx em até 5 segundos",
+              "es": "Responder con un estado 2xx en 5 segundos",
+              "id": "Balas dengan status 2xx dalam 5 detik",
+              "ar": "الرد بحالة 2xx خلال 5 ثوانٍ",
+              "tr": "5 saniye içinde 2xx durum koduyla yanıt verin"
+            }
+          ],
+          [
+            {
+              "en": "Webhook endpoints per plan",
+              "pt": "Endpoints de webhook por plano",
+              "es": "Endpoints de webhook por plan",
+              "id": "Endpoint webhook per paket",
+              "ar": "نقاط نهاية webhook لكل خطة",
+              "tr": "Plan başına webhook uç noktası"
+            },
+            {
+              "en": "Trial 2 · Basic 5 · Advanced 20",
+              "pt": "Teste 2 · Basic 5 · Advanced 20",
+              "es": "Prueba 2 · Basic 5 · Advanced 20",
+              "id": "Uji coba 2 · Basic 5 · Advanced 20",
+              "ar": "التجربة 2 · Basic 5 · Advanced 20",
+              "tr": "Deneme 2 · Basic 5 · Advanced 20"
+            }
+          ]
+        ]
+      }
+    },
+    {
       "type": "richText",
       "props": {
         "heading": {
-          "en": "WhatsApp API Limits — Coming Soon",
-          "pt": "Limites da API WhatsApp — Em Breve",
-          "es": "Límites de la API de WhatsApp — Próximamente",
-          "id": "Batas API WhatsApp — Segera Hadir",
-          "ar": "حدود API واتساب — قريباً",
-          "tr": "WhatsApp API Limitleri — Çok Yakında"
+          "en": "Meta's Limits on Your WhatsApp Number",
+          "pt": "Limites da Meta para o Seu Número do WhatsApp",
+          "es": "Límites de Meta para su Número de WhatsApp",
+          "id": "Batas Meta untuk Nomor WhatsApp Anda",
+          "ar": "حدود Meta على رقم واتساب الخاص بك",
+          "tr": "Meta'nın WhatsApp Numaranız İçin Limitleri"
         },
         "body": {
-          "en": "<p>Our WhatsApp API is currently in active development. Comprehensive documentation covering per-endpoint rate limits, message throughput tiers, burst allowances, and webhook delivery guarantees is being finalized and will be published here shortly.</p><p>In the meantime, here's what we can share:</p><ul><li><strong>Throughput tiers</strong> are managed by Meta and scale automatically based on your phone number's quality rating: Tier 1 (1,000 contacts/day), Tier 2 (10,000), Tier 3 (100,000), and Tier 4 (unlimited).</li><li><strong>Template messaging</strong> follows Meta's business policy — all templates must be pre-approved before sending.</li><li><strong>Session messaging</strong> is only allowed within 24 hours of the last inbound message from the user.</li></ul><p>For current limit specifics or to request early access, please <a href=\"/contact\">contact our team</a> — we're happy to walk you through the details.</p>",
-          "pt": "<p>Nossa API WhatsApp está em desenvolvimento ativo. Documentação completa cobrindo limites de taxa por endpoint, camadas de throughput de mensagens, permissões de burst e garantias de entrega de webhook está sendo finalizada e será publicada em breve.</p><p>Por enquanto, aqui está o que podemos compartilhar:</p><ul><li><strong>Camadas de throughput</strong> são gerenciadas pela Meta e escalam automaticamente com base na avaliação de qualidade do seu número: Nível 1 (1.000 contatos/dia), Nível 2 (10.000), Nível 3 (100.000) e Nível 4 (ilimitado).</li><li><strong>Mensagens de template</strong> seguem a política de negócios da Meta — todos os templates devem ser pré-aprovados antes do envio.</li><li><strong>Mensagens de sessão</strong> só são permitidas dentro de 24 horas da última mensagem recebida do usuário.</li></ul><p>Para detalhes específicos de limite ou para solicitar acesso antecipado, <a href=\"/contact\">entre em contato com nossa equipe</a>.</p>",
-          "es": "<p>Nuestra API de WhatsApp está actualmente en desarrollo activo. La documentación completa que cubre los límites de tasa por endpoint, los niveles de throughput de mensajes, las asignaciones de ráfaga y las garantías de entrega de webhook se está finalizando y se publicará pronto.</p><p>Mientras tanto, esto es lo que podemos compartir:</p><ul><li><strong>Los niveles de throughput</strong> son administrados por Meta y escalan automáticamente según la calificación de calidad de su número: Nivel 1 (1,000 contactos/día), Nivel 2 (10,000), Nivel 3 (100,000) y Nivel 4 (ilimitado).</li><li><strong>Los mensajes de plantilla</strong> siguen la política comercial de Meta — todas las plantillas deben aprobarse previamente antes de enviar.</li><li><strong>Los mensajes de sesión</strong> solo se permiten dentro de las 24 horas del último mensaje entrante del usuario.</li></ul><p>Para detalles específicos de límites o para solicitar acceso anticipado, <a href=\"/contact\">contacte a nuestro equipo</a>.</p>",
-          "id": "<p>API WhatsApp kami sedang dalam pengembangan aktif. Dokumentasi lengkap yang mencakup batas rate per endpoint, tingkat throughput pesan, izin burst, dan jaminan pengiriman webhook sedang diselesaikan dan akan diterbitkan segera.</p><p>Sementara itu, inilah yang dapat kami bagikan:</p><ul><li><strong>Tingkat throughput</strong> dikelola oleh Meta dan ditingkatkan secara otomatis berdasarkan rating kualitas nomor Anda: Tingkat 1 (1.000 kontak/hari), Tingkat 2 (10.000), Tingkat 3 (100.000), dan Tingkat 4 (tak terbatas).</li><li><strong>Pesan template</strong> mengikuti kebijakan bisnis Meta — semua template harus disetujui sebelum pengiriman.</li><li><strong>Pesan sesi</strong> hanya diizinkan dalam 24 jam setelah pesan masuk terakhir dari pengguna.</li></ul><p>Untuk detail limit saat ini atau meminta akses awal, silakan <a href=\"/contact\">hubungi tim kami</a>.</p>",
-          "ar": "<p>واجهة API واتساب لدينا قيد التطوير النشط حالياً. الوثائق الشاملة التي تغطي حدود معدل كل نقطة نهاية وطبقات إنتاجية الرسائل وبدلات الانفجار وضمانات تسليم webhook يجري إتمامها وستُنشر هنا قريباً.</p><p>في الوقت الحالي، إليك ما يمكننا مشاركته:</p><ul><li><strong>طبقات الإنتاجية</strong> تُدار بواسطة Meta وترتقي تلقائياً بناءً على تقييم جودة رقمك: الطبقة 1 (1,000 جهة اتصال/يوم)، الطبقة 2 (10,000)، الطبقة 3 (100,000)، والطبقة 4 (غير محدود).</li><li><strong>رسائل القوالب</strong> تتبع سياسة أعمال Meta — يجب الموافقة على جميع القوالب مسبقاً قبل الإرسال.</li><li><strong>رسائل الجلسة</strong> مسموح بها فقط خلال 24 ساعة من آخر رسالة واردة من المستخدم.</li></ul><p>للحصول على تفاصيل حدود محددة أو طلب الوصول المبكر، يرجى <a href=\"/contact\">التواصل مع فريقنا</a>.</p>",
-          "tr": "<p>WhatsApp API'miz şu anda aktif geliştirme aşamasındadır. Endpoint başına hız limitleri, mesaj iletim katmanları, anlık artış izinleri ve webhook teslimat garantilerini kapsayan kapsamlı belgeler hazırlanmakta olup kısa süre içinde burada yayınlanacaktır.</p><p>Bu arada paylaşabileceklerimiz şunlar:</p><ul><li><strong>Verim katmanları</strong> Meta tarafından yönetilir ve telefon numaranızın kalite puanına göre otomatik olarak yükseltilir: Katman 1 (1.000 kişi/gün), Katman 2 (10.000), Katman 3 (100.000) ve Katman 4 (sınırsız).</li><li><strong>Şablon mesajları</strong> Meta'nın iş politikasını takip eder — tüm şablonlar gönderilmeden önce önceden onaylanmalıdır.</li><li><strong>Oturum mesajlaşması</strong> yalnızca kullanıcıdan gelen son gelen mesajdan itibaren 24 saat içinde izinlidir.</li></ul><p>Mevcut limit ayrıntıları veya erken erişim talebinde bulunmak için <a href=\"/contact\">ekibimizle iletişime geçin</a>.</p>"
+          "en": "<p>Alongside our API limits, Meta applies its own limits to every WhatsApp Business phone number. These are set by Meta, not by StartMessaging, and you can check them in your dashboard under account health.</p><ul><li><strong>Daily messaging limit:</strong> Meta caps how many unique customers you can start conversations with using business-initiated (template) messages in a rolling 24-hour period. The limit is set for your business portfolio and shared by all of its WhatsApp numbers, so adding a number does not increase it. It rises tier by tier as you keep sending high-quality messages and maintain a good quality rating. When it is reached, sends fail with the error <code>PHONE_DAILY_LIMIT_REACHED</code>.</li><li><strong>Quality rating:</strong> Meta rates each number based on recent customer feedback, such as blocks and reports. A low rating can hold back tier upgrades.</li><li><strong>24-hour customer service window:</strong> free-form messages can only be sent within 24 hours of the customer's last message. Outside that window, send an approved template.</li><li><strong>Template approval:</strong> every template must be approved by Meta before it can be sent.</li></ul><h4>Best Practices</h4><ul><li>Read the <code>RateLimit-*</code> headers and slow down before you reach your limit.</li><li>On a <code>429 Too Many Requests</code> response, wait the number of seconds given in <code>Retry-After</code>, then retry with exponential backoff.</li><li>Space marketing campaigns at least 48 hours apart to protect your quality rating.</li></ul>",
+          "pt": "<p>Além dos nossos limites de API, a Meta aplica seus próprios limites a cada número do WhatsApp Business. Eles são definidos pela Meta, não pelo StartMessaging, e você pode consultá-los no painel, em saúde da conta.</p><ul><li><strong>Limite diário de mensagens:</strong> a Meta limita com quantos clientes únicos você pode iniciar conversas por meio de mensagens iniciadas pela empresa (modelos) em um período móvel de 24 horas. O limite é definido para o seu portfólio empresarial e compartilhado por todos os seus números do WhatsApp, então adicionar um número não o aumenta. Ele sobe de nível em nível à medida que você envia mensagens de alta qualidade e mantém uma boa classificação de qualidade. Quando ele é atingido, os envios falham com o erro <code>PHONE_DAILY_LIMIT_REACHED</code>.</li><li><strong>Classificação de qualidade:</strong> a Meta avalia cada número com base no feedback recente dos clientes, como bloqueios e denúncias. Uma classificação baixa pode impedir a subida de nível.</li><li><strong>Janela de atendimento de 24 horas:</strong> mensagens livres só podem ser enviadas até 24 horas após a última mensagem do cliente. Fora dessa janela, envie um modelo aprovado.</li><li><strong>Aprovação de modelos:</strong> todo modelo precisa ser aprovado pela Meta antes de ser enviado.</li></ul><h4>Boas Práticas</h4><ul><li>Leia os cabeçalhos <code>RateLimit-*</code> e reduza o ritmo antes de atingir o limite.</li><li>Ao receber uma resposta <code>429 Too Many Requests</code>, aguarde o número de segundos indicado em <code>Retry-After</code> e tente novamente com backoff exponencial.</li><li>Espace as campanhas de marketing em pelo menos 48 horas para proteger sua classificação de qualidade.</li></ul>",
+          "es": "<p>Además de nuestros límites de API, Meta aplica sus propios límites a cada número de WhatsApp Business. Los define Meta, no StartMessaging, y puede consultarlos en su panel, en el estado de la cuenta.</p><ul><li><strong>Límite diario de mensajes:</strong> Meta limita con cuántos clientes únicos puede iniciar conversaciones mediante mensajes iniciados por la empresa (plantillas) en un periodo móvil de 24 horas. El límite se define para su portfolio empresarial y lo comparten todos sus números de WhatsApp, por lo que añadir un número no lo aumenta. Sube de nivel en nivel a medida que envía mensajes de alta calidad y mantiene una buena calificación de calidad. Cuando se alcanza, los envíos fallan con el error <code>PHONE_DAILY_LIMIT_REACHED</code>.</li><li><strong>Calificación de calidad:</strong> Meta califica cada número según los comentarios recientes de los clientes, como bloqueos y denuncias. Una calificación baja puede frenar las subidas de nivel.</li><li><strong>Ventana de atención de 24 horas:</strong> los mensajes libres solo pueden enviarse dentro de las 24 horas posteriores al último mensaje del cliente. Fuera de esa ventana, envíe una plantilla aprobada.</li><li><strong>Aprobación de plantillas:</strong> Meta debe aprobar cada plantilla antes de que pueda enviarse.</li></ul><h4>Mejores Prácticas</h4><ul><li>Lea los encabezados <code>RateLimit-*</code> y reduzca el ritmo antes de alcanzar su límite.</li><li>Ante una respuesta <code>429 Too Many Requests</code>, espere los segundos indicados en <code>Retry-After</code> y vuelva a intentarlo con backoff exponencial.</li><li>Deje al menos 48 horas entre campañas de marketing para proteger su calificación de calidad.</li></ul>",
+          "id": "<p>Selain batas API kami, Meta menerapkan batasnya sendiri pada setiap nomor WhatsApp Business. Batas ini ditetapkan oleh Meta, bukan oleh StartMessaging, dan Anda dapat memeriksanya di dasbor pada bagian kesehatan akun.</p><ul><li><strong>Batas pesan harian:</strong> Meta membatasi jumlah pelanggan unik yang dapat Anda kirimi pesan yang dimulai oleh bisnis (template) untuk memulai percakapan dalam periode 24 jam bergulir. Batas ini ditetapkan untuk portofolio bisnis Anda dan dibagi oleh semua nomor WhatsApp-nya, sehingga menambah nomor tidak menambah batas. Batas ini naik tingkat demi tingkat seiring Anda terus mengirim pesan berkualitas tinggi dan menjaga rating kualitas tetap baik. Saat batas tercapai, pengiriman gagal dengan error <code>PHONE_DAILY_LIMIT_REACHED</code>.</li><li><strong>Rating kualitas:</strong> Meta menilai setiap nomor berdasarkan umpan balik pelanggan terbaru, seperti pemblokiran dan laporan. Rating rendah dapat menahan kenaikan tingkat.</li><li><strong>Jendela layanan pelanggan 24 jam:</strong> pesan bebas hanya dapat dikirim dalam 24 jam setelah pesan terakhir pelanggan. Di luar jendela itu, kirim template yang sudah disetujui.</li><li><strong>Persetujuan template:</strong> setiap template harus disetujui Meta sebelum dapat dikirim.</li></ul><h4>Praktik Terbaik</h4><ul><li>Baca header <code>RateLimit-*</code> dan perlambat pengiriman sebelum mencapai batas.</li><li>Saat menerima respons <code>429 Too Many Requests</code>, tunggu selama jumlah detik di <code>Retry-After</code>, lalu coba lagi dengan exponential backoff.</li><li>Beri jarak minimal 48 jam antar kampanye pemasaran untuk menjaga rating kualitas Anda.</li></ul>",
+          "ar": "<p>إلى جانب حدود API الخاصة بنا، تطبّق Meta حدودها الخاصة على كل رقم هاتف في واتساب للأعمال. تحدد Meta هذه الحدود وليس StartMessaging، ويمكنك الاطلاع عليها في لوحة التحكم ضمن صحة الحساب.</p><ul><li><strong>حد المراسلة اليومي:</strong> تحدد Meta عدد العملاء الفريدين الذين يمكنك بدء محادثات معهم عبر رسائل تبدأها الشركة (القوالب) خلال فترة متجددة مدتها 24 ساعة. يُحدَّد هذا الحد لحافظة أعمالك وتتشاركه جميع أرقام واتساب التابعة لها، لذا فإن إضافة رقم جديد لا تزيده. ويرتفع الحد من مستوى إلى آخر كلما واصلت إرسال رسائل عالية الجودة وحافظت على تقييم جودة جيد. وعند بلوغه، تفشل عمليات الإرسال بالخطأ <code>PHONE_DAILY_LIMIT_REACHED</code>.</li><li><strong>تقييم الجودة:</strong> تقيّم Meta كل رقم بناءً على ملاحظات العملاء الأخيرة، مثل الحظر والإبلاغ. وقد يؤخر التقييم المنخفض الترقية إلى مستوى أعلى.</li><li><strong>نافذة خدمة العملاء لمدة 24 ساعة:</strong> لا يمكن إرسال الرسائل الحرة إلا خلال 24 ساعة من آخر رسالة من العميل. وخارج هذه النافذة، أرسل قالباً معتمداً.</li><li><strong>اعتماد القوالب:</strong> يجب أن توافق Meta على كل قالب قبل إرساله.</li></ul><h4>أفضل الممارسات</h4><ul><li>اقرأ رؤوس <code>RateLimit-*</code> وخفّف وتيرة الإرسال قبل بلوغ الحد.</li><li>عند تلقي استجابة <code>429 Too Many Requests</code>، انتظر عدد الثواني المذكور في <code>Retry-After</code> ثم أعد المحاولة مع التراجع الأسي.</li><li>اترك 48 ساعة على الأقل بين الحملات التسويقية لحماية تقييم الجودة.</li></ul>",
+          "tr": "<p>API limitlerimizin yanı sıra Meta, her WhatsApp Business telefon numarasına kendi limitlerini uygular. Bu limitleri StartMessaging değil Meta belirler; bunları panelinizde hesap durumu bölümünden görebilirsiniz.</p><ul><li><strong>Günlük mesajlaşma limiti:</strong> Meta, 24 saatlik kayan bir süre içinde işletme tarafından başlatılan (şablon) mesajlarla görüşme başlatabileceğiniz benzersiz müşteri sayısını sınırlar. Limit işletme portföyünüz için belirlenir ve portföydeki tüm WhatsApp numaralarınız tarafından paylaşılır; bu nedenle numara eklemek limiti artırmaz. Yüksek kaliteli mesajlar göndermeye ve iyi bir kalite puanını korumaya devam ettikçe limit kademe kademe yükselir. Limite ulaşıldığında gönderimler <code>PHONE_DAILY_LIMIT_REACHED</code> hatasıyla başarısız olur.</li><li><strong>Kalite puanı:</strong> Meta her numarayı engelleme ve şikâyet gibi son müşteri geri bildirimlerine göre puanlar. Düşük puan kademe yükselmesini engelleyebilir.</li><li><strong>24 saatlik müşteri hizmetleri penceresi:</strong> serbest metinli mesajlar yalnızca müşterinin son mesajından sonraki 24 saat içinde gönderilebilir. Bu pencerenin dışında onaylı bir şablon gönderin.</li><li><strong>Şablon onayı:</strong> her şablonun gönderilmeden önce Meta tarafından onaylanması gerekir.</li></ul><h4>En İyi Uygulamalar</h4><ul><li><code>RateLimit-*</code> başlıklarını okuyun ve limitinize ulaşmadan önce hızınızı düşürün.</li><li><code>429 Too Many Requests</code> yanıtı aldığınızda <code>Retry-After</code> içinde belirtilen saniye kadar bekleyin, ardından üstel geri çekilmeyle yeniden deneyin.</li><li>Kalite puanınızı korumak için pazarlama kampanyaları arasında en az 48 saat bırakın.</li></ul>"
         }
       }
     },
@@ -262,20 +675,20 @@
           },
           {
             "question": {
-              "en": "When will WhatsApp API rate limits be published?",
-              "pt": "Quando os limites de taxa da API do WhatsApp serão publicados?",
-              "es": "¿Cuándo se publicarán los límites de tasa de la API de WhatsApp?",
-              "id": "Kapan batas rate WhatsApp API akan dipublikasikan?",
-              "ar": "متى سيتم نشر حدود معدل API واتساب؟",
-              "tr": "WhatsApp API hız limitleri ne zaman yayınlanacak?"
+              "en": "What limits apply to the WhatsApp API?",
+              "pt": "Quais limites se aplicam à API do WhatsApp?",
+              "es": "¿Qué límites se aplican a la API de WhatsApp?",
+              "id": "Batas apa saja yang berlaku untuk API WhatsApp?",
+              "ar": "ما الحدود التي تنطبق على API واتساب؟",
+              "tr": "WhatsApp API için hangi limitler geçerlidir?"
             },
             "answer": {
-              "en": "Our WhatsApp API is actively in development. We are finalizing the technical specifications and comprehensive documentation for all endpoints. Detailed limits — including per-endpoint rate limits, conversation throughput tiers, and webhook delivery SLAs — will be published here as soon as the API reaches general availability. Contact us if you need current details or wish to join our early access program.",
-              "pt": "Nossa API WhatsApp está em desenvolvimento ativo. Estamos finalizando as especificações técnicas e a documentação completa para todos os endpoints. Limites detalhados serão publicados aqui assim que a API atingir disponibilidade geral. Entre em contato conosco se precisar de detalhes atuais ou desejar participar do nosso programa de acesso antecipado.",
-              "es": "Nuestra API de WhatsApp está en desarrollo activo. Estamos finalizando las especificaciones técnicas y la documentación completa para todos los endpoints. Los límites detallados se publicarán aquí tan pronto como la API alcance disponibilidad general. Contáctenos si necesita detalles actuales o desea unirse a nuestro programa de acceso anticipado.",
-              "id": "API WhatsApp kami sedang dalam pengembangan aktif. Kami sedang menyelesaikan spesifikasi teknis dan dokumentasi lengkap untuk semua endpoint. Batas detail akan diterbitkan di sini segera setelah API mencapai ketersediaan umum. Hubungi kami jika Anda membutuhkan detail saat ini atau ingin bergabung dengan program akses awal kami.",
-              "ar": "واجهة API واتساب الخاصة بنا قيد التطوير النشط. نحن بصدد الانتهاء من المواصفات التقنية والوثائق الشاملة لجميع نقاط النهاية. ستُنشر الحدود التفصيلية هنا بمجرد وصول API إلى التوفر العام. تواصل معنا إذا كنت بحاجة إلى تفاصيل حالية أو ترغب في الانضمام إلى برنامج الوصول المبكر.",
-              "tr": "WhatsApp API'miz aktif olarak geliştirilmektedir. Tüm endpoint'ler için teknik özellikleri ve kapsamlı belgeleri tamamlamaktayız. Ayrıntılı limitler, API genel kullanıma sunulur sunulmaz burada yayınlanacaktır. Mevcut ayrıntılara ihtiyaç duyuyorsanız veya erken erişim programımıza katılmak istiyorsanız bizimle iletişime geçin."
+              "en": "Two kinds. Our API rate limits depend on your plan: Trial allows 60 requests per minute and 100 API sends per hour, Basic allows 300 and 2,000, and Advanced allows 1,200 and 10,000. Meta also limits how many unique customers you can start conversations with (business-initiated template messages) in a rolling 24 hours. That limit is set for your business portfolio, shared by all of its WhatsApp numbers, and rises with your tier and quality rating; when it is reached, sends fail with PHONE_DAILY_LIMIT_REACHED. You can see your current limit in the dashboard under account health.",
+              "pt": "Há dois tipos. Nossos limites de taxa da API dependem do seu plano: o Teste permite 60 requisições por minuto e 100 envios via API por hora, o Basic permite 300 e 2.000, e o Advanced permite 1.200 e 10.000. A Meta também limita com quantos clientes únicos você pode iniciar conversas (mensagens de modelo iniciadas pela empresa) em um período móvel de 24 horas. Esse limite é definido para o seu portfólio empresarial, compartilhado por todos os seus números do WhatsApp e aumenta com o seu nível e a sua classificação de qualidade; quando ele é atingido, os envios falham com PHONE_DAILY_LIMIT_REACHED. Você pode ver o seu limite atual no painel, em saúde da conta.",
+              "es": "Hay dos tipos. Nuestros límites de tasa de la API dependen de su plan: la Prueba permite 60 solicitudes por minuto y 100 envíos por API por hora, Basic permite 300 y 2,000, y Advanced permite 1,200 y 10,000. Meta también limita con cuántos clientes únicos puede iniciar conversaciones (mensajes de plantilla iniciados por la empresa) en un periodo móvil de 24 horas. Ese límite se define para su portfolio empresarial, lo comparten todos sus números de WhatsApp y sube con su nivel y su calificación de calidad; cuando se alcanza, los envíos fallan con PHONE_DAILY_LIMIT_REACHED. Puede ver su límite actual en el panel, en el estado de la cuenta.",
+              "id": "Ada dua jenis. Batas rate API kami bergantung pada paket Anda: Uji coba mengizinkan 60 permintaan per menit dan 100 pengiriman API per jam, Basic mengizinkan 300 dan 2.000, dan Advanced mengizinkan 1.200 dan 10.000. Meta juga membatasi jumlah pelanggan unik yang dapat Anda kirimi pesan template yang dimulai oleh bisnis untuk memulai percakapan dalam periode 24 jam bergulir. Batas ini ditetapkan untuk portofolio bisnis Anda, dibagi oleh semua nomor WhatsApp-nya, dan naik sesuai tingkat serta rating kualitas Anda; saat batas tercapai, pengiriman gagal dengan PHONE_DAILY_LIMIT_REACHED. Anda dapat melihat batas Anda saat ini di dasbor pada bagian kesehatan akun.",
+              "ar": "هناك نوعان. تعتمد حدود معدل API لدينا على خطتك: تسمح التجربة بـ 60 طلباً في الدقيقة و100 عملية إرسال عبر API في الساعة، وتسمح خطة Basic بـ 300 و2,000، وخطة Advanced بـ 1,200 و10,000. كما تحدد Meta عدد العملاء الفريدين الذين يمكنك بدء محادثات معهم (رسائل القوالب التي تبدأها الشركة) خلال فترة متجددة مدتها 24 ساعة. يُحدَّد هذا الحد لحافظة أعمالك وتتشاركه جميع أرقام واتساب التابعة لها، ويرتفع بحسب مستواك وتقييم جودتك؛ وعند بلوغه تفشل عمليات الإرسال بالخطأ PHONE_DAILY_LIMIT_REACHED. يمكنك رؤية حدك الحالي في لوحة التحكم ضمن صحة الحساب.",
+              "tr": "İki tür limit vardır. API hız limitlerimiz planınıza bağlıdır: Deneme dakikada 60 isteğe ve saatte 100 API gönderimine, Basic 300 ve 2.000'e, Advanced ise 1.200 ve 10.000'e izin verir. Meta ayrıca 24 saatlik kayan bir süre içinde görüşme başlatabileceğiniz (işletme tarafından başlatılan şablon mesajlar) benzersiz müşteri sayısını sınırlar. Bu limit işletme portföyünüz için belirlenir, portföydeki tüm WhatsApp numaralarınız tarafından paylaşılır ve kademenize ve kalite puanınıza göre yükselir; limite ulaşıldığında gönderimler PHONE_DAILY_LIMIT_REACHED hatasıyla başarısız olur. Güncel limitinizi panelde hesap durumu bölümünden görebilirsiniz."
             }
           },
           {
@@ -303,20 +716,20 @@
       "type": "ctaBlock",
       "props": {
         "heading": {
-          "en": "Need Higher Limits or Early WhatsApp Access?",
-          "pt": "Precisa de Limites Maiores ou Acesso Antecipado ao WhatsApp?",
-          "es": "¿Necesita Límites Más Altos o Acceso Anticipado a WhatsApp?",
-          "id": "Butuh Batas Lebih Tinggi atau Akses WhatsApp Awal?",
-          "ar": "هل تحتاج إلى حدود أعلى أو وصول مبكر لواتساب؟",
-          "tr": "Daha Yüksek Limitler veya Erken WhatsApp Erişimi mi Gerekiyor?"
+          "en": "Need Higher Limits? Talk to Us",
+          "pt": "Precisa de Limites Maiores? Fale Conosco",
+          "es": "¿Necesita Límites Más Altos? Hable con Nosotros",
+          "id": "Butuh Batas Lebih Tinggi? Bicara dengan Kami",
+          "ar": "هل تحتاج إلى حدود أعلى؟ تحدث معنا",
+          "tr": "Daha Yüksek Limitler mi Gerekiyor? Bizimle Konuşun"
         },
         "subtext": {
-          "en": "Our team can walk you through current capabilities, custom limit arrangements, and WhatsApp API early access.",
-          "pt": "Nossa equipe pode explicar as capacidades atuais, acordos de limites personalizados e acesso antecipado à API do WhatsApp.",
-          "es": "Nuestro equipo puede explicarle las capacidades actuales, acuerdos de límites personalizados y acceso anticipado a la API de WhatsApp.",
-          "id": "Tim kami dapat memandu Anda melalui kemampuan saat ini, pengaturan batas khusus, dan akses awal API WhatsApp.",
-          "ar": "يمكن لفريقنا إرشادك عبر القدرات الحالية وترتيبات الحدود المخصصة والوصول المبكر لـ API واتساب.",
-          "tr": "Ekibimiz sizi mevcut özellikler, özel limit düzenlemeleri ve WhatsApp API erken erişimi konusunda bilgilendirebilir."
+          "en": "Tell us about your use case and expected volume, and our team will walk you through the right plan and limit options.",
+          "pt": "Conte-nos sobre seu caso de uso e o volume esperado, e nossa equipe apresentará as opções de plano e de limites adequadas.",
+          "es": "Cuéntenos sobre su caso de uso y el volumen esperado, y nuestro equipo le explicará las opciones de plan y de límites adecuadas.",
+          "id": "Ceritakan kasus penggunaan dan volume yang Anda harapkan, dan tim kami akan memandu Anda memilih paket dan opsi batas yang tepat.",
+          "ar": "أخبرنا عن حالة استخدامك والحجم المتوقع، وسيرشدك فريقنا إلى الخطة وخيارات الحدود المناسبة.",
+          "tr": "Kullanım durumunuzu ve beklenen hacminizi bize anlatın; ekibimiz size uygun plan ve limit seçeneklerini anlatsın."
         },
         "primaryCta": {
           "en": "Contact Our Team",
@@ -328,12 +741,12 @@
         },
         "primaryHref": "/contact",
         "secondaryCta": {
-          "en": "View Pricing",
-          "pt": "Ver Preços",
-          "es": "Ver Precios",
-          "id": "Lihat Harga",
-          "ar": "عرض الأسعار",
-          "tr": "Fiyatları Görüntüle"
+          "en": "View Plans",
+          "pt": "Ver Planos",
+          "es": "Ver Planes",
+          "id": "Lihat Paket",
+          "ar": "عرض الخطط",
+          "tr": "Planları Görüntüle"
         },
         "secondaryHref": "/pricing"
       }

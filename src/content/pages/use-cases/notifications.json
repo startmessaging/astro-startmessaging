@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-10-07",
   "seo": {
     "title": {
       "en": "WhatsApp & SMS Notifications Use Case — StartMessaging",
@@ -21,12 +21,12 @@
       "ng": "WhatsApp & SMS Notifications Use Case — StartMessaging"
     },
     "description": {
-      "en": "Send appointment reminders, payment alerts, and account updates via WhatsApp with auto-SMS fallback capabilities.",
-      "pt": "Envie lembretes de consulta, alertas de pagamento e atualizações transacionais por WhatsApp e SMS.",
-      "es": "Envíe recordatorios de citas, alertas de pago y actualizaciones transaccionales por WhatsApp y SMS.",
-      "id": "Kirim pengingat janji, peringatan pembayaran, dan pembaruan transaksional melalui WhatsApp dan SMS.",
-      "ar": "أرسل تذكيرات المواعيد وتنبيهات الدفع والتحديثات المعاملاتية عبر واتساب وSMS.",
-      "tr": "WhatsApp ve SMS üzerinden randevu hatırlatmaları, ödeme uyarıları ve işlemsel bildirimler gönderin."
+      "en": "Send appointment reminders, payment alerts and account updates as WhatsApp utility templates through the Messages API, and track every delivery on signed webhooks.",
+      "pt": "Envie lembretes de consulta, alertas de pagamento e atualizações de conta como templates de utilidade do WhatsApp pela API de Mensagens e acompanhe cada entrega por webhooks assinados.",
+      "es": "Envíe recordatorios de citas, alertas de pago y actualizaciones de cuenta como plantillas de utilidad de WhatsApp mediante la API de Mensajes, y siga cada entrega con webhooks firmados.",
+      "id": "Kirim pengingat janji temu, peringatan pembayaran, dan pembaruan akun sebagai templat utilitas WhatsApp melalui Messages API, dan pantau setiap pengiriman lewat webhook bertanda tangan.",
+      "ar": "أرسل تذكيرات المواعيد وتنبيهات الدفع وتحديثات الحساب كقوالب خدمية على واتساب عبر API الرسائل، وتابع كل عملية تسليم عبر ويب هوك موقّعة.",
+      "tr": "Randevu hatırlatmalarını, ödeme uyarılarını ve hesap güncellemelerini Mesaj API'si ile WhatsApp utility şablonları olarak gönderin ve her teslimatı imzalı webhook'larla izleyin."
     },
     "ogImage": "/og/sms-api.jpg"
   },
@@ -53,13 +53,12 @@
           "ng": "Notifications That Get Read"
         },
         "subtitle": {
-          "en": "Stop losing important notifications to spam folders. Send appointment reminders, payment alerts, and account updates via WhatsApp (98% open rate) with SMS fallback.",
-          "pt": "Pare de perder notificações importantes em pastas de spam. Envie lembretes, alertas de pagamento e atualizações via WhatsApp (98% de abertura) com fallback SMS.",
-          "es": "Deje de perder notificaciones importantes en carpetas de spam. Envíe recordatorios, alertas de pago y actualizaciones vía WhatsApp (98% de apertura) con respaldo de SMS.",
-          "id": "Berhenti kehilangan notifikasi penting di folder spam. Kirim pengingat, peringatan pembayaran, dan pembaruan via WhatsApp (98% tingkat buka) dengan fallback SMS.",
-          "ar": "توقف عن فقدان الإشعارات المهمة في مجلدات البريد العشوائي. أرسل التذكيرات والتنبيهات والتحديثات عبر واتساب (98% فتح) مع احتياطي SMS.",
-          "tr": "Önemli bildirimleri spam klasörlerinde kaybetmeyi bırakın. Hatırlatmaları, uyarıları ve güncellemeleri WhatsApp (%98 açılma) ile SMS geri dönüşüyle gönderin.",
-          "ng": "Stop losing important notifications to spam folders. Send appointment reminders, payment alerts, and account updates via WhatsApp (98% open rate) with SMS fallback."
+          "en": "Stop losing important notifications to spam folders. Send appointment reminders, payment alerts and account updates as approved WhatsApp templates from your backend, and track sent, delivered, read and failed status on signed webhooks.",
+          "pt": "Pare de perder notificações importantes em pastas de spam. Envie lembretes, alertas de pagamento e atualizações de conta como templates aprovados do WhatsApp a partir do seu backend e acompanhe os status de enviado, entregue, lido e com falha por webhooks assinados.",
+          "es": "Deje de perder notificaciones importantes en carpetas de spam. Envíe recordatorios, alertas de pago y actualizaciones de cuenta como plantillas aprobadas de WhatsApp desde su backend, y siga los estados de enviado, entregado, leído y fallido con webhooks firmados.",
+          "id": "Berhenti kehilangan notifikasi penting di folder spam. Kirim pengingat, peringatan pembayaran, dan pembaruan akun sebagai templat WhatsApp yang disetujui dari backend Anda, dan pantau status terkirim, diterima, dibaca, dan gagal melalui webhook bertanda tangan.",
+          "ar": "توقف عن فقدان الإشعارات المهمة في مجلدات البريد العشوائي. أرسل التذكيرات وتنبيهات الدفع وتحديثات الحساب كقوالب واتساب معتمدة من الواجهة الخلفية لديك، وتابع حالات الإرسال والتسليم والقراءة والفشل عبر ويب هوك موقّعة.",
+          "tr": "Önemli bildirimleri spam klasörlerinde kaybetmeyi bırakın. Hatırlatmaları, ödeme uyarılarını ve hesap güncellemelerini arka ucunuzdan onaylı WhatsApp şablonları olarak gönderin; gönderildi, teslim edildi, okundu ve başarısız durumlarını imzalı webhook'larla izleyin."
         },
         "primaryCta": {
           "en": "Start Sending",
@@ -70,7 +69,7 @@
           "tr": "Göndermeye Başlayın",
           "ng": "Start Sending"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
       }
     },
     {
@@ -98,13 +97,12 @@
               "ng": "Appointment Reminders"
             },
             "description": {
-              "en": "Reduce no-shows by 40% with automated appointment reminders including confirm/reschedule buttons.",
-              "pt": "Reduza faltas em 40% com lembretes automáticos contendo botões de confirmar ou reagendar.",
-              "es": "Reduzca el ausentismo en un 40% con recordatorios automáticos que incluyen botones de confirmar/reprogramar.",
-              "id": "Kurangi ketidakhadiran sebesar 40% dengan pengingat janji temu otomatis termasuk tombol konfirmasi/penjadwalan ulang.",
-              "ar": "قلل من نسبة عدم الحضور بنسبة 40% مع تذكيرات المواعيد التلقائية التي تتضمن أزرار التأكيد أو إعادة الجدولة.",
-              "tr": "Onaylama/yeniden planlama butonları içeren otomatik randevu hatırlatıcıları ile randevuya gelmeme oranlarını %40 azaltın.",
-              "ng": "Reduce no-shows by 40% with automated appointment reminders including confirm/reschedule buttons."
+              "en": "Automated appointment reminders with confirm and reschedule quick-reply buttons. Each tap reaches your webhook.",
+              "pt": "Lembretes automáticos de consulta com botões de resposta rápida para confirmar ou reagendar. Cada toque chega ao seu webhook.",
+              "es": "Recordatorios automáticos de citas con botones de respuesta rápida para confirmar o reprogramar. Cada toque llega a su webhook.",
+              "id": "Pengingat janji temu otomatis dengan tombol balasan cepat untuk konfirmasi dan jadwal ulang. Setiap ketukan masuk ke webhook Anda.",
+              "ar": "تذكيرات مواعيد تلقائية مع أزرار رد سريع للتأكيد أو إعادة الجدولة. تصل كل نقرة إلى الويب هوك الخاص بك.",
+              "tr": "Onaylama ve yeniden planlama hızlı yanıt butonlarıyla otomatik randevu hatırlatmaları. Her dokunuş webhook'unuza ulaşır."
             }
           },
           {
@@ -177,31 +175,29 @@
       "type": "featureSplit",
       "props": {
         "heading": {
-          "en": "Smart Multi-Channel Dispatching",
-          "pt": "Envio Inteligente Multicanal",
-          "es": "Envío Inteligente Multicanal",
-          "id": "Pengiriman Multi-Saluran Cerdas",
-          "ar": "إرسال ذكي متعدد القنوات",
-          "tr": "Akıllı Çok Kanallı Gönderim",
-          "ng": "Smart Multi-Channel Dispatching"
+          "en": "Delivery You Can Track",
+          "pt": "Entregas que Você Acompanha",
+          "es": "Entregas que Puede Seguir",
+          "id": "Pengiriman yang Bisa Dilacak",
+          "ar": "تسليم يمكنك تتبعه",
+          "tr": "Takip Edebileceğiniz Teslimat"
         },
         "body": {
-          "en": "Never miss a critical notification update. If a user is not online or active on WhatsApp, our system automatically detects it within a configured threshold and falls back to traditional transactional SMS instantly, ensuring 100% reach.",
-          "pt": "Nunca perca uma notificação crítica. Se um usuário não estiver online no WhatsApp, nosso sistema detecta e faz o fallback para SMS transacional imediatamente.",
-          "es": "No pierda ninguna notificación crítica. Si un usuario no está activo en WhatsApp, nuestro sistema lo detecta y envía un SMS transaccional automáticamente.",
-          "id": "Jangan pernah melewatkan pembaruan notifikasi penting. Jika pengguna tidak online di WhatsApp, sistem kami secara otomatis mendeteksinya dan beralih ke SMS transaksional.",
-          "ar": "لا تفوت أي إشعار مهم. إذا لم يكن المستخدم متصلاً على واتساب، يكتشف نظامنا ذلك تلقائياً ويحولها إلى رسائل SMS لضمان الوصول بنسبة 100%.",
-          "tr": "Önemli bir bildirim güncellemesini asla kaçırmayın. Kullanıcı WhatsApp'ta çevrimiçi veya aktif değilse, sistemimiz bunu yapılandırılan eşik değerinde otomatik olarak algılar ve anında geleneksel işlemsel SMS'e geçerek %100 erişim sağlar."
+          "en": "Every send returns a message ID, and your own clientReference (an invoice or appointment ID) comes back on every sent, delivered, read and failed webhook. A failed message carries a code and a plain-language reason, so your system decides what happens next, such as retrying later or emailing the customer. There is no automatic fallback to SMS.",
+          "pt": "Cada envio retorna um ID de mensagem, e o seu clientReference (o ID de uma fatura ou consulta) volta em todos os webhooks de enviado, entregue, lido e com falha. Uma mensagem com falha traz um código e um motivo em linguagem simples, para que seu sistema decida o próximo passo, como tentar mais tarde ou enviar um email ao cliente. Não há fallback automático para SMS.",
+          "es": "Cada envío devuelve un ID de mensaje, y su propio clientReference (el ID de una factura o cita) vuelve en cada webhook de enviado, entregado, leído y fallido. Un mensaje fallido incluye un código y un motivo en lenguaje claro, para que su sistema decida qué hacer, como reintentar más tarde o escribir un email al cliente. No hay respaldo automático a SMS.",
+          "id": "Setiap pengiriman mengembalikan ID pesan, dan clientReference Anda sendiri (ID faktur atau janji temu) kembali di setiap webhook terkirim, diterima, dibaca, dan gagal. Pesan yang gagal membawa kode dan alasan yang mudah dipahami, sehingga sistem Anda menentukan langkah berikutnya, misalnya mencoba lagi nanti atau mengirim email ke pelanggan. Tidak ada fallback otomatis ke SMS.",
+          "ar": "يعيد كل إرسال معرّف رسالة، ويعود clientReference الخاص بك (رقم الفاتورة أو الموعد) في كل ويب هوك للإرسال والتسليم والقراءة والفشل. وتحمل الرسالة الفاشلة رمزاً وسبباً بلغة واضحة، ليقرر نظامك الخطوة التالية، مثل إعادة المحاولة لاحقاً أو مراسلة العميل بالبريد. لا يوجد تحويل تلقائي إلى SMS.",
+          "tr": "Her gönderim bir mesaj kimliği döndürür ve kendi clientReference değeriniz (fatura veya randevu kimliği) her gönderildi, teslim edildi, okundu ve başarısız webhook'unda geri gelir. Başarısız bir mesaj bir kod ve anlaşılır bir neden içerir; böylece sisteminiz sonraki adıma, örneğin daha sonra yeniden denemeye veya müşteriye e-posta göndermeye karar verir. SMS'e otomatik geçiş yoktur."
         },
         "bullets": [
           {
-            "en": "WhatsApp-first routing with SMS fallback support",
-            "pt": "Roteamento WhatsApp primeiro com fallback para SMS",
-            "es": "Ruta WhatsApp primero con soporte de respaldo a SMS",
-            "id": "Perutean WhatsApp-first dengan dukungan cadangan SMS",
-            "ar": "توجيه واتساب أولاً مع دعم رسائل SMS الاحتياطية",
-            "tr": "SMS yedekleme destekli öncelikli WhatsApp yönlendirmesi",
-            "ng": "WhatsApp-first routing with SMS fallback support"
+            "en": "Your clientReference on every delivery receipt",
+            "pt": "Seu clientReference em todos os recibos de entrega",
+            "es": "Su clientReference en cada acuse de entrega",
+            "id": "clientReference Anda di setiap laporan pengiriman",
+            "ar": "قيمة clientReference الخاصة بك في كل إيصال تسليم",
+            "tr": "Her teslimat bildiriminde kendi clientReference değeriniz"
           },
           {
             "en": "Real-time delivery status receipts and webhook logs",
@@ -213,24 +209,22 @@
             "ng": "Real-time delivery status receipts and webhook logs"
           },
           {
-            "en": "Support for localized DLT parameters in India",
-            "pt": "Suporte a parâmetros DLT localizados na Índia",
-            "es": "Soporte para parámetros DLT localizados en India",
-            "id": "Dukungan untuk parameter DLT lokal di India",
-            "ar": "دعم معلمات DLT المحلية في الهند",
-            "tr": "Hindistan'da yerelleştirilmiş DLT parametreleri desteği",
-            "ng": "Support for localized DLT parameters in India"
+            "en": "Idempotency-Key header for safe retries",
+            "pt": "Cabeçalho Idempotency-Key para novas tentativas seguras",
+            "es": "Encabezado Idempotency-Key para reintentos seguros",
+            "id": "Header Idempotency-Key untuk percobaan ulang yang aman",
+            "ar": "ترويسة Idempotency-Key لإعادة المحاولة بأمان",
+            "tr": "Güvenli yeniden denemeler için Idempotency-Key başlığı"
           }
         ],
         "image": "/images/notifications-alerts.webp",
         "imageAlt": {
-          "en": "Multi-channel Notification Routing Preview",
-          "pt": "Pré-visualização de Roteamento de Notificação Multicanal",
-          "es": "Vista Previa del Enrutamiento de Notificación Multicanal",
-          "id": "Pratinjau Perutean Notifikasi Multi-Saluran",
-          "ar": "معاينة توجيه الإشعارات متعددة القنوات",
-          "tr": "Çok Kanallı Bildirim Yönlendirme Önizlemesi",
-          "ng": "Multi-channel Notification Routing Preview"
+          "en": "Notification delivery status preview",
+          "pt": "Pré-visualização do status de entrega das notificações",
+          "es": "Vista previa del estado de entrega de notificaciones",
+          "id": "Pratinjau status pengiriman notifikasi",
+          "ar": "معاينة حالة تسليم الإشعارات",
+          "tr": "Bildirim teslimat durumu önizlemesi"
         },
         "imageWidth": 640,
         "imageHeight": 400,
@@ -242,13 +236,12 @@
       "type": "stepFlow",
       "props": {
         "badge": {
-          "en": "Routing Queue",
-          "pt": "Fila de Roteamento",
-          "es": "Cola de Enrutamiento",
-          "id": "Antrean Perutean",
-          "ar": "طابور التوجيه",
-          "tr": "Yönlendirme Kuyruğu",
-          "ng": "Routing Queue"
+          "en": "Delivery Lifecycle",
+          "pt": "Ciclo de Entrega",
+          "es": "Ciclo de Entrega",
+          "id": "Siklus Pengiriman",
+          "ar": "دورة التسليم",
+          "tr": "Teslimat Döngüsü"
         },
         "heading": {
           "en": "Notification Delivery Lifecycle",
@@ -271,50 +264,48 @@
               "ng": "1. Event Triggered"
             },
             "description": {
-              "en": "An event on your database (payment, reminder) triggers a POST request to our notifications API endpoint.",
-              "pt": "Um evento no banco de dados (pagamento, lembrete) dispara uma requisição POST para nossa API.",
-              "es": "Un evento en la base de datos (pago, recordatorio) activa una solicitud POST a nuestra API.",
-              "id": "Peristiwa di database Anda (pembayaran, pengingat) memicu permintaan POST ke endpoint API notifikasi kami.",
-              "ar": "يؤدي حدث في قاعدة البيانات (دفع، تذكير) إلى تشغيل طلب POST إلى نقطة نهاية API الخاصة بالإشعارات.",
-              "tr": "Veritabanınızdaki bir olay (ödeme, hatırlatma), bildirim API uç noktamıza bir POST isteği tetikler."
+              "en": "An event in your system (payment, reminder) calls POST /api/v1/messages with an approved utility template and your clientReference.",
+              "pt": "Um evento no seu sistema (pagamento, lembrete) chama POST /api/v1/messages com um template de utilidade aprovado e o seu clientReference.",
+              "es": "Un evento en su sistema (pago, recordatorio) llama a POST /api/v1/messages con una plantilla de utilidad aprobada y su clientReference.",
+              "id": "Event di sistem Anda (pembayaran, pengingat) memanggil POST /api/v1/messages dengan templat utilitas yang disetujui dan clientReference Anda.",
+              "ar": "يستدعي حدث في نظامك (دفع، تذكير) واجهة POST /api/v1/messages بقالب خدمي معتمد وقيمة clientReference الخاصة بك.",
+              "tr": "Sisteminizdeki bir olay (ödeme, hatırlatma), onaylı bir utility şablonu ve clientReference değerinizle POST /api/v1/messages çağırır."
             }
           },
           {
             "title": {
-              "en": "2. WhatsApp Try",
-              "pt": "2. Tentativa via WhatsApp",
-              "es": "2. Intento de WhatsApp",
-              "id": "2. Mencoba WhatsApp",
-              "ar": "2. محاولة واتساب",
-              "tr": "2. WhatsApp Denemesi",
-              "ng": "2. WhatsApp Try"
+              "en": "2. Sent to WhatsApp",
+              "pt": "2. Enviado ao WhatsApp",
+              "es": "2. Enviado a WhatsApp",
+              "id": "2. Dikirim ke WhatsApp",
+              "ar": "2. الإرسال إلى واتساب",
+              "tr": "2. WhatsApp'a Gönderildi"
             },
             "description": {
-              "en": "Our engine attempts delivery via WhatsApp, monitoring for read or delivery confirmation statuses.",
-              "pt": "Nosso motor tenta a entrega via WhatsApp, monitorando confirmações de leitura ou entrega.",
-              "es": "Nuestro motor intenta la entrega a través de WhatsApp, monitoreando los estados de entrega o lectura.",
-              "id": "Sistem kami mencoba pengiriman via WhatsApp, memantau status konfirmasi terkirim atau dibaca.",
-              "ar": "يحاول محركنا التسليم عبر واتساب، مع مراقبة حالات تأكيد التسليم أو القراءة.",
-              "tr": "Motorumuz, okundu veya teslim edildi onay durumlarını izleyerek WhatsApp üzerinden teslimat dener."
+              "en": "Meta accepts the message and a message.sent webhook fires; message.delivered and message.read follow as they happen.",
+              "pt": "A Meta aceita a mensagem e o webhook message.sent é disparado; message.delivered e message.read chegam conforme acontecem.",
+              "es": "Meta acepta el mensaje y se dispara el webhook message.sent; message.delivered y message.read llegan a medida que ocurren.",
+              "id": "Meta menerima pesan dan webhook message.sent terkirim; message.delivered dan message.read menyusul saat terjadi.",
+              "ar": "تقبل Meta الرسالة ويُطلق ويب هوك message.sent؛ ثم يتبعه message.delivered وmessage.read عند حدوثهما.",
+              "tr": "Meta mesajı kabul eder ve message.sent webhook'u tetiklenir; message.delivered ve message.read gerçekleştikçe gelir."
             }
           },
           {
             "title": {
-              "en": "3. SMS Fallback",
-              "pt": "3. Fallback para SMS",
-              "es": "3. Respaldo a SMS",
-              "id": "3. Cadangan SMS",
-              "ar": "3. احتياطي SMS",
-              "tr": "3. SMS Yedekleme",
-              "ng": "3. SMS Fallback"
+              "en": "3. You Act on the Result",
+              "pt": "3. Você Age Conforme o Resultado",
+              "es": "3. Usted Actúa Según el Resultado",
+              "id": "3. Anda Bertindak Sesuai Hasil",
+              "ar": "3. تتصرف بناءً على النتيجة",
+              "tr": "3. Sonuca Göre Siz Karar Verirsiniz"
             },
             "description": {
-              "en": "If not delivered within 30 seconds, a fallback SMS is triggered to ensure immediate delivery.",
-              "pt": "Se não for entregue em 30 segundos, um SMS de fallback é enviado para garantir a entrega.",
-              "es": "Si no se entrega en 30 segundos, se envía un SMS automático para garantizar la entrega inmediata.",
-              "id": "Jika tidak terkirim dalam 30 detik, SMS cadangan dipicu untuk memastikan pengiriman segera.",
-              "ar": "إذا لم يتم التسليم في غضون 30 ثانية، يتم تشغيل رسالة SMS احتياطية لضمان التسليم الفوري.",
-              "tr": "30 saniye içinde teslim edilmezse, anında teslimatı sağlamak için yedek bir SMS tetiklenir."
+              "en": "If message.failed arrives, it carries the failure code, the reason and your clientReference, so your system can retry, alert your team or reach the customer another way.",
+              "pt": "Se chegar um message.failed, ele traz o código da falha, o motivo e o seu clientReference, para que seu sistema tente de novo, avise sua equipe ou contate o cliente por outro meio.",
+              "es": "Si llega un message.failed, incluye el código del fallo, el motivo y su clientReference, para que su sistema reintente, avise a su equipo o contacte al cliente por otra vía.",
+              "id": "Jika message.failed tiba, isinya kode kegagalan, alasan, dan clientReference Anda, sehingga sistem Anda dapat mencoba lagi, memberi tahu tim, atau menghubungi pelanggan dengan cara lain.",
+              "ar": "إذا وصل message.failed فإنه يحمل رمز الفشل والسبب وقيمة clientReference الخاصة بك، ليتمكن نظامك من إعادة المحاولة أو تنبيه فريقك أو التواصل مع العميل بطريقة أخرى.",
+              "tr": "message.failed gelirse hata kodunu, nedeni ve clientReference değerinizi taşır; böylece sisteminiz yeniden deneyebilir, ekibinizi uyarabilir veya müşteriye başka bir yoldan ulaşabilir."
             }
           }
         ]
@@ -342,13 +333,12 @@
           "ng": "WhatsApp Transactional Alerts vs. SMS Alerts vs. Email Notifications"
         },
         "subheading": {
-          "en": "Compare formatting capabilities, read speeds, and delivery reliability.",
-          "pt": "Compare formatação, velocidade de leitura e confiabilidade de entrega.",
-          "es": "Compare formato, velocidad de lectura y confiabilidad de entrega.",
-          "id": "Bandingkan kemampuan format, kecepatan baca, dan keandalan pengiriman.",
-          "ar": "قارن إمكانيات التنسيق وسرعات القراءة وموثوقية التسليم.",
-          "tr": "Biçimlendirme yeteneklerini, okunma hızlarını ve teslimat güvenilirliğini karşılaştırın.",
-          "ng": "Compare formatting capabilities, read speeds, and delivery reliability."
+          "en": "Compare formatting, interactivity and delivery tracking.",
+          "pt": "Compare formatação, interatividade e rastreamento de entrega.",
+          "es": "Compare formato, interactividad y seguimiento de entrega.",
+          "id": "Bandingkan format, interaktivitas, dan pelacakan pengiriman.",
+          "ar": "قارن التنسيق والتفاعل وتتبع التسليم.",
+          "tr": "Biçimlendirmeyi, etkileşimi ve teslimat takibini karşılaştırın."
         },
         "columns": [
           {
@@ -400,44 +390,6 @@
         "rows": [
           [
             {
-              "en": "Read Latency",
-              "pt": "Latência de Leitura",
-              "es": "Latencia de Lectura",
-              "id": "Latensi Baca",
-              "ar": "وقت القراءة",
-              "tr": "Okunma Gecikmesi",
-              "ng": "Read Latency"
-            },
-            {
-              "en": "< 5 minutes (90% reads)",
-              "pt": "< 5 minutos (90% lido)",
-              "es": "< 5 minutos (90% leído)",
-              "id": "< 5 menit (90% dibaca)",
-              "ar": "< 5 دقائق (90% قراءة)",
-              "tr": "< 5 dakika (%90 okunma)",
-              "ng": "< 5 minutes (90% reads)"
-            },
-            {
-              "en": "< 15 minutes (Basic reads)",
-              "pt": "< 15 minutos (Leitura básica)",
-              "es": "< 15 minutos (Leitura básica)",
-              "id": "< 15 menit (Pembacaan biasa)",
-              "ar": "< 15 دقيقة (قراءة أساسية)",
-              "tr": "< 15 dakika (Temel okunma)",
-              "ng": "< 15 minutes (Basic reads)"
-            },
-            {
-              "en": "Hours to days (Often delayed)",
-              "pt": "Horas a dias (Atrasado)",
-              "es": "Horas a días (Atrasado)",
-              "id": "Jam hingga hari (Sering tertunda)",
-              "ar": "ساعات إلى أيام (متأخر عادةً)",
-              "tr": "Saatler ila günler (Genellikle gecikmeli)",
-              "ng": "Hours to days (Often delayed)"
-            }
-          ],
-          [
-            {
               "en": "Interactive Buttons",
               "pt": "Botões Interativos",
               "es": "Botones Interactivos",
@@ -470,46 +422,41 @@
               "es": "✓ (Enlaces de diseño HTML)",
               "id": "✓ (Tautan tata letak HTML)",
               "ar": "✓ (روابط تخطيط HTML)",
-              "tr": "✓ (HTML düzen bağlantıları)",
-              "ng": "✓ (HTML layout tags)"
+              "tr": "✓ (HTML düzen bağlantıları)"
             }
           ],
           [
             {
-              "en": "Delivery Priority",
-              "pt": "Prioridade de Entrega",
-              "es": "Prioridad de Entrega",
-              "id": "Prioritas Pengiriman",
-              "ar": "أولوية التسليم",
-              "tr": "Teslimat Önceliği",
-              "ng": "Delivery Priority"
+              "en": "Delivery & Read Receipts",
+              "pt": "Recibos de Entrega e Leitura",
+              "es": "Acuses de Entrega y Lectura",
+              "id": "Laporan Terkirim & Dibaca",
+              "ar": "إيصالات التسليم والقراءة",
+              "tr": "Teslim ve Okundu Bildirimleri"
             },
             {
-              "en": "High (Direct Meta BSP pipe)",
-              "pt": "Alta (Link direto Meta BSP)",
-              "es": "Alta (Enlace directo Meta BSP)",
-              "id": "Tinggi (Jalur langsung Meta BSP)",
-              "ar": "مرتفعة (خط مباشر Meta BSP)",
-              "tr": "Yüksek (Doğrudan Meta BSP hattı)",
-              "ng": "High (Direct Meta BSP pipe)"
+              "en": "✓ (Sent, delivered, read and failed webhooks)",
+              "pt": "✓ (Webhooks de enviado, entregue, lido e com falha)",
+              "es": "✓ (Webhooks de enviado, entregado, leído y fallido)",
+              "id": "✓ (Webhook terkirim, diterima, dibaca, dan gagal)",
+              "ar": "✓ (ويب هوك للإرسال والتسليم والقراءة والفشل)",
+              "tr": "✓ (Gönderildi, teslim edildi, okundu ve başarısız webhook'ları)"
             },
             {
-              "en": "Medium (Subject to network congestion)",
-              "pt": "Média (Sujeito a congestionamento)",
-              "es": "Media (Sujeto a congestión de red)",
-              "id": "Sedang (Tergantung kemacetan jaringan)",
-              "ar": "متوسطة (تخضع للازدحام)",
-              "tr": "Orta (Şebeke yoğunluğuna bağlı)",
-              "ng": "Medium (Subject to network congestion)"
+              "en": "Delivery reports only",
+              "pt": "Apenas relatórios de entrega",
+              "es": "Solo informes de entrega",
+              "id": "Hanya laporan pengiriman",
+              "ar": "تقارير التسليم فقط",
+              "tr": "Yalnızca teslimat raporları"
             },
             {
-              "en": "Low (Sorted to promo inbox)",
-              "pt": "Baixa (Direcionado para aba promo)",
-              "es": "Baja (Enviado a pestaña promo)",
-              "id": "Rendah (Disaring ke kotak masuk promo)",
-              "ar": "منخفضة (تذهب لبريد الترويج)",
-              "tr": "Düşük (Tanıtım gelen kutusuna yönlendirilir)",
-              "ng": "Low (Sorted to promo inbox)"
+              "en": "Open tracking (often blocked)",
+              "pt": "Rastreamento de abertura (muitas vezes bloqueado)",
+              "es": "Seguimiento de aperturas (a menudo bloqueado)",
+              "id": "Pelacakan buka (sering diblokir)",
+              "ar": "تتبع الفتح (يُحظر غالباً)",
+              "tr": "Açılma takibi (çoğu zaman engellenir)"
             }
           ],
           [
@@ -557,44 +504,37 @@
       "type": "codeShowcase",
       "props": {
         "badge": {
-          "en": "Alert API",
-          "pt": "API de Alerta",
-          "es": "API de Alerta",
-          "id": "API Peringatan",
-          "ar": "API التنبيهات",
-          "tr": "Bildirim API'si",
-          "ng": "Alert API"
+          "en": "Messages API",
+          "pt": "API de Mensagens",
+          "es": "API de Mensajes",
+          "id": "API Pesan",
+          "ar": "API الرسائل",
+          "tr": "Mesaj API’si"
         },
         "heading": {
-          "en": "Dispatch Transactional Alerts",
-          "pt": "Enviar Alertas Transacionais",
-          "es": "Enviar Alertas Transaccionales",
-          "id": "Kirim Peringatan Transaksional",
-          "ar": "إرسال التنبيهات المعاملاتية",
-          "tr": "İşlemsel Uyarılar Gönderin",
-          "ng": "Dispatch Transactional Alerts"
-        },
-        "overlayText": {
-          "en": "Transactional Alerts API Sandbox — Coming Soon",
-          "pt": "Sandbox de API de Alertas — Em Breve",
-          "es": "Sandbox de API de Alertas — Próximamente",
-          "id": "Transactional Alerts API Sandbox — Segera Hadir",
-          "ar": "بيئة تجريبية لـ API الإشعارات — قريباً",
-          "tr": "İşlemsel Uyarılar API Sanal Alanı — Çok Yakında",
-          "ng": "Transactional Alerts API Sandbox — Coming Soon"
+          "en": "Send a transactional alert on WhatsApp",
+          "pt": "Envie um alerta transacional no WhatsApp",
+          "es": "Envía una alerta transaccional por WhatsApp",
+          "id": "Kirim notifikasi transaksional di WhatsApp",
+          "ar": "أرسل تنبيهاً معاملاتياً عبر واتساب",
+          "tr": "WhatsApp’tan işlem bildirimi gönderin"
         },
         "snippets": [
           {
             "lang": "cURL",
-            "code": "curl -X POST https://api.startmessaging.com/v1/notifications/send \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"to\": \"+919876543210\",\n    \"type\": \"alert\",\n    \"message\": \"Your payment of ₹499.00 has been received successfully.\",\n    \"channels\": [\"whatsapp\", \"sms\"],\n    \"fallback_delay\": 30\n  }'"
+            "code": "curl -X POST {{WA_API_BASE}}/api/v1/messages \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: appt-5512-reminder\" \\\n  -d '{\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"appointment_reminder\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        {\n          \"text\": \"Asha\"\n        },\n        {\n          \"text\": \"Dr. Mehta\"\n        },\n        {\n          \"text\": \"12 Oct, 4:30 PM\"\n        }\n      ]\n    },\n    \"clientReference\": \"appt-5512\"\n  }'"
           },
           {
             "lang": "Node.js",
-            "code": "await fetch(\"https://api.startmessaging.com/v1/notifications/send\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    to: \"+919876543210\",\n    type: \"alert\",\n    message: \"Your payment of ₹499.00 has been received successfully.\",\n    channels: [\"whatsapp\", \"sms\"],\n    fallback_delay: 30\n  })\n});"
+            "code": "const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + process.env.SM_API_KEY,\n    'Content-Type': 'application/json',\n    'Idempotency-Key': 'appt-5512-reminder',\n  },\n  body: JSON.stringify({\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"appointment_reminder\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        {\n          \"text\": \"Asha\"\n        },\n        {\n          \"text\": \"Dr. Mehta\"\n        },\n        {\n          \"text\": \"12 Oct, 4:30 PM\"\n        }\n      ]\n    },\n    \"clientReference\": \"appt-5512\"\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.id, data.status);"
           },
           {
             "lang": "Python",
-            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/notifications/send\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"to\": \"+919876543210\",\n        \"type\": \"alert\",\n        \"message\": \"Your payment of ₹499.00 has been received successfully.\",\n        \"channels\": [\"whatsapp\", \"sms\"],\n        \"fallback_delay\": 30\n    }\n)"
+            "code": "import os, requests\n\nres = requests.post(\n    '{{WA_API_BASE}}/api/v1/messages',\n    headers={\n        'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\",\n        'Idempotency-Key': 'appt-5512-reminder',\n    },\n    json={\n      \"to\": \"+919812345678\",\n      \"type\": \"template\",\n      \"template\": {\n        \"name\": \"appointment_reminder\",\n        \"language\": \"en_US\",\n        \"parameters\": [\n          {\n            \"text\": \"Asha\"\n          },\n          {\n            \"text\": \"Dr. Mehta\"\n          },\n          {\n            \"text\": \"12 Oct, 4:30 PM\"\n          }\n        ]\n      },\n      \"clientReference\": \"appt-5512\"\n    },\n)\n\ndata = res.json()['data']\nprint(data['id'], data['status'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$body = <<<'JSON'\n{\n  \"to\": \"+919812345678\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"appointment_reminder\",\n    \"language\": \"en_US\",\n    \"parameters\": [\n      {\n        \"text\": \"Asha\"\n      },\n      {\n        \"text\": \"Dr. Mehta\"\n      },\n      {\n        \"text\": \"12 Oct, 4:30 PM\"\n      }\n    ]\n  },\n  \"clientReference\": \"appt-5512\"\n}\nJSON;\n\n$ch = curl_init('{{WA_API_BASE}}/api/v1/messages');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        'Authorization: Bearer ' . getenv('SM_API_KEY'),\n        'Content-Type: application/json',\n        'Idempotency-Key: appt-5512-reminder',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['status'];"
           }
         ]
       }
@@ -632,13 +572,12 @@
               "ng": "Can I send notifications via both WhatsApp and SMS?"
             },
             "answer": {
-              "en": "Yes. Our API supports multi-channel delivery. You can send notifications via WhatsApp-first with automatic SMS fallback, or choose a specific channel per notification type. This ensures maximum delivery regardless of whether the user has WhatsApp.",
-              "pt": "Sim. Nossa API suporta entrega multicanal. Envie via WhatsApp primeiro com fallback automático para SMS, ou selecione o canal específico por tipo de notificação.",
-              "es": "Sí. Nuestra API admite entrega multicanal. Puede enviar a través de WhatsApp primero con respaldo automático a SMS, o elegir el canal por tipo de notificación.",
-              "id": "Ya. API kami mendukung pengiriman multi-saluran. Anda dapat mengirim notifikasi via WhatsApp terlebih dahulu dengan cadangan SMS otomatis, atau memilih saluran khusus per jenis notifikasi.",
-              "ar": "نعم. تدعم واجهة البرمجة التسليم متعدد القنوات. يمكنك إرسال إشعارات عبر واتساب أولاً مع تحويل تلقائي إلى SMS احتياطية، أو اختيار قناة معينة لكل نوع إشعار.",
-              "tr": "Evet. API'miz çok kanallı teslimatı destekler. Bildirimleri otomatik SMS yedeklemesiyle önce WhatsApp üzerinden gönderebilir veya bildirim türü başına belirli bir kanal seçebilirsiniz. Bu, kullanıcının WhatsApp'ı olup olmadığına bakılmaksızın maksimum teslimat sağlar.",
-              "ng": "Yes. Our API supports multi-channel delivery. You can send notifications via WhatsApp-first with automatic SMS fallback, or choose a specific channel per notification type. This ensures maximum delivery regardless of whether the user has WhatsApp."
+              "en": "Yes, as two separate StartMessaging products with their own sign-up and API keys. There is no automatic fallback between them. If you want SMS as a backup, listen for the WhatsApp message.failed webhook and send the SMS from your own code.",
+              "pt": "Sim, como dois produtos separados da StartMessaging, cada um com seu cadastro e suas chaves de API. Não há fallback automático entre eles. Se quiser o SMS como alternativa, escute o webhook message.failed do WhatsApp e envie o SMS pelo seu próprio código.",
+              "es": "Sí, como dos productos separados de StartMessaging, cada uno con su propio registro y claves de API. No hay respaldo automático entre ellos. Si quiere usar SMS como alternativa, escuche el webhook message.failed de WhatsApp y envíe el SMS desde su propio código.",
+              "id": "Ya, sebagai dua produk StartMessaging terpisah dengan pendaftaran dan kunci API masing-masing. Tidak ada fallback otomatis di antara keduanya. Jika ingin SMS sebagai cadangan, pantau webhook message.failed WhatsApp dan kirim SMS dari kode Anda sendiri.",
+              "ar": "نعم، كمنتجين منفصلين من StartMessaging لكل منهما تسجيل ومفاتيح API خاصة. لا يوجد تحويل تلقائي بينهما. وإذا أردت SMS كخيار بديل، فاستمع إلى ويب هوك message.failed في واتساب وأرسل SMS من الكود الخاص بك.",
+              "tr": "Evet, kendi kaydı ve API anahtarları olan iki ayrı StartMessaging ürünü olarak. Aralarında otomatik geçiş yoktur. SMS'i yedek olarak kullanmak isterseniz WhatsApp message.failed webhook'unu dinleyin ve SMS'i kendi kodunuzdan gönderin."
             }
           },
           {
@@ -652,33 +591,30 @@
               "ng": "Are there local restrictions for sending transactional notifications?"
             },
             "answer": {
-              "en": "Transactional notifications must be directly related to customer actions and do not require promotional opt-ins, though regional compliance formats (like DLT in India) may apply.",
-              "pt": "Notificações transacionais devem estar relacionadas a ações do cliente e não exigem opt-in promocional, embora regras locais (como DLT na Índia) se apliquem.",
-              "es": "Las notificaciones transaccionales deben estar directamente relacionadas con las acciones del cliente y no requieren consentimiento promocional, aunque se aplican las reglas de DLT en India.",
-              "id": "Notifikasi transaksional harus berhubungan langsung dengan tindakan pelanggan dan tidak memerlukan persetujuan promosi, meskipun format kepatuhan regional (seperti DLT di India) dapat berlaku.",
-              "ar": "يجب أن تكون الإشعارات المعاملاتية مرتبطة مباشرة بإجراءات العميل ولا تتطلب موافقة ترويجية، على الرغم من تطبيق متطلبات DLT في الهند.",
-              "tr": "İşlemsel bildirimler doğrudan müşteri eylemleriyle ilgili olmalıdır ve tanıtım onayları gerektirmez, ancak bölgesel uyumluluk formatları (Hindistan'da DLT gibi) geçerli olabilir.",
-              "ng": "Transactional notifications must be directly related to customer actions and do not require promotional opt-ins, though regional compliance formats (like DLT in India) may apply."
+              "en": "On WhatsApp, notifications must use approved utility templates tied to a specific transaction or account, and you still need the customer's opt-in to message them on WhatsApp. SMS in India additionally requires DLT registration.",
+              "pt": "No WhatsApp, as notificações precisam usar templates de utilidade aprovados, ligados a uma transação ou conta específica, e você ainda precisa do opt-in do cliente para enviar mensagens pelo WhatsApp. O SMS na Índia exige também o registro DLT.",
+              "es": "En WhatsApp, las notificaciones deben usar plantillas de utilidad aprobadas vinculadas a una transacción o cuenta concreta, y aun así necesita el consentimiento del cliente para escribirle por WhatsApp. El SMS en India requiere además el registro DLT.",
+              "id": "Di WhatsApp, notifikasi harus menggunakan templat utilitas yang disetujui dan terkait transaksi atau akun tertentu, dan Anda tetap memerlukan opt-in pelanggan untuk mengirim pesan WhatsApp. SMS di India juga memerlukan registrasi DLT.",
+              "ar": "على واتساب، يجب أن تستخدم الإشعارات قوالب خدمية معتمدة مرتبطة بمعاملة أو حساب محدد، ولا تزال بحاجة إلى موافقة العميل لمراسلته عبر واتساب. أما رسائل SMS في الهند فتتطلب أيضاً التسجيل في DLT.",
+              "tr": "WhatsApp'ta bildirimler belirli bir işlem veya hesapla ilgili onaylı utility şablonlarını kullanmalıdır ve müşteriye WhatsApp'tan yazmak için yine de onun iznine ihtiyacınız vardır. Hindistan'da SMS için ayrıca DLT kaydı gerekir."
             }
           },
           {
             "question": {
-              "en": "How is the fallback delay configured?",
-              "pt": "Como é configurado o atraso do fallback?",
-              "es": "¿Cómo se configura el retraso del respaldo (fallback)?",
-              "id": "Bagaimana penundaan fallback dikonfigurasi?",
-              "ar": "كيف يتم تكوين تأخير الإرسال الاحتياطي؟",
-              "tr": "Yedekleme (fallback) gecikmesi nasıl yapılandırılır?",
-              "ng": "How is the fallback delay configured?"
+              "en": "How do I know if a notification was not delivered?",
+              "pt": "Como sei se uma notificação não foi entregue?",
+              "es": "¿Cómo sé si una notificación no se entregó?",
+              "id": "Bagaimana saya tahu jika notifikasi tidak terkirim?",
+              "ar": "كيف أعرف إذا لم يتم تسليم إشعار؟",
+              "tr": "Bir bildirimin teslim edilmediğini nasıl anlarım?"
             },
             "answer": {
-              "en": "You can specify the fallback_delay parameter (in seconds) in your API request. If the WhatsApp message status doesn't change to 'delivered' or 'read' within that timeframe, our engine automatically triggers the fallback SMS.",
-              "pt": "Você pode especificar o parâmetro fallback_delay (em segundos) na requisição da API. Se a mensagem do WhatsApp não for entregue no tempo definido, o SMS é enviado automaticamente.",
-              "es": "Puede especificar el parámetro fallback_delay (en segundos) en la API. Si el mensaje de WhatsApp no se entrega en ese plazo, se envía el SMS automático.",
-              "id": "Anda dapat menentukan parameter fallback_delay (dalam detik) di API. Jika pesan WhatsApp tidak berubah menjadi 'terkirim' dalam batas waktu tersebut, sistem kami akan mengirimkan SMS cadangan.",
-              "ar": "يمكنك تحديد معلمة fallback_delay (بالثواني) في طلب واجهة البرمجة. إذا لم تتغير حالة رسالة واتساب إلى 'تم التسليم' خلال تلك المدة، فسيتم إرسال رسالة SMS تلقائياً.",
-              "tr": "API isteğinizde fallback_delay parametresini (saniye cinsinden) belirtebilirsiniz. WhatsApp mesaj durumu bu süre içinde 'teslim edildi' olarak değişmezse, sistemimiz otomatik olarak yedek SMS'i tetikler.",
-              "ng": "You can specify the fallback_delay parameter (in seconds) in your API request. If the WhatsApp message status doesn't change to 'delivered' or 'read' within that timeframe, our engine automatically triggers the fallback SMS."
+              "en": "Subscribe to the message.delivered, message.read and message.failed webhooks. Each carries the message ID and your clientReference, and message.failed adds a failure code and reason. You can also check GET /api/v1/messages/{id}. Deliveries are signed with HMAC-SHA256 and retried for about 20 hours if your endpoint is down.",
+              "pt": "Assine os webhooks message.delivered, message.read e message.failed. Cada um traz o ID da mensagem e o seu clientReference, e o message.failed inclui um código e o motivo da falha. Você também pode consultar GET /api/v1/messages/{id}. As entregas são assinadas com HMAC-SHA256 e reenviadas por cerca de 20 horas se o seu endpoint estiver fora do ar.",
+              "es": "Suscríbase a los webhooks message.delivered, message.read y message.failed. Cada uno incluye el ID del mensaje y su clientReference, y message.failed añade un código y el motivo del fallo. También puede consultar GET /api/v1/messages/{id}. Las entregas van firmadas con HMAC-SHA256 y se reintentan durante unas 20 horas si su endpoint no responde.",
+              "id": "Berlangganan webhook message.delivered, message.read, dan message.failed. Masing-masing membawa ID pesan dan clientReference Anda, dan message.failed menambahkan kode serta alasan kegagalan. Anda juga dapat memeriksa GET /api/v1/messages/{id}. Pengiriman webhook ditandatangani dengan HMAC-SHA256 dan dicoba ulang selama sekitar 20 jam jika endpoint Anda sedang mati.",
+              "ar": "اشترك في ويب هوك message.delivered وmessage.read وmessage.failed. يحمل كل منها معرّف الرسالة وقيمة clientReference الخاصة بك، ويضيف message.failed رمز الفشل وسببه. ويمكنك أيضاً الاستعلام عبر GET /api/v1/messages/{id}. تُوقّع عمليات الإرسال بـ HMAC-SHA256 وتُعاد المحاولة لنحو 20 ساعة إذا كانت نقطة النهاية لديك متوقفة.",
+              "tr": "message.delivered, message.read ve message.failed webhook'larına abone olun. Her biri mesaj kimliğini ve clientReference değerinizi taşır; message.failed ayrıca hata kodu ve nedenini ekler. GET /api/v1/messages/{id} ile de kontrol edebilirsiniz. Teslimatlar HMAC-SHA256 ile imzalanır ve uç noktanız çalışmıyorsa yaklaşık 20 saat boyunca yeniden denenir."
             }
           },
           {
@@ -692,13 +628,12 @@
               "ng": "Can I attach PDF receipts to transactional notifications?"
             },
             "answer": {
-              "en": "Yes. Our WhatsApp API supports document templates, allowing you to pass a public URL of a PDF invoice or receipt. The user will receive it directly as a downloadable file inside the chat.",
-              "pt": "Sim. Nossa API suporta modelos de documentos, permitindo enviar a URL pública de um PDF de fatura ou recibo. O usuário recebe o arquivo diretamente no chat.",
-              "es": "Sí. Nuestra API admite plantillas de documentos, lo que le permite enviar una URL pública de un recibo PDF. El usuario recibirá el archivo en su chat.",
-              "id": "Ya. API WhatsApp kami mendukung templat dokumen, memungkinkan Anda meneruskan URL publik dari faktur PDF. Pengguna akan menerimanya langsung di dalam obrolan.",
-              "ar": "نعم. تدعم واجهة واتساب الخاصة بنا قوالب المستندات، مما يتيح لك تمرير رابط URL عام لفاتورة أو إيصال PDF. سيتلقاه المستخدم كملف قابل للتنزيل مباشرة.",
-              "tr": "Evet. WhatsApp API'miz belge şablonlarını destekler ve bir PDF faturasının veya makbuzunun herkese açık URL'sini iletmenize olanak tanır. Kullanıcı bunu doğrudan sohbet içinde indirilebilir bir dosya olarak alır.",
-              "ng": "Yes. Our WhatsApp API supports document templates, allowing you to pass a public URL of a PDF invoice or receipt. The user will receive it directly as a downloadable file inside the chat."
+              "en": "Yes. Use a template with a document header and pass the PDF's public URL as headerMediaUrl. Meta fetches the file and the customer receives it as a downloadable document in the chat.",
+              "pt": "Sim. Use um template com cabeçalho de documento e informe a URL pública do PDF em headerMediaUrl. A Meta busca o arquivo e o cliente o recebe como documento para download no chat.",
+              "es": "Sí. Use una plantilla con encabezado de documento y pase la URL pública del PDF en headerMediaUrl. Meta descarga el archivo y el cliente lo recibe como documento descargable en el chat.",
+              "id": "Ya. Gunakan templat dengan header dokumen dan kirim URL publik PDF sebagai headerMediaUrl. Meta mengambil file tersebut dan pelanggan menerimanya sebagai dokumen yang dapat diunduh di obrolan.",
+              "ar": "نعم. استخدم قالباً بترويسة مستند ومرّر رابط ملف PDF العام في headerMediaUrl. تجلب Meta الملف ويستلمه العميل كمستند قابل للتنزيل في المحادثة.",
+              "tr": "Evet. Belge başlıklı bir şablon kullanın ve PDF'in herkese açık URL'sini headerMediaUrl olarak iletin. Meta dosyayı alır ve müşteri onu sohbette indirilebilir bir belge olarak alır."
             }
           }
         ]
@@ -781,24 +716,22 @@
           "ng": "Upgrade Your Notifications"
         },
         "subtext": {
-          "en": "Start in 5 minutes. No credit card required.",
-          "pt": "Comece em 5 minutos. Sem cartão de crédito.",
-          "es": "Comience en 5 minutos. Sin tarjeta de crédito.",
-          "id": "Mulai dalam 5 menit. Tanpa kartu kredit.",
-          "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.",
-          "tr": "5 dakikada başlayın. Kredi kartı gerekmez.",
-          "ng": "Start in 5 minutes. No credit card required."
+          "en": "Start with a 14-day free trial of every feature.",
+          "pt": "Comece com um teste grátis de 14 dias com todos os recursos.",
+          "es": "Comience con una prueba gratuita de 14 días con todas las funciones.",
+          "id": "Mulai dengan uji coba gratis 14 hari untuk semua fitur.",
+          "ar": "ابدأ بتجربة مجانية لمدة 14 يوماً لجميع الميزات.",
+          "tr": "Tüm özellikleri içeren 14 günlük ücretsiz denemeyle başlayın."
         },
         "primaryCta": {
-          "en": "Get Started Free",
-          "pt": "Começar Grátis",
-          "es": "Empieza Gratis",
-          "id": "Mulai Gratis",
-          "ar": "ابدأ مجاناً",
-          "tr": "Ücretsiz Başla",
-          "ng": "Get Started Free"
+          "en": "Start free trial",
+          "pt": "Começar teste grátis",
+          "es": "Empezar prueba gratis",
+          "id": "Mulai uji coba gratis",
+          "ar": "ابدأ التجربة المجانية",
+          "tr": "Ücretsiz denemeyi başlat"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
       }
     }
   ]

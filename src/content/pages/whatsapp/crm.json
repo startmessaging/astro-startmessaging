@@ -1,0 +1,986 @@
+{
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
+  "theme": "whatsapp",
+  "updatedAt": "2026-10-07",
+  "seo": {
+    "title": {
+      "en": "WhatsApp CRM — Contacts, Tags and Sales Pipeline — StartMessaging",
+      "pt": "CRM para WhatsApp — Contatos, Tags e Funil de Vendas — StartMessaging",
+      "es": "CRM para WhatsApp — Contactos, Etiquetas y Embudo de Ventas — StartMessaging",
+      "id": "CRM WhatsApp — Kontak, Tag, dan Pipeline Penjualan — StartMessaging",
+      "ar": "CRM واتساب — جهات الاتصال والوسوم وخط المبيعات — StartMessaging",
+      "tr": "WhatsApp CRM — Kişiler, Etiketler ve Satış Hattı — StartMessaging"
+    },
+    "description": {
+      "en": "Every WhatsApp customer as a contact with tags, custom attributes, notes and follow-ups. Drag-and-drop pipeline, CSV import with consent, source tracking, STOP/START opt-outs and a contacts API.",
+      "pt": "Cada cliente do WhatsApp como um contato com tags, atributos personalizados, notas e acompanhamentos. Funil arrastar e soltar, importação CSV com consentimento, rastreamento de origem, opt-out por STOP/START e uma API de contatos.",
+      "es": "Cada cliente de WhatsApp como un contacto con etiquetas, atributos personalizados, notas y seguimientos. Embudo de arrastrar y soltar, importación CSV con consentimiento, seguimiento de origen, bajas con STOP/START y una API de contactos.",
+      "id": "Setiap pelanggan WhatsApp sebagai kontak dengan tag, atribut khusus, catatan, dan tindak lanjut. Pipeline seret dan lepas, impor CSV dengan persetujuan, pelacakan sumber, opt-out STOP/START, dan API kontak.",
+      "ar": "كل عميل على واتساب جهة اتصال بوسوم وسمات مخصصة وملاحظات ومتابعات. خط مبيعات بالسحب والإفلات، واستيراد CSV مع الموافقة، وتتبع المصدر، وإلغاء الاشتراك بـ STOP/START، وواجهة API لجهات الاتصال.",
+      "tr": "Her WhatsApp müşterisi etiketler, özel nitelikler, notlar ve takiplerle bir kişi olarak. Sürükle-bırak satış hattı, onaylı CSV içe aktarma, kaynak takibi, STOP/START ile abonelikten çıkma ve bir kişi API’si."
+    },
+    "ogImage": "/og/whatsapp-api.jpg"
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "WhatsApp CRM",
+          "pt": "CRM para WhatsApp",
+          "es": "CRM para WhatsApp",
+          "id": "CRM WhatsApp",
+          "ar": "CRM واتساب",
+          "tr": "WhatsApp CRM"
+        },
+        "title": {
+          "en": "A CRM That Lives Next to Your WhatsApp Chats",
+          "pt": "Um CRM que Fica ao Lado dos Seus Chats do WhatsApp",
+          "es": "Un CRM que Vive Junto a Tus Chats de WhatsApp",
+          "id": "CRM yang Berada di Samping Obrolan WhatsApp Anda",
+          "ar": "CRM يعمل بجانب محادثات واتساب الخاصة بك",
+          "tr": "WhatsApp Sohbetlerinizin Yanında Duran Bir CRM"
+        },
+        "subtitle": {
+          "en": "Every customer who writes in becomes a contact. Organise them with tags, custom attributes, notes and follow-up dates, move deals across a drag-and-drop pipeline, and keep consent right with opt-outs that follow the phone number.",
+          "pt": "Todo cliente que escreve vira um contato. Organize-os com tags, atributos personalizados, notas e datas de acompanhamento, mova negócios em um funil de arrastar e soltar e mantenha o consentimento em dia com opt-outs que acompanham o número de telefone.",
+          "es": "Cada cliente que escribe se convierte en un contacto. Organízalos con etiquetas, atributos personalizados, notas y fechas de seguimiento, mueve oportunidades por un embudo de arrastrar y soltar y mantén el consentimiento en orden con bajas que siguen al número de teléfono.",
+          "id": "Setiap pelanggan yang menulis menjadi kontak. Atur mereka dengan tag, atribut khusus, catatan, dan tanggal tindak lanjut, pindahkan peluang di pipeline seret dan lepas, dan jaga persetujuan dengan opt-out yang melekat pada nomor telepon.",
+          "ar": "كل عميل يراسلك يصبح جهة اتصال. نظّمهم بالوسوم والسمات المخصصة والملاحظات وتواريخ المتابعة، وحرّك الصفقات عبر خط مبيعات بالسحب والإفلات، وحافظ على صحة الموافقات بإلغاء اشتراك مرتبط برقم الهاتف.",
+          "tr": "Size yazan her müşteri bir kişiye dönüşür. Onları etiketler, özel nitelikler, notlar ve takip tarihleriyle düzenleyin, fırsatları sürükle-bırak bir satış hattında ilerletin ve telefon numarasına bağlı abonelikten çıkmalarla onayı doğru tutun."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Empieza la prueba gratis de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يوماً",
+          "tr": "14 günlük ücretsiz denemeyi başlat"
+        },
+        "primaryHref": "https://whatsapp.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Read the contacts docs",
+          "pt": "Leia a documentação de contatos",
+          "es": "Lee la documentación de contactos",
+          "id": "Baca dokumentasi kontak",
+          "ar": "اقرأ توثيق جهات الاتصال",
+          "tr": "Kişi dokümantasyonunu okuyun"
+        },
+        "secondaryHref": "/docs/whatsapp/contacts"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Contacts With Everything Your Team Needs",
+          "pt": "Contatos com Tudo o que Sua Equipe Precisa",
+          "es": "Contactos con Todo lo que Tu Equipo Necesita",
+          "id": "Kontak dengan Semua yang Dibutuhkan Tim Anda",
+          "ar": "جهات اتصال تضم كل ما يحتاجه فريقك",
+          "tr": "Ekibinizin İhtiyaç Duyduğu Her Şeyi Taşıyan Kişiler"
+        },
+        "body": {
+          "en": "Each contact carries tags, custom attributes, a pipeline stage, an owner, a follow-up date and an opt-in status, and you can filter the list by any of them. Search by name or phone, open a contact’s page to see where they came from, and update tags, notes, stage and follow-up from the contact panel right beside their chat in the shared inbox.",
+          "pt": "Cada contato tem tags, atributos personalizados, uma etapa do funil, um responsável, uma data de acompanhamento e um status de opt-in, e você pode filtrar a lista por qualquer um deles. Pesquise por nome ou telefone, abra a página do contato para ver de onde ele veio e atualize tags, notas, etapa e acompanhamento no painel do contato, ao lado do chat na caixa de entrada compartilhada.",
+          "es": "Cada contacto tiene etiquetas, atributos personalizados, una etapa del embudo, un responsable, una fecha de seguimiento y un estado de suscripción, y puedes filtrar la lista por cualquiera de ellos. Busca por nombre o teléfono, abre la página del contacto para ver de dónde vino y actualiza etiquetas, notas, etapa y seguimiento desde el panel del contacto, junto a su chat en la bandeja compartida.",
+          "id": "Setiap kontak memiliki tag, atribut khusus, tahap pipeline, pemilik, tanggal tindak lanjut, dan status opt-in, dan Anda dapat memfilter daftar berdasarkan semua itu. Cari berdasarkan nama atau telepon, buka halaman kontak untuk melihat asalnya, dan perbarui tag, catatan, tahap, serta tindak lanjut dari panel kontak di samping obrolannya di kotak masuk bersama.",
+          "ar": "تحمل كل جهة اتصال وسوماً وسمات مخصصة ومرحلة في خط المبيعات ومسؤولاً وتاريخ متابعة وحالة اشتراك، ويمكنك تصفية القائمة بأي منها. ابحث بالاسم أو الهاتف، وافتح صفحة جهة الاتصال لتعرف من أين جاءت، وحدّث الوسوم والملاحظات والمرحلة والمتابعة من لوحة جهة الاتصال بجانب محادثتها في صندوق الوارد المشترك.",
+          "tr": "Her kişide etiketler, özel nitelikler, bir satış hattı aşaması, bir sorumlu, bir takip tarihi ve bir abonelik durumu bulunur; listeyi bunların herhangi birine göre filtreleyebilirsiniz. Ada veya telefona göre arayın, kişinin nereden geldiğini görmek için sayfasını açın ve etiketleri, notları, aşamayı ve takibi ortak gelen kutusunda sohbetinin hemen yanındaki kişi panelinden güncelleyin."
+        },
+        "bullets": [
+          {
+            "en": "Tags and custom attributes",
+            "pt": "Tags e atributos personalizados",
+            "es": "Etiquetas y atributos personalizados",
+            "id": "Tag dan atribut khusus",
+            "ar": "وسوم وسمات مخصصة",
+            "tr": "Etiketler ve özel nitelikler"
+          },
+          {
+            "en": "Internal notes and follow-up dates",
+            "pt": "Notas internas e datas de acompanhamento",
+            "es": "Notas internas y fechas de seguimiento",
+            "id": "Catatan internal dan tanggal tindak lanjut",
+            "ar": "ملاحظات داخلية وتواريخ متابعة",
+            "tr": "Dahili notlar ve takip tarihleri"
+          },
+          {
+            "en": "Filter by tag, stage, assignee, follow-up and opt-in",
+            "pt": "Filtre por tag, etapa, responsável, acompanhamento e opt-in",
+            "es": "Filtra por etiqueta, etapa, responsable, seguimiento y suscripción",
+            "id": "Filter berdasarkan tag, tahap, penanggung jawab, tindak lanjut, dan opt-in",
+            "ar": "تصفية حسب الوسم والمرحلة والمسؤول والمتابعة والاشتراك",
+            "tr": "Etiket, aşama, sorumlu, takip ve aboneliğe göre filtreleme"
+          },
+          {
+            "en": "Source of every contact, including Click-to-WhatsApp ads",
+            "pt": "Origem de cada contato, incluindo anúncios Click-to-WhatsApp",
+            "es": "Origen de cada contacto, incluidos los anuncios Click-to-WhatsApp",
+            "id": "Sumber setiap kontak, termasuk iklan Click-to-WhatsApp",
+            "ar": "مصدر كل جهة اتصال، بما في ذلك إعلانات Click-to-WhatsApp",
+            "tr": "Click-to-WhatsApp reklamları dahil her kişinin kaynağı"
+          }
+        ],
+        "image": "/images/marketing-analytics.webp",
+        "imageAlt": {
+          "en": "WhatsApp contacts with tags and custom attributes",
+          "pt": "Contatos do WhatsApp com tags e atributos personalizados",
+          "es": "Contactos de WhatsApp con etiquetas y atributos personalizados",
+          "id": "Kontak WhatsApp dengan tag dan atribut khusus",
+          "ar": "جهات اتصال واتساب مع الوسوم والسمات المخصصة",
+          "tr": "Etiketli ve özel nitelikli WhatsApp kişileri"
+        },
+        "reversed": false
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "A Drag-and-Drop Pipeline With Your Own Stages",
+          "pt": "Um Funil Arrastar e Soltar com Suas Próprias Etapas",
+          "es": "Un Embudo de Arrastrar y Soltar con Tus Propias Etapas",
+          "id": "Pipeline Seret dan Lepas dengan Tahapan Anda Sendiri",
+          "ar": "خط مبيعات بالسحب والإفلات بمراحلك الخاصة",
+          "tr": "Kendi Aşamalarınızla Sürükle-Bırak Satış Hattı"
+        },
+        "body": {
+          "en": "The pipeline shows your contacts as cards on a board, one column per stage, so you can see where every enquiry or deal stands. Drag a card to another stage, or use its Move to… menu on a phone. Managers create, rename, reorder and delete stages; deleting a stage never deletes contacts, they simply move to No stage. Chatbot flows can move a contact into a stage automatically.",
+          "pt": "O funil mostra seus contatos como cartões em um quadro, uma coluna por etapa, para você ver em que ponto está cada consulta ou negócio. Arraste um cartão para outra etapa ou use o menu Mover para… no celular. Gerentes criam, renomeiam, reordenam e excluem etapas; excluir uma etapa nunca exclui contatos, eles apenas vão para Sem etapa. Fluxos de chatbot podem mover um contato para uma etapa automaticamente.",
+          "es": "El embudo muestra tus contactos como tarjetas en un tablero, una columna por etapa, para que veas en qué punto está cada consulta u oportunidad. Arrastra una tarjeta a otra etapa o usa su menú Mover a… en el teléfono. Los Managers crean, renombran, reordenan y eliminan etapas; eliminar una etapa nunca elimina contactos, simplemente pasan a Sin etapa. Los flujos de chatbot pueden mover un contacto a una etapa automáticamente.",
+          "id": "Pipeline menampilkan kontak Anda sebagai kartu di papan, satu kolom per tahap, sehingga Anda bisa melihat posisi setiap pertanyaan atau peluang. Seret kartu ke tahap lain, atau gunakan menu Pindahkan ke… di ponsel. Manajer membuat, mengganti nama, mengurutkan ulang, dan menghapus tahap; menghapus tahap tidak pernah menghapus kontak, mereka hanya pindah ke Tanpa tahap. Alur chatbot dapat memindahkan kontak ke suatu tahap secara otomatis.",
+          "ar": "يعرض خط المبيعات جهات اتصالك كبطاقات على لوحة، عمود لكل مرحلة، لترى أين يقف كل استفسار أو صفقة. اسحب البطاقة إلى مرحلة أخرى، أو استخدم قائمة نقل إلى… على الهاتف. ينشئ المديرون المراحل ويعيدون تسميتها وترتيبها ويحذفونها؛ وحذف مرحلة لا يحذف أي جهة اتصال أبداً، بل تنتقل إلى بلا مرحلة. ويمكن لتدفقات الشات بوت نقل جهة اتصال إلى مرحلة تلقائياً.",
+          "tr": "Satış hattı, kişilerinizi her aşama için bir sütun olacak şekilde bir panoda kartlar olarak gösterir; böylece her talebin veya fırsatın nerede olduğunu görürsünüz. Bir kartı başka bir aşamaya sürükleyin veya telefonda Şuraya taşı… menüsünü kullanın. Yöneticiler aşama oluşturur, yeniden adlandırır, sıralar ve siler; bir aşamayı silmek asla kişileri silmez, kişiler Aşamasız’a taşınır. Chatbot akışları bir kişiyi otomatik olarak bir aşamaya taşıyabilir."
+        },
+        "bullets": [
+          {
+            "en": "Custom stages you name and order",
+            "pt": "Etapas personalizadas que você nomeia e ordena",
+            "es": "Etapas personalizadas que nombras y ordenas",
+            "id": "Tahap khusus yang Anda beri nama dan urutkan",
+            "ar": "مراحل مخصصة تسمّيها وترتّبها بنفسك",
+            "tr": "Adını ve sırasını sizin belirlediğiniz özel aşamalar"
+          },
+          {
+            "en": "Filter the board by assignee, tags or stage",
+            "pt": "Filtre o quadro por responsável, tags ou etapa",
+            "es": "Filtra el tablero por responsable, etiquetas o etapa",
+            "id": "Filter papan berdasarkan penanggung jawab, tag, atau tahap",
+            "ar": "تصفية اللوحة حسب المسؤول أو الوسوم أو المرحلة",
+            "tr": "Panoyu sorumlu, etiket veya aşamaya göre filtreleme"
+          },
+          {
+            "en": "Chatbot flows can change the stage for you",
+            "pt": "Fluxos de chatbot podem mudar a etapa por você",
+            "es": "Los flujos de chatbot pueden cambiar la etapa por ti",
+            "id": "Alur chatbot dapat mengubah tahap untuk Anda",
+            "ar": "يمكن لتدفقات الشات بوت تغيير المرحلة نيابةً عنك",
+            "tr": "Chatbot akışları aşamayı sizin yerinize değiştirebilir"
+          }
+        ],
+        "image": "/images/campaign-flow.webp",
+        "imageAlt": {
+          "en": "WhatsApp sales pipeline board with custom stages",
+          "pt": "Quadro de funil de vendas do WhatsApp com etapas personalizadas",
+          "es": "Tablero de embudo de ventas de WhatsApp con etapas personalizadas",
+          "id": "Papan pipeline penjualan WhatsApp dengan tahap khusus",
+          "ar": "لوحة خط مبيعات واتساب بمراحل مخصصة",
+          "tr": "Özel aşamalı WhatsApp satış hattı panosu"
+        },
+        "reversed": true
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": {
+          "en": "CRM Features",
+          "pt": "Recursos do CRM",
+          "es": "Funciones del CRM",
+          "id": "Fitur CRM",
+          "ar": "ميزات CRM",
+          "tr": "CRM Özellikleri"
+        },
+        "heading": {
+          "en": "Clean Data and Consent You Can Trust",
+          "pt": "Dados Organizados e Consentimento Confiável",
+          "es": "Datos Ordenados y Consentimiento Confiable",
+          "id": "Data Rapi dan Persetujuan yang Dapat Dipercaya",
+          "ar": "بيانات منظمة وموافقات يمكنك الوثوق بها",
+          "tr": "Düzenli Veri ve Güvenilir Onay"
+        },
+        "subheading": {
+          "en": "No contact groups to maintain: segment with tags and pipeline stages instead.",
+          "pt": "Sem grupos de contatos para manter: segmente com tags e etapas do funil.",
+          "es": "Sin grupos de contactos que mantener: segmenta con etiquetas y etapas del embudo.",
+          "id": "Tidak ada grup kontak yang perlu dikelola: segmentasikan dengan tag dan tahap pipeline.",
+          "ar": "لا مجموعات جهات اتصال تحتاج إلى صيانة: قسّم جمهورك بالوسوم ومراحل خط المبيعات.",
+          "tr": "Bakımı gereken kişi grupları yok: bunun yerine etiketler ve satış hattı aşamalarıyla segmentlere ayırın."
+        },
+        "columns": 3,
+        "items": [
+          {
+            "icon": "template",
+            "title": {
+              "en": "Tags",
+              "pt": "Tags",
+              "es": "Etiquetas",
+              "id": "Tag",
+              "ar": "الوسوم",
+              "tr": "Etiketler"
+            },
+            "description": {
+              "en": "Label contacts by interest, status or campaign. Tags drive campaign audiences, filters and chatbot flows, which can add or remove them.",
+              "pt": "Rotule contatos por interesse, status ou campanha. As tags definem públicos de campanha, filtros e fluxos de chatbot, que podem adicioná-las ou removê-las.",
+              "es": "Etiqueta contactos por interés, estado o campaña. Las etiquetas definen audiencias de campañas, filtros y flujos de chatbot, que pueden añadirlas o quitarlas.",
+              "id": "Beri label kontak berdasarkan minat, status, atau kampanye. Tag menentukan audiens kampanye, filter, dan alur chatbot, yang dapat menambah atau menghapusnya.",
+              "ar": "صنّف جهات الاتصال حسب الاهتمام أو الحالة أو الحملة. تحدد الوسوم جمهور الحملات والفلاتر وتدفقات الشات بوت، التي يمكنها إضافتها أو إزالتها.",
+              "tr": "Kişileri ilgi alanı, durum veya kampanyaya göre etiketleyin. Etiketler kampanya hedef kitlelerini, filtreleri ve onları ekleyip kaldırabilen chatbot akışlarını yönlendirir."
+            }
+          },
+          {
+            "icon": "api",
+            "title": {
+              "en": "Custom Attributes",
+              "pt": "Atributos Personalizados",
+              "es": "Atributos Personalizados",
+              "id": "Atribut Khusus",
+              "ar": "السمات المخصصة",
+              "tr": "Özel Nitelikler"
+            },
+            "description": {
+              "en": "Store your own fields, such as city or last order ID, and use them as template variables in campaigns.",
+              "pt": "Guarde seus próprios campos, como cidade ou ID do último pedido, e use-os como variáveis de template em campanhas.",
+              "es": "Guarda tus propios campos, como ciudad o ID del último pedido, y úsalos como variables de plantilla en campañas.",
+              "id": "Simpan kolom Anda sendiri, seperti kota atau ID pesanan terakhir, dan gunakan sebagai variabel template dalam kampanye.",
+              "ar": "خزّن حقولك الخاصة، مثل المدينة أو رقم آخر طلب، واستخدمها كمتغيرات في قوالب الحملات.",
+              "tr": "Şehir veya son sipariş kimliği gibi kendi alanlarınızı saklayın ve bunları kampanyalarda şablon değişkeni olarak kullanın."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Notes and Follow-Ups",
+              "pt": "Notas e Acompanhamentos",
+              "es": "Notas y Seguimientos",
+              "id": "Catatan dan Tindak Lanjut",
+              "ar": "الملاحظات والمتابعات",
+              "tr": "Notlar ve Takipler"
+            },
+            "description": {
+              "en": "Leave internal notes the customer never sees and set a follow-up date, then filter contacts by follow-up to see who needs a call back.",
+              "pt": "Deixe notas internas que o cliente nunca vê e defina uma data de acompanhamento; depois filtre os contatos por acompanhamento para ver quem precisa de retorno.",
+              "es": "Deja notas internas que el cliente nunca ve y fija una fecha de seguimiento; luego filtra los contactos por seguimiento para ver a quién hay que volver a llamar.",
+              "id": "Tinggalkan catatan internal yang tidak pernah dilihat pelanggan dan tetapkan tanggal tindak lanjut, lalu filter kontak berdasarkan tindak lanjut untuk melihat siapa yang perlu dihubungi kembali.",
+              "ar": "اترك ملاحظات داخلية لا يراها العميل أبداً، وحدّد تاريخ متابعة، ثم صفِّ جهات الاتصال حسب المتابعة لترى مَن يحتاج إلى معاودة الاتصال.",
+              "tr": "Müşterinin asla görmediği dahili notlar bırakın ve bir takip tarihi belirleyin; ardından kimin geri aranması gerektiğini görmek için kişileri takibe göre filtreleyin."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Source Tracking",
+              "pt": "Rastreamento de Origem",
+              "es": "Seguimiento de Origen",
+              "id": "Pelacakan Sumber",
+              "ar": "تتبع المصدر",
+              "tr": "Kaynak Takibi"
+            },
+            "description": {
+              "en": "Every contact records where it came from: WhatsApp, manual, CSV, link, API or Click-to-WhatsApp ad. Ad contacts keep the ad headline, text and click ID.",
+              "pt": "Cada contato registra de onde veio: WhatsApp, manual, CSV, link, API ou anúncio Click-to-WhatsApp. Contatos de anúncios guardam o título, o texto e o ID de clique do anúncio.",
+              "es": "Cada contacto registra de dónde vino: WhatsApp, manual, CSV, enlace, API o anuncio Click-to-WhatsApp. Los contactos de anuncios conservan el título, el texto y el ID de clic del anuncio.",
+              "id": "Setiap kontak mencatat asalnya: WhatsApp, manual, CSV, tautan, API, atau iklan Click-to-WhatsApp. Kontak dari iklan menyimpan judul, teks, dan ID klik iklan.",
+              "ar": "تسجّل كل جهة اتصال مصدرها: واتساب، يدوي، CSV، رابط، API أو إعلان Click-to-WhatsApp. وتحتفظ جهات الاتصال القادمة من الإعلانات بعنوان الإعلان ونصه ومعرّف النقرة.",
+              "tr": "Her kişi nereden geldiğini kaydeder: WhatsApp, manuel, CSV, bağlantı, API veya Click-to-WhatsApp reklamı. Reklamdan gelen kişiler reklam başlığını, metnini ve tıklama kimliğini saklar."
+            }
+          },
+          {
+            "icon": "shield",
+            "title": {
+              "en": "Opt-Outs That Follow the Number",
+              "pt": "Opt-Outs que Acompanham o Número",
+              "es": "Bajas que Siguen al Número",
+              "id": "Opt-Out yang Melekat pada Nomor",
+              "ar": "إلغاء اشتراك مرتبط بالرقم",
+              "tr": "Numaraya Bağlı Abonelikten Çıkma"
+            },
+            "description": {
+              "en": "A customer who replies STOP can’t be messaged from the inbox, campaigns, automations or the API until they reply START. The opt-out is kept against the phone number, so deleting and re-adding the contact doesn’t lift it.",
+              "pt": "Um cliente que responde STOP não pode receber mensagens pela caixa de entrada, campanhas, automações ou API até responder START. O opt-out fica registrado no número de telefone, então excluir e adicionar o contato de novo não o remove.",
+              "es": "Un cliente que responde STOP no puede recibir mensajes desde la bandeja, campañas, automatizaciones ni la API hasta que responda START. La baja se guarda en el número de teléfono, así que eliminar y volver a añadir el contacto no la levanta.",
+              "id": "Pelanggan yang membalas STOP tidak dapat dikirimi pesan dari kotak masuk, kampanye, otomatisasi, atau API sampai mereka membalas START. Opt-out disimpan pada nomor telepon, jadi menghapus lalu menambahkan kembali kontak tidak mencabutnya.",
+              "ar": "لا يمكن مراسلة العميل الذي يرد بـ STOP من صندوق الوارد أو الحملات أو الأتمتة أو الـAPI حتى يرد بـ START. ويُحفظ إلغاء الاشتراك على رقم الهاتف، لذا فإن حذف جهة الاتصال وإعادة إضافتها لا يلغيه.",
+              "tr": "STOP yanıtını veren bir müşteriye START yazana kadar gelen kutusundan, kampanyalardan, otomasyonlardan veya API’den mesaj gönderilemez. Abonelikten çıkma telefon numarasına kaydedilir; kişiyi silip yeniden eklemek bunu kaldırmaz."
+            }
+          },
+          {
+            "icon": "template",
+            "title": {
+              "en": "CSV Import and Export",
+              "pt": "Importação e Exportação CSV",
+              "es": "Importación y Exportación CSV",
+              "id": "Impor dan Ekspor CSV",
+              "ar": "استيراد وتصدير CSV",
+              "tr": "CSV İçe ve Dışa Aktarma"
+            },
+            "description": {
+              "en": "Import a CSV and map its columns to phone, name, email, tags and custom fields. Export the contacts on the current page, with your filters, as a CSV.",
+              "pt": "Importe um CSV e mapeie as colunas para telefone, nome, e-mail, tags e campos personalizados. Exporte os contatos da página atual, com seus filtros, como CSV.",
+              "es": "Importa un CSV y asigna sus columnas a teléfono, nombre, correo, etiquetas y campos personalizados. Exporta los contactos de la página actual, con tus filtros, como CSV.",
+              "id": "Impor CSV dan petakan kolomnya ke telepon, nama, email, tag, dan kolom khusus. Ekspor kontak di halaman saat ini, dengan filter Anda, sebagai CSV.",
+              "ar": "استورد ملف CSV واربط أعمدته بالهاتف والاسم والبريد الإلكتروني والوسوم والحقول المخصصة. وصدّر جهات الاتصال في الصفحة الحالية، مع الفلاتر المطبقة، كملف CSV.",
+              "tr": "Bir CSV içe aktarın ve sütunlarını telefon, ad, e-posta, etiketler ve özel alanlarla eşleştirin. Geçerli sayfadaki kişileri filtrelerinizle birlikte CSV olarak dışa aktarın."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": {
+          "en": "CSV Import",
+          "pt": "Importação CSV",
+          "es": "Importación CSV",
+          "id": "Impor CSV",
+          "ar": "استيراد CSV",
+          "tr": "CSV İçe Aktarma"
+        },
+        "heading": {
+          "en": "Bring Your Existing Customers In, With Consent",
+          "pt": "Traga Seus Clientes Atuais, com Consentimento",
+          "es": "Trae a Tus Clientes Actuales, con Consentimiento",
+          "id": "Bawa Pelanggan Anda yang Ada, dengan Persetujuan",
+          "ar": "أضف عملاءك الحاليين مع موافقتهم",
+          "tr": "Mevcut Müşterilerinizi Onaylarıyla Birlikte Getirin"
+        },
+        "steps": [
+          {
+            "title": {
+              "en": "1. Upload a CSV",
+              "pt": "1. Envie um CSV",
+              "es": "1. Sube un CSV",
+              "id": "1. Unggah CSV",
+              "ar": "1. ارفع ملف CSV",
+              "tr": "1. Bir CSV yükleyin"
+            },
+            "description": {
+              "en": "Use a UTF-8 CSV with numbers in international format, such as +919876543210. Duplicates and invalid numbers are skipped.",
+              "pt": "Use um CSV em UTF-8 com números no formato internacional, como +919876543210. Duplicados e números inválidos são ignorados.",
+              "es": "Usa un CSV en UTF-8 con números en formato internacional, como +919876543210. Los duplicados y los números no válidos se omiten.",
+              "id": "Gunakan CSV UTF-8 dengan nomor dalam format internasional, seperti +919876543210. Duplikat dan nomor tidak valid dilewati.",
+              "ar": "استخدم ملف CSV بترميز UTF-8 والأرقام بالصيغة الدولية، مثل +919876543210. يتم تخطي الأرقام المكررة وغير الصالحة.",
+              "tr": "+919876543210 gibi uluslararası formatta numaralar içeren UTF-8 bir CSV kullanın. Yinelenen ve geçersiz numaralar atlanır."
+            }
+          },
+          {
+            "title": {
+              "en": "2. Map the columns",
+              "pt": "2. Mapeie as colunas",
+              "es": "2. Asigna las columnas",
+              "id": "2. Petakan kolom",
+              "ar": "2. اربط الأعمدة",
+              "tr": "2. Sütunları eşleştirin"
+            },
+            "description": {
+              "en": "Match each column to phone, name, email, tags or a custom field.",
+              "pt": "Associe cada coluna a telefone, nome, e-mail, tags ou um campo personalizado.",
+              "es": "Asocia cada columna a teléfono, nombre, correo, etiquetas o un campo personalizado.",
+              "id": "Cocokkan setiap kolom ke telepon, nama, email, tag, atau kolom khusus.",
+              "ar": "طابق كل عمود مع الهاتف أو الاسم أو البريد الإلكتروني أو الوسوم أو حقل مخصص.",
+              "tr": "Her sütunu telefon, ad, e-posta, etiketler veya özel bir alanla eşleştirin."
+            }
+          },
+          {
+            "title": {
+              "en": "3. Confirm consent",
+              "pt": "3. Confirme o consentimento",
+              "es": "3. Confirma el consentimiento",
+              "id": "3. Konfirmasi persetujuan",
+              "ar": "3. أكّد الموافقة",
+              "tr": "3. Onayı doğrulayın"
+            },
+            "description": {
+              "en": "Tick the consent box only if these customers agreed to hear from you. Without it, they import as not opted in and can’t be messaged.",
+              "pt": "Marque a caixa de consentimento somente se esses clientes concordaram em receber suas mensagens. Sem ela, eles são importados sem opt-in e não podem receber mensagens.",
+              "es": "Marca la casilla de consentimiento solo si estos clientes aceptaron recibir tus mensajes. Sin ella, se importan sin suscripción y no se les puede escribir.",
+              "id": "Centang kotak persetujuan hanya jika pelanggan ini setuju menerima pesan dari Anda. Tanpanya, mereka diimpor tanpa opt-in dan tidak dapat dikirimi pesan.",
+              "ar": "حدّد مربع الموافقة فقط إذا وافق هؤلاء العملاء على تلقي رسائلك. وبدونه يُستوردون كغير مشتركين ولا يمكن مراسلتهم.",
+              "tr": "Onay kutusunu yalnızca bu müşteriler sizden mesaj almayı kabul ettiyse işaretleyin. İşaretlenmezse abone olmamış olarak içe aktarılırlar ve onlara mesaj gönderilemez."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Compare",
+          "pt": "Compare",
+          "es": "Compara",
+          "id": "Bandingkan",
+          "ar": "قارن",
+          "tr": "Karşılaştır"
+        },
+        "heading": {
+          "en": "WhatsApp CRM vs. Spreadsheets and a Phone",
+          "pt": "CRM para WhatsApp vs. Planilhas e um Celular",
+          "es": "CRM para WhatsApp vs. Hojas de Cálculo y un Teléfono",
+          "id": "CRM WhatsApp vs. Spreadsheet dan Ponsel",
+          "ar": "CRM واتساب مقابل جداول البيانات والهاتف",
+          "tr": "WhatsApp CRM vs. Tablolar ve Bir Telefon"
+        },
+        "subheading": {
+          "en": "Where customer data lives, and how much of it you keep up to date by hand.",
+          "pt": "Onde ficam os dados dos clientes e quanto deles você atualiza manualmente.",
+          "es": "Dónde viven los datos de los clientes y cuánto de ellos actualizas a mano.",
+          "id": "Di mana data pelanggan disimpan, dan seberapa banyak yang Anda perbarui secara manual.",
+          "ar": "أين تُحفظ بيانات العملاء، وكم منها تحدّثه يدوياً.",
+          "tr": "Müşteri verilerinin nerede durduğu ve ne kadarını elle güncel tuttuğunuz."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Capability",
+              "pt": "Recurso",
+              "es": "Capacidad",
+              "id": "Kemampuan",
+              "ar": "القدرة",
+              "tr": "Özellik"
+            }
+          },
+          {
+            "label": {
+              "en": "StartMessaging CRM",
+              "pt": "CRM StartMessaging",
+              "es": "CRM StartMessaging",
+              "id": "CRM StartMessaging",
+              "ar": "CRM من StartMessaging",
+              "tr": "StartMessaging CRM"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Spreadsheets",
+              "pt": "Planilhas",
+              "es": "Hojas de cálculo",
+              "id": "Spreadsheet",
+              "ar": "جداول البيانات",
+              "tr": "Tablolar"
+            }
+          },
+          {
+            "label": {
+              "en": "Shared phone / WhatsApp Business app",
+              "pt": "Celular compartilhado / app WhatsApp Business",
+              "es": "Teléfono compartido / app WhatsApp Business",
+              "id": "Ponsel bersama / aplikasi WhatsApp Business",
+              "ar": "هاتف مشترك / تطبيق واتساب للأعمال",
+              "tr": "Ortak telefon / WhatsApp Business uygulaması"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Contact created when a customer writes in",
+              "pt": "Contato criado quando o cliente escreve",
+              "es": "Contacto creado cuando el cliente escribe",
+              "id": "Kontak dibuat saat pelanggan menulis",
+              "ar": "إنشاء جهة اتصال عندما يراسلك العميل",
+              "tr": "Müşteri yazdığında kişi oluşturulur"
+            },
+            {
+              "en": "✓ Automatic",
+              "pt": "✓ Automático",
+              "es": "✓ Automático",
+              "id": "✓ Otomatis",
+              "ar": "✓ تلقائياً",
+              "tr": "✓ Otomatik"
+            },
+            {
+              "en": "✗ Typed in by hand",
+              "pt": "✗ Digitado manualmente",
+              "es": "✗ Se escribe a mano",
+              "id": "✗ Diketik manual",
+              "ar": "✗ يُدخَل يدوياً",
+              "tr": "✗ Elle girilir"
+            },
+            {
+              "en": "Saved on the phone only",
+              "pt": "Salvo apenas no celular",
+              "es": "Guardado solo en el teléfono",
+              "id": "Hanya tersimpan di ponsel",
+              "ar": "محفوظ على الهاتف فقط",
+              "tr": "Yalnızca telefonda kayıtlı"
+            }
+          ],
+          [
+            {
+              "en": "Customer details beside the chat",
+              "pt": "Dados do cliente ao lado do chat",
+              "es": "Datos del cliente junto al chat",
+              "id": "Detail pelanggan di samping obrolan",
+              "ar": "بيانات العميل بجانب المحادثة",
+              "tr": "Sohbetin yanında müşteri bilgileri"
+            },
+            {
+              "en": "✓ Contact panel in the inbox",
+              "pt": "✓ Painel do contato na caixa de entrada",
+              "es": "✓ Panel del contacto en la bandeja",
+              "id": "✓ Panel kontak di kotak masuk",
+              "ar": "✓ لوحة جهة الاتصال في صندوق الوارد",
+              "tr": "✓ Gelen kutusunda kişi paneli"
+            },
+            {
+              "en": "✗ Separate file",
+              "pt": "✗ Arquivo separado",
+              "es": "✗ Archivo aparte",
+              "id": "✗ File terpisah",
+              "ar": "✗ ملف منفصل",
+              "tr": "✗ Ayrı dosya"
+            },
+            {
+              "en": "Labels only",
+              "pt": "Apenas etiquetas",
+              "es": "Solo etiquetas",
+              "id": "Hanya label",
+              "ar": "تصنيفات فقط",
+              "tr": "Yalnızca etiketler"
+            }
+          ],
+          [
+            {
+              "en": "Sales pipeline",
+              "pt": "Funil de vendas",
+              "es": "Embudo de ventas",
+              "id": "Pipeline penjualan",
+              "ar": "خط المبيعات",
+              "tr": "Satış hattı"
+            },
+            {
+              "en": "✓ Drag-and-drop board with custom stages",
+              "pt": "✓ Quadro arrastar e soltar com etapas personalizadas",
+              "es": "✓ Tablero de arrastrar y soltar con etapas personalizadas",
+              "id": "✓ Papan seret dan lepas dengan tahap khusus",
+              "ar": "✓ لوحة بالسحب والإفلات بمراحل مخصصة",
+              "tr": "✓ Özel aşamalı sürükle-bırak pano"
+            },
+            {
+              "en": "A status column edited by hand",
+              "pt": "Uma coluna de status editada manualmente",
+              "es": "Una columna de estado editada a mano",
+              "id": "Kolom status yang diedit manual",
+              "ar": "عمود حالة يُعدَّل يدوياً",
+              "tr": "Elle düzenlenen bir durum sütunu"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ],
+          [
+            {
+              "en": "Contact source",
+              "pt": "Origem do contato",
+              "es": "Origen del contacto",
+              "id": "Sumber kontak",
+              "ar": "مصدر جهة الاتصال",
+              "tr": "Kişi kaynağı"
+            },
+            {
+              "en": "✓ Recorded automatically, with ad details for Click-to-WhatsApp",
+              "pt": "✓ Registrada automaticamente, com detalhes do anúncio para Click-to-WhatsApp",
+              "es": "✓ Registrado automáticamente, con datos del anuncio para Click-to-WhatsApp",
+              "id": "✓ Dicatat otomatis, dengan detail iklan untuk Click-to-WhatsApp",
+              "ar": "✓ يُسجَّل تلقائياً، مع تفاصيل الإعلان لـ Click-to-WhatsApp",
+              "tr": "✓ Otomatik kaydedilir, Click-to-WhatsApp için reklam ayrıntılarıyla"
+            },
+            {
+              "en": "Only if someone fills it in",
+              "pt": "Só se alguém preencher",
+              "es": "Solo si alguien lo rellena",
+              "id": "Hanya jika seseorang mengisinya",
+              "ar": "فقط إذا ملأه أحد",
+              "tr": "Yalnızca biri doldurursa"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ],
+          [
+            {
+              "en": "Opt-outs (STOP/START)",
+              "pt": "Opt-outs (STOP/START)",
+              "es": "Bajas (STOP/START)",
+              "id": "Opt-out (STOP/START)",
+              "ar": "إلغاء الاشتراك (STOP/START)",
+              "tr": "Abonelikten çıkma (STOP/START)"
+            },
+            {
+              "en": "✓ Recorded per number and checked on every send",
+              "pt": "✓ Registrado por número e verificado em cada envio",
+              "es": "✓ Registrado por número y comprobado en cada envío",
+              "id": "✓ Dicatat per nomor dan diperiksa di setiap pengiriman",
+              "ar": "✓ يُسجَّل لكل رقم ويُفحص عند كل إرسال",
+              "tr": "✓ Numara başına kaydedilir ve her gönderimde kontrol edilir"
+            },
+            {
+              "en": "Tracked by hand",
+              "pt": "Controlado manualmente",
+              "es": "Se controla a mano",
+              "id": "Dilacak manual",
+              "ar": "يُتابَع يدوياً",
+              "tr": "Elle takip edilir"
+            },
+            {
+              "en": "Tracked by hand",
+              "pt": "Controlado manualmente",
+              "es": "Se controla a mano",
+              "id": "Dilacak manual",
+              "ar": "يُتابَع يدوياً",
+              "tr": "Elle takip edilir"
+            }
+          ],
+          [
+            {
+              "en": "Sync with your own systems",
+              "pt": "Sincronização com seus sistemas",
+              "es": "Sincronización con tus sistemas",
+              "id": "Sinkronisasi dengan sistem Anda",
+              "ar": "المزامنة مع أنظمتك",
+              "tr": "Kendi sistemlerinizle senkronizasyon"
+            },
+            {
+              "en": "✓ REST API and contact webhooks",
+              "pt": "✓ API REST e webhooks de contato",
+              "es": "✓ API REST y webhooks de contactos",
+              "id": "✓ REST API dan webhook kontak",
+              "ar": "✓ REST API وwebhooks لجهات الاتصال",
+              "tr": "✓ REST API ve kişi webhook’ları"
+            },
+            {
+              "en": "Manual export and import",
+              "pt": "Exportação e importação manuais",
+              "es": "Exportación e importación manuales",
+              "id": "Ekspor dan impor manual",
+              "ar": "تصدير واستيراد يدوي",
+              "tr": "Elle dışa ve içe aktarma"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Contacts API",
+          "pt": "API de Contatos",
+          "es": "API de Contactos",
+          "id": "API Kontak",
+          "ar": "API جهات الاتصال",
+          "tr": "Kişi API’si"
+        },
+        "heading": {
+          "en": "Upsert customers from your store or CRM by phone number",
+          "pt": "Crie ou atualize clientes da sua loja ou CRM pelo número de telefone",
+          "es": "Crea o actualiza clientes desde tu tienda o CRM por número de teléfono",
+          "id": "Tambah atau perbarui pelanggan dari toko atau CRM Anda berdasarkan nomor telepon",
+          "ar": "أنشئ العملاء أو حدّثهم من متجرك أو نظام CRM حسب رقم الهاتف",
+          "tr": "Mağazanızdan veya CRM’inizden müşterileri telefon numarasına göre ekleyin ya da güncelleyin"
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "curl -X POST {{WA_API_BASE}}/api/v1/contacts \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: contact-sync-A-1042\" \\\n  -d '{\n    \"phone\": \"+919812345678\",\n    \"name\": \"Asha Verma\",\n    \"email\": \"asha@example.com\",\n    \"tags\": { \"add\": [\"website-order\"] },\n    \"attributes\": { \"city\": \"Pune\", \"lastOrderId\": \"A-1042\" }\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const res = await fetch('{{WA_API_BASE}}/api/v1/contacts', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + process.env.SM_API_KEY, // sm_live_your_api_key\n    'Content-Type': 'application/json',\n    'Idempotency-Key': 'contact-sync-A-1042',\n  },\n  body: JSON.stringify({\n    phone: '+919812345678',\n    name: 'Asha Verma',\n    email: 'asha@example.com',\n    tags: { add: ['website-order'] },\n    attributes: { city: 'Pune', lastOrderId: 'A-1042' },\n  }),\n});\n\n// 201 = created, 200 = updated (upsert by phone)\nconst { data } = await res.json();\nconsole.log(data.created, data.contact.id);"
+          },
+          {
+            "lang": "Python",
+            "code": "import os, requests\n\nres = requests.post(\n    '{{WA_API_BASE}}/api/v1/contacts',\n    headers={\n        'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\",  # sm_live_your_api_key\n        'Idempotency-Key': 'contact-sync-A-1042',\n    },\n    json={\n        'phone': '+919812345678',\n        'name': 'Asha Verma',\n        'email': 'asha@example.com',\n        'tags': {'add': ['website-order']},\n        'attributes': {'city': 'Pune', 'lastOrderId': 'A-1042'},\n    },\n)\n\n# 201 = created, 200 = updated (upsert by phone)\ndata = res.json()['data']\nprint(data['created'], data['contact']['id'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$body = <<<'JSON'\n{\n  \"phone\": \"+919812345678\",\n  \"name\": \"Asha Verma\",\n  \"email\": \"asha@example.com\",\n  \"tags\": { \"add\": [\"website-order\"] },\n  \"attributes\": { \"city\": \"Pune\", \"lastOrderId\": \"A-1042\" }\n}\nJSON;\n\n$ch = curl_init('{{WA_API_BASE}}/api/v1/contacts');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        'Authorization: Bearer ' . getenv('SM_API_KEY'), // sm_live_your_api_key\n        'Content-Type: application/json',\n        'Idempotency-Key: contact-sync-A-1042',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho ($data['created'] ? 'created ' : 'updated ') . $data['contact']['id'];"
+          },
+          {
+            "lang": "Tags + sync",
+            "code": "# Add and remove tags without overwriting other writers' changes\ncurl -X PATCH \"{{WA_API_BASE}}/api/v1/contacts/%2B919812345678\" \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{ \"tags\": { \"add\": [\"vip\"], \"remove\": [\"lead\"] } }'\n\n# Pull everything that changed since your last checkpoint (oldest change first)\ncurl -G {{WA_API_BASE}}/api/v1/contacts \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  --data-urlencode \"updatedSince=2026-10-01T00:00:00Z\" \\\n  --data-urlencode \"limit=100\""
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "WhatsApp CRM — FAQ",
+          "pt": "CRM para WhatsApp — FAQ",
+          "es": "CRM para WhatsApp — FAQ",
+          "id": "CRM WhatsApp — FAQ",
+          "ar": "CRM واتساب — الأسئلة الشائعة",
+          "tr": "WhatsApp CRM — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "Can I organise contacts into groups?",
+              "pt": "Posso organizar contatos em grupos?",
+              "es": "¿Puedo organizar los contactos en grupos?",
+              "id": "Bisakah saya mengelompokkan kontak ke dalam grup?",
+              "ar": "هل يمكنني تنظيم جهات الاتصال في مجموعات؟",
+              "tr": "Kişileri gruplar halinde düzenleyebilir miyim?"
+            },
+            "answer": {
+              "en": "Instead of groups, you use tags and pipeline stages. A contact can carry many tags, and campaigns target an audience by tag, by opt-in or from a CSV upload. Pipeline stages show where each contact stands in your sales process.",
+              "pt": "Em vez de grupos, você usa tags e etapas do funil. Um contato pode ter várias tags, e as campanhas segmentam o público por tag, por opt-in ou a partir de um CSV. As etapas do funil mostram em que ponto do processo de vendas cada contato está.",
+              "es": "En lugar de grupos, usas etiquetas y etapas del embudo. Un contacto puede tener muchas etiquetas, y las campañas segmentan la audiencia por etiqueta, por suscripción o desde un CSV. Las etapas del embudo muestran en qué punto del proceso de ventas está cada contacto.",
+              "id": "Alih-alih grup, Anda menggunakan tag dan tahap pipeline. Satu kontak dapat memiliki banyak tag, dan kampanye menargetkan audiens berdasarkan tag, opt-in, atau unggahan CSV. Tahap pipeline menunjukkan posisi setiap kontak dalam proses penjualan Anda.",
+              "ar": "بدلاً من المجموعات، تستخدم الوسوم ومراحل خط المبيعات. يمكن لجهة الاتصال أن تحمل وسوماً متعددة، وتستهدف الحملات الجمهور حسب الوسم أو الاشتراك أو من ملف CSV مرفوع. وتُظهر مراحل خط المبيعات أين تقف كل جهة اتصال في عملية البيع.",
+              "tr": "Gruplar yerine etiketleri ve satış hattı aşamalarını kullanırsınız. Bir kişi birçok etiket taşıyabilir; kampanyalar hedef kitleyi etikete, aboneliğe göre veya bir CSV yüklemesinden seçer. Satış hattı aşamaları her kişinin satış sürecinizde nerede olduğunu gösterir."
+            }
+          },
+          {
+            "question": {
+              "en": "How do I import my existing contacts?",
+              "pt": "Como importo meus contatos atuais?",
+              "es": "¿Cómo importo mis contactos actuales?",
+              "id": "Bagaimana cara mengimpor kontak saya yang sudah ada?",
+              "ar": "كيف أستورد جهات اتصالي الحالية؟",
+              "tr": "Mevcut kişilerimi nasıl içe aktarırım?"
+            },
+            "answer": {
+              "en": "Upload a CSV, map its columns to phone, name, email, tags and custom fields, and tick the consent box only if these customers agreed to hear from you. Numbers need their country code. Duplicates and invalid numbers are skipped, and contacts imported without the consent box can’t be messaged.",
+              "pt": "Envie um CSV, mapeie as colunas para telefone, nome, e-mail, tags e campos personalizados e marque a caixa de consentimento somente se esses clientes concordaram em receber suas mensagens. Os números precisam do código do país. Duplicados e números inválidos são ignorados, e contatos importados sem a caixa de consentimento não podem receber mensagens.",
+              "es": "Sube un CSV, asigna sus columnas a teléfono, nombre, correo, etiquetas y campos personalizados, y marca la casilla de consentimiento solo si estos clientes aceptaron recibir tus mensajes. Los números necesitan el código de país. Los duplicados y los números no válidos se omiten, y a los contactos importados sin la casilla de consentimiento no se les puede escribir.",
+              "id": "Unggah CSV, petakan kolomnya ke telepon, nama, email, tag, dan kolom khusus, lalu centang kotak persetujuan hanya jika pelanggan ini setuju menerima pesan dari Anda. Nomor harus menyertakan kode negara. Duplikat dan nomor tidak valid dilewati, dan kontak yang diimpor tanpa kotak persetujuan tidak dapat dikirimi pesan.",
+              "ar": "ارفع ملف CSV، واربط أعمدته بالهاتف والاسم والبريد الإلكتروني والوسوم والحقول المخصصة، وحدّد مربع الموافقة فقط إذا وافق هؤلاء العملاء على تلقي رسائلك. يجب أن تتضمن الأرقام رمز الدولة. يتم تخطي الأرقام المكررة وغير الصالحة، ولا يمكن مراسلة جهات الاتصال المستوردة دون تحديد مربع الموافقة.",
+              "tr": "Bir CSV yükleyin, sütunlarını telefon, ad, e-posta, etiketler ve özel alanlarla eşleştirin ve onay kutusunu yalnızca bu müşteriler sizden mesaj almayı kabul ettiyse işaretleyin. Numaralar ülke koduyla yazılmalıdır. Yinelenen ve geçersiz numaralar atlanır; onay kutusu işaretlenmeden içe aktarılan kişilere mesaj gönderilemez."
+            }
+          },
+          {
+            "question": {
+              "en": "What happens when a customer replies STOP?",
+              "pt": "O que acontece quando um cliente responde STOP?",
+              "es": "¿Qué pasa cuando un cliente responde STOP?",
+              "id": "Apa yang terjadi saat pelanggan membalas STOP?",
+              "ar": "ماذا يحدث عندما يرد العميل بـ STOP؟",
+              "tr": "Bir müşteri STOP yanıtını verdiğinde ne olur?"
+            },
+            "answer": {
+              "en": "The contact is opted out, and every send to that number is refused, from the inbox, campaigns, automations and the API, until they reply START or your team switches opt-in back on with their consent. The opt-out belongs to the phone number, so it stays even if you delete the contact and add it again.",
+              "pt": "O contato fica com opt-out, e todo envio para esse número é recusado, pela caixa de entrada, campanhas, automações e API, até que ele responda START ou sua equipe reative o opt-in com o consentimento dele. O opt-out pertence ao número de telefone, então continua valendo mesmo se você excluir o contato e adicioná-lo de novo.",
+              "es": "El contacto queda dado de baja, y todo envío a ese número se rechaza, desde la bandeja, campañas, automatizaciones y la API, hasta que responda START o tu equipo reactive la suscripción con su consentimiento. La baja pertenece al número de teléfono, así que se mantiene aunque elimines el contacto y lo vuelvas a añadir.",
+              "id": "Kontak tersebut menjadi opt-out, dan setiap pengiriman ke nomor itu ditolak, dari kotak masuk, kampanye, otomatisasi, dan API, sampai mereka membalas START atau tim Anda mengaktifkan kembali opt-in dengan persetujuan mereka. Opt-out melekat pada nomor telepon, jadi tetap berlaku meskipun Anda menghapus kontak lalu menambahkannya lagi.",
+              "ar": "يُلغى اشتراك جهة الاتصال، ويُرفض كل إرسال إلى ذلك الرقم، من صندوق الوارد والحملات والأتمتة والـAPI، حتى يرد بـ START أو يعيد فريقك تفعيل الاشتراك بموافقته. إلغاء الاشتراك مرتبط برقم الهاتف، لذا يبقى حتى لو حذفت جهة الاتصال وأضفتها من جديد.",
+              "tr": "Kişinin aboneliği iptal edilir ve o numaraya yapılan her gönderim gelen kutusu, kampanyalar, otomasyonlar ve API dahil reddedilir; ta ki START yazana veya ekibiniz onayıyla aboneliği yeniden açana kadar. Abonelikten çıkma telefon numarasına aittir; kişiyi silip yeniden ekleseniz bile geçerli kalır."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I export my contacts?",
+              "pt": "Posso exportar meus contatos?",
+              "es": "¿Puedo exportar mis contactos?",
+              "id": "Bisakah saya mengekspor kontak saya?",
+              "ar": "هل يمكنني تصدير جهات اتصالي؟",
+              "tr": "Kişilerimi dışa aktarabilir miyim?"
+            },
+            "answer": {
+              "en": "Yes. The export button downloads the contacts on the current page, with your current filters, as a CSV file. To pull your whole list into another system, use GET /api/v1/contacts with cursor pagination.",
+              "pt": "Sim. O botão de exportar baixa os contatos da página atual, com seus filtros atuais, como arquivo CSV. Para levar a lista inteira para outro sistema, use GET /api/v1/contacts com paginação por cursor.",
+              "es": "Sí. El botón de exportar descarga los contactos de la página actual, con tus filtros actuales, como archivo CSV. Para llevar toda tu lista a otro sistema, usa GET /api/v1/contacts con paginación por cursor.",
+              "id": "Ya. Tombol ekspor mengunduh kontak di halaman saat ini, dengan filter Anda saat ini, sebagai file CSV. Untuk menarik seluruh daftar ke sistem lain, gunakan GET /api/v1/contacts dengan paginasi kursor.",
+              "ar": "نعم. يُنزّل زر التصدير جهات الاتصال في الصفحة الحالية، مع الفلاتر المطبقة، كملف CSV. ولنقل قائمتك كاملة إلى نظام آخر، استخدم GET /api/v1/contacts مع الترقيم بالمؤشر (cursor).",
+              "tr": "Evet. Dışa aktarma butonu, geçerli sayfadaki kişileri mevcut filtrelerinizle birlikte CSV dosyası olarak indirir. Tüm listenizi başka bir sisteme almak için imleç sayfalamalı GET /api/v1/contacts kullanın."
+            }
+          },
+          {
+            "question": {
+              "en": "How do I keep the CRM in sync with my own systems?",
+              "pt": "Como mantenho o CRM sincronizado com meus sistemas?",
+              "es": "¿Cómo mantengo el CRM sincronizado con mis sistemas?",
+              "id": "Bagaimana menjaga CRM tetap sinkron dengan sistem saya?",
+              "ar": "كيف أُبقي نظام CRM متزامناً مع أنظمتي؟",
+              "tr": "CRM’i kendi sistemlerimle nasıl senkron tutarım?"
+            },
+            "answer": {
+              "en": "POST /api/v1/contacts creates or updates a contact by phone number. PATCH /api/v1/contacts/{idOrPhone} accepts tags as { add, remove }, which is safe when several systems write at once. GET /api/v1/contacts with updatedSince returns only what changed, oldest change first. The contact.created, contact.opted_out and contact.opted_in webhooks tell you about new contacts and consent changes.",
+              "pt": "POST /api/v1/contacts cria ou atualiza um contato pelo número de telefone. PATCH /api/v1/contacts/{idOrPhone} aceita tags como { add, remove }, o que é seguro quando vários sistemas escrevem ao mesmo tempo. GET /api/v1/contacts com updatedSince retorna apenas o que mudou, da mudança mais antiga para a mais recente. Os webhooks contact.created, contact.opted_out e contact.opted_in avisam sobre novos contatos e mudanças de consentimento.",
+              "es": "POST /api/v1/contacts crea o actualiza un contacto por número de teléfono. PATCH /api/v1/contacts/{idOrPhone} acepta las etiquetas como { add, remove }, lo que es seguro cuando varios sistemas escriben a la vez. GET /api/v1/contacts con updatedSince devuelve solo lo que cambió, del cambio más antiguo al más reciente. Los webhooks contact.created, contact.opted_out y contact.opted_in te avisan de nuevos contactos y cambios de consentimiento.",
+              "id": "POST /api/v1/contacts membuat atau memperbarui kontak berdasarkan nomor telepon. PATCH /api/v1/contacts/{idOrPhone} menerima tag sebagai { add, remove }, yang aman saat beberapa sistem menulis bersamaan. GET /api/v1/contacts dengan updatedSince hanya mengembalikan yang berubah, dari perubahan terlama. Webhook contact.created, contact.opted_out, dan contact.opted_in memberi tahu Anda tentang kontak baru dan perubahan persetujuan.",
+              "ar": "ينشئ POST /api/v1/contacts جهة اتصال أو يحدّثها حسب رقم الهاتف. ويقبل PATCH /api/v1/contacts/{idOrPhone} الوسوم بصيغة { add, remove }، وهو آمن عندما تكتب عدة أنظمة في الوقت نفسه. ويعيد GET /api/v1/contacts مع updatedSince ما تغيّر فقط، بدءاً بالأقدم. وتُعلمك webhooks contact.created وcontact.opted_out وcontact.opted_in بجهات الاتصال الجديدة وتغييرات الموافقة.",
+              "tr": "POST /api/v1/contacts, bir kişiyi telefon numarasına göre oluşturur veya günceller. PATCH /api/v1/contacts/{idOrPhone}, etiketleri { add, remove } olarak kabul eder; bu, birden çok sistem aynı anda yazdığında güvenlidir. updatedSince ile GET /api/v1/contacts yalnızca değişenleri, en eski değişiklikten başlayarak döndürür. contact.created, contact.opted_out ve contact.opted_in webhook’ları yeni kişiler ve onay değişiklikleri hakkında sizi bilgilendirir."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I see which ad brought a contact in?",
+              "pt": "Posso ver qual anúncio trouxe um contato?",
+              "es": "¿Puedo ver qué anuncio trajo a un contacto?",
+              "id": "Bisakah saya melihat iklan mana yang membawa kontak?",
+              "ar": "هل يمكنني معرفة الإعلان الذي جلب جهة الاتصال؟",
+              "tr": "Bir kişiyi hangi reklamın getirdiğini görebilir miyim?"
+            },
+            "answer": {
+              "en": "Yes. A contact who started the chat from a Click-to-WhatsApp ad is marked with that source, and their page shows the ad headline, ad text, the ad or post ID and link, and the click ID. Other sources are WhatsApp, manual, CSV, link and API.",
+              "pt": "Sim. Um contato que iniciou o chat a partir de um anúncio Click-to-WhatsApp é marcado com essa origem, e a página dele mostra o título e o texto do anúncio, o ID e o link do anúncio ou publicação, e o ID de clique. As outras origens são WhatsApp, manual, CSV, link e API.",
+              "es": "Sí. Un contacto que inició el chat desde un anuncio Click-to-WhatsApp queda marcado con ese origen, y su página muestra el título y el texto del anuncio, el ID y el enlace del anuncio o publicación, y el ID de clic. Los demás orígenes son WhatsApp, manual, CSV, enlace y API.",
+              "id": "Ya. Kontak yang memulai obrolan dari iklan Click-to-WhatsApp ditandai dengan sumber tersebut, dan halamannya menampilkan judul iklan, teks iklan, ID dan tautan iklan atau postingan, serta ID klik. Sumber lainnya adalah WhatsApp, manual, CSV, tautan, dan API.",
+              "ar": "نعم. تُميَّز جهة الاتصال التي بدأت المحادثة من إعلان Click-to-WhatsApp بهذا المصدر، وتعرض صفحتها عنوان الإعلان ونصه ومعرّف الإعلان أو المنشور ورابطه ومعرّف النقرة. أما المصادر الأخرى فهي واتساب، ويدوي، وCSV، ورابط، وAPI.",
+              "tr": "Evet. Sohbeti bir Click-to-WhatsApp reklamından başlatan kişi bu kaynakla işaretlenir; sayfasında reklam başlığı, reklam metni, reklam veya gönderi kimliği ve bağlantısı ile tıklama kimliği görünür. Diğer kaynaklar WhatsApp, manuel, CSV, bağlantı ve API’dir."
+            }
+          },
+          {
+            "question": {
+              "en": "Can chatbot flows update the CRM?",
+              "pt": "Os fluxos de chatbot podem atualizar o CRM?",
+              "es": "¿Los flujos de chatbot pueden actualizar el CRM?",
+              "id": "Bisakah alur chatbot memperbarui CRM?",
+              "ar": "هل يمكن لتدفقات الشات بوت تحديث CRM؟",
+              "tr": "Chatbot akışları CRM’i güncelleyebilir mi?"
+            },
+            "answer": {
+              "en": "Yes. Flow steps can add or remove tags, set a field, change the pipeline stage and assign an agent, so a lead qualified by the bot arrives tagged and staged. Keyword auto-replies and chatbot flows are on the Advanced plan and included in the 14-day free trial.",
+              "pt": "Sim. As etapas do fluxo podem adicionar ou remover tags, definir um campo, mudar a etapa do funil e atribuir um agente, para que um lead qualificado pelo bot chegue com tags e etapa definidas. Respostas automáticas por palavra-chave e fluxos de chatbot fazem parte do plano Advanced e estão incluídos no teste grátis de 14 dias.",
+              "es": "Sí. Los pasos del flujo pueden añadir o quitar etiquetas, definir un campo, cambiar la etapa del embudo y asignar un agente, de modo que un lead calificado por el bot llega etiquetado y en su etapa. Las respuestas automáticas por palabra clave y los flujos de chatbot están en el plan Advanced e incluidos en la prueba gratis de 14 días.",
+              "id": "Ya. Langkah alur dapat menambah atau menghapus tag, mengatur kolom, mengubah tahap pipeline, dan menugaskan agen, sehingga prospek yang dikualifikasi bot tiba dengan tag dan tahap yang sesuai. Balasan otomatis kata kunci dan alur chatbot tersedia di paket Advanced dan termasuk dalam uji coba gratis 14 hari.",
+              "ar": "نعم. يمكن لخطوات التدفق إضافة الوسوم أو إزالتها، وتعيين حقل، وتغيير مرحلة خط المبيعات، وإسناد موظف، فيصل العميل المحتمل الذي أهّله البوت موسوماً وفي مرحلته الصحيحة. الردود التلقائية بالكلمات المفتاحية وتدفقات الشات بوت متاحة في باقة Advanced ومشمولة في التجربة المجانية لمدة 14 يوماً.",
+              "tr": "Evet. Akış adımları etiket ekleyip kaldırabilir, bir alan atayabilir, satış hattı aşamasını değiştirebilir ve temsilci atayabilir; böylece bot tarafından nitelendirilen bir aday etiketlenmiş ve doğru aşamada gelir. Anahtar kelime otomatik yanıtları ve chatbot akışları Advanced paketindedir ve 14 günlük ücretsiz denemeye dahildir."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar"
+        },
+        "links": [
+          {
+            "label": {
+              "en": "WhatsApp Shared Inbox",
+              "pt": "Caixa de Entrada Compartilhada do WhatsApp",
+              "es": "Bandeja de Entrada Compartida de WhatsApp",
+              "id": "Kotak Masuk Bersama WhatsApp",
+              "ar": "صندوق وارد واتساب المشترك",
+              "tr": "WhatsApp Ortak Gelen Kutusu"
+            },
+            "href": "/whatsapp/shared-inbox"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Broadcast Campaigns",
+              "pt": "Campanhas de Transmissão no WhatsApp",
+              "es": "Campañas de Difusión en WhatsApp",
+              "id": "Kampanye Siaran WhatsApp",
+              "ar": "حملات البث على واتساب",
+              "tr": "WhatsApp Yayın Kampanyaları"
+            },
+            "href": "/whatsapp/broadcast"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Chatbot Flows",
+              "pt": "Fluxos de Chatbot do WhatsApp",
+              "es": "Flujos de Chatbot de WhatsApp",
+              "id": "Alur Chatbot WhatsApp",
+              "ar": "تدفقات شات بوت واتساب",
+              "tr": "WhatsApp Chatbot Akışları"
+            },
+            "href": "/whatsapp/chatbot"
+          },
+          {
+            "label": {
+              "en": "Contacts API Docs",
+              "pt": "Documentação da API de Contatos",
+              "es": "Documentación de la API de Contactos",
+              "id": "Dokumentasi API Kontak",
+              "ar": "توثيق API جهات الاتصال",
+              "tr": "Kişi API Dokümantasyonu"
+            },
+            "href": "/docs/whatsapp/contacts"
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Turn WhatsApp Chats Into a Pipeline",
+          "pt": "Transforme Chats do WhatsApp em um Funil de Vendas",
+          "es": "Convierte los Chats de WhatsApp en un Embudo de Ventas",
+          "id": "Ubah Obrolan WhatsApp Menjadi Pipeline",
+          "ar": "حوّل محادثات واتساب إلى خط مبيعات",
+          "tr": "WhatsApp Sohbetlerini Bir Satış Hattına Dönüştürün"
+        },
+        "subtext": {
+          "en": "14-day free trial. Connect your own WhatsApp Business number and import your contacts with consent.",
+          "pt": "Teste grátis de 14 dias. Conecte seu próprio número do WhatsApp Business e importe seus contatos com consentimento.",
+          "es": "Prueba gratis de 14 días. Conecta tu propio número de WhatsApp Business e importa tus contactos con consentimiento.",
+          "id": "Uji coba gratis 14 hari. Hubungkan nomor WhatsApp Business Anda sendiri dan impor kontak Anda dengan persetujuan.",
+          "ar": "تجربة مجانية لمدة 14 يوماً. اربط رقم واتساب للأعمال الخاص بك واستورد جهات اتصالك بموافقتهم.",
+          "tr": "14 günlük ücretsiz deneme. Kendi WhatsApp Business numaranızı bağlayın ve kişilerinizi onaylarıyla içe aktarın."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Empieza la prueba gratis de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يوماً",
+          "tr": "14 günlük ücretsiz denemeyi başlat"
+        },
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
+      }
+    }
+  ]
+}

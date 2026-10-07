@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-07-02",
+  "updatedAt": "2026-10-07",
   "seo": {
     "title": {
       "en": "Videos & Tutorials — StartMessaging",
@@ -20,8 +20,12 @@
       "tr": "Videolar ve Eğitimler — StartMessaging"
     },
     "description": {
-      "en": "Watch step-by-step video tutorials on WhatsApp API integration, OTP setup, chatbot building, and campaign management.",
-      "ar": "شاهد دروس فيديو خطوة بخطوة حول تكامل واجهة برمجة تطبيقات واتساب وإعداد OTP وبناء الشات بوت وإدارة الحملات."
+      "en": "Watch step-by-step video tutorials on SMS API integration, DLT-free OTP setup and the StartMessaging console. WhatsApp CRM tutorials are built into the WhatsApp app.",
+      "pt": "Assista a tutoriais em vídeo passo a passo sobre integração da API de SMS, configuração de OTP sem DLT e o console StartMessaging. Os tutoriais do CRM para WhatsApp ficam dentro do app do WhatsApp.",
+      "es": "Vea tutoriales en video paso a paso sobre la integración de la API de SMS, la configuración de OTP sin DLT y la consola de StartMessaging. Los tutoriales del CRM para WhatsApp están dentro de la app de WhatsApp.",
+      "id": "Tonton tutorial video langkah demi langkah tentang integrasi API SMS, penyiapan OTP bebas DLT, dan konsol StartMessaging. Tutorial CRM WhatsApp tersedia langsung di dalam aplikasi WhatsApp.",
+      "ar": "شاهد دروس فيديو خطوة بخطوة حول تكامل واجهة SMS وإعداد OTP بدون DLT وكونسول StartMessaging. دروس CRM واتساب متاحة داخل تطبيق واتساب.",
+      "tr": "SMS API entegrasyonu, DLT'siz OTP kurulumu ve StartMessaging konsolu hakkında adım adım video eğitimler izleyin. WhatsApp CRM eğitimleri WhatsApp uygulamasının içinde yer alır."
     },
     "ogImage": "/og/videos.jpg"
   },
@@ -46,12 +50,12 @@
           "tr": "İzleyerek Öğrenin"
         },
         "subtitle": {
-          "en": "Step-by-step video tutorials covering API integration, OTP verification, chatbot building, broadcast campaigns, and more.",
-          "pt": "Tutoriais em vídeo passo a passo cobrindo integração de API, verificação OTP, construção de chatbot e campanhas de transmissão.",
-          "es": "Tutoriales paso a paso en video sobre integración de API, verificación OTP, creación de chatbots y campañas de difusión.",
-          "id": "Tutorial video langkah demi langkah mencakup integrasi API, verifikasi OTP, pembuatan chatbot, dan kampanye siaran.",
-          "ar": "دروس فيديو خطوة بخطوة تغطي تكامل API والتحقق من OTP وبناء الشات بوت وحملات البث.",
-          "tr": "API entegrasyonu, OTP doğrulama, chatbot oluşturma ve yayın kampanyalarını kapsayan adım adım video eğitimler."
+          "en": "Step-by-step video tutorials covering SMS API integration, DLT-free OTP setup and the dashboard. WhatsApp CRM users get 17 tutorial videos and in-app help on every page of the WhatsApp app.",
+          "pt": "Tutoriais em vídeo passo a passo sobre integração da API de SMS, configuração de OTP sem DLT e o painel. Usuários do CRM para WhatsApp têm 17 vídeos tutoriais e ajuda em cada página do app do WhatsApp.",
+          "es": "Tutoriales en video paso a paso sobre la integración de la API de SMS, la configuración de OTP sin DLT y el panel. Los usuarios del CRM para WhatsApp tienen 17 videos tutoriales y ayuda en cada página de la app de WhatsApp.",
+          "id": "Tutorial video langkah demi langkah tentang integrasi API SMS, penyiapan OTP bebas DLT, dan dasbor. Pengguna CRM WhatsApp mendapatkan 17 video tutorial dan bantuan di setiap halaman aplikasi WhatsApp.",
+          "ar": "دروس فيديو خطوة بخطوة تغطي تكامل واجهة SMS وإعداد OTP بدون DLT ولوحة التحكم. يحصل مستخدمو CRM واتساب على 17 فيديو تعليمياً ومساعدة داخل كل صفحة من تطبيق واتساب.",
+          "tr": "SMS API entegrasyonu, DLT'siz OTP kurulumu ve kontrol panelini kapsayan adım adım video eğitimler. WhatsApp CRM kullanıcıları WhatsApp uygulamasının her sayfasında 17 eğitim videosu ve uygulama içi yardım alır."
         }
       }
     },
@@ -139,18 +143,27 @@
           "tr": "Oluşturmaya Hazır mısınız?"
         },
         "subtext": {
-          "en": "Start with our free plan and follow along with the tutorials.",
-          "pt": "Comece com nosso plano gratuito e siga os tutoriais.",
-          "es": "Comience con nuestro plan gratuito y siga los tutoriales.",
-          "id": "Mulai dengan paket gratis kami dan ikuti tutorial.",
-          "ar": "ابدأ بخطتنا المجانية واتبع الدروس.",
-          "tr": "Ücretsiz planımızla başlayın ve eğitimleri takip edin."
+          "en": "Create your account and follow along with the tutorials.",
+          "pt": "Crie sua conta e acompanhe os tutoriais.",
+          "es": "Cree su cuenta y siga los tutoriales.",
+          "id": "Buat akun Anda dan ikuti tutorialnya.",
+          "ar": "أنشئ حسابك واتبع الدروس.",
+          "tr": "Hesabınızı oluşturun ve eğitimleri takip edin."
         },
         "primaryCta": {
           "en": "Get Started Free",
           "ar": "ابدأ مجاناً"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://app.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Start WhatsApp Free Trial",
+          "pt": "Iniciar Teste Grátis do WhatsApp",
+          "es": "Iniciar Prueba Gratis de WhatsApp",
+          "id": "Mulai Uji Coba WhatsApp Gratis",
+          "ar": "ابدأ تجربة واتساب المجانية",
+          "tr": "WhatsApp Ücretsiz Denemesini Başlat"
+        },
+        "secondaryHref": "https://whatsapp.startmessaging.com/signup"
       }
     }
   ]

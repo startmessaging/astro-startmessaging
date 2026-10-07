@@ -26,7 +26,10 @@ import Text from '@/components/ui/Text.astro';
 import Badge from '@/components/ui/Badge.astro';
 import { r } from '@/i18n/r';
 
-const { badge, heading, subheading, cases = [], country, theme = 'sms' } = Astro.props;
+const { badge, heading, subheading, cases: allCases = [], country, theme = 'sms' } = Astro.props;
+
+// A case may carry `countries` (e.g. India-only SMS use cases); hide it elsewhere.
+const cases = allCases.filter((uc: any) => !uc.countries || uc.countries.includes(country));
 
 const isWhatsapp = theme === 'whatsapp';
 const hoverBorderClass = isWhatsapp

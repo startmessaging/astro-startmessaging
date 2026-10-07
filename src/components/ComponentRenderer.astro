@@ -21,6 +21,9 @@
 import { componentMap } from './componentMap';
 import { COUNTRY_CONFIG, hasSms, isIndia, type Country } from '@/config/countries';
 import { localizeUrl } from '@/lib/seo';
+import { replaceContentTokens as replaceTokens, WA_APP_URL } from '@/lib/constants';
+
+const SMS_APP_PATTERN = /^https:\/\/app\.startmessaging\.com(?=\/|$)/;
 
 interface Props {
   type: string;
@@ -64,8 +67,13 @@ function localizeProps(obj: unknown): unknown {
 
         // Localize relative URL strings (keys ending in 'href' or 'url')
         if (typeof v === 'string' && (k.toLowerCase().endsWith('href') || k.toLowerCase().endsWith('url'))) {
-          return [k, localizeUrl(v, country as Country)];
+          let url = replaceTokens(v);
+          // WhatsApp-only countries have no SMS app: shared CTAs go to the WhatsApp CRM.
+          if (!hasSms(country as Country)) url = url.replace(SMS_APP_PATTERN, WA_APP_URL);
+          return [k, localizeUrl(url, country as Country)];
         }
+
+        if (typeof v === 'string') return [k, replaceTokens(v)];
 
         // Recurse into nested objects/arrays
         if (typeof v === 'object') return [k, localizeProps(v)];

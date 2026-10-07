@@ -1,0 +1,858 @@
+{
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
+  "theme": "whatsapp",
+  "updatedAt": "2026-10-07",
+  "seo": {
+    "ogImage": "/og/whatsapp-api.jpg",
+    "title": {
+      "en": "WhatsApp Forms (Meta Flows) — Collect Structured Answers — StartMessaging",
+      "pt": "Formulários do WhatsApp (Meta Flows) — Colete Respostas Estruturadas — StartMessaging",
+      "es": "Formularios de WhatsApp (Meta Flows) — Recopile Respuestas Estructuradas — StartMessaging",
+      "id": "Formulir WhatsApp (Meta Flows) — Kumpulkan Jawaban Terstruktur — StartMessaging",
+      "ar": "نماذج واتساب (Meta Flows) — اجمع إجابات منظمة — StartMessaging",
+      "tr": "WhatsApp Formları (Meta Flows) — Yapılandırılmış Yanıtlar Toplayın — StartMessaging"
+    },
+    "description": {
+      "en": "Send WhatsApp Forms built in Meta's Flow Builder from a template button, and receive every answer as structured fields in the shared inbox, the REST API and the message.received webhook.",
+      "pt": "Envie Formulários do WhatsApp criados no Flow Builder da Meta a partir de um botão de template e receba cada resposta como campos estruturados na caixa de entrada compartilhada, na API REST e no webhook message.received.",
+      "es": "Envíe Formularios de WhatsApp creados en el Flow Builder de Meta desde un botón de plantilla y reciba cada respuesta como campos estructurados en la bandeja compartida, la API REST y el webhook message.received.",
+      "id": "Kirim Formulir WhatsApp yang dibuat di Flow Builder Meta dari tombol template, dan terima setiap jawaban sebagai kolom terstruktur di kotak masuk bersama, REST API, dan webhook message.received.",
+      "ar": "أرسل نماذج واتساب المصممة في Flow Builder من Meta عبر زر في قالب، واستلم كل إجابة كحقول منظمة في صندوق الوارد المشترك وREST API وwebhook ‏message.received.",
+      "tr": "Meta'nın Flow Builder'ında oluşturulan WhatsApp Formlarını bir şablon düğmesiyle gönderin ve her yanıtı ortak gelen kutusunda, REST API'de ve message.received webhook'unda yapılandırılmış alanlar olarak alın."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "WhatsApp Forms",
+          "pt": "Formulários do WhatsApp",
+          "es": "Formularios de WhatsApp",
+          "id": "Formulir WhatsApp",
+          "ar": "نماذج واتساب",
+          "tr": "WhatsApp Formları"
+        },
+        "title": {
+          "en": "Collect Structured Answers Inside WhatsApp",
+          "pt": "Colete Respostas Estruturadas Dentro do WhatsApp",
+          "es": "Recopile Respuestas Estructuradas Dentro de WhatsApp",
+          "id": "Kumpulkan Jawaban Terstruktur di Dalam WhatsApp",
+          "ar": "اجمع إجابات منظمة داخل واتساب",
+          "tr": "WhatsApp İçinde Yapılandırılmış Yanıtlar Toplayın"
+        },
+        "subtitle": {
+          "en": "Build a form in Meta's Flow Builder, sync it into StartMessaging and attach it to a template button. Customers fill it in without leaving the chat, and every answer arrives as labelled fields in your inbox, the API and your webhooks.",
+          "pt": "Crie um formulário no Flow Builder da Meta, sincronize-o com a StartMessaging e anexe-o a um botão de template. Os clientes preenchem sem sair da conversa, e cada resposta chega como campos identificados na sua caixa de entrada, na API e nos seus webhooks.",
+          "es": "Cree un formulario en el Flow Builder de Meta, sincronícelo con StartMessaging y adjúntelo a un botón de plantilla. Los clientes lo completan sin salir del chat, y cada respuesta llega como campos etiquetados en su bandeja de entrada, la API y sus webhooks.",
+          "id": "Buat formulir di Flow Builder Meta, sinkronkan ke StartMessaging, dan lampirkan ke tombol template. Pelanggan mengisinya tanpa keluar dari chat, dan setiap jawaban tiba sebagai kolom berlabel di kotak masuk, API, dan webhook Anda.",
+          "ar": "صمّم نموذجًا في Flow Builder من Meta، ثم زامنه مع StartMessaging واربطه بزر في قالب. يملؤه العملاء دون مغادرة المحادثة، وتصل كل إجابة كحقول معنونة في صندوق الوارد وواجهة API والـwebhooks لديك.",
+          "tr": "Meta'nın Flow Builder'ında bir form oluşturun, StartMessaging'e senkronize edin ve bir şablon düğmesine ekleyin. Müşteriler sohbetten çıkmadan formu doldurur; her yanıt gelen kutunuza, API'ye ve webhook'larınıza etiketli alanlar olarak gelir."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Inicie la prueba gratuita de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يومًا",
+          "tr": "14 günlük ücretsiz denemeyi başlatın"
+        },
+        "primaryHref": "https://whatsapp.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Read the webhook docs",
+          "pt": "Leia a documentação de webhooks",
+          "es": "Lea la documentación de webhooks",
+          "id": "Baca dokumentasi webhook",
+          "ar": "اقرأ توثيق الـwebhooks",
+          "tr": "Webhook belgelerini okuyun"
+        },
+        "secondaryHref": "/docs/whatsapp/webhooks"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Built in Meta, Used in StartMessaging",
+          "pt": "Criado na Meta, Usado na StartMessaging",
+          "es": "Creado en Meta, Usado en StartMessaging",
+          "id": "Dibuat di Meta, Digunakan di StartMessaging",
+          "ar": "يُصمَّم في Meta ويُستخدم في StartMessaging",
+          "tr": "Meta'da Oluşturulur, StartMessaging'de Kullanılır"
+        },
+        "body": {
+          "en": "WhatsApp Forms are Meta Flows. You design the screens and questions in Meta's Flow Builder in Meta Business Manager; StartMessaging doesn't have its own form editor. Press Sync from Meta and your forms appear on the WhatsApp Forms page with their status, categories and Meta ID, ready to attach to a template's Flow button.",
+          "pt": "Os Formulários do WhatsApp são Meta Flows. Você cria as telas e perguntas no Flow Builder da Meta, no Meta Business Manager; a StartMessaging não tem um editor de formulários próprio. Clique em Sincronizar da Meta e seus formulários aparecem na página Formulários do WhatsApp com status, categorias e ID da Meta, prontos para anexar ao botão Flow de um template.",
+          "es": "Los Formularios de WhatsApp son Meta Flows. Usted diseña las pantallas y preguntas en el Flow Builder de Meta, en Meta Business Manager; StartMessaging no tiene un editor de formularios propio. Pulse Sincronizar desde Meta y sus formularios aparecen en la página Formularios de WhatsApp con su estado, categorías e ID de Meta, listos para adjuntar al botón Flow de una plantilla.",
+          "id": "Formulir WhatsApp adalah Meta Flows. Anda merancang layar dan pertanyaan di Flow Builder Meta di Meta Business Manager; StartMessaging tidak memiliki editor formulir sendiri. Tekan Sinkronkan dari Meta dan formulir Anda muncul di halaman Formulir WhatsApp beserta status, kategori, dan ID Meta-nya, siap dilampirkan ke tombol Flow pada template.",
+          "ar": "نماذج واتساب هي Meta Flows. تصمّم الشاشات والأسئلة في Flow Builder من Meta داخل Meta Business Manager؛ ولا تحتوي StartMessaging على محرر نماذج خاص بها. اضغط \"المزامنة من Meta\" لتظهر نماذجك في صفحة نماذج واتساب مع حالتها وفئاتها ومعرّف Meta الخاص بها، جاهزة للربط بزر Flow في أي قالب.",
+          "tr": "WhatsApp Formları, Meta Flows'tur. Ekranları ve soruları Meta Business Manager içindeki Meta Flow Builder'da tasarlarsınız; StartMessaging'in kendi form düzenleyicisi yoktur. Meta'dan Senkronize Et'e basın; formlarınız durumları, kategorileri ve Meta kimlikleriyle WhatsApp Formları sayfasında görünür ve bir şablonun Flow düğmesine eklenmeye hazır olur."
+        },
+        "bullets": [
+          {
+            "en": "Open Meta's Flow Builder from the WhatsApp Forms page",
+            "pt": "Abra o Flow Builder da Meta pela página Formulários do WhatsApp",
+            "es": "Abra el Flow Builder de Meta desde la página Formularios de WhatsApp",
+            "id": "Buka Flow Builder Meta dari halaman Formulir WhatsApp",
+            "ar": "افتح Flow Builder من Meta من صفحة نماذج واتساب",
+            "tr": "Meta Flow Builder'ı WhatsApp Formları sayfasından açın"
+          },
+          {
+            "en": "Sync from Meta to bring in new or changed forms",
+            "pt": "Sincronize da Meta para trazer formulários novos ou alterados",
+            "es": "Sincronice desde Meta para traer formularios nuevos o modificados",
+            "id": "Sinkronkan dari Meta untuk mengambil formulir baru atau yang diubah",
+            "ar": "زامن من Meta لجلب النماذج الجديدة أو المعدّلة",
+            "tr": "Yeni veya değişen formları almak için Meta'dan senkronize edin"
+          },
+          {
+            "en": "Attach a synced form to a template's Flow button",
+            "pt": "Anexe um formulário sincronizado ao botão Flow de um template",
+            "es": "Adjunte un formulario sincronizado al botón Flow de una plantilla",
+            "id": "Lampirkan formulir yang tersinkron ke tombol Flow template",
+            "ar": "اربط نموذجًا تمت مزامنته بزر Flow في قالب",
+            "tr": "Senkronize edilmiş bir formu bir şablonun Flow düğmesine ekleyin"
+          }
+        ],
+        "image": "/images/chatbot-flow.webp",
+        "imageAlt": {
+          "en": "WhatsApp Form flow attached to a template button",
+          "pt": "Fluxo de Formulário do WhatsApp anexado a um botão de template",
+          "es": "Flujo de Formulario de WhatsApp adjunto a un botón de plantilla",
+          "id": "Alur Formulir WhatsApp yang dilampirkan ke tombol template",
+          "ar": "مسار نموذج واتساب مرتبط بزر في قالب",
+          "tr": "Bir şablon düğmesine eklenmiş WhatsApp Form akışı"
+        },
+        "reversed": false
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Answers Land in the Chat, as Fields",
+          "pt": "As Respostas Chegam na Conversa, como Campos",
+          "es": "Las Respuestas Llegan al Chat, como Campos",
+          "id": "Jawaban Masuk ke Chat, sebagai Kolom",
+          "ar": "تصل الإجابات إلى المحادثة كحقول",
+          "tr": "Yanıtlar Sohbete Alanlar Olarak Gelir"
+        },
+        "body": {
+          "en": "When a customer submits a form, the shared inbox shows a WhatsApp Form card in the conversation with each answer labelled, including files from photo or document pickers. An address request shows as an address. If WhatsApp sends something that can't be read as fields, the card says so and lets you see exactly what WhatsApp sent, so nothing is lost.",
+          "pt": "Quando um cliente envia um formulário, a caixa de entrada compartilhada mostra um cartão de Formulário do WhatsApp na conversa com cada resposta identificada, incluindo arquivos de seletores de foto ou documento. Uma solicitação de endereço aparece como endereço. Se o WhatsApp enviar algo que não pode ser lido como campos, o cartão avisa e permite ver exatamente o que o WhatsApp enviou, para que nada se perca.",
+          "es": "Cuando un cliente envía un formulario, la bandeja compartida muestra una tarjeta de Formulario de WhatsApp en la conversación con cada respuesta etiquetada, incluidos archivos de selectores de foto o documento. Una solicitud de dirección se muestra como dirección. Si WhatsApp envía algo que no puede leerse como campos, la tarjeta lo indica y le permite ver exactamente lo que envió WhatsApp, para que no se pierda nada.",
+          "id": "Saat pelanggan mengirim formulir, kotak masuk bersama menampilkan kartu Formulir WhatsApp di percakapan dengan setiap jawaban berlabel, termasuk file dari pemilih foto atau dokumen. Permintaan alamat ditampilkan sebagai alamat. Jika WhatsApp mengirim sesuatu yang tidak bisa dibaca sebagai kolom, kartu memberi tahu Anda dan menampilkan persis apa yang dikirim WhatsApp, sehingga tidak ada yang hilang.",
+          "ar": "عندما يرسل العميل نموذجًا، يعرض صندوق الوارد المشترك بطاقة \"نموذج واتساب\" في المحادثة مع عنوان لكل إجابة، بما في ذلك الملفات من أدوات اختيار الصور أو المستندات. ويظهر طلب العنوان كعنوان. وإذا أرسل واتساب شيئًا لا يمكن قراءته كحقول، توضح البطاقة ذلك وتتيح لك رؤية ما أرسله واتساب بالضبط، فلا يضيع شيء.",
+          "tr": "Bir müşteri formu gönderdiğinde ortak gelen kutusu, sohbette her yanıtın etiketlendiği bir WhatsApp Form kartı gösterir; fotoğraf veya belge seçicilerden gelen dosyalar da dahildir. Adres isteği adres olarak görünür. WhatsApp alan olarak okunamayan bir şey gönderirse kart bunu belirtir ve WhatsApp'ın tam olarak ne gönderdiğini görmenizi sağlar; böylece hiçbir şey kaybolmaz."
+        },
+        "bullets": [
+          {
+            "en": "Each answer shown with a readable label",
+            "pt": "Cada resposta exibida com um rótulo legível",
+            "es": "Cada respuesta se muestra con una etiqueta legible",
+            "id": "Setiap jawaban ditampilkan dengan label yang mudah dibaca",
+            "ar": "تُعرض كل إجابة بعنوان مقروء",
+            "tr": "Her yanıt okunabilir bir etiketle gösterilir"
+          },
+          {
+            "en": "The same answers in GET /api/v1/messages/{id}",
+            "pt": "As mesmas respostas em GET /api/v1/messages/{id}",
+            "es": "Las mismas respuestas en GET /api/v1/messages/{id}",
+            "id": "Jawaban yang sama di GET /api/v1/messages/{id}",
+            "ar": "الإجابات نفسها في GET /api/v1/messages/{id}",
+            "tr": "Aynı yanıtlar GET /api/v1/messages/{id} içinde"
+          },
+          {
+            "en": "And in the form object of the message.received webhook",
+            "pt": "E no objeto form do webhook message.received",
+            "es": "Y en el objeto form del webhook message.received",
+            "id": "Dan di objek form pada webhook message.received",
+            "ar": "وفي كائن form ضمن webhook ‏message.received",
+            "tr": "Ve message.received webhook'undaki form nesnesinde"
+          }
+        ],
+        "image": "/images/customer-support-dashboard.webp",
+        "imageAlt": {
+          "en": "Shared inbox showing a submitted WhatsApp Form with labelled answers",
+          "pt": "Caixa de entrada compartilhada mostrando um Formulário do WhatsApp enviado com respostas identificadas",
+          "es": "Bandeja compartida que muestra un Formulario de WhatsApp enviado con respuestas etiquetadas",
+          "id": "Kotak masuk bersama yang menampilkan Formulir WhatsApp terkirim dengan jawaban berlabel",
+          "ar": "صندوق الوارد المشترك يعرض نموذج واتساب مُرسلًا مع إجابات معنونة",
+          "tr": "Etiketli yanıtlarla gönderilmiş bir WhatsApp Formu gösteren ortak gelen kutusu"
+        },
+        "reversed": true
+      }
+    },
+    {
+      "type": "stepFlow",
+      "props": {
+        "badge": {
+          "en": "How It Works",
+          "pt": "Como Funciona",
+          "es": "Cómo Funciona",
+          "id": "Cara Kerjanya",
+          "ar": "كيف يعمل",
+          "tr": "Nasıl Çalışır"
+        },
+        "heading": {
+          "en": "From Form to Answers in Four Steps",
+          "pt": "Do Formulário às Respostas em Quatro Passos",
+          "es": "Del Formulario a las Respuestas en Cuatro Pasos",
+          "id": "Dari Formulir ke Jawaban dalam Empat Langkah",
+          "ar": "من النموذج إلى الإجابات في أربع خطوات",
+          "tr": "Dört Adımda Formdan Yanıtlara"
+        },
+        "steps": [
+          {
+            "title": {
+              "en": "1. Build the form in Meta",
+              "pt": "1. Crie o formulário na Meta",
+              "es": "1. Cree el formulario en Meta",
+              "id": "1. Buat formulir di Meta",
+              "ar": "1. صمّم النموذج في Meta",
+              "tr": "1. Formu Meta'da oluşturun"
+            },
+            "description": {
+              "en": "Design the screens and questions in Meta's Flow Builder: a lead form, a booking, a feedback survey or anything else your customers need to fill in.",
+              "pt": "Crie as telas e perguntas no Flow Builder da Meta: um formulário de leads, uma reserva, uma pesquisa de satisfação ou qualquer outra coisa que seus clientes precisem preencher.",
+              "es": "Diseñe las pantallas y preguntas en el Flow Builder de Meta: un formulario de leads, una reserva, una encuesta de opinión o cualquier otra cosa que sus clientes deban completar.",
+              "id": "Rancang layar dan pertanyaan di Flow Builder Meta: formulir prospek, pemesanan, survei masukan, atau apa pun yang perlu diisi pelanggan Anda.",
+              "ar": "صمّم الشاشات والأسئلة في Flow Builder من Meta: نموذج عملاء محتملين، أو حجز، أو استبيان آراء، أو أي شيء آخر يحتاج عملاؤك إلى تعبئته.",
+              "tr": "Ekranları ve soruları Meta Flow Builder'da tasarlayın: potansiyel müşteri formu, rezervasyon, geri bildirim anketi veya müşterilerinizin doldurması gereken başka bir şey."
+            }
+          },
+          {
+            "title": {
+              "en": "2. Sync it into StartMessaging",
+              "pt": "2. Sincronize com a StartMessaging",
+              "es": "2. Sincronícelo con StartMessaging",
+              "id": "2. Sinkronkan ke StartMessaging",
+              "ar": "2. زامنه مع StartMessaging",
+              "tr": "2. StartMessaging'e senkronize edin"
+            },
+            "description": {
+              "en": "On the WhatsApp Forms page, press Sync from Meta. Your forms appear with their status and Meta ID.",
+              "pt": "Na página Formulários do WhatsApp, clique em Sincronizar da Meta. Seus formulários aparecem com status e ID da Meta.",
+              "es": "En la página Formularios de WhatsApp, pulse Sincronizar desde Meta. Sus formularios aparecen con su estado e ID de Meta.",
+              "id": "Di halaman Formulir WhatsApp, tekan Sinkronkan dari Meta. Formulir Anda muncul beserta status dan ID Meta-nya.",
+              "ar": "في صفحة نماذج واتساب، اضغط \"المزامنة من Meta\". تظهر نماذجك مع حالتها ومعرّف Meta.",
+              "tr": "WhatsApp Formları sayfasında Meta'dan Senkronize Et'e basın. Formlarınız durumları ve Meta kimlikleriyle görünür."
+            }
+          },
+          {
+            "title": {
+              "en": "3. Attach it to a template",
+              "pt": "3. Anexe a um template",
+              "es": "3. Adjúntelo a una plantilla",
+              "id": "3. Lampirkan ke template",
+              "ar": "3. اربطه بقالب",
+              "tr": "3. Bir şablona ekleyin"
+            },
+            "description": {
+              "en": "In the template builder, add a Flow (WhatsApp Form) button, pick the form and submit the template. Meta reviews it like any other template.",
+              "pt": "No editor de templates, adicione um botão Flow (Formulário do WhatsApp), escolha o formulário e envie o template. A Meta o revisa como qualquer outro template.",
+              "es": "En el editor de plantillas, añada un botón Flow (Formulario de WhatsApp), elija el formulario y envíe la plantilla. Meta la revisa como cualquier otra plantilla.",
+              "id": "Di pembuat template, tambahkan tombol Flow (Formulir WhatsApp), pilih formulirnya, lalu ajukan template. Meta meninjaunya seperti template lainnya.",
+              "ar": "في منشئ القوالب، أضف زر Flow (نموذج واتساب)، واختر النموذج، ثم أرسل القالب للمراجعة. تراجعه Meta مثل أي قالب آخر.",
+              "tr": "Şablon oluşturucuda bir Flow (WhatsApp Form) düğmesi ekleyin, formu seçin ve şablonu gönderin. Meta onu diğer şablonlar gibi inceler."
+            }
+          },
+          {
+            "title": {
+              "en": "4. Send it and read the answers",
+              "pt": "4. Envie e leia as respostas",
+              "es": "4. Envíelo y lea las respuestas",
+              "id": "4. Kirim dan baca jawabannya",
+              "ar": "4. أرسله واقرأ الإجابات",
+              "tr": "4. Gönderin ve yanıtları okuyun"
+            },
+            "description": {
+              "en": "Send the approved template from the dashboard or the API. Through the API, add your own flow token so each submission can be matched to your lead, order or booking.",
+              "pt": "Envie o template aprovado pelo painel ou pela API. Pela API, adicione seu próprio flow token para que cada envio possa ser associado ao seu lead, pedido ou reserva.",
+              "es": "Envíe la plantilla aprobada desde el panel o la API. Mediante la API, añada su propio flow token para que cada envío se pueda asociar a su lead, pedido o reserva.",
+              "id": "Kirim template yang disetujui dari dasbor atau API. Melalui API, tambahkan flow token Anda sendiri agar setiap kiriman formulir dapat dicocokkan dengan prospek, pesanan, atau pemesanan Anda.",
+              "ar": "أرسل القالب المعتمد من لوحة التحكم أو عبر API. وعند استخدام API، أضف flow token خاصًا بك لربط كل إرسال للنموذج بالعميل المحتمل أو الطلب أو الحجز لديك.",
+              "tr": "Onaylanmış şablonu panelden veya API ile gönderin. API üzerinden kendi flow token'ınızı ekleyin; böylece her gönderim potansiyel müşteriniz, siparişiniz veya rezervasyonunuzla eşleştirilebilir."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Compare",
+          "pt": "Comparar",
+          "es": "Comparar",
+          "id": "Bandingkan",
+          "ar": "المقارنة",
+          "tr": "Karşılaştırma"
+        },
+        "heading": {
+          "en": "WhatsApp Form vs. Questions in Chat vs. a Web Form Link",
+          "pt": "Formulário do WhatsApp vs. Perguntas na Conversa vs. Link para Formulário Web",
+          "es": "Formulario de WhatsApp vs. Preguntas en el Chat vs. Enlace a un Formulario Web",
+          "id": "Formulir WhatsApp vs. Pertanyaan di Chat vs. Tautan Formulir Web",
+          "ar": "نموذج واتساب مقابل الأسئلة في المحادثة مقابل رابط نموذج ويب",
+          "tr": "WhatsApp Form ve Sohbette Sorular ve Web Formu Bağlantısı"
+        },
+        "subheading": {
+          "en": "Three ways to collect details from a customer on WhatsApp.",
+          "pt": "Três formas de coletar dados de um cliente no WhatsApp.",
+          "es": "Tres formas de recopilar datos de un cliente en WhatsApp.",
+          "id": "Tiga cara mengumpulkan data dari pelanggan di WhatsApp.",
+          "ar": "ثلاث طرق لجمع البيانات من العميل على واتساب.",
+          "tr": "WhatsApp'ta bir müşteriden bilgi toplamanın üç yolu."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Capability",
+              "pt": "Capacidade",
+              "es": "Capacidad",
+              "id": "Kemampuan",
+              "ar": "القدرة",
+              "tr": "Kapasite"
+            }
+          },
+          {
+            "label": {
+              "en": "WhatsApp Form",
+              "pt": "Formulário do WhatsApp",
+              "es": "Formulario de WhatsApp",
+              "id": "Formulir WhatsApp",
+              "ar": "نموذج واتساب",
+              "tr": "WhatsApp Form"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Questions in chat",
+              "pt": "Perguntas na conversa",
+              "es": "Preguntas en el chat",
+              "id": "Pertanyaan di chat",
+              "ar": "أسئلة في المحادثة",
+              "tr": "Sohbette sorular"
+            }
+          },
+          {
+            "label": {
+              "en": "Web form link",
+              "pt": "Link para formulário web",
+              "es": "Enlace a formulario web",
+              "id": "Tautan formulir web",
+              "ar": "رابط نموذج ويب",
+              "tr": "Web formu bağlantısı"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Where the customer answers",
+              "pt": "Onde o cliente responde",
+              "es": "Dónde responde el cliente",
+              "id": "Tempat pelanggan menjawab",
+              "ar": "أين يجيب العميل",
+              "tr": "Müşterinin yanıtladığı yer"
+            },
+            {
+              "en": "Inside WhatsApp, on form screens",
+              "pt": "Dentro do WhatsApp, em telas de formulário",
+              "es": "Dentro de WhatsApp, en pantallas de formulario",
+              "id": "Di dalam WhatsApp, pada layar formulir",
+              "ar": "داخل واتساب، على شاشات النموذج",
+              "tr": "WhatsApp içinde, form ekranlarında"
+            },
+            {
+              "en": "Inside WhatsApp, one message at a time",
+              "pt": "Dentro do WhatsApp, uma mensagem por vez",
+              "es": "Dentro de WhatsApp, un mensaje a la vez",
+              "id": "Di dalam WhatsApp, satu pesan setiap kali",
+              "ar": "داخل واتساب، رسالة تلو الأخرى",
+              "tr": "WhatsApp içinde, her seferinde bir mesaj"
+            },
+            {
+              "en": "In a browser, outside WhatsApp",
+              "pt": "Em um navegador, fora do WhatsApp",
+              "es": "En un navegador, fuera de WhatsApp",
+              "id": "Di browser, di luar WhatsApp",
+              "ar": "في المتصفح، خارج واتساب",
+              "tr": "Tarayıcıda, WhatsApp dışında"
+            }
+          ],
+          [
+            {
+              "en": "What you receive",
+              "pt": "O que você recebe",
+              "es": "Qué recibe",
+              "id": "Yang Anda terima",
+              "ar": "ما تستلمه",
+              "tr": "Aldığınız şey"
+            },
+            {
+              "en": "Structured fields: key, label, value",
+              "pt": "Campos estruturados: chave, rótulo, valor",
+              "es": "Campos estructurados: clave, etiqueta, valor",
+              "id": "Kolom terstruktur: kunci, label, nilai",
+              "ar": "حقول منظمة: المفتاح والعنوان والقيمة",
+              "tr": "Yapılandırılmış alanlar: anahtar, etiket, değer"
+            },
+            {
+              "en": "Free text you parse yourself",
+              "pt": "Texto livre que você mesmo interpreta",
+              "es": "Texto libre que usted mismo interpreta",
+              "id": "Teks bebas yang Anda olah sendiri",
+              "ar": "نص حر تحلله بنفسك",
+              "tr": "Kendiniz ayrıştırdığınız serbest metin"
+            },
+            {
+              "en": "Whatever your form tool sends",
+              "pt": "O que sua ferramenta de formulário enviar",
+              "es": "Lo que envíe su herramienta de formularios",
+              "id": "Apa pun yang dikirim alat formulir Anda",
+              "ar": "ما ترسله أداة النماذج لديك",
+              "tr": "Form aracınızın gönderdiği her şey"
+            }
+          ],
+          [
+            {
+              "en": "How you match it to your record",
+              "pt": "Como associar ao seu registro",
+              "es": "Cómo asociarlo a su registro",
+              "id": "Cara mencocokkan dengan data Anda",
+              "ar": "كيف تربطه بسجلك",
+              "tr": "Kaydınızla nasıl eşleştirilir"
+            },
+            {
+              "en": "The flow token you send",
+              "pt": "O flow token que você envia",
+              "es": "El flow token que usted envía",
+              "id": "Flow token yang Anda kirim",
+              "ar": "الـflow token الذي ترسله",
+              "tr": "Gönderdiğiniz flow token"
+            },
+            {
+              "en": "Phone number and conversation",
+              "pt": "Número de telefone e conversa",
+              "es": "Número de teléfono y conversación",
+              "id": "Nomor telepon dan percakapan",
+              "ar": "رقم الهاتف والمحادثة",
+              "tr": "Telefon numarası ve sohbet"
+            },
+            {
+              "en": "Your own link parameters",
+              "pt": "Seus próprios parâmetros de link",
+              "es": "Sus propios parámetros de enlace",
+              "id": "Parameter tautan Anda sendiri",
+              "ar": "معاملات الرابط الخاصة بك",
+              "tr": "Kendi bağlantı parametreleriniz"
+            }
+          ],
+          [
+            {
+              "en": "Shown in the StartMessaging inbox",
+              "pt": "Exibido na caixa de entrada da StartMessaging",
+              "es": "Se muestra en la bandeja de StartMessaging",
+              "id": "Ditampilkan di kotak masuk StartMessaging",
+              "ar": "يظهر في صندوق وارد StartMessaging",
+              "tr": "StartMessaging gelen kutusunda gösterilir"
+            },
+            {
+              "en": "✓ (as a form card with labelled answers)",
+              "pt": "✓ (como cartão de formulário com respostas identificadas)",
+              "es": "✓ (como tarjeta de formulario con respuestas etiquetadas)",
+              "id": "✓ (sebagai kartu formulir dengan jawaban berlabel)",
+              "ar": "✓ (كبطاقة نموذج بإجابات معنونة)",
+              "tr": "✓ (etiketli yanıtlar içeren form kartı olarak)"
+            },
+            {
+              "en": "✓ (as messages)",
+              "pt": "✓ (como mensagens)",
+              "es": "✓ (como mensajes)",
+              "id": "✓ (sebagai pesan)",
+              "ar": "✓ (كرسائل)",
+              "tr": "✓ (mesajlar olarak)"
+            },
+            {
+              "en": "—",
+              "pt": "—",
+              "es": "—",
+              "id": "—",
+              "ar": "—",
+              "tr": "—"
+            }
+          ],
+          [
+            {
+              "en": "How it is sent",
+              "pt": "Como é enviado",
+              "es": "Cómo se envía",
+              "id": "Cara pengirimannya",
+              "ar": "كيف يُرسل",
+              "tr": "Nasıl gönderilir"
+            },
+            {
+              "en": "A template with a Flow button",
+              "pt": "Um template com botão Flow",
+              "es": "Una plantilla con botón Flow",
+              "id": "Template dengan tombol Flow",
+              "ar": "قالب يحتوي على زر Flow",
+              "tr": "Flow düğmeli bir şablon"
+            },
+            {
+              "en": "Text or interactive messages inside the 24-hour window",
+              "pt": "Mensagens de texto ou interativas dentro da janela de 24 horas",
+              "es": "Mensajes de texto o interactivos dentro de la ventana de 24 horas",
+              "id": "Pesan teks atau interaktif di dalam jendela 24 jam",
+              "ar": "رسائل نصية أو تفاعلية داخل نافذة الـ24 ساعة",
+              "tr": "24 saatlik pencere içinde metin veya etkileşimli mesajlar"
+            },
+            {
+              "en": "A link in a message or a URL button",
+              "pt": "Um link em uma mensagem ou um botão de URL",
+              "es": "Un enlace en un mensaje o un botón de URL",
+              "id": "Tautan dalam pesan atau tombol URL",
+              "ar": "رابط في رسالة أو زر URL",
+              "tr": "Bir mesajdaki bağlantı veya URL düğmesi"
+            }
+          ],
+          [
+            {
+              "en": "Where it is built",
+              "pt": "Onde é criado",
+              "es": "Dónde se crea",
+              "id": "Tempat pembuatannya",
+              "ar": "أين يُصمَّم",
+              "tr": "Nerede oluşturulur"
+            },
+            {
+              "en": "Meta's Flow Builder",
+              "pt": "Flow Builder da Meta",
+              "es": "Flow Builder de Meta",
+              "id": "Flow Builder Meta",
+              "ar": "Flow Builder من Meta",
+              "tr": "Meta Flow Builder"
+            },
+            {
+              "en": "Your agents or a chatbot flow",
+              "pt": "Seus atendentes ou um fluxo de chatbot",
+              "es": "Sus agentes o un flujo de chatbot",
+              "id": "Agen Anda atau alur chatbot",
+              "ar": "وكلاؤك أو مسار شات بوت",
+              "tr": "Temsilcileriniz veya bir sohbet botu akışı"
+            },
+            {
+              "en": "Your web form tool",
+              "pt": "Sua ferramenta de formulários web",
+              "es": "Su herramienta de formularios web",
+              "id": "Alat formulir web Anda",
+              "ar": "أداة نماذج الويب لديك",
+              "tr": "Web formu aracınız"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "API & Webhooks",
+          "pt": "API e Webhooks",
+          "es": "API y Webhooks",
+          "id": "API & Webhook",
+          "ar": "API والـWebhooks",
+          "tr": "API ve Webhook'lar"
+        },
+        "heading": {
+          "en": "Send a form with your own token, get the answers back as fields",
+          "pt": "Envie um formulário com seu próprio token e receba as respostas como campos",
+          "es": "Envíe un formulario con su propio token y reciba las respuestas como campos",
+          "id": "Kirim formulir dengan token Anda sendiri, terima jawabannya sebagai kolom",
+          "ar": "أرسل نموذجًا برمزك الخاص واستلم الإجابات كحقول",
+          "tr": "Kendi token'ınızla bir form gönderin, yanıtları alanlar olarak geri alın"
+        },
+        "subheading": {
+          "en": "Set the flow token with buttonParameters subType \"flow\". The submission arrives on message.received with form.flowToken, form.fields and, through context, the message that carried the form.",
+          "pt": "Defina o flow token com buttonParameters subType \"flow\". O envio chega em message.received com form.flowToken, form.fields e, via context, a mensagem que levou o formulário.",
+          "es": "Defina el flow token con buttonParameters subType \"flow\". El envío llega en message.received con form.flowToken, form.fields y, mediante context, el mensaje que llevaba el formulario.",
+          "id": "Atur flow token dengan buttonParameters subType \"flow\". Kiriman formulir tiba di message.received dengan form.flowToken, form.fields, dan, melalui context, pesan yang membawa formulir.",
+          "ar": "عيّن الـflow token باستخدام buttonParameters مع subType \"flow\". يصل الإرسال في message.received مع form.flowToken وform.fields، ومن خلال context الرسالة التي حملت النموذج.",
+          "tr": "Flow token'ı buttonParameters subType \"flow\" ile ayarlayın. Gönderim; form.flowToken, form.fields ve context aracılığıyla formu taşıyan mesajla birlikte message.received üzerinden gelir."
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "# Send the template whose Flow button opens your WhatsApp Form.\n# The flow token comes back on the submission as form.flowToken.\ncurl -X POST {{WA_API_BASE}}/api/v1/messages \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: lead-77-demo-form\" \\\n  -d '{\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"book_a_demo\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        { \"text\": \"Asha\" }\n      ],\n      \"buttonParameters\": [\n        { \"index\": 0, \"subType\": \"flow\", \"text\": \"lead-77\" }\n      ]\n    },\n    \"clientReference\": \"lead-77\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "// 1. Send the form (needs the messages:send scope)\nconst res = await fetch('{{WA_API_BASE}}/api/v1/messages', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + process.env.SM_API_KEY, // sm_live_your_api_key\n    'Content-Type': 'application/json',\n    'Idempotency-Key': 'lead-77-demo-form',\n  },\n  body: JSON.stringify({\n    to: '+919812345678',\n    type: 'template',\n    template: {\n      name: 'book_a_demo',\n      language: 'en_US',\n      parameters: [{ text: 'Asha' }],\n      buttonParameters: [{ index: 0, subType: 'flow', text: 'lead-77' }],\n    },\n    clientReference: 'lead-77',\n  }),\n});\nconst { data } = await res.json();\nconsole.log(data.id, data.status);\n\n// 2. In your message.received webhook handler (after verifying the signature)\nfunction onMessageReceived(event) {\n  const form = event.data.message.form;\n  if (!form) return;\n  const answers = Object.fromEntries(form.fields.map((f) => [f.key, f.value]));\n  // form.flowToken === 'lead-77' -> update that lead with the answers\n}"
+          },
+          {
+            "lang": "Python",
+            "code": "import os, requests\n\nres = requests.post(\n    '{{WA_API_BASE}}/api/v1/messages',\n    headers={\n        'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\",  # sm_live_your_api_key\n        'Idempotency-Key': 'lead-77-demo-form',\n    },\n    json={\n        'to': '+919812345678',\n        'type': 'template',\n        'template': {\n            'name': 'book_a_demo',\n            'language': 'en_US',\n            'parameters': [{'text': 'Asha'}],\n            'buttonParameters': [{'index': 0, 'subType': 'flow', 'text': 'lead-77'}],\n        },\n        'clientReference': 'lead-77',\n    },\n)\n\ndata = res.json()['data']\nprint(data['id'], data['status'])\n\n# Later: read the answers from the message.received webhook,\n# or GET /api/v1/messages/{id} for the inbound message (messages:read scope)."
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$body = json_encode([\n    'to' => '+919812345678',\n    'type' => 'template',\n    'template' => [\n        'name' => 'book_a_demo',\n        'language' => 'en_US',\n        'parameters' => [['text' => 'Asha']],\n        'buttonParameters' => [\n            ['index' => 0, 'subType' => 'flow', 'text' => 'lead-77'],\n        ],\n    ],\n    'clientReference' => 'lead-77',\n]);\n\n$ch = curl_init('{{WA_API_BASE}}/api/v1/messages');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        'Authorization: Bearer ' . getenv('SM_API_KEY'), // sm_live_your_api_key\n        'Content-Type: application/json',\n        'Idempotency-Key: lead-77-demo-form',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['status'];"
+          },
+          {
+            "lang": "Payload",
+            "code": "{\n  \"id\": \"evt_01JCA4M8ZP\",\n  \"type\": \"message.received\",\n  \"createdAt\": \"2026-10-07T11:05:12.000Z\",\n  \"workspaceId\": \"ws_9f2c\",\n  \"data\": {\n    \"message\": {\n      \"id\": \"msg_8e41\",\n      \"conversationId\": \"conv_3a90\",\n      \"contactId\": \"ct_88b1\",\n      \"from\": \"+919812345678\",\n      \"type\": \"interactive\",\n      \"text\": \"Full name: Asha Rao · City: Pune · Preferred date: 2026-10-12\",\n      \"reply\": null,\n      \"context\": {\n        \"messageId\": \"msg_7f20\",\n        \"clientReference\": \"lead-77\"\n      },\n      \"form\": {\n        \"kind\": \"flow\",\n        \"flowToken\": \"lead-77\",\n        \"flowId\": \"1187364520093321\",\n        \"flowName\": \"Book a demo\",\n        \"fields\": [\n          { \"key\": \"screen_0_Full_name_0\", \"label\": \"Full name\", \"value\": \"Asha Rao\" },\n          { \"key\": \"screen_0_City_1\", \"label\": \"City\", \"value\": \"Pune\" },\n          { \"key\": \"screen_0_Preferred_date_2\", \"label\": \"Preferred date\", \"value\": \"2026-10-12\" }\n        ],\n        \"raw\": null\n      },\n      \"referral\": null,\n      \"timestamp\": \"2026-10-07T11:05:10.000Z\"\n    },\n    \"contact\": {\n      \"id\": \"ct_88b1\",\n      \"phone\": \"+919812345678\",\n      \"name\": \"Asha\"\n    }\n  }\n}"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "WhatsApp Forms — FAQ",
+          "pt": "Formulários do WhatsApp — Perguntas Frequentes",
+          "es": "Formularios de WhatsApp — Preguntas Frecuentes",
+          "id": "Formulir WhatsApp — FAQ",
+          "ar": "نماذج واتساب — الأسئلة الشائعة",
+          "tr": "WhatsApp Formları — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "Can I build the form inside StartMessaging?",
+              "pt": "Posso criar o formulário dentro da StartMessaging?",
+              "es": "¿Puedo crear el formulario dentro de StartMessaging?",
+              "id": "Bisakah saya membuat formulir di dalam StartMessaging?",
+              "ar": "هل يمكنني تصميم النموذج داخل StartMessaging؟",
+              "tr": "Formu StartMessaging içinde oluşturabilir miyim?"
+            },
+            "answer": {
+              "en": "No. WhatsApp Forms are Meta Flows, and you build them in Meta's Flow Builder in Meta Business Manager. StartMessaging syncs your forms from Meta, lets you attach them to template buttons, and shows and delivers the answers.",
+              "pt": "Não. Os Formulários do WhatsApp são Meta Flows, e você os cria no Flow Builder da Meta, no Meta Business Manager. A StartMessaging sincroniza seus formulários da Meta, permite anexá-los a botões de template e exibe e entrega as respostas.",
+              "es": "No. Los Formularios de WhatsApp son Meta Flows, y se crean en el Flow Builder de Meta, en Meta Business Manager. StartMessaging sincroniza sus formularios desde Meta, le permite adjuntarlos a botones de plantilla y muestra y entrega las respuestas.",
+              "id": "Tidak. Formulir WhatsApp adalah Meta Flows, dan Anda membuatnya di Flow Builder Meta di Meta Business Manager. StartMessaging menyinkronkan formulir Anda dari Meta, memungkinkan Anda melampirkannya ke tombol template, serta menampilkan dan meneruskan jawabannya.",
+              "ar": "لا. نماذج واتساب هي Meta Flows، وتصمّمها في Flow Builder من Meta داخل Meta Business Manager. تزامن StartMessaging نماذجك من Meta، وتتيح لك ربطها بأزرار القوالب، وتعرض الإجابات وتوصلها إليك.",
+              "tr": "Hayır. WhatsApp Formları Meta Flows'tur ve Meta Business Manager içindeki Meta Flow Builder'da oluşturulur. StartMessaging formlarınızı Meta'dan senkronize eder, şablon düğmelerine eklemenizi sağlar ve yanıtları gösterip iletir."
+            }
+          },
+          {
+            "question": {
+              "en": "How do I send a WhatsApp Form to a customer?",
+              "pt": "Como envio um Formulário do WhatsApp a um cliente?",
+              "es": "¿Cómo envío un Formulario de WhatsApp a un cliente?",
+              "id": "Bagaimana cara mengirim Formulir WhatsApp ke pelanggan?",
+              "ar": "كيف أرسل نموذج واتساب إلى عميل؟",
+              "tr": "Bir müşteriye WhatsApp Formu nasıl gönderirim?"
+            },
+            "answer": {
+              "en": "Attach the form to a Flow button on a template and submit the template to Meta. Once Meta approves it, send it like any other template. Through the API, use POST /api/v1/messages with buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<your flow token>\" }].",
+              "pt": "Anexe o formulário a um botão Flow de um template e envie o template à Meta. Depois que a Meta aprovar, envie-o como qualquer outro template. Pela API, use POST /api/v1/messages com buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<seu flow token>\" }].",
+              "es": "Adjunte el formulario a un botón Flow de una plantilla y envíe la plantilla a Meta. Cuando Meta la apruebe, envíela como cualquier otra plantilla. Mediante la API, use POST /api/v1/messages con buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<su flow token>\" }].",
+              "id": "Lampirkan formulir ke tombol Flow pada template dan ajukan template ke Meta. Setelah Meta menyetujuinya, kirim seperti template lainnya. Melalui API, gunakan POST /api/v1/messages dengan buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<flow token Anda>\" }].",
+              "ar": "اربط النموذج بزر Flow في قالب وأرسل القالب إلى Meta للمراجعة. بعد موافقة Meta، أرسله مثل أي قالب آخر. وعبر API، استخدم POST /api/v1/messages مع buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<الـflow token الخاص بك>\" }].",
+              "tr": "Formu bir şablondaki Flow düğmesine ekleyin ve şablonu Meta'ya gönderin. Meta onayladıktan sonra diğer şablonlar gibi gönderin. API üzerinden POST /api/v1/messages ile buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<flow token'ınız>\" }] kullanın."
+            }
+          },
+          {
+            "question": {
+              "en": "How do I match a submission to my lead or booking?",
+              "pt": "Como associo um envio ao meu lead ou reserva?",
+              "es": "¿Cómo asocio un envío a mi lead o reserva?",
+              "id": "Bagaimana mencocokkan kiriman formulir dengan prospek atau pemesanan saya?",
+              "ar": "كيف أربط إرسال النموذج بالعميل المحتمل أو الحجز لديّ؟",
+              "tr": "Bir gönderimi potansiyel müşterim veya rezervasyonumla nasıl eşleştiririm?"
+            },
+            "answer": {
+              "en": "Send a flow token that identifies the record, such as \"lead-77\". It comes back on the submission as form.flowToken. If the send gave no token, flowToken is \"unused\". The submission's context also points to the message that carried the form, including its clientReference.",
+              "pt": "Envie um flow token que identifique o registro, como \"lead-77\". Ele volta no envio como form.flowToken. Se o envio não tiver token, flowToken será \"unused\". O context do envio também aponta para a mensagem que levou o formulário, incluindo seu clientReference.",
+              "es": "Envíe un flow token que identifique el registro, como \"lead-77\". Vuelve en el envío como form.flowToken. Si el envío no llevaba token, flowToken es \"unused\". El context del envío también apunta al mensaje que llevaba el formulario, incluido su clientReference.",
+              "id": "Kirim flow token yang mengidentifikasi data tersebut, misalnya \"lead-77\". Token kembali pada kiriman formulir sebagai form.flowToken. Jika pengiriman tidak menyertakan token, flowToken bernilai \"unused\". context pada kiriman juga menunjuk ke pesan yang membawa formulir, termasuk clientReference-nya.",
+              "ar": "أرسل flow token يعرّف السجل، مثل \"lead-77\". يعود مع الإرسال في form.flowToken. وإذا لم يتضمن الإرسال رمزًا، تكون قيمة flowToken هي \"unused\". كما يشير context في الإرسال إلى الرسالة التي حملت النموذج، بما في ذلك clientReference الخاص بها.",
+              "tr": "Kaydı tanımlayan bir flow token gönderin, örneğin \"lead-77\". Gönderimde form.flowToken olarak geri gelir. Gönderimde token yoksa flowToken \"unused\" olur. Gönderimin context alanı da formu taşıyan mesajı, clientReference değeriyle birlikte gösterir."
+            }
+          },
+          {
+            "question": {
+              "en": "Where can I read the answers?",
+              "pt": "Onde posso ler as respostas?",
+              "es": "¿Dónde puedo leer las respuestas?",
+              "id": "Di mana saya bisa membaca jawabannya?",
+              "ar": "أين يمكنني قراءة الإجابات؟",
+              "tr": "Yanıtları nerede okuyabilirim?"
+            },
+            "answer": {
+              "en": "In three places: as a form card in the shared inbox conversation; through the API with GET /api/v1/messages/{id} or the conversation's message list; and in the form object of the message.received webhook, as { kind, flowToken, flowId, flowName, fields: [{ key, label, value }], raw }.",
+              "pt": "Em três lugares: como cartão de formulário na conversa da caixa de entrada compartilhada; pela API com GET /api/v1/messages/{id} ou a lista de mensagens da conversa; e no objeto form do webhook message.received, como { kind, flowToken, flowId, flowName, fields: [{ key, label, value }], raw }.",
+              "es": "En tres lugares: como tarjeta de formulario en la conversación de la bandeja compartida; mediante la API con GET /api/v1/messages/{id} o la lista de mensajes de la conversación; y en el objeto form del webhook message.received, como { kind, flowToken, flowId, flowName, fields: [{ key, label, value }], raw }.",
+              "id": "Di tiga tempat: sebagai kartu formulir di percakapan kotak masuk bersama; melalui API dengan GET /api/v1/messages/{id} atau daftar pesan percakapan; dan di objek form pada webhook message.received, sebagai { kind, flowToken, flowId, flowName, fields: [{ key, label, value }], raw }.",
+              "ar": "في ثلاثة أماكن: كبطاقة نموذج في محادثة صندوق الوارد المشترك؛ وعبر API باستخدام GET /api/v1/messages/{id} أو قائمة رسائل المحادثة؛ وفي كائن form ضمن webhook ‏message.received بالشكل { kind, flowToken, flowId, flowName, fields: [{ key, label, value }], raw }.",
+              "tr": "Üç yerde: ortak gelen kutusu sohbetinde bir form kartı olarak; API üzerinden GET /api/v1/messages/{id} veya sohbetin mesaj listesiyle; ve message.received webhook'unun form nesnesinde { kind, flowToken, flowId, flowName, fields: [{ key, label, value }], raw } olarak."
+            }
+          },
+          {
+            "question": {
+              "en": "Are the field labels the ones I wrote in my form?",
+              "pt": "Os rótulos dos campos são os que escrevi no formulário?",
+              "es": "¿Las etiquetas de los campos son las que escribí en mi formulario?",
+              "id": "Apakah label kolom sama dengan yang saya tulis di formulir?",
+              "ar": "هل عناوين الحقول هي نفسها التي كتبتها في النموذج؟",
+              "tr": "Alan etiketleri formuma yazdıklarımla aynı mı?"
+            },
+            "answer": {
+              "en": "Not exactly. WhatsApp sends each answer with a response key, and StartMessaging turns that key into a readable label (Flow Builder's screen_0_Full_name_0 reads \"Full name\"). Map your data on key, which is exactly what WhatsApp sent. If the answers can't be read as JSON, fields is empty and raw holds WhatsApp's original reply.",
+              "pt": "Não exatamente. O WhatsApp envia cada resposta com uma chave, e a StartMessaging transforma essa chave em um rótulo legível (screen_0_Full_name_0 do Flow Builder vira \"Full name\"). Mapeie seus dados pela key, que é exatamente o que o WhatsApp enviou. Se as respostas não puderem ser lidas como JSON, fields fica vazio e raw guarda a resposta original do WhatsApp.",
+              "es": "No exactamente. WhatsApp envía cada respuesta con una clave, y StartMessaging convierte esa clave en una etiqueta legible (screen_0_Full_name_0 del Flow Builder se lee \"Full name\"). Mapee sus datos por key, que es exactamente lo que envió WhatsApp. Si las respuestas no pueden leerse como JSON, fields queda vacío y raw guarda la respuesta original de WhatsApp.",
+              "id": "Tidak persis. WhatsApp mengirim setiap jawaban dengan kunci respons, dan StartMessaging mengubah kunci itu menjadi label yang mudah dibaca (screen_0_Full_name_0 dari Flow Builder menjadi \"Full name\"). Petakan data Anda berdasarkan key, yang persis sama dengan yang dikirim WhatsApp. Jika jawaban tidak bisa dibaca sebagai JSON, fields kosong dan raw berisi balasan asli WhatsApp.",
+              "ar": "ليس تمامًا. يرسل واتساب كل إجابة مع مفتاح استجابة، وتحوّل StartMessaging هذا المفتاح إلى عنوان مقروء (يُقرأ screen_0_Full_name_0 من Flow Builder على أنه \"Full name\"). اربط بياناتك على key، فهو ما أرسله واتساب بالضبط. وإذا تعذّرت قراءة الإجابات بصيغة JSON، تكون fields فارغة ويحتوي raw على رد واتساب الأصلي.",
+              "tr": "Tam olarak değil. WhatsApp her yanıtı bir yanıt anahtarıyla gönderir ve StartMessaging bu anahtarı okunabilir bir etikete dönüştürür (Flow Builder'daki screen_0_Full_name_0, \"Full name\" olarak okunur). Verilerinizi WhatsApp'ın gönderdiği haliyle key üzerinden eşleyin. Yanıtlar JSON olarak okunamazsa fields boş olur ve raw, WhatsApp'ın orijinal yanıtını içerir."
+            }
+          },
+          {
+            "question": {
+              "en": "What can I use WhatsApp Forms for?",
+              "pt": "Para que posso usar os Formulários do WhatsApp?",
+              "es": "¿Para qué puedo usar los Formularios de WhatsApp?",
+              "id": "Untuk apa saya bisa menggunakan Formulir WhatsApp?",
+              "ar": "فيمَ يمكنني استخدام نماذج واتساب؟",
+              "tr": "WhatsApp Formlarını ne için kullanabilirim?"
+            },
+            "answer": {
+              "en": "Anything where you need several details in one go: lead capture, appointment and demo bookings, feedback surveys and address requests. Answers can be text, yes/no opt-ins, numbers, checkbox choices or files from a photo or document picker.",
+              "pt": "Qualquer situação em que você precise de vários dados de uma vez: captação de leads, agendamento de consultas e demonstrações, pesquisas de satisfação e solicitações de endereço. As respostas podem ser texto, aceites sim/não, números, opções de caixas de seleção ou arquivos de um seletor de foto ou documento.",
+              "es": "Cualquier caso en que necesite varios datos de una vez: captación de leads, reservas de citas y demostraciones, encuestas de opinión y solicitudes de dirección. Las respuestas pueden ser texto, aceptaciones sí/no, números, opciones de casillas o archivos de un selector de foto o documento.",
+              "id": "Apa pun yang membutuhkan beberapa data sekaligus: penangkapan prospek, pemesanan janji temu dan demo, survei masukan, dan permintaan alamat. Jawaban bisa berupa teks, persetujuan ya/tidak, angka, pilihan kotak centang, atau file dari pemilih foto atau dokumen.",
+              "ar": "أي حالة تحتاج فيها إلى عدة بيانات دفعة واحدة: جمع العملاء المحتملين، وحجز المواعيد والعروض التوضيحية، واستبيانات الآراء، وطلبات العناوين. يمكن أن تكون الإجابات نصًا، أو موافقة بنعم/لا، أو أرقامًا، أو اختيارات من مربعات الاختيار، أو ملفات من أداة اختيار الصور أو المستندات.",
+              "tr": "Tek seferde birkaç bilgiye ihtiyaç duyduğunuz her durum: potansiyel müşteri toplama, randevu ve demo rezervasyonları, geri bildirim anketleri ve adres istekleri. Yanıtlar metin, evet/hayır onayları, sayılar, onay kutusu seçimleri veya bir fotoğraf ya da belge seçiciden dosyalar olabilir."
+            }
+          },
+          {
+            "question": {
+              "en": "Do WhatsApp Forms cost extra?",
+              "pt": "Os Formulários do WhatsApp têm custo extra?",
+              "es": "¿Los Formularios de WhatsApp tienen un costo adicional?",
+              "id": "Apakah Formulir WhatsApp dikenakan biaya tambahan?",
+              "ar": "هل لنماذج واتساب تكلفة إضافية؟",
+              "tr": "WhatsApp Formları ek ücretli mi?"
+            },
+            "answer": {
+              "en": "StartMessaging doesn't charge per form or per message. Meta bills the template that carries the form, by its category, directly to your own WhatsApp Business Account.",
+              "pt": "A StartMessaging não cobra por formulário nem por mensagem. A Meta cobra o template que leva o formulário, conforme a categoria, diretamente na sua própria conta do WhatsApp Business.",
+              "es": "StartMessaging no cobra por formulario ni por mensaje. Meta factura la plantilla que lleva el formulario, según su categoría, directamente a su propia cuenta de WhatsApp Business.",
+              "id": "StartMessaging tidak menagih per formulir atau per pesan. Meta menagih template yang membawa formulir, sesuai kategorinya, langsung ke Akun WhatsApp Business Anda sendiri.",
+              "ar": "لا تفرض StartMessaging رسومًا على كل نموذج أو كل رسالة. تفوتر Meta القالب الذي يحمل النموذج، حسب فئته، مباشرة على حساب واتساب للأعمال الخاص بك.",
+              "tr": "StartMessaging form veya mesaj başına ücret almaz. Meta, formu taşıyan şablonu kategorisine göre doğrudan kendi WhatsApp Business Hesabınıza faturalandırır."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "صفحات ذات صلة",
+          "tr": "İlgili Sayfalar"
+        },
+        "links": [
+          {
+            "label": {
+              "en": "Template Builder",
+              "pt": "Criador de Templates",
+              "es": "Creador de Plantillas",
+              "id": "Pembuat Template",
+              "ar": "منشئ القوالب",
+              "tr": "Şablon Oluşturucu"
+            },
+            "href": "/whatsapp/templates"
+          },
+          {
+            "label": {
+              "en": "WhatsApp CRM",
+              "pt": "CRM para WhatsApp",
+              "es": "CRM para WhatsApp",
+              "id": "CRM WhatsApp",
+              "ar": "CRM لواتساب",
+              "tr": "WhatsApp CRM"
+            },
+            "href": "/whatsapp/crm"
+          },
+          {
+            "label": {
+              "en": "Developer API",
+              "pt": "API para Desenvolvedores",
+              "es": "API para Desarrolladores",
+              "id": "API Pengembang",
+              "ar": "واجهة API للمطورين",
+              "tr": "Geliştirici API"
+            },
+            "href": "/whatsapp/api"
+          },
+          {
+            "label": {
+              "en": "Webhooks Docs",
+              "pt": "Documentação de Webhooks",
+              "es": "Documentación de Webhooks",
+              "id": "Dokumentasi Webhook",
+              "ar": "توثيق الـWebhooks",
+              "tr": "Webhook Belgeleri"
+            },
+            "href": "/docs/whatsapp/webhooks"
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Start Collecting Answers on WhatsApp",
+          "pt": "Comece a Coletar Respostas no WhatsApp",
+          "es": "Empiece a Recopilar Respuestas en WhatsApp",
+          "id": "Mulai Kumpulkan Jawaban di WhatsApp",
+          "ar": "ابدأ جمع الإجابات على واتساب",
+          "tr": "WhatsApp'ta Yanıt Toplamaya Başlayın"
+        },
+        "subtext": {
+          "en": "Connect your WhatsApp Business Account, sync your forms from Meta and send your first one during the 14-day free trial.",
+          "pt": "Conecte sua conta do WhatsApp Business, sincronize seus formulários da Meta e envie o primeiro durante o teste grátis de 14 dias.",
+          "es": "Conecte su cuenta de WhatsApp Business, sincronice sus formularios desde Meta y envíe el primero durante la prueba gratuita de 14 días.",
+          "id": "Hubungkan Akun WhatsApp Business Anda, sinkronkan formulir dari Meta, dan kirim yang pertama selama uji coba gratis 14 hari.",
+          "ar": "اربط حساب واتساب للأعمال، وزامن نماذجك من Meta، وأرسل أول نموذج خلال التجربة المجانية لمدة 14 يومًا.",
+          "tr": "WhatsApp Business Hesabınızı bağlayın, formlarınızı Meta'dan senkronize edin ve ilkini 14 günlük ücretsiz deneme sırasında gönderin."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Inicie la prueba gratuita de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يومًا",
+          "tr": "14 günlük ücretsiz denemeyi başlatın"
+        },
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
+      }
+    }
+  ]
+}

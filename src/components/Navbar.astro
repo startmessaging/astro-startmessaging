@@ -56,7 +56,7 @@ const whatsappFeatures = [
 // Combined SMS & Auth API Links (India only)
 const smsAndAuthFeatures = [
   { title: "SMS Hub", desc: "Comprehensive enterprise SMS API", href: `${prefix}/sms`, comingSoon: false },
-  { title: "Universal Auth API", desc: "Verify users via WhatsApp + SMS fallback", href: `${prefix}/auth-api`, comingSoon: true },
+  { title: "Universal Auth API", desc: "Managed OTP verification over SMS", href: `${prefix}/auth-api`, comingSoon: true },
   { title: "DLT Compliance", desc: "DLT template setup and registry help", href: `${prefix}/sms/dlt`, comingSoon: false },
   { title: "Non-DLT OTP", desc: "Direct route delivery without DLT blocks", href: `${prefix}/sms/non-dlt`, comingSoon: false },
   { title: "DLT-Free OTP", desc: "Bypass complex registration protocols", href: `${prefix}/dlt-free-otp`, comingSoon: false },
@@ -76,7 +76,7 @@ const useCases = [
 if (isIndia) {
   useCases.push({
     title: "OTP Authentication",
-    desc: "Verify users via WhatsApp + SMS backup",
+    desc: "SMS OTP for login and 2FA",
     href: `${prefix}/use-cases/otp-authentication`,
     comingSoon: false
   });

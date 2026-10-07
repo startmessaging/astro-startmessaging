@@ -1,0 +1,407 @@
+---
+title: "Contacts & Tags"
+description: "Create, update, tag and delete WhatsApp contacts over the StartMessaging API. Upsert by phone, incremental sync with updatedSince, opt-in and opt-out rules, tags and pipeline stages."
+product: whatsapp
+order: 5
+---
+
+## Overview
+
+Contacts are the people your workspace talks to on WhatsApp. The same contacts appear in the dashboard's CRM, inbox and campaign audiences, so anything you write through the API is what your team sees.
+
+A contact is created automatically when a customer messages you or when you send to a new number with `POST /api/v1/messages`. Use the contacts endpoints to sync customers from your shop, CRM or ERP, keep tags and custom fields up to date, and record consent.
+
+| Method & path | Scope | What it does |
+|---|---|---|
+| `GET /api/v1/contacts` | `contacts:read` | List contacts, with filters |
+| `POST /api/v1/contacts` | `contacts:write` | Create or update a contact by phone (upsert) |
+| `GET /api/v1/contacts/{idOrPhone}` | `contacts:read` | Get one contact |
+| `PATCH /api/v1/contacts/{idOrPhone}` | `contacts:write` | Change only the fields you send |
+| `DELETE /api/v1/contacts/{idOrPhone}` | `contacts:write` | Soft-delete a contact |
+| `GET /api/v1/tags` | `contacts:read` | Tags in use, with counts |
+| `GET /api/v1/pipeline-stages` | `contacts:read` | The stages of your leads pipeline |
+
+All paths are relative to the API host, for example `{{WA_API_BASE}}/api/v1/contacts`. Every request needs `Authorization: Bearer sm_live_your_api_key`.
+
+`{idOrPhone}` is either the contact's id or its phone number in any format. URL-encode the `+` as `%2B`, or send the digits with the country code (`919812345678`). A number without a country code is read against your workspace's country.
+
+## The contact object
+
+```json
+{
+  "id": "3f0c2a52-8a51-4c0e-9d0a-2b7f8f3a9c11",
+  "phone": "+919812345678",
+  "name": "Asha Verma",
+  "email": "asha@example.com",
+  "tags": ["vip", "delhi"],
+  "attributes": { "city": "Pune", "orderId": "A-1042" },
+  "optedIn": true,
+  "source": "api",
+  "pipelineStageId": null,
+  "assignedToUserId": null,
+  "followUpAt": null,
+  "createdAt": "2026-10-02T10:00:00.000Z",
+  "updatedAt": "2026-10-02T10:05:00.000Z"
+}
+```
+
+| Field | Description |
+|---|---|
+| `id` | Contact id (UUID). |
+| `phone` | Phone number in E.164. A few contacts created before numbers were normalised hold it without the leading `+`. |
+| `name`, `email` | Or `null`. |
+| `tags` | Tags, in the order they were added. |
+| `attributes` | Custom fields. Keys and values are text. |
+| `optedIn` | `false` when this person opted out. Messages to them are refused until they opt back in. |
+| `source` | How the contact first arrived: `whatsapp`, `manual`, `csv`, `link`, `api` or `ctwa_ad` (their first message came from a Click-to-WhatsApp ad, and the ad is in the `ctwa_*` attributes). |
+| `pipelineStageId` | A stage from `GET /api/v1/pipeline-stages`, or `null` when the contact is not in the pipeline. |
+| `assignedToUserId` | The workspace member who owns this contact, or `null`. |
+| `followUpAt` | When to follow up, or `null`. |
+| `createdAt`, `updatedAt` | `updatedAt` is what `updatedSince` filters on. |
+
+## List contacts
+
+`GET /api/v1/contacts` returns contacts newest first, in the standard list shape `{ "items": [...], "nextCursor": "..." }`. Pass `nextCursor` back as `cursor` until it is `null`; `limit` is 1–100 (default 25). See [Pagination & Idempotency](/docs/whatsapp/pagination-and-idempotency).
+
+| Query parameter | Description |
+|---|---|
+| `phone` | Only the contact with this number, in any format (URL-encode `+` as `%2B`). |
+| `tag` | Only contacts with this tag. Repeat it to require every tag: `?tag=vip&tag=delhi`. |
+| `optedIn` | `true` for contacts you may message, `false` for those who opted out. Only the words `true` and `false` are accepted. |
+| `updatedSince` | Incremental sync: only contacts changed at or after this time, **oldest change first**. An ISO-8601 date, or a date and time with an offset (`2026-10-01T00:00:00Z`). |
+
+```bash
+curl "{{WA_API_BASE}}/api/v1/contacts?tag=vip&optedIn=true&limit=50" \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+```javascript
+const res = await fetch(
+  "{{WA_API_BASE}}/api/v1/contacts?tag=vip&optedIn=true&limit=50",
+  { headers: { Authorization: "Bearer sm_live_your_api_key" } }
+);
+const { data } = await res.json();
+console.log(data.items.length, data.nextCursor);
+```
+
+```python
+import requests
+
+res = requests.get(
+    "{{WA_API_BASE}}/api/v1/contacts",
+    headers={"Authorization": "Bearer sm_live_your_api_key"},
+    params={"tag": "vip", "optedIn": "true", "limit": 50},
+)
+page = res.json()["data"]
+print(len(page["items"]), page["nextCursor"])
+```
+
+### Incremental sync with updatedSince
+
+To mirror contacts into your own database:
+
+1. Call `GET /api/v1/contacts?updatedSince=...` and page through with `cursor`, keeping `updatedSince` unchanged while paging (a cursor belongs to its query).
+2. Upsert each row by `id`, and store the `updatedAt` of the last row you processed as your checkpoint.
+3. Start the next sync **a few minutes before** that checkpoint. Changes commit in parallel, so a row can land slightly behind one you already saw. Seeing a row twice is harmless; missing one is not.
+
+For the first sync, use a date from before your workspace existed, such as `2020-01-01`. Deleted contacts drop out of the list rather than coming back as a change. Without `updatedSince`, the list is ordered by `createdAt` and `updatedAt` is not a usable checkpoint.
+
+## Create or update a contact (upsert)
+
+`POST /api/v1/contacts` creates a contact, or updates the one that already has this phone number, so your system can send a customer as it knows them without looking them up first.
+
+| Field | Description |
+|---|---|
+| `phone` | **Required.** E.164 is safest; a number without a country code is read against your workspace's country. |
+| `name` | Up to 120 characters. `null` or `""` clears it on an existing contact. |
+| `email` | `null` clears it on an existing contact. |
+| `tags` | A list **replaces** the contact's tags. `{ "add": [...], "remove": [...] }` changes them and leaves the rest alone, which is usually what an upsert wants. |
+| `attributes` | Merged into the contact's custom fields. A `null` value deletes that field. |
+| `optedIn` | A **new** contact's starting consent (default `true`). See [Opt-in and opt-out](#opt-in-and-opt-out). |
+
+- **New number:** `201 Created`, `created: true`.
+- **Known number:** `200 OK`, `created: false`. Only the fields you send change.
+
+Send an `Idempotency-Key` header to retry safely.
+
+```bash
+curl -X POST "{{WA_API_BASE}}/api/v1/contacts" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: customer-1042-sync" \
+  -d '{
+    "phone": "+919812345678",
+    "name": "Asha Verma",
+    "email": "asha@example.com",
+    "tags": { "add": ["website-order"] },
+    "attributes": { "city": "Pune", "lastOrderId": "A-1042" }
+  }'
+```
+
+```javascript
+const res = await fetch("{{WA_API_BASE}}/api/v1/contacts", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer sm_live_your_api_key",
+    "Content-Type": "application/json",
+    "Idempotency-Key": "customer-1042-sync",
+  },
+  body: JSON.stringify({
+    phone: "+919812345678",
+    name: "Asha Verma",
+    email: "asha@example.com",
+    tags: { add: ["website-order"] },
+    attributes: { city: "Pune", lastOrderId: "A-1042" },
+  }),
+});
+const { data } = await res.json(); // res.status is 201 (created) or 200 (updated)
+console.log(data.created, data.contact.id);
+```
+
+```python
+import requests
+
+res = requests.post(
+    "{{WA_API_BASE}}/api/v1/contacts",
+    headers={
+        "Authorization": "Bearer sm_live_your_api_key",
+        "Idempotency-Key": "customer-1042-sync",
+    },
+    json={
+        "phone": "+919812345678",
+        "name": "Asha Verma",
+        "email": "asha@example.com",
+        "tags": {"add": ["website-order"]},
+        "attributes": {"city": "Pune", "lastOrderId": "A-1042"},
+    },
+)
+data = res.json()["data"]
+print(res.status_code, data["created"], data["contact"]["id"])
+```
+
+Response:
+
+```json
+{
+  "data": {
+    "contact": {
+      "id": "3f0c2a52-8a51-4c0e-9d0a-2b7f8f3a9c11",
+      "phone": "+919812345678",
+      "name": "Asha Verma",
+      "email": "asha@example.com",
+      "tags": ["website-order"],
+      "attributes": { "city": "Pune", "lastOrderId": "A-1042" },
+      "optedIn": true,
+      "source": "api",
+      "pipelineStageId": null,
+      "assignedToUserId": null,
+      "followUpAt": null,
+      "createdAt": "2026-10-02T10:00:00.000Z",
+      "updatedAt": "2026-10-02T10:00:00.000Z"
+    },
+    "created": true
+  },
+  "meta": { "requestId": "...", "timestamp": "2026-10-02T10:00:00.000Z" }
+}
+```
+
+A new contact counts towards your plan's contact limit. When the limit is full, creating one answers `403 PLAN_LIMIT_REACHED` with `details.limit: "max_contacts"`. Numbers you already have can still be updated and messaged. Delete contacts you no longer need or upgrade; retrying will not help.
+
+### Request limits
+
+- `tags`: at most 100 per list, each 1–100 characters.
+- `attributes`: at most 50 keys per request, keys up to 64 characters, values text up to 500 characters (or `null` to delete).
+
+## Get a contact
+
+```bash
+curl "{{WA_API_BASE}}/api/v1/contacts/%2B919812345678" \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+A phone that matches no contact, or is not a phone number at all, is `404 CONTACT_NOT_FOUND`, like an unknown id.
+
+## Update a contact
+
+`PATCH /api/v1/contacts/{idOrPhone}` changes only the fields you send.
+
+| Field | Description |
+|---|---|
+| `name`, `email` | `null` clears them. |
+| `tags` | A list replaces them. `{ "add": [...], "remove": [...] }` changes them in one step and is safe while other systems tag the same contact. A tag in both lists ends up removed. |
+| `attributes` | Merged; a `null` value deletes that field. |
+| `optedIn` | `false` records an opt-out. `true` records that they opted back in: the only way the API lifts an opt-out. |
+| `pipelineStageId` | A stage id from `GET /api/v1/pipeline-stages`, or `null` to take the contact out of the pipeline. |
+| `assignedToUserId` | An active member with the Agent role or above, or `null` to unassign. Otherwise `422 ASSIGNEE_NOT_MEMBER`. |
+| `followUpAt` | An ISO-8601 date, or date and time with an offset. `null` clears it. |
+
+```bash
+curl -X PATCH "{{WA_API_BASE}}/api/v1/contacts/%2B919812345678" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tags": { "add": ["vip"], "remove": ["lead"] },
+    "attributes": { "city": "Mumbai", "coupon": null },
+    "followUpAt": "2026-10-05T09:30:00+05:30"
+  }'
+```
+
+```javascript
+await fetch(
+  `{{WA_API_BASE}}/api/v1/contacts/${encodeURIComponent("+919812345678")}`,
+  {
+    method: "PATCH",
+    headers: {
+      Authorization: "Bearer sm_live_your_api_key",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      tags: { add: ["vip"], remove: ["lead"] },
+      attributes: { city: "Mumbai", coupon: null },
+    }),
+  }
+);
+```
+
+```python
+requests.patch(
+    "{{WA_API_BASE}}/api/v1/contacts/%2B919812345678",
+    headers={"Authorization": "Bearer sm_live_your_api_key"},
+    json={
+        "tags": {"add": ["vip"], "remove": ["lead"]},
+        "attributes": {"city": "Mumbai", "coupon": None},
+    },
+)
+```
+
+An unknown stage id is `404 PIPELINE_STAGE_NOT_FOUND`.
+
+## Delete a contact
+
+`DELETE /api/v1/contacts/{idOrPhone}` answers `204 No Content`. It is a **soft delete**:
+
+- The contact disappears from lists and lookups and stops counting towards your plan's contact limit.
+- Its conversations keep their history, but their `contactId` becomes `null` until the number writes in or is messaged again.
+- Adding the same number later creates a new contact.
+- **Consent is not deleted.** If the person opted out, the opt-out stays on the number (see below).
+
+## Write-only keys
+
+`contacts:write` does not include `contacts:read`. A key with write but not read gets back only the id, never the record:
+
+- `POST /api/v1/contacts` → `{ "contact": { "id": "..." }, "created": true }`
+- `PATCH /api/v1/contacts/{idOrPhone}` → `{ "id": "..." }`
+
+## Opt-in and opt-out
+
+WhatsApp requires consent for business messages, and the API enforces it. A send to an opted-out contact is refused with `422 CONTACT_OPTED_OUT`, and campaigns skip them.
+
+**How someone opts out:**
+
+- They reply **STOP**.
+- They turn off your marketing messages in WhatsApp.
+- You record it: `PATCH` with `optedIn: false`, `POST /api/v1/contacts` with `optedIn: false`, or the dashboard.
+
+**How someone opts back in:**
+
+- They send **START**.
+- You record a real opt-in with `PATCH /api/v1/contacts/{idOrPhone}` and `optedIn: true`.
+
+**`POST /api/v1/contacts` never opts anyone back in.** `optedIn` is a new contact's starting consent. On a number you already have, only `optedIn: false` is applied; `optedIn: true` is ignored. This stops a routine order sync from cancelling a customer's STOP.
+
+**An opt-out belongs to the number, not the contact.** It is stored against the phone number as well as the contact, so deleting the contact does not remove it. Sends to the number are still refused, and a contact created for it again (by `POST /api/v1/contacts` with any `optedIn`, a CSV import, or the customer writing in) starts opted out. Only START or a `PATCH` with `optedIn: true` lifts it. Opt-outs are per workspace.
+
+A contact imported by CSV without confirmed consent starts opted out but has not opted out of anything: deleting it frees the number.
+
+## Tags
+
+`GET /api/v1/tags` lists every tag on a contact in your workspace with how many contacts carry it, most used first. The whole list comes in one page (`nextCursor` is always `null`).
+
+```bash
+curl "{{WA_API_BASE}}/api/v1/tags" \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+```json
+{
+  "data": {
+    "items": [
+      { "tag": "vip", "count": 42 },
+      { "tag": "website-order", "count": 17 }
+    ],
+    "nextCursor": null
+  },
+  "meta": { "requestId": "...", "timestamp": "2026-10-02T10:00:00.000Z" }
+}
+```
+
+Tags exist only on contacts: add a tag to a contact and it appears here.
+
+## Pipeline stages
+
+`GET /api/v1/pipeline-stages` lists the columns of your leads pipeline, left to right. Use a stage's `id` as a contact's `pipelineStageId`.
+
+```json
+{
+  "data": {
+    "items": [
+      { "id": "9b1e4c3d-2f6a-4b8e-a1d0-5c7e9f2b3a44", "name": "New", "position": 0, "isDefault": true },
+      { "id": "1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f", "name": "Interested", "position": 1, "isDefault": false }
+    ],
+    "nextCursor": null
+  },
+  "meta": { "requestId": "...", "timestamp": "2026-10-02T10:00:00.000Z" }
+}
+```
+
+Stages are created and renamed in the dashboard. New contacts are not placed in the default stage automatically.
+
+## Contact webhooks
+
+Subscribe to these events (they need `contacts:read`) to hear about contacts without polling. See [Webhooks](/docs/whatsapp/webhooks).
+
+| Event | When |
+|---|---|
+| `contact.created` | A contact was created: by an inbound message, the dashboard or the API. Not sent per row of a CSV import. |
+| `contact.opted_out` | Consent was withdrawn: STOP, WhatsApp's marketing preference, the dashboard or the API. |
+| `contact.opted_in` | Consent was given back: START, the dashboard or the API. |
+
+```json
+{
+  "id": "evt_5b2e8f9a-1c3d-4e5f-8a9b-0c1d2e3f4a5b",
+  "type": "contact.opted_out",
+  "createdAt": "2026-10-02T10:00:00.000Z",
+  "workspaceId": "...",
+  "data": {
+    "contact": {
+      "id": "3f0c2a52-8a51-4c0e-9d0a-2b7f8f3a9c11",
+      "phone": "+919812345678",
+      "name": "Asha Verma",
+      "email": null,
+      "tags": ["vip"],
+      "optedIn": false,
+      "source": "api",
+      "createdAt": "2026-10-02T09:00:00.000Z"
+    }
+  }
+}
+```
+
+A contact created already opted out (because the number opted out earlier) is announced by `contact.created` with `optedIn: false`, with no `contact.opted_out`, since consent did not change.
+
+## FAQ
+
+**Should I use POST or PATCH to sync customers?**
+Use `POST /api/v1/contacts`. It upserts by phone, so you do not need to look the contact up first. Use `tags: { "add": [...] }` so you do not wipe tags your team added in the dashboard.
+
+**A customer asked to hear from us again. How do I opt them back in?**
+`PATCH /api/v1/contacts/{idOrPhone}` with `"optedIn": true`, only when they really did opt in. `POST` with `optedIn: true` is ignored on a number you already have.
+
+**I deleted a contact but sends still fail with CONTACT_OPTED_OUT. Why?**
+Opt-outs belong to the phone number and survive deleting the contact. The customer must send START, or you must record a real opt-in with `PATCH` and `optedIn: true`.
+
+**Why do I get 403 PLAN_LIMIT_REACHED when creating a contact?**
+Your plan's contact limit is full (`details.limit` is `max_contacts`). Deleted contacts stop counting, so remove ones you no longer need, or upgrade.
+
+**Why does my write return only an id?**
+Your API key has `contacts:write` but not `contacts:read`. Add the read scope to the key if you need the full record back.

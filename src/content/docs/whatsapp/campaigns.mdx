@@ -1,0 +1,206 @@
+---
+title: "Campaigns"
+description: "Send an approved WhatsApp template to many contacts with StartMessaging campaigns. Build and launch campaigns in the dashboard, then read their delivery stats over the API and the campaign.completed webhook."
+product: whatsapp
+order: 7
+---
+
+## Overview
+
+A campaign sends one approved template to many contacts at once: announcements, offers, reminders. Campaigns are **built and launched in the dashboard**. The API is **read-only** for campaigns: your systems can list them, read their delivery numbers and get a webhook when one finishes.
+
+To message one customer from your own system (an order update, a one-time password), send a template with `POST /api/v1/messages` instead. See [Send Messages](/docs/whatsapp/send-message).
+
+## Create a campaign in the dashboard
+
+Go to **Campaigns → New campaign**. Managers and above can create, edit and launch campaigns. The builder has three steps, and nothing is sent until you choose **Create and launch**.
+
+### 1. Message
+
+- Name the campaign and pick an **approved** template. If none appear, create one and wait for Meta's review. See [Message Templates](/docs/whatsapp/message-templates).
+- Fill each template variable from a contact field, a custom attribute or fixed text. Every variable needs a value: Meta rejects a message with an empty one.
+- Add the header image, video or document if the template has a media header.
+- Optionally enrol every recipient in a **follow-up chatbot flow** after the message is sent, so replies are handled automatically.
+
+### 2. Audience
+
+- Choose recipients from your contacts by **tags** and the **opt-in** filter, or upload a **CSV** audience.
+- Opted-out contacts cannot be selected, and anyone who opts out before their turn is skipped. A CSV audience goes to every number in it that has not opted out, so upload only people who agreed to hear from you.
+
+### 3. Review
+
+Check the summary, then save a draft or create and launch.
+
+### While it runs
+
+- **Pause** a running campaign and **resume** it later.
+- **Duplicate** a campaign to send something similar again.
+- Open a campaign's insights for sent, delivered, read and failed counts and a delivery-over-time chart (when your plan includes campaign analytics).
+
+## Good practice
+
+- **Space marketing campaigns at least 48 hours apart.** Too many messages too fast lead to blocks and reports, which lower your number's quality rating and messaging limit.
+- **Check your messaging limit.** Meta limits how many unique customers your business can message in a rolling 24 hours, shared by all its numbers. Your current limit is shown in the dashboard and in `GET /api/v1/phone-numbers`.
+- **Billing.** Meta bills campaign messages to your own WhatsApp Business Account as template messages. StartMessaging does not charge per message.
+
+## Campaign statuses
+
+| Status | Meaning |
+|---|---|
+| `DRAFT` | Saved, not launched. Can still be edited. |
+| `SCHEDULED` | Set to start at `scheduledAt`. |
+| `RUNNING` | Sending. |
+| `PAUSED` | Paused in the dashboard; resume to continue. |
+| `COMPLETED` | Finished sending. Fires `campaign.completed`. |
+| `FAILED` | Stopped by an error before finishing. |
+
+Campaigns launched from the dashboard start sending straight away.
+
+## List campaigns
+
+`GET /api/v1/campaigns` (scope `campaigns:read`) returns your campaigns newest first with their delivery totals, in the standard `{ "items": [...], "nextCursor": "..." }` list shape. Filter with `status` (one of the statuses above); page with `limit` (1–100, default 25) and `cursor`.
+
+```bash
+curl "{{WA_API_BASE}}/api/v1/campaigns?status=RUNNING" \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+```javascript
+const res = await fetch("{{WA_API_BASE}}/api/v1/campaigns?status=RUNNING", {
+  headers: { Authorization: "Bearer sm_live_your_api_key" },
+});
+const { data } = await res.json();
+for (const c of data.items) console.log(c.name, c.stats.delivered, "/", c.stats.total);
+```
+
+```python
+import requests
+
+res = requests.get(
+    "{{WA_API_BASE}}/api/v1/campaigns",
+    headers={"Authorization": "Bearer sm_live_your_api_key"},
+    params={"status": "RUNNING"},
+)
+for c in res.json()["data"]["items"]:
+    print(c["name"], c["stats"]["delivered"], "/", c["stats"]["total"])
+```
+
+Each item:
+
+```json
+{
+  "id": "e2d4c6b8-a1f3-4e5d-8c7b-9a0f1e2d3c4b",
+  "name": "Diwali offer",
+  "status": "COMPLETED",
+  "templateName": "diwali_offer",
+  "templateLanguage": "en",
+  "scheduledAt": null,
+  "startedAt": "2026-10-20T04:30:05.000Z",
+  "completedAt": "2026-10-20T05:02:41.000Z",
+  "stats": { "total": 1200, "sent": 1180, "delivered": 1102, "read": 640, "failed": 20 },
+  "skippedOptedOut": 14,
+  "createdAt": "2026-10-18T11:00:00.000Z"
+}
+```
+
+| Field | Description |
+|---|---|
+| `templateName`, `templateLanguage` | The template it sends. |
+| `scheduledAt` | When it is set to start, or `null`. |
+| `startedAt` | When sending started; `null` until launched. |
+| `completedAt` | When sending finished. |
+| `stats.total` | Recipients the campaign may message. Opted-out contacts are left out and counted in `skippedOptedOut`. |
+| `stats.sent` | Messages WhatsApp accepted. |
+| `stats.delivered` | Delivered to the phone (read messages count here too). |
+| `stats.read` | Opened by the customer (only customers with read receipts on are counted). |
+| `stats.failed` | Messages WhatsApp refused or could not deliver. |
+| `skippedOptedOut` | Recipients skipped because they had opted out. A skip is consent being respected, not a failure. |
+
+The totals are cumulative: a read message is also counted as delivered and sent. A send Meta never confirmed, and recipients still waiting their turn, count as neither sent nor failed, so the numbers may not add up to `total` while a campaign runs.
+
+The API never returns a campaign's audience list.
+
+## Get a campaign
+
+`GET /api/v1/campaigns/{id}` returns the same fields plus `analytics`: per-day figures when your plan includes campaign analytics, `null` otherwise. An unknown id is `404 CAMPAIGN_NOT_FOUND`.
+
+```bash
+curl "{{WA_API_BASE}}/api/v1/campaigns/e2d4c6b8-a1f3-4e5d-8c7b-9a0f1e2d3c4b" \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+```json
+{
+  "data": {
+    "id": "e2d4c6b8-a1f3-4e5d-8c7b-9a0f1e2d3c4b",
+    "name": "Diwali offer",
+    "status": "COMPLETED",
+    "templateName": "diwali_offer",
+    "templateLanguage": "en",
+    "scheduledAt": null,
+    "startedAt": "2026-10-20T04:30:05.000Z",
+    "completedAt": "2026-10-20T05:02:41.000Z",
+    "stats": { "total": 1200, "sent": 1180, "delivered": 1102, "read": 640, "failed": 20 },
+    "skippedOptedOut": 14,
+    "createdAt": "2026-10-18T11:00:00.000Z",
+    "analytics": {
+      "timeseries": [
+        { "date": "2026-10-20", "sent": 1180, "delivered": 1102, "read": 640, "failed": 20 }
+      ]
+    }
+  },
+  "meta": { "requestId": "...", "timestamp": "2026-10-21T09:00:00.000Z" }
+}
+```
+
+Each `timeseries` entry counts the messages **sent that day** (`date` as `YYYY-MM-DD`), cumulative like `stats`.
+
+## The campaign.completed webhook
+
+Rather than polling for the end of a run, subscribe to `campaign.completed` (needs `campaigns:read`). It fires once, when a campaign finishes sending. A campaign that ends as `FAILED` does not fire it.
+
+```json
+{
+  "id": "evt_2c3d4e5f-6a7b-4c8d-9e0f-1a2b3c4d5e6f",
+  "type": "campaign.completed",
+  "createdAt": "2026-10-20T05:02:41.000Z",
+  "workspaceId": "...",
+  "data": {
+    "campaign": {
+      "id": "e2d4c6b8-a1f3-4e5d-8c7b-9a0f1e2d3c4b",
+      "name": "Diwali offer",
+      "status": "COMPLETED",
+      "completedAt": "2026-10-20T05:02:41.000Z",
+      "stats": {
+        "total": 1200,
+        "sent": 1180,
+        "delivered": 1102,
+        "read": 640,
+        "failed": 20,
+        "skipped": 14
+      }
+    }
+  }
+}
+```
+
+`stats.skipped` is the same number as `skippedOptedOut` on the API. Delivery and read receipts keep arriving after a campaign completes, so read the campaign again later for final numbers.
+
+Individual campaign messages also fire `message.sent`, `message.delivered`, `message.read` and `message.failed` with `campaignId` set, if you subscribe to them. See [Webhooks](/docs/whatsapp/webhooks).
+
+## FAQ
+
+**Can I create or launch a campaign through the API?**
+No. Campaigns are created, launched, paused and resumed in the dashboard. The API reads them. To send to a list from your own system, call `POST /api/v1/messages` once per recipient within your plan's send limits.
+
+**Why is total lower than the number of contacts I selected?**
+Opted-out contacts are left out of `total` and counted in `skippedOptedOut` instead.
+
+**Why is analytics null?**
+Your plan does not include campaign analytics. `stats` are still returned on every plan.
+
+**Does StartMessaging charge per campaign message?**
+No. Meta bills template messages directly to your WhatsApp Business Account. StartMessaging charges a flat subscription.
+
+**How often should I send marketing campaigns?**
+Space them at least 48 hours apart. Frequent marketing messages lead to blocks, which lower your quality rating and messaging limit.

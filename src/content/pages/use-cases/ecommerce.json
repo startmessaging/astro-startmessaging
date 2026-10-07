@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-10-07",
   "seo": {
     "title": {
       "en": "WhatsApp for E-Commerce Use Case — StartMessaging",
@@ -21,12 +21,12 @@
       "ng": "WhatsApp for E-Commerce Use Case — StartMessaging"
     },
     "description": {
-      "en": "Implement order tracking, checkouts, and abandoned cart recovery on WhatsApp. Boost store conversion ratios by 25%.",
-      "pt": "Automatize toda a jornada do cliente e-commerce no WhatsApp. Recupere carrinhos abandonados e envie atualizações.",
-      "es": "Automatice toda la jornada del cliente e-commerce en WhatsApp. Recupere carritos abandonados y envíe alertas.",
-      "id": "Otomatisasi seluruh perjalanan pelanggan e-commerce di WhatsApp. Pulihkan keranjang belanja dan kirim notifikasi.",
-      "ar": "أتمت رحلة عميل التجارة الإلكترونية بالكامل على واتساب. استعد السلال المهجورة وأرسل تنبيهات الشحن.",
-      "tr": "WhatsApp'ta e-ticaret müşteri yolculuğunu otomatikleştirin. Terk edilmiş sepetleri kurtarın ve kargo takibi gönderin."
+      "en": "Send order updates, abandoned-cart reminders and review requests on WhatsApp from your store, using the Messages API and signed webhooks.",
+      "pt": "Envie atualizações de pedidos, lembretes de carrinho abandonado e pedidos de avaliação no WhatsApp a partir da sua loja, usando a API de Mensagens e webhooks assinados.",
+      "es": "Envíe actualizaciones de pedidos, recordatorios de carrito abandonado y solicitudes de reseña por WhatsApp desde su tienda, con la API de Mensajes y webhooks firmados.",
+      "id": "Kirim pembaruan pesanan, pengingat keranjang yang ditinggalkan, dan permintaan ulasan di WhatsApp dari toko Anda, menggunakan Messages API dan webhook bertanda tangan.",
+      "ar": "أرسل تحديثات الطلبات وتذكيرات السلال المتروكة وطلبات التقييم على واتساب من متجرك، باستخدام API الرسائل والويب هوك الموقّعة.",
+      "tr": "Mağazanızdan Mesaj API'si ve imzalı webhook'larla WhatsApp üzerinden sipariş güncellemeleri, terk edilmiş sepet hatırlatmaları ve değerlendirme talepleri gönderin."
     },
     "ogImage": "/og/whatsapp-api.jpg"
   },
@@ -54,13 +54,12 @@
           "ng": "WhatsApp for E-Commerce"
         },
         "subtitle": {
-          "en": "Automate your entire e-commerce customer journey on WhatsApp — from order confirmation to delivery update to review request. Recover 15-25% of abandoned carts with timely WhatsApp reminders.",
-          "pt": "Automatize toda a jornada do cliente e-commerce no WhatsApp — da confirmação de pedido à solicitação de avaliação. Recupere 15-25% dos carrinhos abandonados.",
-          "es": "Automatice toda la jornada del cliente e-commerce en WhatsApp — desde confirmación de pedido hasta solicitud de reseña. Recupere 15-25% de carritos abandonados.",
-          "id": "Otomatisasi seluruh perjalanan pelanggan e-commerce di WhatsApp — dari konfirmasi pesanan hingga permintaan ulasan. Pulihkan 15-25% keranjang belanja yang ditinggalkan.",
-          "ar": "أتمت رحلة عميل التجارة الإلكترونية بالكامل على واتساب — من تأكيد الطلب إلى طلب المراجعة. استعد 15-25% من السلال المهجورة.",
-          "tr": "Sipariş onayından inceleme isteğine kadar tüm e-ticaret müşteri yolculuğunu WhatsApp'ta otomatikleştirin. Zamanında hatırlatmalarla terk edilmiş sepetlerin %15-25'ini kurtarın.",
-          "ng": "Automate your entire e-commerce customer journey on WhatsApp — from order confirmation to delivery update to review request. Recover 15-25% of abandoned carts with timely WhatsApp reminders."
+          "en": "Send order confirmations, delivery updates, cart reminders and review requests as approved WhatsApp templates from your store's backend, and answer customer replies from a shared team inbox.",
+          "pt": "Envie confirmações de pedido, atualizações de entrega, lembretes de carrinho e pedidos de avaliação como templates aprovados do WhatsApp a partir do backend da sua loja, e responda aos clientes em uma caixa de entrada compartilhada.",
+          "es": "Envíe confirmaciones de pedido, actualizaciones de entrega, recordatorios de carrito y solicitudes de reseña como plantillas aprobadas de WhatsApp desde el backend de su tienda, y responda a los clientes desde una bandeja compartida.",
+          "id": "Kirim konfirmasi pesanan, pembaruan pengiriman, pengingat keranjang, dan permintaan ulasan sebagai templat WhatsApp yang disetujui dari backend toko Anda, lalu jawab balasan pelanggan dari kotak masuk tim bersama.",
+          "ar": "أرسل تأكيدات الطلبات وتحديثات التوصيل وتذكيرات السلة وطلبات التقييم كقوالب واتساب معتمدة من الواجهة الخلفية لمتجرك، ورد على العملاء من صندوق وارد مشترك للفريق.",
+          "tr": "Sipariş onaylarını, teslimat güncellemelerini, sepet hatırlatmalarını ve değerlendirme taleplerini mağazanızın arka ucundan onaylı WhatsApp şablonları olarak gönderin, müşteri yanıtlarını paylaşılan ekip gelen kutusundan cevaplayın."
         },
         "primaryCta": {
           "en": "Boost Sales",
@@ -71,7 +70,7 @@
           "tr": "Satışları Artırın",
           "ng": "Boost Sales"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
       }
     },
     {
@@ -108,13 +107,12 @@
               "ng": "Order Updates"
             },
             "description": {
-              "en": "Automated order confirmation, processing, shipped, out-for-delivery, and delivered notifications with tracking links.",
-              "pt": "Notificações automatizadas de confirmação, processamento, envio e entrega com links de rastreamento.",
-              "es": "Notificaciones automáticas de confirmación, procesamiento, envío y entrega de pedidos con enlaces de seguimiento.",
-              "id": "Konfirmasi pesanan otomatis, pemrosesan, pengiriman, keluar untuk pengiriman, dan notifikasi terkirim dengan tautan pelacakan.",
-              "ar": "تأكيد الطلب التلقائي والمعالجة والشحن والخروج للتسليم وإشعارات التسليم مع روابط التتبع.",
-              "tr": "Takip bağlantıları ile otomatik sipariş onayı, işleme, kargoya verildi, dağıtımda ve teslim edildi bildirimleri.",
-              "ng": "Automated order confirmation, processing, shipped, out-for-delivery, and delivered notifications with tracking links."
+              "en": "Order confirmed, shipped, out for delivery and delivered updates as utility templates, with a tracking-link button.",
+              "pt": "Atualizações de pedido confirmado, enviado, saiu para entrega e entregue como templates de utilidade, com botão de link de rastreamento.",
+              "es": "Actualizaciones de pedido confirmado, enviado, en reparto y entregado como plantillas de utilidad, con botón de enlace de seguimiento.",
+              "id": "Pembaruan pesanan dikonfirmasi, dikirim, dalam pengantaran, dan terkirim sebagai templat utilitas, dengan tombol tautan pelacakan.",
+              "ar": "تحديثات تأكيد الطلب والشحن والخروج للتوصيل والتسليم كقوالب خدمية، مع زر رابط للتتبع.",
+              "tr": "Sipariş onaylandı, kargoya verildi, dağıtımda ve teslim edildi güncellemeleri, takip bağlantısı butonlu utility şablonları olarak."
             }
           },
           {
@@ -129,13 +127,12 @@
               "ng": "Abandoned Cart Recovery"
             },
             "description": {
-              "en": "Send WhatsApp reminders 1 hour after cart abandonment. Include product images, prices, and a direct checkout link.",
-              "pt": "Envie lembretes de WhatsApp 1 hora após o abandono do carrinho. Inclua imagens dos produtos, preços e link direto de checkout.",
-              "es": "Envíe recordatorios de WhatsApp 1 hora después del abandono del carrito. Incluya imágenes del producto, precios y enlace de pago directo.",
-              "id": "Kirim pengingat WhatsApp 1 jam setelah keranjang ditinggalkan. Sertakan gambar produk, harga, dan tautan pembayaran langsung.",
-              "ar": "أرسل تذكيرات عبر واتساب بعد ساعة واحدة من ترك السلة. تتضمن صور المنتجات والأسعار ورابط الدفع المباشر.",
-              "tr": "Sepet terk edildikten 1 saat sonra WhatsApp hatırlatmaları gönderin. Ürün görsellerini, fiyatları ve doğrudan ödeme bağlantısını ekleyin.",
-              "ng": "Send WhatsApp reminders 1 hour after cart abandonment. Include product images, prices, and a direct checkout link."
+              "en": "When your store flags an abandoned cart, send an approved reminder template with a product image header and a dynamic checkout-link button.",
+              "pt": "Quando sua loja identificar um carrinho abandonado, envie um template de lembrete aprovado com imagem do produto no cabeçalho e um botão de link dinâmico para o checkout.",
+              "es": "Cuando su tienda detecte un carrito abandonado, envíe una plantilla de recordatorio aprobada con imagen del producto en el encabezado y un botón de enlace dinámico al pago.",
+              "id": "Saat toko Anda menandai keranjang yang ditinggalkan, kirim templat pengingat yang disetujui dengan header gambar produk dan tombol tautan checkout dinamis.",
+              "ar": "عندما يرصد متجرك سلة متروكة، أرسل قالب تذكير معتمداً مع صورة المنتج في الترويسة وزر رابط ديناميكي لإتمام الشراء.",
+              "tr": "Mağazanız terk edilmiş bir sepet tespit ettiğinde, ürün görselli başlık ve dinamik ödeme bağlantısı butonu içeren onaylı bir hatırlatma şablonu gönderin."
             }
           },
           {
@@ -145,18 +142,17 @@
               "pt": "Solicitações de Avaliação",
               "es": "Solicitudes de Reseñas",
               "id": "Permintaan Ulasan",
-              "ar": "طلبات Mراجعة",
+              "ar": "طلبات التقييم",
               "tr": "Değerlendirme Talepleri",
               "ng": "Review Requests"
             },
             "description": {
-              "en": "Automated post-delivery review requests with star rating buttons. Boost your product reviews and social proof.",
-              "pt": "Solicitações automatizadas de avaliação pós-entrega com botões de estrelas. Aumente as avaliações de seus produtos.",
-              "es": "Solicitudes automáticas de opiniones posteriores a la entrega con botones de estrellas. Aumente la prueba social de sus productos.",
-              "id": "Permintaan ulasan otomatis setelah pengiriman dengan tombol peringkat bintang. Tingkatkan ulasan produk Anda.",
-              "ar": "طلبات مراجعة تلقائية بعد التسليم مع أزرار تصنيف النجوم. عزز مراجعات منتجاتك والأدلة الاجتماعية.",
-              "tr": "Yıldız puanlama butonları ile teslimat sonrası otomatik değerlendirme talepleri. Ürün değerlendirmelerinizi ve sosyal kanıtlarınızı artırın.",
-              "ng": "Automated post-delivery review requests with star rating buttons. Boost your product reviews and social proof."
+              "en": "After delivery, send a review request with quick-reply rating buttons. Each tap reaches your webhook as a message.received event.",
+              "pt": "Após a entrega, envie um pedido de avaliação com botões de resposta rápida para a nota. Cada toque chega ao seu webhook como um evento message.received.",
+              "es": "Tras la entrega, envíe una solicitud de reseña con botones de respuesta rápida para la valoración. Cada toque llega a su webhook como un evento message.received.",
+              "id": "Setelah pengiriman, kirim permintaan ulasan dengan tombol balasan cepat untuk penilaian. Setiap ketukan masuk ke webhook Anda sebagai event message.received.",
+              "ar": "بعد التسليم، أرسل طلب تقييم مع أزرار رد سريع للتقييم. تصل كل نقرة إلى الويب هوك الخاص بك كحدث message.received.",
+              "tr": "Teslimattan sonra puanlama için hızlı yanıt butonlu bir değerlendirme talebi gönderin. Her dokunuş webhook'unuza message.received olayı olarak ulaşır."
             }
           },
           {
@@ -171,13 +167,12 @@
               "ng": "Product Catalogs"
             },
             "description": {
-              "en": "Share product catalogs directly in WhatsApp with images, descriptions, and 'Add to Cart' quick-reply buttons.",
-              "pt": "Compartilhe catálogos de produtos diretamente no WhatsApp com imagens, descrições e botões de resposta rápida.",
-              "es": "Comparta catálogos de productos directamente en WhatsApp con imágenes, descripciones y botones rápidos.",
-              "id": "Bagikan katalog produk langsung di WhatsApp dengan gambar, deskripsi, dan tombol balasan cepat 'Tambah ke Keranjang'.",
-              "ar": "شارك كتالوجات المنتجات مباشرة في واتساب مع الصور والأوصاف وأزرار الرد السريع 'إضافة إلى السلة'.",
-              "tr": "WhatsApp'ta doğrudan görseller, açıklamalar ve 'Sepete Ekle' hızlı yanıt butonları içeren ürün katalogları paylaşın.",
-              "ng": "Share product catalogs directly in WhatsApp with images, descriptions, and 'Add to Cart' quick-reply buttons."
+              "en": "Templates can carry catalog and multi-product buttons that open items from your Meta commerce catalog right inside WhatsApp.",
+              "pt": "Os templates podem ter botões de catálogo e de vários produtos que abrem itens do seu catálogo de comércio da Meta dentro do WhatsApp.",
+              "es": "Las plantillas pueden incluir botones de catálogo y de varios productos que abren artículos de su catálogo de comercio de Meta dentro de WhatsApp.",
+              "id": "Templat dapat memuat tombol katalog dan multi-produk yang membuka item dari katalog commerce Meta Anda langsung di WhatsApp.",
+              "ar": "يمكن أن تتضمن القوالب أزرار الكتالوج والمنتجات المتعددة التي تفتح عناصر من كتالوج Meta التجاري الخاص بك داخل واتساب مباشرة.",
+              "tr": "Şablonlar, Meta ticaret kataloğunuzdaki ürünleri doğrudan WhatsApp içinde açan katalog ve çoklu ürün butonları içerebilir."
             }
           }
         ]
@@ -196,41 +191,37 @@
           "ng": "E-Commerce Integrations"
         },
         "body": {
-          "en": "Connect your Shopify, WooCommerce, or Magento backend via webhooks. Automatically fire structured message dispatches to customer chats the moment actions occur on your store storefront database, retaining absolute control over message flow.",
-          "pt": "Conecte seu painel Shopify, WooCommerce ou Magento por meio de webhooks. Dispare mensagens estruturadas para o chat do cliente no momento exato em que ocorrem as ações na sua loja.",
-          "es": "Conecte su backend de Shopify, WooCommerce o Magento a través de webhooks. Envíe mensajes estructurados al chat del cliente en el momento en que ocurran las acciones en su tienda.",
-          "id": "Hubungkan sistem Shopify, WooCommerce, atau Magento Anda melalui webhook. Secara otomatis kirim pesan terstruktur ke obrolan pelanggan saat tindakan terjadi di toko Anda.",
-          "ar": "ربط نظام Shopify أو WooCommerce أو Magento الخاص بك عبر الويب هوك. أرسل رسائل منظمة تلقائياً إلى دردشات العملاء فور حدوث الإجراءات في متجرك.",
-          "tr": "Shopify, WooCommerce veya Magento altyapınızı webhooks aracılığıyla bağlayın. Mağazanızda işlemler gerçekleştiği anda müşteri sohbetlerine otomatik olarak yapılandırılmış mesaj gönderimleri başlatın.",
-          "ng": "Connect your Shopify, WooCommerce, or Magento backend via webhooks. Automatically fire structured message dispatches to customer chats the moment actions occur on your store storefront database, retaining absolute control over message flow."
+          "en": "No plugin needed. When an order event happens in Shopify, WooCommerce, Magento or your own platform, call POST /api/v1/messages from your backend, or from a Zapier, Make or Pabbly scenario. Pass the order ID as clientReference: it comes back on every sent, delivered, read and failed webhook, and on the customer's button reply.",
+          "pt": "Sem plugin. Quando ocorrer um evento de pedido no Shopify, WooCommerce, Magento ou na sua própria plataforma, chame POST /api/v1/messages a partir do seu backend ou de um cenário no Zapier, Make ou Pabbly. Envie o ID do pedido como clientReference: ele volta em todos os webhooks de enviado, entregue, lido e com falha, e na resposta do cliente pelo botão.",
+          "es": "Sin plugins. Cuando ocurra un evento de pedido en Shopify, WooCommerce, Magento o su propia plataforma, llame a POST /api/v1/messages desde su backend o desde un escenario de Zapier, Make o Pabbly. Envíe el ID del pedido como clientReference: vuelve en cada webhook de enviado, entregado, leído y fallido, y en la respuesta del cliente al botón.",
+          "id": "Tanpa plugin. Saat terjadi event pesanan di Shopify, WooCommerce, Magento, atau platform Anda sendiri, panggil POST /api/v1/messages dari backend Anda, atau dari skenario Zapier, Make, atau Pabbly. Kirim ID pesanan sebagai clientReference: nilainya kembali di setiap webhook terkirim, diterima, dibaca, dan gagal, serta pada balasan tombol pelanggan.",
+          "ar": "لا حاجة إلى إضافة. عند وقوع حدث طلب في Shopify أو WooCommerce أو Magento أو منصتك الخاصة، استدعِ POST /api/v1/messages من الواجهة الخلفية أو من سيناريو في Zapier أو Make أو Pabbly. مرّر رقم الطلب كـ clientReference: يعود في كل ويب هوك للإرسال والتسليم والقراءة والفشل، وفي رد العميل على الزر.",
+          "tr": "Eklenti gerekmez. Shopify, WooCommerce, Magento veya kendi platformunuzda bir sipariş olayı gerçekleştiğinde, arka ucunuzdan ya da bir Zapier, Make veya Pabbly senaryosundan POST /api/v1/messages çağırın. Sipariş kimliğini clientReference olarak gönderin: gönderildi, teslim edildi, okundu ve başarısız webhook'larının her birinde ve müşterinin buton yanıtında geri gelir."
         },
         "bullets": [
           {
-            "en": "Plug-and-play webhook integrations",
-            "pt": "Integrações webhook plug-and-play",
-            "es": "Integraciones webhook plug-and-play",
-            "id": "Integrasi webhook plug-and-play",
-            "ar": "تكاملات ويب هوك سهلة التشغيل",
-            "tr": "Tak-çalıştır webhook entegrasyonları",
-            "ng": "Plug-and-play webhook integrations"
+            "en": "REST API and signed webhooks, or Zapier, Make and Pabbly",
+            "pt": "API REST e webhooks assinados, ou Zapier, Make e Pabbly",
+            "es": "API REST y webhooks firmados, o Zapier, Make y Pabbly",
+            "id": "REST API dan webhook bertanda tangan, atau Zapier, Make, dan Pabbly",
+            "ar": "REST API وويب هوك موقّعة، أو Zapier وMake وPabbly",
+            "tr": "REST API ve imzalı webhook'lar ya da Zapier, Make ve Pabbly"
           },
           {
-            "en": "Abandoned cart checkout shortcuts",
-            "pt": "Atalhos de checkout de carrinho abandonado",
-            "es": "Accesos directos de pago de carrito abandonado",
-            "id": "Pintasan checkout keranjang belanja yang ditinggalkan",
-            "ar": "اختصارات الدفع للسلال المتروكة",
-            "tr": "Terk edilmiş sepet ödeme kısayolları",
-            "ng": "Abandoned cart checkout shortcuts"
+            "en": "Dynamic URL buttons for one-tap checkout",
+            "pt": "Botões de URL dinâmica para checkout com um toque",
+            "es": "Botones de URL dinámica para pagar con un toque",
+            "id": "Tombol URL dinamis untuk checkout sekali ketuk",
+            "ar": "أزرار روابط ديناميكية لإتمام الشراء بنقرة واحدة",
+            "tr": "Tek dokunuşla ödeme için dinamik URL butonları"
           },
           {
-            "en": "Direct user catalogs sharing",
-            "pt": "Compartilhamento direto de catálogos",
-            "es": "Compartición directa de catálogos",
-            "id": "Berbagi katalog pengguna secara langsung",
-            "ar": "مشاركة الكتالوجات مباشرة مع المستخدمين",
-            "tr": "Doğrudan kullanıcı katalogları paylaşımı",
-            "ng": "Direct user catalogs sharing"
+            "en": "Catalog and multi-product template buttons",
+            "pt": "Botões de catálogo e de vários produtos nos templates",
+            "es": "Botones de catálogo y de varios productos en plantillas",
+            "id": "Tombol templat katalog dan multi-produk",
+            "ar": "أزرار الكتالوج والمنتجات المتعددة في القوالب",
+            "tr": "Katalog ve çoklu ürün şablon butonları"
           }
         ],
         "image": "/images/ecommerce-cart-recovery.webp",
@@ -293,42 +284,38 @@
           },
           {
             "title": {
-              "en": "2. Queued Timeout",
-              "pt": "2. Tempo de Fila",
-              "es": "2. Tiempo de Espera en Cola",
-              "id": "2. Batas Waktu Antrean",
-              "ar": "2. مهلة الانتظار",
-              "tr": "2. Kuyruğa Alınmış Zaman Aşımı",
-              "ng": "2. Queued Timeout"
+              "en": "2. Your Delay",
+              "pt": "2. Seu Intervalo",
+              "es": "2. Su Espera",
+              "id": "2. Jeda Anda",
+              "ar": "2. مهلتك",
+              "tr": "2. Sizin Beklemeniz"
             },
             "description": {
-              "en": "Our API queues a cart recovery dispatch event, waiting 60 minutes for potential order completions.",
-              "pt": "Nossa API enfileira um evento de recuperação de carrinho, aguardando 60 minutos para possíveis finalizações.",
-              "es": "Nuestra API pone en cola un evento de recuperación de carrito, esperando 60 minutos para posibles compras.",
-              "id": "API kami mengantrekan peristiwa pengiriman pemulihan keranjang, menunggu 60 menit untuk kemungkinan penyelesaian pesanan.",
-              "ar": "تضع واجهة البرمجة حدث استرداد السلة في قائمة الانتظار، وتنتظر 60 دقيقة لاحتمال اكتمال الطلب.",
-              "tr": "API'miz bir sepet kurtarma gönderim olayını kuyruğa alır ve olası sipariş tamamlamaları için 60 dakika bekler.",
-              "ng": "Our API queues a cart recovery dispatch event, waiting 60 minutes for potential order completions."
+              "en": "Your store or automation tool waits the delay you choose (for example 60 minutes) and checks whether the order was completed.",
+              "pt": "Sua loja ou ferramenta de automação aguarda o intervalo que você definir (por exemplo, 60 minutos) e verifica se o pedido foi concluído.",
+              "es": "Su tienda o herramienta de automatización espera el tiempo que usted elija (por ejemplo, 60 minutos) y comprueba si se completó el pedido.",
+              "id": "Toko atau alat otomatisasi Anda menunggu jeda yang Anda pilih (misalnya 60 menit) dan memeriksa apakah pesanan sudah selesai.",
+              "ar": "ينتظر متجرك أو أداة الأتمتة المهلة التي تختارها (مثلاً 60 دقيقة) ويتحقق مما إذا كان الطلب قد اكتمل.",
+              "tr": "Mağazanız veya otomasyon aracınız seçtiğiniz süre kadar (örneğin 60 dakika) bekler ve siparişin tamamlanıp tamamlanmadığını kontrol eder."
             }
           },
           {
             "title": {
-              "en": "3. Direct Blast",
-              "pt": "3. Envio Direto",
-              "es": "3. Envío Direto",
-              "id": "3. Pengiriman Langsung",
-              "ar": "3. إرسال مباشر",
-              "tr": "3. Doğrudan Gönderim",
-              "ng": "3. Direct Blast"
+              "en": "3. Reminder Sent",
+              "pt": "3. Lembrete Enviado",
+              "es": "3. Recordatorio Enviado",
+              "id": "3. Pengingat Terkirim",
+              "ar": "3. إرسال التذكير",
+              "tr": "3. Hatırlatma Gönderilir"
             },
             "description": {
-              "en": "If order is not placed, a personalized WhatsApp template fires with direct checkout links.",
-              "pt": "Se o pedido não for realizado, um modelo de WhatsApp personalizado é enviado com link direto de checkout.",
-              "es": "Si no se realiza el pedido, se envía una plantilla de WhatsApp personalizada con enlaces de pago directos.",
-              "id": "Jika pesanan tidak dibuat, templat WhatsApp yang dipersonalisasi akan dikirim dengan tautan pembayaran langsung.",
-              "ar": "إذا لم يتم تقديم الطلب، يتم إرسال قالب واتساب مخصص مع روابط دفع مباشرة.",
-              "tr": "Sipariş verilmezse, doğrudan ödeme bağlantılarını içeren kişiselleştirilmiş bir WhatsApp şablonu tetiklenir.",
-              "ng": "If order is not placed, a personalized WhatsApp template fires with direct checkout links."
+              "en": "If not, your backend calls POST /api/v1/messages with an approved cart-reminder template and a checkout link. Replies land in your shared inbox.",
+              "pt": "Se não, seu backend chama POST /api/v1/messages com um template aprovado de lembrete de carrinho e um link de checkout. As respostas chegam à sua caixa de entrada compartilhada.",
+              "es": "Si no, su backend llama a POST /api/v1/messages con una plantilla aprobada de recordatorio de carrito y un enlace de pago. Las respuestas llegan a su bandeja compartida.",
+              "id": "Jika belum, backend Anda memanggil POST /api/v1/messages dengan templat pengingat keranjang yang disetujui dan tautan checkout. Balasan masuk ke kotak masuk bersama Anda.",
+              "ar": "إذا لم يكتمل، تستدعي الواجهة الخلفية POST /api/v1/messages بقالب تذكير سلة معتمد ورابط لإتمام الشراء. وتصل الردود إلى صندوق الوارد المشترك.",
+              "tr": "Tamamlanmadıysa arka ucunuz onaylı bir sepet hatırlatma şablonu ve ödeme bağlantısıyla POST /api/v1/messages çağırır. Yanıtlar paylaşılan gelen kutunuza düşer."
             }
           }
         ]
@@ -356,13 +343,12 @@
           "ng": "WhatsApp Cart Recovery vs. Email Cart Recovery vs. Web Push Notifications"
         },
         "subheading": {
-          "en": "Compare checkout returns, client engagement rates, and unsubscribe ratios.",
-          "pt": "Compare retornos de checkout, taxas de engajamento do cliente e taxas de descadastro.",
-          "es": "Compare retornos de pago, tasas de interacción del cliente y tasas de cancelación.",
-          "id": "Bandingkan pengembalian checkout, tingkat keterlibatan klien, dan rasio berhenti berlangganan.",
-          "ar": "قارن عوائد الدفع ومعدلات تفاعل العملاء ونسب إلغاء الاشتراك.",
-          "tr": "Ödeme dönüşlerini, müşteri etkileşim oranlarını ve abonelikten çıkma oranlarını karşılaştırın.",
-          "ng": "Compare checkout returns, client engagement rates, and unsubscribe ratios."
+          "en": "Compare two-way replies, opt-out handling and rich product content.",
+          "pt": "Compare respostas bidirecionais, tratamento de descadastro e conteúdo rico de produtos.",
+          "es": "Compare respuestas bidireccionales, gestión de bajas y contenido enriquecido de productos.",
+          "id": "Bandingkan balasan dua arah, penanganan berhenti berlangganan, dan konten produk yang kaya.",
+          "ar": "قارن الردود ثنائية الاتجاه وطريقة إلغاء الاشتراك ومحتوى المنتجات الغني.",
+          "tr": "İki yönlü yanıtları, abonelikten çıkma yönetimini ve zengin ürün içeriğini karşılaştırın."
         },
         "columns": [
           {
@@ -414,78 +400,36 @@
         "rows": [
           [
             {
-              "en": "Recovery Success Rate",
-              "pt": "Taxa de Sucesso",
-              "es": "Tasa de Éxito",
-              "id": "Tingkat Keberhasilan",
-              "ar": "معدل نجاح الاسترداد",
-              "tr": "Kurtarma Başarı Oranı",
-              "ng": "Recovery Success Rate"
+              "en": "Two-Way Replies",
+              "pt": "Respostas Bidirecionais",
+              "es": "Respuestas Bidireccionales",
+              "id": "Balasan Dua Arah",
+              "ar": "ردود ثنائية الاتجاه",
+              "tr": "İki Yönlü Yanıtlar"
             },
             {
-              "en": "15% - 25% (Extremely high)",
-              "pt": "15% - 25% (Muito alta)",
-              "es": "15% - 25% (Muy alta)",
-              "id": "15% - 25% (Sangat tinggi)",
-              "ar": "15% - 25% (مرتفع للغاية)",
-              "tr": "%15 - %25 (Son derece yüksek)",
-              "ng": "15% - 25% (Extremely high)"
+              "en": "✓ (Replies land in your shared inbox)",
+              "pt": "✓ (Respostas chegam à caixa compartilhada)",
+              "es": "✓ (Las respuestas llegan a la bandeja compartida)",
+              "id": "✓ (Balasan masuk ke kotak masuk bersama)",
+              "ar": "✓ (تصل الردود إلى صندوق الوارد المشترك)",
+              "tr": "✓ (Yanıtlar paylaşılan gelen kutusuna düşer)"
             },
             {
-              "en": "3% - 5% (Low conversion)",
-              "pt": "3% - 5% (Baixa conversão)",
-              "es": "3% - 5% (Baja conversión)",
-              "id": "3% - 5% (Konversi rendah)",
-              "ar": "3% - 5% (تحويل منخفض)",
-              "tr": "%3 - %5 (Düşük dönüşüm)",
-              "ng": "3% - 5% (Low conversion)"
+              "en": "Separate support mailbox",
+              "pt": "Caixa de email de suporte separada",
+              "es": "Buzón de soporte aparte",
+              "id": "Kotak surat dukungan terpisah",
+              "ar": "صندوق بريد دعم منفصل",
+              "tr": "Ayrı destek posta kutusu"
             },
             {
-              "en": "1% - 2% (Rarely clicked)",
-              "pt": "1% - 2% (Raramente clicado)",
-              "es": "1% - 2% (Raramente clicado)",
-              "id": "1% - 2% (Jarang diklik)",
-              "ar": "1% - 2% (نادراً ما ينقر)",
-              "tr": "%1 - %2 (Nadiren tıklanır)",
-              "ng": "1% - 2% (Rarely clicked)"
-            }
-          ],
-          [
-            {
-              "en": "Click-Through Rate",
-              "pt": "Taxa de Cliques",
-              "es": "Tasa de Clics",
-              "id": "Rasio Klik",
-              "ar": "معدل النقر",
-              "tr": "Tıklama Oranı",
-              "ng": "Click-Through Rate"
-            },
-            {
-              "en": "45% - 55%",
-              "pt": "45% - 55%",
-              "es": "45% - 55%",
-              "id": "45% - 55%",
-              "ar": "45% - 55%",
-              "tr": "%45 - %55",
-              "ng": "45% - 55%"
-            },
-            {
-              "en": "8% - 12%",
-              "pt": "8% - 12%",
-              "es": "8% - 12%",
-              "id": "8% - 12%",
-              "ar": "8% - 12%",
-              "tr": "%8 - %12",
-              "ng": "8% - 12%"
-            },
-            {
-              "en": "3% - 5%",
-              "pt": "3% - 5%",
-              "es": "3% - 5%",
-              "id": "3% - 5%",
-              "ar": "3% - 5%",
-              "tr": "%3 - %5",
-              "ng": "3% - 5%"
+              "en": "✗ (One-way only)",
+              "pt": "✗ (Somente ida)",
+              "es": "✗ (Solo unidireccional)",
+              "id": "✗ (Hanya satu arah)",
+              "ar": "✗ (اتجاه واحد فقط)",
+              "tr": "✗ (Yalnızca tek yönlü)"
             }
           ],
           [
@@ -499,13 +443,12 @@
               "ng": "User Opt-out Friction"
             },
             {
-              "en": "Low (Opt-out templates support)",
-              "pt": "Baixa (Botão de opt-out fácil)",
-              "es": "Baja (Soporta botão de opt-out)",
-              "id": "Rendah (Dukungan templat opt-out)",
-              "ar": "منخفضة (يدعم إلغاء الاشتراك بنقرة)",
-              "tr": "Düşük (Opt-out şablon desteği)",
-              "ng": "Low (Opt-out templates support)"
+              "en": "Low (STOP opt-outs honoured automatically)",
+              "pt": "Baixa (descadastro por STOP respeitado automaticamente)",
+              "es": "Baja (las bajas con STOP se respetan automáticamente)",
+              "id": "Rendah (opt-out STOP dipatuhi otomatis)",
+              "ar": "منخفضة (يُحترم إلغاء الاشتراك بكلمة STOP تلقائياً)",
+              "tr": "Düşük (STOP ile abonelikten çıkma otomatik uygulanır)"
             },
             {
               "en": "High (Subscribed lists)",
@@ -537,13 +480,12 @@
               "ng": "Multimedia Catalogs"
             },
             {
-              "en": "✓ (Render image slide catalogs)",
-              "pt": "✓ (Catálogos com slides de imagem)",
-              "es": "✓ (Catálogos con diapositivas de imágenes)",
-              "id": "✓ (Render katalog slide gambar)",
-              "ar": "✓ (عرض كتالوجات شرائح الصور)",
-              "tr": "✓ (Görsel slayt katalogları oluşturma)",
-              "ng": "✓ (Render image slide catalogs)"
+              "en": "✓ (Carousel, catalog and multi-product templates)",
+              "pt": "✓ (Templates de carrossel, catálogo e vários produtos)",
+              "es": "✓ (Plantillas de carrusel, catálogo y varios productos)",
+              "id": "✓ (Templat karusel, katalog, dan multi-produk)",
+              "ar": "✓ (قوالب الكاروسيل والكتالوج والمنتجات المتعددة)",
+              "tr": "✓ (Karusel, katalog ve çoklu ürün şablonları)"
             },
             {
               "en": "✓ (Heavy static HTML)",
@@ -571,44 +513,37 @@
       "type": "codeShowcase",
       "props": {
         "badge": {
-          "en": "Cart API",
-          "pt": "API de Carrinho",
-          "es": "API de Carrito",
-          "id": "API Keranjang",
-          "ar": "API السلة",
-          "tr": "Sepet API'si",
-          "ng": "Cart API"
+          "en": "Messages API",
+          "pt": "API de Mensagens",
+          "es": "API de Mensajes",
+          "id": "API Pesan",
+          "ar": "API الرسائل",
+          "tr": "Mesaj API’si"
         },
         "heading": {
-          "en": "Trigger Abandoned Cart Flows",
-          "pt": "Disparar Fluxos de Carrinho Abandonado",
-          "es": "Activar Flujos de Carrito Abandonado",
-          "id": "Picu Alur Keranjang Ditinggalkan",
-          "ar": "تشغيل تدفقات السلة المتروكة",
-          "tr": "Terk Edilmiş Sepet Akışlarını Tetikleyin",
-          "ng": "Trigger Abandoned Cart Flows"
-        },
-        "overlayText": {
-          "en": "E-Commerce Integration API Sandbox — Coming Soon",
-          "pt": "Sandbox da API de E-Commerce — Em Breve",
-          "es": "Sandbox de API de E-Commerce — Próximamente",
-          "id": "E-Commerce Integration API Sandbox — Segera Hadir",
-          "ar": "بيئة تجريبية لتكامل التجارة الإلكترونية — قريباً",
-          "tr": "E-Ticaret Entegrasyonu API Sanal Alanı — Çok Yakında",
-          "ng": "E-Commerce Integration API Sandbox — Coming Soon"
+          "en": "Send an abandoned-cart reminder template",
+          "pt": "Envie um template de lembrete de carrinho abandonado",
+          "es": "Envía una plantilla de recordatorio de carrito abandonado",
+          "id": "Kirim template pengingat keranjang yang ditinggalkan",
+          "ar": "أرسل قالب تذكير بالسلة المتروكة",
+          "tr": "Terk edilen sepet hatırlatma şablonu gönderin"
         },
         "snippets": [
           {
             "lang": "cURL",
-            "code": "curl -X POST https://api.startmessaging.com/v1/ecommerce/cart-abandoned \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"phoneNumber\": \"+919876543210\",\n    \"cartId\": \"cart_abc12345\",\n    \"customerName\": \"Rahul\",\n    \"cartTotal\": \"₹1,499.00\",\n    \"checkoutUrl\": \"https://yourstore.com/checkout?cart=abc12345\"\n  }'"
+            "code": "curl -X POST {{WA_API_BASE}}/api/v1/messages \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: cart-88231-reminder-1\" \\\n  -d '{\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"cart_reminder\",\n      \"language\": \"en_US\",\n      \"headerMediaUrl\": \"https://cdn.example.com/products/kurta-blue.jpg\",\n      \"parameters\": [\n        {\n          \"text\": \"Aarti\"\n        },\n        {\n          \"text\": \"Blue cotton kurta\"\n        }\n      ],\n      \"buttonParameters\": [\n        {\n          \"index\": 0,\n          \"subType\": \"url\",\n          \"text\": \"cart-88231\"\n        }\n      ]\n    },\n    \"clientReference\": \"cart-88231\"\n  }'"
           },
           {
             "lang": "Node.js",
-            "code": "await fetch(\"https://api.startmessaging.com/v1/ecommerce/cart-abandoned\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    phoneNumber: \"+919876543210\",\n    cartId: \"cart_abc12345\",\n    customerName: \"Rahul\",\n    cartTotal: \"₹1,499.00\",\n    checkoutUrl: \"https://yourstore.com/checkout?cart=abc12345\"\n  })\n});"
+            "code": "const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + process.env.SM_API_KEY,\n    'Content-Type': 'application/json',\n    'Idempotency-Key': 'cart-88231-reminder-1',\n  },\n  body: JSON.stringify({\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"cart_reminder\",\n      \"language\": \"en_US\",\n      \"headerMediaUrl\": \"https://cdn.example.com/products/kurta-blue.jpg\",\n      \"parameters\": [\n        {\n          \"text\": \"Aarti\"\n        },\n        {\n          \"text\": \"Blue cotton kurta\"\n        }\n      ],\n      \"buttonParameters\": [\n        {\n          \"index\": 0,\n          \"subType\": \"url\",\n          \"text\": \"cart-88231\"\n        }\n      ]\n    },\n    \"clientReference\": \"cart-88231\"\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.id, data.status);"
           },
           {
             "lang": "Python",
-            "code": "import requests\n\nres = requests.post(\n    \"https://api.startmessaging.com/v1/ecommerce/cart-abandoned\",\n    headers={\n        \"Content-Type\": \"application/json\",\n        \"X-API-Key\": \"sm_live_your_api_key_here\"\n    },\n    json={\n        \"phoneNumber\": \"+919876543210\",\n        \"cartId\": \"cart_abc12345\",\n        \"customerName\": \"Rahul\",\n        \"cartTotal\": \"₹1,499.00\",\n        \"checkoutUrl\": \"https://yourstore.com/checkout?cart=abc12345\"\n    }\n)"
+            "code": "import os, requests\n\nres = requests.post(\n    '{{WA_API_BASE}}/api/v1/messages',\n    headers={\n        'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\",\n        'Idempotency-Key': 'cart-88231-reminder-1',\n    },\n    json={\n      \"to\": \"+919812345678\",\n      \"type\": \"template\",\n      \"template\": {\n        \"name\": \"cart_reminder\",\n        \"language\": \"en_US\",\n        \"headerMediaUrl\": \"https://cdn.example.com/products/kurta-blue.jpg\",\n        \"parameters\": [\n          {\n            \"text\": \"Aarti\"\n          },\n          {\n            \"text\": \"Blue cotton kurta\"\n          }\n        ],\n        \"buttonParameters\": [\n          {\n            \"index\": 0,\n            \"subType\": \"url\",\n            \"text\": \"cart-88231\"\n          }\n        ]\n      },\n      \"clientReference\": \"cart-88231\"\n    },\n)\n\ndata = res.json()['data']\nprint(data['id'], data['status'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$body = <<<'JSON'\n{\n  \"to\": \"+919812345678\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"cart_reminder\",\n    \"language\": \"en_US\",\n    \"headerMediaUrl\": \"https://cdn.example.com/products/kurta-blue.jpg\",\n    \"parameters\": [\n      {\n        \"text\": \"Aarti\"\n      },\n      {\n        \"text\": \"Blue cotton kurta\"\n      }\n    ],\n    \"buttonParameters\": [\n      {\n        \"index\": 0,\n        \"subType\": \"url\",\n        \"text\": \"cart-88231\"\n      }\n    ]\n  },\n  \"clientReference\": \"cart-88231\"\n}\nJSON;\n\n$ch = curl_init('{{WA_API_BASE}}/api/v1/messages');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        'Authorization: Bearer ' . getenv('SM_API_KEY'),\n        'Content-Type: application/json',\n        'Idempotency-Key: cart-88231-reminder-1',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['status'];"
           }
         ]
       }
@@ -646,13 +581,12 @@
               "ng": "How do I integrate WhatsApp with my e-commerce platform?"
             },
             "answer": {
-              "en": "StartMessaging integrates with all major e-commerce platforms through webhooks. When an order is placed, shipped, or delivered in your store, a webhook triggers our API to send the appropriate WhatsApp notification. We provide pre-built integration guides for Shopify, WooCommerce, Magento, and custom platforms.",
-              "pt": "A StartMessaging se integra com as principais plataformas por meio de webhooks. Quando um pedido é feito, enviado ou entregue, um webhook aciona nossa API para enviar a notificação do WhatsApp. Oferecemos guias de integração para Shopify, WooCommerce, Magento e plataformas personalizadas.",
-              "es": "StartMessaging se integra con las principales plataformas a través de webhooks. Cuando se realiza, envía o entrega un pedido, un webhook activa nossa API para enviar la notificación. Ofrecemos guías para Shopify, WooCommerce, Magento y plataformas personalizadas.",
-              "id": "StartMessaging terintegrasi dengan semua platform e-commerce utama melalui webhook. Ketika pesanan dibuat, dikirim, atau diterima, webhook memicu API kami untuk mengirim notifikasi WhatsApp yang sesuai. Kami menyediakan panduan integrasi untuk Shopify, WooCommerce, Magento, dan platform kustom.",
-              "ar": "تتكامل StartMessaging مع جميع منصات التجارة الإلكترونية الرئيسية عبر الويب هوك. عند تقديم طلب أو شحنه أو تسليمه في متجرك، يقوم الويب هوك بتشغيل واجهة البرمجة لإرسال إشعار واتساب المناسب. نوفر أدلة تكامل جاهزة لـ Shopify و WooCommerce و Magento والمنصات المخصصة.",
-              "tr": "StartMessaging, webhooks aracılığıyla tüm büyük e-ticaret platformlarıyla entegre olur. Mağazanızda bir sipariş verildiğinde, kargolandığında veya teslim edildiğinde, bir webhook uygun WhatsApp bildirimini göndermek için API'mizi tetikler. Shopify, WooCommerce, Magento ve özel platformlar için önceden hazırlanmış entegrasyon kılavuzları sunuyoruz.",
-              "ng": "StartMessaging integrates with all major e-commerce platforms through webhooks. When an order is placed, shipped, or delivered in your store, a webhook triggers our API to send the appropriate WhatsApp notification. We provide pre-built integration guides for Shopify, WooCommerce, Magento, and custom platforms."
+              "en": "Through the REST API. When an order is placed, shipped or delivered, your store backend (or a Zapier, Make or Pabbly scenario listening to Shopify or WooCommerce events) calls POST /api/v1/messages with an approved template. There is no native Shopify or WooCommerce plugin. Delivery receipts and customer replies come back to you on signed webhooks.",
+              "pt": "Pela API REST. Quando um pedido é feito, enviado ou entregue, o backend da sua loja (ou um cenário no Zapier, Make ou Pabbly que escuta eventos do Shopify ou WooCommerce) chama POST /api/v1/messages com um template aprovado. Não há plugin nativo para Shopify ou WooCommerce. Os recibos de entrega e as respostas dos clientes voltam para você por webhooks assinados.",
+              "es": "Mediante la API REST. Cuando se realiza, envía o entrega un pedido, el backend de su tienda (o un escenario de Zapier, Make o Pabbly que escucha eventos de Shopify o WooCommerce) llama a POST /api/v1/messages con una plantilla aprobada. No hay plugin nativo para Shopify ni WooCommerce. Los acuses de entrega y las respuestas de los clientes le llegan por webhooks firmados.",
+              "id": "Melalui REST API. Saat pesanan dibuat, dikirim, atau diterima, backend toko Anda (atau skenario Zapier, Make, atau Pabbly yang memantau event Shopify atau WooCommerce) memanggil POST /api/v1/messages dengan templat yang disetujui. Tidak ada plugin bawaan untuk Shopify atau WooCommerce. Laporan pengiriman dan balasan pelanggan dikirim kembali ke Anda melalui webhook bertanda tangan.",
+              "ar": "عبر REST API. عند تقديم طلب أو شحنه أو تسليمه، تستدعي الواجهة الخلفية لمتجرك (أو سيناريو في Zapier أو Make أو Pabbly يستمع لأحداث Shopify أو WooCommerce) واجهة POST /api/v1/messages بقالب معتمد. لا توجد إضافة أصلية لـ Shopify أو WooCommerce. وتصلك إيصالات التسليم وردود العملاء عبر ويب هوك موقّعة.",
+              "tr": "REST API aracılığıyla. Bir sipariş verildiğinde, kargolandığında veya teslim edildiğinde mağazanızın arka ucu (ya da Shopify veya WooCommerce olaylarını dinleyen bir Zapier, Make veya Pabbly senaryosu) onaylı bir şablonla POST /api/v1/messages çağırır. Shopify veya WooCommerce için yerel bir eklenti yoktur. Teslimat bildirimleri ve müşteri yanıtları size imzalı webhook'larla geri gelir."
             }
           },
           {
@@ -666,13 +600,12 @@
               "ng": "Can I integrate WhatsApp with regional e-commerce and shipping gateways?"
             },
             "answer": {
-              "en": "Yes. Our webhook-driven API triggers order tracking notifications across global e-commerce systems, including regional carriers and local checkout methods.",
-              "pt": "Sim. Nossa API acionada por webhook dispara notificações de rastreamento de pedidos em sistemas globais de e-commerce, incluindo transportadoras regionais e métodos de checkout locais.",
-              "es": "Sí. Nuestra API basada en webhooks activa notificaciones de seguimiento de pedidos en sistemas globales de comercio electrónico, incluidos los transportistas regionales y métodos de pago locales.",
-              "id": "Ya. API kami yang didorong oleh webhook memicu notifikasi pelacakan pesanan di seluruh sistem e-commerce global, termasuk kurir regional dan metode pembayaran lokal.",
-              "ar": "نعم. تعمل واجهة البرمجة المدفوعة بالويب هوك على تشغيل إشعارات تتبع الطلبات عبر أنظمة التجارة الإلكترونية العالمية، بما في ذلك شركات الشحن الإقليمية وطرق الدفع المحلية.",
-              "tr": "Evet. Webhook tabanlı API'miz, bölgesel taşıyıcılar ve yerel ödeme yöntemleri de dahil olmak üzere küresel e-ticaret sistemlerinde sipariş takip bildirimlerini tetikler.",
-              "ng": "Yes. Our webhook-driven API triggers order tracking notifications across global e-commerce systems, including regional carriers and local checkout methods."
+              "en": "Yes. Any system that can make an HTTPS request, such as a regional carrier's tracking webhook, a local checkout or an automation tool, can call POST /api/v1/messages to send a tracking-update template.",
+              "pt": "Sim. Qualquer sistema que faça uma requisição HTTPS, como o webhook de rastreamento de uma transportadora regional, um checkout local ou uma ferramenta de automação, pode chamar POST /api/v1/messages para enviar um template de atualização de rastreamento.",
+              "es": "Sí. Cualquier sistema que pueda hacer una solicitud HTTPS, como el webhook de seguimiento de un transportista regional, un checkout local o una herramienta de automatización, puede llamar a POST /api/v1/messages para enviar una plantilla de actualización de seguimiento.",
+              "id": "Ya. Sistem apa pun yang dapat membuat permintaan HTTPS, seperti webhook pelacakan kurir regional, checkout lokal, atau alat otomatisasi, dapat memanggil POST /api/v1/messages untuk mengirim templat pembaruan pelacakan.",
+              "ar": "نعم. يمكن لأي نظام قادر على إرسال طلب HTTPS، مثل ويب هوك التتبع لدى شركة شحن إقليمية أو نظام دفع محلي أو أداة أتمتة، استدعاء POST /api/v1/messages لإرسال قالب تحديث التتبع.",
+              "tr": "Evet. Bölgesel bir kargo firmasının takip webhook'u, yerel bir ödeme sistemi veya bir otomasyon aracı gibi HTTPS isteği yapabilen her sistem, takip güncellemesi şablonu göndermek için POST /api/v1/messages çağırabilir."
             }
           },
           {
@@ -686,13 +619,12 @@
               "ng": "Can I send automated customer review requests?"
             },
             "answer": {
-              "en": "Yes. Once our webhook detects a 'delivered' status from your e-commerce platform, the API can schedule a review request template after a set time (e.g., 24 hours). You can include quick-reply rating buttons to make it easy for customers.",
-              "pt": "Sim. Assim que nosso webhook detecta o status de 'entregue' da sua plataforma, a API agenda um modelo de solicitação de avaliação após um tempo definido (ex: 24 horas). Você pode incluir botões de resposta rápida.",
-              "es": "Sí. Una vez que nuestro webhook detecta el estado 'entregado' de su plataforma, la API puede programar una plantilla de solicitud de opinión después de un tiempo establecido (por ejemplo, 24 horas). Puede incluir botones de respuesta rápida.",
-              "id": "Ya. Setelah webhook kami mendeteksi status 'terkirim' dari platform e-commerce Anda, API dapat menjadwalkan templat permintaan ulasan setelah waktu tertentu (misalnya, 24 jam). Anda dapat menyertakan tombol balasan cepat.",
-              "ar": "نعم. بمجرد أن يكتشف الويب هوك الخاص بنا حالة 'تم التسليم' من منصة التجارة الإلكترونية الخاصة بك، يمكن لواجهة البرمجة جدولة قالب طلب مراجعة بعد وقت محدد (مثل 24 ساعة). يمكنك تضمين أزرار رد سريع.",
-              "tr": "Evet. Webhook'umuz e-ticaret platformunuzdan 'teslim edildi' durumunu algıladığında, API belirlenen bir süre (örneğin 24 saat) sonra bir değerlendirme talebi şablonu planlayabilir. Müşterilerin kolayca yanıtlaması için hızlı yanıt butonları ekleyebilirsiniz.",
-              "ng": "Yes. Once our webhook detects a 'delivered' status from your e-commerce platform, the API can schedule a review request template after a set time (e.g., 24 hours). You can include quick-reply rating buttons to make it easy for customers."
+              "en": "Yes. When your platform marks an order delivered, wait the delay you choose in your own system, then send a review-request template with quick-reply rating buttons. The customer's tap arrives on the message.received webhook with reply.id, and context.clientReference points back to the order you sent it for.",
+              "pt": "Sim. Quando sua plataforma marcar o pedido como entregue, aguarde o intervalo que quiser no seu próprio sistema e envie um template de pedido de avaliação com botões de resposta rápida para a nota. O toque do cliente chega no webhook message.received com reply.id, e context.clientReference aponta para o pedido correspondente.",
+              "es": "Sí. Cuando su plataforma marque un pedido como entregado, espere el tiempo que elija en su propio sistema y envíe una plantilla de solicitud de reseña con botones de respuesta rápida para la valoración. El toque del cliente llega en el webhook message.received con reply.id, y context.clientReference apunta al pedido correspondiente.",
+              "id": "Ya. Saat platform Anda menandai pesanan terkirim, tunggu jeda yang Anda pilih di sistem Anda sendiri, lalu kirim templat permintaan ulasan dengan tombol balasan cepat untuk penilaian. Ketukan pelanggan masuk di webhook message.received dengan reply.id, dan context.clientReference menunjuk ke pesanan terkait.",
+              "ar": "نعم. عندما تحدد منصتك الطلب كمُسلَّم، انتظر المهلة التي تختارها في نظامك، ثم أرسل قالب طلب تقييم مع أزرار رد سريع للتقييم. تصل نقرة العميل عبر ويب هوك message.received مع reply.id، ويشير context.clientReference إلى الطلب المعني.",
+              "tr": "Evet. Platformunuz bir siparişi teslim edildi olarak işaretlediğinde kendi sisteminizde seçtiğiniz süre kadar bekleyin, ardından puanlama için hızlı yanıt butonlu bir değerlendirme talebi şablonu gönderin. Müşterinin dokunuşu message.received webhook'una reply.id ile gelir ve context.clientReference ilgili siparişi gösterir."
             }
           },
           {
@@ -706,13 +638,12 @@
               "ng": "How are WhatsApp transactional messages billed?"
             },
             "answer": {
-              "en": "They are billed as utility conversations under Meta's pricing model. Delivering a message starts a 24-hour conversation window. All subsequent utility messages to that user within the window are free.",
-              "pt": "Elas são cobradas como conversas utilitárias no modelo da Meta. A entrega de uma mensagem inicia uma janela de 24 horas, e todas as mensagens utilitárias subsequentes nessa janela são gratuitas.",
-              "es": "Se facturan como conversaciones de utilidad bajo el modelo de Meta. El envío de un mensaje inicia una ventana de 24 horas. Los mensajes utilitarios posteriores dentro de la ventana son gratuitos.",
-              "id": "Pesan tersebut ditagih sebagai percakapan utilitas di bawah model harga Meta. Mengirim pesan memulai jendela percakapan 24 jam. Semua pesan utilitas berikutnya dalam jendela tersebut gratis.",
-              "ar": "يتم احتسابها كرسائل خدمات (Utility) بموجب نموذج تسعير Meta. يؤدي تسليم الرسالة إلى بدء نافذة محادثة مدتها 24 ساعة، وتكون جميع رسائل الخدمات اللاحقة في تلك النافذة مجانية.",
-              "tr": "Meta'nın fiyatlandırma modeline göre yardımcı (utility) konuşmalar olarak faturalandırılırlar. Bir mesajın iletilmesi 24 saatlik bir konuşma penceresi başlatır. Bu pencere içindeki sonraki tüm yardımcı mesajlar ücretsizdir.",
-              "ng": "They are billed as utility conversations under Meta's pricing model. Delivering a message starts a 24-hour conversation window. All subsequent utility messages to that user within the window are free."
+              "en": "Meta charges per delivered template message, billed directly to your own WhatsApp Business Account. Service replies inside the 24-hour customer service window are free, and so are utility templates sent while that window is open. StartMessaging charges a flat subscription only, with no per-message markup.",
+              "pt": "A Meta cobra por mensagem de template entregue, diretamente na sua própria conta do WhatsApp Business. Respostas de atendimento dentro da janela de 24 horas são gratuitas, assim como templates de utilidade enviados enquanto essa janela está aberta. A StartMessaging cobra apenas uma assinatura fixa, sem acréscimo por mensagem.",
+              "es": "Meta cobra por cada mensaje de plantilla entregado, facturado directamente a su propia cuenta de WhatsApp Business. Las respuestas de servicio dentro de la ventana de 24 horas son gratuitas, al igual que las plantillas de utilidad enviadas mientras esa ventana está abierta. StartMessaging cobra solo una suscripción fija, sin recargo por mensaje.",
+              "id": "Meta menagih per pesan templat yang terkirim, langsung ke akun WhatsApp Business Anda sendiri. Balasan layanan dalam jendela layanan pelanggan 24 jam gratis, begitu pula templat utilitas yang dikirim selama jendela itu terbuka. StartMessaging hanya mengenakan langganan tetap, tanpa tambahan biaya per pesan.",
+              "ar": "تحاسب Meta على كل رسالة قالب يتم تسليمها، مباشرة في حساب WhatsApp Business الخاص بك. ردود الخدمة داخل نافذة خدمة العملاء البالغة 24 ساعة مجانية، وكذلك قوالب الخدمات المرسلة أثناء فتح تلك النافذة. ولا تفرض StartMessaging سوى اشتراك ثابت دون أي زيادة على سعر الرسالة.",
+              "tr": "Meta, teslim edilen her şablon mesajı için doğrudan kendi WhatsApp Business hesabınıza ücret yansıtır. 24 saatlik müşteri hizmetleri penceresi içindeki hizmet yanıtları ücretsizdir; pencere açıkken gönderilen utility şablonları da öyle. StartMessaging yalnızca sabit bir abonelik ücreti alır, mesaj başına ek ücret yoktur."
             }
           }
         ]
@@ -773,7 +704,7 @@
               "pt": "Modelo de Preços",
               "es": "Modelo de Precios",
               "id": "Model Harga",
-              "ar": "nomedeprecos",
+              "ar": "نموذج التسعير",
               "tr": "Fiyatlandırma Modeli",
               "ng": "Pricing Model"
             },
@@ -795,24 +726,22 @@
           "ng": "Boost Your E-Commerce with WhatsApp"
         },
         "subtext": {
-          "en": "Start in 5 minutes. No credit card required.",
-          "pt": "Comece em 5 minutos. Sem cartão de crédito.",
-          "es": "Comience en 5 minutos. Sin tarjeta de crédito.",
-          "id": "Mulai dalam 5 menit. Tanpa kartu kredit.",
-          "ar": "ابدأ في 5 دقائق. لا يلزم وجود بطاقة ائتمان.",
-          "tr": "5 dakikada başlayın. Kredi kartı gerekmez.",
-          "ng": "Start in 5 minutes. No credit card required."
+          "en": "Start with a 14-day free trial of every feature.",
+          "pt": "Comece com um teste grátis de 14 dias com todos os recursos.",
+          "es": "Comience con una prueba gratuita de 14 días con todas las funciones.",
+          "id": "Mulai dengan uji coba gratis 14 hari untuk semua fitur.",
+          "ar": "ابدأ بتجربة مجانية لمدة 14 يوماً لجميع الميزات.",
+          "tr": "Tüm özellikleri içeren 14 günlük ücretsiz denemeyle başlayın."
         },
         "primaryCta": {
-          "en": "Get Started Free",
-          "pt": "Começar Grátis",
-          "es": "Empieza Gratis",
-          "id": "Mulai Gratis",
-          "ar": "ابدأ مجاناً",
-          "tr": "Ücretsiz Başla",
-          "ng": "Get Started Free"
+          "en": "Start free trial",
+          "pt": "Começar teste grátis",
+          "es": "Empezar prueba gratis",
+          "id": "Mulai uji coba gratis",
+          "ar": "ابدأ التجربة المجانية",
+          "tr": "Ücretsiz denemeyi başlat"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
       }
     }
   ]

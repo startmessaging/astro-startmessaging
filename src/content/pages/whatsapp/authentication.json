@@ -9,25 +9,25 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-07-02",
+  "updatedAt": "2026-10-07",
   "seo": {
     "ogImage": "/og/whatsapp-authentication.jpg",
     "title": {
-      "en": "WhatsApp Authentication Messages — OTP API — StartMessaging",
-      "pt": "Mensagens de Autenticação WhatsApp — API de OTP — StartMessaging",
-      "es": "Mensajes de Autenticación WhatsApp — API de OTP — StartMessaging",
-      "id": "Pesan Autentikasi WhatsApp — API OTP — StartMessaging",
-      "ar": "رسائل مصادقة واتساب — واجهة OTP — StartMessaging",
-      "tr": "WhatsApp Kimlik Doğrulama Mesajları — OTP API — StartMessaging",
-      "ng": "WhatsApp Authentication Messages — OTP API — StartMessaging"
+      "en": "WhatsApp Authentication Messages — OTP Templates — StartMessaging",
+      "pt": "Mensagens de Autenticação WhatsApp — Templates de OTP — StartMessaging",
+      "es": "Mensajes de Autenticación WhatsApp — Plantillas de OTP — StartMessaging",
+      "id": "Pesan Autentikasi WhatsApp — Template OTP — StartMessaging",
+      "ar": "رسائل مصادقة واتساب — قوالب OTP — StartMessaging",
+      "tr": "WhatsApp Kimlik Doğrulama Mesajları — OTP Şablonları — StartMessaging",
+      "ng": "WhatsApp Authentication Messages — OTP Templates — StartMessaging"
     },
     "description": {
-      "en": "Send OTP codes and authentication messages via WhatsApp. Higher delivery rates than SMS with end-to-end encryption.",
-      "pt": "Envie códigos OTP e mensagens de autenticação via WhatsApp. Taxas de entrega mais altas que SMS com criptografia ponta a ponta.",
-      "es": "Envíe códigos OTP y mensajes de autenticación a través de WhatsApp. Tasas de entrega más altas que SMS con cifrado de extremo a extremo.",
-      "id": "Kirim kode OTP dan pesan autentikasi via WhatsApp. Tingkat pengiriman lebih tinggi dari SMS dengan enkripsi end-to-end.",
-      "ar": "أرسل رموز OTP ورسائل المصادقة عبر واتساب. معدلات تسليم أعلى من SMS مع تشفير من طرف إلى طرف.",
-      "tr": "WhatsApp aracılığıyla OTP kodları ve kimlik doğrulama mesajları gönderin. Uçtan uca şifrelemeyle SMS'den daha yüksek teslimat oranları."
+      "en": "Send one-time codes on WhatsApp with Meta authentication templates (copy-code button) through the StartMessaging messages API. You generate and verify the code; WhatsApp delivers it end-to-end encrypted.",
+      "pt": "Envie códigos de uso único no WhatsApp com templates de autenticação da Meta (botão de copiar código) pela API de mensagens da StartMessaging. Você gera e valida o código; o WhatsApp o entrega com criptografia de ponta a ponta.",
+      "es": "Envíe códigos de un solo uso por WhatsApp con plantillas de autenticación de Meta (botón de copiar código) mediante la API de mensajes de StartMessaging. Usted genera y verifica el código; WhatsApp lo entrega con cifrado de extremo a extremo.",
+      "id": "Kirim kode sekali pakai di WhatsApp dengan template autentikasi Meta (tombol salin kode) melalui API pesan StartMessaging. Anda membuat dan memverifikasi kodenya; WhatsApp mengirimkannya dengan enkripsi end-to-end.",
+      "ar": "أرسل رموزاً لمرة واحدة عبر واتساب باستخدام قوالب المصادقة من Meta (زر نسخ الرمز) من خلال واجهة رسائل StartMessaging. أنت تُنشئ الرمز وتتحقق منه، وواتساب يسلّمه بتشفير من طرف إلى طرف.",
+      "tr": "Tek kullanımlık kodları Meta kimlik doğrulama şablonlarıyla (kodu kopyala butonu) StartMessaging mesaj API'si üzerinden WhatsApp'ta gönderin. Kodu siz üretir ve doğrularsınız; WhatsApp uçtan uca şifreli olarak iletir."
     }
   },
   "sections": [
@@ -52,12 +52,12 @@
           "tr": "WhatsApp ile OTP Doğrulama"
         },
         "subtitle": {
-          "en": "Deliver OTPs through WhatsApp for higher delivery rates, end-to-end encryption, and a seamless user experience. Authentication messages are Meta's lowest-cost message category.",
-          "pt": "Entregue OTPs pelo WhatsApp para taxas de entrega mais altas, criptografia e uma experiência do usuário perfeita. Mensagens de autenticação são a categoria de menor custo da Meta.",
-          "es": "Entregue OTPs a través de WhatsApp para tasas de entrega más altas, cifrado y una experiencia de usuario perfecta. Los mensajes de autenticación son la categoría de menor costo de Meta.",
-          "id": "Kirimkan OTP melalui WhatsApp untuk tingkat pengiriman lebih tinggi, enkripsi end-to-end, dan pengalaman pengguna yang mulus. Pesan autentikasi adalah kategori pesan Meta dengan biaya terendah.",
-          "ar": "قدّم OTPs عبر واتساب لمعدلات تسليم أعلى وتشفير من طرف إلى طرف وتجربة مستخدم سلسة. رسائل المصادقة هي فئة الرسائل الأقل تكلفة من Meta.",
-          "tr": "Daha yüksek teslimat oranları, uçtan uca şifreleme ve sorunsuz kullanıcı deneyimi için OTP'leri WhatsApp aracılığıyla iletin."
+          "en": "Generate a one-time code in your app, send it with a WhatsApp authentication template — with a copy-code or one-tap autofill button — through POST /api/v1/messages, and verify it yourself. Messages are end-to-end encrypted.",
+          "pt": "Gere um código de uso único no seu app, envie-o com um template de autenticação do WhatsApp — com botão de copiar código ou de preenchimento automático com um toque — via POST /api/v1/messages, e valide-o você mesmo. As mensagens têm criptografia de ponta a ponta.",
+          "es": "Genere un código de un solo uso en su app, envíelo con una plantilla de autenticación de WhatsApp — con botón de copiar código o de autocompletado con un toque — mediante POST /api/v1/messages, y verifíquelo usted mismo. Los mensajes tienen cifrado de extremo a extremo.",
+          "id": "Buat kode sekali pakai di aplikasi Anda, kirim dengan template autentikasi WhatsApp — dengan tombol salin kode atau isi otomatis satu ketukan — melalui POST /api/v1/messages, lalu verifikasi sendiri. Pesan dienkripsi end-to-end.",
+          "ar": "أنشئ رمزاً لمرة واحدة في تطبيقك، وأرسله بقالب مصادقة واتساب — مع زر نسخ الرمز أو الملء التلقائي بلمسة واحدة — عبر POST /api/v1/messages، ثم تحقق منه بنفسك. الرسائل مشفرة من طرف إلى طرف.",
+          "tr": "Uygulamanızda tek kullanımlık bir kod üretin, onu WhatsApp kimlik doğrulama şablonuyla — kodu kopyala veya tek dokunuşla otomatik doldurma butonuyla — POST /api/v1/messages üzerinden gönderin ve kendiniz doğrulayın. Mesajlar uçtan uca şifrelidir."
         },
         "primaryCta": {
           "en": "Start Sending OTPs",
@@ -67,7 +67,7 @@
           "ar": "ابدأ إرسال OTPs",
           "tr": "OTP Göndermeye Başla"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
       }
     },
     {
@@ -82,21 +82,21 @@
           "tr": "Neden SMS Yerine WhatsApp OTP?"
         },
         "body": {
-          "en": "WhatsApp OTPs offer significant advantages over traditional SMS: higher delivery rates (especially in markets where SMS spam filtering blocks OTPs), end-to-end encryption for security, one-tap auto-fill on supported devices, and lower cost per message.",
-          "pt": "OTPs via WhatsApp oferecem vantagens significativas sobre SMS tradicional: taxas de entrega mais altas, criptografia de ponta a ponta para segurança, preenchimento automático com um toque e menor custo por mensagem.",
-          "es": "Los OTPs de WhatsApp ofrecen ventajas significativas sobre SMS: tasas de entrega más altas, cifrado de extremo a extremo, autocompletado con un toque y menor costo por mensaje.",
-          "id": "OTP WhatsApp menawarkan keunggulan signifikan dibanding SMS tradisional: tingkat pengiriman lebih tinggi, enkripsi end-to-end untuk keamanan, isi otomatis satu ketukan, dan biaya per pesan lebih rendah.",
-          "ar": "توفر OTPs عبر واتساب مزايا كبيرة على SMS التقليدي: معدلات تسليم أعلى وتشفير من طرف إلى طرف للأمان وملء تلقائي بنقرة واحدة وتكلفة أقل لكل رسالة.",
-          "tr": "WhatsApp OTP'leri geleneksel SMS'e göre önemli avantajlar sunar: daha yüksek teslimat oranları, güvenlik için uçtan uca şifreleme, tek dokunuşla otomatik doldurma ve mesaj başına daha düşük maliyet."
+          "en": "WhatsApp OTPs reach users in an app they already have open, with end-to-end encryption, a copy-code button so nobody retypes the code, and one-tap autofill on supported Android apps. They also help in markets where SMS filtering delays or blocks one-time codes.",
+          "pt": "OTPs via WhatsApp chegam aos usuários em um app que eles já usam, com criptografia de ponta a ponta, um botão de copiar código para ninguém precisar digitá-lo e preenchimento automático com um toque em apps Android compatíveis. Também ajudam em mercados onde filtros de SMS atrasam ou bloqueiam códigos.",
+          "es": "Los OTP de WhatsApp llegan a los usuarios en una app que ya usan, con cifrado de extremo a extremo, un botón de copiar código para que nadie lo vuelva a escribir y autocompletado con un toque en apps Android compatibles. También ayudan en mercados donde el filtrado de SMS retrasa o bloquea los códigos.",
+          "id": "OTP WhatsApp sampai ke pengguna di aplikasi yang sudah mereka gunakan, dengan enkripsi end-to-end, tombol salin kode agar tidak perlu mengetik ulang, dan isi otomatis satu ketukan di aplikasi Android yang didukung. OTP WhatsApp juga membantu di pasar tempat penyaringan SMS menunda atau memblokir kode.",
+          "ar": "تصل رموز OTP عبر واتساب إلى المستخدمين في تطبيق يستخدمونه بالفعل، مع تشفير من طرف إلى طرف، وزر نسخ الرمز حتى لا يعيد أحد كتابته، وملء تلقائي بلمسة واحدة في تطبيقات Android المدعومة. كما تساعد في الأسواق التي تؤخر فيها فلاتر SMS الرموز أو تحجبها.",
+          "tr": "WhatsApp OTP'leri kullanıcılara zaten kullandıkları bir uygulamada ulaşır; uçtan uca şifreleme, kodu yeniden yazmaya gerek bırakmayan kodu kopyala butonu ve desteklenen Android uygulamalarında tek dokunuşla otomatik doldurma sunar. SMS filtrelemesinin kodları geciktirdiği veya engellediği pazarlarda da işe yarar."
         },
         "bullets": [
           {
-            "en": "99%+ delivery rate vs 85-90% for SMS",
-            "pt": "99%+ de entrega vs 85-90% para SMS",
-            "es": "99%+ de entrega vs 85-90% para SMS",
-            "id": "99%+ tingkat pengiriman vs 85-90% untuk SMS",
-            "ar": "99%+ معدل تسليم مقابل 85-90% لـ SMS",
-            "tr": "%99+ teslimat oranı vs SMS için %85-90"
+            "en": "Copy-code button — users never retype the code",
+            "pt": "Botão de copiar código — o usuário não precisa redigitar",
+            "es": "Botón de copiar código — el usuario no vuelve a escribirlo",
+            "id": "Tombol salin kode — pengguna tidak perlu mengetik ulang",
+            "ar": "زر نسخ الرمز — لا حاجة لإعادة كتابته",
+            "tr": "Kodu kopyala butonu — kullanıcı kodu yeniden yazmaz"
           },
           {
             "en": "End-to-end encryption by default",
@@ -196,36 +196,36 @@
         "rows": [
           [
             {
-              "en": "Delivery Latency",
-              "pt": "Latência de Entrega",
-              "es": "Latencia de Entrega",
-              "id": "Latensi Pengiriman",
-              "ar": "وقت وصول",
-              "tr": "Teslimat Gecikmesi"
+              "en": "Encryption",
+              "pt": "Criptografia",
+              "es": "Cifrado",
+              "id": "Enkripsi",
+              "ar": "التشفير",
+              "tr": "Şifreleme"
             },
             {
-              "en": "< 2 seconds",
-              "pt": "< 2 segundos",
-              "es": "< 2 segundos",
-              "id": "< 2 detik",
-              "ar": "< ثانيتين",
-              "tr": "< 2 saniye"
+              "en": "✓ (End-to-end)",
+              "pt": "✓ (Ponta a ponta)",
+              "es": "✓ (Extremo a extremo)",
+              "id": "✓ (End-to-end)",
+              "ar": "✓ (من طرف إلى طرف)",
+              "tr": "✓ (Uçtan uca)"
             },
             {
-              "en": "10 - 30+ seconds",
-              "pt": "10 - 30+ segundos",
-              "es": "10 - 30+ segundos",
-              "id": "10 - 30+ detik",
-              "ar": "10 - 30+ ثانية",
-              "tr": "10 - 30+ saniye"
+              "en": "✗ (Plain text)",
+              "pt": "✗ (Texto simples)",
+              "es": "✗ (Texto plano)",
+              "id": "✗ (Teks biasa)",
+              "ar": "✗ (نص عادي)",
+              "tr": "✗ (Düz metin)"
             },
             {
-              "en": "Instant (Local generation)",
-              "pt": "Instantâneo (Geração local)",
-              "es": "Instantáneo (Generación local)",
-              "id": "Instan (Pembuatan lokal)",
-              "ar": "فوري (إنشاء محلي)",
-              "tr": "Anında (Yerel üretim)"
+              "en": "✓ (Generated on device)",
+              "pt": "✓ (Gerado no dispositivo)",
+              "es": "✓ (Generado en el dispositivo)",
+              "id": "✓ (Dibuat di perangkat)",
+              "ar": "✓ (يُنشأ على الجهاز)",
+              "tr": "✓ (Cihazda üretilir)"
             }
           ],
           [
@@ -298,36 +298,36 @@
           ],
           [
             {
-              "en": "Delivery Success Rate",
-              "pt": "Taxa de Sucesso de Entrega",
-              "es": "Tasa de Éxito de Entrega",
-              "id": "Tingkat Keberhasilan Pengiriman",
-              "ar": "معدل نجاح التسليم",
-              "tr": "Teslimat Başarı Oranı"
+              "en": "Needs Internet Access",
+              "pt": "Precisa de Internet",
+              "es": "Requiere Internet",
+              "id": "Perlu Akses Internet",
+              "ar": "يتطلب اتصالاً بالإنترنت",
+              "tr": "İnternet Gerekir"
             },
             {
-              "en": "99%+",
-              "pt": "99%+",
-              "es": "99%+",
-              "id": "99%+",
-              "ar": "99%+",
-              "tr": "%99+"
+              "en": "Yes (mobile data or Wi-Fi)",
+              "pt": "Sim (dados móveis ou Wi-Fi)",
+              "es": "Sí (datos móviles o Wi-Fi)",
+              "id": "Ya (data seluler atau Wi-Fi)",
+              "ar": "نعم (بيانات الجوال أو Wi-Fi)",
+              "tr": "Evet (mobil veri veya Wi-Fi)"
             },
             {
-              "en": "82% - 88% (Spam filters)",
-              "pt": "82% - 88% (Filtros de spam)",
-              "es": "82% - 88% (Filtros de spam)",
-              "id": "82% - 88% (Filter spam)",
-              "ar": "82% - 88% (فلاتر البريد العشوائي)",
-              "tr": "%82 - %88 (Spam filtreleri)"
+              "en": "No (cellular network)",
+              "pt": "Não (rede celular)",
+              "es": "No (red celular)",
+              "id": "Tidak (jaringan seluler)",
+              "ar": "لا (شبكة الهاتف المحمول)",
+              "tr": "Hayır (hücresel ağ)"
             },
             {
-              "en": "100% (No network needed)",
-              "pt": "100% (Sem rede necessária)",
-              "es": "100% (Sin red necesaria)",
-              "id": "100% (Tidak perlu jaringan)",
-              "ar": "100% (لا حاجة لشبكة)",
-              "tr": "%100 (Ağ gerekmez)"
+              "en": "No (works offline)",
+              "pt": "Não (funciona offline)",
+              "es": "No (funciona sin conexión)",
+              "id": "Tidak (berfungsi offline)",
+              "ar": "لا (يعمل دون اتصال)",
+              "tr": "Hayır (çevrimdışı çalışır)"
             }
           ]
         ]
@@ -337,41 +337,37 @@
       "type": "codeShowcase",
       "props": {
         "badge": {
-          "en": "Quick Start",
-          "pt": "Início Rápido",
-          "es": "Inicio Rápido",
-          "id": "Mulai Cepat",
-          "ar": "بدء سريع",
-          "tr": "Hızlı Başlangıç"
+          "en": "Authentication templates",
+          "pt": "Templates de autenticação",
+          "es": "Plantillas de autenticación",
+          "id": "Template autentikasi",
+          "ar": "قوالب المصادقة",
+          "tr": "Kimlik doğrulama şablonları"
         },
         "heading": {
-          "en": "Send a WhatsApp OTP in Seconds",
-          "pt": "Envie um OTP WhatsApp em Segundos",
-          "es": "Envíe un OTP WhatsApp en Segundos",
-          "id": "Kirim OTP WhatsApp dalam Hitungan Detik",
-          "ar": "أرسل OTP واتساب في ثوانٍ",
-          "tr": "Saniyeler İçinde WhatsApp OTP Gönderin"
-        },
-        "overlayText": {
-          "en": "Authentication API Sandbox — Coming Soon",
-          "pt": "Sandbox da API de Autenticação — Em Breve",
-          "es": "Sandbox de API de Autenticación — Próximamente",
-          "id": "Sandbox API Autentikasi — Segera Hadir",
-          "ar": "بيئة تجريبية API المصادقة — قريباً",
-          "tr": "Kimlik Doğrulama API Sanal Alanı — Çok Yakında"
+          "en": "Send a WhatsApp OTP with an authentication template",
+          "pt": "Envie um OTP no WhatsApp com um template de autenticação",
+          "es": "Envía un OTP por WhatsApp con una plantilla de autenticación",
+          "id": "Kirim OTP WhatsApp dengan template autentikasi",
+          "ar": "أرسل رمز OTP عبر واتساب باستخدام قالب مصادقة",
+          "tr": "Kimlik doğrulama şablonuyla WhatsApp OTP gönderin"
         },
         "snippets": [
           {
             "lang": "cURL",
-            "code": "curl -X POST https://api.startmessaging.com/v1/auth/otp \\\n  -H \"Authorization: Bearer YOUR_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"to\": \"+5511999999999\",\n    \"channel\": \"whatsapp\",\n    \"code_length\": 6,\n    \"language\": \"pt\"\n  }'"
+            "code": "curl -X POST {{WA_API_BASE}}/api/v1/messages \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: login-7781\" \\\n  -d '{\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"login_code\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        {\n          \"text\": \"482913\"\n        }\n      ],\n      \"buttonParameters\": [\n        {\n          \"index\": 0,\n          \"subType\": \"url\",\n          \"text\": \"482913\"\n        }\n      ]\n    },\n    \"clientReference\": \"login-7781\"\n  }'"
           },
           {
             "lang": "Node.js",
-            "code": "const res = await fetch('https://api.startmessaging.com/v1/auth/otp', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer YOUR_API_KEY',\n    'Content-Type': 'application/json',\n  },\n  body: JSON.stringify({\n    to: '+5511999999999',\n    channel: 'whatsapp',\n    code_length: 6,\n    language: 'pt',\n  }),\n});\n\nconst { request_id } = await res.json();"
+            "code": "const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + process.env.SM_API_KEY,\n    'Content-Type': 'application/json',\n    'Idempotency-Key': 'login-7781',\n  },\n  body: JSON.stringify({\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"login_code\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        {\n          \"text\": \"482913\"\n        }\n      ],\n      \"buttonParameters\": [\n        {\n          \"index\": 0,\n          \"subType\": \"url\",\n          \"text\": \"482913\"\n        }\n      ]\n    },\n    \"clientReference\": \"login-7781\"\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.id, data.status);"
           },
           {
             "lang": "Python",
-            "code": "import requests\n\nres = requests.post(\n    'https://api.startmessaging.com/v1/auth/otp',\n    headers={'Authorization': 'Bearer YOUR_API_KEY'},\n    json={\n        'to': '+5511999999999',\n        'channel': 'whatsapp',\n        'code_length': 6,\n        'language': 'pt',\n    },\n)\n\nrequest_id = res.json()['request_id']"
+            "code": "import os, requests\n\nres = requests.post(\n    '{{WA_API_BASE}}/api/v1/messages',\n    headers={\n        'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\",\n        'Idempotency-Key': 'login-7781',\n    },\n    json={\n      \"to\": \"+919812345678\",\n      \"type\": \"template\",\n      \"template\": {\n        \"name\": \"login_code\",\n        \"language\": \"en_US\",\n        \"parameters\": [\n          {\n            \"text\": \"482913\"\n          }\n        ],\n        \"buttonParameters\": [\n          {\n            \"index\": 0,\n            \"subType\": \"url\",\n            \"text\": \"482913\"\n          }\n        ]\n      },\n      \"clientReference\": \"login-7781\"\n    },\n)\n\ndata = res.json()['data']\nprint(data['id'], data['status'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$body = <<<'JSON'\n{\n  \"to\": \"+919812345678\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"login_code\",\n    \"language\": \"en_US\",\n    \"parameters\": [\n      {\n        \"text\": \"482913\"\n      }\n    ],\n    \"buttonParameters\": [\n      {\n        \"index\": 0,\n        \"subType\": \"url\",\n        \"text\": \"482913\"\n      }\n    ]\n  },\n  \"clientReference\": \"login-7781\"\n}\nJSON;\n\n$ch = curl_init('{{WA_API_BASE}}/api/v1/messages');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        'Authorization: Bearer ' . getenv('SM_API_KEY'),\n        'Content-Type: application/json',\n        'Idempotency-Key: login-7781',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['status'];"
           }
         ]
       }
@@ -409,13 +405,13 @@
               "ng": "What's the difference between WhatsApp OTP and SMS OTP?"
             },
             "answer": {
-              "en": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp offers end-to-end encryption (SMS does not), higher delivery rates (99%+ vs ~85% for SMS), one-tap auto-fill on Android, and lower cost per message. SMS OTPs are better for users without WhatsApp. Our API supports automatic fallback from WhatsApp to SMS.",
-              "pt": "OTPs via WhatsApp são entregues pelo aplicativo WhatsApp em vez de SMS. Diferenças principais: WhatsApp oferece criptografia ponta a ponta, taxas de entrega mais altas (99%+ vs ~85% para SMS), preenchimento automático com um toque no Android e menor custo por mensagem. SMS OTPs são melhores para usuários sem WhatsApp. Nossa API suporta fallback automático.",
-              "es": "Los OTPs de WhatsApp se entregan a través de la aplicación WhatsApp en lugar de SMS. Diferencias clave: WhatsApp ofrece cifrado de extremo a extremo, tasas de entrega más altas (99%+ vs ~85% para SMS), autocompletado con un toque en Android y menor costo por mensaje. SMS OTPs son mejores para usuarios sin WhatsApp.",
-              "id": "OTP WhatsApp dikirim melalui aplikasi WhatsApp bukan SMS. Perbedaan utama: WhatsApp menawarkan enkripsi end-to-end, tingkat pengiriman lebih tinggi (99%+ vs ~85% untuk SMS), isi otomatis satu ketukan di Android, dan biaya per pesan lebih rendah. OTP SMS lebih baik untuk pengguna tanpa WhatsApp. API kami mendukung fallback otomatis.",
-              "ar": "تُسلّم OTPs عبر تطبيق واتساب بدلاً من SMS. الفوارق الرئيسية: يوفر واتساب تشفيراً من طرف إلى طرف ومعدلات تسليم أعلى وملء تلقائي بلمسة واحدة على Android وتكلفة أقل لكل رسالة. رموز OTP عبر SMS أفضل للمستخدمين الذين لا يملكون واتساب.",
-              "tr": "WhatsApp OTP'leri SMS yerine WhatsApp uygulaması üzerinden iletilir. Temel farklar: WhatsApp uçtan uca şifreleme sunar, daha yüksek teslimat oranları (%99+ vs SMS için ~%85), Android'de tek dokunuşla otomatik doldurma ve mesaj başına daha düşük maliyet. SMS OTP'leri WhatsApp'ı olmayan kullanıcılar için daha iyidir.",
-              "ng": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp offers end-to-end encryption (SMS does not), higher delivery rates (99%+ vs ~85% for SMS), one-tap auto-fill on Android, and lower cost per message. SMS OTPs are better for users without WhatsApp. Our API supports automatic fallback from WhatsApp to SMS."
+              "en": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp messages are end-to-end encrypted (SMS is not), authentication templates add a copy-code or one-tap autofill button, and delivery does not depend on carrier SMS filtering. SMS OTPs still reach users who do not have WhatsApp or are offline, so many apps offer both. With StartMessaging you send the WhatsApp code yourself via POST /api/v1/messages; any SMS option runs separately.",
+              "pt": "OTPs via WhatsApp são entregues pelo aplicativo WhatsApp em vez de SMS. Diferenças principais: as mensagens do WhatsApp têm criptografia de ponta a ponta (o SMS não), os templates de autenticação incluem botão de copiar código ou de preenchimento automático, e a entrega não depende dos filtros de SMS das operadoras. OTPs por SMS ainda alcançam quem não tem WhatsApp ou está sem internet, por isso muitos apps oferecem os dois. Com a StartMessaging você envia o código no WhatsApp via POST /api/v1/messages; qualquer opção por SMS funciona separadamente.",
+              "es": "Los OTP de WhatsApp se entregan a través de la app de WhatsApp en lugar de SMS. Diferencias clave: los mensajes de WhatsApp tienen cifrado de extremo a extremo (el SMS no), las plantillas de autenticación añaden un botón de copiar código o de autocompletado, y la entrega no depende del filtrado de SMS de los operadores. Los OTP por SMS siguen llegando a quien no tiene WhatsApp o está sin conexión, por lo que muchas apps ofrecen ambos. Con StartMessaging usted envía el código de WhatsApp mediante POST /api/v1/messages; cualquier opción por SMS funciona por separado.",
+              "id": "OTP WhatsApp dikirim melalui aplikasi WhatsApp, bukan SMS. Perbedaan utama: pesan WhatsApp dienkripsi end-to-end (SMS tidak), template autentikasi menambahkan tombol salin kode atau isi otomatis, dan pengiriman tidak bergantung pada penyaringan SMS operator. OTP SMS tetap menjangkau pengguna tanpa WhatsApp atau yang sedang offline, sehingga banyak aplikasi menawarkan keduanya. Dengan StartMessaging Anda mengirim kode WhatsApp sendiri melalui POST /api/v1/messages; opsi SMS apa pun berjalan terpisah.",
+              "ar": "تُسلَّم رموز OTP عبر تطبيق واتساب بدلاً من SMS. الفروق الرئيسية: رسائل واتساب مشفرة من طرف إلى طرف (وSMS ليست كذلك)، وتضيف قوالب المصادقة زر نسخ الرمز أو الملء التلقائي، ولا يعتمد التسليم على فلاتر SMS لدى المشغلين. لا تزال رموز SMS تصل إلى من لا يملكون واتساب أو غير المتصلين بالإنترنت، لذا تقدم تطبيقات كثيرة الخيارين. مع StartMessaging ترسل رمز واتساب بنفسك عبر POST /api/v1/messages، وأي خيار SMS يعمل بشكل منفصل.",
+              "tr": "WhatsApp OTP'leri SMS yerine WhatsApp uygulaması üzerinden iletilir. Temel farklar: WhatsApp mesajları uçtan uca şifrelidir (SMS değildir), kimlik doğrulama şablonları kodu kopyala veya otomatik doldurma butonu ekler ve teslimat operatör SMS filtrelerine bağlı değildir. SMS OTP'leri WhatsApp'ı olmayan veya çevrimdışı kullanıcılara yine ulaşır; bu yüzden birçok uygulama ikisini de sunar. StartMessaging ile WhatsApp kodunu POST /api/v1/messages üzerinden kendiniz gönderirsiniz; SMS seçeneği ayrı çalışır.",
+              "ng": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp messages are end-to-end encrypted (SMS is not), authentication templates add a copy-code or one-tap autofill button, and delivery does not depend on carrier SMS filtering. SMS OTPs still reach users who do not have WhatsApp or are offline, so many apps offer both. With StartMessaging you send the WhatsApp code yourself via POST /api/v1/messages; any SMS option runs separately."
             }
           },
           {
@@ -449,13 +445,13 @@
               "ng": "Are WhatsApp OTPs compliant with country-specific guidelines?"
             },
             "answer": {
-              "en": "Yes, our WhatsApp OTP service matches global regulatory standards and works seamlessly with automatic fallback carriers. For example, in India, it operates without DLT registration, but fallback SMS messages do require DLT configuration.",
-              "pt": "Sim, nosso serviço OTP do WhatsApp atende aos padrões regulatórios globais e funciona perfeitamente com operadoras de fallback automático para SMS. No Brasil, atende totalmente à LGPD por meio de criptografia de ponta a ponta.",
-              "es": "Sí, nuestro servicio OTP de WhatsApp cumple con los estándares regulatorios globales y funciona sin problemas con operadores de respaldo de SMS. Admite entrega rápida en redes mexicanas como Telcel y Movistar.",
-              "id": "Ya, layanan OTP WhatsApp kami memenuhi standar peraturan global dan berfungsi secara lancar dengan operator cadangan SMS otomatis. Untuk India, ini bekerja tanpa pendaftaran DLT, namun SMS cadangan memerlukan konfigurasi DLT.",
-              "ar": "نعم، تتوافق خدمة OTP عبر واتساب مع المعايير التنظيمية العالمية وتعمل بسلاسة مع مشغلي الرسائل النصية القصيرة الاحتياطية تلقائياً. في الهند مثلاً، تعمل دون تسجيل DLT، بينما تتطلب الرسائل النصية القصيرة الاحتياطية تكوين DLT.",
-              "tr": "Evet, WhatsApp OTP servisimiz küresel düzenleyici standartlara uygundur ve otomatik SMS yedekleme operatörleriyle sorunsuz çalışır. Örneğin Hindistan'da DLT kaydı olmadan çalışır, ancak yedek SMS mesajları DLT yapılandırması gerektirir.",
-              "ng": "Yes, our WhatsApp OTP service matches global regulatory standards and works seamlessly with automatic fallback carriers. For example, in India, it operates without DLT registration, but fallback SMS messages do require DLT configuration."
+              "en": "Yes. WhatsApp authentication templates are sent over Meta's WhatsApp Business Platform, so India's TRAI DLT registration, which applies to SMS, is not needed for them. You still need the user's consent and a Meta-approved authentication template, and you should follow your own security and data-protection rules.",
+              "pt": "Sim. Os templates de autenticação do WhatsApp são enviados pela plataforma WhatsApp Business da Meta e seguem as regras da Meta. Você ainda precisa do consentimento do usuário e de um template de autenticação aprovado pela Meta, e deve seguir suas próprias regras de segurança e de proteção de dados, como a LGPD.",
+              "es": "Sí. Las plantillas de autenticación de WhatsApp se envían por la plataforma de WhatsApp Business de Meta y siguen las reglas de Meta. Aún necesita el consentimiento del usuario y una plantilla de autenticación aprobada por Meta, y debe seguir sus propias normas de seguridad y protección de datos.",
+              "id": "Ya. Template autentikasi WhatsApp dikirim melalui WhatsApp Business Platform milik Meta dan mengikuti aturan Meta. Anda tetap memerlukan persetujuan pengguna dan template autentikasi yang disetujui Meta, serta harus mengikuti aturan keamanan dan perlindungan data Anda sendiri.",
+              "ar": "نعم. تُرسل قوالب المصادقة في واتساب عبر منصة واتساب للأعمال من Meta وتخضع لقواعد Meta. لا تزال بحاجة إلى موافقة المستخدم وقالب مصادقة معتمد من Meta، ويجب أن تتبع قواعد الأمان وحماية البيانات الخاصة بك.",
+              "tr": "Evet. WhatsApp kimlik doğrulama şablonları Meta'nın WhatsApp Business Platformu üzerinden gönderilir ve Meta kurallarına tabidir. Yine de kullanıcının onayına ve Meta onaylı bir kimlik doğrulama şablonuna ihtiyacınız vardır; ayrıca kendi güvenlik ve veri koruma kurallarınıza (ör. KVKK) uymalısınız.",
+              "ng": "Yes. WhatsApp authentication templates are sent over Meta's WhatsApp Business Platform, so India's TRAI DLT registration, which applies to SMS, is not needed for them. You still need the user's consent and a Meta-approved authentication template, and you should follow your own security and data-protection rules."
             }
           },
           {
@@ -469,13 +465,13 @@
               "ng": "What is the expiration time for WhatsApp OTPs?"
             },
             "answer": {
-              "en": "By default, OTP codes are valid for 5 minutes. However, you can customize the expiration time (from 1 to 15 minutes) in your API request parameters to fit your application's security policies.",
-              "pt": "Por padrão, os códigos OTP são válidos por 5 minutos. No entanto, você pode personalizar o tempo de expiração (de 1 a 15 minutos) nos parâmetros de requisição da API de acordo com as políticas do seu app.",
-              "es": "Por defecto, los códigos OTP son válidos por 5 minutos. Sin embargo, puede personalizar el tiempo de expiración (de 1 a 15 minutos) en los parámetros de la API según sus políticas de seguridad.",
-              "id": "Secara default, kode OTP berlaku selama 5 menit. Namun, Anda dapat menyesuaikan waktu kedaluwarsa (dari 1 hingga 15 menit) dalam parameter permintaan API untuk menyesuaikan dengan kebijakan keamanan aplikasi Anda.",
-              "ar": "افتراضياً، تكون رموز OTP صالحة لمدة 5 دقائق. ومع ذلك، يمكنك تخصيص وقت انتهاء الصلاحية (من دقيقة واحدة إلى 15 دقيقة) في معلمات طلب API لتناسب سياسات الأمان الخاصة بك.",
-              "tr": "Varsayılan olarak, OTP kodları 5 dakika geçerlidir. Ancak, uygulamanızın güvenlik politikalarına uyması için API istek parametrelerinizde geçerlilik süresini (1 ila 15 dakika arasında) özelleştirebilirsiniz.",
-              "ng": "By default, OTP codes are valid for 5 minutes. However, you can customize the expiration time (from 1 to 15 minutes) in your API request parameters to fit your application's security policies."
+              "en": "You decide. Your app generates the code and checks it, so the validity period is your own rule (5–10 minutes is common). When you create the authentication template you can also add an expiry notice, so the message tells users how long the code is valid.",
+              "pt": "Você decide. Seu app gera e valida o código, então o prazo de validade é uma regra sua (5 a 10 minutos é comum). Ao criar o template de autenticação, você também pode adicionar um aviso de expiração, para que a mensagem informe por quanto tempo o código é válido.",
+              "es": "Usted decide. Su app genera y verifica el código, así que el periodo de validez es su propia regla (lo habitual es de 5 a 10 minutos). Al crear la plantilla de autenticación también puede añadir un aviso de caducidad, para que el mensaje indique cuánto tiempo es válido el código.",
+              "id": "Anda yang menentukan. Aplikasi Anda membuat dan memeriksa kode, jadi masa berlakunya adalah aturan Anda sendiri (umumnya 5–10 menit). Saat membuat template autentikasi, Anda juga dapat menambahkan pemberitahuan kedaluwarsa agar pesan memberi tahu pengguna berapa lama kode berlaku.",
+              "ar": "القرار لك. تطبيقك يُنشئ الرمز ويتحقق منه، لذا فمدة الصلاحية قاعدة تضعها أنت (الشائع من 5 إلى 10 دقائق). وعند إنشاء قالب المصادقة يمكنك أيضاً إضافة تنبيه بانتهاء الصلاحية، لتُعلم الرسالة المستخدم بمدة صلاحية الرمز.",
+              "tr": "Siz karar verirsiniz. Kodu uygulamanız üretir ve kontrol eder, dolayısıyla geçerlilik süresi sizin kuralınızdır (genellikle 5–10 dakika). Kimlik doğrulama şablonunu oluştururken bir son kullanma uyarısı da ekleyebilirsiniz; böylece mesaj, kodun ne kadar süre geçerli olduğunu kullanıcıya bildirir.",
+              "ng": "You decide. Your app generates the code and checks it, so the validity period is your own rule (5–10 minutes is common). When you create the authentication template you can also add an expiry notice, so the message tells users how long the code is valid."
             }
           },
           {
@@ -515,47 +511,47 @@
         "links": [
           {
             "label": {
-              "en": "OTP SMS API",
-              "pt": "API OTP SMS",
-              "es": "API OTP SMS",
-              "id": "API OTP SMS",
-              "ar": "API OTP SMS",
-              "tr": "OTP SMS API"
+              "en": "WhatsApp Template Builder",
+              "pt": "Criador de Templates do WhatsApp",
+              "es": "Creador de Plantillas de WhatsApp",
+              "id": "Pembuat Template WhatsApp",
+              "ar": "منشئ قوالب واتساب",
+              "tr": "WhatsApp Şablon Oluşturucu"
             },
-            "href": "/otp-api"
+            "href": "/whatsapp/templates"
           },
           {
             "label": {
-              "en": "DLT-Free OTP",
-              "pt": "OTP Sem DLT",
-              "es": "OTP Sin DLT",
-              "id": "OTP Tanpa DLT",
-              "ar": "OTP بدون DLT",
-              "tr": "DLT'siz OTP"
+              "en": "Developer API",
+              "pt": "API para Desenvolvedores",
+              "es": "API para Desarrolladores",
+              "id": "API untuk Developer",
+              "ar": "واجهة API للمطورين",
+              "tr": "Geliştirici API'si"
             },
-            "href": "/dlt-free-otp"
+            "href": "/whatsapp/api"
           },
           {
             "label": {
-              "en": "General Auth API",
-              "pt": "API de Auth Geral",
-              "es": "API de Auth General",
-              "id": "API Auth Umum",
-              "ar": "API Auth العام",
-              "tr": "Genel Auth API"
+              "en": "Utility Notifications",
+              "pt": "Notificações Utilitárias",
+              "es": "Notificaciones Utilitarias",
+              "id": "Notifikasi Utilitas",
+              "ar": "إشعارات الخدمات",
+              "tr": "Yardımcı Bildirimler"
             },
-            "href": "/auth-api"
+            "href": "/whatsapp/utility"
           },
           {
             "label": {
-              "en": "Pricing Sheet",
-              "pt": "Tabela de Preços",
-              "es": "Hoja de Precios",
-              "id": "Lembar Harga",
-              "ar": "جدول الأسعار",
-              "tr": "Fiyat Tablosu"
+              "en": "Automations & Integrations",
+              "pt": "Automações e Integrações",
+              "es": "Automatizaciones e Integraciones",
+              "id": "Otomatisasi & Integrasi",
+              "ar": "الأتمتة والتكاملات",
+              "tr": "Otomasyonlar ve Entegrasyonlar"
             },
-            "href": "/pricing"
+            "href": "/whatsapp/auto-trigger"
           }
         ]
       }
@@ -572,22 +568,22 @@
           "tr": "Kullanıcılarınızı WhatsApp OTP'leriyle Güvence Altına Alın"
         },
         "subtext": {
-          "en": "Free plan. Start in 5 minutes.",
-          "pt": "Plano grátis. Comece em 5 minutos.",
-          "es": "Plan gratis. Comience en 5 minutos.",
-          "id": "Paket gratis. Mulai dalam 5 menit.",
-          "ar": "خطة مجانية. ابدأ في 5 دقائق.",
-          "tr": "Ücretsiz plan. 5 dakikada başlayın."
+          "en": "14-day free trial. Connect your own WhatsApp Business number in minutes.",
+          "pt": "Teste grátis de 14 dias. Conecte seu próprio número do WhatsApp Business em minutos.",
+          "es": "Prueba gratis de 14 días. Conecte su propio número de WhatsApp Business en minutos.",
+          "id": "Uji coba gratis 14 hari. Hubungkan nomor WhatsApp Business Anda sendiri dalam hitungan menit.",
+          "ar": "تجربة مجانية لمدة 14 يوماً. اربط رقم واتساب للأعمال الخاص بك في دقائق.",
+          "tr": "14 günlük ücretsiz deneme. Kendi WhatsApp Business numaranızı dakikalar içinde bağlayın."
         },
         "primaryCta": {
-          "en": "Get Started Free",
-          "pt": "Começar Grátis",
-          "es": "Empieza Gratis",
-          "id": "Mulai Gratis",
-          "ar": "ابدأ مجاناً",
-          "tr": "Ücretsiz Başla"
+          "en": "Start Free Trial",
+          "pt": "Começar Teste Grátis",
+          "es": "Iniciar Prueba Gratis",
+          "id": "Mulai Uji Coba Gratis",
+          "ar": "ابدأ التجربة المجانية",
+          "tr": "Ücretsiz Denemeyi Başlat"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
       }
     }
   ]

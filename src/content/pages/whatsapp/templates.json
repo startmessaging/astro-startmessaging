@@ -1,0 +1,852 @@
+{
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
+  "theme": "whatsapp",
+  "updatedAt": "2026-10-07",
+  "seo": {
+    "ogImage": "/og/whatsapp-marketing.jpg",
+    "title": {
+      "en": "WhatsApp Template Builder — Create & Send Message Templates — StartMessaging",
+      "pt": "Criador de Templates WhatsApp — Crie e Envie Modelos de Mensagem — StartMessaging",
+      "es": "Creador de Plantillas WhatsApp — Cree y Envíe Plantillas de Mensaje — StartMessaging",
+      "id": "Pembuat Template WhatsApp — Buat & Kirim Template Pesan — StartMessaging",
+      "ar": "منشئ قوالب واتساب — أنشئ قوالب الرسائل وأرسلها — StartMessaging",
+      "tr": "WhatsApp Şablon Oluşturucu — Mesaj Şablonları Oluşturun ve Gönderin — StartMessaging"
+    },
+    "description": {
+      "en": "Build WhatsApp message templates with a live phone preview: Marketing, Utility and Authentication categories, 16 languages, media headers, up to 10 buttons, rejection help, per-template insights and a Send via API panel.",
+      "pt": "Crie templates de mensagem do WhatsApp com pré-visualização ao vivo no celular: categorias Marketing, Utilidade e Autenticação, 16 idiomas, cabeçalhos de mídia, até 10 botões, ajuda com rejeições, métricas por template e painel Enviar via API.",
+      "es": "Cree plantillas de mensaje de WhatsApp con vista previa en vivo en el teléfono: categorías Marketing, Utilidad y Autenticación, 16 idiomas, encabezados multimedia, hasta 10 botones, ayuda con rechazos, métricas por plantilla y panel Enviar vía API.",
+      "id": "Buat template pesan WhatsApp dengan pratinjau ponsel langsung: kategori Marketing, Utilitas, dan Autentikasi, 16 bahasa, header media, hingga 10 tombol, bantuan penolakan, wawasan per template, dan panel Kirim via API.",
+      "ar": "أنشئ قوالب رسائل واتساب مع معاينة مباشرة على الهاتف: فئات التسويق والخدمات والمصادقة، و16 لغة، ورؤوس وسائط، وحتى 10 أزرار، ومساعدة عند الرفض، وإحصاءات لكل قالب، ولوحة \"الإرسال عبر API\".",
+      "tr": "Canlı telefon önizlemesiyle WhatsApp mesaj şablonları oluşturun: Pazarlama, Yardımcı ve Kimlik Doğrulama kategorileri, 16 dil, medya başlıkları, en fazla 10 düğme, ret yardımı, şablon başına içgörüler ve API ile Gönder paneli."
+    }
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Message Templates",
+          "pt": "Templates de Mensagem",
+          "es": "Plantillas de Mensaje",
+          "id": "Template Pesan",
+          "ar": "قوالب الرسائل",
+          "tr": "Mesaj Şablonları"
+        },
+        "title": {
+          "en": "Build WhatsApp Templates Ready for Meta Review",
+          "pt": "Crie Templates do WhatsApp Prontos para a Revisão da Meta",
+          "es": "Cree Plantillas de WhatsApp Listas para la Revisión de Meta",
+          "id": "Buat Template WhatsApp yang Siap Ditinjau Meta",
+          "ar": "أنشئ قوالب واتساب جاهزة لمراجعة Meta",
+          "tr": "Meta İncelemesine Hazır WhatsApp Şablonları Oluşturun"
+        },
+        "subtitle": {
+          "en": "Create Marketing, Utility and Authentication templates with a live phone preview, a sample for every variable and checks for common mistakes before you submit. Meta reviews every template; once approved, send it from campaigns, the inbox, chatbot flows or the REST API.",
+          "pt": "Crie templates de Marketing, Utilidade e Autenticação com pré-visualização ao vivo no celular, um exemplo para cada variável e verificações de erros comuns antes de enviar. A Meta revisa cada template; depois de aprovado, envie-o por campanhas, pela caixa de entrada, por fluxos de chatbot ou pela API REST.",
+          "es": "Cree plantillas de Marketing, Utilidad y Autenticación con vista previa en vivo en el teléfono, un ejemplo para cada variable y comprobaciones de errores comunes antes de enviarlas. Meta revisa cada plantilla; una vez aprobada, envíela desde campañas, la bandeja de entrada, flujos de chatbot o la API REST.",
+          "id": "Buat template Marketing, Utilitas, dan Autentikasi dengan pratinjau ponsel langsung, contoh untuk setiap variabel, dan pemeriksaan kesalahan umum sebelum Anda mengirimkannya. Meta meninjau setiap template; setelah disetujui, kirim dari kampanye, kotak masuk, alur chatbot, atau REST API.",
+          "ar": "أنشئ قوالب التسويق والخدمات والمصادقة مع معاينة مباشرة على الهاتف، ومثال لكل متغير، وفحوصات للأخطاء الشائعة قبل الإرسال. تراجع Meta كل قالب؛ وبعد الموافقة عليه أرسله من الحملات أو صندوق الوارد أو مسارات الشات بوت أو REST API.",
+          "tr": "Pazarlama, Yardımcı ve Kimlik Doğrulama şablonlarını canlı telefon önizlemesi, her değişken için bir örnek ve göndermeden önce yaygın hata kontrolleriyle oluşturun. Meta her şablonu inceler; onaylandıktan sonra kampanyalardan, gelen kutusundan, sohbet botu akışlarından veya REST API ile gönderin."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Inicie la prueba gratuita de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يومًا",
+          "tr": "14 günlük ücretsiz denemeyi başlatın"
+        },
+        "primaryHref": "https://whatsapp.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Read the template docs",
+          "pt": "Leia a documentação de templates",
+          "es": "Lea la documentación de plantillas",
+          "id": "Baca dokumentasi template",
+          "ar": "اقرأ توثيق القوالب",
+          "tr": "Şablon belgelerini okuyun"
+        },
+        "secondaryHref": "/docs/whatsapp/message-templates"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Every Template Type, in 16 Languages",
+          "pt": "Todos os Tipos de Template, em 16 Idiomas",
+          "es": "Todos los Tipos de Plantilla, en 16 Idiomas",
+          "id": "Semua Jenis Template, dalam 16 Bahasa",
+          "ar": "كل أنواع القوالب، بـ16 لغة",
+          "tr": "Her Şablon Türü, 16 Dilde"
+        },
+        "body": {
+          "en": "Pick a category (Marketing, Utility or Authentication) and a type: standard, limited-time offer, authentication (a one-time-password message with a copy-code button and optional expiry) or carousel. Add a header (none, text, image, video, document or location), a body of up to 1,024 characters with positional {{1}} or named {{name}} variables, and a footer. Write it in any of 16 languages, from English, Hindi, Arabic, Portuguese (BR), Spanish and Indonesian to Tamil, Bengali and more.",
+          "pt": "Escolha uma categoria (Marketing, Utilidade ou Autenticação) e um tipo: padrão, oferta por tempo limitado, autenticação (uma mensagem de senha única com botão de copiar código e validade opcional) ou carrossel. Adicione um cabeçalho (nenhum, texto, imagem, vídeo, documento ou localização), um corpo de até 1.024 caracteres com variáveis posicionais {{1}} ou nomeadas {{name}} e um rodapé. Escreva em qualquer um dos 16 idiomas, do inglês, hindi, árabe, português (BR), espanhol e indonésio ao tâmil, bengali e outros.",
+          "es": "Elija una categoría (Marketing, Utilidad o Autenticación) y un tipo: estándar, oferta por tiempo limitado, autenticación (un mensaje de contraseña de un solo uso con botón de copiar código y vencimiento opcional) o carrusel. Añada un encabezado (ninguno, texto, imagen, video, documento o ubicación), un cuerpo de hasta 1.024 caracteres con variables posicionales {{1}} o con nombre {{name}} y un pie de página. Escríbala en cualquiera de 16 idiomas, desde inglés, hindi, árabe, portugués (BR), español e indonesio hasta tamil, bengalí y más.",
+          "id": "Pilih kategori (Marketing, Utilitas, atau Autentikasi) dan jenis: standar, penawaran waktu terbatas, autentikasi (pesan kata sandi sekali pakai dengan tombol salin kode dan masa berlaku opsional), atau carousel. Tambahkan header (tanpa header, teks, gambar, video, dokumen, atau lokasi), isi hingga 1.024 karakter dengan variabel posisi {{1}} atau bernama {{name}}, serta footer. Tulis dalam salah satu dari 16 bahasa, mulai dari Inggris, Hindi, Arab, Portugis (BR), Spanyol, dan Indonesia hingga Tamil, Bengali, dan lainnya.",
+          "ar": "اختر فئة (التسويق أو الخدمات أو المصادقة) ونوعًا: قياسي، أو عرض لفترة محدودة، أو مصادقة (رسالة كلمة مرور لمرة واحدة مع زر نسخ الرمز وانتهاء صلاحية اختياري)، أو دوّار (Carousel). أضف رأسًا (بدون، أو نص، أو صورة، أو فيديو، أو مستند، أو موقع)، ونصًا أساسيًا حتى 1,024 حرفًا مع متغيرات موضعية {{1}} أو مسماة {{name}}، وتذييلًا. اكتبه بأي من 16 لغة، من الإنجليزية والهندية والعربية والبرتغالية (البرازيل) والإسبانية والإندونيسية إلى التاميلية والبنغالية وغيرها.",
+          "tr": "Bir kategori (Pazarlama, Yardımcı veya Kimlik Doğrulama) ve bir tür seçin: standart, sınırlı süreli teklif, kimlik doğrulama (kod kopyalama düğmesi ve isteğe bağlı geçerlilik süresi olan tek kullanımlık şifre mesajı) veya karusel. Bir başlık (yok, metin, görsel, video, belge veya konum), konumsal {{1}} ya da adlandırılmış {{name}} değişkenleriyle en fazla 1.024 karakterlik bir gövde ve bir alt bilgi ekleyin. İngilizce, Hintçe, Arapça, Portekizce (BR), İspanyolca ve Endonezce'den Tamilce, Bengalce ve daha fazlasına kadar 16 dilden herhangi biriyle yazın."
+        },
+        "bullets": [
+          {
+            "en": "Standard, limited-time offer, authentication and carousel types",
+            "pt": "Tipos padrão, oferta por tempo limitado, autenticação e carrossel",
+            "es": "Tipos estándar, oferta por tiempo limitado, autenticación y carrusel",
+            "id": "Jenis standar, penawaran waktu terbatas, autentikasi, dan carousel",
+            "ar": "أنواع قياسي وعرض لفترة محدودة ومصادقة ودوّار",
+            "tr": "Standart, sınırlı süreli teklif, kimlik doğrulama ve karusel türleri"
+          },
+          {
+            "en": "Text, image, video, document or location headers",
+            "pt": "Cabeçalhos de texto, imagem, vídeo, documento ou localização",
+            "es": "Encabezados de texto, imagen, video, documento o ubicación",
+            "id": "Header teks, gambar, video, dokumen, atau lokasi",
+            "ar": "رؤوس نصية أو صورة أو فيديو أو مستند أو موقع",
+            "tr": "Metin, görsel, video, belge veya konum başlıkları"
+          },
+          {
+            "en": "Live phone preview as you type",
+            "pt": "Pré-visualização ao vivo no celular enquanto você digita",
+            "es": "Vista previa en vivo en el teléfono mientras escribe",
+            "id": "Pratinjau ponsel langsung saat Anda mengetik",
+            "ar": "معاينة مباشرة على الهاتف أثناء الكتابة",
+            "tr": "Yazarken canlı telefon önizlemesi"
+          }
+        ],
+        "image": "/images/utility-preview.webp",
+        "imageAlt": {
+          "en": "WhatsApp template editor with a live phone preview",
+          "pt": "Editor de templates do WhatsApp com pré-visualização ao vivo no celular",
+          "es": "Editor de plantillas de WhatsApp con vista previa en vivo en el teléfono",
+          "id": "Editor template WhatsApp dengan pratinjau ponsel langsung",
+          "ar": "محرر قوالب واتساب مع معاينة مباشرة على الهاتف",
+          "tr": "Canlı telefon önizlemeli WhatsApp şablon düzenleyicisi"
+        },
+        "reversed": false
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Help Before and After Meta Reviews It",
+          "pt": "Ajuda Antes e Depois da Revisão da Meta",
+          "es": "Ayuda Antes y Después de la Revisión de Meta",
+          "id": "Bantuan Sebelum dan Sesudah Ditinjau Meta",
+          "ar": "مساعدة قبل مراجعة Meta وبعدها",
+          "tr": "Meta İncelemesinden Önce ve Sonra Yardım"
+        },
+        "body": {
+          "en": "Start from the examples gallery or a blank template. The builder asks for a sample value for every variable, flags a body that starts or ends with a variable, and warns when a Marketing template has no opt-out line such as \"Reply STOP to unsubscribe\". If Meta rejects a template, you see the reason explained in plain words and can fix and resubmit it. If Meta moves a template to another category, a notice tells you, because the category sets what Meta charges.",
+          "pt": "Comece pela galeria de exemplos ou por um template em branco. O editor pede um valor de exemplo para cada variável, sinaliza um corpo que começa ou termina com variável e avisa quando um template de Marketing não tem uma linha de descadastro como \"Responda SAIR para cancelar\". Se a Meta rejeitar um template, você vê o motivo explicado em palavras simples e pode corrigir e reenviar. Se a Meta mudar a categoria de um template, um aviso informa você, porque a categoria define o que a Meta cobra.",
+          "es": "Empiece desde la galería de ejemplos o con una plantilla en blanco. El editor pide un valor de ejemplo para cada variable, señala un cuerpo que empieza o termina con una variable y avisa cuando una plantilla de Marketing no tiene una línea de baja como \"Responda BAJA para darse de baja\". Si Meta rechaza una plantilla, verá el motivo explicado en palabras sencillas y podrá corregirla y reenviarla. Si Meta cambia la categoría de una plantilla, un aviso se lo indica, porque la categoría define lo que cobra Meta.",
+          "id": "Mulai dari galeri contoh atau template kosong. Pembuat template meminta nilai contoh untuk setiap variabel, menandai isi yang diawali atau diakhiri variabel, dan memperingatkan jika template Marketing tidak memiliki baris berhenti berlangganan seperti \"Balas STOP untuk berhenti\". Jika Meta menolak template, Anda melihat alasannya dijelaskan dengan bahasa sederhana dan dapat memperbaiki lalu mengirim ulang. Jika Meta memindahkan template ke kategori lain, pemberitahuan akan muncul, karena kategori menentukan biaya dari Meta.",
+          "ar": "ابدأ من معرض الأمثلة أو من قالب فارغ. يطلب المنشئ قيمة مثال لكل متغير، وينبّهك إذا بدأ النص الأساسي أو انتهى بمتغير، ويحذّرك عندما يخلو قالب التسويق من سطر إلغاء الاشتراك مثل \"أرسل STOP لإلغاء الاشتراك\". إذا رفضت Meta قالبًا، سترى السبب مشروحًا بكلمات بسيطة ويمكنك تصحيحه وإعادة إرساله. وإذا نقلت Meta قالبًا إلى فئة أخرى، يظهر لك إشعار بذلك، لأن الفئة تحدد ما تفرضه Meta من رسوم.",
+          "tr": "Örnekler galerisinden veya boş bir şablondan başlayın. Oluşturucu her değişken için örnek bir değer ister, değişkenle başlayan ya da biten bir gövdeyi işaretler ve bir Pazarlama şablonunda \"Abonelikten çıkmak için STOP yazın\" gibi bir çıkış satırı yoksa uyarır. Meta bir şablonu reddederse nedeni sade bir dille açıklanmış olarak görür, düzeltip yeniden gönderebilirsiniz. Meta bir şablonun kategorisini değiştirirse bir bildirim sizi uyarır, çünkü Meta'nın ücretini kategori belirler."
+        },
+        "bullets": [
+          {
+            "en": "Examples gallery for Utility, Marketing and Authentication",
+            "pt": "Galeria de exemplos para Utilidade, Marketing e Autenticação",
+            "es": "Galería de ejemplos para Utilidad, Marketing y Autenticación",
+            "id": "Galeri contoh untuk Utilitas, Marketing, dan Autentikasi",
+            "ar": "معرض أمثلة للخدمات والتسويق والمصادقة",
+            "tr": "Yardımcı, Pazarlama ve Kimlik Doğrulama için örnekler galerisi"
+          },
+          {
+            "en": "Rejection reasons explained, then resubmit",
+            "pt": "Motivos de rejeição explicados, depois reenvie",
+            "es": "Motivos de rechazo explicados y luego reenvío",
+            "id": "Alasan penolakan dijelaskan, lalu kirim ulang",
+            "ar": "شرح أسباب الرفض ثم إعادة الإرسال",
+            "tr": "Ret nedenleri açıklanır, ardından yeniden gönderin"
+          },
+          {
+            "en": "Per-template insights: sent, delivered, read and button clicks",
+            "pt": "Métricas por template: enviados, entregues, lidos e cliques em botões",
+            "es": "Métricas por plantilla: enviados, entregados, leídos y clics en botones",
+            "id": "Wawasan per template: terkirim, diterima, dibaca, dan klik tombol",
+            "ar": "إحصاءات لكل قالب: المرسلة والمسلّمة والمقروءة والنقرات على الأزرار",
+            "tr": "Şablon başına içgörüler: gönderilen, teslim edilen, okunan ve düğme tıklamaları"
+          }
+        ],
+        "image": "/images/marketing-analytics.webp",
+        "imageAlt": {
+          "en": "Template insights with sent, delivered, read and click counts",
+          "pt": "Métricas de template com contagens de enviados, entregues, lidos e cliques",
+          "es": "Métricas de plantilla con recuentos de enviados, entregados, leídos y clics",
+          "id": "Wawasan template dengan jumlah terkirim, diterima, dibaca, dan klik",
+          "ar": "إحصاءات القالب مع أعداد المرسلة والمسلّمة والمقروءة والنقرات",
+          "tr": "Gönderilen, teslim edilen, okunan ve tıklama sayılarıyla şablon içgörüleri"
+        },
+        "reversed": true
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": {
+          "en": "Buttons & Tools",
+          "pt": "Botões e Ferramentas",
+          "es": "Botones y Herramientas",
+          "id": "Tombol & Alat",
+          "ar": "الأزرار والأدوات",
+          "tr": "Düğmeler ve Araçlar"
+        },
+        "heading": {
+          "en": "Up to 10 Buttons and Everything Around Them",
+          "pt": "Até 10 Botões e Tudo o Que Há em Volta",
+          "es": "Hasta 10 Botones y Todo lo Que Los Rodea",
+          "id": "Hingga 10 Tombol dan Semua Pendukungnya",
+          "ar": "حتى 10 أزرار وكل ما يحيط بها",
+          "tr": "En Fazla 10 Düğme ve Çevresindeki Her Şey"
+        },
+        "subheading": {
+          "en": "Give customers a way to act, then see what they did.",
+          "pt": "Dê aos clientes uma forma de agir e veja o que eles fizeram.",
+          "es": "Dé a los clientes una forma de actuar y vea lo que hicieron.",
+          "id": "Beri pelanggan cara untuk bertindak, lalu lihat apa yang mereka lakukan.",
+          "ar": "امنح العملاء طريقة للتفاعل، ثم شاهد ما فعلوه.",
+          "tr": "Müşterilere harekete geçmenin bir yolunu verin, sonra ne yaptıklarını görün."
+        },
+        "columns": 3,
+        "items": [
+          {
+            "icon": "template",
+            "title": {
+              "en": "Reply and Link Buttons",
+              "pt": "Botões de Resposta e Link",
+              "es": "Botones de Respuesta y Enlace",
+              "id": "Tombol Balasan dan Tautan",
+              "ar": "أزرار الرد والروابط",
+              "tr": "Yanıt ve Bağlantı Düğmeleri"
+            },
+            "description": {
+              "en": "Quick replies, URL buttons with a static or dynamic link, a phone-number button, and WhatsApp voice or video call buttons.",
+              "pt": "Respostas rápidas, botões de URL com link estático ou dinâmico, botão de número de telefone e botões de chamada de voz ou vídeo do WhatsApp.",
+              "es": "Respuestas rápidas, botones de URL con enlace estático o dinámico, botón de número de teléfono y botones de llamada de voz o video de WhatsApp.",
+              "id": "Balasan cepat, tombol URL dengan tautan statis atau dinamis, tombol nomor telepon, serta tombol panggilan suara atau video WhatsApp.",
+              "ar": "ردود سريعة، وأزرار URL برابط ثابت أو ديناميكي، وزر رقم هاتف، وأزرار مكالمة صوتية أو مكالمة فيديو عبر واتساب.",
+              "tr": "Hızlı yanıtlar, statik veya dinamik bağlantılı URL düğmeleri, telefon numarası düğmesi ve WhatsApp sesli veya görüntülü arama düğmeleri."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Commerce and Coupon Buttons",
+              "pt": "Botões de Comércio e Cupom",
+              "es": "Botones de Comercio y Cupón",
+              "id": "Tombol Belanja dan Kupon",
+              "ar": "أزرار التجارة والقسائم",
+              "tr": "Ticaret ve Kupon Düğmeleri"
+            },
+            "description": {
+              "en": "Copy code for coupons and one-time passwords, catalog and multi-product buttons that open your Meta product catalog, and request contact info.",
+              "pt": "Copiar código para cupons e senhas únicas, botões de catálogo e multiprodutos que abrem seu catálogo de produtos da Meta e solicitação de dados de contato.",
+              "es": "Copiar código para cupones y contraseñas de un solo uso, botones de catálogo y multiproducto que abren su catálogo de productos de Meta y solicitud de datos de contacto.",
+              "id": "Salin kode untuk kupon dan kata sandi sekali pakai, tombol katalog dan multi-produk yang membuka katalog produk Meta Anda, serta permintaan info kontak.",
+              "ar": "نسخ الرمز للقسائم وكلمات المرور لمرة واحدة، وأزرار الكتالوج والمنتجات المتعددة التي تفتح كتالوج منتجاتك في Meta، وطلب معلومات الاتصال.",
+              "tr": "Kuponlar ve tek kullanımlık şifreler için kod kopyalama, Meta ürün kataloğunuzu açan katalog ve çoklu ürün düğmeleri ile iletişim bilgisi isteme."
+            }
+          },
+          {
+            "icon": "bot",
+            "title": {
+              "en": "WhatsApp Form Buttons",
+              "pt": "Botões de Formulário do WhatsApp",
+              "es": "Botones de Formulario de WhatsApp",
+              "id": "Tombol Formulir WhatsApp",
+              "ar": "أزرار نماذج واتساب",
+              "tr": "WhatsApp Form Düğmeleri"
+            },
+            "description": {
+              "en": "Attach a WhatsApp Form (Meta Flow) synced from Meta to a Flow button. Answers come back as structured fields in the inbox, the API and webhooks.",
+              "pt": "Anexe a um botão Flow um Formulário do WhatsApp (Meta Flow) sincronizado da Meta. As respostas voltam como campos estruturados na caixa de entrada, na API e nos webhooks.",
+              "es": "Adjunte a un botón Flow un Formulario de WhatsApp (Meta Flow) sincronizado desde Meta. Las respuestas llegan como campos estructurados en la bandeja de entrada, la API y los webhooks.",
+              "id": "Lampirkan Formulir WhatsApp (Meta Flow) yang disinkronkan dari Meta ke tombol Flow. Jawaban kembali sebagai kolom terstruktur di kotak masuk, API, dan webhook.",
+              "ar": "اربط نموذج واتساب (Meta Flow) تمت مزامنته من Meta بزر Flow. تصل الإجابات كحقول منظمة في صندوق الوارد وواجهة API والـwebhooks.",
+              "tr": "Meta'dan senkronize edilen bir WhatsApp Form'u (Meta Flow) bir Flow düğmesine ekleyin. Yanıtlar gelen kutusuna, API'ye ve webhook'lara yapılandırılmış alanlar olarak gelir."
+            }
+          },
+          {
+            "icon": "shield",
+            "title": {
+              "en": "Checks Before You Submit",
+              "pt": "Verificações Antes de Enviar",
+              "es": "Comprobaciones Antes de Enviar",
+              "id": "Pemeriksaan Sebelum Mengirim",
+              "ar": "فحوصات قبل الإرسال",
+              "tr": "Göndermeden Önce Kontroller"
+            },
+            "description": {
+              "en": "Required samples for every variable, no variable at the start or end of the body, and an opt-out warning on Marketing templates.",
+              "pt": "Exemplos obrigatórios para cada variável, nenhuma variável no início ou no fim do corpo e aviso de descadastro em templates de Marketing.",
+              "es": "Ejemplos obligatorios para cada variable, ninguna variable al inicio o al final del cuerpo y aviso de baja en plantillas de Marketing.",
+              "id": "Contoh wajib untuk setiap variabel, tidak ada variabel di awal atau akhir isi, dan peringatan berhenti berlangganan pada template Marketing.",
+              "ar": "أمثلة إلزامية لكل متغير، ولا متغير في بداية النص الأساسي أو نهايته، وتحذير إلغاء الاشتراك في قوالب التسويق.",
+              "tr": "Her değişken için zorunlu örnekler, gövdenin başında veya sonunda değişken olmaması ve Pazarlama şablonlarında abonelikten çıkma uyarısı."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Per-Template Insights",
+              "pt": "Métricas por Template",
+              "es": "Métricas por Plantilla",
+              "id": "Wawasan per Template",
+              "ar": "إحصاءات لكل قالب",
+              "tr": "Şablon Başına İçgörüler"
+            },
+            "description": {
+              "en": "See how many messages were sent, delivered and read, and which buttons customers tapped, for each template.",
+              "pt": "Veja quantas mensagens foram enviadas, entregues e lidas, e quais botões os clientes tocaram, em cada template.",
+              "es": "Vea cuántos mensajes se enviaron, entregaron y leyeron, y qué botones tocaron los clientes, en cada plantilla.",
+              "id": "Lihat berapa pesan yang terkirim, diterima, dan dibaca, serta tombol mana yang diketuk pelanggan, untuk setiap template.",
+              "ar": "اعرف عدد الرسائل المرسلة والمسلّمة والمقروءة، والأزرار التي نقر عليها العملاء، لكل قالب.",
+              "tr": "Her şablon için kaç mesajın gönderildiğini, teslim edildiğini ve okunduğunu, müşterilerin hangi düğmelere dokunduğunu görün."
+            }
+          },
+          {
+            "icon": "api",
+            "title": {
+              "en": "Send via API Panel",
+              "pt": "Painel Enviar via API",
+              "es": "Panel Enviar vía API",
+              "id": "Panel Kirim via API",
+              "ar": "لوحة الإرسال عبر API",
+              "tr": "API ile Gönder Paneli"
+            },
+            "description": {
+              "en": "Each template shows exactly which parameters it needs and a request you can copy. The template.status_updated webhook tells you when Meta approves, rejects or pauses it.",
+              "pt": "Cada template mostra exatamente quais parâmetros precisa e uma requisição que você pode copiar. O webhook template.status_updated avisa quando a Meta aprova, rejeita ou pausa o template.",
+              "es": "Cada plantilla muestra exactamente qué parámetros necesita y una solicitud que puede copiar. El webhook template.status_updated le avisa cuando Meta la aprueba, rechaza o pausa.",
+              "id": "Setiap template menunjukkan parameter yang dibutuhkan dan permintaan yang bisa Anda salin. Webhook template.status_updated memberi tahu saat Meta menyetujui, menolak, atau menjeda template.",
+              "ar": "يعرض كل قالب المعاملات التي يحتاجها بالضبط وطلبًا يمكنك نسخه. ويُعلمك webhook ‏template.status_updated عندما توافق Meta على القالب أو ترفضه أو توقفه مؤقتًا.",
+              "tr": "Her şablon tam olarak hangi parametrelere ihtiyaç duyduğunu ve kopyalayabileceğiniz bir isteği gösterir. template.status_updated webhook'u, Meta şablonu onayladığında, reddettiğinde veya duraklattığında sizi bilgilendirir."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Categories",
+          "pt": "Categorias",
+          "es": "Categorías",
+          "id": "Kategori",
+          "ar": "الفئات",
+          "tr": "Kategoriler"
+        },
+        "heading": {
+          "en": "Marketing vs. Utility vs. Authentication Templates",
+          "pt": "Templates de Marketing vs. Utilidade vs. Autenticação",
+          "es": "Plantillas de Marketing vs. Utilidad vs. Autenticación",
+          "id": "Template Marketing vs. Utilitas vs. Autentikasi",
+          "ar": "قوالب التسويق مقابل الخدمات مقابل المصادقة",
+          "tr": "Pazarlama ve Yardımcı ve Kimlik Doğrulama Şablonları"
+        },
+        "subheading": {
+          "en": "Meta sets the price by category and bills it directly to your own WhatsApp Business Account. StartMessaging never charges per message.",
+          "pt": "A Meta define o preço por categoria e cobra diretamente na sua própria conta do WhatsApp Business. A StartMessaging nunca cobra por mensagem.",
+          "es": "Meta fija el precio por categoría y lo factura directamente a su propia cuenta de WhatsApp Business. StartMessaging nunca cobra por mensaje.",
+          "id": "Meta menetapkan harga per kategori dan menagihkannya langsung ke Akun WhatsApp Business Anda sendiri. StartMessaging tidak pernah menagih per pesan.",
+          "ar": "تحدد Meta السعر حسب الفئة وتفوترها مباشرة على حساب واتساب للأعمال الخاص بك. لا تفرض StartMessaging أي رسوم على كل رسالة.",
+          "tr": "Meta fiyatı kategoriye göre belirler ve doğrudan kendi WhatsApp Business Hesabınıza faturalandırır. StartMessaging hiçbir zaman mesaj başına ücret almaz."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Compare",
+              "pt": "Comparar",
+              "es": "Comparar",
+              "id": "Bandingkan",
+              "ar": "المقارنة",
+              "tr": "Karşılaştırma"
+            }
+          },
+          {
+            "label": {
+              "en": "Marketing",
+              "pt": "Marketing",
+              "es": "Marketing",
+              "id": "Marketing",
+              "ar": "التسويق",
+              "tr": "Pazarlama"
+            }
+          },
+          {
+            "label": {
+              "en": "Utility",
+              "pt": "Utilidade",
+              "es": "Utilidad",
+              "id": "Utilitas",
+              "ar": "الخدمات",
+              "tr": "Yardımcı"
+            }
+          },
+          {
+            "label": {
+              "en": "Authentication",
+              "pt": "Autenticação",
+              "es": "Autenticación",
+              "id": "Autentikasi",
+              "ar": "المصادقة",
+              "tr": "Kimlik Doğrulama"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Use it for",
+              "pt": "Use para",
+              "es": "Úsela para",
+              "id": "Gunakan untuk",
+              "ar": "استخدمها من أجل",
+              "tr": "Kullanım alanı"
+            },
+            {
+              "en": "Promotions, offers, announcements, re-engagement",
+              "pt": "Promoções, ofertas, anúncios, reengajamento",
+              "es": "Promociones, ofertas, anuncios, reactivación",
+              "id": "Promosi, penawaran, pengumuman, keterlibatan ulang",
+              "ar": "العروض الترويجية والتخفيضات والإعلانات وإعادة التفاعل",
+              "tr": "Promosyonlar, teklifler, duyurular, yeniden etkileşim"
+            },
+            {
+              "en": "Updates on something the customer started: orders, bookings, payments, account alerts",
+              "pt": "Atualizações sobre algo que o cliente iniciou: pedidos, reservas, pagamentos, alertas de conta",
+              "es": "Actualizaciones sobre algo que inició el cliente: pedidos, reservas, pagos, alertas de cuenta",
+              "id": "Pembaruan atas hal yang dimulai pelanggan: pesanan, pemesanan, pembayaran, peringatan akun",
+              "ar": "تحديثات حول أمر بدأه العميل: الطلبات والحجوزات والمدفوعات وتنبيهات الحساب",
+              "tr": "Müşterinin başlattığı bir işlemle ilgili güncellemeler: siparişler, rezervasyonlar, ödemeler, hesap uyarıları"
+            },
+            {
+              "en": "One-time passwords and login codes",
+              "pt": "Senhas únicas e códigos de login",
+              "es": "Contraseñas de un solo uso y códigos de inicio de sesión",
+              "id": "Kata sandi sekali pakai dan kode masuk",
+              "ar": "كلمات المرور لمرة واحدة ورموز تسجيل الدخول",
+              "tr": "Tek kullanımlık şifreler ve giriş kodları"
+            }
+          ],
+          [
+            {
+              "en": "Billed by Meta to your WABA",
+              "pt": "Cobrado pela Meta na sua WABA",
+              "es": "Facturado por Meta a su WABA",
+              "id": "Ditagih Meta ke WABA Anda",
+              "ar": "تفوترها Meta على حسابك WABA",
+              "tr": "Meta tarafından WABA'nıza faturalanır"
+            },
+            {
+              "en": "Every delivered message",
+              "pt": "Cada mensagem entregue",
+              "es": "Cada mensaje entregado",
+              "id": "Setiap pesan yang diterima",
+              "ar": "كل رسالة مسلّمة",
+              "tr": "Teslim edilen her mesaj"
+            },
+            {
+              "en": "Every delivered message, except inside an open customer service window, where it is free",
+              "pt": "Cada mensagem entregue, exceto dentro de uma janela de atendimento aberta, onde é gratuita",
+              "es": "Cada mensaje entregado, excepto dentro de una ventana de atención abierta, donde es gratis",
+              "id": "Setiap pesan yang diterima, kecuali di dalam jendela layanan pelanggan yang terbuka, yang gratis",
+              "ar": "كل رسالة مسلّمة، إلا داخل نافذة خدمة عملاء مفتوحة حيث تكون مجانية",
+              "tr": "Teslim edilen her mesaj; açık bir müşteri hizmetleri penceresi içinde ise ücretsiz"
+            },
+            {
+              "en": "Every delivered message",
+              "pt": "Cada mensagem entregue",
+              "es": "Cada mensaje entregado",
+              "id": "Setiap pesan yang diterima",
+              "ar": "كل رسالة مسلّمة",
+              "tr": "Teslim edilen her mesaj"
+            }
+          ],
+          [
+            {
+              "en": "Typical template types",
+              "pt": "Tipos de template comuns",
+              "es": "Tipos de plantilla habituales",
+              "id": "Jenis template umum",
+              "ar": "أنواع القوالب المعتادة",
+              "tr": "Tipik şablon türleri"
+            },
+            {
+              "en": "Standard, limited-time offer, carousel",
+              "pt": "Padrão, oferta por tempo limitado, carrossel",
+              "es": "Estándar, oferta por tiempo limitado, carrusel",
+              "id": "Standar, penawaran waktu terbatas, carousel",
+              "ar": "قياسي، عرض لفترة محدودة، دوّار",
+              "tr": "Standart, sınırlı süreli teklif, karusel"
+            },
+            {
+              "en": "Standard",
+              "pt": "Padrão",
+              "es": "Estándar",
+              "id": "Standar",
+              "ar": "قياسي",
+              "tr": "Standart"
+            },
+            {
+              "en": "Authentication (copy code, optional expiry)",
+              "pt": "Autenticação (copiar código, validade opcional)",
+              "es": "Autenticación (copiar código, vencimiento opcional)",
+              "id": "Autentikasi (salin kode, masa berlaku opsional)",
+              "ar": "مصادقة (نسخ الرمز، انتهاء صلاحية اختياري)",
+              "tr": "Kimlik doğrulama (kod kopyalama, isteğe bağlı geçerlilik süresi)"
+            }
+          ],
+          [
+            {
+              "en": "Who writes the body",
+              "pt": "Quem escreve o corpo",
+              "es": "Quién escribe el cuerpo",
+              "id": "Siapa yang menulis isi",
+              "ar": "من يكتب النص الأساسي",
+              "tr": "Gövdeyi kim yazar"
+            },
+            {
+              "en": "You",
+              "pt": "Você",
+              "es": "Usted",
+              "id": "Anda",
+              "ar": "أنت",
+              "tr": "Siz"
+            },
+            {
+              "en": "You",
+              "pt": "Você",
+              "es": "Usted",
+              "id": "Anda",
+              "ar": "أنت",
+              "tr": "Siz"
+            },
+            {
+              "en": "Meta (fixed code text, optional security warning)",
+              "pt": "A Meta (texto fixo do código, aviso de segurança opcional)",
+              "es": "Meta (texto fijo del código, aviso de seguridad opcional)",
+              "id": "Meta (teks kode tetap, peringatan keamanan opsional)",
+              "ar": "Meta (نص ثابت للرمز، وتحذير أمني اختياري)",
+              "tr": "Meta (sabit kod metni, isteğe bağlı güvenlik uyarısı)"
+            }
+          ],
+          [
+            {
+              "en": "Opt-out line",
+              "pt": "Linha de descadastro",
+              "es": "Línea de baja",
+              "id": "Baris berhenti berlangganan",
+              "ar": "سطر إلغاء الاشتراك",
+              "tr": "Abonelikten çıkma satırı"
+            },
+            {
+              "en": "Builder warns if it is missing",
+              "pt": "O editor avisa se estiver faltando",
+              "es": "El editor avisa si falta",
+              "id": "Pembuat template memperingatkan jika tidak ada",
+              "ar": "ينبّهك المنشئ إذا كان مفقودًا",
+              "tr": "Eksikse oluşturucu uyarır"
+            },
+            {
+              "en": "Not checked",
+              "pt": "Não verificado",
+              "es": "No se comprueba",
+              "id": "Tidak diperiksa",
+              "ar": "لا يتم التحقق",
+              "tr": "Kontrol edilmez"
+            },
+            {
+              "en": "Not checked",
+              "pt": "Não verificado",
+              "es": "No se comprueba",
+              "id": "Tidak diperiksa",
+              "ar": "لا يتم التحقق",
+              "tr": "Kontrol edilmez"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Send via API",
+          "pt": "Enviar via API",
+          "es": "Enviar vía API",
+          "id": "Kirim via API",
+          "ar": "الإرسال عبر API",
+          "tr": "API ile Gönder"
+        },
+        "heading": {
+          "en": "Check a template is approved, then send it",
+          "pt": "Verifique se um template está aprovado e depois envie",
+          "es": "Compruebe que una plantilla está aprobada y luego envíela",
+          "id": "Periksa apakah template sudah disetujui, lalu kirim",
+          "ar": "تحقق من الموافقة على القالب ثم أرسله",
+          "tr": "Şablonun onaylandığını kontrol edin, sonra gönderin"
+        },
+        "subheading": {
+          "en": "Templates are created in the dashboard and are read-only over the API: list them with GET /api/v1/templates and send approved ones with POST /api/v1/messages.",
+          "pt": "Os templates são criados no painel e são somente leitura pela API: liste-os com GET /api/v1/templates e envie os aprovados com POST /api/v1/messages.",
+          "es": "Las plantillas se crean en el panel y son de solo lectura en la API: enumérelas con GET /api/v1/templates y envíe las aprobadas con POST /api/v1/messages.",
+          "id": "Template dibuat di dasbor dan hanya dapat dibaca melalui API: daftarkan dengan GET /api/v1/templates dan kirim yang disetujui dengan POST /api/v1/messages.",
+          "ar": "تُنشأ القوالب في لوحة التحكم وتكون للقراءة فقط عبر API: اعرضها باستخدام GET /api/v1/templates وأرسل المعتمدة منها باستخدام POST /api/v1/messages.",
+          "tr": "Şablonlar panelde oluşturulur ve API üzerinden salt okunurdur: GET /api/v1/templates ile listeleyin, onaylananları POST /api/v1/messages ile gönderin."
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "# 1. Check that the template is approved\ncurl \"{{WA_API_BASE}}/api/v1/templates?status=APPROVED&name=order_confirmation&language=en_US\" \\\n  -H \"Authorization: Bearer sm_live_your_api_key\"\n\n# 2. Send it (body: \"Hi {{1}}, your order {{2}} is confirmed.\")\ncurl -X POST {{WA_API_BASE}}/api/v1/messages \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: order-1042-confirmed\" \\\n  -d '{\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"order_confirmation\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        { \"text\": \"Asha\" },\n        { \"text\": \"#1042\" }\n      ]\n    },\n    \"clientReference\": \"order-1042\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const BASE = '{{WA_API_BASE}}/api/v1';\nconst headers = {\n  'Authorization': 'Bearer ' + process.env.SM_API_KEY, // sm_live_your_api_key\n  'Content-Type': 'application/json',\n};\n\n// 1. Check that the template is approved (needs the templates:read scope)\nconst list = await fetch(\n  `${BASE}/templates?status=APPROVED&name=order_confirmation&language=en_US`,\n  { headers },\n);\nconst { data: templates } = await list.json();\nif (templates.items.length === 0) throw new Error('order_confirmation is not approved yet');\n\n// 2. Send it (needs the messages:send scope)\nconst res = await fetch(`${BASE}/messages`, {\n  method: 'POST',\n  headers: { ...headers, 'Idempotency-Key': 'order-1042-confirmed' },\n  body: JSON.stringify({\n    to: '+919812345678',\n    type: 'template',\n    template: {\n      name: 'order_confirmation',\n      language: 'en_US',\n      parameters: [{ text: 'Asha' }, { text: '#1042' }],\n    },\n    clientReference: 'order-1042',\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.id, data.status);"
+          },
+          {
+            "lang": "Python",
+            "code": "import os, requests\n\nBASE = '{{WA_API_BASE}}/api/v1'\nHEADERS = {'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\"}  # sm_live_your_api_key\n\n# 1. Check that the template is approved\ntemplates = requests.get(\n    f'{BASE}/templates',\n    headers=HEADERS,\n    params={'status': 'APPROVED', 'name': 'order_confirmation', 'language': 'en_US'},\n).json()['data']\nif not templates['items']:\n    raise RuntimeError('order_confirmation is not approved yet')\n\n# 2. Send it\nres = requests.post(\n    f'{BASE}/messages',\n    headers={**HEADERS, 'Idempotency-Key': 'order-1042-confirmed'},\n    json={\n        'to': '+919812345678',\n        'type': 'template',\n        'template': {\n            'name': 'order_confirmation',\n            'language': 'en_US',\n            'parameters': [{'text': 'Asha'}, {'text': '#1042'}],\n        },\n        'clientReference': 'order-1042',\n    },\n)\n\ndata = res.json()['data']\nprint(data['id'], data['status'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$base = '{{WA_API_BASE}}/api/v1';\n$auth = 'Authorization: Bearer ' . getenv('SM_API_KEY'); // sm_live_your_api_key\n\n// 1. Check that the template is approved\n$ch = curl_init($base . '/templates?status=APPROVED&name=order_confirmation&language=en_US');\ncurl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_HTTPHEADER => [$auth]]);\n$templates = json_decode(curl_exec($ch), true)['data'];\nif (count($templates['items']) === 0) {\n    exit('order_confirmation is not approved yet');\n}\n\n// 2. Send it\n$body = json_encode([\n    'to' => '+919812345678',\n    'type' => 'template',\n    'template' => [\n        'name' => 'order_confirmation',\n        'language' => 'en_US',\n        'parameters' => [['text' => 'Asha'], ['text' => '#1042']],\n    ],\n    'clientReference' => 'order-1042',\n]);\n\n$ch = curl_init($base . '/messages');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        $auth,\n        'Content-Type: application/json',\n        'Idempotency-Key: order-1042-confirmed',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['status'];"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "WhatsApp Templates — FAQ",
+          "pt": "Templates do WhatsApp — Perguntas Frequentes",
+          "es": "Plantillas de WhatsApp — Preguntas Frecuentes",
+          "id": "Template WhatsApp — FAQ",
+          "ar": "قوالب واتساب — الأسئلة الشائعة",
+          "tr": "WhatsApp Şablonları — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "How long does Meta take to review a template?",
+              "pt": "Quanto tempo a Meta leva para revisar um template?",
+              "es": "¿Cuánto tarda Meta en revisar una plantilla?",
+              "id": "Berapa lama Meta meninjau template?",
+              "ar": "كم تستغرق Meta لمراجعة قالب؟",
+              "tr": "Meta bir şablonu ne kadar sürede inceler?"
+            },
+            "answer": {
+              "en": "Meta reviews every template and sets the review time; StartMessaging doesn't approve templates. The template stays Pending until Meta decides. Subscribe to the template.status_updated webhook, or watch the Templates page, to know the moment it changes.",
+              "pt": "A Meta revisa cada template e define o tempo de revisão; a StartMessaging não aprova templates. O template fica Pendente até a Meta decidir. Assine o webhook template.status_updated, ou acompanhe a página Templates, para saber assim que ele mudar.",
+              "es": "Meta revisa cada plantilla y fija el tiempo de revisión; StartMessaging no aprueba plantillas. La plantilla queda Pendiente hasta que Meta decide. Suscríbase al webhook template.status_updated, o revise la página Plantillas, para saber en cuanto cambie.",
+              "id": "Meta meninjau setiap template dan menentukan waktu peninjauan; StartMessaging tidak menyetujui template. Template tetap Tertunda sampai Meta memutuskan. Berlangganan webhook template.status_updated, atau pantau halaman Template, untuk tahu saat statusnya berubah.",
+              "ar": "تراجع Meta كل قالب وتحدد وقت المراجعة؛ ولا تعتمد StartMessaging القوالب. يبقى القالب قيد الانتظار حتى تقرر Meta. اشترك في webhook ‏template.status_updated، أو تابع صفحة القوالب، لتعرف لحظة تغيّر حالته.",
+              "tr": "Meta her şablonu inceler ve inceleme süresini belirler; StartMessaging şablon onaylamaz. Şablon, Meta karar verene kadar Beklemede kalır. Değiştiği anı öğrenmek için template.status_updated webhook'una abone olun veya Şablonlar sayfasını takip edin."
+            }
+          },
+          {
+            "question": {
+              "en": "What happens if Meta rejects my template?",
+              "pt": "O que acontece se a Meta rejeitar meu template?",
+              "es": "¿Qué pasa si Meta rechaza mi plantilla?",
+              "id": "Apa yang terjadi jika Meta menolak template saya?",
+              "ar": "ماذا يحدث إذا رفضت Meta قالبي؟",
+              "tr": "Meta şablonumu reddederse ne olur?"
+            },
+            "answer": {
+              "en": "The template page shows Meta's reason, explained in plain words. Fix what caused it and save to resubmit the template to Meta, or duplicate it and start fresh.",
+              "pt": "A página do template mostra o motivo da Meta, explicado em palavras simples. Corrija o que causou a rejeição e salve para reenviar o template à Meta, ou duplique-o e comece de novo.",
+              "es": "La página de la plantilla muestra el motivo de Meta, explicado en palabras sencillas. Corrija lo que lo causó y guarde para reenviar la plantilla a Meta, o duplíquela y empiece de nuevo.",
+              "id": "Halaman template menampilkan alasan dari Meta, dijelaskan dengan bahasa sederhana. Perbaiki penyebabnya lalu simpan untuk mengirim ulang template ke Meta, atau duplikat dan mulai dari awal.",
+              "ar": "تعرض صفحة القالب سبب Meta مشروحًا بكلمات بسيطة. أصلح سبب الرفض واحفظ لإعادة إرسال القالب إلى Meta، أو انسخه وابدأ من جديد.",
+              "tr": "Şablon sayfası Meta'nın nedenini sade bir dille açıklanmış olarak gösterir. Nedeni düzeltip kaydederek şablonu Meta'ya yeniden gönderin ya da çoğaltıp baştan başlayın."
+            }
+          },
+          {
+            "question": {
+              "en": "Who pays for template messages?",
+              "pt": "Quem paga pelas mensagens de template?",
+              "es": "¿Quién paga los mensajes de plantilla?",
+              "id": "Siapa yang membayar pesan template?",
+              "ar": "من يدفع مقابل رسائل القوالب؟",
+              "tr": "Şablon mesajlarının ücretini kim öder?"
+            },
+            "answer": {
+              "en": "Meta bills each delivered template, by its category, directly to your own WhatsApp Business Account (WABA). Utility templates sent inside an open customer service window, and free-form service replies, are free from Meta. StartMessaging charges a flat subscription and never adds a per-message fee.",
+              "pt": "A Meta cobra cada template entregue, conforme a categoria, diretamente na sua própria conta do WhatsApp Business (WABA). Templates de Utilidade enviados dentro de uma janela de atendimento aberta e respostas livres de atendimento são gratuitos na Meta. A StartMessaging cobra uma assinatura fixa e nunca adiciona taxa por mensagem.",
+              "es": "Meta factura cada plantilla entregada, según su categoría, directamente a su propia cuenta de WhatsApp Business (WABA). Las plantillas de Utilidad enviadas dentro de una ventana de atención abierta y las respuestas libres de servicio son gratuitas en Meta. StartMessaging cobra una suscripción fija y nunca añade una tarifa por mensaje.",
+              "id": "Meta menagih setiap template yang diterima, sesuai kategorinya, langsung ke Akun WhatsApp Business (WABA) Anda sendiri. Template Utilitas yang dikirim di dalam jendela layanan pelanggan yang terbuka, serta balasan layanan bebas, gratis dari Meta. StartMessaging mengenakan langganan tetap dan tidak pernah menambahkan biaya per pesan.",
+              "ar": "تفوتر Meta كل قالب مسلّم، حسب فئته، مباشرة على حساب واتساب للأعمال (WABA) الخاص بك. قوالب الخدمات المرسلة داخل نافذة خدمة عملاء مفتوحة، والردود الحرة ضمن الخدمة، مجانية من Meta. تفرض StartMessaging اشتراكًا ثابتًا ولا تضيف أي رسوم على كل رسالة.",
+              "tr": "Meta, teslim edilen her şablonu kategorisine göre doğrudan kendi WhatsApp Business Hesabınıza (WABA) faturalandırır. Açık bir müşteri hizmetleri penceresi içinde gönderilen Yardımcı şablonlar ve serbest hizmet yanıtları Meta tarafında ücretsizdir. StartMessaging sabit bir abonelik ücreti alır ve hiçbir zaman mesaj başına ücret eklemez."
+            }
+          },
+          {
+            "question": {
+              "en": "Why did Meta change my template's category?",
+              "pt": "Por que a Meta mudou a categoria do meu template?",
+              "es": "¿Por qué Meta cambió la categoría de mi plantilla?",
+              "id": "Mengapa Meta mengubah kategori template saya?",
+              "ar": "لماذا غيّرت Meta فئة قالبي؟",
+              "tr": "Meta şablonumun kategorisini neden değiştirdi?"
+            },
+            "answer": {
+              "en": "Meta can move an approved template between Utility and Marketing when its content looks promotional, which changes what each message costs. StartMessaging shows a notice on the Templates page when this happens or is scheduled, and the API always returns Meta's current category.",
+              "pt": "A Meta pode mover um template aprovado entre Utilidade e Marketing quando o conteúdo parece promocional, o que muda o custo de cada mensagem. A StartMessaging mostra um aviso na página Templates quando isso acontece ou está agendado, e a API sempre retorna a categoria atual da Meta.",
+              "es": "Meta puede mover una plantilla aprobada entre Utilidad y Marketing cuando su contenido parece promocional, lo que cambia el costo de cada mensaje. StartMessaging muestra un aviso en la página Plantillas cuando esto ocurre o está programado, y la API siempre devuelve la categoría actual de Meta.",
+              "id": "Meta dapat memindahkan template yang disetujui antara Utilitas dan Marketing jika isinya terlihat promosi, yang mengubah biaya setiap pesan. StartMessaging menampilkan pemberitahuan di halaman Template saat hal ini terjadi atau dijadwalkan, dan API selalu mengembalikan kategori Meta saat ini.",
+              "ar": "يمكن لـMeta نقل قالب معتمد بين فئتي الخدمات والتسويق عندما يبدو محتواه ترويجيًا، مما يغيّر تكلفة كل رسالة. تعرض StartMessaging إشعارًا في صفحة القوالب عند حدوث ذلك أو جدولته، وتعيد API دائمًا الفئة الحالية لدى Meta.",
+              "tr": "Meta, içeriği tanıtım amaçlı göründüğünde onaylanmış bir şablonu Yardımcı ile Pazarlama arasında taşıyabilir; bu da her mesajın maliyetini değiştirir. StartMessaging bu gerçekleştiğinde veya planlandığında Şablonlar sayfasında bir bildirim gösterir ve API her zaman Meta'nın güncel kategorisini döndürür."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I create templates through the API?",
+              "pt": "Posso criar templates pela API?",
+              "es": "¿Puedo crear plantillas mediante la API?",
+              "id": "Bisakah saya membuat template melalui API?",
+              "ar": "هل يمكنني إنشاء القوالب عبر API؟",
+              "tr": "API üzerinden şablon oluşturabilir miyim?"
+            },
+            "answer": {
+              "en": "No. Templates are created and submitted in the dashboard, where samples and media are checked before they reach Meta. The API lists templates (GET /api/v1/templates, templates:read scope) and sends approved ones with POST /api/v1/messages. Carousel templates and location headers can be sent from the dashboard but not yet through the API.",
+              "pt": "Não. Os templates são criados e enviados no painel, onde exemplos e mídias são verificados antes de chegar à Meta. A API lista templates (GET /api/v1/templates, escopo templates:read) e envia os aprovados com POST /api/v1/messages. Templates de carrossel e cabeçalhos de localização podem ser enviados pelo painel, mas ainda não pela API.",
+              "es": "No. Las plantillas se crean y envían en el panel, donde se comprueban los ejemplos y los archivos multimedia antes de llegar a Meta. La API enumera plantillas (GET /api/v1/templates, alcance templates:read) y envía las aprobadas con POST /api/v1/messages. Las plantillas de carrusel y los encabezados de ubicación se pueden enviar desde el panel, pero aún no mediante la API.",
+              "id": "Tidak. Template dibuat dan diajukan di dasbor, tempat contoh dan media diperiksa sebelum sampai ke Meta. API menampilkan daftar template (GET /api/v1/templates, cakupan templates:read) dan mengirim yang disetujui dengan POST /api/v1/messages. Template carousel dan header lokasi dapat dikirim dari dasbor tetapi belum melalui API.",
+              "ar": "لا. تُنشأ القوالب وتُرسل للمراجعة من لوحة التحكم، حيث يتم التحقق من الأمثلة والوسائط قبل وصولها إلى Meta. تعرض API القوالب (GET /api/v1/templates بنطاق templates:read) وترسل المعتمدة منها باستخدام POST /api/v1/messages. يمكن إرسال القوالب الدوّارة ورؤوس الموقع من لوحة التحكم، لكن ليس عبر API بعد.",
+              "tr": "Hayır. Şablonlar panelde oluşturulur ve gönderilir; örnekler ve medya Meta'ya ulaşmadan önce orada kontrol edilir. API şablonları listeler (GET /api/v1/templates, templates:read kapsamı) ve onaylananları POST /api/v1/messages ile gönderir. Karusel şablonlar ve konum başlıkları panelden gönderilebilir, ancak henüz API ile gönderilemez."
+            }
+          },
+          {
+            "question": {
+              "en": "Which languages can I create templates in?",
+              "pt": "Em quais idiomas posso criar templates?",
+              "es": "¿En qué idiomas puedo crear plantillas?",
+              "id": "Dalam bahasa apa saya bisa membuat template?",
+              "ar": "بأي لغات يمكنني إنشاء القوالب؟",
+              "tr": "Hangi dillerde şablon oluşturabilirim?"
+            },
+            "answer": {
+              "en": "16: English (US), English (UK), Hindi, Arabic, Portuguese (BR), Spanish, Indonesian, Malay, Tamil, Telugu, Kannada, Malayalam, Marathi, Bengali, Gujarati and Punjabi. A template name exists once per language, so when you send it over the API you pass the name and the exact language code together.",
+              "pt": "16: inglês (EUA), inglês (Reino Unido), hindi, árabe, português (BR), espanhol, indonésio, malaio, tâmil, télugo, canarês, malaiala, marati, bengali, guzerate e punjabi. Um nome de template existe uma vez por idioma, então ao enviar pela API você informa o nome e o código exato do idioma juntos.",
+              "es": "16: inglés (EE. UU.), inglés (Reino Unido), hindi, árabe, portugués (BR), español, indonesio, malayo, tamil, telugu, canarés, malayalam, maratí, bengalí, guyaratí y panyabí. Un nombre de plantilla existe una vez por idioma, así que al enviarla por la API indica el nombre y el código exacto del idioma juntos.",
+              "id": "16: Inggris (AS), Inggris (Inggris Raya), Hindi, Arab, Portugis (BR), Spanyol, Indonesia, Melayu, Tamil, Telugu, Kannada, Malayalam, Marathi, Bengali, Gujarati, dan Punjabi. Nama template ada sekali per bahasa, jadi saat mengirim melalui API Anda mengirim nama dan kode bahasa yang tepat bersama-sama.",
+              "ar": "16 لغة: الإنجليزية (الولايات المتحدة)، والإنجليزية (المملكة المتحدة)، والهندية، والعربية، والبرتغالية (البرازيل)، والإسبانية، والإندونيسية، والملايوية، والتاميلية، والتيلوغوية، والكانادية، والمالايالامية، والماراثية، والبنغالية، والغوجاراتية، والبنجابية. يوجد اسم القالب مرة واحدة لكل لغة، لذا عند الإرسال عبر API ترسل الاسم ورمز اللغة الدقيق معًا.",
+              "tr": "16 dil: İngilizce (ABD), İngilizce (BK), Hintçe, Arapça, Portekizce (BR), İspanyolca, Endonezce, Malayca, Tamilce, Telugu dili, Kannada dili, Malayalam dili, Marathi dili, Bengalce, Guceratça ve Pencapça. Bir şablon adı her dil için bir kez bulunur, bu yüzden API ile gönderirken adı ve tam dil kodunu birlikte iletirsiniz."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "صفحات ذات صلة",
+          "tr": "İlgili Sayfalar"
+        },
+        "links": [
+          {
+            "label": {
+              "en": "Marketing Messages",
+              "pt": "Mensagens de Marketing",
+              "es": "Mensajes de Marketing",
+              "id": "Pesan Marketing",
+              "ar": "رسائل التسويق",
+              "tr": "Pazarlama Mesajları"
+            },
+            "href": "/whatsapp/marketing"
+          },
+          {
+            "label": {
+              "en": "Utility Messages",
+              "pt": "Mensagens Utilitárias",
+              "es": "Mensajes Utilitarios",
+              "id": "Pesan Utilitas",
+              "ar": "رسائل الخدمات",
+              "tr": "Yardımcı Mesajlar"
+            },
+            "href": "/whatsapp/utility"
+          },
+          {
+            "label": {
+              "en": "WhatsApp OTP with Authentication Templates",
+              "pt": "OTP no WhatsApp com Templates de Autenticação",
+              "es": "OTP por WhatsApp con Plantillas de Autenticación",
+              "id": "OTP WhatsApp dengan Template Autentikasi",
+              "ar": "رموز OTP عبر واتساب بقوالب المصادقة",
+              "tr": "Kimlik Doğrulama Şablonlarıyla WhatsApp OTP"
+            },
+            "href": "/whatsapp/authentication"
+          },
+          {
+            "label": {
+              "en": "Message Templates Docs",
+              "pt": "Documentação de Templates",
+              "es": "Documentación de Plantillas",
+              "id": "Dokumentasi Template Pesan",
+              "ar": "توثيق قوالب الرسائل",
+              "tr": "Mesaj Şablonları Belgeleri"
+            },
+            "href": "/docs/whatsapp/message-templates"
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Build Your First WhatsApp Template",
+          "pt": "Crie Seu Primeiro Template do WhatsApp",
+          "es": "Cree Su Primera Plantilla de WhatsApp",
+          "id": "Buat Template WhatsApp Pertama Anda",
+          "ar": "أنشئ أول قالب واتساب لك",
+          "tr": "İlk WhatsApp Şablonunuzu Oluşturun"
+        },
+        "subtext": {
+          "en": "Connect your own WhatsApp Business Account, start from an example and submit it to Meta during your 14-day free trial.",
+          "pt": "Conecte sua própria conta do WhatsApp Business, comece por um exemplo e envie-o à Meta durante seu teste grátis de 14 dias.",
+          "es": "Conecte su propia cuenta de WhatsApp Business, empiece con un ejemplo y envíelo a Meta durante su prueba gratuita de 14 días.",
+          "id": "Hubungkan Akun WhatsApp Business Anda sendiri, mulai dari contoh, dan ajukan ke Meta selama uji coba gratis 14 hari.",
+          "ar": "اربط حساب واتساب للأعمال الخاص بك، وابدأ من مثال، وأرسله إلى Meta خلال تجربتك المجانية لمدة 14 يومًا.",
+          "tr": "Kendi WhatsApp Business Hesabınızı bağlayın, bir örnekten başlayın ve 14 günlük ücretsiz denemeniz sırasında Meta'ya gönderin."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Inicie la prueba gratuita de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يومًا",
+          "tr": "14 günlük ücretsiz denemeyi başlatın"
+        },
+        "primaryHref": "https://whatsapp.startmessaging.com/signup"
+      }
+    }
+  ]
+}
