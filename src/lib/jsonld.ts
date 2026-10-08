@@ -22,6 +22,14 @@ export function buildOrganization() {
       'https://twitter.com/startmessaging',
       'https://linkedin.com/company/startmessaging',
     ],
+    founder: [
+      {
+        '@type': 'Person',
+        name: 'Madhav Dadhich',
+        jobTitle: 'Co-founder',
+        sameAs: ['https://www.linkedin.com/in/madhavdadhich/'],
+      },
+    ],
     areaServed: ALL_COUNTRIES.map((c) => ({
       '@type': 'Country',
       name: COUNTRY_CONFIG[c].name,

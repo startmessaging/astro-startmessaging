@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-08",
   "seo": {
     "title": {
       "en": "About Us — StartMessaging",
@@ -87,6 +87,50 @@
           "ar": "<p>تأسست StartMessaging بإيمان بسيط: كل شركة تستحق الوصول إلى نفس أدوات المراسلة القوية التي تستخدمها أكبر الشركات في العالم. سواء كنت مطوراً فردياً يبني تطبيقه الأول أو مؤسسة ترسل ملايين الرسائل يومياً، فإن منصتنا تنمو معك.</p><p>في واتساب، StartMessaging مزوّد تقنية معتمد من Meta (Meta Tech Provider) ومبني على منصة WhatsApp Business الرسمية. تربط حساب واتساب للأعمال الخاص بك عبر التسجيل المضمّن (Embedded Signup) من Meta خلال دقائق، وتُصدر Meta فواتير الرسائل مباشرة إلى ذلك الحساب — لا نتدخل أبداً في إنفاقك على الرسائل. وفوق ذلك، يضيف نظام CRM لواتساب لدينا الحملات وصندوق وارد مشتركاً للفريق وأتمتة بدون كود وواجهة REST API مع إشعارات الويب. ومع واجهة SMS الخاصة بنا للسوق الهندية، نقدم مجموعة اتصالات متكاملة.</p><h3>ما يدفعنا</h3><ul><li><strong>نهج المطور أولاً:</strong> واجهات REST API نظيفة وتوثيق شامل وأمثلة كود بـ 6 لغات.</li><li><strong>تسعير شفاف:</strong> بدون رسوم خفية وبدون تكاليف إعداد. تذهب رسوم رسائل واتساب مباشرة إلى حسابك الخاص لدى Meta، ويمكنك تجربة CRM واتساب مجاناً لمدة 14 يوماً.</li><li><strong>عالمي ومحلي:</strong> دعم متعدد اللغات وامتثال إقليمي في 7 دول.</li><li><strong>موثوقية على نطاق واسع:</strong> اتفاقية مستوى خدمة 99.9% مع بنية تحتية للتوسع التلقائي تعالج أكثر من 10 ملايين رسالة يومياً.</li></ul>",
           "tr": "<p>StartMessaging basit bir inançla kuruldu: her işletme, dünyanın en büyük şirketleri tarafından kullanılan aynı güçlü mesajlaşma araçlarına erişimi hak eder. İlk uygulamasını geliştiren bir solo geliştirici olun veya günlük milyonlarca mesaj gönderen bir kuruluş olun, platformumuz sizinle birlikte ölçeklenir.</p><p>WhatsApp tarafında StartMessaging, resmi WhatsApp Business Platformu üzerine kurulu bir Meta Tech Provider'dır. Kendi WhatsApp Business Hesabınızı Meta'nın Embedded Signup akışıyla dakikalar içinde bağlarsınız ve Meta mesaj ücretlerini doğrudan bu hesaba faturalandırır — mesaj harcamanıza asla dokunmayız. Bunun üzerine WhatsApp CRM'imiz kampanyalar, ortak ekip gelen kutusu, kodsuz otomasyonlar ve webhook'lu bir REST API sunar. Hindistan pazarı için SMS API'mizle birlikte eksiksiz bir iletişim araç seti sunuyoruz.</p><h3>Bizi Ne Yönlendiriyor</h3><ul><li><strong>Geliştirici öncelikli yaklaşım:</strong> Temiz REST API'ler, kapsamlı belgeler ve 6 dilde kod örnekleri.</li><li><strong>Şeffaf fiyatlandırma:</strong> Gizli ücret ve kurulum ücreti yok. WhatsApp mesaj ücretleri doğrudan Meta'daki kendi hesabınıza yansır ve WhatsApp CRM'i 14 gün ücretsiz deneyebilirsiniz.</li><li><strong>Küresel ama yerel:</strong> 7 ülkede çok dilli destek ve bölgesel uyumluluk.</li><li><strong>Ölçekte güvenilirlik:</strong> Günlük 10M+ mesajı yöneten otomatik ölçekleme altyapısıyla %99,9 çalışma süresi SLA.</li></ul>"
         }
+      }
+    },
+    {
+      "type": "teamSection",
+      "props": {
+        "heading": {
+          "en": "Founding team",
+          "pt": "Equipe fundadora",
+          "es": "Equipo fundador",
+          "id": "Tim pendiri",
+          "ar": "الفريق المؤسس",
+          "tr": "Kurucu ekip"
+        },
+        "subheading": {
+          "en": "StartMessaging is built by a small team focused on simple, honest business messaging — SMS OTP for India and a WhatsApp CRM on the official WhatsApp Business Platform.",
+          "pt": "A StartMessaging é construída por uma pequena equipe focada em mensagens empresariais simples e transparentes — OTP por SMS para a Índia e um CRM de WhatsApp na plataforma oficial WhatsApp Business.",
+          "es": "StartMessaging lo construye un equipo pequeño centrado en una mensajería empresarial simple y transparente: OTP por SMS para India y un CRM de WhatsApp sobre la plataforma oficial de WhatsApp Business.",
+          "id": "StartMessaging dibangun oleh tim kecil yang berfokus pada pesan bisnis yang sederhana dan jujur — OTP SMS untuk India dan CRM WhatsApp di WhatsApp Business Platform resmi.",
+          "ar": "يبني StartMessaging فريقٌ صغير يركّز على مراسلة أعمال بسيطة وشفافة — رموز OTP عبر SMS للهند ونظام CRM لواتساب على منصة WhatsApp Business الرسمية.",
+          "tr": "StartMessaging, basit ve dürüst iş mesajlaşmasına odaklanan küçük bir ekip tarafından geliştiriliyor: Hindistan için SMS OTP ve resmi WhatsApp Business Platformu üzerinde bir WhatsApp CRM."
+        },
+        "members": [
+          {
+            "name": "Madhav Dadhich",
+            "role": {
+              "en": "Co-founder",
+              "pt": "Cofundador",
+              "es": "Cofundador",
+              "id": "Co-founder",
+              "ar": "شريك مؤسس",
+              "tr": "Kurucu ortak"
+            },
+            "bio": {
+              "en": "Madhav co-founded StartMessaging to make business messaging simple and honest for growing companies, starting with SMS OTP in India and now a WhatsApp CRM built on the official WhatsApp Business Platform. He leads product and engineering, from the template builder and shared inbox to the developer API.",
+              "pt": "Madhav cofundou a StartMessaging para tornar as mensagens empresariais simples e transparentes para empresas em crescimento, começando com OTP por SMS na Índia e agora com um CRM de WhatsApp construído na plataforma oficial WhatsApp Business. Ele lidera produto e engenharia, do criador de templates e da caixa de entrada compartilhada à API para desenvolvedores.",
+              "es": "Madhav cofundó StartMessaging para que la mensajería empresarial sea simple y transparente para las empresas en crecimiento, empezando con OTP por SMS en India y ahora con un CRM de WhatsApp construido sobre la plataforma oficial de WhatsApp Business. Lidera producto e ingeniería, desde el creador de plantillas y la bandeja compartida hasta la API para desarrolladores.",
+              "id": "Madhav ikut mendirikan StartMessaging agar pesan bisnis menjadi sederhana dan jujur bagi perusahaan yang sedang berkembang, dimulai dengan OTP SMS di India dan kini CRM WhatsApp yang dibangun di WhatsApp Business Platform resmi. Ia memimpin produk dan engineering, dari pembuat template dan kotak masuk bersama hingga API developer.",
+              "ar": "شارك مادهاف في تأسيس StartMessaging لجعل مراسلة الأعمال بسيطة وشفافة للشركات النامية، بدءاً برموز OTP عبر SMS في الهند، والآن نظام CRM لواتساب مبني على منصة WhatsApp Business الرسمية. يقود المنتج والهندسة، من منشئ القوالب وصندوق الوارد المشترك إلى واجهة برمجة المطورين.",
+              "tr": "Madhav, StartMessaging’i büyüyen şirketler için iş mesajlaşmasını basit ve dürüst kılmak amacıyla kurdu; Hindistan’da SMS OTP ile başladı ve şimdi resmi WhatsApp Business Platformu üzerine kurulu bir WhatsApp CRM sunuyor. Şablon oluşturucudan ortak gelen kutusuna ve geliştirici API’sine kadar ürün ve mühendisliği yönetiyor."
+            },
+            "image": "/images/team/madhav-dadhich.jpg",
+            "linkedin": "https://www.linkedin.com/in/madhavdadhich/"
+          }
+        ]
       }
     },
     {
