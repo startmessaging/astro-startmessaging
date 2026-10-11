@@ -83,7 +83,12 @@ export function getFooterColumns(country: Country): FooterColumn[] {
     { label: t('footer.utility', country), href: `${prefix}/whatsapp/utility` },
     { label: t('footer.authentication', country), href: `${prefix}/whatsapp/authentication` },
     { label: t('footer.autoTrigger', country), href: `${prefix}/whatsapp/auto-trigger` },
-    { label: t('footer.bulkMessaging', country), href: `${prefix}/whatsapp/bulk-messaging` },
+    { label: t('footer.sharedInbox', country), href: `${prefix}/whatsapp/shared-inbox` },
+    { label: t('footer.crm', country), href: `${prefix}/whatsapp/crm` },
+    { label: t('footer.templates', country), href: `${prefix}/whatsapp/templates` },
+    { label: t('footer.whatsappForms', country), href: `${prefix}/whatsapp/whatsapp-forms` },
+    { label: t('footer.ctwaAds', country), href: `${prefix}/whatsapp/click-to-whatsapp-ads` },
+    { label: t('footer.waApi', country), href: `${prefix}/whatsapp/api` },
   ];
   cols.push({ heading: t('footer.whatsappApis', country), links: waLinks });
 

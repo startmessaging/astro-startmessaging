@@ -71,6 +71,8 @@ StartMessaging offers a WhatsApp CRM built on the official WhatsApp Business Pla
 
 ## Documentation
 - [WhatsApp API](${siteUrl}docs/whatsapp/getting-started)
+- [WhatsApp API Reference](${siteUrl}docs/whatsapp/api-reference)
+- [WhatsApp Webhooks](${siteUrl}docs/whatsapp/webhooks)
 - [SMS API](${siteUrl}docs/sms/getting-started)
 - [Auth API](${siteUrl}docs/auth-api/getting-started)
 
@@ -79,6 +81,14 @@ StartMessaging offers a WhatsApp CRM built on the official WhatsApp Business Pla
 - [Features](${siteUrl}features)
 - [Pricing](${siteUrl}pricing)
 - [WhatsApp](${siteUrl}whatsapp)
+- [WhatsApp Shared Team Inbox](${siteUrl}whatsapp/shared-inbox)
+- [WhatsApp CRM & Pipeline](${siteUrl}whatsapp/crm)
+- [WhatsApp Campaigns & Broadcasts](${siteUrl}whatsapp/broadcast)
+- [WhatsApp Chatbot Flows](${siteUrl}whatsapp/chatbot)
+- [WhatsApp Template Builder](${siteUrl}whatsapp/templates)
+- [WhatsApp Forms](${siteUrl}whatsapp/whatsapp-forms)
+- [Click-to-WhatsApp Ads](${siteUrl}whatsapp/click-to-whatsapp-ads)
+- [WhatsApp Developer API](${siteUrl}whatsapp/api)
 - [SMS](${siteUrl}sms)
 - [Blog](${siteUrl}blog)
 - [Contact](${siteUrl}contact)

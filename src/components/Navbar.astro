@@ -8,6 +8,7 @@ import { type Country, hasSms, urlPrefix } from '@/config/countries';
 import AppIcon from '@/components/ui/AppIcon.astro';
 import Button from '@/components/ui/Button.astro';
 import { t } from '@/i18n/t';
+import { WA_APP_URL, WA_LOGIN_URL } from '@/lib/constants';
 
 interface Props {
   country: string;
@@ -40,17 +41,23 @@ const loginLinkClass = isWhatsapp ? 'text-ink hover:text-ink/80' : 'text-muted h
 
 const homeHref = prefix || '/';
 
-// WhatsApp Links — all marked comingSoon
+// WhatsApp pages and WhatsApp-only countries sign in to the WhatsApp CRM; SMS pages to the SMS console.
+const appUrl = isWhatsapp || !showSms ? WA_APP_URL : 'https://app.startmessaging.com';
+const loginHref = isWhatsapp || !showSms ? WA_LOGIN_URL : appUrl;
+const signupHref = `${appUrl}/signup`;
+
+// WhatsApp CRM links (live)
 const whatsappFeatures = [
-  { title: "WhatsApp Hub", desc: "Overview of our WhatsApp solutions", href: `${prefix}/whatsapp`, comingSoon: true },
-  { title: "Broadcast", desc: "Send bulk updates and announcements", href: `${prefix}/whatsapp/broadcast`, comingSoon: true },
-  { title: "Campaigns", desc: "Schedule and manage messaging templates", href: `${prefix}/whatsapp/campaigns`, comingSoon: true },
-  { title: "Chatbot & Agents", desc: "Automate support and sales chats", href: `${prefix}/whatsapp/chatbot`, comingSoon: true },
-  { title: "Marketing", desc: "Engage users and drive conversions", href: `${prefix}/whatsapp/marketing`, comingSoon: true },
-  { title: "Transactional Utility", desc: "Alerts, order receipts, and shipping updates", href: `${prefix}/whatsapp/utility`, comingSoon: true },
-  { title: "OTP Authentication", desc: "Secure multi-factor verify messages", href: `${prefix}/whatsapp/authentication`, comingSoon: true },
-  { title: "Automated Triggers", desc: "API driven event notifications", href: `${prefix}/whatsapp/auto-trigger`, comingSoon: true },
-  { title: "Bulk Messaging", desc: "Send bulk WhatsApp alerts at scale", href: `${prefix}/whatsapp/bulk-messaging`, comingSoon: true },
+  { title: "WhatsApp Hub", desc: "Overview of the WhatsApp CRM", href: `${prefix}/whatsapp`, comingSoon: false },
+  { title: "Campaigns & Broadcasts", desc: "Send approved templates to tags or CSV lists", href: `${prefix}/whatsapp/broadcast`, comingSoon: false },
+  { title: "Shared Team Inbox", desc: "Assign, reply and resolve every chat", href: `${prefix}/whatsapp/shared-inbox`, comingSoon: false },
+  { title: "CRM & Pipeline", desc: "Contacts, tags, notes and a kanban pipeline", href: `${prefix}/whatsapp/crm`, comingSoon: false },
+  { title: "Chatbot Flows", desc: "No-code flows with agent handoff", href: `${prefix}/whatsapp/chatbot`, comingSoon: false },
+  { title: "Template Builder", desc: "Marketing, utility and OTP templates", href: `${prefix}/whatsapp/templates`, comingSoon: false },
+  { title: "WhatsApp Forms", desc: "Collect leads and bookings inside the chat", href: `${prefix}/whatsapp/whatsapp-forms`, comingSoon: false },
+  { title: "Click-to-WhatsApp Ads", desc: "See which ad started each chat", href: `${prefix}/whatsapp/click-to-whatsapp-ads`, comingSoon: false },
+  { title: "Developer API", desc: "REST API and signed webhooks", href: `${prefix}/whatsapp/api`, comingSoon: false },
+  { title: "Automations & Integrations", desc: "Auto-replies, triggers, Zapier and Make", href: `${prefix}/whatsapp/auto-trigger`, comingSoon: false },
 ];
 
 // Combined SMS & Auth API Links (India only)
@@ -232,8 +239,7 @@ if (isIndia) {
           <div class:list={["border rounded-md shadow-lg p-2 flex flex-col gap-1", dropdownBgClass, dropdownBorderClass]}>
             <a href={`${prefix}/docs/whatsapp/getting-started`} class:list={["relative flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
               <span class="text-body-sm font-semibold text-ink pr-12">WhatsApp API Docs</span>
-              <span class:list={["text-xs leading-normal", dropdownDescClass]}>Integration and Webhook guides.</span>
-              <span class="cs-badge">Soon</span>
+              <span class:list={["text-xs leading-normal", dropdownDescClass]}>REST API, webhooks and guides.</span>
             </a>
             {showSms && (
               <>
@@ -243,7 +249,7 @@ if (isIndia) {
                 </a>
                 <a href="/docs/auth-api/getting-started" class:list={["relative flex flex-col gap-0.5 rounded-sm p-3 transition-colors", dropdownHoverClass]}>
                   <span class="text-body-sm font-semibold text-ink pr-12">Auth API Docs</span>
-                  <span class:list={["text-xs leading-normal", dropdownDescClass]}>Multi-channel verification guide.</span>
+                  <span class:list={["text-xs leading-normal", dropdownDescClass]}>SMS OTP verification guide.</span>
                   <span class="cs-badge">Soon</span>
                 </a>
               </>
@@ -264,11 +270,11 @@ if (isIndia) {
       
       <!-- Desktop CTAs (hidden on mobile) -->
       <div class="hidden lg:flex items-center gap-3">
-        <a href="https://app.startmessaging.com" class:list={["text-body-sm transition-colors font-medium", loginLinkClass]}>
+        <a href={loginHref} class:list={["text-body-sm transition-colors font-medium", loginLinkClass]}>
           {t('nav.login', c)}
         </a>
         <Button 
-          href="https://app.startmessaging.com/signup" 
+          href={signupHref} 
           variant="primary" 
           size="sm"
           class={isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""}
@@ -279,7 +285,7 @@ if (isIndia) {
 
       <!-- Mobile Login Button (visible only on mobile, primary CTA style) -->
       <a
-        href="https://app.startmessaging.com"
+        href={loginHref}
         class:list={[
           "lg:hidden inline-flex items-center px-3.5 py-1.5 rounded text-body-sm font-semibold transition-colors shadow-sm",
           isWhatsapp
@@ -428,9 +434,8 @@ if (isIndia) {
             <a href={`${prefix}/docs/whatsapp/getting-started`} class:list={["flex flex-col rounded-sm p-2", dropdownHoverClass]}>
               <span class="text-body-sm font-medium text-ink flex items-center gap-1">
                 WhatsApp API Docs
-                <span class="cs-badge-inline">Soon</span>
               </span>
-              <span class:list={["text-xs", dropdownDescClass]}>Integration and Webhook guides.</span>
+              <span class:list={["text-xs", dropdownDescClass]}>REST API, webhooks and guides.</span>
             </a>
             {showSms && (
               <>
@@ -443,7 +448,7 @@ if (isIndia) {
                     Auth API Docs
                     <span class="cs-badge-inline">Soon</span>
                   </span>
-                  <span class:list={["text-xs", dropdownDescClass]}>Multi-channel verification guide.</span>
+                  <span class:list={["text-xs", dropdownDescClass]}>SMS OTP verification guide.</span>
                 </a>
               </>
             )}
@@ -459,11 +464,11 @@ if (isIndia) {
  
     <!-- Mobile CTAs -->
     <div class:list={["flex flex-col gap-3 mt-6 pt-4 border-t", borderClass]}>
-      <a href="https://app.startmessaging.com" class:list={["flex items-center justify-center h-11 border rounded-sm text-body-sm font-medium text-ink transition-colors", isWhatsapp ? "border-accent-wa/20 hover:bg-accent-wa/[0.03]" : "border-hairline hover:bg-surface-soft"]}>
+      <a href={loginHref} class:list={["flex items-center justify-center h-11 border rounded-sm text-body-sm font-medium text-ink transition-colors", isWhatsapp ? "border-accent-wa/20 hover:bg-accent-wa/[0.03]" : "border-hairline hover:bg-surface-soft"]}>
         {t('nav.login', c)}
       </a>
       <Button 
-        href="https://app.startmessaging.com/signup" 
+        href={signupHref} 
         variant="primary" 
         size="md" 
         class:list={["w-full", isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""]}
