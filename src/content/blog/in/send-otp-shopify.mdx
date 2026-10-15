@@ -2,7 +2,7 @@
 title: "How to Send OTP on Shopify (2026)"
 description: "Shopify OTP integration using StartMessaging. App-based pattern with App Proxy, customer metafields, signed cookies, and a checkout-extension flow for India COD verification."
 publishedAt: "2026-05-11"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -47,7 +47,7 @@ App Proxy lets your store frontend call your backend without CORS
 ```typescript
 // backend/index.ts (Node)
 import express from 'express';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomInt } from 'node:crypto';
 
 const app = express();
 app.use(express.json());
@@ -57,11 +57,17 @@ app.post('/sm/send', async (req, res) => {
   const r = await fetch('https://api.startmessaging.com/otp/send', {
     method: 'POST',
     headers: { 'X-API-Key': process.env.SM_API_KEY!, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phoneNumber, idempotencyKey: randomUUID() }),
+    body: JSON.stringify({
+      phoneNumber,
+      // Your backend generates the code; StartMessaging delivers it
+      variables: { otp: String(randomInt(100000, 1000000)) },
+      idempotencyKey: randomUUID(),
+    }),
   });
-  const data = (await r.json()).data;
-  res.cookie('sm_otp_req', data.requestId, { httpOnly: true, secure: true, sameSite: 'lax', maxAge: 900_000 });
-  res.json({ expiresAt: data.expiresAt });
+  if (!r.ok) return res.status(r.status).json({ error: 'send failed' });
+  const data = (await r.json()).data; // { otpRequestId, messageId, status }
+  res.cookie('sm_otp_req', data.otpRequestId, { httpOnly: true, secure: true, sameSite: 'lax', maxAge: 900_000 });
+  res.json({ status: data.status });
 });
 ```
 

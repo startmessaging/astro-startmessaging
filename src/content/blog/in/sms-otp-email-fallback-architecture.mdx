@@ -2,7 +2,7 @@
 title: "SMS OTP + Email Fallback: Redundant 99.9% Verification Architecture"
 description: "Build a redundant SMS OTP and email fallback verification architecture in Node.js. Master retry timers, fallback queues, and 99.9% delivery SLAs in India."
 publishedAt: "2026-08-26"
-updatedAt: "2026-08-26"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "in"
 author: "StartMessaging Team"
@@ -81,7 +81,7 @@ Designing a high-availability authentication pipeline requires treating SMS and 
                                        │
                         ┌──────────────┴──────────────┐
                         │ Set 30s Fallback Timer /    │
-                        │ Listen for Delivery Webhook │
+                        │ Poll GET /messages/:id      │
                         └──────────────┬──────────────┘
                                        │
                   ┌────────────────────┴────────────────────┐
@@ -105,8 +105,8 @@ Instead, your architecture should maintain a single 6-digit OTP token (or crypto
 
 Your application can trigger the email fallback through two complementary mechanisms:
 
-* **Automated Webhook-Driven Failover (Active):** When your primary SMS provider returns an explicit delivery failure callback (such as `UNDELIVERABLE`, `REJECTED_BY_CARRIER`, or `INVALID_NUMBER`), your backend immediately triggers the email dispatch queue without waiting for user action.
-* **Time-Based SLA Expiry (Passive):** Because many Indian carrier drops occur silently without emitting negative webhooks, your state machine registers a 25 to 30-second fallback timer. If the user has not completed verification within 30 seconds, the client UI automatically prompts an email fallback option, or the server dispatches the email asynchronously.
+* **Status-Driven Failover (Active):** StartMessaging exposes delivery status by polling rather than webhooks. Store the `data.messageId` returned by `/otp/send`, poll `GET /messages/:id`, and when `data.status` comes back `failed` (the `error` field says why, e.g. an invalid number), your backend immediately triggers the email dispatch queue without waiting for user action.
+* **Time-Based SLA Expiry (Passive):** Because many Indian carrier drops occur silently without ever reaching a `failed` status, your state machine registers a 25 to 30-second fallback timer. If the user has not completed verification within 30 seconds, the client UI automatically prompts an email fallback option, or the server dispatches the email asynchronously.
 
 ### 3. Idempotency & Rate Limit Consolidation
 
@@ -169,6 +169,7 @@ interface OtpState {
   otpHash: string;
   attemptsLeft: number;
   smsDispatchedAt: number;
+  smsMessageId?: string; // data.messageId from /otp/send, for GET /messages/:id polling
   emailDispatchedAt?: number;
 }
 
@@ -184,7 +185,7 @@ export class OtpFallbackEngine {
    * Helper to generate a cryptographically secure 6-digit numeric OTP
    */
   private static generateNumericOtp(): string {
-    return crypto.randomInt(100000, 999999).toString();
+    return crypto.randomInt(100000, 1000000).toString();
   }
 
   /**
@@ -236,6 +237,12 @@ export class OtpFallbackEngine {
       await this.dispatchEmailFallback(requestId, state, plainOtp);
       return { requestId, primaryChannel: 'email_fallback', fallbackTriggered: true };
     }
+
+    // 201: { data: { otpRequestId, messageId, status: 'queued' } }
+    // We verify locally (one code across both channels), so keep messageId for status polling.
+    const smsResult = await smsResponse.json();
+    state.smsMessageId = smsResult.data.messageId;
+    await redis.setex(`otp:${requestId}`, 600, JSON.stringify(state));
 
     return { requestId, primaryChannel: 'sms', fallbackTriggered: false };
   }

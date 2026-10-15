@@ -2,6 +2,7 @@
 title: "RBI Authentication Rules (April 2026): What Developers Must Do"
 description: "RBI Authentication Directions 2025 mandate 2FA for digital payments by April 2026. What Indian developers must change, which factors qualify, and how to comply."
 publishedAt: "2026-06-22"
+updatedAt: "2026-10-15"
 category: "compliance"
 country: "in"
 author: "StartMessaging Team"
@@ -166,17 +167,17 @@ The RBI directive does not specify *which* communication channel must deliver th
 The practical advantages of WhatsApp OTP over SMS OTP in this context:
 
 - **Higher delivery rates in urban areas:** WhatsApp messages arrive in 1–3 seconds versus 3–8 seconds for SMS. During peak traffic (Diwali sales, IPL match days), SMS can lag further while WhatsApp delivery stays consistent.
-- **Lower cost per message:** WhatsApp authentication conversations are priced competitively, and a single conversation window covers multiple messages within 24 hours.
+- **Per-message pricing from Meta:** Meta charges each delivered authentication template at its authentication rate (see [Meta's rate card](https://developers.facebook.com/docs/whatsapp/pricing)) and bills it directly to your WhatsApp Business Account. StartMessaging adds no per-message fee for WhatsApp.
 - **Resistant to SIM swap:** WhatsApp is tied to the device, not just the SIM. A SIM swap does not automatically grant access to the victim's WhatsApp account — the attacker would need to re-register WhatsApp on the new device, which triggers a notification to the original device.
 - **End-to-end encryption:** Unlike SMS (which traverses the unencrypted SS7 network), WhatsApp messages are encrypted in transit.
 
 ### Multi-Channel Fallback: SMS → WhatsApp → Voice
 
-The most resilient authentication stack uses multiple channels with automatic fallback. [StartMessaging's multi-channel OTP API](/otp-api) supports this pattern:
+The most resilient authentication stack uses multiple channels, with your backend switching between them. StartMessaging's [SMS OTP API](/otp-api) and [WhatsApp API](/whatsapp/api) are separate APIs with no automatic switch between them, so your backend runs this pattern:
 
 1. **Primary: SMS OTP** — Universal reach, works on every phone with a SIM card, no internet required.
-2. **Fallback 1: WhatsApp OTP** — If SMS delivery is not confirmed within 15 seconds, automatically retry via WhatsApp. Higher delivery rate for smartphone users.
-3. **Fallback 2: Voice OTP** — If both SMS and WhatsApp fail (e.g., the user is on a feature phone without data), deliver the OTP as an automated voice call.
+2. **Fallback 1: WhatsApp OTP** — If SMS delivery is not confirmed within 15 seconds, your backend sends the code with a WhatsApp authentication template. Higher delivery rate for smartphone users.
+3. **Fallback 2: Voice OTP** — If both SMS and WhatsApp fail (e.g., the user is on a feature phone without data), deliver the OTP as an automated voice call through a separate voice provider (StartMessaging does not offer voice OTP).
 
 This three-channel approach gives you 99%+ effective delivery while maintaining compliance. The RBI cares that the dynamic factor reaches the user — not which pipe delivers it.
 

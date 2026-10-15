@@ -2,7 +2,7 @@
 title: "How to Send OTP with Deno (2026)"
 description: "Deno OTP tutorial using StartMessaging. Uses Deno.serve, native fetch, signed-cookie helpers and runs on Deno Deploy with zero infrastructure."
 publishedAt: "2026-05-08"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -44,14 +44,25 @@ import { load } from 'https://deno.land/std/dotenv/mod.ts';
 const env = await load();
 const apiKey = env['SM_API_KEY'] || Deno.env.get('SM_API_KEY')!;
 
+// Unbiased 6-digit code from the Web Crypto API
+function generateOtp(): string {
+  const buf = new Uint32Array(1);
+  do crypto.getRandomValues(buf); while (buf[0] >= 4294000000);
+  return String(buf[0] % 1000000).padStart(6, '0');
+}
+
 async function smSend(phoneNumber: string) {
   const r = await fetch('https://api.startmessaging.com/otp/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
-    body: JSON.stringify({ phoneNumber, idempotencyKey: crypto.randomUUID() }),
+    body: JSON.stringify({
+      phoneNumber,
+      variables: { otp: generateOtp() },
+      idempotencyKey: crypto.randomUUID(),
+    }),
   });
   if (!r.ok) throw new Error('send failed');
-  return (await r.json()).data;
+  return (await r.json()).data; // { otpRequestId, messageId, status }
 }
 
 async function smVerify(requestId: string, otpCode: string) {
@@ -68,7 +79,7 @@ Deno.serve({ port: 3001 }, async (req) => {
   if (req.method === 'POST' && url.pathname === '/auth/send-otp') {
     const { phoneNumber } = await req.json();
     const data = await smSend(phoneNumber);
-    return Response.json({ requestId: data.requestId, expiresAt: data.expiresAt });
+    return Response.json({ requestId: data.otpRequestId });
   }
   if (req.method === 'POST' && url.pathname === '/auth/verify-otp') {
     const { requestId, otpCode } = await req.json();

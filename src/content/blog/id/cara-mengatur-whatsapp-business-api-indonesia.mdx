@@ -1,8 +1,8 @@
 ---
 title: "Cara Mengatur WhatsApp Business API di Indonesia: Panduan Lengkap untuk Developer (2026)"
-description: "Pelajari cara mengatur WhatsApp Business API di Indonesia. Panduan setup akun Meta, verifikasi bisnis, dan kirim pesan otomatis dengan Node.js."
+description: "Pelajari cara mengatur WhatsApp Business API di Indonesia. Panduan menghubungkan akun WhatsApp Business lewat Embedded Signup, membuat API key, dan mengirim pesan template dengan Node.js."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "id"
 author: "StartMessaging Team"
@@ -19,7 +19,7 @@ featured: false
 
 Menghubungkan sistem komunikasi perusahaan langsung ke WhatsApp merupakan salah satu langkah strategis terbaik untuk meningkatkan efisiensi operasional dan loyalitas pelanggan di Indonesia. Dengan tingkat penetrasi pengguna ponsel pintar yang sangat tinggi, sebagian besar konsumen di tanah air lebih memilih berinteraksi dengan bisnis melalui aplikasi pesan instan dibandingkan melalui e-mail. Namun, ketika skala operasional bisnis Anda bertambah besar dan volume pesan mencapai ribuan per hari, penggunaan aplikasi seluler biasa menjadi tidak efisien. Di sinilah whatsapp business api indonesia resmi berperan untuk mendukung pengiriman pesan massal dan otomatisasi secara aman.
 
-Layanan API dari StartMessaging untuk WhatsApp saat ini berada dalam tahap pengembangan aktif oleh tim rekayasa perangkat lunak kami. Sembari menunggu rilis resmi dari endpoint produksi dalam waktu dekat, Anda dapat menguji integrasi sistem Anda dengan menggunakan endpoint sementara `/v1/messages`. Autentikasi untuk seluruh request menggunakan header kustom HTTP `X-API-Key` yang identik dengan layanan pengiriman SMS OTP kami, sehingga memudahkan proses migrasi dan integrasi developer.
+StartMessaging adalah WhatsApp CRM dan REST API yang dibangun di atas Cloud API resmi Meta (WhatsApp Business Platform). Anda menghubungkan Akun WhatsApp Business (WABA) milik Anda sendiri melalui Embedded Signup Meta, lalu sistem Anda mengirim pesan lewat `POST https://waba-api.startmessaging.com/api/v1/messages`. Setiap request diautentikasi dengan header `Authorization: Bearer sm_live_...` menggunakan API key yang Anda buat di dashboard.
 
 ---
 
@@ -29,11 +29,11 @@ Banyak pemilik bisnis kecil di Indonesia mengawali operasional mereka dengan men
 
 Sebaliknya, WhatsApp Business API (atau WhatsApp Business Platform) merupakan solusi berbasis cloud yang berjalan langsung di server Meta. Solusi ini menawarkan keuntungan performa sebagai berikut:
 
-* **Akses Multi-Agen Tanpa Batas:** Puluhan hingga ratusan staf layanan pelanggan (CS) Anda dapat merespons pesan pelanggan secara bersamaan melalui satu nomor bisnis yang sama menggunakan sistem helpdesk pihak ketiga.
+* **Akses Multi-Agen:** Banyak staf layanan pelanggan (CS) dapat merespons pesan pelanggan secara bersamaan melalui satu nomor bisnis yang sama menggunakan inbox bersama (di StartMessaging tersedia mulai paket Team).
 * **Otomatisasi dan Integrasi Chatbot:** Anda dapat mengintegrasikan program chatbot untuk merespons pertanyaan berulang dari pelanggan selama 24 jam penuh tanpa intervensi manual dari staf CS.
 * **Pengiriman Notifikasi Transaksional:** Sistem backend Anda dapat mengirimkan pesan otomatis berisi resi pembayaran QRIS, kode pembayaran virtual account, status pelacakan paket kurir, maupun notifikasi keamanan lainnya.
 
-Hal yang tidak kalah penting adalah kepatuhan terhadap kebijakan Meta. Mengirimkan pesan dalam jumlah besar (broadcast) secara otomatis menggunakan aplikasi biasa atau software pihak ketiga ilegal (scratcher/sender) akan mengakibatkan nomor telepon bisnis Anda diblokir secara permanen oleh pihak Meta. Penggunaan API resmi adalah satu-satunya metode legal, aman, dan bergaransi untuk membangun saluran komunikasi skala besar bagi bisnis Anda di Indonesia.
+Hal yang tidak kalah penting adalah kepatuhan terhadap kebijakan Meta. Mengirimkan pesan dalam jumlah besar (broadcast) secara otomatis menggunakan aplikasi biasa atau software pihak ketiga tidak resmi (scraper/sender) berisiko membuat nomor telepon bisnis Anda diblokir oleh Meta. Penggunaan API resmi adalah cara yang sesuai kebijakan Meta untuk membangun saluran komunikasi skala besar bagi bisnis Anda di Indonesia.
 
 ---
 
@@ -44,87 +44,72 @@ Sebelum mulai menulis baris kode pemrograman, ada beberapa aset bisnis dan akun 
 Ada tiga prasyarat utama yang wajib dipenuhi:
 
 1. **Akun Meta Business Manager:** Ini adalah platform pusat milik Meta untuk mengelola halaman bisnis, akun iklan, dan akun WhatsApp bisnis Anda. Untuk meningkatkan batas pengiriman pesan harian, akun bisnis Meta Anda harus diverifikasi menggunakan dokumen legalitas perusahaan seperti NIB (Nomor Induk Berusaha), Akta Pendirian, atau dokumen perpajakan resmi lainnya.
-2. **Nomor Telepon Khusus:** Anda harus menyiapkan nomor telepon (seluler atau landline/nomor kantor) yang belum terdaftar di akun WhatsApp biasa maupun bisnis. Jika nomor tersebut sedang aktif di aplikasi WhatsApp ponsel, Anda harus menghapus akun tersebut terlebih dahulu melalui menu pengaturan aplikasi sebelum mendaftarkannya ke API.
-3. **Akun Developer StartMessaging:** StartMessaging berperan sebagai penyedia gateway (ISV) yang mempermudah koneksi backend Anda ke API Meta, menangani pengiriman data webhook, dan menyediakan dokumentasi teknis serta kunci API.
+2. **Nomor Telepon Khusus:** Anda harus menyiapkan nomor telepon (seluler atau landline/nomor kantor) yang dapat menerima kode verifikasi. Jika nomor tersebut sedang aktif di aplikasi WhatsApp atau WhatsApp Business, alur pendaftaran Meta akan menjelaskan cara memindahkannya.
+3. **Akun StartMessaging dan metode pembayaran di Meta:** StartMessaging adalah Meta Tech Provider yang menghubungkan backend Anda ke Cloud API Meta, mengirim webhook bertanda tangan, dan menyediakan API key. Selain itu, Anda perlu menambahkan metode pembayaran (kartu) di WhatsApp Manager, karena Meta menagih pesan template langsung ke akun WhatsApp Business Anda.
 
 Tabel di bawah ini merangkum aset teknis yang diperlukan beserta fungsi utamanya dalam proses setup:
 
 | Komponen Infrastruktur | Kebutuhan Teknis di Indonesia | Fungsi Utama |
 |---|---|---|
 | **Meta Business Manager** | Akun bisnis terverifikasi dokumen NIB/Akta | Membuka batas limit pengiriman pesan dan menyetujui template |
-| **Nomor Telepon Bisnis** | Nomor lokal (seluler atau PSTN kantor) | Menerima kode verifikasi 6 digit via panggilan telepon atau SMS |
-| **StartMessaging Console** | Akun terdaftar dengan saldo aktif | Mengakses kunci otentikasi API, konfigurasi webhook, dan log pesan |
+| **Nomor Telepon Bisnis** | Nomor lokal (seluler atau PSTN kantor) | Menerima kode verifikasi via panggilan telepon atau SMS |
+| **Dashboard StartMessaging** | Workspace dengan paket aktif (termasuk Developer Free) | Mengakses API key, konfigurasi webhook, dan log pesan |
+| **Metode pembayaran di WhatsApp Manager** | Kartu yang ditambahkan di akun WhatsApp Business | Membayar biaya pesan Meta; tanpa ini pengiriman template ditolak dengan `402 META_PAYMENT_REQUIRED` |
 
 ---
 
-## Langkah demi Langkah Mendaftarkan API di Konsol Meta
+## Langkah demi Langkah Menghubungkan WhatsApp ke StartMessaging
 
-Proses registrasi dan konfigurasi awal dilakukan melalui portal pengembang Meta. Ikuti langkah-langkah di bawah ini untuk mendapatkan kredensial yang dibutuhkan untuk integrasi backend Anda:
+Anda tidak perlu membuat aplikasi sendiri di portal developer Meta. Koneksi dilakukan lewat Embedded Signup Meta langsung dari dashboard StartMessaging. Ikuti langkah-langkah di bawah ini:
 
-### Langkah 1: Membuat Aplikasi di Portal Developer Meta
-Buka situs [Meta for Developers](https://developers.facebook.com) dan masuk menggunakan akun Facebook Anda yang terhubung dengan akun Meta Business Manager. Klik **Buat Aplikasi**, pilih opsi tujuan penggunaan bisnis (Business), masukkan nama aplikasi Anda, lalu hubungkan dengan akun Meta Business Manager perusahaan Anda.
+### Langkah 1: Hubungi Sales untuk Membuka Workspace
+[Hubungi tim sales kami](/id/contact) dan kami akan membukakan workspace Anda. Workspace tersebut langsung mendapat uji coba gratis 14 hari paket Business (hingga 3 orang, 1.000 kontak, dan 1.000 pesan API), termasuk akses ke API developer.
 
-### Langkah 2: Menambahkan Layanan WhatsApp ke Aplikasi
-Pada halaman dashboard aplikasi pengembang Anda yang baru, cari daftar produk yang tersedia dan klik **Siapkan** pada kolom WhatsApp. Meta akan secara otomatis membuatkan akun WhatsApp uji coba (sandbox) beserta nomor telepon simulasi agar Anda dapat langsung mencoba fungsionalitas API secara gratis sebelum menghubungkan nomor asli Anda.
+### Langkah 2: Menghubungkan Akun WhatsApp Business lewat Embedded Signup
+Buka menu **Connect** di sidebar workspace (hanya Owner dan Admin) dan klik **Connect with Facebook**. Popup Embedded Signup Meta akan terbuka: masuk dengan Facebook, pilih atau buat portofolio bisnis Meta, Akun WhatsApp Business, dan nomor telepon Anda. Tidak ada nomor sandbox atau nomor uji coba; Anda langsung menghubungkan nomor bisnis asli.
 
-### Langkah 3: Mendaftarkan Nomor Telepon Resmi Indonesia
-Untuk menggunakan nomor telepon asli, buka menu WhatsApp di panel Meta, pilih opsi pengaturan nomor, dan klik **Tambahkan Nomor Telepon**. Masukkan detail nomor telepon Indonesia Anda. Meta akan mengirimkan kode verifikasi 6 digit melalui panggilan suara atau SMS ke nomor tersebut. Setelah proses verifikasi selesai, Anda akan menerima detail Phone Number ID dan WhatsApp Business Account ID (WABA ID).
+### Langkah 3: Memverifikasi Nomor Telepon Indonesia
+Meta akan mengirimkan kode verifikasi melalui SMS atau panggilan suara ke nomor tersebut. Setelah itu, kembali ke StartMessaging dan masukkan **PIN verifikasi dua langkah 6 digit** untuk mendaftarkan nomor ke Cloud API. Halaman Connect kemudian menampilkan kesehatan akun dari Meta: batas pengiriman pesan harian, rating kualitas, dan status verifikasi bisnis.
 
-### Langkah 4: Menghubungkan Nomor ke Konsol StartMessaging
-Masuk ke dashboard StartMessaging Anda, hubungkan Phone Number ID dan WABA ID dari Meta, kemudian buat kunci API baru. Kunci rahasia ini nantinya dikirimkan sebagai header `X-API-Key` dalam kode backend Anda untuk mengizinkan request ke server kami.
+### Langkah 4: Menambahkan Metode Pembayaran dan Membuat API Key
+Klik **Open WhatsApp Manager →** dari checklist **Payment method added in Meta** dan tambahkan kartu ke akun WhatsApp Business Anda. Lalu buka **Developers → API keys** (minimal peran Manager), klik **Create key**, pilih aksesnya, dan salin kunci yang diawali `sm_live_`. Kunci ini **hanya ditampilkan sekali**, jadi simpan di secret manager atau environment variable.
+
+### Langkah 5: Membuat Template dan Menunggu Persetujuan Meta
+Untuk memulai percakapan, WhatsApp hanya mengizinkan **template yang disetujui**. Buka **Templates**, klik **Create template**, pilih kategori (Marketing, Utility, atau Authentication) dan bahasa (misalnya `id` untuk Bahasa Indonesia), tulis isinya beserta contoh nilai variabel, lalu klik **Submit to Meta**. Hanya template berstatus **Approved** yang bisa dikirim.
 
 ---
 
-## Panduan Integrasi: Mengirim Pesan Teks Pertama Menggunakan Node.js
+## Panduan Integrasi: Mengirim Pesan Template Pertama Menggunakan Node.js
 
-Setelah pendaftaran nomor berhasil dan Anda mendapatkan kunci otentikasi dari dashboard StartMessaging, Anda dapat langsung menguji pengiriman pesan. Komunikasi dilakukan melalui request POST HTTP dengan payload berbentuk objek JSON.
+Setelah nomor terhubung dan Anda memiliki API key dari dashboard StartMessaging, Anda dapat langsung menguji pengiriman pesan. Karena pesan pertama ke pelanggan harus berupa template yang disetujui, contoh di bawah ini mengirim template melalui `POST /api/v1/messages`. Gunakan nama template persis seperti yang disetujui Meta beserta kode bahasanya.
 
-Contoh kode di bawah ini ditulis menggunakan Node.js dan library `axios` untuk memicu pengiriman pesan teks sederhana melalui endpoint sementara StartMessaging:
+Contoh kode Node.js (menggunakan `fetch` bawaan) di bawah ini mengikuti [dokumentasi StartMessaging](/id/docs/whatsapp/getting-started):
 
 ```javascript
-const axios = require('axios');
-
-/**
- * Mengirimkan pesan teks WhatsApp otomatis ke pelanggan di Indonesia.
- * 
- * @param {string} recipientPhone - Nomor telepon tujuan dengan kode negara (contoh: "628123456789")
- * @param {string} bodyText - Isi teks pesan yang ingin dikirim
- */
-async function kirimWhatsAppPesan(recipientPhone, bodyText) {
-  // TODO: Perbarui ke endpoint produksi resmi setelah API WhatsApp resmi dirilis sepenuhnya
-  const apiEndpoint = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: recipientPhone,
-    type: 'text',
-    text: {
-      body: bodyText
-    }
-  };
-
-  try {
-    const response = await axios.post(apiEndpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log('Pesan WhatsApp sukses dikirim. ID Pesan:', response.data.messageId);
-    return response.data;
-  } catch (error) {
-    console.error('Gagal mengirimkan pesan via WhatsApp API:', error.response ? error.response.data : error.message);
-    throw error;
-  }
-}
-
-// Simulasi pengiriman pesan pengujian ke nomor tujuan lokal
-const nomorTujuan = '628123456789';
-const isiPesan = 'Halo! Ini adalah pesan pengujian otomatis yang dikirimkan menggunakan WhatsApp API resmi dari StartMessaging.';
-kirimWhatsAppPesan(nomorTujuan, isiPesan);
+const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.STARTMESSAGING_API_KEY}`, // sm_live_...
+    'Content-Type': 'application/json',
+    'Idempotency-Key': 'pesanan-1042-konfirmasi',
+  },
+  body: JSON.stringify({
+    to: '+6281234567890',
+    type: 'template',
+    template: {
+      name: 'konfirmasi_pesanan', // nama template di Meta, bukan nama tampilan
+      language: 'id',
+      parameters: [{ text: 'Budi' }, { text: '#1042' }],
+    },
+    clientReference: 'pesanan-1042',
+  }),
+});
+const body = await res.json();
+if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+console.log(body.data.id, body.data.status); // "3f6c2a1e-…" "sent"
 ```
 
-Kode Node.js di atas mengilustrasikan bagaimana payload JSON disusun dengan properti nomor telepon tujuan dan badan teks pesan. Autentikasi keamanan diurus secara aman dengan mengirimkan kunci API melalui header `X-API-Key`. Pastikan Anda menyimpan nilai kunci tersebut di dalam environment variable `STARTMESSAGING_API_KEY` di server backend Anda untuk menjamin keamanan kredensial.
+Respons `201` berarti WhatsApp telah menerima pesan Anda. Header `Idempotency-Key` mencegah pesan ganda jika request diulang. Simpan API key di environment variable (misalnya `STARTMESSAGING_API_KEY`) dan jangan pernah menaruhnya di kode browser atau aplikasi mobile. Pesan teks bebas (`type: "text"`) hanya bisa dikirim selama jendela layanan pelanggan 24 jam masih terbuka; di luar jendela itu API membalas `403 MESSAGE_WINDOW_CLOSED`.
 
 ---
 
@@ -134,8 +119,8 @@ Proses integrasi API WhatsApp di Indonesia sering kali menghadapi beberapa karak
 
 Berikut beberapa masalah umum yang sering dihadapi beserta langkah penyelesaiannya:
 
-* **Format Nomor dan Penghapusan Angka Nol:** WhatsApp API mewajibkan format nomor telepon menggunakan standar internasional `E.164` tanpa karakter spasi atau tanda hubung. Untuk Indonesia, hapus angka `0` di bagian depan nomor telepon dan ganti dengan kode negara `62` (misalnya, nomor `08123456789` harus diubah menjadi `628123456789`). Kegagalan merubah format ini akan memicu error HTTP `400 Bad Request` dari gateway.
-* **Blokir SMS OTP oleh Operator Lokal:** Ketika melakukan verifikasi nomor di portal Meta, terkadang SMS berisi kode OTP dari Meta terhambat oleh sistem penyaringan operator lokal (seperti Telkomsel, Indosat Ooredoo, XL Axiata, atau Smartfren). Jika kode SMS tidak kunjung masuk setelah 5 menit, pilih opsi verifikasi **Panggilan Telepon (Voice Call)** untuk menerima kode berupa suara robot pembaca angka.
+* **Format Nomor dan Penghapusan Angka Nol:** Gunakan format nomor internasional `E.164` tanpa karakter spasi atau tanda hubung. Untuk Indonesia, hapus angka `0` di bagian depan nomor telepon dan ganti dengan kode negara `+62` (misalnya, nomor `08123456789` menjadi `+628123456789`). Nomor yang tidak valid ditolak dengan error `400 MOBILE_INVALID`.
+* **Blokir SMS Kode Verifikasi oleh Operator Lokal:** Ketika memverifikasi nomor di alur pendaftaran Meta, terkadang SMS berisi kode dari Meta terhambat oleh sistem penyaringan operator lokal (seperti Telkomsel, Indosat Ooredoo, XL Axiata, atau Smartfren). Jika kode SMS tidak kunjung masuk setelah 5 menit, pilih opsi verifikasi **Panggilan Telepon (Voice Call)** untuk menerima kode berupa suara robot pembaca angka.
 * **Limitasi Panggilan Masuk PSTN:** Jika Anda mendaftarkan nomor telepon kantor/landline (dengan awalan kode area seperti `021` untuk Jakarta atau `031` untuk Surabaya), pastikan nomor tersebut dikonfigurasi untuk dapat menerima panggilan eksternal dari nomor asing, karena verifikasi Meta sering kali dilakukan dari server internasional.
 
 ---
@@ -144,15 +129,17 @@ Berikut beberapa masalah umum yang sering dihadapi beserta langkah penyelesaiann
 
 **Q: Bisakah saya mendaftarkan nomor WhatsApp yang sudah saya gunakan di ponsel?**
 
-A: Bisa. Namun sebelum mendaftarkannya ke API, Anda wajib menghapus akun WhatsApp tersebut secara permanen melalui menu pengaturan aplikasi WhatsApp di ponsel Anda terlebih dahulu. Jika akun di ponsel belum dihapus, Meta akan mendeteksi nomor tersebut masih terpakai dan menolak proses verifikasi API.
+A: Bisa. Jika nomor tersebut masih dipakai di aplikasi WhatsApp atau WhatsApp Business, alur Embedded Signup Meta akan menjelaskan cara memindahkannya ke API. Ikuti instruksi tersebut sebelum melanjutkan verifikasi.
 
 **Q: Berapa lama waktu yang dibutuhkan untuk proses verifikasi Meta Business Manager di Indonesia?**
 
-A: Jika Anda mengunggah dokumen legalitas perusahaan Indonesia seperti NIB yang nama perusahaannya sama persis dengan nama akun bisnis Meta Anda, verifikasi otomatis biasanya selesai dalam waktu kurang dari 24 jam. Namun jika dokumen memerlukan peninjauan manual dari staf Meta, prosesnya dapat memakan waktu 3 hingga 5 hari kerja.
+A: Waktu verifikasi sepenuhnya ditentukan oleh Meta. Proses biasanya lebih cepat jika nama perusahaan pada dokumen legalitas (seperti NIB) sama persis dengan nama akun bisnis Meta Anda; dokumen yang memerlukan peninjauan manual bisa memakan waktu beberapa hari kerja.
 
-**Q: Berapa biaya pengiriman pesan WhatsApp Business API resmi dalam mata uang Rupiah?**
+**Q: Berapa biaya pengiriman pesan WhatsApp Business API resmi?**
 
-A: Meta menerapkan sistem biaya per sesi obrolan 24 jam (Conversation-Based Pricing). Tarif ini terbagi menjadi empat kategori template pesan: Pemasaran (Marketing), Utilitas (Utility), Otentikasi (Authentication), dan Layanan (Service). Biaya untuk sesi Marketing biasanya berkisar antara Rp350 hingga Rp450 per sesi obrolan, sedangkan biaya untuk Utilitas atau Layanan lebih murah. Perlu diingat bahwa 1.000 sesi obrolan Layanan pertama setiap bulan diberikan secara gratis oleh Meta.
+A: Meta menagih pesan WhatsApp langsung ke Akun WhatsApp Business (WABA) milik Anda sendiri sesuai tarif resmi yang dipublikasikan Meta, dihitung per pesan (bukan per percakapan). Sejak 1 Oktober 2026, Meta mengenakan biaya untuk setiap pesan template yang terkirim: pemasaran, utilitas (bahkan di dalam jendela layanan pelanggan 24 jam), dan autentikasi. Balasan layanan di dalam jendela 24 jam gratis hingga kuota bulanan per nomor telepon; setelah itu, Meta juga mengenakan biaya. Saat pelanggan mengirim pesan dari iklan Click-to-WhatsApp atau tombol ajakan bertindak di Halaman Facebook dan Anda membalas dalam 24 jam, jendela titik masuk gratis selama 72 jam terbuka. Tarif bervariasi menurut negara dan kategori; lihat [daftar tarif resmi Meta](https://developers.facebook.com/docs/whatsapp/pricing).
+
+StartMessaging tidak pernah menagih per pesan (tanpa saldo, kredit, atau markup); Anda hanya membayar paket Anda. Paket Developer Free mencakup 100 pesan API per bulan, Team ₹999/bulan, dan Business ₹2.999/bulan, sudah termasuk GST. Lihat [halaman harga](/id/pricing) untuk semua paket.
 
 **Q: Apakah saya membutuhkan server hosting lokal untuk menjalankan API ini di Indonesia?**
 
@@ -160,4 +147,4 @@ A: Tidak harus. Anda dapat menaruh kode backend Anda di server mana saja (sepert
 
 ---
 
-Mengatur infrastruktur WhatsApp Business API resmi dengan benar di Indonesia akan membantu bisnis Anda menjangkau jutaan pelanggan secara instan dan aman. Dengan nomor telepon yang telah terverifikasi dan integrasi autentikasi `X-API-Key` yang terkonfigurasi, sistem Anda siap melayani pengiriman notifikasi berskala besar. Untuk memproses data balasan pesan pelanggan dan memantau status pengiriman secara real-time, silakan pelajari panduan teknis kami mengenai [konfigurasi webhook WhatsApp di Indonesia](/id/docs/whatsapp/webhooks) untuk mengelola data masuk.
+Mengatur infrastruktur WhatsApp Business API resmi dengan benar di Indonesia akan membantu bisnis Anda menjangkau pelanggan secara cepat dan aman. Dengan nomor telepon yang telah terverifikasi dan API key `sm_live_` yang terkonfigurasi di header `Authorization`, sistem Anda siap mengirim notifikasi berskala besar. Untuk memproses balasan pelanggan dan memantau status pengiriman secara real-time, silakan pelajari panduan teknis kami mengenai [konfigurasi webhook WhatsApp](/id/docs/whatsapp/webhooks) untuk mengelola data masuk.

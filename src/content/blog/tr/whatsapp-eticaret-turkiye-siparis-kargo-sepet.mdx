@@ -2,7 +2,7 @@
 title: "WhatsApp ile E-Ticaret Türkiye: Sipariş Onayı ve Kargo Takibi"
 description: "WhatsApp API ile e-ticaret satışlarınızı artırın. Sipariş onayları, kargo takipleri, Troy/BKM Express bildirimleri ve sepet kurtarma stratejileri."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "use-cases"
 country: "tr"
 author: "StartMessaging Team"
@@ -18,9 +18,9 @@ relatedSlugs:
 featured: false
 ---
 
-Türkiye'deki dijital ticaret pazarında, müşterilerle kurulan iletişimin hızı ve kalitesi, e-ticaret sitelerinin dönüşüm oranları üzerinde doğrudan bir etkiye sahiptir. Geleneksel pazarlama ve bilgilendirme kanalı olan e-postaların okunma oranları son yıllarda ciddi şekilde düşmüş ve ortalama %15 seviyelerine gerilemiştir. Buna karşılık, Türk tüketicilerinin neredeyse tamamı günlük yaşantılarında anlık mesajlaşma uygulamalarını aktif şekilde kullanmaktadır. Bu pazar dinamiklerinde, whatsapp eticaret türkiye entegrasyonlarını hayata geçirmek; sipariş süreçlerini şeffaflaştırmanın, ödeme onaylarını anlık olarak iletmenin ve terk edilen alışveriş sepetlerini geri kazanarak cironuzu artırmanın en etkili yoludur.
+Türkiye'deki dijital ticaret pazarında, müşterilerle kurulan iletişimin hızı ve kalitesi, e-ticaret sitelerinin dönüşüm oranları üzerinde doğrudan bir etkiye sahiptir. Geleneksel pazarlama ve bilgilendirme kanalı olan e-postaların okunma oranları son yıllarda ciddi şekilde düşmüştür. Buna karşılık, Türk tüketicilerinin neredeyse tamamı günlük yaşantılarında anlık mesajlaşma uygulamalarını aktif şekilde kullanmaktadır. Bu pazar dinamiklerinde, whatsapp eticaret türkiye entegrasyonlarını hayata geçirmek; sipariş süreçlerini şeffaflaştırmanın, ödeme onaylarını anlık olarak iletmenin ve terk edilen alışveriş sepetlerini geri kazanarak cironuzu artırmanın en etkili yoludur.
 
-StartMessaging'in WhatsApp API altyapısı mühendislik ekibimiz tarafından geliştirilmeye devam etmektedir. Geliştirme süreçleri devam ederken ve yakında duyurulacak olan resmi üretim (production) API bağlantı adreslerimiz hazırlanırken, e-ticaret akışlarınızı yapılandırmak ve testlerinizi gerçekleştirmek için geçici olarak sağlanan `/v1/messages` endpoint yolunu kullanabilirsiniz. Yapacağınız tüm istekler HTTP `X-API-Key` başlığı üzerinden güvenli bir şekilde doğrulanır.
+StartMessaging, Meta'nın resmi WhatsApp Business Platformu (Cloud API) üzerine kurulu bir WhatsApp CRM ve REST API'sidir (Meta Tech Provider). Kendi WhatsApp Business Hesabınızı bağlarsınız ve e-ticaret bildirimlerinizi `POST https://waba-api.startmessaging.com/api/v1/messages` ile gönderirsiniz; her istek `Authorization: Bearer sm_live_...` başlığındaki API anahtarıyla doğrulanır.
 
 ---
 
@@ -28,16 +28,16 @@ StartMessaging'in WhatsApp API altyapısı mühendislik ekibimiz tarafından gel
 
 Türk dijital tüketicileri, alışveriş yaptıkları markalardan samimi, hızlı ve zahmetsiz bir iletişim bekler. E-postalar genellikle mobil cihazlarda anlık bildirim olarak görüntülenmez, gereksiz kutularına düşer veya günler sonra okunur. Bu durum sipariş durum güncellemeleri veya ödeme hatırlatmaları gibi zamana duyarlı bildirimlerin etkisini yitirmesine yol açar.
 
-WhatsApp ise %98'in üzerinde bir açılma oranına sahiptir. Gönderilen bir mesaj, alıcılar tarafından ortalama 3 dakika içinde görüntülenir. Bu hız, e-ticaret sitelerinde ödeme yöntemi olarak sıkça tercih edilen havale/EFT işlemlerinin takibinde, Troy kart altyapısı ile yapılan taksitli ödeme bildirimlerinde ve teslimat sırasında evde bulunma teyitlerinde hayati önem taşır.
+WhatsApp mesajları ise telefonda anlık bildirim olarak görünür ve genellikle e-postadan çok daha hızlı okunur. Bu hız, e-ticaret sitelerinde ödeme yöntemi olarak sıkça tercih edilen havale/EFT işlemlerinin takibinde, Troy kart altyapısı ile yapılan taksitli ödeme bildirimlerinde ve teslimat sırasında evde bulunma teyitlerinde hayati önem taşır.
 
 Aşağıdaki tablo, Türkiye e-ticaret ekosisteminde e-posta ile WhatsApp API arasındaki temel operasyonel farkları göstermektedir:
 
 | Operasyonel Kriter | Geleneksel E-Posta | WhatsApp Business API |
 |---|---|---|
-| **Ortalama Açılma Oranı** | %12 - %18 | %97 - %99 |
-| **Ortalama Geri Dönüş Süresi** | 4 - 12 saat | 3 dakikadan az |
-| **Tıklama Oranı (CTR)** | %1 - %2.5 | %18 - %26 |
-| **Tasarım ve Buton Desteği** | E-posta istemcilerine göre değişir | Standart hızlı yanıt butonları (Interactive) |
+| **Görünürlük** | Gereksiz/promosyon klasörlerine düşebilir | Telefonda anlık bildirim |
+| **Geri Dönüş Hızı** | Genellikle saatler | Genellikle dakikalar |
+| **Teslim ve Okunma Takibi** | Sınırlı | `message.delivered` ve `message.read` webhook'ları |
+| **Tasarım ve Buton Desteği** | E-posta istemcilerine göre değişir | Şablon butonları (URL, kod kopyalama) ve etkileşimli mesajlar (Team ve üzeri) |
 | **Geri Kazanım Dönüşümü** | Düşük | Yüksek (çift yönlü diyalog desteği) |
 
 ---
@@ -56,7 +56,7 @@ WhatsApp API entegrasyonu sayesinde şu bildirim akışlarını tamamen otomatik
 
 ## Terk Edilen Sepetleri Geri Kazanma: 3 Aşamalı İletişim Stratejisi
 
-E-ticaret sitelerinde sepetin ödeme tamamlanmadan bırakılması, Türk e-ticaret sitelerinin karşılaştığı en büyük ciro kayıplarından biridir. Yüksek kargo ücretleri, ödeme adımındaki karmaşıklıklar veya o anlık kararsızlıklar sepet terk etmeye yol açar. Bu kayıp satışları kurtarmak için 3 adımdan oluşan bir WhatsApp iletişim kurgusu kurgulayabilirsiniz:
+E-ticaret sitelerinde sepetin ödeme tamamlanmadan bırakılması, Türk e-ticaret sitelerinin karşılaştığı en büyük ciro kayıplarından biridir. Yüksek kargo ücretleri, ödeme adımındaki karmaşıklıklar veya o anlık kararsızlıklar sepet terk etmeye yol açar. Bu kayıp satışları kurtarmak için 3 adımdan oluşan bir WhatsApp iletişim kurgusu kurgulayabilirsiniz. Sepet hatırlatmaları pazarlama şablonu olarak gönderilir; bu yüzden yalnızca pazarlama izni vermiş müşterilere gönderin ve her mesajın Meta tarafından ücretlendirildiğini hesaba katın:
 
 ### 1. Aşama: Yardımcı Yaklaşım (Sepet Terk Edildikten 15–30 Dakika Sonra)
 İlk gönderilecek mesaj tamamen destek amaçlı olmalıdır. "Siparişinizi tamamlarken teknik bir sorun mu yaşadınız? Destek ekibimiz size yardımcı olmaya hazır" gibi bir içerikle yaklaşın. Bu aşamada kesinlikle indirim teklif etmeyin; amaç sadece olası teknik engelleri çözmektir.
@@ -65,7 +65,7 @@ E-ticaret sitelerinde sepetin ödeme tamamlanmadan bırakılması, Türk e-ticar
 Müşteri ilk mesaja dönüş yapmadıysa, ikinci mesajda ürünlerin stok durumuna ve ödeme kolaylıklarına değinin. "Sepetinizdeki ürünlerin stokları tükenmek üzere. Troy kartınızla vade farksız taksit seçeneklerinden yararlanarak siparişinizi güvenle tamamlayabilirsiniz" mesajıyla ödeme alternatiflerini hatırlatın.
 
 ### 3. Aşama: Özel Teklif ve Kupon Tanımlama (24 Saat Sonra)
-Bu, sepeti kurtarmak için son denemedir. Müşteriye sadece 12 saat geçerli, ücretsiz kargo kodu veya %10 indirim kuponu sunun. Mesajın altına doğrudan sepet sayfasına yönlendiren bir buton ekleyin. Eğer bu adımdan sonra da dönüş alınmazsa, müşteriyi rahatsız etmemek adına akışı sonlandırın.
+Bu, sepeti kurtarmak için son denemedir. Müşteriye sadece 12 saat geçerli, ücretsiz kargo kodu veya %10 indirim kuponu sunun. Kupon için şablona kod kopyalama (copy code) butonu, sepet sayfası için de dinamik URL butonu ekleyebilirsiniz. Eğer bu adımdan sonra da dönüş alınmazsa, müşteriyi rahatsız etmemek adına akışı sonlandırın.
 
 ---
 
@@ -73,78 +73,53 @@ Bu, sepeti kurtarmak için son denemedir. Müşteriye sadece 12 saat geçerli, �
 
 Müşterilerinize ödeme tamamlandıktan sonra taksit bilgilerini de içeren detaylı bir onay mesajı göndermek için backend uygulamanızdan API sunucularımıza veri iletmeniz gerekir.
 
-Aşağıdaki Node.js kod örneği, Axios kütüphanesini kullanarak onaylanmış bir Türkçe şablon mesajı tetikleme işlemini göstermektedir:
+Aşağıdaki Node.js kod örneği, onaylanmış bir Türkçe şablon mesajını gövde değişkenleri ve dinamik URL butonuyla göndermeyi göstermektedir:
 
 ```javascript
-const axios = require('axios');
-
 /**
  * Müşteriye taksitli ödeme detaylarını içeren sipariş onay mesajı gönderir.
- * 
- * @param {string} customerPhone - Alıcı telefon numarası (örnek: "905051234567")
+ *
+ * @param {string} customerPhone - Alıcı telefon numarası, E.164 (örnek: "+905051234567")
  * @param {string} orderId - Benzersiz sipariş numarası
  * @param {number} totalAmount - Toplam sipariş tutarı (TL)
  * @param {number} installments - Taksit sayısı (tek çekim ise 1)
  */
 async function gonderSiparisOnayi(customerPhone, orderId, totalAmount, installments) {
-  // TODO: WhatsApp API resmi olarak devreye alındığında nihai API adresiyle değiştirin
-  const apiEndpointUrl = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: customerPhone,
-    type: 'template',
-    template: {
-      name: 'siparis_onayi_taksitli',
-      language: {
-        code: 'tr'
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `${orderId}-confirmation`,
+    },
+    body: JSON.stringify({
+      to: customerPhone,
+      type: 'template',
+      template: {
+        name: 'siparis_onayi_taksitli',
+        language: 'tr',
+        parameters: [
+          { text: orderId },
+          { text: `${totalAmount.toFixed(2)} TL` },
+          { text: installments > 1 ? `${installments} Taksit` : 'Tek Çekim' },
+        ],
+        buttonParameters: [{ index: 0, subType: 'url', text: orderId }],
       },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            { type: 'text', text: orderId },
-            { type: 'text', text: `${totalAmount.toFixed(2)} TL` },
-            { type: 'text', text: installments > 1 ? `${installments} Taksit` : 'Tek Çekim' }
-          ]
-        },
-        {
-          type: 'button',
-          index: '0',
-          sub_type: 'url',
-          parameters: [
-            { type: 'text', text: `siparis-detay/${orderId}` }
-          ]
-        }
-      ]
-    }
-  };
+      clientReference: orderId,
+    }),
+  });
 
-  try {
-    const response = await axios.post(apiEndpointUrl, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log(`Sipariş onay mesajı gönderildi. Sipariş ID: ${orderId}`);
-    return response.data;
-  } catch (error) {
-    console.error('Sipariş onay mesajı gönderilirken hata oluştu:', error.response ? error.response.data : error.message);
-    throw error;
-  }
+  const body = await res.json();
+  if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+  console.log(`Sipariş onay mesajı gönderildi: ${body.data.id}`);
+  return body.data;
 }
 
 // Sipariş tamamlandığında tetiklenen örnek çağrı
-const telefon = '905051234567';
-const siparisNo = 'SP-2026-9876';
-const tutar = 1450.90;
-const taksit = 6;
-
-gonderSiparisOnayi(telefon, siparisNo, tutar, taksit);
+gonderSiparisOnayi('+905051234567', 'SP-2026-9876', 1450.90, 6);
 ```
 
-Bu backend entegrasyonu, StartMessaging API sunucularına JSON formatında veri gönderir. Gönderilen parametreler Meta paneli üzerinde onaylanmış olan Türkçe (`tr`) dilindeki şablonun değişken alanlarına yerleştirilerek müşteriye butonlu ve zengin içerikli bir mesaj olarak ulaşır.
+Gönderilen parametreler, StartMessaging panelinde oluşturup Meta'ya onaya gönderdiğiniz Türkçe (`tr`) şablonun değişken alanlarına sırasıyla yerleştirilir; `buttonParameters` ise URL butonundaki değişkeni (ör. `https://magazaniz.com/siparis/{{1}}`) doldurur. `clientReference` olarak verdiğiniz sipariş numarası, bu mesajın tüm `message.*` webhook'larında geri gelir. Şablonun hangi değerleri istediğini paneldeki **Send via API** bölümünden görebilirsiniz ([Send Messages](/tr/docs/whatsapp/send-message)).
 
 ---
 
@@ -161,11 +136,11 @@ Türkiye'de faaliyet gösteren e-ticaret markalarının büyük bir bölümü ke
 
 **Q: WhatsApp rehberinde kayıtlı olmadığımız müşterilere mesaj gönderebilir miyiz?**
 
-A: Evet. Resmi WhatsApp Business API altyapısında, müşterinin telefonunda sizin numaranız kayıtlı olmasa dahi, önceden onaylanmış şablonlar (Message Templates) kullanılarak mesaj gönderimi yapılabilir. Giden mesajlarda işletme adınız ve resmi doğruluk rozetiniz doğrudan görüntülenir, böylece numaranız kayıtlı olmasa da güvenli bir marka algısı oluşur.
+A: Evet. Resmi WhatsApp Business API altyapısında, müşterinin telefonunda sizin numaranız kayıtlı olmasa dahi, önceden onaylanmış şablonlar (Message Templates) kullanılarak mesaj gönderimi yapılabilir. Giden mesajlarda Meta'nın onayladığı işletme görünen adınız yer alır; doğrulanmış işletme rozeti ise ayrıca Meta'nın vereceği bir onaya bağlıdır. Yine de müşterinin mesaj almayı kabul etmiş olması gerekir.
 
 **Q: E-ticaret siteleri için günlük gönderim limiti var mıdır?**
 
-A: Meta, API hesapları için günlük benzersiz kullanıcı sınırını aşamalı olarak belirler. Yeni hesaplar günlük 1.000 benzersiz kullanıcıya (Tier 1) mesaj atarak başlar. Gönderilen mesajların şikayet almaması ve numara kalite puanının yüksek kalması durumunda bu limit sırasıyla 10.000, 100.000 ve sınırsız (unlimited) seviyelerine otomatik olarak yükseltilir.
+A: Evet. Meta, işletmenizin 24 saatlik kayan bir süre içinde mesaj başlatabileceği benzersiz müşteri sayısını sınırlar (messaging limit). Bu limit işletme portföyü başına belirlenir ve tüm numaralarınız tarafından paylaşılır; kalite puanınız yüksek kaldıkça Meta limiti yükseltir. Güncel limitinizi ve kalite puanınızı StartMessaging panelinde ve `GET /api/v1/phone-numbers` ile görebilirsiniz. Limit aşıldığında API `429 PHONE_DAILY_LIMIT_REACHED` döner. Buna ek olarak StartMessaging planınızın API mesaj kotası ve istek limitleri geçerlidir ([limitler](/tr/limits)).
 
 **Q: Troy ve yerel ödeme yöntemlerine ait ödeme bağlantılarını mesajlarda nasıl paylaşabiliriz?**
 
@@ -173,4 +148,4 @@ A: API şablonlarında dinamik URL butonları tanımlayabilirsiniz. Ödeme geçi
 
 ---
 
-Türkiye'deki e-ticaret operasyonlarınızda WhatsApp Business API kullanarak sepet dönüşüm oranlarınızı artırabilir, kargo takip süreçlerini otomatikleştirerek destek ekibinizin iş yükünü hafifletebilirsiniz. StartMessaging'in sunduğu güvenli `X-API-Key` yapısı ile entegrasyon süreçlerinizi hızla tamamlayabilirsiniz. Müşteri yanıtlarını webhook üzerinden karşılayıp sepet durumlarını otomatik işlemek için [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızı ziyaret edebilirsiniz.
+Türkiye'deki e-ticaret operasyonlarınızda WhatsApp Business API kullanarak sepet dönüşüm oranlarınızı artırabilir, kargo takip süreçlerini otomatikleştirerek destek ekibinizin iş yükünü hafifletebilirsiniz. StartMessaging'in `Authorization: Bearer sm_live_...` ile çalışan REST API'si ve [e-ticaret kullanım senaryoları](/tr/use-cases/ecommerce) ile entegrasyon süreçlerinizi hızla tamamlayabilirsiniz; planlar ve Meta ücretlerinin nasıl işlediği için [fiyatlandırma sayfasına](/tr/pricing) bakın. Müşteri yanıtlarını webhook üzerinden karşılayıp sepet durumlarını otomatik işlemek için [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızı ziyaret edebilirsiniz.

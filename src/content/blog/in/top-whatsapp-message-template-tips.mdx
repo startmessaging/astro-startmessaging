@@ -2,7 +2,7 @@
 title: "5 Tips to Get Your WhatsApp Message Templates Approved Faster"
 description: "Meta rejects a surprising number of message template submissions. Learn the five most common pitfalls and how to avoid them."
 publishedAt: 2026-05-15
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 author: "StartMessaging Team"
 tags: ["whatsapp", "templates", "tips"]
 ogImage: "/og/blog-template-tips.png"
@@ -12,17 +12,17 @@ category: "guides"
 
 WhatsApp message templates are the gateway to reaching your customers proactively on WhatsApp. But Meta's review process can feel like a black box — submissions get rejected without much explanation, and revisions take time.
 
-After helping hundreds of businesses go live on the WhatsApp Business API, we've identified the five patterns that most reliably get templates approved quickly.
+Meta reviews every template and sets the review time, so the fastest approval is the one you don't have to resubmit. These five patterns help a template pass the first time.
 
 ## 1. Match category to content — precisely
 
 Template categories are not suggestions. Meta checks whether your template text actually matches the category you chose.
 
 - **Utility** = transactional updates about something the customer already did (order shipped, appointment reminder, payment received)
-- **Authentication** = OTP only, no marketing language whatsoever
+- **Authentication** = one-time codes only. Meta writes the body text itself; you choose the language, the security warning, the code expiry and the copy-code button
 - **Marketing** = anything promotional, offer-based, or re-engagement focused
 
-If your "utility" template says "your order shipped — and check out our new collection!", Meta will reject it as marketing. Pick the right category upfront.
+If your "utility" template says "your order shipped — and check out our new collection!", Meta will reject it or move it to Marketing. Meta can also recategorise an approved template later, which changes what each message costs, because Meta prices templates by category. Since 1 October 2026 Meta charges every delivered template, utility included, so pick the right category upfront.
 
 ## 2. Keep variable usage minimal and meaningful
 
@@ -34,7 +34,7 @@ Best practice:
 Hello {{1}}, your appointment with {{2}} is confirmed for {{3}}.
 ```
 
-Avoid vague placeholders like `{{1}}` that could contain anything — Meta wants to infer context from the surrounding text.
+Avoid vague placeholders like `{{1}}` that could contain anything — Meta wants to infer context from the surrounding text. Named variables (`{{first_name}}`) read more clearly, and Meta needs a sample value for every variable, so give realistic ones. A template keeps the variable style it was created with; duplicate it to switch.
 
 ## 3. Avoid restricted phrases
 
@@ -42,7 +42,6 @@ Meta maintains a (mostly unpublished) list of phrases and patterns that trigger 
 
 - "Click here" or "Tap here" in CTAs — prefer a clear action like "Track your order"
 - Urgency language in utility templates: "Act now", "Limited time"
-- Price claims in authentication templates
 - ALL CAPS text beyond brand names
 
 When in doubt, read the template aloud. If it sounds like a spam SMS from 2010, revise it.
@@ -61,14 +60,12 @@ Ambiguous button labels are one of the most common rejection reasons.
 
 ## 5. Submit in the right language with correct locale code
 
-Always match your template's language to the locale code you select in the API. Submitting Portuguese content under `pt_BR` but writing Brazilian slang that looks like European Portuguese will cause review delays.
-
-For Brazil, use `pt_BR`. For Portugal, use `pt_PT`.
+Always match your template's content to the language you choose for it. Writing Hindi copy in a template set to `en_US`, or Hinglish in a template set to `hi`, invites a rejection. The same name in another language is a separate template, and when you send it over the API you pass that exact language code (for example `en_US` or `hi`) as `template.language`.
 
 Also: do **not** mix languages in a single template. If your audience is bilingual, create two separate templates — one per language.
 
 ---
 
-Following these five guidelines won't guarantee approval, but in our experience they reduce first-attempt rejection rates by around 60%.
+Following these five guidelines won't guarantee approval, but they remove the most common reasons for a rejection.
 
-If a template is rejected, Meta provides a rejection reason. [Contact our support team](/contact) and we can help you revise it for resubmission.
+If a template is rejected, the dashboard shows Meta's rejection reason. Fix it and resubmit, or [contact our support team](/contact) for help. The [message templates docs](/docs/whatsapp/message-templates) list every category, component limit and button type.

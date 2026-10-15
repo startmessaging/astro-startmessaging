@@ -2,7 +2,7 @@
 title: "Send OTP from Kotlin (Android Backend / Ktor) — 2026 Guide"
 description: "Send and verify SMS OTPs from a Kotlin Ktor backend or Android app using the StartMessaging API. Includes Ktor client examples, retrofit option, and Android best practices."
 publishedAt: "2026-04-21"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -61,26 +61,35 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.Serializable
+import java.security.SecureRandom
 import java.util.UUID
 
-@Serializable data class SendBody(val phoneNumber: String, val idempotencyKey: String)
+@Serializable data class SendBody(
+    val phoneNumber: String,
+    val variables: Map<String, String>, // must contain "otp"
+    val idempotencyKey: String,
+)
 @Serializable data class VerifyBody(val requestId: String, val otpCode: String)
 @Serializable data class Envelope<T>(val data: T)
-@Serializable data class SendData(val requestId: String, val expiresAt: String, val attemptsLeft: Int)
+@Serializable data class SendData(val otpRequestId: String, val messageId: String, val status: String)
 @Serializable data class VerifyData(val verified: Boolean)
 
 object StartMessaging {
     private val key = System.getenv("STARTMESSAGING_API_KEY")
+    private val random = SecureRandom()
     private val client = HttpClient(OkHttp) {
         install(ContentNegotiation) { json() }
     }
+
+    // Generated on the server, never in the Android app
+    private fun generateOtp(): String = (100000 + random.nextInt(900000)).toString()
 
     suspend fun sendOtp(phone: String): SendData =
         client.post("https://api.startmessaging.com/otp/send") {
             header("X-API-Key", key)
             contentType(ContentType.Application.Json)
-            setBody(SendBody(phone, UUID.randomUUID().toString()))
-        }.body<Envelope<SendData>>().data
+            setBody(SendBody(phone, mapOf("otp" to generateOtp()), UUID.randomUUID().toString()))
+        }.body<Envelope<SendData>>().data // return data.otpRequestId to the app as requestId
 
     suspend fun verifyOtp(rid: String, code: String): Boolean =
         client.post("https://api.startmessaging.com/otp/verify") {
@@ -104,7 +113,7 @@ interface AuthApi {
 }
 
 data class SendOtpReq(val phoneNumber: String)
-data class SendOtpRes(val requestId: String, val expiresAt: String)
+data class SendOtpRes(val requestId: String) // the otpRequestId from your backend
 data class VerifyOtpReq(val requestId: String, val otpCode: String)
 data class VerifyOtpRes(val verified: Boolean)
 ```

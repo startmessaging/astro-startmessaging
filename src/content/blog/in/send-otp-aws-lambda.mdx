@@ -2,7 +2,7 @@
 title: "How to Send OTP with AWS Lambda (2026)"
 description: "AWS Lambda OTP tutorial using StartMessaging. Function URLs, Secrets Manager for API keys, DynamoDB for rate limits, and SAM/CDK deployment patterns."
 publishedAt: "2026-05-09"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -49,7 +49,7 @@ aws secretsmanager create-secret --name sm/api-key --secret-string sm_live_xxx
 import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb';
-import { randomUUID } from 'node:crypto';
+import { randomInt, randomUUID } from 'node:crypto';
 
 const sm = new SecretsManagerClient({});
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
@@ -76,20 +76,25 @@ export const handler = async (event: any) => {
       ExpressionAttributeNames: { '#c': 'count' },
       ExpressionAttributeValues: { ':one': 1, ':ttl': Math.floor(Date.now() / 1000) + 3600 },
     }));
+    const otp = randomInt(100000, 1000000).toString(); // generated here, never returned
     const r = await fetch('https://api.startmessaging.com/otp/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
-      body: JSON.stringify({ phoneNumber: body.phoneNumber, idempotencyKey: randomUUID() }),
+      body: JSON.stringify({ phoneNumber: body.phoneNumber, variables: { otp }, idempotencyKey: randomUUID() }),
     });
-    return { statusCode: r.status, body: await r.text() };
+    if (!r.ok) return { statusCode: r.status, body: await r.text() };
+    const { data } = await r.json();
+    // The client sends otpRequestId back with the code it receives by SMS
+    return { statusCode: 200, body: JSON.stringify({ otpRequestId: data.otpRequestId }) };
   }
 
   if (path === '/auth/verify-otp') {
     const r = await fetch('https://api.startmessaging.com/otp/verify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ requestId: body.otpRequestId, otpCode: body.otpCode }),
     });
+    // 200 -> { data: { verified: true } }
     return { statusCode: r.status, body: await r.text() };
   }
   return { statusCode: 404, body: 'not found' };

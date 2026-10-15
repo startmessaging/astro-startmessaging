@@ -2,7 +2,7 @@
 title: "Clickatell vs StartMessaging for India OTP"
 description: "Clickatell vs StartMessaging compared for Indian OTP and SMS: pricing, India coverage, DLT model, developer experience and recommendation by use case."
 publishedAt: "2026-05-03"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: comparisons
 country: "in"
 author: "StartMessaging Team"
@@ -53,7 +53,7 @@ Here is how Clickatell and StartMessaging compare across key developer and opera
 | **Billing Currency** | USD ($) | INR (₹) |
 | **Minimum Spend** | Variable based on account tier | None (Pay-as-you-go) |
 | **Security Architecture** | Plain text / client-side hashing | bcrypt-hashed on HSM nodes |
-| **Channel Fallback** | Manual configuration | Automated voice and WhatsApp fallback |
+| **Channel Fallback** | Manual configuration | WhatsApp OTP through a separate WhatsApp API your backend calls (no voice OTP) |
 | **SDK Support** | Multi-language API SDKs | Curl, Node.js, Python, PHP, Ruby, etc. |
 | **Verification Logic** | None (Developer must build) | Built-in send and verify API endpoints |
 
@@ -83,7 +83,7 @@ Choose **StartMessaging** if:
 - Your target market is primarily in India, and fast OTP delivery (under 5 seconds) is critical for your signup conversion.
 - You want to launch your product immediately without waiting weeks for DLT template registrations.
 - You need local INR billing with clear, predictable pay-as-you-go pricing.
-- You require automatic fallbacks (like Voice OTP or WhatsApp) to ensure delivery when standard cell networks are congested.
+- You want a second channel (WhatsApp OTP through our separate WhatsApp API) to ensure delivery when standard cell networks are congested.
 
 ## Integrating the APIs: Developer Code Comparison
 

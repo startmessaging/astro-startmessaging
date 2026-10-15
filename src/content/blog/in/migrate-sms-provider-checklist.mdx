@@ -2,7 +2,7 @@
 title: "SMS Provider Migration Checklist for Devs"
 description: "Step-by-step checklist for migrating from one SMS or OTP provider to another. Covers API abstraction, testing, gradual rollout, monitoring, and rollback planning."
 publishedAt: "2026-02-14"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: business
 country: "in"
 author: "StartMessaging Team"
@@ -90,13 +90,12 @@ interface SmsProvider {
 
 interface SendOtpOptions {
   idempotencyKey?: string;
-  expiryMinutes?: number;
 }
 
 interface SendOtpResult {
-  requestId: string;
-  expiresAt: string;
-  provider: string; // Track which provider handled it
+  requestId: string;  // ID you pass back to verifyOtp
+  messageId?: string; // ID for delivery status lookups
+  provider: string;   // Track which provider handled it
 }
 
 interface VerifyResult {
@@ -104,7 +103,7 @@ interface VerifyResult {
   attemptsRemaining?: number;
 }
 
-type DeliveryStatus = 'pending' | 'delivered' | 'failed' | 'expired';
+type DeliveryStatus = 'initiated' | 'queued' | 'sent' | 'delivered' | 'failed';
 ```
 
 
@@ -116,6 +115,8 @@ Implement this interface for your current provider first. Replace all
       
 ```typescript
 // startmessaging-provider.ts
+import crypto from 'node:crypto';
+
 class StartMessagingProvider implements SmsProvider {
   private baseUrl = 'https://api.startmessaging.com';
   private apiKey: string;
@@ -125,7 +126,7 @@ class StartMessagingProvider implements SmsProvider {
   }
 
   async sendOtp(phoneNumber: string, options?: SendOtpOptions): Promise<SendOtpResult> {
-    const response = await fetch(\`\${this.baseUrl}/otp/send\`, {
+    const response = await fetch(`${this.baseUrl}/otp/send`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -133,20 +134,22 @@ class StartMessagingProvider implements SmsProvider {
       },
       body: JSON.stringify({
         phoneNumber,
+        variables: { otp: crypto.randomInt(100000, 1000000).toString() }, // you generate the code
         idempotencyKey: options?.idempotencyKey,
       }),
     });
 
     const { data } = await response.json();
+    // data: { otpRequestId, messageId, status: "queued" }
     return {
-      requestId: data.requestId,
-      expiresAt: data.expiresAt,
+      requestId: data.otpRequestId,
+      messageId: data.messageId,
       provider: 'startmessaging',
     };
   }
 
   async verifyOtp(requestId: string, code: string): Promise<VerifyResult> {
-    const response = await fetch(\`\${this.baseUrl}/otp/verify\`, {
+    const response = await fetch(`${this.baseUrl}/otp/verify`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -160,8 +163,8 @@ class StartMessagingProvider implements SmsProvider {
   }
 
   async getDeliveryStatus(messageId: string): Promise<DeliveryStatus> {
-    // Query message status from StartMessaging
-    const response = await fetch(\`\${this.baseUrl}/messages/\${messageId}\`, {
+    // Query message status from StartMessaging (no SMS webhooks; poll this endpoint)
+    const response = await fetch(`${this.baseUrl}/messages/${messageId}`, {
       headers: { 'X-API-Key': this.apiKey },
     });
     const { data } = await response.json();

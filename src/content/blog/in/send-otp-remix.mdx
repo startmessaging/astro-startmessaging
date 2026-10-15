@@ -2,7 +2,7 @@
 title: "How to Send OTP with Remix (2026)"
 description: "Remix OTP login tutorial using StartMessaging. Uses action functions, server-only utilities, signed cookies for session, and Zod for validation."
 publishedAt: "2026-05-07"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -49,16 +49,21 @@ SESSION_SECRET=replace-me
       
 ```typescript
 // app/lib/sm.server.ts
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomInt } from 'node:crypto';
 
 export async function smSend(phoneNumber: string) {
   const res = await fetch(\`\${process.env.SM_BASE_URL}/otp/send\`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': process.env.SM_API_KEY! },
-    body: JSON.stringify({ phoneNumber, idempotencyKey: randomUUID() }),
+    body: JSON.stringify({
+      phoneNumber,
+      // Generated on the server; StartMessaging delivers it
+      variables: { otp: String(randomInt(100000, 1000000)) },
+      idempotencyKey: randomUUID(),
+    }),
   });
   if (!res.ok) throw new Error((await res.json()).message ?? 'OTP send failed');
-  return (await res.json()).data as { requestId: string; expiresAt: string };
+  return (await res.json()).data as { otpRequestId: string; messageId: string; status: string };
 }
 
 export async function smVerify(requestId: string, otpCode: string) {
@@ -89,8 +94,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (intent === 'send') {
     const phone = z.string().regex(/^\\+91\\d{10}$/).parse(form.get('phoneNumber'));
-    const { requestId } = await smSend(phone);
-    session.set('otpReq', requestId);
+    const { otpRequestId } = await smSend(phone);
+    session.set('otpReq', otpRequestId);
     return json({ stage: 'verify' }, { headers: { 'Set-Cookie': await commitSession(session) }});
   }
   if (intent === 'verify') {

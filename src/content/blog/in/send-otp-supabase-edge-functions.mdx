@@ -2,7 +2,7 @@
 title: "How to Send OTP in Supabase Edge Functions (2026 Guide)"
 description: "Step-by-step tutorial for sending and verifying SMS OTPs in Supabase Edge Functions using Deno, TypeScript, and the StartMessaging API in India."
 publishedAt: "2026-03-02"
-updatedAt: "2026-08-26"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "in"
 author: "StartMessaging Team"
@@ -72,6 +72,13 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Unbiased 6-digit code from the Web Crypto API (generated server-side)
+function generateOtp(): string {
+  const buf = new Uint32Array(1);
+  do crypto.getRandomValues(buf); while (buf[0] >= 4294000000);
+  return String(buf[0] % 1000000).padStart(6, '0');
+}
+
 serve(async (req: Request) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -101,6 +108,7 @@ serve(async (req: Request) => {
       },
       body: JSON.stringify({
         phoneNumber,
+        variables: { otp: generateOtp() },
       }),
     });
 
@@ -116,8 +124,8 @@ serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         success: true,
-        requestId: payload.data.requestId,
-        expiresAt: payload.data.expiresAt,
+        // payload.data = { otpRequestId, messageId, status }
+        requestId: payload.data.otpRequestId,
         message: 'OTP sent successfully.',
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

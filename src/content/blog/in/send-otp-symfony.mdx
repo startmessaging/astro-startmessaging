@@ -2,7 +2,7 @@
 title: "How to Send OTP with Symfony (2026)"
 description: "Symfony OTP tutorial using StartMessaging. Uses HttpClient, ParameterBag for secrets, Form component for validation, and Session for storing the request ID."
 publishedAt: "2026-05-10"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -73,11 +73,19 @@ class StartMessagingService
 
     public function sendOtp(string $phoneNumber): array
     {
+        // Your backend generates the code; StartMessaging delivers and verifies it.
+        $otp = (string) random_int(100000, 999999);
+
         $r = $this->client->request('POST', $this->baseUrl.'/otp/send', [
             'headers' => ['X-API-Key' => $this->apiKey, 'Content-Type' => 'application/json'],
-            'json' => ['phoneNumber' => $phoneNumber, 'idempotencyKey' => Uuid::v4()->toRfc4122()],
+            'json' => [
+                'phoneNumber' => $phoneNumber,
+                'variables' => ['otp' => $otp],
+                'idempotencyKey' => Uuid::v4()->toRfc4122(),
+            ],
             'timeout' => 10,
         ]);
+        // ['otpRequestId' => ..., 'messageId' => ..., 'status' => 'queued']
         return $r->toArray()['data'];
     }
 
@@ -87,7 +95,8 @@ class StartMessagingService
             'headers' => ['X-API-Key' => $this->apiKey, 'Content-Type' => 'application/json'],
             'json' => ['requestId' => $requestId, 'otpCode' => $otpCode],
         ]);
-        return $r->getStatusCode() === 200;
+        if ($r->getStatusCode() !== 200) return false;
+        return ($r->toArray(false)['data']['verified'] ?? false) === true;
     }
 }
 ```
@@ -113,8 +122,8 @@ class AuthController extends AbstractController
     {
         $phone = $request->getPayload()->getString('phoneNumber');
         $data = $sm->sendOtp($phone);
-        $request->getSession()->set('otp_req', $data['requestId']);
-        return $this->json(['expiresAt' => $data['expiresAt']]);
+        $request->getSession()->set('otp_req', $data['otpRequestId']);
+        return $this->json(['status' => $data['status']]);
     }
 
     #[Route('/auth/verify-otp', methods: ['POST'])]
@@ -136,7 +145,7 @@ class AuthController extends AbstractController
 ## Form Types
 
 Use `Symfony\Component\Validator\Constraints` to enforce
-        E.164 phone shape and 4–8 digit OTP shape on incoming requests.
+        E.164 phone shape and 4–6 digit OTP shape on incoming requests.
 
 
 ## FAQ

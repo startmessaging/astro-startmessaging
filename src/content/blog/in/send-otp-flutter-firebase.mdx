@@ -2,7 +2,7 @@
 title: "How to Send OTP in Flutter with Firebase Backend (2026)"
 description: "Flutter OTP tutorial using StartMessaging on a Firebase Functions backend. Riverpod state, http client, secure cookie session via Firebase Auth custom token."
 publishedAt: "2026-05-12"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -55,12 +55,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 class OtpService {
   final _fns = FirebaseFunctions.instance;
 
-  Future<({String requestId, DateTime expiresAt})> send(String phone) async {
+  // The callable generates the code server-side and returns the otpRequestId
+  // (as `requestId`). The API key never ships in the app.
+  Future<String> send(String phone) async {
     final r = await _fns.httpsCallable('sendOtp').call({'phoneNumber': phone});
-    return (
-      requestId: r.data['requestId'] as String,
-      expiresAt: DateTime.parse(r.data['expiresAt'] as String),
-    );
+    return r.data['requestId'] as String;
   }
 
   Future<void> verifyAndSignIn(String requestId, String code, String phone) async {
@@ -92,8 +91,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final codeCtl  = TextEditingController();
 
   Future<void> _send() async {
-    final r = await ref.read(otpServiceProvider).send(phoneCtl.text);
-    setState(() => requestId = r.requestId);
+    final id = await ref.read(otpServiceProvider).send(phoneCtl.text);
+    setState(() => requestId = id);
   }
 
   Future<void> _verify() async {

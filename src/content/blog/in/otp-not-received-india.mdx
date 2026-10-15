@@ -2,7 +2,7 @@
 title: "OTP Not Received? Common Causes and Fixes (India 2026)"
 description: "Diagnose why OTPs are not arriving in India. The full checklist: DND state, DLT mismatches, scrubbing, carrier-side filters, sender ID issues, network and device-side problems."
 publishedAt: "2026-04-28"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -55,7 +55,7 @@ Before debugging your stack, ask the user:
 ## Server-Side Issues
 
 
-- **Did your code call `/otp/send`?** Check your application log for a successful 200 response with  `requestId`.
+- **Did your code call `/otp/send`?** Check your application log for a successful 201 response with `data.otpRequestId` and `data.messageId`.
 - **Wallet balance.** 402 from your provider means you ran out of credit. Top up.
 - **Rate limited.** 429 means provider throttled you, or your own per-phone limiter blocked the send.
 - **Wrong phone format.** 400 means E.164 was malformed. Validate `+91` + 10 digits before calling.
@@ -124,9 +124,9 @@ See
 ## A Production Triage Checklist
 
 
-- Find the request in your logs by phone or requestId.
-- Confirm `/otp/send` returned 200.
-- Check the DLR webhook or polling endpoint — submitted? delivered? failed? scrubbed?
+- Find the request in your logs by phone, `otpRequestId` or `messageId`.
+- Confirm `/otp/send` returned 201.
+- Poll `GET /messages/:id` with the `messageId` — queued? sent? delivered? failed?
 - If failed: read the failure code. Provider docs map codes to causes.
 - Run the same number through a different sender ID or different provider as a control.
 - If a single-number issue: ask the user to clear the SMS spam folder and retry, or fall back to voice OTP.
@@ -148,6 +148,6 @@ See
 
 Tired of fighting DLT and per-operator delivery quirks? 
         [StartMessaging absorbs all of it](/dlt-free-otp) 
-        — multi-provider failover, voice fallback, real-time DLR — at Rs
+        — multi-provider failover, real-time DLR — at Rs
         0.25 per OTP, no monthly fees.
 

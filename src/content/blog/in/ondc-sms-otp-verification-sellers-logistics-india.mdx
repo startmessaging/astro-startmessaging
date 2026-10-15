@@ -2,7 +2,7 @@
 title: "ONDC and SMS Verification: How Sellers and Logistics Providers Should Handle OTP (2026)"
 description: "Optimize your ondc sms verification india flows. Learn ONDC buyer-seller registration nodes, logistics drop-off OTP rules, and Node.js API code patterns."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "use-cases"
 country: "in"
 author: "StartMessaging Team"
@@ -55,6 +55,7 @@ We will write a Node.js server script that seller applications can use to genera
 
 ```javascript
 // ondc-delivery-verification.js
+import { randomInt } from 'node:crypto';
 
 const SMS_KEY = process.env.STARTMESSAGING_KEY || 'sm_live_your_key_here';
 const DISPATCH_ENDPOINT = 'https://api.startmessaging.com/otp/send';
@@ -66,7 +67,7 @@ export async function triggerDeliveryHandshake(orderId, buyerPhone, sellerName) 
   console.log(`[ONDC Delivery] Generating verification for Order: ${orderId}`);
 
   // Generate a secure 6-digit delivery handshake code
-  const handshakeCode = Math.floor(100000 + Math.random() * 900000).toString();
+  const handshakeCode = randomInt(100000, 1000000).toString();
 
   // DLT-approved variables structure
   const variables = {
@@ -96,8 +97,9 @@ export async function triggerDeliveryHandshake(orderId, buyerPhone, sellerName) 
     // Save the code to validate later when the driver submits it
     deliveryLedger.set(orderId, {
       code: handshakeCode,
+      otpRequestId: result.data.otpRequestId,
       messageId: result.data.messageId,
-      expiresAt: Date.now() + 10 * 60 * 1000 // Valid for 10 minutes
+      expiresAt: Date.now() + 10 * 60 * 1000 // Your own 10-minute window; the API does not return an expiry
     });
 
     return {

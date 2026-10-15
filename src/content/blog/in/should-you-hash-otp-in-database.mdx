@@ -2,7 +2,7 @@
 title: "Should You Hash OTPs in Your Database?"
 description: "Yes, always — and bcrypt or scrypt, not SHA-256. Why hashing OTPs matters even though they're short-lived, and concrete code patterns."
 publishedAt: "2026-05-19"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -162,9 +162,9 @@ If a database dump is leaked containing plaintext OTPs, it is considered a failu
 If you do not want to manage databases, write hashing wrappers, or maintain background cron jobs to delete expired records, the safest path is to outsource storage.
 
 By using StartMessaging's [OTP API](/otp-api), you delegate the entire cryptography stack:
-- StartMessaging generates the code and immediately hashes it using bcrypt cost 12.
+- Your backend generates the code in memory (e.g. `crypto.randomInt(100000, 1000000)`) and passes it once in `variables.otp` to `POST /otp/send`; StartMessaging hashes it using bcrypt cost 12.
 - Your application database never stores OTP codes, hashes, or attempts.
-- You only store a reference `requestId`.
+- You only store the `data.otpRequestId` returned by `/otp/send`, and pass it as `requestId` to `POST /otp/verify`.
 - The verification happens on HSM-guarded nodes, and the API returns a simple Boolean response.
 
 This architecture removes the database risk entirely, keeping your local database compliant and lightweight.

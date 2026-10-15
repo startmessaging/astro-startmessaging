@@ -8,7 +8,7 @@ import { type Country, hasSms, urlPrefix } from '@/config/countries';
 import AppIcon from '@/components/ui/AppIcon.astro';
 import Button from '@/components/ui/Button.astro';
 import { t } from '@/i18n/t';
-import { WA_APP_URL, WA_LOGIN_URL } from '@/lib/constants';
+import { WA_APP_URL, WA_LOGIN_URL, waSignupOpen } from '@/lib/constants';
 
 interface Props {
   country: string;
@@ -44,7 +44,10 @@ const homeHref = prefix || '/';
 // WhatsApp pages and WhatsApp-only countries sign in to the WhatsApp CRM; SMS pages to the SMS console.
 const appUrl = isWhatsapp || !showSms ? WA_APP_URL : 'https://app.startmessaging.com';
 const loginHref = isWhatsapp || !showSms ? WA_LOGIN_URL : appUrl;
-const signupHref = `${appUrl}/signup`;
+// Where self-serve signup isn't open yet, the primary CTA goes to sales instead.
+const signupOpen = waSignupOpen(c);
+const signupHref = signupOpen ? `${appUrl}/signup` : `${prefix}/contact`;
+const signupLabel = signupOpen ? t('nav.signup', c) : t('cta.contactSales', c);
 
 // WhatsApp CRM links (live)
 const whatsappFeatures = [
@@ -279,7 +282,7 @@ if (isIndia) {
           size="sm"
           class={isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""}
         >
-          {t('nav.signup', c)}
+          {signupLabel}
         </Button>
       </div>
 
@@ -473,7 +476,7 @@ if (isIndia) {
         size="md" 
         class:list={["w-full", isWhatsapp ? "!bg-accent-wa hover:!bg-accent-wa-hover !text-on-accent-wa" : ""]}
       >
-        {t('nav.signup', c)}
+        {signupLabel}
       </Button>
     </div>
 

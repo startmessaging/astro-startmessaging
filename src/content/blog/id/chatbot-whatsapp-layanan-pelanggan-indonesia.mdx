@@ -2,7 +2,7 @@
 title: "Chatbot WhatsApp untuk Layanan Pelanggan di Indonesia: Panduan Praktis"
 description: "Panduan membuat chatbot WhatsApp layanan pelanggan di Indonesia. Pelajari alur interaktif, integrasi CRM lokal, dan contoh kode webhook Node.js."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "id"
 author: "StartMessaging Team"
@@ -23,7 +23,7 @@ featured: false
 
 Penerapan otomatisasi layanan konsumen melalui pesan instan telah menjadi standar baru bagi bisnis modern di Indonesia. Konsumen lokal terkenal memiliki ekspektasi yang sangat tinggi terhadap kecepatan respon obrolan bisnis; mereka mengharapkan jawaban instan dalam hitungan menit, bahkan detik. Mengandalkan staf bantuan manusia saja untuk menjawab ratusan chat bantuan dasar secara manual tentu membutuhkan biaya operasional yang sangat besar dan memicu kelelahan kerja. Mengimplementasikan chatbot whatsapp bisnis indonesia resmi merupakan langkah tepat untuk menyelesaikan hambatan operasional tersebut, melayani pelanggan selama 24 jam penuh, dan mendistribusikan chat bantuan secara cerdas.
 
-API dari StartMessaging untuk WhatsApp berada dalam tahap pengembangan aktif oleh tim rekayasa perangkat lunak kami. Selagi kami menyelesaikan infrastruktur utama dan merilis rute produksi resmi dalam waktu dekat, Anda dapat menggunakan rute pengujian sementara `/v1/messages` untuk menguji alur chatbot Anda. Seluruh otentikasi request dikirimkan secara aman menggunakan header kustom HTTP `X-API-Key`.
+Di StartMessaging, ada dua cara membangun chatbot. Tanpa kode, Anda bisa memakai [pembuat chatbot visual](/id/whatsapp/chatbot) dengan serah terima ke agen manusia, yang tersedia di paket Business (dan uji coba gratis 14 hari). Dengan kode, Anda bisa membangun bot sendiri di atas REST API dan webhook StartMessaging: menerima event `message.received`, lalu membalas lewat `POST https://waba-api.startmessaging.com/api/v1/messages` dengan header `Authorization: Bearer sm_live_...`. Pesan interaktif (tombol dan daftar) memerlukan paket Team ke atas; paket Developer membalas `403 PLAN_FEATURE_REQUIRED`.
 
 ---
 
@@ -33,7 +33,7 @@ Langkah awal sebelum merancang sistem otomatisasi chatbot adalah menentukan logi
 
 Berikut penjelasan mengenai kedua jenis chatbot tersebut:
 
-* **Chatbot Terstruktur (Berbasis Menu):** Chatbot ini mengarahkan pelanggan menggunakan tombol opsi aksi cepat (*quick replies*) atau menu daftar pilihan (list menu). Keuntungan utamanya adalah kemudahan konfigurasi, tingkat akurasi 100%, dan mencegah terjadinya jalan buntu obrolan (misalnya: "Ketik 1 untuk Status Paket, 2 untuk Hubungi Agen"). Ini adalah pilihan terbaik untuk chatbot transaksional.
+* **Chatbot Terstruktur (Berbasis Menu):** Chatbot ini mengarahkan pelanggan menggunakan tombol balasan (*reply buttons*, maksimal 3) atau menu daftar pilihan (list menu, maksimal 10 baris). Keuntungan utamanya adalah kemudahan konfigurasi, jawaban yang dapat diprediksi, dan mencegah terjadinya jalan buntu obrolan (misalnya: tombol "Cek Resi" dan "Hubungi Agen"). Ini adalah pilihan terbaik untuk chatbot transaksional.
 * **Chatbot Cerdas (Berbasis NLP/AI):** Menggunakan teknologi Natural Language Processing (NLP) seperti Dialogflow atau OpenAI untuk mengerti pesan teks bebas yang diketik oleh pelanggan. Chatbot ini memberikan interaksi yang lebih fleksibel, namun memerlukan proses *training* data yang berkelanjutan agar AI dapat mengenali singkatan, bahasa gaul, maupun dialek khas percakapan santai pelanggan di Indonesia.
 
 Untuk efisiensi optimal, kombinasikan keduanya menjadi sistem chatbot hibrida: gunakan menu pilihan terstruktur untuk tahap klasifikasi masalah dan pencarian resi otomatis, dan gunakan pemrosesan teks bebas hanya pada tahapan tertentu sebelum obrolan dialihkan ke staf CS manusia.
@@ -77,152 +77,127 @@ Struktur routing obrolan yang terkelola dengan baik ini akan menekan penumpukan 
 
 ## Kode Webhook Node.js untuk Mengelola Chatbot WhatsApp Interaktif
 
-Untuk mengaktifkan chatbot responsif, server backend Anda harus memiliki route POST yang siap mendengarkan data dari webhook StartMessaging, menganalisis isi event pesan, dan menembakkan jawaban instan ke pelanggan.
+Untuk mengaktifkan chatbot responsif, server backend Anda harus memiliki route POST yang menerima webhook dari StartMessaging, memverifikasi tanda tangannya, membaca isi event, lalu mengirim jawaban ke pelanggan. Daftarkan endpoint Anda di **Developers → Webhooks → Add endpoint** dan langganan event `message.received`.
 
-Contoh script Node.js dengan framework Express di bawah ini memaparkan cara membuat webhook chatbot interaktif berbasis menu opsi:
+Setiap webhook ditandatangani dengan HMAC-SHA256. Fungsi verifikasi berikut disalin dari [dokumentasi webhook](/id/docs/whatsapp/webhooks#verify-signatures):
 
 ```javascript
-const express = require('express');
-const axios = require('axios');
-const app = express();
+import { createHmac, timingSafeEqual } from "node:crypto";
 
-app.use(express.json());
+// rawBody: the request body exactly as received (a Buffer or string),
+// before any JSON parsing. secret: the whole "whsec_..." string.
+export function verifySignature(rawBody, headers, secret) {
+  const timestamp = String(headers["x-sm-timestamp"] ?? "");
+  // Refuse a missing timestamp, and anything older than 5 minutes.
+  if (!/^\d+$/.test(timestamp)) return false;
+  if (Math.abs(Date.now() / 1000 - Number(timestamp)) > 300) return false;
 
-// Endpoint untuk menerima webhook event pesan masuk dari StartMessaging
-app.post('/webhook-chatbot', async (req, res) => {
-  const { event, data } = req.body;
+  const expected = Buffer.from(
+    createHmac("sha256", secret)
+      .update(`${timestamp}.`)
+      .update(rawBody)
+      .digest("hex"),
+  );
 
-  // Memastikan hanya memproses event pesan baru berisi teks dari pelanggan
-  if (event === 'message.received' && data.type === 'text') {
-    const customerPhone = data.from;
-    const incomingText = data.text.body.trim().toLowerCase();
-
-    console.log(`Pesan masuk dari ${customerPhone}: "${incomingText}"`);
-
-    // Logika keputusan respons chatbot berbasis perintah teks kata kunci
-    if (incomingText === 'halo' || incomingText === 'oi' || incomingText === 'menu') {
-      await kirimMenuInteraktif(customerPhone);
-    } else if (incomingText === 'hubungi agen') {
-      await alihkanKeAgenCS(customerPhone);
-    } else if (incomingText.startsWith('resi-')) {
-      const resiId = incomingText.toUpperCase();
-      await cekPelacakanPaket(customerPhone, resiId);
-    } else {
-      await kirimPesanFallback(customerPhone);
-    }
-  }
-
-  // Kirim respon HTTP 200 OK secara cepat agar koneksi webhook dilepas
-  res.sendStatus(200);
-});
-
-/**
- * Fungsi mengirimkan menu utama interaktif berisi tombol pilihan
- */
-async function kirimMenuInteraktif(phone) {
-  // TODO: Perbarui ke endpoint produksi resmi setelah sistem API WhatsApp selesai dirilis sepenuhnya
-  const apiUrl = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: phone,
-    type: 'interactive',
-    interactive: {
-      type: 'button',
-      body: {
-        text: "Halo! Selamat datang di layanan asisten virtual kami. Bagaimana kami bisa membantu Anda hari ini?\n\n- Ketik 'resi-NOMOR' untuk cek status paket\n- Ketik 'hubungi agen' untuk chat staf CS"
-      },
-      action: {
-        buttons: [
-          { type: 'reply', reply: { id: 'btn_resi', title: 'Cek Resi' } },
-          { type: 'reply', reply: { id: 'btn_cs', title: 'Hubungi Agen' } }
-        ]
-      }
-    }
-  };
-
-  await axios.post(apiUrl, payload, {
-    headers: {
-      'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
+  // While a secret is being rotated, several signatures arrive; accept any.
+  return String(headers["x-sm-signature"] ?? "")
+    .split(",")
+    .some((part) => {
+      const signature = Buffer.from(part.trim().replace(/^v1=/, ""));
+      // Compare byte lengths first: timingSafeEqual throws on a mismatch.
+      return (
+        signature.length === expected.length &&
+        timingSafeEqual(signature, expected)
+      );
+    });
 }
-
-/**
- * Fungsi mengirimkan pesan konfirmasi pengalihan ke staf CS
- */
-async function alihkanKeAgenCS(phone) {
-  // TODO: Perbarui ke endpoint produksi resmi
-  const apiUrl = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: phone,
-    type: 'text',
-    text: {
-      body: "Obrolan Anda sedang kami alihkan ke staf layanan pelanggan kami. Harap tunggu sebentar..."
-    }
-  };
-
-  await axios.post(apiUrl, payload, {
-    headers: {
-      'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
-  // Logika sistem tambahan: Tandai status percakapan di database Anda sebagai 'diambil_alih_cs'
-}
-
-/**
- * Fungsi melakukan simulasi pelacakan resi di database lokal
- */
-async function cekPelacakanPaket(phone, resi) {
-  // TODO: Perbarui ke endpoint produksi resmi
-  const apiUrl = 'https://api.startmessaging.com/v1/messages';
-  const infoPaket = `Status Resi ${resi}:\nPosisi: Kurir sedang menuju rumah penerima\nKurir Pengantar: Budi Gunawan`;
-
-  const payload = {
-    to: phone,
-    type: 'text',
-    text: {
-      body: infoPaket
-    }
-  };
-
-  await axios.post(apiUrl, payload, {
-    headers: {
-      'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
-}
-
-/**
- * Fungsi mengirimkan pesan default jika masukan tidak dimengerti bot
- */
-async function kirimPesanFallback(phone) {
-  // TODO: Perbarui ke endpoint produksi resmi
-  const apiUrl = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: phone,
-    type: 'text',
-    text: {
-      body: "Maaf, asisten virtual kami belum mengerti perintah Anda. Silakan ketik 'menu' untuk menampilkan opsi bantuan."
-    }
-  };
-
-  await axios.post(apiUrl, payload, {
-    headers: {
-      'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
-}
-
-app.listen(3000, () => console.log('Server Webhook Chatbot aktif di port 3000'));
 ```
 
-Script Express.js di atas mengontrol jalannya chatbot dengan membaca input teks pelanggan pada route `/webhook-chatbot` dan memberikan respon otomatis secara instan menggunakan otentikasi kunci `X-API-Key` yang aman.
+Contoh script Node.js dengan Express di bawah ini memakai fungsi tersebut untuk menjalankan chatbot berbasis menu. Bot membaca `data.message`, bercabang berdasarkan `reply.id` (id tombol yang Anda tentukan, bukan judulnya), dan membalas dengan pesan interaktif atau teks. Semua balasan ini dikirim di dalam jendela layanan pelanggan 24 jam karena pelanggan baru saja mengirim pesan.
+
+```javascript
+import express from "express";
+
+const app = express();
+const seen = new Set(); // gunakan database atau Redis di production
+
+async function kirimPesan(body) {
+  const res = await fetch("https://waba-api.startmessaging.com/api/v1/messages", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.STARTMESSAGING_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) console.error("Gagal mengirim:", (await res.json()).error);
+}
+
+function kirimMenu(to) {
+  return kirimPesan({
+    to,
+    type: "interactive",
+    interactive: {
+      interactiveType: "button",
+      body: "Halo! Selamat datang di asisten virtual kami. Ada yang bisa kami bantu?",
+      buttons: [
+        { id: "cek_resi", title: "Cek Resi" },
+        { id: "hubungi_agen", title: "Hubungi Agen" },
+      ],
+    },
+  });
+}
+
+function kirimTeks(to, teks) {
+  return kirimPesan({ to, type: "text", text: { body: teks } });
+}
+
+// Balasan default bot saat masukan tidak dimengerti: minta maaf, lalu tampilkan menu lagi
+async function kirimBalasanDefault(to) {
+  await kirimTeks(to, "Maaf, asisten virtual kami belum mengerti pesan Anda. Silakan pilih menu di bawah ini.");
+  await kirimMenu(to);
+}
+
+async function prosesEvent(event) {
+  if (event.type !== "message.received") return;
+  const { message } = event.data;
+  const pelanggan = message.from; // bisa null untuk pelanggan tanpa nomor
+  if (!pelanggan) return;
+
+  if (message.reply?.id === "cek_resi") {
+    await kirimTeks(pelanggan, "Silakan ketik nomor resi Anda, contoh: RESI-12345");
+  } else if (message.reply?.id === "hubungi_agen") {
+    await kirimTeks(pelanggan, "Obrolan Anda sedang kami alihkan ke staf layanan pelanggan. Harap tunggu sebentar...");
+    // Tandai percakapan sebagai 'manual' di database Anda agar bot berhenti membalas
+  } else if (message.type === "text" && message.text?.toUpperCase().startsWith("RESI-")) {
+    const resi = message.text.trim().toUpperCase();
+    await kirimTeks(pelanggan, `Status ${resi}: kurir sedang menuju alamat penerima.`);
+  } else if (message.type === "text" && ["halo", "hai", "menu"].includes(message.text?.trim().toLowerCase())) {
+    await kirimMenu(pelanggan);
+  } else {
+    await kirimBalasanDefault(pelanggan);
+  }
+}
+
+app.post(
+  "/webhooks/startmessaging",
+  express.raw({ type: "application/json" }),
+  (req, res) => {
+    if (!verifySignature(req.body, req.headers, process.env.SM_WEBHOOK_SECRET)) {
+      return res.sendStatus(401);
+    }
+    const event = JSON.parse(req.body.toString("utf8"));
+    res.sendStatus(200); // jawab dalam 5 detik, baru proses
+    if (seen.has(event.id)) return; // pengiriman at-least-once: deduplikasi berdasarkan id
+    seen.add(event.id);
+    prosesEvent(event).catch(console.error);
+  },
+);
+
+app.listen(3000, () => console.log("Server webhook chatbot aktif di port 3000"));
+```
+
+Script di atas menjawab webhook dengan `200` secepatnya (StartMessaging menunggu maksimal 5 detik dan mencoba ulang jika gagal), lalu memproses event di latar belakang. API key dikirim lewat header `Authorization: Bearer sm_live_...` dan disimpan di environment variable, bukan di kode.
 
 ---
 
@@ -243,16 +218,16 @@ Pastikan chatbot Anda tetap memiliki tata bahasa yang baik, menghindari singkata
 
 **Q: Apakah pembuatan chatbot WhatsApp resmi ini membutuhkan biaya sewa server kecerdasan buatan (AI) yang mahal?**
 
-A: Tidak harus. Untuk melayani fungsi-fungsi dasar dukungan pelanggan seperti pelacakan nomor resi, pembagian nomor rekening pembayaran, atau informasi jam buka toko, chatbot berbasis menu terstruktur dan tombol pilihan sudah sangat memadai. Pembuatan chatbot berbasis menu ini tidak membutuhkan server AI eksternal dan dapat dijalankan di hosting server backend biasa dengan biaya operasional yang sangat ekonomis.
+A: Tidak harus. Untuk melayani fungsi-fungsi dasar dukungan pelanggan seperti pelacakan nomor resi, pembagian nomor rekening pembayaran, atau informasi jam buka toko, chatbot berbasis menu terstruktur dan tombol pilihan sudah sangat memadai. Chatbot berbasis menu ini tidak membutuhkan server AI eksternal: Anda bisa memakai pembuat alur tanpa kode di paket Business, atau menjalankan bot sendiri di hosting backend biasa dengan pesan interaktif dari paket Team. Lihat [harga paket](/id/pricing).
 
 **Q: Bagaimana cara membagi antrean chat pelanggan ke banyak agen CS menggunakan satu nomor WhatsApp saja?**
 
-A: Melalui WhatsApp Business API resmi, Anda dapat menghubungkan nomor bisnis Anda dengan software helpdesk multi-agen (seperti Zendesk, Freshdesk, atau platform helpdesk lokal). Perangkat lunak tersebut memiliki fitur distribusi otomatis (*routing engine*) yang akan menyalurkan chat masuk ke komputer staf CS Anda yang sedang aktif secara merata.
+A: Melalui WhatsApp Business API resmi, beberapa agen bisa melayani satu nomor yang sama. Di StartMessaging, [inbox bersama](/id/whatsapp/shared-inbox) tersedia mulai paket Team (₹999/bulan, termasuk 3 kursi), sedangkan perutean balasan otomatis ke agen ada di paket Business (₹2.999/bulan). Anda juga bisa menghubungkan nomor ke software helpdesk lain melalui API dan webhook.
 
 **Q: Bagaimana cara memastikan chatbot tidak mengirimkan pesan otomatis saat agen CS sedang mengobrol dengan pelanggan?**
 
-A: Backend Anda harus menyimpan status sesi obrolan pelanggan ke database. Saat percakapan diambil alih oleh agen CS (status `handover`), ubah status obrolan menjadi `manual`. Konfigurasikan logika webhook chatbot Anda agar tidak memproses request jawaban otomatis apabila status sesi percakapan nomor pelanggan tersebut masih dalam mode `manual`.
+A: Backend Anda harus menyimpan status sesi obrolan pelanggan ke database. Saat percakapan diambil alih oleh agen CS (status `handover`), ubah status obrolan menjadi `manual`. Konfigurasikan logika webhook chatbot Anda agar tidak memproses request jawaban otomatis apabila status sesi percakapan nomor pelanggan tersebut masih dalam mode `manual`. Event `conversation.assigned` dan `conversation.resolved` dapat membantu Anda menyinkronkan status ini.
 
 ---
 
-Mengimplementasikan otomatisasi layanan konsumen melalui chatbot WhatsApp resmi akan membantu mempercepat waktu respon bantuan bagi pelanggan di Indonesia, menghemat anggaran operasional tim dukungan Anda, serta mengoptimalkan retensi penjualan produk. Dengan kunci otentikasi `X-API-Key` yang andal, Anda dapat mengelola integrasi sistem dengan aman. Untuk mempelajari skema penerimaan data status dan pelacakan aktivitas webhook secara lengkap, silakan lihat panduan teknis kami tentang [konfigurasi webhook WhatsApp di Indonesia](/id/docs/whatsapp/webhooks) untuk memantau aktivitas data.
+Mengimplementasikan otomatisasi layanan konsumen melalui chatbot WhatsApp resmi akan membantu mempercepat waktu respon bantuan bagi pelanggan di Indonesia, menghemat anggaran operasional tim dukungan Anda, serta mengoptimalkan retensi penjualan produk. Dengan API key `sm_live_` dan verifikasi tanda tangan webhook, Anda dapat mengelola integrasi sistem dengan aman. Untuk mempelajari semua event dan payload webhook secara lengkap, silakan lihat panduan teknis kami tentang [konfigurasi webhook WhatsApp](/id/docs/whatsapp/webhooks).

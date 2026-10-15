@@ -2,7 +2,7 @@
 title: "KVKK ve WhatsApp Business API: Türk İşletmeler İçin Uyum Rehberi"
 description: "WhatsApp Business API kullanırken KVKK uyumluluğunu nasıl sağlarsınız? Açık rıza (opt-in), veri saklama süreleri ve veri silme hakları adımları."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "compliance"
 country: "tr"
 author: "StartMessaging Team"
@@ -21,7 +21,7 @@ featured: false
 
 Müşteri iletişimini dijital kanallara taşıyan Türk işletmeleri için veri güvenliği ve yasal mevzuatlara uyum en kritik öncelikler arasında yer almaktadır. WhatsApp Business API altyapısı, şirketlerin müşterileriyle hızlı ve interaktif bağ kurmasını sağlarken, toplanan verilerin işlenmesi bazı yasal kuralları beraberinde getirir. 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) uyarınca, telefon numaraları, ad soyad bilgileri ve sohbet geçmişleri kişisel veri kapsamındadır. Dijital sistemlerinizi kvkk whatsapp business api türkiye gereksinimlerine tam uyumlu hale getirmek, hem müşterilerinizin güvenini kazanmak hem de yüksek idari para cezası yaptırımlarından korunmak adına yasal bir zorunluluktur.
 
-StartMessaging'in WhatsApp API hizmetleri mühendislik ekiplerimiz tarafından geliştirilmeye devam etmektedir. İlgili entegrasyon süreçlerinizi kurgulamak, testlerinizi gerçekleştirmek ve veri akış altyapınızı hazırlamak için geçici olarak sunulan `/v1/messages` endpoint yolunu kullanabilirsiniz. Servisimiz üzerinden yapılacak tüm API istekleri, HTTP `X-API-Key` kimlik doğrulama başlığı ile korunmaktadır.
+StartMessaging, Meta'nın resmi WhatsApp Business Platformu (Cloud API) üzerine kurulu bir WhatsApp CRM ve REST API'sidir (Meta Tech Provider). Kendi WhatsApp Business Hesabınızı (WABA) Meta'nın Embedded Signup akışıyla bağlarsınız; numaranız, şablonlarınız ve mesaj faturalandırmanız kendi hesabınızda kalır. API istekleri `https://waba-api.startmessaging.com/api/v1/...` adresine gider ve `Authorization: Bearer sm_live_...` başlığındaki API anahtarıyla doğrulanır.
 
 ---
 
@@ -29,7 +29,7 @@ StartMessaging'in WhatsApp API hizmetleri mühendislik ekiplerimiz tarafından g
 
 KVKK, Türkiye sınırları içerisinde kişisel verileri işleyen gerçek ve tüzel kişilerin uyması gereken yükümlülükleri düzenler. WhatsApp üzerinden müşterilerinize sipariş durum mesajı, kampanya duyurusu veya fatura detayı gönderiyorsanız, şirketiniz bu veri işleme faaliyetinde "Veri Sorumlusu" konumundadır.
 
-Bu kapsamda, müşterinin telefon numarası ve mesaj içeriğindeki veriler doğrudan kişisel veri niteliğindedir. Meta, iletilen mesajları kendi sunucuları üzerinde uçtan uca şifreli olarak taşır; ancak bu verilerin sizin tarafınızda entegre edilen CRM, veritabanı veya müşteri destek panellerinde nasıl saklandığı, kimlerin erişebildiği ve ne amaçla kullanıldığı konuları doğrudan şirketinizin yasal sorumluluğundadır.
+Bu kapsamda, müşterinin telefon numarası ve mesaj içeriğindeki veriler doğrudan kişisel veri niteliğindedir. Meta, iletilen mesajları kendi altyapısında şifreli olarak taşır; ancak bu verilerin sizin tarafınızda entegre edilen CRM, veritabanı veya müşteri destek panellerinde nasıl saklandığı, kimlerin erişebildiği ve ne amaçla kullanıldığı konuları doğrudan şirketinizin yasal sorumluluğundadır. StartMessaging gibi bir WhatsApp CRM kullanıyorsanız kişi kayıtları ve sohbet geçmişi bu platformda da tutulur; kullandığınız hizmet sağlayıcılarını aydınlatma metninizde ve sözleşmelerinizde dikkate alın.
 
 Yasal bir veri sorumlusu olarak, KVKK'nın temel ilkelerinden olan "hukuka ve dürüstlük kurallarına uygun olma", "belirli, açık ve meşru amaçlar için işlenme" prensiplerine sadık kalmalı ve her veri işleme faaliyeti için yasal bir dayanak sunabilmelisiniz.
 
@@ -81,7 +81,7 @@ KVKK'nın 4. maddesi kişisel verilerin işlendikleri amaç için gerekli olan s
 - Tamamlanmış ve kapanmış destek taleplerine ait sohbet günlüklerini (chat logs) 180 gün sonra otomatik olarak arşivleyin.
 - 1 yıl boyunca hiçbir etkileşime girilmemiş pasif müşterilere ait verileri veritabanından kalıcı olarak silin veya anonim hale getirin.
 
-Diğer kritik konu ise verilerin yurt dışına aktarılması sınırıdır. Meta sunucuları yurt dışında bulunduğundan, WhatsApp API kullanılması teknik olarak yurt dışına veri aktarımı anlamına gelebilir. Müşterilerinizden alacağınız açık rıza metninde yurt dışı veri aktarımı konusunu açıkça belirtmeli veya kurulun yayınladığı güncel taahhütname/veri aktarım kurallarına uygun hareket etmelisiniz.
+Diğer kritik konu ise verilerin yurt dışına aktarılmasıdır. Cloud API trafiği Meta'nın altyapısından geçtiğinden, WhatsApp API kullanmak teknik olarak yurt dışına veri aktarımı anlamına gelebilir. KVKK'nın 9. maddesi 2024 yılında değiştirildi: yurt dışı aktarımlarda artık yeterlilik kararı veya Kurul'un yayımladığı standart sözleşmeler gibi uygun güvenceler esas alınıyor; açık rıza ise yalnızca arızi (düzenli olmayan) aktarımlar için bir dayanak olarak kaldı. Hangi dayanağın sizin için geçerli olduğunu, Kurul'un güncel düzenlemelerine göre hukuk danışmanınızla birlikte belirleyin ve aydınlatma metninizde açıkça belirtin.
 
 ---
 
@@ -123,6 +123,15 @@ router.post('/compliance/kvkk-imha', async (req, res) => {
     // 4. Müşteri profil kartını kalıcı olarak sil
     await musteri.destroy();
 
+    // 5. StartMessaging'deki kişi kaydını da kaldır (contacts:write kapsamı gerekir)
+    await fetch(
+      `https://waba-api.startmessaging.com/api/v1/contacts/${encodeURIComponent(telefonNumarasi)}`,
+      {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${process.env.SM_API_KEY}` },
+      },
+    );
+
     console.log(`KVKK veri imha talebi başarıyla uygulandı: ${telefonNumarasi}`);
     return res.status(200).json({ 
       success: true, 
@@ -137,21 +146,19 @@ router.post('/compliance/kvkk-imha', async (req, res) => {
 module.exports = router;
 ```
 
-Bu backend entegrasyonu, veri silme talebi alındığında kullanıcının açık rıza kayıtlarını ve mesaj geçmişini veritabanından kalıcı olarak silerek işletmenizi yasal uyumluluk sınırları içinde tutar.
+Bu backend entegrasyonu, veri silme talebi alındığında kullanıcının açık rıza kayıtlarını ve mesaj geçmişini kendi veritabanınızdan kalıcı olarak siler. StartMessaging tarafında `DELETE /api/v1/contacts/{idOrPhone}` çağrısının bir **soft delete** olduğunu unutmayın: kişi listelerden kalkar, ancak sohbetlerin geçmişi korunur ve numaranın verdiği opt-out (ret) kaydı silinmez; böylece silinen bir kişiye yanlışlıkla yeniden mesaj gönderilmez. Müşteri sohbet geçmişinin de silinmesini isterse [destek ekibimizle iletişime geçin](/tr/contact); geçmişi StartMessaging'den kaldırırız. Ayrıntılar için [Contacts belgesine](/tr/docs/whatsapp/contacts) bakın.
 
 ---
 
 ## KVKK İdari Para Cezaları ve Kurul Kararları
 
-Kişisel Verileri Koruma Kurulu, izinsiz mesaj gönderimi ve veri güvenliği ihlalleri konusunda oldukça katı kararlar almaktadır. Türkiye'de faaliyet gösteren birçok büyük perakende ve e-ticaret markası, açık rıza almadan yaptıkları toplu WhatsApp ve SMS gönderimleri nedeniyle milyonlarca lirayı bulan idari para cezalarıyla karşı karşıya kalmıştır.
+Kişisel Verileri Koruma Kurulu, izinsiz veri işleme ve veri güvenliği ihlalleri konusunda idari para cezaları uygulamaktadır. KVKK'nın 18. maddesi, ihlal türlerine göre ayrı ceza aralıkları öngörür ve bu tutarlar her yıl yeniden değerleme oranında güncellenir. Güncel alt ve üst sınırlar için Kişisel Verileri Koruma Kurumu'nun yayımladığı yıllık tutarlara bakın:
 
-KVKK kapsamında uygulanan idari para cezaları ihlalin niteliğine göre her yıl yeniden değerleme oranında artırılmaktadır:
-
-| İhlal Türü | Yasal Karşılığı | Ceza Limitleri (Yaklaşık TL) |
+| İhlal Türü | WhatsApp'taki Karşılığı | Ceza Tutarı |
 |---|---|---|
-| **Aydınlatma Yükümlülüğüne Aykırılık** | Müşteriyi bilgilendirmeden numarayı işleme | 20.000 TL - 400.000 TL arası |
-| **Veri Güvenliğine İlişkin Yükümlülükler** | Sohbet geçmişinin şifresiz depolanması/sızması | 50.000 TL - 3.500.000 TL arası |
-| **Kurul Kararlarının Yerine Getirilmemesi** | İnceleme sonrasında uyarılara uymama | 100.000 TL - 5.000.000 TL arası |
+| **Aydınlatma Yükümlülüğüne Aykırılık** | Müşteriyi bilgilendirmeden numarayı işleme | KVKK md. 18; yıllık güncellenen aralık |
+| **Veri Güvenliğine İlişkin Yükümlülükler** | Sohbet geçmişinin şifresiz depolanması/sızması | KVKK md. 18; yıllık güncellenen aralık |
+| **Kurul Kararlarının Yerine Getirilmemesi** | İnceleme sonrasında uyarılara uymama | KVKK md. 18; yıllık güncellenen aralık |
 
 Ayrıca, izinsiz gönderilen pazarlama mesajları Ticari Elektronik İleti Yönetim Sistemi (İYS) kuralları ve Elektronik Ticaretin Düzenlenmesi Hakkında Kanun kapsamında da ayrı cezalara tabidir. Bu nedenle izin yönetim mekanizmalarını doğru kurmak hayati önem taşır.
 
@@ -163,9 +170,9 @@ WhatsApp Business API üzerinden yürüttüğünüz müşteri iletişim süreçl
 
 - [ ] **Aydınlatma Metni Sunumu:** Numarayı kaydettiğiniz her noktada aydınlatma metnini kullanıcının erişebileceği şekilde yayınladınız mı?
 - [ ] **Açık Rıza Kanıtı:** İleride kurul tarafından istenmesi ihtimaline karşı her rıza kaydının zaman damgasını ve IP adresini veritabanında saklıyor musunuz?
-- [ ] **Opt-out (Çıkış) Desteği:** Gönderdiğiniz tanıtım şablonlarında kullanıcının listeden çıkmasını sağlayacak buton veya kelime komutları (örneğin "RED" yazarak çıkış) tanımlı mı?
+- [ ] **Opt-out (Çıkış) Desteği:** Gönderdiğiniz tanıtım şablonlarında kullanıcının listeden çıkmasını sağlayacak buton veya kelime komutları tanımlı mı? StartMessaging, STOP gibi İngilizce anahtar kelimeleri otomatik olarak opt-out sayar ve `contact.opted_out` webhook'unu gönderir. "RED" gibi Türkçe kelimeler otomatik tanınmaz; bunları webhook'ta yakalayıp `PATCH /api/v1/contacts/{idOrPhone}` ile `optedIn: false` olarak kaydedin.
 - [ ] **Veri Minimizasyonu:** Mesaj içeriklerinde şifre, T.C. Kimlik Numarası, kredi kartı CVV kodu gibi hassas kişisel verileri paylaşmaktan kaçınıyor musunuz?
-- [ ] **Veri Aktarım Açık Rızası:** İletişim altyapısının Meta bulut sunucuları üzerinden yurt dışına aktarıldığını açık rıza metinlerinde belirttiniz mi?
+- [ ] **Yurt Dışı Aktarım Dayanağı:** Meta'nın Cloud API altyapısı üzerinden yapılan yurt dışı aktarım için geçerli dayanağı (standart sözleşme vb.) belirleyip aydınlatma metninizde açıkladınız mı?
 - [ ] **Veri İmha Rutinleri:** Veritabanınızda biriken eski logları silmek için otomatik çalışan cron servisleriniz tanımlı mı?
 
 ---
@@ -178,7 +185,7 @@ A: Kesinlikle hayır. Bir müşterinin alışveriş yapması, sadece o alışver
 
 **Q: WhatsApp yazışmalarını Türkiye'deki yerel sunucularımızda saklamak KVKK uyumunu kolaylaştırır mı?**
 
-A: Evet. Kişisel verilerin yurt dışı sunucularında saklanması KVKK kapsamında ek izin süreçlerine tabidir. Sohbet günlüklerini ve müşteri telefon listelerini yurt içindeki veri merkezlerinde (örnek: Turkcell Veri Merkezi, Radore vb.) barındırmanız yasal denetimlerde uyumluluğunuzu kanıtlamanızı kolaylaştırır.
+A: Kendi kopyalarınızı (sohbet günlükleri, müşteri listeleri) yurt içindeki veri merkezlerinde tutmak, bu kopyalar için yurt dışı aktarım sorusunu ortadan kaldırır ve denetimlerde işinizi kolaylaştırabilir. Ancak tek başına yeterli değildir: mesajlar WhatsApp Cloud API üzerinden Meta'nın altyapısından geçer ve StartMessaging gibi bir WhatsApp CRM kullanıyorsanız kişi kayıtları ile sohbet geçmişi bu platformda da tutulur. Bu aktarımları da aydınlatma metninizde ve VERBİS kayıtlarınızda dikkate alın; ayrıntılar için hukuk danışmanınıza başvurun.
 
 **Q: Ticari Elektronik İleti Yönetim Sistemi (İYS) kaydı WhatsApp API için de geçerli midir?**
 
@@ -186,4 +193,4 @@ A: Evet. Türkiye'de faaliyet gösteren ve ticari ileti gönderen tüm hizmet sa
 
 ---
 
-KVKK yönergelerine uygun şekilde yapılandırılmış bir WhatsApp Business API altyapısı, müşterilerinizle güvenli bir bağ kurmanızı sağlarken işletmenizi yasal risklerden ve ağır para cezalarından korur. StartMessaging'in sunduğu güvenli `X-API-Key` yapısı ile entegrasyon süreçlerinizi hızla devreye alabilirsiniz. Webhook verilerini yasal aydınlatma kuralları çerçevesinde işlemek ve veri tabanınızda saklamak için [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızdan detayları inceleyebilirsiniz.
+KVKK yönergelerine uygun şekilde yapılandırılmış bir WhatsApp Business API altyapısı, müşterilerinizle güvenli bir bağ kurmanızı sağlarken işletmenizi yasal risklerden ve ağır para cezalarından korur. StartMessaging'de API anahtarlarını (`sm_live_...`) yalnızca gereken kapsamlarla oluşturup `Authorization: Bearer` başlığıyla kullanarak erişimi sınırlı tutabilirsiniz ([Authentication](/tr/docs/whatsapp/authentication)). Webhook verilerini yasal aydınlatma kuralları çerçevesinde işlemek ve veri tabanınızda saklamak için [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızdan detayları inceleyebilirsiniz.

@@ -2,7 +2,7 @@
 title: "What is an SMS API? A Developer’s Guide (India, 2026)"
 description: "SMS API explained: how it differs from an SMS gateway, the typical request/response shape, REST vs SMPP, OTP-specific endpoints, and India-specific DLT considerations."
 publishedAt: "2026-04-24"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -160,17 +160,23 @@ The simplest way to deal with this is to pick a provider that has
 ## A Sample Integration
       
 ```typescript
-// Node.js — send an OTP
+// Node.js — send an OTP (your server generates the code)
+import { randomInt } from 'node:crypto';
+
+const otp = String(randomInt(100000, 1000000));
 const res = await fetch('https://api.startmessaging.com/otp/send', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
     'X-API-Key': process.env.STARTMESSAGING_API_KEY,
   },
-  body: JSON.stringify({ phoneNumber: '+919876543210' }),
+  body: JSON.stringify({
+    phoneNumber: '+919876543210',
+    variables: { otp, appName: 'YourApp' },
+  }),
 });
-const { data } = await res.json();
-console.log(data.requestId);
+const { data } = await res.json(); // 201: { otpRequestId, messageId, status: 'queued' }
+console.log(data.otpRequestId);
 
 // later — verify
 const v = await fetch('https://api.startmessaging.com/otp/verify', {
@@ -179,7 +185,7 @@ const v = await fetch('https://api.startmessaging.com/otp/verify', {
     'Content-Type': 'application/json',
     'X-API-Key': process.env.STARTMESSAGING_API_KEY,
   },
-  body: JSON.stringify({ requestId: data.requestId, otpCode: '482910' }),
+  body: JSON.stringify({ requestId: data.otpRequestId, otpCode: '482910' }),
 });
 ```
 

@@ -2,7 +2,7 @@
 title: "OTP Bombing Attacks in India: How to Protect Your API Before It Costs You ₹1 Lakh a Day"
 description: "Learn how otp bombing attacks drain Indian developer budgets. A technical guide on Redis rate limiting, device fingerprinting, CAPTCHA gating, and phone validation to protect your OTP endpoint."
 publishedAt: "2026-07-19"
-updatedAt: "2026-07-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "in"
 author: "StartMessaging Team"
@@ -517,7 +517,7 @@ A: No. The phone validation check (Layer 4) is a synchronous string operation �
 
 **Q: What about WhatsApp OTP as an alternative to SMS for bombing protection?**
 
-A: WhatsApp OTP does not eliminate the bombing vector — an attacker can still hit your endpoint and trigger WhatsApp message sends that cost you money. However, WhatsApp has stronger built-in anti-spam mechanisms at the platform level, which can throttle automated sends more aggressively than SMS networks. The trade-off is coverage: not all Indian users have WhatsApp active on their primary number, especially in [tier-3 and rural segments](/blog/whatsapp-otp-india-developer-guide-authentication-template-sms-fallback). A multi-channel strategy with SMS as the primary channel and WhatsApp as fallback, combined with the four layers above, is the most resilient approach.
+A: WhatsApp OTP does not eliminate the bombing vector — an attacker can still hit your endpoint and trigger WhatsApp authentication sends, and Meta bills every delivered one to your WhatsApp Business Account. However, WhatsApp has stronger built-in anti-spam mechanisms at the platform level, which can throttle automated sends more aggressively than SMS networks. The trade-off is coverage: not all Indian users have WhatsApp active on their primary number, especially in [tier-3 and rural segments](/blog/whatsapp-otp-india-developer-guide-authentication-template-sms-fallback). A multi-channel strategy with SMS as the primary channel and WhatsApp as fallback, combined with the four layers above, is the most resilient approach.
 
 ---
 

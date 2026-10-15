@@ -2,7 +2,7 @@
 title: "How to Reduce Your SMS OTP Costs in India (Without Losing Reliability)"
 description: "Tactics that cut SMS OTP spend by 30–70% in India: rate limits, idempotency, retry control, fallback channels, and choosing the right provider."
 publishedAt: "2026-05-13"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: business
 country: "in"
 author: "StartMessaging Team"
@@ -71,7 +71,7 @@ Generate a UUID per send attempt and pass it as
 
 
 - Show a 30-second countdown on the resend button.
-- On the server, debounce sends per phone — if the last send was less than 30 seconds ago, return the existing requestId.
+- On the server, debounce sends per phone — if the last send was less than 30 seconds ago, return the existing `otpRequestId` instead of sending again.
 - Don't auto-retry from the client on network failure; the retry creates a duplicate the user can't see.
 
 

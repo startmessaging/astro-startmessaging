@@ -2,7 +2,7 @@
 title: "How to Send OTP in Flask (Python) — 2026 Tutorial"
 description: "Send and verify SMS OTPs from a Flask application using the StartMessaging API. Includes app factory, blueprint routes, sessions, and error handling."
 publishedAt: "2026-04-20"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -70,7 +70,7 @@ def create_app():
       
 ```python
 # app/services/otp.py
-import os, uuid, requests
+import os, secrets, uuid, requests
 
 BASE = "https://api.startmessaging.com"
 HEAD = {
@@ -81,11 +81,16 @@ HEAD = {
 def send_otp(phone):
     res = requests.post(
         f"{BASE}/otp/send",
-        json={"phoneNumber": phone, "idempotencyKey": str(uuid.uuid4())},
+        json={
+            "phoneNumber": phone,
+            # Your backend generates the code with a CSPRNG
+            "variables": {"otp": f"{secrets.randbelow(1_000_000):06d}"},
+            "idempotencyKey": str(uuid.uuid4()),
+        },
         headers=HEAD, timeout=10,
     )
     res.raise_for_status()
-    return res.json()["data"]
+    return res.json()["data"]  # {"otpRequestId", "messageId", "status"}
 
 def verify_otp(request_id, code):
     res = requests.post(
@@ -115,8 +120,8 @@ def send():
         data = send_otp(phone)
     except Exception as e:
         return jsonify(error=str(e)), 502
-    session["otp_request_id"] = data["requestId"]
-    return jsonify(expires_at=data["expiresAt"])
+    session["otp_request_id"] = data["otpRequestId"]
+    return jsonify(status=data["status"])
 
 @bp.post("/verify-otp")
 def verify():
@@ -134,7 +139,7 @@ def verify():
 ## Sessions and Cookies
 
 Flask's built-in cookie session is signed but not encrypted, so
-        only store opaque values like the requestId — never the OTP
+        only store opaque values like the `otpRequestId` — never the OTP
         itself. For higher-security apps, use server-side sessions via
         Flask-Session backed by Redis.
 

@@ -2,7 +2,7 @@
 title: "WhatsApp AI Provider Pricing: Meta's 2026 Policy Explained"
 description: "Meta's WhatsApp AI Provider pricing explained: who counts as an AI Provider, which markets are charged, and how to check if your WABA is classified as one."
 publishedAt: "2026-09-12"
-updatedAt: "2026-09-12"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "in"
 author: "StartMessaging Team"
@@ -35,9 +35,9 @@ Before anything else, get these straight. They are separate, they have different
 |---|---|---|---|
 | AI Provider ban (Business Solution Terms) | 15 Oct 2025 new accounts, 15 Jan 2026 existing | General-purpose AI assistants distributed via the API | Not billing — prohibition |
 | AI Provider pricing | 16 Feb 2026, updated 12 May 2026 | AI Providers in markets where Meta must legally permit them | Per non-template message |
-| Meta Business Agent | 1 Aug 2026 | Anyone using Meta's own AI agent product | Per token, $2.00 per 1M tokens |
+| Meta Business Agent | 1 Aug 2026 | Anyone using Meta's own AI agent product | Per token, at Meta's published rate |
 
-A fourth change sits alongside these and applies to everyone regardless of AI: from 1 October 2026, service messages and in-window utility templates became billable for all businesses. That one is covered in our [October 2026 pricing change guide](/blog/whatsapp-api-pricing-change-october-2026) and is not an AI policy at all, though it is routinely reported as though it were.
+A fourth change sits alongside these and applies to everyone regardless of AI: since 1 October 2026, Meta charges utility templates even inside the 24-hour window, and free-form service replies are free only up to a monthly allowance per phone number. That one is covered in our [October 2026 pricing change guide](/blog/whatsapp-api-pricing-change-october-2026) and is not an AI policy at all, though it is routinely reported as though it were.
 
 ## Who Meta Counts as an "AI Provider"
 
@@ -77,11 +77,11 @@ European charges were suspended as of 13 May 2026, at midnight in each WABA's lo
 
 Two notes on the rates themselves. Meta publishes AI Provider rates as separate CSV and PDF rate cards linked from the [AI Providers pricing documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing/ai-providers), rather than inline on the page, and the doc states these rates "are specific to AI Providers using the WhatsApp Business Platform" — they are not the standard utility or service rates. There is also a separate card for rates effective 1 July 2026. Pull the current CSV rather than relying on any figure quoted in a blog post, this one included, because the page was last revised on 12 May 2026 and the market list has already moved once.
 
-The other honest gap: Meta's AI Provider page does not address how these charges interact with the 1 October 2026 change that made non-template service messages billable for every business. If you run AI Provider traffic into Brazil, ask your BSP which rate is being applied to your non-template messages from October onward rather than assuming the two policies merged.
+The other honest gap: Meta's AI Provider page does not address how these charges interact with the 1 October 2026 change that started metering non-template service replies beyond a monthly allowance for every business. If you run AI Provider traffic into Brazil, ask Meta which rate is being applied to your non-template messages from October onward rather than assuming the two policies merged.
 
 ## How to Check Whether Your WABA Is Classified as an AI Provider
 
-You do not have to guess, and you should not rely on your BSP's account manager. Meta exposes the classification in two places, and both return it as data you can query or log.
+You do not have to guess, and you should not rely on a provider's account manager. Meta exposes the classification in two places, and both return it as data you can query or log.
 
 ### The Pricing Analytics API returns `pricing_category: "AI_BOT"`
 
@@ -102,9 +102,9 @@ Pull a pricing analytics breakdown for your WABA over a period you have already 
 
 If any row in your analytics response carries `pricing_category` of `AI_BOT`, Meta is treating that traffic as AI Provider traffic. If every row comes back as one of the four standard categories, it is not. The `volume` and `cost` fields on that row tell you exactly what the classification has cost you, which is the number to take into any conversation with Meta or your provider.
 
-### Message status webhooks carry `category: "general_purpose_ai"`
+### Meta's status webhooks carry `category: "general_purpose_ai"`
 
-The same classification appears per message, in real time, in the `pricing` object on message status webhooks:
+The same classification appears per message, in real time, in the `pricing` object on the message status webhooks the Cloud API sends:
 
 ```json
 "pricing": {
@@ -115,7 +115,9 @@ The same classification appears per message, in real time, in the `pricing` obje
 }
 ```
 
-Log this object on every status callback — it is worth doing regardless of AI classification, because the same `category` field is what tells you which rate was applied to any message. A `category` of `general_purpose_ai` on a non-template message means that message was billed under the AI Provider policy. If you are not capturing status webhooks at all yet, our [webhooks documentation](/docs/whatsapp/webhooks) covers the setup.
+If you integrate with the Cloud API directly, log this object on every status callback. It is worth doing regardless of AI classification, because the same `category` field tells you how Meta billed any message. A `category` of `general_purpose_ai` on a non-template message means that message was billed under the AI Provider policy.
+
+If you send through StartMessaging, you do not handle Meta's raw webhooks yourself. Each message instead carries a [`pricing` field](/docs/whatsapp/send-message#pricing) with the `category` and `type` from Meta's receipts. The documented categories are the standard ones (marketing, utility, authentication, authentication-international, service and referral_conversion), so a value outside that list, or a charge in WhatsApp Manager you cannot match to a category, is the signal to check your account's pricing analytics. Our [webhooks documentation](/docs/whatsapp/webhooks) covers how to receive message events in your own systems.
 
 Checking both is worth the effort: analytics gives you the historical and financial picture, webhooks give you the per-message signal that catches a reclassification the week it happens rather than the month you get the invoice.
 
@@ -123,13 +125,13 @@ Checking both is worth the effort: analytics gives you the historical and financ
 
 For most Indian developers reading this, the practical answer is short: AI Provider pricing does not apply to you, and it probably never will.
 
-India (+91) has never appeared on Meta's charged-markets list. Meta charges AI Providers only where it is legally compelled to allow them, and in India — as in most of the world — general-purpose AI assistants are simply prohibited on the platform. There is no rate to pay because there is no permitted use case to price. If you are building [task-specific business chatbots](/whatsapp/chatbot) for Indian customers, you are outside both the ban and the pricing policy, and your bot's replies are billed as ordinary service messages at ₹0.1150 under the [standard India rate card](/blog/whatsapp-business-api-pricing-india-2026).
+India (+91) has never appeared on Meta's charged-markets list. Meta charges AI Providers only where it is legally compelled to allow them, and in India — as in most of the world — general-purpose AI assistants are simply prohibited on the platform. There is no rate to pay because there is no permitted use case to price. If you are building [task-specific business chatbots](/whatsapp/chatbot) for Indian customers, you are outside both the ban and the pricing policy, and your bot's replies are billed as ordinary service messages: free up to the monthly allowance per number, then charged at Meta's India service rate. Our [India pricing guide](/blog/whatsapp-business-api-pricing-india-2026) covers how that card works.
 
 Three situations do warrant attention.
 
 - **You sell a chatbot platform to customers outside India.** If any of your customers deliver non-template messages to Brazilian numbers and your product could be read as a general-purpose assistant, the classification risk is theirs and the invoice surprise is yours to explain. Check `pricing_category` across your customer WABAs before they check it for you.
 - **Your bot's scope has drifted.** Products that started as order-status bots and grew an open-ended "ask me anything" mode have moved across the primary-versus-ancillary line without anyone deciding to. Scope the model's refusal behaviour deliberately, not by accident.
-- **You are weighing Meta Business Agent.** That is a different product with a different bill — $2.00 per million tokens, roughly $0.04–$0.05 per reply, against ₹0.1150 for a service message sent by your own bot. In India that gap is roughly 30–40× per reply, which we work through in our [WhatsApp cost reduction guide](/blog/reduce-whatsapp-api-costs-india).
+- **You are weighing Meta Business Agent.** That is a different product with a different bill: it is priced by tokens, while a reply from your own bot is an ordinary service message. A token-billed reply can cost many times a service reply, so price a typical answer from Meta's published rates before you switch. We work through that comparison in our [WhatsApp cost reduction guide](/blog/reduce-whatsapp-api-costs-india).
 
 ## Frequently Asked Questions
 
@@ -147,12 +149,14 @@ A: Two places. In the Pricing Analytics API, look for rows returning `pricing_ca
 
 **Q: What is the difference between AI Provider pricing and Meta Business Agent pricing?**
 
-A: They are unrelated. AI Provider pricing charges third-party AI companies per non-template message, in the handful of markets where Meta is legally required to permit general-purpose assistants. Meta Business Agent is Meta's own AI agent product, available since 3 June 2026 and billed per token at $2.00 per million tokens from 1 August 2026. Your own bot or your BSP's AI is neither — its replies bill as ordinary service messages.
+A: They are unrelated. AI Provider pricing charges third-party AI companies per non-template message, in the handful of markets where Meta is legally required to permit general-purpose assistants. Meta Business Agent is Meta's own AI agent product, available since 3 June 2026 and billed per token from 1 August 2026. Your own bot, or an AI running on your messaging platform, is neither: its replies bill as ordinary service messages.
 
 **Q: Does AI Provider pricing affect Indian businesses using WhatsApp chatbots?**
 
-A: No. India has never been a charged market, and general-purpose AI assistants are prohibited on the platform in India rather than priced. Indian businesses running task-specific automation pay standard service message rates — ₹0.1150 per message after the first 1,000 per business phone number per month, plus 18% GST.
+A: No. India has never been a charged market, and general-purpose AI assistants are prohibited on the platform in India rather than priced. Indian businesses running task-specific automation pay ordinary service message charges: replies are free up to a monthly allowance per business phone number, then charged at Meta's India service rate plus GST.
 
 Karthik's São Paulo problem turned out to be narrow. One customer, one market, one classification, visible in a single analytics field he now logs across every account he operates. The two days went into working out which of three similarly-named policies he was actually looking at — which is the part worth not repeating.
 
-If you are building on WhatsApp from India, the classification questions above are usually answered in a few minutes of API calls, and the pricing that follows is the ordinary [India rate card](/blog/whatsapp-business-api-pricing-india-2026) rather than anything exotic. StartMessaging passes Meta's per-message rates through at cost, and the [complete WhatsApp Business API guide](/blog/whatsapp-business-api-guide) covers the platform end to end. WhatsApp onboarding for Indian businesses is currently sales-assisted while we finalise self-serve provisioning — if you are building a chatbot product and want a second opinion on where your use case sits against Meta's terms before you commit engineering to it, [talk to our team](/contact).
+If you are building on WhatsApp from India, the classification questions above are usually answered in a few minutes of API calls, and the pricing that follows is the ordinary [India rate card](/blog/whatsapp-business-api-pricing-india-2026) rather than anything exotic.
+
+StartMessaging is a WhatsApp CRM and API on Meta's WhatsApp Business Platform, and a Meta Tech Provider. You connect your own WhatsApp Business Account through Meta's Embedded Signup, Meta bills message charges to it directly through the payment method you add in WhatsApp Manager, and StartMessaging charges only a flat plan in INR with GST included, with no per-message fee. Developer covers API-only apps (free, or from ₹100/month), and Business (₹2,999/month) adds chatbot flows for task-specific automation. The [complete WhatsApp Business API guide](/blog/whatsapp-business-api-guide) covers the platform end to end, and you can [start a 14-day free trial of Business](https://waba.startmessaging.com/signup). If you are building a chatbot product and want a second opinion on where your use case sits against Meta's terms before you commit engineering to it, [talk to our team](/contact).

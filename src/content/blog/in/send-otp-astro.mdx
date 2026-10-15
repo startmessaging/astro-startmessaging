@@ -2,7 +2,7 @@
 title: "How to Send OTP with Astro (2026)"
 description: "Astro OTP login tutorial using StartMessaging. Uses Astro Actions / API routes, server-only env, and a clean two-step phone verification flow."
 publishedAt: "2026-05-07"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -49,19 +49,22 @@ SM_API_KEY=sm_live_xxxxxxxxxxxxxxxx
 ```typescript
 // src/pages/api/send-otp.ts
 import type { APIRoute } from 'astro';
-import { randomUUID } from 'node:crypto';
+import { randomInt, randomUUID } from 'node:crypto';
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   const { phoneNumber } = await request.json();
+  const otp = randomInt(100000, 1000000).toString(); // your backend generates the code
   const res = await fetch('https://api.startmessaging.com/otp/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': import.meta.env.SM_API_KEY },
-    body: JSON.stringify({ phoneNumber, idempotencyKey: randomUUID() }),
+    body: JSON.stringify({ phoneNumber, variables: { otp }, idempotencyKey: randomUUID() }),
   });
   if (!res.ok) return new Response(JSON.stringify({ error: 'send failed' }), { status: res.status });
   const { data } = await res.json();
-  cookies.set('otp_req', data.requestId, { httpOnly: true, sameSite: 'lax', secure: true, maxAge: 900 });
-  return new Response(JSON.stringify({ expiresAt: data.expiresAt }));
+  // data.otpRequestId is what /otp/verify needs (StartMessaging enforces expiry and attempt limits there);
+  // the cookie maxAge only clears stale state
+  cookies.set('otp_req', data.otpRequestId, { httpOnly: true, sameSite: 'lax', secure: true, maxAge: 900 });
+  return new Response(JSON.stringify({ sent: true }));
 };
 ```
 
@@ -80,7 +83,10 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     headers: { 'Content-Type': 'application/json', 'X-API-Key': import.meta.env.SM_API_KEY },
     body: JSON.stringify({ requestId, otpCode }),
   });
-  if (!res.ok) return new Response(JSON.stringify({ error: 'verify failed' }), { status: res.status });
+  const { data } = await res.json();
+  if (!res.ok || data?.verified !== true) {
+    return new Response(JSON.stringify({ error: 'verify failed' }), { status: res.ok ? 400 : res.status });
+  }
 
   cookies.delete('otp_req');
   cookies.set('session', 'verified', { httpOnly: true, sameSite: 'lax', secure: true, maxAge: 1800 });

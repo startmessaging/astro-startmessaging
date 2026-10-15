@@ -2,7 +2,7 @@
 title: "Kaleyra vs StartMessaging for OTP (India 2026)"
 description: "Kaleyra vs StartMessaging compared for Indian OTP traffic: pricing, DLT model, monthly minimums, developer experience, and a clear recommendation by stage."
 publishedAt: "2026-05-03"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: comparisons
 country: "in"
 author: "StartMessaging Team"
@@ -52,7 +52,7 @@ Here is how the two platforms compare across core product capabilities:
 | **Minimum Monthly Spend** | Common (contract-dependent) | None (Pay-as-you-go) |
 | **Cryptographic Storage** | Raw / Developer-side hashing | bcrypt-hashed on HSM nodes |
 | **Attempt Limiting** | Must be coded in your backend | Built-in limits (invalidates after 3 fails) |
-| **Supported Channels** | SMS, Voice, WhatsApp, RCS, Email | SMS, Voice, and WhatsApp (OTP focus) |
+| **Supported Channels** | SMS, Voice, WhatsApp, RCS, Email | SMS and WhatsApp (OTP focus; no voice) |
 | **Documentation** | Multi-channel API references | Single OpenAPI specification with SDKs |
 | **Idempotency Keys** | Supported on transactional routes | Supported natively |
 
@@ -148,7 +148,7 @@ A: Kaleyra is primarily set up for enterprise accounts. While they offer API doc
 
 **Q: Can I set up fallback channels on both platforms?**
 
-A: Yes. Both platforms support fallback routing. Kaleyra allows you to configure fallback pathways across voice and SMS through custom API routing. StartMessaging handles fallbacks automatically, shifting to Voice OTP or WhatsApp if the initial SMS is not delivered within 30 seconds.
+A: Partly. Kaleyra allows you to configure fallback pathways across voice and SMS through custom API routing. StartMessaging does not offer voice OTP or an automatic SMS-to-voice switch. WhatsApp OTP is a separate StartMessaging API with no automatic switch from SMS: your backend calls it when it decides to. If you need voice, use a separate voice provider.
 
 **Q: Is Kaleyra's pricing competitive for low-volume startups?**
 

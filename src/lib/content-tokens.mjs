@@ -22,6 +22,18 @@ export const WA_APP_URL = WA_APP_LIVE ? WA_APP_LIVE_URL : SMS_APP_URL;
 export const WA_LOGIN_URL = WA_APP_LIVE ? `${WA_APP_LIVE_URL}/login` : SMS_APP_URL;
 
 /**
+ * Countries whose visitors can sign up to the WhatsApp CRM themselves. Signup
+ * verification codes go only to Indian (+91) numbers for now, so everywhere
+ * else signup CTAs become "Contact Sales" → /<country>/contact. Add a country
+ * code here once the app sends codes there.
+ */
+export const WA_SIGNUP_COUNTRIES = ['in'];
+export const waSignupOpen = (country) => WA_SIGNUP_COUNTRIES.includes(country);
+
+/** Matches a signup link to the WhatsApp CRM or the SMS console. */
+export const SIGNUP_URL_PATTERN = /^https:\/\/(waba|app)\.startmessaging\.com\/signup\/?(?=[?#]|$)/;
+
+/**
  * WhatsApp public API host (whatsapp-server `PUBLIC_API_BASE_URL`), without
  * the `/api/v1` prefix — content appends it.
  */

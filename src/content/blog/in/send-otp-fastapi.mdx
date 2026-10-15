@@ -2,7 +2,7 @@
 title: "How to Send OTP with FastAPI (2026 Guide)"
 description: "Step-by-step FastAPI tutorial to send and verify SMS OTPs using StartMessaging. Includes Pydantic models, async httpx, error handling, dependency injection and a complete /auth router."
 publishedAt: "2026-04-26"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -114,6 +114,7 @@ async def sm_client():
       
 ```python
 # app/routers/auth.py
+import secrets
 from uuid import uuid4
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
@@ -126,13 +127,14 @@ class SendOtpIn(BaseModel):
 
 class SendOtpOut(BaseModel):
     request_id: str
-    expires_at: str
-    attempts_left: int
+    message_id: str
 
 @router.post('/send-otp', response_model=SendOtpOut)
 async def send_otp(body: SendOtpIn):
     payload = {
         'phoneNumber': body.phone_number,
+        # Your backend generates the code with a CSPRNG
+        'variables': {'otp': f'{secrets.randbelow(1_000_000):06d}'},
         'idempotencyKey': str(uuid4()),
     }
     async with sm_client() as client:
@@ -144,11 +146,10 @@ async def send_otp(body: SendOtpIn):
         detail = res.json().get('message', 'Failed to send OTP')
         raise HTTPException(res.status_code, detail)
 
-    data = res.json()['data']
+    data = res.json()['data']  # {'otpRequestId', 'messageId', 'status'}
     return SendOtpOut(
-        request_id=data['requestId'],
-        expires_at=data['expiresAt'],
-        attempts_left=data['attemptsLeft'],
+        request_id=data['otpRequestId'],  # sent back to /otp/verify as requestId
+        message_id=data['messageId'],     # use with GET /messages/:id for delivery status
     )
 ```
 
@@ -273,17 +274,20 @@ client = TestClient(app)
 @respx.mock
 def test_send_otp():
     respx.post('https://api.startmessaging.com/otp/send').mock(
-        return_value=httpx.Response(200, json={
+        return_value=httpx.Response(201, json={
+            'success': True,
+            'statusCode': 201,
+            'requestId': 'req_abc123',
             'data': {
-                'requestId': 'req_123',
-                'expiresAt': '2026-04-26T12:00:00Z',
-                'attemptsLeft': 3,
+                'otpRequestId': 'otp_123',
+                'messageId': 'msg_123',
+                'status': 'queued',
             }
         })
     )
     r = client.post('/auth/send-otp', json={'phone_number': '+919876543210'})
     assert r.status_code == 200
-    assert r.json()['request_id'] == 'req_123'
+    assert r.json()['request_id'] == 'otp_123'
 ```
 
 

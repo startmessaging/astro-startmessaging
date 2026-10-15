@@ -180,9 +180,14 @@ const redisClient = redis.createClient({ url: process.env.REDIS_URL });
 redisClient.connect().catch(console.error);
 
 // API Configurations
-const SMS_API_URL = 'https://api.startmessaging.com/v1/sms/send';
-const VOICE_API_URL = 'https://api.startmessaging.com/v1/voice/otp';
+// SMS OTP: StartMessaging
+const SMS_API_URL = 'https://api.startmessaging.com/otp/send';
 const API_KEY = process.env.STARTMESSAGING_API_KEY;
+
+// Voice OTP: a separate voice provider (StartMessaging does not offer voice OTP).
+// The URL and key below are placeholders for that provider's API.
+const VOICE_API_URL = process.env.VOICE_PROVIDER_OTP_URL;
+const VOICE_API_KEY = process.env.VOICE_PROVIDER_API_KEY;
 
 // BSNL Mobile Number Series (TRAI allocated prefix ranges)
 const BSNL_PREFIXES = ['94', '95', '73', '77', '90'];
@@ -231,12 +236,12 @@ app.post('/api/auth/send-verification', async (req, res) => {
     const smsResponse = await triggerSms(phoneNumber, otpCode);
     
     // Start a background timer to check for SMS delivery status
-    startSmsDeliveryMonitor(phoneNumber, smsResponse.requestId, otpCode);
+    startSmsDeliveryMonitor(phoneNumber, smsResponse.data.messageId, otpCode);
 
     return res.status(200).json({
       success: true,
       channel: 'sms',
-      requestId: smsResponse.requestId
+      requestId: smsResponse.data.otpRequestId
     });
 
   } catch (error) {
@@ -247,12 +252,11 @@ app.post('/api/auth/send-verification', async (req, res) => {
 
 async function triggerSms(phoneNumber, otpCode) {
   const response = await axios.post(SMS_API_URL, {
-    to: phoneNumber,
-    message: `Your account verification code is ${otpCode}. Valid for 10 minutes.`,
-    sender: 'STMSG',
-    templateId: '1207161829038491823'
+    phoneNumber,
+    templateId: 'YOUR_TEMPLATE_ID',
+    variables: { otp: otpCode, appName: 'YourApp' }
   }, {
-    headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' }
+    headers: { 'X-API-Key': API_KEY, 'Content-Type': 'application/json' }
   });
   return response.data;
 }
@@ -264,7 +268,7 @@ async function triggerVoiceCall(phoneNumber, otpCode) {
     language: 'en-IN', // Indian English TTS voice
     repeatCount: 2
   }, {
-    headers: { 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json' }
+    headers: { 'Authorization': `Bearer ${VOICE_API_KEY}`, 'Content-Type': 'application/json' }
   });
   return response.data;
 }
@@ -272,7 +276,7 @@ async function triggerVoiceCall(phoneNumber, otpCode) {
 /**
  * Background monitor to trigger Voice OTP fallback if SMS delivery report (DLR) is delayed
  */
-function startSmsDeliveryMonitor(phoneNumber, requestId, otpCode) {
+function startSmsDeliveryMonitor(phoneNumber, messageId, otpCode) {
   // Wait 30 seconds before checking SMS delivery status
   setTimeout(async () => {
     try {
@@ -281,14 +285,14 @@ function startSmsDeliveryMonitor(phoneNumber, requestId, otpCode) {
       const cached = await redisClient.get(redisKey);
       if (!cached) return; // User already verified, data cleared from cache
 
-      // Check SMS delivery status with API provider
-      const statusResponse = await axios.get(`https://api.startmessaging.com/v1/sms/status/${requestId}`, {
-        headers: { 'Authorization': `Bearer ${API_KEY}` }
+      // Check SMS delivery status with StartMessaging
+      const statusResponse = await axios.get(`https://api.startmessaging.com/messages/${messageId}`, {
+        headers: { 'X-API-Key': API_KEY }
       });
 
-      const deliveryStatus = statusResponse.data.status;
+      const deliveryStatus = statusResponse.data.data.status;
       if (deliveryStatus !== 'delivered') {
-        console.log(`SMS ${requestId} delivery delayed (status: ${deliveryStatus}). Triggering Voice OTP fallback call.`);
+        console.log(`SMS ${messageId} delivery delayed (status: ${deliveryStatus}). Triggering Voice OTP fallback call.`);
         await triggerVoiceCall(phoneNumber, otpCode);
       }
     } catch (err) {
@@ -361,11 +365,11 @@ A: Yes, you can identify BSNL phone numbers by checking their prefixes against c
 
 ## Multi-Channel Verification with StartMessaging
 
-Building a reliable fallback system requires an API partner that can manage both SMS and Voice OTP seamlessly. StartMessaging provides a unified platform to handle your verification traffic:
+StartMessaging handles the SMS side of this setup. It does not offer voice OTP or automatic voice fallback, so the voice calls in this guide come from a separate voice provider that your backend calls:
 
-*   **Unified API Endpoints:** Send SMS and trigger Voice fallback calls using a single API key, reducing backend complexity.
-*   **Indian Carrier Interconnects:** Route your voice calls through high-priority gateways to ensure fast delivery and clean caller IDs.
-*   **BSNL Number Verification:** Utilize our prefix verification services to automatically route calls to networks with high SMS latency.
+*   **SMS OTP API:** Send codes with `POST /otp/send`, verify them with `POST /otp/verify`, and poll `GET /messages/:id` for the delivery status that drives your voice escalation.
+*   **No DLT Paperwork:** Send OTPs over pre-approved DLT routes without registering your own entity or templates.
+*   **Voice Layer:** Pick a separate voice provider with transactional routes and a clean caller ID, and trigger it from the same backend logic.
 *   **DPDP Compliance:** Automate your log handling to purge personal data within 90 days, keeping your verification systems compliant with national privacy laws.
 
-Ready to improve your delivery rates? [Create a free account on StartMessaging](https://app.startmessaging.com/register) to integrate secure SMS and Voice OTP APIs today.
+Ready to improve your delivery rates? [Create a free account on StartMessaging](https://app.startmessaging.com/register) to integrate the SMS OTP API today.

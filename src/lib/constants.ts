@@ -48,7 +48,7 @@ print(res.json()['requestId'])`,
  * MDX remark plugin and page JSON (`{{WA_API_BASE}}` tokens) share one value.
  */
 import { WA_APP_URL, WA_API_BASE } from './content-tokens.mjs';
-export { WA_APP_LIVE, WA_APP_URL, WA_LOGIN_URL, WA_API_BASE, replaceContentTokens } from './content-tokens.mjs';
+export { WA_APP_LIVE, WA_APP_URL, WA_LOGIN_URL, WA_API_BASE, replaceContentTokens, waSignupOpen, SIGNUP_URL_PATTERN } from './content-tokens.mjs';
 export const WA_SIGNUP_URL = `${WA_APP_URL}/signup`;
 
 /** External links */

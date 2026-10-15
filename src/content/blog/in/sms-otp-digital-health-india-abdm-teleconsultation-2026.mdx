@@ -2,7 +2,7 @@
 title: "SMS OTP for India's Digital Health Apps: Compliance Guide (2026)"
 description: "Learn how to integrate the abdm otp verification india flows. A technical guide on telemedicine patient verification, ABHA ID linking, and pharmacy compliance."
 publishedAt: "2026-07-16"
-updatedAt: "2026-07-16"
+updatedAt: "2026-10-15"
 category: "use-cases"
 country: "in"
 author: "StartMessaging Team"
@@ -152,7 +152,7 @@ The ABDM is designed to reach rural and tier-3 communities across India. A healt
 
 ### 4. Implementation Code: Healthcare OTP Verification Flow
 
-Let's build a Node.js/Express implementation that handles healthcare OTP verification, sets a 15-minute expiration window, and manages the voice fallback cascade.
+Let's build a Node.js/Express implementation that handles healthcare OTP verification, sets a 15-minute expiration window, and manages the voice fallback cascade (SMS through StartMessaging, voice through a separate voice provider, since StartMessaging does not offer voice OTP).
 
 ```javascript
 // healthOtpService.js
@@ -193,13 +193,13 @@ app.post('/api/health/otp/request', async (req, res) => {
   });
   await redisClient.expire(storageKey, HEALTH_OTP_EXPIRY_SECONDS);
 
-  // Customize message body based on regulatory purpose
-  let messageText = `Your HealthSet verification OTP is ${otpCode}. Valid for 15 minutes.`;
+  // Pick the message template based on regulatory purpose
+  let templateId = 'YOUR_LOGIN_TEMPLATE_ID'; // "Your HealthSet verification OTP is ..."
   
   if (purpose === 'ABDM_LINK') {
-    messageText = `Your OTP for linking Ayushman Bharat Health Account (ABHA) on HealthSet is ${otpCode}. Valid for 15 minutes. Do not share.`;
+    templateId = 'YOUR_ABHA_LINK_TEMPLATE_ID'; // "Your OTP for linking Ayushman Bharat Health Account (ABHA) ..."
   } else if (purpose === 'PRESCRIPTION_DISPENSE' && orderId) {
-    messageText = `Your OTP to confirm prescription-based order #${orderId} on HealthSet is ${otpCode}. Valid for 15 minutes. Do not share.`;
+    templateId = 'YOUR_PRESCRIPTION_TEMPLATE_ID'; // "Your OTP to confirm prescription-based order ..."
   }
 
   try {
@@ -211,9 +211,10 @@ app.post('/api/health/otp/request', async (req, res) => {
       },
       body: JSON.stringify({
         phoneNumber,
+        templateId,
         variables: {
           otp: otpCode,
-          customText: messageText
+          appName: 'HealthSet'
         }
       })
     });
@@ -256,13 +257,13 @@ app.post('/api/health/otp/voice-fallback', async (req, res) => {
   }
 
   try {
-    // Call StartMessaging Voice API using the active OTP code
-    // TODO: Update to final production endpoints when the voice API is released
-    const voiceRes = await fetch('https://api.startmessaging.com/v1/voice/send', {
+    // StartMessaging does not offer voice OTP: call a separate voice provider
+    // with the active OTP code. The URL, auth header and body are placeholders.
+    const voiceRes = await fetch(process.env.VOICE_PROVIDER_OTP_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY
+        'Authorization': `Bearer ${process.env.VOICE_PROVIDER_API_KEY}`
       },
       body: JSON.stringify({
         phoneNumber,
@@ -319,4 +320,4 @@ A: A 15-minute OTP expiration window is recommended for elderly demographics to 
 
 ---
 
-By integrating this compliance flow and implementing voice-based fallbacks, Ravi resolved the verification issues on HealthSet. The updated teleconsultation flow satisfied the NMC audits, and the platform maintained a 99.8% patient-verification success rate across rural markets. If you are building digital health solutions in India, reliable OTP delivery is essential for compliance. [Sign up for a StartMessaging account](https://app.startmessaging.com/register) to access low-latency SMS and voice OTP delivery for ₹0.25 per SMS.
+By integrating this compliance flow and implementing voice-based fallbacks, Ravi resolved the verification issues on HealthSet. The updated teleconsultation flow satisfied the NMC audits, and the platform maintained a 99.8% patient-verification success rate across rural markets. If you are building digital health solutions in India, reliable OTP delivery is essential for compliance. [Sign up for a StartMessaging account](https://app.startmessaging.com/register) to access low-latency SMS OTP delivery for ₹0.25 per SMS, and pair it with a separate voice provider for the voice fallback.

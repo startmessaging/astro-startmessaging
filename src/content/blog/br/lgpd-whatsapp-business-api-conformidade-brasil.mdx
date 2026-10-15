@@ -2,7 +2,7 @@
 title: "LGPD e WhatsApp Business API: Como Manter Sua Empresa em Conformidade"
 description: "Entenda os requisitos da LGPD para o WhatsApp Business API. Aprenda sobre consentimento (opt-in), exclusão de dados e direitos do titular no Brasil."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "compliance"
 country: "br"
 author: "StartMessaging Team"
@@ -21,7 +21,7 @@ featured: false
 
 A digitalização dos canais de vendas e atendimento aproximou as marcas dos consumidores brasileiros. No entanto, o uso comercial do WhatsApp exige das empresas responsabilidade ética e jurídica no tratamento de informações. Sob as diretrizes da Lei Geral de Proteção de Dados (LGPD) - Lei nº 13.709/2018 -, números de celular, nomes de perfil e registros de conversas são considerados dados pessoais. Alinhar suas comunicações automatizadas com os requisitos da lgpd whatsapp business api é essencial para evitar processos administrativos, multas e vazamento de informações.
 
-A API do StartMessaging para WhatsApp está atualmente em fase de desenvolvimento de novas ferramentas. Embora a equipe de engenharia esteja refinando a documentação e os endpoints definitivos de produção que estarão disponíveis em breve, você já pode projetar seus fluxos de segurança usando a rota provisória `/v1/messages`. A autorização das requisições é feita por meio do cabeçalho de segurança `X-API-Key`, garantindo agilidade operacional.
+A StartMessaging é um CRM de WhatsApp com API, construído sobre a Cloud API oficial da Meta (a StartMessaging é uma Meta Tech Provider). Você conecta a sua própria Conta do WhatsApp Business pelo Cadastro Incorporado da Meta, e a API REST em `https://waba-api.startmessaging.com/api/v1` oferece o que um fluxo de conformidade precisa: registrar consentimento e opt-out por contato, receber os eventos `contact.opted_out` e `contact.opted_in` por webhook e bloquear automaticamente envios a quem pediu para sair. Este artigo é informativo e não substitui a orientação de um advogado ou do seu encarregado de dados (DPO).
 
 ---
 
@@ -81,60 +81,64 @@ Para manter a conformidade, implemente rotinas automatizadas de limpeza de dados
 
 Além das políticas internas de exclusão, sua infraestrutura de software deve estar preparada para processar imediatamente os pedidos de exclusão feitos pelos usuários (o direito à eliminação dos dados). Se um cliente enviar uma mensagem solicitando o cancelamento do contato corporativo, o sistema deve registrar a opção de opt-out e remover seus contatos das listas de disparos.
 
+Na StartMessaging, um cliente que responde com **STOP**, **UNSUBSCRIBE**, **OPT OUT**, **OPTOUT** ou **CANCEL** (a mensagem inteira) tem o opt-out registrado automaticamente: envios a ele são recusados com `422 CONTACT_OPTED_OUT` e as campanhas o ignoram. Palavras em português, como "SAIR" ou "PARAR", não são reconhecidas automaticamente; se você as oferecer, trate-as no seu webhook e registre o opt-out pela API, como no exemplo abaixo.
+
 ---
 
 ## Código: Endpoint em Express.js para Tratar Solicitações de Exclusão
 
-Para processar solicitações de exclusão de dados sob as diretrizes da LGPD, os desenvolvedores podem criar uma rota dedicada no backend do sistema de atendimento. Esse endpoint deve receber o identificador de telefone do titular, verificar a pendência de transações financeiras e realizar a remoção dos contatos das listas ativas de marketing, além de limpar os logs do banco de dados.
+Para processar solicitações de exclusão de dados sob a LGPD, crie uma rota dedicada no backend. Ela deve, nesta ordem: registrar o opt-out na StartMessaging (para que nenhum envio futuro aconteça), remover o contato e apagar os dados que o seu próprio banco guarda, mantendo apenas o que a lei obriga a reter (como dados fiscais).
 
-O exemplo de código em Express.js apresentado abaixo demonstra como estruturar o processamento dessa remoção técnica:
+O exemplo abaixo usa uma chave de API com o escopo `contacts:write`:
 
 ```javascript
-const express = require('express');
+import express from 'express';
+import db from '../models/index.js'; // seus modelos de banco de dados
+
+const API = 'https://waba-api.startmessaging.com/api/v1';
+const headers = {
+  Authorization: `Bearer ${process.env.SM_API_KEY}`,
+  'Content-Type': 'application/json',
+};
 const router = express.Router();
-const db = require('../models'); // Simulação dos modelos do banco de dados
 
-/**
- * Endpoint para processamento de exclusão de dados pessoais sob as diretrizes da LGPD.
- * Remove o cliente das listas de disparos ativos e apaga históricos de conversa.
- */
-router.post('/compliance/exclusao-lgpd', async (req, res) => {
-  const { telefone, confirmarExclusao } = req.body;
-
+router.post('/compliance/exclusao-lgpd', express.json(), async (req, res) => {
+  const { telefone, confirmarExclusao } = req.body; // telefone em E.164, ex: "+5511999999999"
   if (!telefone || !confirmarExclusao) {
     return res.status(400).json({ erro: 'Parâmetros obrigatórios ausentes.' });
   }
+  const idOrPhone = encodeURIComponent(telefone); // o "+" vira %2B
 
   try {
-    // 1. Localiza a conta do cliente pelo número de telefone
-    const cliente = await db.Cliente.findOne({ where: { telefone: telefone } });
-    if (!cliente) {
-      return res.status(404).json({ erro: 'Registro de cliente não localizado.' });
+    // 1. Registra o opt-out: envios futuros são recusados com 422 CONTACT_OPTED_OUT
+    const optOut = await fetch(`${API}/contacts/${idOrPhone}`, {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify({ optedIn: false }),
+    });
+    if (!optOut.ok && optOut.status !== 404) {
+      const { error } = await optOut.json();
+      throw new Error(`${error.code}: ${error.message}`);
     }
 
-    // 2. Remove o registro das listas de consentimento ativo (opt-in)
-    await db.ConsentimentoRegistro.destroy({ where: { telefone: telefone } });
+    // 2. Remove o contato da StartMessaging (soft delete; o opt-out continua no número)
+    await fetch(`${API}/contacts/${idOrPhone}`, { method: 'DELETE', headers });
 
-    // 3. Remove os históricos de mensagens enviadas e recebidas
-    await db.HistoricoMensagem.destroy({ where: { clienteId: cliente.id } });
+    // 3. Apaga os dados do seu próprio banco, exceto o que a lei obriga a reter
+    await db.ConsentimentoRegistro.destroy({ where: { telefone } });
+    await db.HistoricoMensagem.destroy({ where: { telefone } });
 
-    // 4. Exclui o cadastro do cliente das tabelas ativas
-    await cliente.destroy();
-
-    console.log(`Solicitação de exclusão LGPD executada para o número: ${telefone}`);
-    return res.status(200).json({ 
-      mensagem: 'Os dados do titular foram eliminados com sucesso dos nossos sistemas de mensageria.' 
-    });
+    return res.status(200).json({ mensagem: 'Solicitação de exclusão processada.' });
   } catch (error) {
     console.error('Erro ao processar solicitação de exclusão:', error);
     return res.status(500).json({ erro: 'Falha interna ao processar a exclusão de dados.' });
   }
 });
 
-module.exports = router;
+export default router;
 ```
 
-Esse controlador localiza o registro do titular, remove suas preferências de opt-in para bloquear novos disparos e elimina os históricos de mensagens, garantindo o atendimento ao direito de exclusão previsto em lei.
+Dois detalhes importantes do `DELETE /api/v1/contacts/{idOrPhone}`: ele é um **soft delete** (o contato some das listas, mas as conversas mantêm o histórico no workspace) e **não apaga o consentimento** (o opt-out fica gravado no número, para que o cliente não volte a receber mensagens por engano). Para pedidos de eliminação que incluam o histórico de conversas guardado na StartMessaging, consulte a [política de privacidade](/br/privacy-policy) e fale com o [suporte](/br/contact).
 
 ---
 
@@ -160,7 +164,7 @@ Além das sanções financeiras aplicadas pelo órgão regulador, o envio excess
 Para verificar se os seus fluxos de atendimento automatizados e campanhas no WhatsApp respeitam as regras da LGPD, utilize este checklist de conformidade:
 
 - [ ] **Opt-in Documentado:** Os registros de consentimento incluem IP, data, hora e a tela onde o opt-in foi concedido pelo cliente.
-- [ ] **Opt-out Facilitado:** As mensagens oferecem comandos fáceis para interrupção de envios (ex: "Digite SAIR para parar de receber atualizações").
+- [ ] **Opt-out Facilitado:** As mensagens oferecem comandos fáceis para interrupção de envios (ex: "Responda STOP para parar de receber atualizações", palavra que a StartMessaging reconhece automaticamente).
 - [ ] **Política de Privacidade Atualizada:** O site da empresa possui uma política que detalha claramente o processamento de dados via WhatsApp e parceiros (como o StartMessaging).
 - [ ] **Minimização de Dados:** As mensagens não incluem dados pessoais sensíveis, senhas ou dados financeiros completos (como números de cartão de crédito).
 - [ ] **Acesso ao Titular:** A equipe de suporte possui fluxos definidos para exportar o histórico de mensagens caso o cliente faça uma solicitação de acesso.
@@ -180,7 +184,7 @@ A: Embora o legítimo interesse possa ser aplicado em cenários específicos de 
 
 **Q: Onde devem ser armazenados os históricos de conversas da API do WhatsApp?**
 
-A: Os servidores podem ser hospedados em provedores de nuvem nacionais ou internacionais, desde que os países de destino ofereçam leis de privacidade equivalentes à LGPD ou que haja cláusulas contratuais de proteção de dados. Provedores de nuvem localizados nos EUA ou Europa atendem a esse requisito.
+A: A LGPD permite a transferência internacional de dados nas hipóteses do Artigo 33, como países com nível de proteção adequado reconhecido pela ANPD ou cláusulas contratuais padrão. Verifique onde cada fornecedor (o seu servidor, a StartMessaging e a própria Meta) processa os dados e documente a base para a transferência; confirme o enquadramento com o seu jurídico.
 
 **Q: Um cliente que pede exclusão dos dados no WhatsApp deve ter seu histórico de vendas apagado?**
 
@@ -188,4 +192,4 @@ A: Não necessariamente. O direito à eliminação de dados não anula as obriga
 
 ---
 
-Manter sua empresa em conformidade com as regras da LGPD na utilização do WhatsApp Business API assegura operações comerciais sustentáveis e protege a privacidade de seus clientes. Ao registrar consentimentos detalhados e estruturar endpoints eficientes para o processamento de solicitações de exclusão, sua marca se protege de multas e do bloqueio do canal. Para gerenciar os retornos técnicos e os relatórios de eventos da API, consulte nosso guia sobre [configuração de webhooks](/br/docs/whatsapp/webhooks) e integre seus fluxos.
+Manter sua empresa em conformidade com as regras da LGPD na utilização do WhatsApp Business API assegura operações comerciais sustentáveis e protege a privacidade de seus clientes. Para automatizar o registro de opt-in e opt-out, veja a [documentação de contatos](/br/docs/whatsapp/contacts) e configure os [webhooks](/br/docs/whatsapp/webhooks) para receber os eventos `contact.opted_out` e `contact.opted_in` em tempo real.

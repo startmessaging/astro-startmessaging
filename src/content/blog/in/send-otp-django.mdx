@@ -2,7 +2,7 @@
 title: "How to Send OTP in Django (Python) — DRF 2026 Guide"
 description: "Send and verify SMS OTPs from Django and Django REST Framework using the StartMessaging API. Includes a service module, DRF views, serializers, and rate limiting."
 publishedAt: "2026-04-19"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -50,6 +50,7 @@ STARTMESSAGING_API_KEY=sm_live_xxxxxxxxxxxxxxxxxxxx
 ```python
 # accounts/services/otp.py
 import os
+import secrets
 import uuid
 import requests
 
@@ -62,16 +63,24 @@ HEADERS = {
 class OtpError(Exception):
     pass
 
+def generate_otp() -> str:
+    # Cryptographically secure 6-digit code
+    return f"{secrets.randbelow(1_000_000):06d}"
+
 def send_otp(phone_number: str) -> dict:
     res = requests.post(
         f"{BASE_URL}/otp/send",
-        json={"phoneNumber": phone_number, "idempotencyKey": str(uuid.uuid4())},
+        json={
+            "phoneNumber": phone_number,
+            "variables": {"otp": generate_otp()},
+            "idempotencyKey": str(uuid.uuid4()),
+        },
         headers=HEADERS,
         timeout=10,
     )
     if res.status_code >= 400:
         raise OtpError(res.json().get("message", "Failed to send OTP"))
-    return res.json()["data"]
+    return res.json()["data"]  # {"otpRequestId", "messageId", "status"}
 
 def verify_otp(request_id: str, code: str) -> bool:
     res = requests.post(
@@ -120,8 +129,8 @@ class SendOtpView(APIView):
             data = send_otp(s.validated_data["phone_number"])
         except OtpError as e:
             return Response({"error": str(e)}, status=502)
-        request.session["otp_request_id"] = data["requestId"]
-        return Response({"expires_at": data["expiresAt"]})
+        request.session["otp_request_id"] = data["otpRequestId"]
+        return Response({"status": data["status"]})
 
 class VerifyOtpView(APIView):
     def post(self, request):

@@ -2,7 +2,7 @@
 title: "UU PDP dan WhatsApp Business API: Kepatuhan Hukum Bisnis Indonesia"
 description: "Ketahui kepatuhan UU PDP untuk WhatsApp Business API di Indonesia. Pelajari hak subjek data, opt-in/opt-out pelanggan, dan sanksi denda UU PDP."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "compliance"
 country: "id"
 author: "StartMessaging Team"
@@ -21,7 +21,7 @@ featured: false
 
 Penerapan digitalisasi pemasaran dan otomasi layanan pelanggan di Indonesia berkembang sangat pesat. Salah satu kanal komunikasi yang paling diminati oleh pelaku usaha adalah WhatsApp Business API resmi. Namun, kemudahan berkirim pesan instan ini harus diimbangi dengan tanggung jawab hukum dan etika perlindungan data pribadi. Dengan berlakunya Undang-Undang Nomor 27 Tahun 2022 tentang Perlindungan Data Pribadi (UU PDP), nomor ponsel, nama pengguna, dan rekaman percakapan merupakan kategori data pribadi yang dilindungi hukum. Menyelaraskan integrasi uu pdp whatsapp business indonesia secara tepat sangat krusial untuk melindungi privasi konsumen dan menghindari denda sanksi administratif bagi bisnis Anda.
 
-Gateway API dari StartMessaging untuk WhatsApp berada dalam tahap pengembangan fitur-fitur baru oleh tim pengembang kami. Sementara kami menyelesaikan penyempurnaan endpoint utama dan merilis rute produksi resmi dalam waktu dekat, Anda dapat menggunakan rute pengujian sementara `/v1/messages` untuk menguji alur integrasi sistem Anda. Seluruh otentikasi request dikirimkan secara aman melalui header kustom HTTP `X-API-Key`.
+StartMessaging adalah WhatsApp CRM dan REST API yang dibangun di atas Cloud API resmi Meta. Anda menghubungkan Akun WhatsApp Business milik Anda sendiri, lalu sistem Anda mengirim pesan melalui `POST https://waba-api.startmessaging.com/api/v1/messages` dengan header `Authorization: Bearer sm_live_...`. Artikel ini membahas praktik kepatuhan umum dan bukan nasihat hukum; konsultasikan penerapan UU PDP di bisnis Anda dengan penasihat hukum.
 
 ---
 
@@ -81,6 +81,8 @@ Terapkan prosedur pembatasan penyimpanan data (*data retention policy*) yang ket
 
 Jika pelanggan meminta nomornya dihapus dari sistem pemasaran Anda, sistem Anda harus segera mendaftarkan nomor tersebut ke daftar hitam pengiriman (*opt-out list*) dan menghapus kontak mereka dari basis data aktif pemasaran guna memenuhi hak subjek data pribadi.
 
+Di StartMessaging, pelanggan yang membalas STOP otomatis ditandai berhenti berlangganan, dan Anda menerima webhook `contact.opted_out` untuk menyinkronkan status tersebut ke database Anda. Pengiriman berikutnya ke kontak itu ditolak oleh API dengan `422 CONTACT_OPTED_OUT`, sehingga pesan tidak terkirim tanpa sengaja. Kata kunci yang dikenali otomatis adalah STOP, UNSUBSCRIBE, OPT OUT, OPTOUT, dan CANCEL. Jika pelanggan menulis dalam Bahasa Indonesia (misalnya "BERHENTI" atau "jangan kirim lagi"), catat penolakan itu sendiri lewat `PATCH /api/v1/contacts/{idOrPhone}` dengan `optedIn: false` atau melalui dashboard.
+
 ---
 
 ## Kode Integrasi Express.js untuk Menangani Hak Penghapusan Data (ARCO / UU PDP)
@@ -121,6 +123,15 @@ router.post('/compliance/uupdp-delete', async (req, res) => {
     // 4. Hapus data profil pelanggan jika tidak ada keterikatan invoice yang aktif
     await user.destroy();
 
+    // 5. Catat opt-out di StartMessaging, lalu hapus kontaknya (butuh scope contacts:write)
+    const kontakUrl = `https://waba-api.startmessaging.com/api/v1/contacts/${encodeURIComponent(customerPhone)}`;
+    const headers = {
+      Authorization: `Bearer ${process.env.STARTMESSAGING_API_KEY}`,
+      'Content-Type': 'application/json'
+    };
+    await fetch(kontakUrl, { method: 'PATCH', headers, body: JSON.stringify({ optedIn: false }) });
+    await fetch(kontakUrl, { method: 'DELETE', headers }); // 204 No Content
+
     console.log(`Proses penghapusan data UU PDP sukses dijalankan untuk nomor: ${customerPhone}`);
     return res.status(200).json({ 
       success: true, 
@@ -135,7 +146,7 @@ router.post('/compliance/uupdp-delete', async (req, res) => {
 module.exports = router;
 ```
 
-Endpoint Node.js di atas bertugas untuk menghapus data kontak pelanggan, catatan persetujuan pemasaran, serta log histori pesan mereka dari database aktif ketika pelanggan mengajukan klaim hak penghapusan data. Hal ini memposisikan sistem backend Anda pada tingkat kepatuhan hukum yang baik.
+Endpoint Node.js di atas bertugas untuk menghapus data kontak pelanggan, catatan persetujuan pemasaran, serta log histori pesan mereka dari database aktif ketika pelanggan mengajukan klaim hak penghapusan data. Langkah terakhir mencatat opt-out di StartMessaging lalu menghapus kontaknya. Perlu dicatat, menurut [dokumentasi Contacts](/id/docs/whatsapp/contacts), `DELETE` adalah *soft delete*: kontak hilang dari daftar, tetapi riwayat percakapan tetap tersimpan dan opt-out tetap melekat pada nomor tersebut sehingga pengiriman berikutnya tetap ditolak. Jika permintaan penghapusan pelanggan juga mencakup riwayat obrolan di StartMessaging, hubungi kami melalui [halaman kontak](/id/contact).
 
 ---
 
@@ -143,16 +154,16 @@ Endpoint Node.js di atas bertugas untuk menghapus data kontak pelanggan, catatan
 
 Pemerintah Indonesia menaruh perhatian serius terhadap perlindungan data masyarakat. Pelanggaran terhadap kewajiban kepatuhan perlindungan data pribadi dapat menyeret korporasi ke ranah sanksi denda yang signifikan.
 
-Berdasarkan ketentuan Bab XIV UU PDP, sanksi administratif bagi pelanggar hukum perlindungan data pribadi diklasifikasikan sebagai berikut:
+Berdasarkan Pasal 57 UU PDP, sanksi administratif bagi pelanggar kewajiban perlindungan data pribadi terdiri atas empat jenis berikut (ketentuan pidana diatur terpisah di Bab XIV):
 
-| Kategori Sanksi | Deskripsi Tindakan Pelanggaran | Batas Maksimal Sanksi / Denda |
+| Jenis Sanksi | Bentuk | Keterangan |
 |---|---|---|
-| **Peringatan Tertulis** | Pelanggaran ringan pertama pada penanganan data | Surat peringatan resmi untuk perbaikan sistem perlindungan data |
-| **Penghentian Kegiatan** | Mengabaikan surat peringatan penyempurnaan sistem | Penghentian sementara seluruh kegiatan pemrosesan data pribadi |
-| **Denda Administratif** | Pelanggaran berat atau reincidental atas dasar hukum | Denda maksimal 2% dari pendapatan tahunan perusahaan di Indonesia |
-| **Penghapusan / Pemusnahan** | Menolak menghapus data yang diperoleh secara ilegal | Perintah pemusnahan wajib atas seluruh pangkalan data yang melanggar |
+| **Peringatan Tertulis** | Surat peringatan resmi | Perintah memperbaiki praktik pemrosesan data |
+| **Penghentian Sementara** | Penghentian sementara kegiatan pemrosesan data pribadi | Kegiatan pemrosesan dihentikan hingga pelanggaran diperbaiki |
+| **Penghapusan / Pemusnahan** | Penghapusan atau pemusnahan data pribadi | Berlaku untuk data yang diproses tanpa dasar hukum yang sah |
+| **Denda Administratif** | Denda | Paling tinggi 2% dari pendapatan tahunan atau penerimaan tahunan terhadap variabel pelanggaran |
 
-Selain sanksi hukum dari lembaga otoritas nasional, ketidakpatuhan dalam menjaga etika berkirim pesan promosi (seperti membombardir spam) akan memicu laporan massal dari penerima pesan. Hal ini mengakibatkan nomor telepon WhatsApp bisnis Anda ditandai kualitasnya menjadi merah di Meta Business Suite, yang berujung pada penutupan permanen akun bisnis Meta Anda.
+Selain sanksi hukum dari lembaga otoritas nasional, ketidakpatuhan dalam menjaga etika berkirim pesan promosi (seperti membombardir spam) akan memicu laporan massal dari penerima pesan. Hal ini dapat menurunkan rating kualitas nomor WhatsApp bisnis Anda di Meta, yang bisa berujung pada pembatasan pengiriman hingga pemblokiran nomor oleh Meta.
 
 ---
 
@@ -161,9 +172,9 @@ Selain sanksi hukum dari lembaga otoritas nasional, ketidakpatuhan dalam menjaga
 Gunakan daftar checklist di bawah ini untuk mengukur kesiapan dan tingkat kepatuhan hukum sistem otomatisasi WhatsApp bisnis Anda di Indonesia:
 
 - [ ] **Dokumentasi Persetujuan (Opt-in Log):** Sistem Anda mencatat bukti persetujuan pelanggan secara rinci (IP Address, Waktu, Lokasi Formulir).
-- [ ] **Pemberitahuan Kebijakan Privasi:** Situs web Anda menampilkan kebijakan privasi yang diperbarui, yang menjelaskan keterlibatan mitra gateway (seperti StartMessaging).
+- [ ] **Pemberitahuan Kebijakan Privasi:** Situs web Anda menampilkan kebijakan privasi yang diperbarui, yang menjelaskan keterlibatan penyedia layanan pesan (seperti StartMessaging) dan Meta.
 - [ ] **Akses Hak Subjek Data:** Terdapat prosedur internal bagi staf bantuan Anda untuk mengekspor atau menghapus data obrolan jika ada request dari pelanggan.
-- [ ] **Tombol Opt-out Otomatis:** Setiap template pesan pemasaran diakhiri dengan pilihan berhenti berlangganan yang dapat memicu otomatisasi pencabutan nomor.
+- [ ] **Opt-out Otomatis:** Setiap template pesan pemasaran menyertakan cara berhenti berlangganan (misalnya "Balas STOP"), dan backend Anda memproses webhook `contact.opted_out`.
 - [ ] **Enkripsi Penyimpanan Lokal:** Data log histori pesan yang disimpan di database server Anda dilindungi dengan enkripsi tingkat lanjut (*Encryption at Rest*).
 - [ ] **Penyaringan Konten Sensitif:** Sistem Anda tidak meminta atau mengirim data sensitif seperti password, nomor KTP lengkap, atau PIN perbankan melalui obrolan WhatsApp.
 
@@ -177,12 +188,12 @@ A: Tidak direkomendasikan. UU PDP menekankan bahwa pemrosesan data untuk tujuan 
 
 **Q: Bagaimana cara memperbarui kebijakan privasi perusahaan kami untuk penggunaan WhatsApp API?**
 
-A: Anda harus menambahkan sub-bab khusus pada halaman Kebijakan Privasi Anda yang menerangkan bahwa perusahaan mengumpulkan data nomor telepon dan log percakapan untuk keperluan dukungan pelanggan, dan mentransfer data tersebut ke pihak ketiga penyedia infrastruktur API resmi (seperti StartMessaging) serta Meta selaku pemilik platform komunikasi.
+A: Anda harus menambahkan sub-bab khusus pada halaman Kebijakan Privasi Anda yang menerangkan bahwa perusahaan mengumpulkan data nomor telepon dan log percakapan untuk keperluan dukungan pelanggan, dan mentransfer data tersebut ke pihak ketiga penyedia platform WhatsApp CRM dan API (seperti StartMessaging, sebuah Meta Tech Provider) serta Meta selaku pemilik platform komunikasi.
 
 **Q: Jika pelanggan meminta penghapusan data, apakah riwayat faktur penjualannya juga harus dihapus?**
 
-A: Tidak. Hak penghapusan data pribadi (hak penghapusan) tidak bersifat absolut. Anda diperbolehkan menolak penghapusan data transaksi penjualan dan data keuangan karena data tersebut wajib disimpan selama kurun waktu tertentu (biasanya minimal 5 tahun di Indonesia) guna mematuhi undang-undang perpajakan dan hukum dagang nasional. Namun, Anda harus menghapus nomor tersebut dari database pemasaran aktif agar tidak menerima pesan promosi baru.
+A: Tidak. Hak penghapusan data pribadi (hak penghapusan) tidak bersifat absolut. Anda diperbolehkan menolak penghapusan data transaksi penjualan dan data keuangan karena data tersebut wajib disimpan selama kurun waktu tertentu (UU KUP mewajibkan pembukuan dan dokumen dasarnya disimpan selama 10 tahun) guna mematuhi undang-undang perpajakan dan dokumen perusahaan. Namun, Anda harus menghapus nomor tersebut dari database pemasaran aktif agar tidak menerima pesan promosi baru.
 
 ---
 
-Membangun sistem otomatisasi komunikasi menggunakan WhatsApp Business API resmi dengan mematuhi regulasi UU PDP akan mengamankan operasional bisnis Anda dari risiko hukum denda di Indonesia. Melalui otentikasi kunci `X-API-Key` yang andal, Anda dapat mengelola integrasi pengiriman dengan aman. Untuk mempelajari cara kerja penanganan respons webhook secara mendalam, silakan baca dokumentasi kami tentang [konfigurasi webhook WhatsApp di Indonesia](/id/docs/whatsapp/webhooks) untuk memantau integritas data.
+Membangun sistem otomatisasi komunikasi menggunakan WhatsApp Business API resmi dengan mematuhi regulasi UU PDP akan mengamankan operasional bisnis Anda dari risiko hukum denda di Indonesia. Dengan API key `sm_live_` yang disimpan aman di server dan webhook yang diverifikasi tanda tangannya, Anda dapat mengelola integrasi pengiriman dengan aman. Untuk mempelajari cara kerja penanganan webhook secara mendalam, termasuk event `contact.opted_out`, silakan baca dokumentasi kami tentang [konfigurasi webhook WhatsApp](/id/docs/whatsapp/webhooks).

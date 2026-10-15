@@ -1,8 +1,8 @@
 ---
 title: "Envío Masivo por WhatsApp en México: Reglas, Calidad y Buenas Prácticas"
-description: "Evita el bloqueo de tu número. Descubre las reglas oficiales de envío masivo (broadcast) en WhatsApp API en México, límites de Meta y buenas prácticas."
+description: "Evita el bloqueo de tu número. Conoce las reglas oficiales de envío masivo por la API de WhatsApp en México, los límites de Meta y buenas prácticas."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "mx"
 author: "StartMessaging Team"
@@ -20,123 +20,111 @@ relatedSlugs:
 featured: false
 ---
 
-El envío de notificaciones y ofertas comerciales masivas a través del WhatsApp es uno de los canales con mejor retorno de inversión en el mercado mexicano. Con tasas de lectura inmediatas, las campañas en este medio permiten a las marcas de retail, servicios y fintech conectar con sus clientes de forma directa. No obstante, el envío de contenido no solicitado o el uso de plataformas irregulares provoca el bloqueo permanente del número de teléfono comercial por parte de Meta. Entender las reglas vigentes para enviar whatsapp masivo mexico de forma oficial (WhatsApp Business API Broadcast) y aplicar buenas prácticas de frecuencia y consentimiento es fundamental para proteger tu línea y asegurar la efectividad de tus campañas de mercadotecnia.
+El envío de notificaciones y ofertas comerciales masivas a través de WhatsApp es uno de los canales con mejor retorno de inversión en el mercado mexicano. Las campañas en este medio permiten a las marcas de retail, servicios y fintech conectar con sus clientes de forma directa. No obstante, el envío de contenido no solicitado o el uso de plataformas irregulares provoca el bloqueo del número comercial por parte de Meta. Entender las reglas vigentes para enviar whatsapp masivo mexico de forma oficial (WhatsApp Business Platform) y aplicar buenas prácticas de frecuencia y consentimiento es fundamental para proteger tu línea y asegurar la efectividad de tus campañas.
 
-La API del StartMessaging para WhatsApp se encuentra actualmente en fase de desarrollo por nuestro equipo técnico. Mientras se liberan los endpoints oficiales del entorno de producción, los cuales se liberarán próximamente, ya puedes crear tu lógica de distribución masiva y enviar tus campañas de prueba utilizando la ruta temporal `/v1/messages`. El acceso y la autorización se validan de forma segura por medio del encabezado HTTP personalizado `X-API-Key`.
+StartMessaging es un CRM de WhatsApp con API, construido sobre la Cloud API oficial de Meta (StartMessaging es un Meta Tech Provider). Puedes enviar de dos formas: con **campañas** creadas en el panel (planes Team, Business y Enterprise) o mensaje por mensaje con la API REST en `https://waba-api.startmessaging.com/api/v1/messages`, autenticada con `Authorization: Bearer sm_live_...`.
 
 ---
 
-## Envíos Oficiales via API vs. Herramientas de Spam no Oficiales
+## Envíos Oficiales vía API vs. Herramientas de Spam no Oficiales
 
-Muchas marcas en busca de soluciones económicas recurren a softwares piratas, scripts locales o extensiones de navegador para realizar envíos en masa a bases de datos. Estas herramientas simulan el uso de la aplicación móvil de WhatsApp enviando mensajes de texto repetitivos a través de WhatsApp Web.
+Muchas marcas en busca de soluciones económicas recurren a softwares piratas, scripts locales o extensiones de navegador para realizar envíos en masa. Estas herramientas simulan el uso de la aplicación móvil de WhatsApp enviando mensajes repetitivos a través de WhatsApp Web.
 
-El uso de estas aplicaciones informales representa un gran riesgo operativo para tu empresa. El algoritmo de Meta monitorea la velocidad de envío, la cantidad de destinatarios nuevos que no tienen tu contacto guardado y el porcentaje de reportes de spam. Cuando detecta estos patrones de comportamiento robótico, Meta suspende la cuenta y el número telefónico de forma definitiva en cuestión de minutos, imposibilitando la recuperación de tus conversaciones de clientes.
+El uso de estas aplicaciones informales representa un gran riesgo operativo. Meta monitorea la velocidad de envío, la cantidad de destinatarios nuevos y el porcentaje de reportes de spam. Cuando detecta patrones de comportamiento robótico, suele suspender el número, y con él se pierden las conversaciones de tus clientes.
 
-La única alternativa legal, segura y autorizada para realizar envíos masivos comerciales en México es el canal del WhatsApp Business API (WhatsApp Broadcast). Al estar conectado directamente con los servidores de nube de Meta, este canal te permite enviar miles de notificaciones promocionales homologadas de manera segura y garantizando la entrega de tus mensajes directamente en la bandeja de entrada del usuario.
+La WhatsApp Business Platform (Cloud API) es el canal oficial de Meta para envíos en volumen. Conecta directamente con los servidores de Meta, sin depender de celulares, y permite enviar plantillas aprobadas a clientes que aceptaron recibir tus mensajes.
 
 ---
 
 ## El Semáforo de Calidad de Número (Quality Rating) de Meta
 
-La Meta utiliza un sistema de reputación para controlar la calidad del contenido enviado a través del WhatsApp Business API, con el fin de evitar que el canal corporativo se llene de mensajes indeseados. Este indicador, conocido como **Quality Rating** (Calidad de Número), se actualiza constantemente en el administrador comercial de Meta Business Suite.
+Meta utiliza un sistema de reputación para controlar la calidad de lo que se envía por la API. El indicador **Quality Rating** refleja cómo reciben tus mensajes los destinatarios en los últimos días, según bloqueos, reportes y silenciamientos. En StartMessaging, la página **Connect** muestra la calidad del número y el límite diario que reporta Meta.
 
-El estado de calidad de tu línea comercial se clasifica bajo tres colores de reputación:
-
-- **Verde (Calidad Alta):** El número de teléfono cumple con las políticas comerciales de Meta, los clientes muestran interés en las comunicaciones y el índice de reportes de spam o bloqueos por mensaje enviado es extremadamente bajo.
-- **Amarillo (Calidad Media):** Se identifica un incremento en el porcentaje de destinatarios que eliminan tus chats sin responder o los marcan como publicidad molesta. Es un indicador claro para segmentar mejor tus listas de contactos y optimizar el contenido.
-- **Rojo (Calidad Baja):** Tu número comercial ha superado la tasa permitida de quejas y bloqueos de usuarios. Al caer en esta categoría, Meta puede restringir el límite diario de envíos permitidos para tu número, reducir tu nivel de escalabilidad o suspender temporalmente tu cuenta publicitaria comercial.
+- **Verde (Calidad Alta):** cumples las políticas de Meta y el índice de reportes o bloqueos es bajo.
+- **Amarillo (Calidad Media):** aumentan los reportes o bloqueos. Es momento de segmentar mejor tus listas y revisar el contenido.
+- **Rojo (Calidad Baja):** tu número superó la tasa aceptable de quejas. Meta puede reducir tu límite de envíos o pausar las plantillas afectadas.
 
 ---
 
-## Modelos de Mensajes Homologados (Templates): Disparos y Código
+## Campañas en el Panel: La Forma Más Segura de Envío Masivo
 
-Para iniciar conversaciones comerciales con usuarios (mensajes activos), la API del WhatsApp Business requiere que se utilicen modelos de mensajes pre-aprobados (Message Templates) validados por Meta. Esto garantiza que la información promocional se mantenga dentro de las políticas de comercio de la plataforma.
+En los planes Team en adelante, una **campaña** envía una plantilla aprobada a muchos contactos a la vez, y el panel aplica varias protecciones:
 
-A continuación se muestra el código de Node.js que realiza un envío masivo de template promocional utilizando Axios y el endpoint provisional de StartMessaging:
+- **Audiencia:** contactos elegidos, segmentos por etiquetas o un archivo CSV de hasta 50,000 filas. Los contactos que se dieron de baja (opt-out) siempre se omiten y, en plantillas de marketing, también quienes desactivaron tus promociones en WhatsApp en los últimos 90 días.
+- **Revisión previa al envío:** muestra si tu número, tu cuenta y la plantilla pueden enviar, cuántas personas pueden recibirla hoy dentro de tu límite diario y una **estimación del cargo de Meta**, calculada con las tarifas publicadas por Meta para el país de cada destinatario.
+- **Programación y horario de silencio:** programa de 2 minutos a 60 días en adelante y define horas en que las campañas no envían; el envío espera y continúa solo cuando termina el horario.
+- **Aviso de espaciado:** el panel avisa si enviaste una campaña de marketing en las últimas 48 horas.
+- **Reporte de embudo:** enviados, entregados, leídos, toques en botones, respuestas, fallas y bajas.
+
+El plan Business agrega pruebas A/B, seguimientos, campañas recurrentes, segmentos por interacción, retargeting y conversiones. Desde la API, las campañas son de solo lectura: tu sistema lista campañas, lee resultados y recibe el webhook `campaign.completed`.
+
+---
+
+## Plantillas Homologadas (Templates): Envío desde la API
+
+Para iniciar conversaciones con usuarios, WhatsApp exige plantillas aprobadas por Meta. Las plantillas se crean en el panel (**Templates → Create template**) y Meta las revisa.
+
+Para enviar una plantilla a un cliente desde tu propio sistema, por ejemplo cuando ocurre un evento en tu tienda, usa `POST /api/v1/messages`. Este ejemplo llena dos variables y un botón de copiar cupón (`copy_code`, de hasta 15 caracteres):
 
 ```javascript
-const axios = require('axios');
-
 /**
- * Dispara una plantilla de mensaje promocional (Marketing) a un cliente registrado en México.
- * 
- * @param {string} toClientPhone - Celular del destinatario con código de país (ex: "525598765432")
- * @param {string} nameClient - Nombre personalizado del comprador
- * @param {string} codeCoupon - Cupón de descuento dinámico generado para el cliente
+ * Envía una plantilla promocional aprobada a un cliente con opt-in.
+ * @param {string} telefono - E.164, ej: "+525598765432"
  */
-async function dispararPlantillaPromocional(toClientPhone, nameClient, codeCoupon) {
-  // TODO: Actualizar al endpoint oficial de producción tan pronto como el soporte del WhatsApp esté liberado
-  const apiEndpointUrl = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: toClientPhone,
-    type: 'template',
-    template: {
-      name: 'buen_fin_descuentos',
-      language: {
-        code: 'es_MX'
+async function enviarPromocion(telefono, nombreCliente, cupon) {
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `buen-fin-${telefono}`,
+    },
+    body: JSON.stringify({
+      to: telefono,
+      type: 'template',
+      template: {
+        name: 'buen_fin_descuentos',
+        language: 'es_MX',
+        parameters: [{ text: nombreCliente }, { text: cupon }],
+        buttonParameters: [{ index: 0, subType: 'copy_code', couponCode: cupon }],
       },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            { type: 'text', text: nameClient },
-            { type: 'text', text: codeCoupon }
-          ]
-        }
-      ]
-    }
-  };
+      clientReference: 'campana-buen-fin',
+    }),
+  });
 
-  try {
-    const response = await axios.post(apiEndpointUrl, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log(`Mensaje de campaña enviado con éxito para ${nameClient}. ID: ${response.data.messageId}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error al enviar la campaña de broadcast por WhatsApp:', error.response ? error.response.data : error.message);
-    throw error;
+  const body = await res.json();
+  if (!res.ok) {
+    // Ej.: 422 CONTACT_OPTED_OUT cuando el cliente se dio de baja
+    throw new Error(`${body.error.code}: ${body.error.message}`);
   }
+  console.log(`Mensaje aceptado para ${nombreCliente}. ID: ${body.data.id}`);
+  return body.data;
 }
 
-// Ejemplo de disparo unitario simulando el recorrido de un bucle de contactos de tu base
-const celularDestino = '525598765432';
-const nombreUsuario = 'Sofía Ramírez';
-const cuponDesconto = 'BUENFIN10';
-
-dispararPlantillaPromocional(celularDestino, nombreUsuario, cuponDesconto);
+enviarPromocion('+525598765432', 'Sofía Ramírez', 'BUENFIN10');
 ```
 
-Este script de backend envía el payload correspondiente especificando el template a usar y sus variables, ejecutando la llamada mediante la autorización con la clave secreta `X-API-Key`.
+Los envíos a contactos dados de baja se rechazan con `422 CONTACT_OPTED_OUT`. Para enviar a una lista completa, usa mejor una campaña en el panel: omite las bajas, respeta el horario de silencio y muestra la estimación del costo antes de enviar.
 
 ---
 
 ## Cómo Construir una Base de Contactos con Consentimiento (Opt-in)
 
-La base de un canal de WhatsApp Marketing exitoso y de alta conversión reside en la calidad de tus listas de contactos. De acuerdo con la ley mexicana de protección de datos (LFPDPPP), la compra de bases de datos externas o la extracción masiva de directorios públicos está prohibida y expone a las empresas a multas graves del INAI.
+La base de un canal de WhatsApp Marketing exitoso está en la calidad de tus listas. De acuerdo con la ley mexicana de protección de datos (LFPDPPP), tratar datos sin el consentimiento del titular, como al comprar bases externas o extraer directorios, expone a las empresas a sanciones.
 
-Las principales metodologías para captar de forma orgánica la autorización de tus clientes son:
-
-- **Casilla de Selección en Checkout (Carrito de Compra):** Añade un selector específico e independiente en tu formulario de compra web (por ejemplo: "Deseo recibir ofertas y actualizaciones en mi número de WhatsApp").
-- **Estrategia de Código QR en Tienda Física:** Coloca displays con códigos QR en el mostrador o mesas de tus sucursales ofreciendo un beneficio inmediato (como un descuento de $100 MXN en su compra) al iniciar una conversación en WhatsApp.
-- **Formularios de Registro en Landing Pages:** Invita a tus visitantes a unirse a un club de preventas exclusivas a cambio de ingresar de forma voluntaria su número celular en tu sitio web.
+- **Casilla en el Checkout:** añade una casilla independiente y desmarcada por defecto (por ejemplo: "Deseo recibir ofertas y actualizaciones en mi número de WhatsApp").
+- **Código QR en Tienda Física:** coloca códigos QR en el mostrador o las mesas ofreciendo un beneficio al iniciar una conversación en WhatsApp.
+- **Formularios en Landing Pages:** invita a tus visitantes a unirse a un club de preventas a cambio de registrar voluntariamente su número.
 
 ---
 
 ## Frecuencia, Horarios Recomendados y Uso de Opt-out en México
 
-El consumidor mexicano en WhatsApp reacciona de forma favorable a las ofertas de valor, pero rechaza los mensajes recurrentes e intrusivos. Definir reglas claras de frecuencia y horario en tus sistemas de automatización protegerá la vida útil de tu número de atención.
+El consumidor mexicano reacciona bien a las ofertas de valor, pero rechaza los mensajes recurrentes e intrusivos.
 
-Las buenas prácticas comerciales de envío masivo son:
-
-- **Respetar los Horarios de Descanso:** No realices envíos masivos comerciales antes de las 10:00 AM ni después de las 7:00 PM. Mensajes recibidos en la noche o los fines de semana suelen generar mayores tasas de quejas y reportes por spam.
-- **Moderar la Frecuencia de Envío:** Limita tus campañas generales a un máximo de 1 o 2 envíos promocionales por semana para un mismo destinatario.
-- **Inserción Obligatoria de Opt-out:** Todo mensaje promocional debe finalizar ofreciendo una vía de salida clara para el cliente (por ejemplo: "Si prefieres no recibir más ofertas, responde con CANCELAR"). Tu sistema debe capturar esta respuesta a través de webhooks y remover de inmediato el contacto de las listas activas de disparo para cumplir con las regulaciones de la LFPDPPP.
+- **Respetar los Horarios de Descanso:** no envíes marketing antes de las 10:00 ni después de las 19:00. Configura el **horario de silencio** en **Settings → Campaigns → Quiet hours** para que ninguna campaña salga de noche.
+- **Moderar la Frecuencia:** espacia las campañas de marketing al menos 48 horas y limita a 1 o 2 promociones por semana por destinatario.
+- **Opt-out Claro:** StartMessaging registra la baja automáticamente cuando el cliente envía una de las palabras **STOP**, **UNSUBSCRIBE**, **OPT OUT**, **OPTOUT** o **CANCEL** (el mensaje completo debe ser la palabra). Palabras en español como "BAJA" o "CANCELAR" no se reconocen automáticamente: si las ofreces, detéctalas en el webhook `message.received` y registra la baja con `PATCH /api/v1/contacts/{idOrPhone}` y `optedIn: false`, o indica al pie "Responde STOP para no recibir más ofertas".
 
 ---
 
@@ -144,20 +132,20 @@ Las buenas prácticas comerciales de envío masivo son:
 
 **Q: ¿Cuánto cobra Meta por el envío de mensajes promocionales en México?**
 
-A: Meta aplica un esquema de tarifas basado en conversaciones de 24 horas y el costo varía según la categoría del template. En México, las conversaciones de la categoría de "Marketing" (promociones) son las que tienen la tarifa más alta de la plataforma y su valor promedio oscila entre $0.60 y $0.80 MXN por sesión iniciada por el negocio.
+A: Desde el 1 de octubre de 2026, Meta cobra **por plantilla entregada**, ya no por conversación de 24 horas. Cada plantilla entregada se cobra (marketing, utilidad, incluso dentro de la ventana de 24 horas, y autenticación), con tarifas que varían por país y categoría. Meta cobra directamente al método de pago de tu cuenta de WhatsApp Business; StartMessaging no cobra por mensaje, solo la suscripción del plan. Consulta las tarifas vigentes para México en la [página oficial de precios de Meta](https://developers.facebook.com/docs/whatsapp/pricing); la revisión previa de cada campaña muestra una estimación.
 
-**Q: ¿Puedo realizar disparos masivos utilizando números locales tradicionales de 10 dígitos?**
+**Q: ¿Puedo realizar envíos masivos con números locales de 10 dígitos?**
 
-A: Sí. La API de WhatsApp empresarial admite el registro de líneas de 10 dígitos (números fijos y celulares convencionales de México). Durante el proceso de validación en la consola de Meta, deberás seleccionar la recepción del código de verificación mediante llamada telefónica o SMS.
+A: Sí. Puedes conectar un número fijo o celular mexicano siempre que pueda recibir el código de verificación de Meta por SMS o llamada. En tus listas, guarda los números de tus clientes como `+52` seguido de los 10 dígitos.
 
-**Q: ¿Existe un número máximo de personas a las que puedo enviar un broadcast por día?**
+**Q: ¿Existe un número máximo de personas a las que puedo enviar por día?**
 
-A: Sí, de acuerdo con los límites diarios de envío (sending limits) administrados de forma automática por Meta. Las cuentas de WhatsApp Business nuevas inician en el Nivel 1, con un límite de envío a 1,000 clientes únicos en un periodo de 24 horas. Este límite incrementa automáticamente a 10,000, 100,000 e ilimitado conforme realices disparos de alta calidad.
+A: Sí. Meta limita cuántos clientes únicos puede contactar tu negocio en 24 horas continuas, un límite compartido por todos los números del negocio, y lo aumenta conforme envías con buena calidad. La página Connect muestra tu límite actual ("Daily conversation limit") y la revisión previa estima cuántas personas pueden recibir la campaña hoy. Los niveles y reglas vigentes están en la documentación de Meta.
 
-**Q: ¿Qué pasa si muchos usuarios reportan mis campañas de WhatsApp masivas como spam?**
+**Q: ¿Qué pasa si muchos usuarios reportan mis campañas como spam?**
 
-A: El estatus de calidad de tu número telefónico (Quality Rating) caerá rápidamente de Verde a Amarillo y finalmente a Rojo. Si tu número de teléfono permanece en calidad roja por mucho tiempo, Meta puede degradar tus límites de mensajería al nivel inferior, bloquear temporalmente el envío de plantillas nuevas o suspender la cuenta publicitaria comercial de tu marca.
+A: La calidad de tu número caerá de Verde a Amarillo y finalmente a Rojo. Si permanece en rojo, Meta puede reducir tu límite de envíos o pausar las plantillas más reportadas; si Meta pausa la plantilla de una campaña, StartMessaging pausa también la campaña.
 
 ---
 
-El envío masivo promocional a través del WhatsApp Business API oficial es una herramienta de marketing efectiva que impulsa la interacción de tus clientes en México, siempre que se sigan las reglas de templates aprobados, calidad de número y consentimiento de datos. Al respetar la frecuencia de envíos y ofrecer opciones fáciles de opt-out, proteges la reputación de tu línea comercial de bloqueos. Para programar el procesamiento de cancelaciones de tus clientes y capturar estados de entrega en tu servidor, consulta nuestra documentación técnica sobre [cómo configurar webhooks de WhatsApp](/mx/docs/whatsapp/webhooks) e inicia tus desarrollos.
+El envío masivo a través de la plataforma oficial de WhatsApp impulsa la interacción con tus clientes en México, siempre que uses plantillas aprobadas, cuides la calidad del número y respetes el consentimiento. Conoce las [campañas de WhatsApp](/mx/whatsapp/campaigns), lee la [documentación de campañas](/mx/docs/whatsapp/campaigns) y configura los [webhooks](/mx/docs/whatsapp/webhooks) para seguir entregas y bajas en tiempo real. Planes y precios en [precios](/mx/pricing).

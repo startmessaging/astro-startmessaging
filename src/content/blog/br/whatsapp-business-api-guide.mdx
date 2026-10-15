@@ -1,8 +1,8 @@
 ---
 title: "O Guia Completo da API WhatsApp Business"
-description: "Tudo o que você precisa saber para começar a enviar mensagens WhatsApp programaticamente — da configuração ao primeiro envio em massa."
+description: "Tudo o que você precisa saber para enviar mensagens WhatsApp pela API oficial: conexão da conta, modelos, preços da Meta por mensagem e o primeiro envio."
 publishedAt: "2026-05-01"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "br"
 author: "StartMessaging Team"
@@ -23,7 +23,7 @@ featured: true
 
 No competitivo mercado de tecnologia e e-commerce brasileiro, estabelecer canais ágeis e eficientes de comunicação com o cliente final é uma necessidade básica de sobrevivência. O aplicativo de mensagens WhatsApp tornou-se o centro das interações cotidianas dos consumidores no Brasil, registrando taxas de leitura e engajamento que superam amplamente os canais de e-mail e ligações telefônicas. No entanto, para médias e grandes empresas que lidam com milhares de contatos diariamente, o aplicativo celular gratuito é limitado. É aqui que entra a api whatsapp business brasil oficial, permitindo automações programáticas, conexões multiagentes e integrações diretas com CRMs e helpdesks.
 
-A API do StartMessaging para o WhatsApp está atualmente em fase ativa de desenvolvimento interno pela nossa equipe de engenharia. Enquanto as rotas dedicadas de produção estão sendo finalizadas para lançamento oficial em breve, você já pode estruturar suas conexões de teste e criar seus protótipos de chatbot direcionando suas requisições HTTP para o endpoint provisório `/v1/messages`. O acesso de desenvolvedor é autenticado por meio do cabeçalho HTTP personalizado `X-API-Key`, fornecendo a mesma simplicidade operacional adotada nas nossas integrações globais.
+A StartMessaging é um CRM de WhatsApp com API, construído sobre a Cloud API oficial da Meta (a StartMessaging é uma Meta Tech Provider). Você conecta a sua própria Conta do WhatsApp Business (WABA) pelo Cadastro Incorporado da Meta, e o seu sistema envia mensagens pela API REST em `https://waba-api.startmessaging.com/api/v1`, autenticada com `Authorization: Bearer sm_live_...`, e recebe respostas e recibos por webhooks assinados.
 
 ---
 
@@ -42,11 +42,11 @@ Essa arquitetura traz grandes vantagens para a sua operação de suporte e venda
 
 ## Como a API WhatsApp Business Funciona na Prática
 
-No nível técnico, a integração funciona por meio de requisições web baseadas no protocolo REST. Toda vez que seu sistema (como sua loja virtual ou seu CRM) precisa enviar uma atualização para um cliente, ele faz uma chamada HTTP POST direcionada para os servidores da API Gateway do StartMessaging.
+No nível técnico, a integração funciona por meio de requisições web baseadas no protocolo REST. Toda vez que seu sistema (como sua loja virtual ou seu CRM) precisa enviar uma atualização para um cliente, ele faz uma chamada `POST /api/v1/messages` para a API da StartMessaging.
 
-Nossa infraestrutura recebe o payload JSON estruturado, valida as permissões e o formato de telefone do destinatário, realiza a autenticação do seu token por meio do cabeçalho `X-API-Key` e encaminha a mensagem para a rede da Meta, que a entrega instantaneamente na tela do aplicativo de mensagens do cliente.
+A API valida a chave enviada no cabeçalho `Authorization: Bearer sm_live_...` e os escopos dela, confere o número do destinatário e o modelo, e entrega a mensagem à Cloud API da Meta, que a leva até o celular do cliente. A resposta `201` traz o `id` da mensagem.
 
-A comunicação inversa (respostas enviadas pelo cliente ou status de leitura da mensagem) é entregue para o seu sistema em tempo real por meio de **webhooks**. O seu servidor deve expor uma rota POST pública para escutar esses eventos e atualizar os históricos em seu banco de dados ou acionar as lógicas correspondentes no seu chatbot.
+A comunicação inversa (respostas enviadas pelo cliente ou status de leitura da mensagem) é entregue para o seu sistema em tempo real por meio de **webhooks**. O seu servidor expõe uma rota POST pública em `https`, cadastrada em **Developers → Webhooks**, verifica a assinatura `X-SM-Signature` de cada entrega e trata eventos como `message.received`, `message.delivered`, `message.read` e `message.failed`.
 
 ---
 
@@ -56,11 +56,11 @@ Para evitar o spam na plataforma e assegurar uma boa experiência de uso, a Meta
 
 Os modelos de mensagens comerciais do WhatsApp são divididos em três categorias de precificação:
 
-* **Utilidade (Utility):** Mensagens transacionais cruciais para o cliente final, como confirmações de pedidos de compras, atualizações logísticas de transporte, faturas de cobrança ou alertas de manutenção de serviço. Apresentam custos unitários reduzidos.
+* **Utilidade (Utility):** Mensagens transacionais cruciais para o cliente final, como confirmações de pedidos de compras, atualizações logísticas de transporte, faturas de cobrança ou alertas de manutenção de serviço.
 * **Autenticação (Authentication):** Modelos estritos de uso único contendo códigos de segurança, validações de acesso ou senhas temporárias.
-* **Marketing:** Mensagens contendo novidades, ofertas especiais, cupons de desconto, convites para eventos ou qualquer mensagem de reengajamento comercial que não se enquadre nas categorias transacionais. Possuem o custo unitário mais alto da plataforma.
+* **Marketing:** Mensagens contendo novidades, ofertas especiais, cupons de desconto, convites para eventos ou qualquer mensagem de reengajamento comercial que não se enquadre nas categorias transacionais.
 
-Assim que o destinatário lê e responde a uma das mensagens enviadas pela empresa, uma **janela de sessão de 24 horas** é aberta. Durante esse período de atendimento, a empresa pode enviar mensagens de texto livre para o usuário sem custos adicionais por disparo individual.
+Sempre que o cliente envia uma mensagem para a empresa, abre-se uma **janela de atendimento de 24 horas**. Dentro dela, a empresa pode enviar mensagens de texto livre, mídia e mensagens interativas; fora dela, só modelos aprovados. Desde 1º de outubro de 2026, a Meta cobra **por mensagem entregue**: todo modelo entregue é cobrado (marketing, utilidade, mesmo dentro da janela, e autenticação), e as respostas de atendimento dentro da janela são gratuitas até uma cota mensal por número de telefone.
 
 ---
 
@@ -68,89 +68,72 @@ Assim que o destinatário lê e responde a uma das mensagens enviadas pela empre
 
 Para disparar atualizações ativas para os seus usuários, o backend do seu software deve encaminhar requisições em formato JSON contendo o número internacional e as variáveis do modelo pré-aprovado.
 
-O script em Node.js usando o módulo do Axios ilustra como configurar esse envio transacional utilizando a rota provisória do StartMessaging e autenticação via cabeçalho `X-API-Key`:
+O exemplo em Node.js abaixo envia um modelo de utilidade com uma variável no corpo e um botão de link com variável (o código de rastreio):
 
 ```javascript
-const axios = require('axios');
-
 /**
- * Envia uma notificação transacional contendo dados de rastreio de pedido.
- * 
- * @param {string} telefoneDestino - Telefone do cliente com DDI e DDD (ex: "5511999990000")
- * @param {string} nomeCliente - Nome do destinatário da mensagem
- * @param {string} linkRastreio - Código de rastreamento da mercadoria
+ * Envia uma notificação de entrega com link de rastreio.
+ * @param {string} telefoneDestino - E.164, ex: "+5511999990000"
  */
-async function enviarMensagemTransacional(telefoneDestino, nomeCliente, linkRastreio) {
-  // TODO: Atualizar para o endpoint de produção oficial assim que o suporte definitivo ao WhatsApp for lançado
-  const apiEndpoint = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: telefoneDestino,
-    type: 'template',
-    template: {
-      name: 'atualizacao_entrega_pedido',
-      language: {
-        code: 'pt_BR'
+async function enviarMensagemTransacional(telefoneDestino, nomeCliente, codigoRastreio) {
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `rastreio-${codigoRastreio}`,
+    },
+    body: JSON.stringify({
+      to: telefoneDestino,
+      type: 'template',
+      template: {
+        name: 'atualizacao_entrega_pedido',
+        language: 'pt_BR',
+        parameters: [{ text: nomeCliente }],
+        // O botão de link termina com uma variável: aqui vai só o final da URL
+        buttonParameters: [{ index: 0, subType: 'url', text: codigoRastreio }],
       },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            { type: 'text', text: nomeCliente }
-          ]
-        },
-        {
-          type: 'button',
-          index: '0',
-          sub_type: 'url',
-          parameters: [
-            { type: 'text', text: linkRastreio.replace('https://startmessaging.com/rastreio/', '') }
-          ]
-        }
-      ]
-    }
-  };
+      clientReference: `rastreio-${codigoRastreio}`,
+    }),
+  });
 
-  try {
-    const response = await axios.post(apiEndpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log('Template de notificação enviado! ID da transação:', response.data.messageId);
-    return response.data;
-  } catch (error) {
-    console.error('Falha ao acionar chamada da API:', error.response ? error.response.data : error.message);
-    throw error;
-  }
+  const body = await res.json();
+  if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+  console.log('Modelo aceito pelo WhatsApp. ID:', body.data.id);
+  return body.data;
 }
 
-// Execução prática simulada do fluxo logístico de envio
-const celularCliente = '5511999990000';
-const nomeComprador = 'Carlos Souza';
-const linkEntrega = 'https://startmessaging.com/rastreio/AB123456789BR';
-
-enviarMensagemTransacional(celularCliente, nomeComprador, linkEntrega);
+enviarMensagemTransacional('+5511999990000', 'Carlos Souza', 'AB123456789BR');
 ```
 
-Este código configura o payload com a estrutura de componentes exigida pelo WhatsApp Business API para preencher as variáveis do modelo e o botão dinâmico de link direto. Lembre-se de configurar a sua chave do StartMessaging na variável de ambiente `STARTMESSAGING_API_KEY` para autenticar a chamada.
+O modelo é criado e aprovado no painel; na chamada, você só informa o nome, o idioma e os valores das variáveis. Guarde a chave na variável de ambiente `SM_API_KEY` e nunca a coloque no código do navegador ou do app.
 
 ---
 
 ## Configuração e Escalabilidade com a StartMessaging
 
-Para realizar integrações definitivas de alto volume de mensagens, você deve homologar sua empresa no console administrativo e vincular seu número comercial de atendimento de forma definitiva.
+Na StartMessaging, a configuração é feita no painel, sem criar apps no console de desenvolvedores da Meta:
 
-O fluxo de configuração envolve as seguintes etapas:
+1. **Abertura do workspace:** [fale com nosso time de vendas](/br/contact) e nós abrimos o seu workspace, com um teste grátis de 14 dias do plano Business.
+2. **Conexão com a Meta:** em **Connect**, clique em **Connect with Facebook** e, no Cadastro Incorporado da Meta, escolha ou crie o portfólio empresarial, a Conta do WhatsApp Business e o número.
+3. **Validação do Telefone:** verifique o número com o código que a Meta envia por SMS ou ligação e defina o PIN de 6 dígitos de verificação em duas etapas.
+4. **Forma de Pagamento na Meta:** cadastre um cartão no Gerenciador do WhatsApp. A Meta exige isso antes do primeiro envio de modelo e cobra as mensagens diretamente nele.
+5. **Chave de API e Webhooks:** crie a chave em **Developers → API keys** e cadastre a URL do seu servidor em **Developers → Webhooks**.
 
-1. **Cadastro de Conta:** Acesse o site do StartMessaging e crie seu perfil de desenvolvedor corporativo.
-2. **Homologação na Meta:** Vincule a sua conta comercial do Facebook Business Manager e siga o procedimento de verificação da identidade jurídica da marca.
-3. **Validação do Telefone:** Cadastre o número corporativo livre de outras contas ativas do WhatsApp e valide a posse da linha por ligação ou SMS.
-4. **Definição de Webhooks:** Registre a URL do seu servidor para monitorar logs de entrega, status de mensagens enviadas e processar mensagens recebidas de novos clientes.
+Depois disso, o volume diário de envios da sua marca cresce conforme a Meta avalia a qualidade das mensagens enviadas. A página Connect mostra o limite diário e a qualidade do número.
 
-Uma vez concluída a homologação técnica, o volume diário de envios da sua marca escalará gradativamente conforme o sistema de reputação da Meta avaliar o engajamento e a qualidade das mensagens enviadas aos usuários.
+### Planos da StartMessaging
+
+A StartMessaging cobra só a assinatura, sem taxa por mensagem. Os preços são em rúpias indianas (INR), com GST incluído, e a cobrança é feita apenas em INR:
+
+| Plano | Preço | Para quem |
+|---|---|---|
+| **Developer** | Grátis (100 mensagens de API/mês) ou ₹100, ₹499 e ₹999/mês para 1.000, 10.000 e 100.000 mensagens | Apps que só precisam da API e dos webhooks, com painel somente leitura |
+| **Team** | ₹999/mês (ou ₹9.990/ano) | Equipes que atendem: caixa de entrada compartilhada, contatos, campanhas, respostas automáticas e mensagens interativas |
+| **Business** | ₹2.999/mês (ou ₹29.990/ano) | Automação: fluxos de chatbot, WhatsApp Forms, funil de vendas, conversões e análises de agentes |
+| **Enterprise** | Sob contrato | 25 pessoas ou mais |
+
+Detalhes em [preços](/br/pricing).
 
 ---
 
@@ -158,11 +141,11 @@ Uma vez concluída a homologação técnica, o volume diário de envios da sua m
 
 **Q: Qual a diferença prática de custos entre os planos de mensagens no Brasil?**
 
-A: Os preços cobrados por sessão de 24 horas são definidos pela Meta e variam de acordo com a categoria do template (Marketing, Utilidade ou Autenticação). No Brasil, as mensagens da categoria Utilidade apresentam taxas mais baixas que as mensagens da categoria Marketing. As primeiras 1.000 sessões de atendimento (iniciadas por usuários) de cada conta mensalmente são totalmente isentas de cobranças.
+A: A Meta cobra por mensagem entregue, com tarifas que variam por país e categoria (Marketing, Utilidade ou Autenticação). Desde 1º de outubro de 2026, todo modelo entregue é cobrado, inclusive os de utilidade dentro da janela de 24 horas. Respostas de atendimento dentro da janela são gratuitas até uma cota mensal por número, e quem chega por um anúncio de clique para WhatsApp ou pelo botão de uma Página do Facebook abre uma janela de ponto de entrada gratuito de 72 horas quando você responde em até 24 horas. A Meta cobra diretamente na sua Conta do WhatsApp Business; consulte as tarifas na [página oficial de preços da Meta](https://developers.facebook.com/docs/whatsapp/pricing). A StartMessaging cobra apenas o plano.
 
 **Q: O uso de bots integrados à API oficial do WhatsApp pode causar banimento de número?**
 
-A: Não, desde que as interações respeitem as políticas de privacidade do WhatsApp e a LGPD. O banimento automático de números ocorre quando marcas utilizam automações de disparos informais de spam, emuladores de celular ou ferramentas não homologadas pela Meta. O canal oficial da API do StartMessaging foi desenvolvido para suportar conexões de alta frequência com segurança jurídica.
+A: Não, desde que as interações respeitem as políticas de privacidade do WhatsApp e a LGPD. O banimento automático de números ocorre quando marcas utilizam automações de disparos informais de spam, emuladores de celular ou ferramentas não homologadas pela Meta. A StartMessaging usa a Cloud API oficial da Meta; mesmo assim, a qualidade do número depende de enviar só a quem deu opt-in e de respeitar os pedidos de saída.
 
 **Q: Posso alterar o texto ou layout de um template promocional após ele ser aprovado?**
 
@@ -170,8 +153,8 @@ A: Não diretamente. Uma vez que o Message Template foi analisado e aprovado pel
 
 **Q: Como gerenciar a transferência do chatbot para um operador humano?**
 
-A: Toda vez que o bot não puder resolver o chamado do cliente ou o usuário solicitar falar com um atendente, o seu sistema deve disparar um evento webhook que transfere a conversa para a fila de atendimento da sua plataforma de helpdesk (como Zendesk ou Freshdesk). Com isso, o operador assume a conversa, tendo acesso imediato a todo o histórico de interações anteriores.
+A: Nos planos Team e acima, as conversas aparecem na caixa de entrada compartilhada. Um fluxo de chatbot (plano Business) tem a etapa "atribuir agente", e um bot próprio pode atribuir a conversa com `PATCH /api/v1/conversations/{id}` e `assignedToUserId`. O atendente vê todo o histórico, as tags e os campos do contato. Se a sua equipe usa um helpdesk externo (como Zendesk ou Freshdesk), abra o chamado a partir do webhook `message.received`.
 
 ---
 
-Configurar e integrar a API oficial do WhatsApp Business otimiza o atendimento, diminui o tempo de espera do cliente e aumenta a taxa de conversão da sua marca. Ao respeitar as regras de templates, bases de dados (opt-in) e autenticação com `X-API-Key`, a operação da sua empresa ganha escala com total segurança técnica. Para configurar e validar a resposta técnica de seus servidores aos status da API, confira nosso tutorial sobre [configuração de webhooks do WhatsApp](/br/docs/whatsapp/webhooks) e integre seus fluxos.
+Configurar e integrar a API oficial do WhatsApp Business otimiza o atendimento, diminui o tempo de espera do cliente e aumenta a taxa de conversão da sua marca. Para começar, siga o guia de [primeiros passos](/br/docs/whatsapp/getting-started), configure os [webhooks do WhatsApp](/br/docs/whatsapp/webhooks) ou [fale com nosso time de vendas](/br/contact).
