@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-12",
   "seo": {
     "title": {
       "en": "WhatsApp & SMS Notifications Use Case — StartMessaging",
@@ -601,6 +601,24 @@
           },
           {
             "question": {
+              "en": "What does Meta charge for a WhatsApp notification?",
+              "pt": "Quanto a Meta cobra por uma notificação no WhatsApp?",
+              "es": "¿Cuánto cobra Meta por una notificación de WhatsApp?",
+              "id": "Berapa biaya dari Meta untuk notifikasi WhatsApp?",
+              "ar": "كم تحتسب Meta على إشعار واتساب؟",
+              "tr": "Meta bir WhatsApp bildirimi için ne kadar ücret alır?"
+            },
+            "answer": {
+              "en": "Meta charges every delivered utility template at its utility rate, billed directly to your own WhatsApp Business Account. Since 1 October 2026 that includes utility templates sent while the customer’s 24-hour window is open, which used to be free. StartMessaging adds nothing per message, and each message’s pricing field shows the category Meta charged it under.",
+              "pt": "A Meta cobra todo template de utilidade entregue pela tarifa de utilidade, diretamente na sua própria Conta do WhatsApp Business. Desde 1º de outubro de 2026, isso inclui os templates de utilidade enviados enquanto a janela de 24 horas do cliente está aberta, que antes eram grátis. A StartMessaging não acrescenta nada por mensagem, e o campo pricing de cada mensagem mostra a categoria em que a Meta a cobrou.",
+              "es": "Meta cobra cada plantilla de utilidad entregada según su tarifa de utilidad, directamente a su propia Cuenta de WhatsApp Business. Desde el 1 de octubre de 2026 esto incluye las plantillas de utilidad enviadas mientras la ventana de 24 horas del cliente está abierta, que antes eran gratis. StartMessaging no añade nada por mensaje, y el campo pricing de cada mensaje muestra la categoría con la que Meta lo cobró.",
+              "id": "Meta menagih setiap template utilitas yang terkirim dengan tarif utilitas, langsung ke Akun WhatsApp Business milik Anda. Sejak 1 Oktober 2026, ini termasuk template utilitas yang dikirim saat jendela 24 jam pelanggan masih terbuka, yang sebelumnya gratis. StartMessaging tidak menambahkan biaya per pesan, dan kolom pricing pada setiap pesan menunjukkan kategori yang dipakai Meta untuk menagihnya.",
+              "ar": "تحتسب Meta كل قالب خدمات (utility) يتم تسليمه بسعر فئة الخدمات، مباشرة على حساب واتساب للأعمال الخاص بك. ومنذ 1 أكتوبر 2026 يشمل ذلك قوالب الخدمات المرسلة أثناء فتح نافذة الـ24 ساعة لدى العميل، والتي كانت مجانية من قبل. لا يضيف StartMessaging أي رسوم على الرسالة، ويُظهر الحقل pricing في كل رسالة الفئة التي احتسبتها Meta بموجبها.",
+              "tr": "Meta, teslim edilen her yardımcı (utility) şablonu kendi yardımcı ücretiyle doğrudan kendi WhatsApp Business Hesabınıza fatura eder. 1 Ekim 2026’dan beri buna, müşterinin 24 saatlik penceresi açıkken gönderilen ve önceden ücretsiz olan yardımcı şablonlar da dahildir. StartMessaging mesaj başına hiçbir ücret eklemez; her mesajın pricing alanı Meta’nın onu hangi kategoride ücretlendirdiğini gösterir."
+            }
+          },
+          {
+            "question": {
               "en": "How do I know if a notification was not delivered?",
               "pt": "Como sei se uma notificação não foi entregue?",
               "es": "¿Cómo sé si una notificación no se entregó?",
@@ -716,12 +734,12 @@
           "ng": "Upgrade Your Notifications"
         },
         "subtext": {
-          "en": "Start with a 14-day free trial of every feature.",
-          "pt": "Comece com um teste grátis de 14 dias com todos os recursos.",
-          "es": "Comience con una prueba gratuita de 14 días con todas las funciones.",
-          "id": "Mulai dengan uji coba gratis 14 hari untuk semua fitur.",
-          "ar": "ابدأ بتجربة مجانية لمدة 14 يوماً لجميع الميزات.",
-          "tr": "Tüm özellikleri içeren 14 günlük ücretsiz denemeyle başlayın."
+          "en": "Start with a 14-day WhatsApp free trial with every Business plan feature.",
+          "pt": "Comece com um teste grátis de 14 dias do WhatsApp com todos os recursos do plano Business.",
+          "es": "Comience con una prueba gratuita de WhatsApp de 14 días con todas las funciones del plan Business.",
+          "id": "Mulai dengan uji coba gratis WhatsApp 14 hari dengan semua fitur paket Business.",
+          "ar": "ابدأ بتجربة واتساب مجانية لمدة 14 يوماً بكل ميزات باقة Business.",
+          "tr": "Business paketinin tüm özelliklerini içeren 14 günlük ücretsiz WhatsApp denemesiyle başlayın."
         },
         "primaryCta": {
           "en": "Start free trial",

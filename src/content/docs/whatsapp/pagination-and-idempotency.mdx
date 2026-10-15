@@ -2,7 +2,7 @@
 title: "Pagination & Idempotency"
 description: "Response envelopes, cursor-based pagination, incremental sync with updatedSince, and safe retries with the Idempotency-Key header in the StartMessaging WhatsApp API."
 product: whatsapp
-order: 9
+order: 10
 ---
 
 This page covers the conventions every endpoint shares: the response envelope, how lists are paged, how to sync changes incrementally, and how to retry a write without doing it twice.
@@ -31,9 +31,11 @@ Errors use a different envelope, with a machine-readable `error.code`:
     "message": "…",
     "details": { "status": "PENDING" }
   },
-  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z" }
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z", "path": "/api/v1/messages" }
 }
 ```
+
+An error's `meta` also carries `path`, the route that was called (without its query string). A successful response's `meta` has only `requestId` and `timestamp`.
 
 Branch on `error.code`, never on `message`: messages are for humans and may change. Log `meta.requestId` with every call; it identifies the request in **Developers → Logs** and when you contact support. See [Errors & Limits](/docs/whatsapp/errors-and-limits) for every code.
 
@@ -111,7 +113,7 @@ def list_all(path, **params):
 
 ## Incremental sync with updatedSince
 
-`GET /contacts` and `GET /conversations` accept `updatedSince` (an ISO 8601 timestamp). The list then returns only what changed at or after that instant, **oldest change first** (by `updatedAt`, then `id`). Use it to keep your own database in sync without re-reading everything.
+`GET /contacts` and `GET /conversations` accept `updatedSince`: an ISO 8601 date (`2026-10-01`, read as midnight UTC) or a date-time with a time zone (`2026-10-01T10:00:00Z` or `2026-10-01T15:30:00+05:30`). A date-time without a zone is `400 VALIDATION_ERROR`. The list then returns only what changed at or after that instant, **oldest change first** (by `updatedAt`, then `id`). Use it to keep your own database in sync without re-reading everything.
 
 1. **First sync:** pass an `updatedSince` from before the workspace existed, for example `2020-01-01T00:00:00Z`.
 2. **Process rows in order** and upsert them by `id`.
@@ -193,12 +195,13 @@ Some outcomes mean "try again", so they **release** the key and a retry with the
 | Outcome | Key |
 |---|---|
 | `400` validation errors (including `WABA_NOT_CONNECTED`) | Released: fix the problem and retry with the same key |
-| `402` payment or subscription errors | Released |
+| `402` payment, subscription or monthly message allowance errors (including `PLAN_MESSAGE_LIMIT_REACHED`) | Released |
 | `409` conflicts | Released |
 | `429` rate limited | Released: wait for `Retry-After`, then retry |
 | `5xx`, including `502 WABA_CONNECT_FAILED` | Released: retry later with the same key |
 | `2xx` success | Stored and replayed |
-| `403`, `404`, `422` | Stored and replayed: the same request fails the same way |
+| `403`, `404`, `422` from the request itself | Stored and replayed: the same request fails the same way |
+| `403` and `404` from the access checks that run first (`INSUFFICIENT_SCOPE`, `PLAN_FEATURE_REQUIRED` for the API itself, the team inbox or the sales pipeline, `WORKSPACE_NOT_FOUND`) | Not claimed: the key is never taken, so a retry after you fix the key or plan runs for real |
 
 One window can't be closed: if a `502` or a server crash happens after WhatsApp accepted the message but before the result was stored, a retry with the same key can send again. A claim held by a request that stopped mid-way expires after 60 seconds.
 
@@ -237,7 +240,7 @@ Both are yours to choose, and they do different jobs:
 | Purpose | Make retries safe: never send twice | Match messages and receipts to your own records |
 | Format | 1 to 255 printable ASCII, no spaces | 1 to 256 printable ASCII, spaces allowed (not only spaces) |
 | Lifetime | 24 hours | Stored with the message |
-| Comes back on | The replayed response (`Idempotent-Replayed: true`) | The send response, `GET /messages/{id}`, conversation message lists and every `message.*` webhook |
+| Comes back on | The replayed response (`Idempotent-Replayed: true`) | The send response, `GET /messages/{id}`, conversation message lists and the `message.sent`, `message.delivered`, `message.read` and `message.failed` webhooks. `message.received` has none of its own; a customer's reply carries the replied-to message's as `context.clientReference`. |
 | Two sends with the same value | Second one is replayed, not sent | Two separate messages |
 
 Use both: `Idempotency-Key: order-10421-shipped` to protect the send, and `clientReference: "order-10421"` so the `message.delivered` webhook tells you which order it was about.

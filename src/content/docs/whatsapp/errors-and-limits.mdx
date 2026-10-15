@@ -2,7 +2,7 @@
 title: "Errors & Limits"
 description: "StartMessaging WhatsApp API error codes by HTTP status, how Meta's refusals map to them, when to retry, rate limits per plan, RateLimit headers, and message and template size limits."
 product: whatsapp
-order: 10
+order: 11
 ---
 
 ## Error format
@@ -17,7 +17,7 @@ Every error has the same shape:
     "message": "The template is not approved.",
     "details": { "status": "PENDING" }
   },
-  "meta": { "requestId": "...", "timestamp": "2026-10-02T10:00:00.000Z" }
+  "meta": { "requestId": "...", "timestamp": "2026-10-02T10:00:00.000Z", "path": "/api/v1/messages" }
 }
 ```
 
@@ -25,7 +25,7 @@ Every error has the same shape:
 - `details` adds structured context for some codes (listed below).
 - Quote `meta.requestId` when you contact support. Your recent requests are also in **Developers → Logs** (the last 500 requests from the past 7 days).
 
-Successful responses use `{ "data": ..., "meta": ... }`.
+An error's `meta` also has `path`, the request path without its query string. Successful responses use `{ "data": ..., "meta": ... }`, where `meta` has only `requestId` and `timestamp`.
 
 ## Error codes
 
@@ -41,7 +41,7 @@ Each route's own list of codes is in the [API Reference](/docs/whatsapp/api-refe
 | `MOBILE_INVALID` | The phone number is not a valid number. |
 | `MOBILE_COUNTRY_UNRESOLVED` | The number is valid but belongs to no country (a satellite or other non-geographic number). |
 | `WABA_NOT_CONNECTED` | No WhatsApp number is connected, the connection's token expired or lost a permission, or the sending number is no longer registered. Reconnect in the dashboard. |
-| `BAD_REQUEST` | The body is not valid JSON, or the path has a broken `%` escape. |
+| `BAD_REQUEST` | The body is not valid JSON or could not be read (for example it ended early), or the path has a broken `%` escape. |
 
 ### 401 Unauthorized
 
@@ -53,14 +53,17 @@ Each route's own list of codes is in the [API Reference](/docs/whatsapp/api-refe
 
 | Code | Meaning |
 |---|---|
-| `SUBSCRIPTION_REQUIRED` | Your trial or subscription ended. Writes are refused; reads still work. |
+| `SUBSCRIPTION_REQUIRED` | The workspace is read-only. Razorpay gave up retrying a failed renewal, so the workspace keeps its old plan but every write, sends included, is refused until billing is fixed in the dashboard. Reads still work. The same code is also answered for the few minutes between a trial or cancelled subscription ending and the workspace moving to Developer Free. |
+| `PLAN_MESSAGE_LIMIT_REACHED` | This month's API message allowance is used up. `details` has `limit`, `stopAt`, `sent`, `period` and `resetsAt`. See [Monthly API message allowance](#monthly-api-message-allowance). |
 | `META_PAYMENT_REQUIRED` / `META_BILLING_ERROR` | WhatsApp could not bill the payment method on **your own** WhatsApp Business Account. Fix it in WhatsApp Manager. This is never a StartMessaging charge. |
+
+A workspace whose trial ends, whose subscription is cancelled or ends, or whose checkout was never finished is not locked: it moves to **Developer Free**, and the API keeps working within that plan's limits. A failed renewal first goes to past due and stays writable while Razorpay retries.
 
 ### 403 Forbidden
 
 | Code | Meaning |
 |---|---|
-| `PLAN_FEATURE_REQUIRED` | Your plan lacks the developer API, or a route's extra feature (for example the team inbox for `/conversations`, or interactive messages). |
+| `PLAN_FEATURE_REQUIRED` | Your plan lacks the developer API, or a route's extra feature (for example the team inbox for `PATCH /conversations/{id}`, interactive messages, or the sales pipeline for `POST /conversions`). |
 | `PLAN_LIMIT_REACHED` | A plan cap is full. `details` has `limit` and `max`. `max_contacts`: a send to a number that is not a contact yet, or `POST /contacts` for a new one. `max_api_webhooks`: `POST /webhooks`. Delete what you no longer need or upgrade; retrying will not help. |
 | `INSUFFICIENT_SCOPE` | The key lacks the route's scope. `details` has `required` and `granted`. |
 | `MESSAGE_WINDOW_CLOSED` | A free-form message outside the 24-hour window. Send a template. |
@@ -91,7 +94,11 @@ Each route's own list of codes is in the [API Reference](/docs/whatsapp/api-refe
 | `MESSAGE_REJECTED` | WhatsApp refused the request itself, for example the wrong number of template variables. The same request fails the same way. `details.metaCode` is Meta's error number. |
 | `TEMPLATE_NOT_APPROVED` | The template is not approved. `details.status` gives its status. |
 | `TEMPLATE_HEADER_MEDIA_REQUIRED` | The template has an image, video or document header. Send the file's URL as `template.headerMediaUrl`. |
-| `TEMPLATE_BUTTON_PARAM_REQUIRED` | A template button needs its value on every send (a link with a variable, a coupon code, an authentication code). Send it in `template.buttonParameters`. `details` lists each missing button's `index` and `buttonType`. |
+| `TEMPLATE_BUTTON_PARAM_REQUIRED` | A template button needs its value on every send (a link with a variable, a coupon code). Send it in `template.buttonParameters`. On an authentication template it means `template.parameters` was empty too: put the code in `parameters`. WhatsApp Form (flow) buttons never cause it. `details` lists each missing button's `index` and `buttonType`. |
+| `TEMPLATE_CAROUSEL_CARDS_INCOMPLETE` | A carousel was sent without everything each card needs, or with a different number of cards than it was created with. `details.expected` is the card count, `details.received` what you sent, and `details.problems` lists each gap as `card` (from 1) and `missing` (`media`, `variables` or `button`, with `buttonIndex`). |
+| `TEMPLATE_OFFER_EXPIRY_REQUIRED` | A limited-time offer that shows its end time was sent without `template.offerExpiresAt`. |
+| `TEMPLATE_OFFER_EXPIRY_INVALID` | `template.offerExpiresAt` has already passed. Send a future time. |
+| `TEMPLATE_VARIABLES_NOT_REGISTERED` | Meta registered this template without its variables, so it can't be filled in. Duplicate it in the dashboard and send the copy. |
 | `IDEMPOTENCY_KEY_REUSED` | The `Idempotency-Key` was used with a different body or route, or by another of your API keys. |
 | `ASSIGNEE_NOT_MEMBER` | The assignee is not an active member who may be assigned. |
 | `WEBHOOK_URL_NOT_ALLOWED` | The webhook URL is not allowed. `details.reason` says why. See [Webhooks](/docs/whatsapp/webhooks). |
@@ -151,14 +158,19 @@ Limits are per **workspace**, by plan. More API keys never buy more throughput.
 
 | Plan | Requests / minute | Messages sent / hour |
 |---|---|---|
-| Trial | 60 | 100 |
-| Basic | 300 | 2,000 |
-| Advanced | 1,200 | 10,000 |
+| Free trial | 300 | 100 |
+| Developer Free | 60 | 2,000 |
+| Developer 1K | 120 | 10,000 |
+| Developer 10K | 300 | 10,000 |
+| Developer 100K | 1,200 | 10,000 |
+| Team | 300 | 10,000 |
+| Business | 1,200 | 10,000 |
+| Enterprise | 1,200 | 10,000 |
 
 - Every counted request spends the per-minute request budget.
 - Sends (`POST /api/v1/messages`, `POST /api/v1/trigger/send`) also spend the hourly send budget. A send refused with a 4xx (by us or by Meta) gives it back; a 5xx keeps the charge.
 - Windows are fixed and aligned to the clock in UTC. The hourly window reopens at the top of each UTC hour (half past the hour in India).
-- `GET /api/v1/me` shows live usage of both budgets.
+- `GET /api/v1/me` shows your plan's numbers and live usage of both budgets.
 
 ### Rate-limit headers
 
@@ -174,14 +186,29 @@ Every response to a counted request, success or error, carries:
 
 ```http
 HTTP/1.1 429 Too Many Requests
-RateLimit-Policy: 300;w=60, 2000;w=3600
+RateLimit-Policy: 60;w=60, 2000;w=3600
 RateLimit-Limit: 2000
 RateLimit-Remaining: 0
 RateLimit-Reset: 1260
 Retry-After: 1260
 ```
 
-Requests refused before they are counted carry none of these headers: `401 INVALID_API_KEY`, `402 SUBSCRIPTION_REQUIRED`, `403 INSUFFICIENT_SCOPE`, `403 PLAN_FEATURE_REQUIRED`, `404 WORKSPACE_NOT_FOUND`, and the answers given before the key is read (`400 BAD_REQUEST`, `404 NOT_FOUND`, `413`, `415`). Read the headers when they are present and never treat a missing one as zero.
+Requests refused before they are counted carry none of these headers: `401 INVALID_API_KEY`, `402 SUBSCRIPTION_REQUIRED`, `403 INSUFFICIENT_SCOPE`, `403 PLAN_FEATURE_REQUIRED` for a plan without the API, the team inbox (`PATCH /conversations/{id}`) or the sales pipeline (`POST /conversions`), `404 WORKSPACE_NOT_FOUND`, and the answers given before the key is read (`400 BAD_REQUEST`, `404 NOT_FOUND`, `413`, `415`). The `403 PLAN_FEATURE_REQUIRED` for interactive messages is checked after the rate limit, so it is counted and carries the headers. Read the headers when they are present and never treat a missing one as zero.
+
+### Monthly API message allowance
+
+Each plan also includes a number of messages a month sent through the API. Only sends WhatsApp accepted count; a refused send gives its slot back. The month runs on India time and starts again on the 1st.
+
+| Plan | API messages / month | When sends stop |
+|---|---|---|
+| Free trial | 1,000 | At 1,000, authentication templates included |
+| Developer Free | 100 | At 100, authentication templates included |
+| Developer 1K | 1,000 | At 3,000 (3× the allowance); authentication templates never stop |
+| Developer 10K | 10,000 | At 30,000; authentication templates never stop |
+| Developer 100K | 100,000 | At 300,000; authentication templates never stop |
+| Team, Business | Unlimited (fair use) | Never |
+
+Past the stop point, sends answer `402 PLAN_MESSAGE_LIMIT_REACHED` with `details.sent`, `details.stopAt` and `details.resetsAt`. Nothing upgrades or charges by itself. `GET /api/v1/me` returns the same numbers in `messages`, so you can warn your own users before sends stop.
 
 ### Meta's messaging limit
 
@@ -195,8 +222,10 @@ Meta's own messaging limit applies on top of ours: the number of unique customer
 | Template body | 1,024 characters |
 | Template header and footer | 60 characters each |
 | Template buttons | Up to 10 (at most 2 URL buttons and 1 phone button) |
-| Interactive reply buttons | Up to 3 |
-| Interactive list rows | Up to 10 (row labels up to 20 characters) |
+| Coupon code (`couponCode`) | 15 characters (WhatsApp's limit) |
+| Carousel | 2–10 cards; card text up to 160 characters; up to 2 buttons per card |
+| Interactive reply buttons | Up to 3 (titles up to 20 characters) |
+| Interactive list rows | Up to 10 (row and section titles up to 24 characters; the list's `buttonLabel` up to 20) |
 | Media URLs | Must be `https://` (Meta fetches the file) |
 | JSON request body | 100 KB |
 | `Idempotency-Key` | 1–255 printable ASCII characters, no spaces; honoured for 24 hours |
@@ -208,11 +237,11 @@ Free-form messages (text, media, interactive) reach a customer only within 24 ho
 
 | Limit | Value |
 |---|---|
-| Endpoints | Trial 2, Basic 5, Advanced 20 |
+| Endpoints | Free trial 5, Developer 2, Team 1, Business 5, Enterprise unlimited |
 | URL | HTTPS, port 443, public address, up to 2,048 characters |
-| Response time | 2xx within 5 seconds |
+| Response time | Answer 2xx fast. 5 seconds each to connect, to send the response headers and between parts of the body; 10 seconds in all per request |
 | Retries | 1 min, 5 min, 30 min, 2 h, 6 h, 12 h |
-| Auto-disable | After 50 failed deliveries in a row, or 24 hours of failing |
+| Auto-disable | After 50 exhausted deliveries in a row (each used all 7 attempts), or after 24 hours of failing with at least 3 exhausted |
 
 ## FAQ
 
@@ -227,6 +256,12 @@ No. Limits are per workspace. Upgrade your plan for higher limits.
 
 **I got 402 META_PAYMENT_REQUIRED. Do I owe StartMessaging money?**
 No. Meta could not charge the payment method on your own WhatsApp Business Account. Fix it in WhatsApp Manager.
+
+**I got 402 PLAN_MESSAGE_LIMIT_REACHED. What now?**
+This month's API messages are used up. `details.resetsAt` says when the count starts again. To send more before then, choose a bigger Developer size or the Team or Business plan. On a paid Developer plan, authentication templates (OTPs) keep sending.
+
+**My subscription ended. Does the API stop?**
+No. A workspace whose trial or subscription ends unpaid moves to Developer Free, and the API keeps working within its limits. Only a renewal Razorpay gives up retrying makes the workspace read-only (`402 SUBSCRIPTION_REQUIRED` on writes) until billing is fixed. Writes can also get that 402 for a few minutes after a trial or cancelled period ends, until the move to Developer Free.
 
 **What does details.metaCode mean on MESSAGE_REJECTED?**
 It is Meta's own error number. Look it up in Meta's error code reference to see exactly what WhatsApp objected to.

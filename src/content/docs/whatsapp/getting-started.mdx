@@ -12,8 +12,11 @@ This guide takes you from sign-up to your first message sent over the API.
 ## How billing works
 
 - **Meta bills message charges directly to your WhatsApp Business Account**, using the payment method you add in WhatsApp Manager.
-- **StartMessaging charges only a flat CRM subscription.** There is no wallet, no credits and no per-message markup. The API never charges per message.
-- Every new workspace starts with a **14-day free trial** that includes the developer API.
+- **StartMessaging charges only a flat subscription.** There is no wallet, no credits and no per-message markup. The API never charges per message.
+- **Plans:** **Developer** (the API and a view-only dashboard, sized by API messages a month, including a free size), **Team** (adds the shared inbox, contacts, campaigns and auto-replies), **Business** (adds chatbot flows, WhatsApp Forms, advanced campaigns, the sales pipeline and conversions) and **Enterprise** (a custom contract). The developer API is on every plan.
+- Your **first workspace** starts with a **14-day free trial of Business** for up to 3 people, 1,000 contacts and 1,000 API messages. The trial is once per account owner: a workspace you create after it starts on **Developer Free**.
+- When the trial ends, a subscription is cancelled or ends, or a checkout is never finished, the workspace moves to **Developer Free**: the API keeps working within that plan's limits, and the dashboard becomes view-only. Choose a plan in **Billing** to get the rest back.
+- A failed renewal first shows as past due, and the workspace stays fully usable. If Razorpay gives up on the renewal, the workspace becomes read-only on its old plan: every change, sends included, answers `402 SUBSCRIPTION_REQUIRED` until billing is fixed.
 
 ## Before you start
 
@@ -27,14 +30,14 @@ You need:
 
 1. Go to the [sign-up page](https://whatsapp.startmessaging.com/signup).
 2. Enter your details and verify your email address.
-3. Add your mobile number and enter the 6-digit code we send you on WhatsApp. Your country is set from this number.
+3. Add your mobile number and enter the 6-digit code we send you by SMS. Your country is set from this number. Codes currently go only to Indian (+91) mobile numbers.
 
 ## Step 2: Create a workspace
 
 A workspace holds one WhatsApp Business Account, its team, contacts, templates and API keys.
 
 1. Click **Create workspace** and give it a name.
-2. Your **14-day free trial** starts. During the trial every feature is available, including the developer API, with bounded seats and contacts.
+2. If this is your first workspace, your **14-day free trial** of Business starts: every Business feature, including the developer API, for up to 3 people, 1,000 contacts and 1,000 API messages. A later workspace starts on Developer Free.
 
 ## Step 3: Connect WhatsApp
 
@@ -45,18 +48,18 @@ Open **Connect** in the workspace sidebar. Only Owners and Admins can connect.
 3. Verify the phone number with the code Meta sends by SMS or voice call.
 4. Back in StartMessaging, enter a **6-digit two-step verification PIN** for the number. This registers it on the Cloud API. If you close the dialog, an **Enter PIN** prompt stays on the Connect page until the number is registered.
 
-Once connected, the Connect page shows live account health from Meta: daily messaging limit, quality rating, business verification and account review. Use **Refresh from Meta** if you change something in WhatsApp Manager and the status looks out of date.
+Once connected, the Connect page shows live account health from Meta: daily conversation limit, quality rating, business verification and account review. Use **Refresh from Meta** if you change something in WhatsApp Manager and the status looks out of date.
 
 > **One WABA per workspace.** Each workspace connects one WhatsApp Business Account, and an account can be connected to only one workspace. For a different WhatsApp Business Account, create another workspace.
 
 ## Step 4: Add a payment method in WhatsApp Manager
 
-After connecting, the Connect page shows a checklist item: **Add a payment method in WhatsApp Manager**.
+After connecting, the Connect page shows a checklist item: **Payment method added in Meta**.
 
-1. Click **Open WhatsApp Manager**.
+1. Click **Open WhatsApp Manager →**.
 2. Add a credit card or other payment method to your WhatsApp Business Account.
 
-Meta charges for template messages directly against this payment method. Replies inside the customer's 24-hour window are free. Without a payment method, Meta refuses template sends and the API answers `402 META_PAYMENT_REQUIRED`. This is never a StartMessaging charge.
+Meta charges for delivered template messages directly against this payment method, utility templates included, even inside the customer's 24-hour window. Free-form replies inside the window are free up to a monthly allowance per number. Without a payment method, Meta refuses template sends and the API answers `402 META_PAYMENT_REQUIRED`. This is never a StartMessaging charge.
 
 ## Step 5: Create a template and get it approved
 
@@ -78,7 +81,7 @@ See [Authentication](/docs/whatsapp/authentication) for scopes and key handling.
 
 ## Step 7: Make your first call
 
-`GET /api/v1/me` needs no scope. It confirms your key works and shows your workspace, plan, the key's scopes, rate limits and live usage.
+`GET /api/v1/me` needs no scope. It confirms your key works and shows your workspace, plan, the key's scopes, rate limits, live usage and this month's API messages against your plan's allowance.
 
 ```bash
 curl {{WA_API_BASE}}/api/v1/me \
@@ -91,8 +94,9 @@ curl {{WA_API_BASE}}/api/v1/me \
     "workspace": { "id": "6f1e2d3c-4b5a-4968-8776-5a4b3c2d1e0f", "name": "Meera Boutique", "slug": "meera-boutique" },
     "plan": { "code": "TRIAL", "name": "Free trial", "tier": 0 },
     "apiKey": { "id": "0e9d8c7b-6a5f-4e3d-2c1b-0a9f8e7d6c5b", "prefix": "sm_live_ab12", "scopes": ["messages:send", "messages:read"] },
-    "limits": { "requestsPerMinute": 60, "sendsPerHour": 100 },
-    "usage": { "requestsThisMinute": 1, "sendsThisHour": 0 }
+    "limits": { "requestsPerMinute": 300, "sendsPerHour": 100 },
+    "usage": { "requestsThisMinute": 1, "sendsThisHour": 0 },
+    "messages": { "period": "2026-10", "sent": 0, "limit": 1000, "stopAt": 1000, "resetsAt": "2026-10-31T18:30:00.000Z" }
   },
   "meta": { "requestId": "b7c1e0d2-…", "timestamp": "2026-10-02T10:00:00.000Z" }
 }
@@ -100,7 +104,7 @@ curl {{WA_API_BASE}}/api/v1/me \
 
 ## Step 8: Send your first template
 
-Send an approved template with `POST /api/v1/messages`. Use the template's **name** exactly as Meta approved it (shown in the template's **Send via API** panel) and its language code.
+Send an approved template with `POST /api/v1/messages`. Use the template's **name** exactly as Meta approved it (shown in the template's **Send via API** panel) and its language code. For a carousel template, don't copy the panel's request: it has no cards, and the panel still says carousels can't be sent through the API. The API does send them, with every card in `template.carouselCards` (see [Carousel templates](/docs/whatsapp/send-message#carousel-templates)).
 
 ```bash
 curl -X POST {{WA_API_BASE}}/api/v1/messages \
@@ -167,7 +171,7 @@ print(res.json()["data"])
 
 A `201` response means WhatsApp accepted the message. Delivery and read receipts follow; subscribe to the `message.*` [webhooks](/docs/whatsapp/webhooks) or look the message up with `GET /api/v1/messages/{id}`.
 
-The recipient is added to your contacts automatically (source `api`), and the message appears in the shared team inbox, so your team can pick up the reply.
+The recipient is added to your contacts automatically (source `api`), and the message appears in the shared team inbox (on Team, Business, Enterprise and the free trial), so your team can pick up the reply.
 
 ## Next steps
 
@@ -180,16 +184,19 @@ The recipient is added to your contacts automatically (source `api`), and the me
 ## FAQ
 
 **Is there a sandbox or test number?**
-No. You connect your own WhatsApp Business Account from the start. The 14-day free trial includes the developer API with lower rate limits (60 requests per minute, 100 sends per hour), which is enough to build and test an integration end to end.
+No. You connect your own WhatsApp Business Account from the start. The 14-day free trial includes the developer API (300 requests per minute, 100 sends per hour, 1,000 API messages), which is enough to build and test an integration end to end. After it, Developer Free keeps the API on 100 messages a month.
 
 **Who pays for WhatsApp messages?**
-Meta bills message charges directly to the payment method on your WhatsApp Business Account. StartMessaging charges only the CRM subscription and never charges per message.
+Meta bills message charges directly to the payment method on your WhatsApp Business Account. StartMessaging charges only the subscription and never charges per message.
 
 **How long does template approval take?**
 Meta reviews every template and sets the timing. The dashboard shows the template as Pending review until Meta decides, and the `template.status_updated` webhook tells your system when the status changes.
 
 **Can I connect more than one WhatsApp Business Account?**
-Each workspace connects one WhatsApp Business Account. To use another account, create another workspace and run Connect there. It needs its own plan, because the free trial is used once per account owner.
+Each workspace connects one WhatsApp Business Account. To use another account, create another workspace and run Connect there. It starts on Developer Free, because the free trial is used once per account owner; choose a plan for it in **Billing**.
+
+**What happens when my trial ends?**
+If you don't choose a plan, the workspace moves to Developer Free: your API keys keep working within its limits (100 API messages a month), and the dashboard becomes view-only. Choose Developer, Team or Business in **Billing** at any time.
 
 **Who can create API keys?**
 Members with the Manager role or above, in Developers → API keys.

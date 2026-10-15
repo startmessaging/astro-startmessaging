@@ -23,7 +23,9 @@ A contact is created automatically when a customer messages you or when you send
 
 All paths are relative to the API host, for example `{{WA_API_BASE}}/api/v1/contacts`. Every request needs `Authorization: Bearer sm_live_your_api_key`.
 
-`{idOrPhone}` is either the contact's id or its phone number in any format. URL-encode the `+` as `%2B`, or send the digits with the country code (`919812345678`). A number without a country code is read against your workspace's country.
+`{idOrPhone}` is either the contact's id or its phone number in any format. URL-encode the `+` as `%2B`, or send the digits with the country code (`919812345678`). A number without a country code is read against your workspace's country. A contact without a phone number (see `waUserId` below) can only be addressed by its id.
+
+**Plans.** The contacts endpoints work on every plan that includes the developer API, Developer included, even though a Developer workspace's dashboard only shows contacts. Putting a contact into a pipeline stage (`pipelineStageId`) needs the sales pipeline, on **Business**. The free trial caps a workspace at 1,000 contacts.
 
 ## The contact object
 
@@ -31,6 +33,7 @@ All paths are relative to the API host, for example `{{WA_API_BASE}}/api/v1/cont
 {
   "id": "3f0c2a52-8a51-4c0e-9d0a-2b7f8f3a9c11",
   "phone": "+919812345678",
+  "waUserId": "IN.13491208655302741918",
   "name": "Asha Verma",
   "email": "asha@example.com",
   "tags": ["vip", "delhi"],
@@ -48,11 +51,12 @@ All paths are relative to the API host, for example `{{WA_API_BASE}}/api/v1/cont
 | Field | Description |
 |---|---|
 | `id` | Contact id (UUID). |
-| `phone` | Phone number in E.164. A few contacts created before numbers were normalised hold it without the leading `+`. |
+| `phone` | Phone number in E.164, or `null` for someone with a WhatsApp username whom Meta names only by their user id (`waUserId`), until they share their number by talking to you. A few contacts created before numbers were normalised hold it without the leading `+`. |
+| `waUserId` | Meta's business-scoped user id (a country code, a period, then up to 128 letters and digits), once Meta has sent one, or `null`. Stable for your business; it changes only if the person changes their number. |
 | `name`, `email` | Or `null`. |
 | `tags` | Tags, in the order they were added. |
 | `attributes` | Custom fields. Keys and values are text. |
-| `optedIn` | `false` when this person opted out. Messages to them are refused until they opt back in. |
+| `optedIn` | `false` when this person opted out (for example by replying STOP). Messages to them are refused until they opt back in. Turning off your marketing messages inside WhatsApp does not change it (see below). |
 | `source` | How the contact first arrived: `whatsapp`, `manual`, `csv`, `link`, `api` or `ctwa_ad` (their first message came from a Click-to-WhatsApp ad, and the ad is in the `ctwa_*` attributes). |
 | `pipelineStageId` | A stage from `GET /api/v1/pipeline-stages`, or `null` when the contact is not in the pipeline. |
 | `assignedToUserId` | The workspace member who owns this contact, or `null`. |
@@ -187,6 +191,7 @@ Response:
     "contact": {
       "id": "3f0c2a52-8a51-4c0e-9d0a-2b7f8f3a9c11",
       "phone": "+919812345678",
+      "waUserId": null,
       "name": "Asha Verma",
       "email": "asha@example.com",
       "tags": ["website-order"],
@@ -205,7 +210,7 @@ Response:
 }
 ```
 
-A new contact counts towards your plan's contact limit. When the limit is full, creating one answers `403 PLAN_LIMIT_REACHED` with `details.limit: "max_contacts"`. Numbers you already have can still be updated and messaged. Delete contacts you no longer need or upgrade; retrying will not help.
+A new contact counts towards your plan's contact limit, if it has one (the free trial allows 1,000). When the limit is full, creating one answers `403 PLAN_LIMIT_REACHED` with `details.limit: "max_contacts"`. Numbers you already have can still be updated and messaged. Delete contacts you no longer need or upgrade; retrying will not help.
 
 ### Request limits
 
@@ -231,7 +236,7 @@ A phone that matches no contact, or is not a phone number at all, is `404 CONTAC
 | `tags` | A list replaces them. `{ "add": [...], "remove": [...] }` changes them in one step and is safe while other systems tag the same contact. A tag in both lists ends up removed. |
 | `attributes` | Merged; a `null` value deletes that field. |
 | `optedIn` | `false` records an opt-out. `true` records that they opted back in: the only way the API lifts an opt-out. |
-| `pipelineStageId` | A stage id from `GET /api/v1/pipeline-stages`, or `null` to take the contact out of the pipeline. |
+| `pipelineStageId` | A stage id from `GET /api/v1/pipeline-stages`, or `null` to take the contact out of the pipeline. Putting a contact into a stage needs the sales pipeline (Business); otherwise `403 PLAN_FEATURE_REQUIRED` with `details.feature: "sales_pipeline"`. Taking one out (`null`) works on every plan. Moving a contact from a stage that is not won into a stage marked as won records a [conversion](/docs/whatsapp/conversions), credited to the campaign last delivered to them within the conversion window, or to no campaign when none was. Moving them out of every won stage removes that conversion. |
 | `assignedToUserId` | An active member with the Agent role or above, or `null` to unassign. Otherwise `422 ASSIGNEE_NOT_MEMBER`. |
 | `followUpAt` | An ISO-8601 date, or date and time with an offset. `null` clears it. |
 
@@ -298,13 +303,12 @@ WhatsApp requires consent for business messages, and the API enforces it. A send
 
 **How someone opts out:**
 
-- They reply **STOP**.
-- They turn off your marketing messages in WhatsApp.
+- They reply with an opt-out keyword: **STOP**, **UNSUBSCRIBE**, **OPT OUT**, **OPTOUT**, **CANCEL**, **रुको** or **بند**. The whole message must be the keyword; case and surrounding spaces don't matter.
 - You record it: `PATCH` with `optedIn: false`, `POST /api/v1/contacts` with `optedIn: false`, or the dashboard.
 
 **How someone opts back in:**
 
-- They send **START**.
+- They send an opt-in keyword: **START**, **SUBSCRIBE**, **OPT IN** or **OPTIN** (same matching rules).
 - You record a real opt-in with `PATCH /api/v1/contacts/{idOrPhone}` and `optedIn: true`.
 
 **`POST /api/v1/contacts` never opts anyone back in.** `optedIn` is a new contact's starting consent. On a number you already have, only `optedIn: false` is applied; `optedIn: true` is ignored. This stops a routine order sync from cancelling a customer's STOP.
@@ -312,6 +316,17 @@ WhatsApp requires consent for business messages, and the API enforces it. A send
 **An opt-out belongs to the number, not the contact.** It is stored against the phone number as well as the contact, so deleting the contact does not remove it. Sends to the number are still refused, and a contact created for it again (by `POST /api/v1/contacts` with any `optedIn`, a CSV import, or the customer writing in) starts opted out. Only START or a `PATCH` with `optedIn: true` lifts it. Opt-outs are per workspace.
 
 A contact imported by CSV without confirmed consent starts opted out but has not opted out of anything: deleting it frees the number.
+
+### Turning off marketing inside WhatsApp
+
+WhatsApp also lets a customer **stop marketing messages** from your business in the chat itself. That choice is about marketing only, and it is not an opt-out:
+
+- `optedIn` does not change, and no `contact.opted_out` webhook fires.
+- Utility and authentication templates, and your replies, still reach them.
+- Campaigns that send a **marketing** template skip them for 90 days, and the campaign report counts them as skipped. If they turn marketing back on in WhatsApp, campaigns include them again.
+- Meta refuses marketing templates sent to them from anywhere, the API included (Meta error `131050`).
+
+Campaigns also skip, for 30 days, a number Meta recently reported as unable to receive WhatsApp messages (not on WhatsApp, an outdated app, or terms not accepted). A message from them clears it. Neither mark is part of the contact object in the API.
 
 ## Tags
 
@@ -363,7 +378,7 @@ Subscribe to these events (they need `contacts:read`) to hear about contacts wit
 | Event | When |
 |---|---|
 | `contact.created` | A contact was created: by an inbound message, the dashboard or the API. Not sent per row of a CSV import. |
-| `contact.opted_out` | Consent was withdrawn: STOP, WhatsApp's marketing preference, the dashboard or the API. |
+| `contact.opted_out` | Consent was withdrawn: STOP, the dashboard or the API. Turning off marketing inside WhatsApp does not fire it. |
 | `contact.opted_in` | Consent was given back: START, the dashboard or the API. |
 
 ```json
@@ -376,6 +391,7 @@ Subscribe to these events (they need `contacts:read`) to hear about contacts wit
     "contact": {
       "id": "3f0c2a52-8a51-4c0e-9d0a-2b7f8f3a9c11",
       "phone": "+919812345678",
+      "waUserId": null,
       "name": "Asha Verma",
       "email": null,
       "tags": ["vip"],

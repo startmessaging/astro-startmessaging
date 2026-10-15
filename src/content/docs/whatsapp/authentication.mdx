@@ -26,7 +26,7 @@ Use HTTPS only, and call the API from your server. Never put an API key in brows
 3. Choose its access: a preset or individual scopes (see below).
 4. Copy the key. It starts with `sm_live_` and is **shown only once**. StartMessaging stores only a hash of it, so it can't be shown again. If you lose it, create a new key.
 
-Keys belong to the workspace, not to the member who created them. Each key's last use is shown in the list, and every call it makes appears in **Developers → Logs**.
+Keys belong to the workspace, not to the member who created them. Each key's last use is shown in the list, and its calls appear in **Developers → Logs**, which keeps the workspace's last 500 requests and is cleared after 7 days without a request. A call refused with `401 INVALID_API_KEY` is not logged, because no workspace is known yet.
 
 ### Revoking a key
 
@@ -44,8 +44,9 @@ Each key carries a set of **scopes**. A call outside them is refused with `403 I
 | `contacts:write` | Create (upsert), update and delete contacts |
 | `templates:read` | List and get templates and their review status; `template.*` events |
 | `conversations:read` | List and get conversations and their messages; `conversation.*` events |
-| `conversations:write` | Assign, unassign, resolve and reopen conversations |
+| `conversations:write` | Assign, unassign, resolve and reopen conversations. `PATCH /conversations/{id}` also needs the team inbox, which no Developer plan includes; without it the API answers `403 PLAN_FEATURE_REQUIRED`. |
 | `campaigns:read` | List and get campaigns and their results; `campaign.*` events |
+| `conversions:write` | Report a sale or other conversion: `POST /conversions`. Needs the sales pipeline, part of the Business plan. |
 | `webhooks:manage` | List, add and remove webhook endpoints through the API |
 
 `GET /me` and `GET /phone-numbers` need no scope. Any valid key can call them.
@@ -58,7 +59,7 @@ When you create or edit a key, you can start from a preset:
 
 | Preset | Scopes | Good for |
 |---|---|---|
-| **Full access** | All 9 scopes | A trusted backend that does everything |
+| **Full access** | All 10 scopes | A trusted backend that does everything |
 | **Send only** | `messages:send` | A shop or app that only sends updates |
 | **Read only** | Every `:read` scope | Reporting and syncing; changes nothing |
 | **Custom** | Exactly the scopes you pick | Least-privilege integrations |
@@ -76,7 +77,7 @@ Grant the matching `:read` scope if your integration needs the full record back.
 
 ## Check a key: GET /me
 
-`GET /api/v1/me` tells you which workspace and plan a key belongs to, what the key may do, your rate limits and how much of them is in use right now. It needs no scope, so it is the quickest way to test a new key.
+`GET /api/v1/me` tells you which workspace and plan a key belongs to, what the key may do, your rate limits, how much of them is in use right now, and how many of this month's API messages are used. It needs no scope, so it is the quickest way to test a new key.
 
 ```bash
 curl {{WA_API_BASE}}/api/v1/me \
@@ -122,14 +123,21 @@ print_r($me['data']['apiKey']['scopes']);
       "name": "Meera Boutique",
       "slug": "meera-boutique"
     },
-    "plan": { "code": "BASIC", "name": "Basic", "tier": 1 },
+    "plan": { "code": "DEV_1K", "name": "Developer 1K", "tier": 2 },
     "apiKey": {
       "id": "0e9d8c7b-6a5f-4e3d-2c1b-0a9f8e7d6c5b",
       "prefix": "sm_live_ab12",
       "scopes": ["messages:send", "messages:read"]
     },
-    "limits": { "requestsPerMinute": 300, "sendsPerHour": 2000 },
-    "usage": { "requestsThisMinute": 12, "sendsThisHour": 140 }
+    "limits": { "requestsPerMinute": 120, "sendsPerHour": 10000 },
+    "usage": { "requestsThisMinute": 12, "sendsThisHour": 140 },
+    "messages": {
+      "period": "2026-10",
+      "sent": 420,
+      "limit": 1000,
+      "stopAt": 3000,
+      "resetsAt": "2026-10-31T18:30:00.000Z"
+    }
   },
   "meta": {
     "requestId": "b7c1e0d2-5a4f-4c3b-9e8d-1f2a3b4c5d6e",
@@ -141,10 +149,23 @@ print_r($me['data']['apiKey']['scopes']);
 | Field | Meaning |
 |---|---|
 | `workspace` | The workspace the key belongs to: `id`, `name` and the `slug` used in dashboard URLs |
-| `plan` | The CRM plan: `code` (`TRIAL`, `BASIC` or `ADVANCED`), `name` and `tier` (0 = trial). Rate limits follow the tier. |
+| `plan` | The plan: `code`, `name` and `tier` (0 = trial). Codes are `TRIAL`, `DEV_FREE`, `DEV_1K`, `DEV_10K`, `DEV_100K`, `TEAM`, `BUSINESS` and `ENTERPRISE`; treat any other code as a custom plan. |
 | `apiKey` | The key making the call: `id`, its visible `prefix` and its `scopes` |
 | `limits` | Requests per minute and messages sent per hour, for the whole workspace |
 | `usage` | Requests made in the current minute (this one included) and messages sent through the API in the current hour |
+| `messages` | This month's API messages against the plan's allowance (see below) |
+
+### messages
+
+| Field | Meaning |
+|---|---|
+| `period` | The month being counted, India time (`YYYY-MM`) |
+| `sent` | Messages sent through the API this month that WhatsApp accepted. A refused send does not count. |
+| `limit` | The plan's monthly allowance; `null` means unlimited (Team, Business, Enterprise) |
+| `stopAt` | Where sends stop with `402 PLAN_MESSAGE_LIMIT_REACHED`: the allowance itself on Developer Free and the trial, 3× the allowance on a paid Developer plan (which never stops authentication templates). `null` means never. |
+| `resetsAt` | When the count starts again: the 1st of next month, 00:00 India time |
+
+Watch `messages` to warn your own users before sends stop. See [Errors & Limits](/docs/whatsapp/errors-and-limits#monthly-api-message-allowance) for each plan's allowance.
 
 Limits are counted per workspace, so creating more keys does not add throughput. The full rate-limit table and headers are on [Errors & Limits](/docs/whatsapp/errors-and-limits).
 
@@ -163,7 +184,7 @@ The `Authorization` header is missing, malformed, or the key was revoked. Every 
     "code": "INVALID_API_KEY",
     "message": "Missing or invalid API key. Send it as `Authorization: Bearer sm_live_…`."
   },
-  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z" }
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z", "path": "/api/v1/me" }
 }
 ```
 
@@ -182,13 +203,13 @@ The key is valid but lacks the scope the route needs. `details` names the scope 
       "granted": ["messages:send"]
     }
   },
-  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z" }
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z", "path": "/api/v1/contacts" }
 }
 ```
 
 Add the scope to the key in **Developers → API keys**, or use a key that has it. Retrying unchanged will not help.
 
-Other access errors you may see: `402 SUBSCRIPTION_REQUIRED` when the workspace's trial or subscription has ended (writes are refused, reads still work) and `403 PLAN_FEATURE_REQUIRED` when the plan does not include the developer API. See [Errors & Limits](/docs/whatsapp/errors-and-limits) for the full list.
+Other access errors you may see: `402 SUBSCRIPTION_REQUIRED` when the workspace is read-only (writes, sends included, are refused; reads still work), and `403 PLAN_FEATURE_REQUIRED` when the plan does not include the developer API or a route's extra feature. A workspace is read-only when Razorpay gives up on a subscription renewal: it stays on its old plan until billing is fixed. A renewal that has only just failed shows as past due and stays writable. Every plan includes the API, and a workspace whose trial ends, or whose subscription is cancelled or ends, moves to Developer Free, where the API keeps working. In the short gap between the end and that move, writes can briefly answer `402 SUBSCRIPTION_REQUIRED` too. See [Errors & Limits](/docs/whatsapp/errors-and-limits) for the full list.
 
 ## FAQ
 

@@ -17,10 +17,15 @@ Every template has one of three categories. Meta sets the price by category and 
 | Category | Use it for | Billed by Meta |
 |---|---|---|
 | **Marketing** | Promotions, offers, announcements, re-engagement | Every delivered message |
-| **Utility** | Updates about something the customer started: orders, bookings, payments, account alerts | Every delivered message, except inside an open customer service window, where it is free |
+| **Utility** | Updates about something the customer started: orders, bookings, payments, account alerts | Every delivered message, **including inside an open customer service window** |
 | **Authentication** | One-time passwords and login codes | Every delivered message |
 
-Free-form replies inside the 24-hour customer service window (text, media, interactive) are free from Meta.
+Since 1 October 2026, Meta charges **every delivered template**, utility templates included, even inside the 24-hour customer service window. The one exception is a free entry point window (below).
+
+- **Service replies** (free-form text, media and interactive messages inside the 24-hour window) are free up to a monthly allowance per phone number, then Meta charges them.
+- When a customer messages you from a **Click-to-WhatsApp ad** or a **Facebook Page call-to-action button** and you reply within 24 hours, a free entry point window of **72 hours** opens. Every message inside it is free, templates included.
+
+Each sent message's `pricing` field shows how Meta classified it (see [Send Messages](/docs/whatsapp/send-message#pricing)).
 
 Pick the category honestly. Promotional content filed as Utility is usually rejected or moved to Marketing. Meta can also **recategorise** an approved template (for example Utility to Marketing), which changes what each message costs. The dashboard flags recategorised templates, and the API always returns Meta's current category.
 
@@ -31,9 +36,17 @@ When you create a template you choose a type:
 | Type | What it is |
 |---|---|
 | **Standard** | Header, body, footer and buttons |
-| **Limited-time offer** | A marketing offer with an optional countdown. Needs a copy-code button and a URL button, and can't have a footer. |
+| **Limited-time offer** | A marketing offer with an optional countdown to the time it ends. Needs a copy-code button and a URL button, and can't have a footer. |
 | **Authentication** | A one-time-password template. Meta writes the body text ("123456 is your verification code"), with an optional security warning, code expiry and a copy-code button. |
-| **Carousel** | 2 to 10 cards that scroll sideways, each with its own image or video, text and buttons |
+| **Carousel** | 2 to 10 cards that scroll sideways, each with its own image or video, text and buttons (see below) |
+
+### Carousel rules
+
+- **2 to 10 cards**, each with its own image or video. All cards use the same media type.
+- Optional card text, up to **160 characters** per card.
+- **1 or 2 buttons per card**: quick reply, link (URL) or phone number. Every card has the same button layout, in the same order.
+- A message body sits above the cards. There is no header above the cards and no footer: each card's media is its header.
+- Carousels are Marketing templates.
 
 ## Components and limits
 
@@ -43,6 +56,8 @@ When you create a template you choose a type:
 | **Body** (required) | Up to 1,024 characters. Variables are positional (`{{1}}`, `{{2}}`) or named (`{{first_name}}`). Meta needs a sample value for every variable. |
 | **Footer** (optional) | Up to 60 characters |
 | **Buttons** (optional) | Up to 10 in total, at most 2 URL buttons and 1 phone-number button. Button labels up to 25 characters. Keep quick-reply buttons together. |
+
+A template's **variable style** is fixed once it is created: Meta keeps the template either named (`{{first_name}}`) or numbered (`{{1}}`), so an edit can't switch between them. Duplicate the template to change style. A template that Meta registered without its variables can't be sent (`422 TEMPLATE_VARIABLES_NOT_REGISTERED`); duplicate it to get a working copy.
 
 The template's **name** (its Meta ID) uses lowercase letters, numbers and underscores, and like the language it can't be changed after creation. The name your team sees in the dashboard is a separate display name. Over the API you always send the Meta name.
 
@@ -54,7 +69,7 @@ The template's **name** (its Meta ID) uses lowercase letters, numbers and unders
 | Visit website (URL) | Static link, or a dynamic link whose end is filled at send time. Only one URL button per template may have a variable. |
 | Call phone number | One per template |
 | Call on WhatsApp / video call | Calling must be turned on in WhatsApp Manager |
-| Copy offer code | Coupon code up to 20 characters; Marketing templates only |
+| Copy offer code | Coupon code up to 15 characters when sent (WhatsApp's limit); Marketing templates only |
 | Complete flow | Opens a WhatsApp Form (Meta Flow); answers arrive in `form` |
 | Request contact info, catalog, multi-product | Use your WhatsApp profile or product catalog in Meta |
 
@@ -123,7 +138,7 @@ curl "{{WA_API_BASE}}/api/v1/templates?status=APPROVED&name=order_confirmation" 
 | `category` | Meta's current category, which can differ from the one submitted |
 | `status` | Meta's current review status |
 | `rejectionReason` | Meta's reason when the template was rejected |
-| `components` | The template's parts in Meta's own format (`HEADER`, `BODY`, `FOOTER`, `BUTTONS`). The placeholders are what `parameters` fill when you send it. |
+| `components` | The template's parts in Meta's own format (`HEADER`, `BODY`, `FOOTER`, `BUTTONS`, and on offer and carousel templates `LIMITED_TIME_OFFER` and `CAROUSEL`). The placeholders are what `parameters` fill when you send it. |
 | `updatedAt` | When it last changed, including a review decision from Meta |
 
 ## Get a template
@@ -167,15 +182,72 @@ Send an approved template with `POST /api/v1/messages` and `type: "template"`. T
 
 - `parameters` fill the body variables, in order or by name.
 - `headerMediaUrl` is required when the header is an image, video or document.
-- `buttonParameters` give send-time values to dynamic buttons: a URL variable (`subType: "url"`), a coupon code (`subType: "copy_code"`, `couponCode`) or a WhatsApp Form flow token (`subType: "flow"`).
+- `buttonParameters` give send-time values to dynamic buttons: a URL variable (`subType: "url"`), a coupon code (`subType: "copy_code"`, `couponCode` up to 15 characters) or a WhatsApp Form flow token (`subType: "flow"`).
+- `carouselCards` is required for a carousel: one entry per card, in order, each with its `headerMediaUrl` and any card `parameters` and link `buttonParameters`.
+- `offerExpiresAt` is required for a limited-time offer that shows when it ends: an ISO 8601 date-time in the future.
 
 Each template in the dashboard has a **Send via API** panel that shows exactly what that template needs and a request you can copy.
 
+### Sending a carousel
+
+A carousel always sends every card it was created with. Give each card its own image or video, plus its text variables and link suffix if it has them:
+
+```json
+{
+  "to": "+919876543210",
+  "type": "template",
+  "template": {
+    "name": "diwali_collection",
+    "language": "en_US",
+    "parameters": [{ "text": "Aarti" }],
+    "carouselCards": [
+      {
+        "headerMediaUrl": "https://cdn.example.com/products/kurta-blue.jpg",
+        "parameters": [{ "text": "₹1,299" }],
+        "buttonParameters": [{ "index": 0, "subType": "url", "text": "kurta-blue" }]
+      },
+      {
+        "headerMediaUrl": "https://cdn.example.com/products/saree-red.jpg",
+        "parameters": [{ "text": "₹2,499" }],
+        "buttonParameters": [{ "index": 0, "subType": "url", "text": "saree-red" }]
+      }
+    ]
+  }
+}
+```
+
+A missing card, image or value answers `422 TEMPLATE_CAROUSEL_CARDS_INCOMPLETE`, with `details.problems` naming each card and what it lacks. Full cURL, Node.js and Python examples are on [Send Messages](/docs/whatsapp/send-message#carousel-templates).
+
+### Sending a limited-time offer
+
+If the offer template shows a countdown, send the offer's end time with every message:
+
+```json
+{
+  "to": "+919876543210",
+  "type": "template",
+  "template": {
+    "name": "diwali_flash_sale",
+    "language": "en_US",
+    "parameters": [{ "text": "Aarti" }],
+    "headerMediaUrl": "https://cdn.example.com/diwali-sale.jpg",
+    "offerExpiresAt": "2026-10-20T18:30:00Z",
+    "buttonParameters": [
+      { "index": 0, "subType": "copy_code", "couponCode": "DIWALI25" },
+      { "index": 1, "subType": "url", "text": "diwali" }
+    ]
+  }
+}
+```
+
+Without `offerExpiresAt` the API answers `422 TEMPLATE_OFFER_EXPIRY_REQUIRED`; with a time that has passed, `422 TEMPLATE_OFFER_EXPIRY_INVALID`. See [Send Messages](/docs/whatsapp/send-message#limited-time-offers).
+
+### What campaigns can't send
+
+Campaigns can't send **carousel**, **limited-time offer**, **authentication**, **catalog** or **call-permission** templates; the campaign template picker hides them. They also refuse a template with a **location header**, or with any button that needs its own value on every send other than a link variable or a coupon code: OTP, catalog, multi-product, payment request, postback and booking status buttons. Carousel, limited-time offer and authentication templates can go out one message at a time, through `POST /api/v1/messages` or from the inbox.
+
 ### What the API can't send yet
 
-Some templates can be created and sent from the dashboard but not through the API:
-
-- **Carousel templates.** Each card needs its own media, and the API has no field for it.
 - **Location headers.** The API has no field for the location, so WhatsApp would refuse the message.
 - **Text headers with a variable.** The API can't fill a header variable yet. Use a template without a header variable.
 
@@ -186,9 +258,9 @@ You can deliver one-time passwords over WhatsApp by sending an **Authentication*
 - **You generate the code and verify it yourself.** StartMessaging only delivers the message.
 - **There is no SMS fallback.** If the customer is not on WhatsApp the send fails (for example `422 MESSAGE_UNDELIVERABLE`); fall back to your own SMS provider if you need one.
 
-### The code goes in twice
+### Where the code goes
 
-WhatsApp requires the code **in the body parameter and again in the button parameter at index 0 with `subType: "url"`**. Without both, WhatsApp rejects the message.
+Send the code once, as the first entry of **`parameters`**. That is enough: it fills the body, and StartMessaging puts the same code on the template's code button for you. You can also send it in `buttonParameters` at index 0 with `subType: "url"` (that value is then used for the button); sending it in both places, as below, is harmless. With the code in neither, the API answers `422 TEMPLATE_BUTTON_PARAM_REQUIRED`.
 
 ```json
 {
@@ -209,7 +281,7 @@ WhatsApp requires the code **in the body parameter and again in the button param
 ### Example (Node.js)
 
 ```javascript
-import { randomInt, createHash, randomUUID } from 'node:crypto';
+import { randomInt, createHash } from 'node:crypto';
 
 export async function sendWhatsAppOtp(phone, attemptId) {
   const code = String(randomInt(0, 1_000_000)).padStart(6, '0');
@@ -294,7 +366,13 @@ Meta sets the review time. The template stays `PENDING` until Meta decides; subs
 Check that you sent the Meta name (not the display name) and the exact language code. The same name in another language is a different template.
 
 **Does StartMessaging have an OTP or verify API for WhatsApp?**
-No. Send an Authentication template with `POST /api/v1/messages`, putting the code in both `parameters` and `buttonParameters`. Generating, storing and verifying the code is up to your system, and there is no automatic SMS fallback.
+No. Send an Authentication template with `POST /api/v1/messages`, putting the code in `parameters` (repeating it in `buttonParameters` is optional). Generating, storing and verifying the code is up to your system, and there is no automatic SMS fallback.
+
+**Can I send carousel templates through the API?**
+Yes. Send one `carouselCards` entry per card, in the template's order, each with its own `headerMediaUrl`. Campaigns can't send carousels, so the API and the inbox are the ways to send them.
+
+**Are utility templates still free inside the 24-hour window?**
+No. Since 1 October 2026 Meta charges every delivered template, utility included, inside the window too. Service replies are free up to a monthly allowance per phone number.
 
 **Why did Meta change my template's category?**
 Meta can move a template between Utility and Marketing after approval when its content looks promotional. This changes its price. The dashboard flags it, and the API returns the current category.

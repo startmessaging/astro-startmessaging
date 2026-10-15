@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-12",
   "seo": {
     "title": {
       "en": "WhatsApp for E-Commerce Use Case — StartMessaging",
@@ -167,12 +167,50 @@
               "ng": "Product Catalogs"
             },
             "description": {
-              "en": "Templates can carry catalog and multi-product buttons that open items from your Meta commerce catalog right inside WhatsApp.",
-              "pt": "Os templates podem ter botões de catálogo e de vários produtos que abrem itens do seu catálogo de comércio da Meta dentro do WhatsApp.",
-              "es": "Las plantillas pueden incluir botones de catálogo y de varios productos que abren artículos de su catálogo de comercio de Meta dentro de WhatsApp.",
-              "id": "Templat dapat memuat tombol katalog dan multi-produk yang membuka item dari katalog commerce Meta Anda langsung di WhatsApp.",
-              "ar": "يمكن أن تتضمن القوالب أزرار الكتالوج والمنتجات المتعددة التي تفتح عناصر من كتالوج Meta التجاري الخاص بك داخل واتساب مباشرة.",
-              "tr": "Şablonlar, Meta ticaret kataloğunuzdaki ürünleri doğrudan WhatsApp içinde açan katalog ve çoklu ürün butonları içerebilir."
+              "en": "Templates can carry catalog and multi-product buttons that open items from your Meta commerce catalog right inside WhatsApp. Campaigns can't send catalog templates.",
+              "pt": "Os templates podem ter botões de catálogo e de vários produtos que abrem itens do seu catálogo de comércio da Meta dentro do WhatsApp. Campanhas não enviam templates de catálogo.",
+              "es": "Las plantillas pueden incluir botones de catálogo y de varios productos que abren artículos de su catálogo de comercio de Meta dentro de WhatsApp. Las campañas no pueden enviar plantillas de catálogo.",
+              "id": "Template dapat memuat tombol katalog dan multi-produk yang membuka item dari katalog commerce Meta Anda langsung di WhatsApp. Kampanye tidak bisa mengirim template katalog.",
+              "ar": "يمكن أن تتضمن القوالب أزرار الكتالوج والمنتجات المتعددة التي تفتح عناصر من كتالوج Meta التجاري الخاص بك داخل واتساب مباشرة. لا يمكن للحملات إرسال قوالب الكتالوج.",
+              "tr": "Şablonlar, Meta ticaret kataloğunuzdaki ürünleri doğrudan WhatsApp içinde açan katalog ve çoklu ürün butonları içerebilir. Kampanyalar katalog şablonlarını gönderemez."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Birthday Offers & Retargeting",
+              "pt": "Ofertas de aniversário e retargeting",
+              "es": "Ofertas de cumpleaños y retargeting",
+              "id": "Penawaran Ulang Tahun & Retargeting",
+              "ar": "عروض أعياد الميلاد وإعادة الاستهداف",
+              "tr": "Doğum Günü Teklifleri ve Yeniden Hedefleme"
+            },
+            "description": {
+              "en": "On the Business plan, a repeating campaign can send a daily birthday offer to whoever has a birthday that day, or target another date such as a last-order date. Retarget customers who got a campaign but didn't read it, or who tapped a button, and keep quiet hours so nothing goes out overnight.",
+              "pt": "No plano Business, uma campanha recorrente pode enviar todo dia uma oferta de aniversário para quem faz aniversário naquele dia, ou segmentar outra data, como a do último pedido. Faça retargeting de clientes que receberam uma campanha mas não leram, ou que tocaram em um botão, e use o horário de silêncio para que nada saia durante a noite.",
+              "es": "En el plan Business, una campaña recurrente puede enviar cada día una oferta de cumpleaños a quien cumpla años ese día, o segmentar por otra fecha, como la del último pedido. Haga retargeting a clientes que recibieron una campaña pero no la leyeron, o que tocaron un botón, y use horas de silencio para que nada salga de noche.",
+              "id": "Di paket Business, kampanye berulang bisa mengirim penawaran ulang tahun setiap hari kepada siapa pun yang berulang tahun hari itu, atau menargetkan tanggal lain seperti tanggal pesanan terakhir. Retarget pelanggan yang menerima kampanye tetapi tidak membacanya, atau yang mengetuk tombol, dan atur jam tenang agar tidak ada yang terkirim di malam hari.",
+              "ar": "ضمن خطة Business، يمكن لحملة متكررة أن ترسل يومياً عرض عيد ميلاد لكل من يصادف عيد ميلاده ذلك اليوم، أو أن تستهدف تاريخاً آخر مثل تاريخ آخر طلب. أعد استهداف العملاء الذين تسلّموا حملة ولم يقرؤوها أو الذين نقروا على زر، واضبط ساعات الهدوء حتى لا يُرسل شيء ليلاً.",
+              "tr": "Business planında tekrarlanan bir kampanya, o gün doğum günü olan herkese her gün bir doğum günü teklifi gönderebilir veya son sipariş tarihi gibi başka bir tarihi hedefleyebilir. Bir kampanyayı alıp okumayan veya bir butona dokunan müşterileri yeniden hedefleyin ve gece hiçbir şey gitmesin diye sessiz saatler ayarlayın."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Campaign Conversions",
+              "pt": "Conversões de campanhas",
+              "es": "Conversiones de campañas",
+              "id": "Konversi Kampanye",
+              "ar": "تحويلات الحملات",
+              "tr": "Kampanya Dönüşümleri"
+            },
+            "description": {
+              "en": "On the Business plan, report each sale from your store with POST /api/v1/conversions — the phone number, order ID and value. It is credited to the campaign that last reached that customer within your conversion window, and shows up in that campaign's report.",
+              "pt": "No plano Business, informe cada venda da sua loja com POST /api/v1/conversions — o telefone, o ID do pedido e o valor. Ela é creditada à campanha que alcançou esse cliente por último dentro da sua janela de conversão e aparece no relatório dessa campanha.",
+              "es": "En el plan Business, reporte cada venta de su tienda con POST /api/v1/conversions — el teléfono, el ID del pedido y el valor. Se atribuye a la campaña que llegó por última vez a ese cliente dentro de su ventana de conversión y aparece en el informe de esa campaña.",
+              "id": "Di paket Business, laporkan setiap penjualan dari toko Anda dengan POST /api/v1/conversions — nomor telepon, ID pesanan, dan nilainya. Penjualan dikreditkan ke kampanye yang terakhir menjangkau pelanggan itu dalam jendela konversi Anda, dan muncul di laporan kampanye tersebut.",
+              "ar": "ضمن خطة Business، أبلغ عن كل عملية بيع من متجرك عبر POST /api/v1/conversions — رقم الهاتف ومعرّف الطلب والقيمة. تُنسب العملية إلى الحملة التي وصلت إلى ذلك العميل آخر مرة ضمن نافذة التحويل لديك، وتظهر في تقرير تلك الحملة.",
+              "tr": "Business planında mağazanızdaki her satışı POST /api/v1/conversions ile bildirin — telefon numarası, sipariş kimliği ve tutar. Satış, dönüşüm pencereniz içinde o müşteriye en son ulaşan kampanyaya yazılır ve o kampanyanın raporunda görünür."
             }
           }
         ]
@@ -619,31 +657,66 @@
               "ng": "Can I send automated customer review requests?"
             },
             "answer": {
-              "en": "Yes. When your platform marks an order delivered, wait the delay you choose in your own system, then send a review-request template with quick-reply rating buttons. The customer's tap arrives on the message.received webhook with reply.id, and context.clientReference points back to the order you sent it for.",
-              "pt": "Sim. Quando sua plataforma marcar o pedido como entregue, aguarde o intervalo que quiser no seu próprio sistema e envie um template de pedido de avaliação com botões de resposta rápida para a nota. O toque do cliente chega no webhook message.received com reply.id, e context.clientReference aponta para o pedido correspondente.",
-              "es": "Sí. Cuando su plataforma marque un pedido como entregado, espere el tiempo que elija en su propio sistema y envíe una plantilla de solicitud de reseña con botones de respuesta rápida para la valoración. El toque del cliente llega en el webhook message.received con reply.id, y context.clientReference apunta al pedido correspondiente.",
-              "id": "Ya. Saat platform Anda menandai pesanan terkirim, tunggu jeda yang Anda pilih di sistem Anda sendiri, lalu kirim templat permintaan ulasan dengan tombol balasan cepat untuk penilaian. Ketukan pelanggan masuk di webhook message.received dengan reply.id, dan context.clientReference menunjuk ke pesanan terkait.",
-              "ar": "نعم. عندما تحدد منصتك الطلب كمُسلَّم، انتظر المهلة التي تختارها في نظامك، ثم أرسل قالب طلب تقييم مع أزرار رد سريع للتقييم. تصل نقرة العميل عبر ويب هوك message.received مع reply.id، ويشير context.clientReference إلى الطلب المعني.",
-              "tr": "Evet. Platformunuz bir siparişi teslim edildi olarak işaretlediğinde kendi sisteminizde seçtiğiniz süre kadar bekleyin, ardından puanlama için hızlı yanıt butonlu bir değerlendirme talebi şablonu gönderin. Müşterinin dokunuşu message.received webhook'una reply.id ile gelir ve context.clientReference ilgili siparişi gösterir."
+              "en": "Yes. When your platform marks an order delivered, wait the delay you choose in your own system, then send a review-request template with quick-reply rating buttons. The customer's tap arrives on the message.received webhook as a quick reply whose reply.title is the button text, and context.clientReference points back to the order you sent it for.",
+              "pt": "Sim. Quando sua plataforma marcar o pedido como entregue, aguarde o intervalo que quiser no seu próprio sistema e envie um template de pedido de avaliação com botões de resposta rápida para a nota. O toque do cliente chega no webhook message.received como resposta rápida, com o texto do botão em reply.title, e context.clientReference aponta para o pedido correspondente.",
+              "es": "Sí. Cuando su plataforma marque un pedido como entregado, espere el tiempo que elija en su propio sistema y envíe una plantilla de solicitud de reseña con botones de respuesta rápida para la valoración. El toque del cliente llega en el webhook message.received como respuesta rápida, con el texto del botón en reply.title, y context.clientReference apunta al pedido correspondiente.",
+              "id": "Ya. Saat platform Anda menandai pesanan terkirim, tunggu jeda yang Anda pilih di sistem Anda sendiri, lalu kirim templat permintaan ulasan dengan tombol balasan cepat untuk penilaian. Ketukan pelanggan masuk di webhook message.received sebagai balasan cepat, dengan teks tombol di reply.title, dan context.clientReference menunjuk ke pesanan terkait.",
+              "ar": "نعم. عندما تحدد منصتك الطلب كمُسلَّم، انتظر المهلة التي تختارها في نظامك، ثم أرسل قالب طلب تقييم مع أزرار رد سريع للتقييم. تصل نقرة العميل عبر ويب هوك message.received كرد سريع، ويحمل reply.title نص الزر، ويشير context.clientReference إلى الطلب المعني.",
+              "tr": "Evet. Platformunuz bir siparişi teslim edildi olarak işaretlediğinde kendi sisteminizde seçtiğiniz süre kadar bekleyin, ardından puanlama için hızlı yanıt butonlu bir değerlendirme talebi şablonu gönderin. Müşterinin dokunuşu message.received webhook'una hızlı yanıt olarak gelir; buton metni reply.title alanındadır ve context.clientReference ilgili siparişi gösterir."
             }
           },
           {
             "question": {
               "en": "How are WhatsApp transactional messages billed?",
               "pt": "Como as mensagens transacionais do WhatsApp são cobradas?",
-              "es": "¿Cómo se cobran los mensagens transaccionales de WhatsApp?",
+              "es": "¿Cómo se cobran los mensajes transaccionales de WhatsApp?",
               "id": "Bagaimana biaya pesan transaksional WhatsApp ditagih?",
               "ar": "كيف يتم احتساب تكلفة رسائل واتساب المعاملاتية؟",
-              "tr": "WhatsApp işlemsel mesajları nasıl faturalandırılır?",
-              "ng": "How are WhatsApp transactional messages billed?"
+              "tr": "WhatsApp işlemsel mesajları nasıl faturalandırılır?"
             },
             "answer": {
-              "en": "Meta charges per delivered template message, billed directly to your own WhatsApp Business Account. Service replies inside the 24-hour customer service window are free, and so are utility templates sent while that window is open. StartMessaging charges a flat subscription only, with no per-message markup.",
-              "pt": "A Meta cobra por mensagem de template entregue, diretamente na sua própria conta do WhatsApp Business. Respostas de atendimento dentro da janela de 24 horas são gratuitas, assim como templates de utilidade enviados enquanto essa janela está aberta. A StartMessaging cobra apenas uma assinatura fixa, sem acréscimo por mensagem.",
-              "es": "Meta cobra por cada mensaje de plantilla entregado, facturado directamente a su propia cuenta de WhatsApp Business. Las respuestas de servicio dentro de la ventana de 24 horas son gratuitas, al igual que las plantillas de utilidad enviadas mientras esa ventana está abierta. StartMessaging cobra solo una suscripción fija, sin recargo por mensaje.",
-              "id": "Meta menagih per pesan templat yang terkirim, langsung ke akun WhatsApp Business Anda sendiri. Balasan layanan dalam jendela layanan pelanggan 24 jam gratis, begitu pula templat utilitas yang dikirim selama jendela itu terbuka. StartMessaging hanya mengenakan langganan tetap, tanpa tambahan biaya per pesan.",
-              "ar": "تحاسب Meta على كل رسالة قالب يتم تسليمها، مباشرة في حساب WhatsApp Business الخاص بك. ردود الخدمة داخل نافذة خدمة العملاء البالغة 24 ساعة مجانية، وكذلك قوالب الخدمات المرسلة أثناء فتح تلك النافذة. ولا تفرض StartMessaging سوى اشتراك ثابت دون أي زيادة على سعر الرسالة.",
-              "tr": "Meta, teslim edilen her şablon mesajı için doğrudan kendi WhatsApp Business hesabınıza ücret yansıtır. 24 saatlik müşteri hizmetleri penceresi içindeki hizmet yanıtları ücretsizdir; pencere açıkken gönderilen utility şablonları da öyle. StartMessaging yalnızca sabit bir abonelik ücreti alır, mesaj başına ek ücret yoktur."
+              "en": "Meta charges for every delivered template, billed directly to your own WhatsApp Business Account. Since 1 October 2026 that includes utility templates such as order updates sent while the 24-hour customer service window is open. Free-form service replies are free up to a monthly allowance per number, then charged. StartMessaging charges a flat subscription only, with no per-message markup.",
+              "pt": "A Meta cobra cada template entregue, diretamente na sua própria conta do WhatsApp Business. Desde 1º de outubro de 2026 isso inclui templates de utilidade, como atualizações de pedido, enviados com a janela de atendimento de 24 horas aberta. Respostas de atendimento em formato livre são gratuitas até uma franquia mensal por número e depois cobradas. A StartMessaging cobra apenas uma assinatura fixa, sem acréscimo por mensagem.",
+              "es": "Meta cobra cada plantilla entregada, facturada directamente a su propia cuenta de WhatsApp Business. Desde el 1 de octubre de 2026 esto incluye las plantillas de utilidad, como las actualizaciones de pedidos, enviadas con la ventana de atención de 24 horas abierta. Las respuestas de atención en formato libre son gratuitas hasta una cuota mensual por número y después se cobran. StartMessaging cobra solo una suscripción fija, sin recargo por mensaje.",
+              "id": "Meta mengenakan biaya untuk setiap template yang terkirim, ditagihkan langsung ke Akun WhatsApp Business Anda sendiri. Sejak 1 Oktober 2026 hal ini termasuk template utilitas seperti pembaruan pesanan yang dikirim saat jendela layanan pelanggan 24 jam terbuka. Balasan layanan bebas format gratis hingga kuota bulanan per nomor, lalu dikenakan biaya. StartMessaging hanya mengenakan langganan tetap, tanpa tambahan biaya per pesan.",
+              "ar": "تفرض Meta رسوماً على كل قالب يتم تسليمه، وتُحمّلها مباشرة على حساب واتساب للأعمال الخاص بك. ومنذ 1 أكتوبر 2026 يشمل ذلك قوالب الخدمات مثل تحديثات الطلبات المرسلة أثناء فتح نافذة خدمة العملاء البالغة 24 ساعة. أما ردود خدمة العملاء الحرة فمجانية حتى حصة شهرية لكل رقم، ثم تُفرض عليها رسوم. ولا تفرض StartMessaging سوى اشتراك ثابت دون أي زيادة على سعر الرسالة.",
+              "tr": "Meta, teslim edilen her şablon için doğrudan kendi WhatsApp Business Hesabınıza ücret yansıtır. 1 Ekim 2026'dan beri buna, 24 saatlik müşteri hizmetleri penceresi açıkken gönderilen sipariş güncellemeleri gibi utility şablonları da dahildir. Serbest biçimli müşteri hizmeti yanıtları numara başına aylık bir kotaya kadar ücretsizdir, sonrasında ücretlendirilir. StartMessaging yalnızca sabit bir abonelik ücreti alır, mesaj başına ek ücret yoktur."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I see which campaign led to a sale?",
+              "pt": "Posso ver qual campanha gerou uma venda?",
+              "es": "¿Puedo ver qué campaña generó una venta?",
+              "id": "Bisakah saya melihat kampanye mana yang menghasilkan penjualan?",
+              "ar": "هل يمكنني معرفة الحملة التي أدت إلى عملية بيع؟",
+              "tr": "Hangi kampanyanın satışa yol açtığını görebilir miyim?"
+            },
+            "answer": {
+              "en": "Yes, on the Business plan. When an order is paid, call POST /api/v1/conversions (API key with the conversions:write scope) with the customer's phone number and, optionally, the order ID, value and currency; repeating a call with the same order ID is safe. StartMessaging credits the sale to the campaign whose message last reached that customer within your conversion window (1–30 days, 7 by default), and the campaign report shows its customers, value and conversion rate. Leads moved to a won pipeline stage count too.",
+              "pt": "Sim, no plano Business. Quando um pedido for pago, chame POST /api/v1/conversions (chave de API com o escopo conversions:write) com o telefone do cliente e, opcionalmente, o ID do pedido, o valor e a moeda; repetir a chamada com o mesmo ID de pedido é seguro. A StartMessaging credita a venda à campanha cuja mensagem alcançou esse cliente por último dentro da sua janela de conversão (1–30 dias, 7 por padrão), e o relatório da campanha mostra clientes, valor e taxa de conversão. Leads movidos para uma etapa de ganho do pipeline também contam.",
+              "es": "Sí, en el plan Business. Cuando se pague un pedido, llame a POST /api/v1/conversions (clave de API con el alcance conversions:write) con el teléfono del cliente y, opcionalmente, el ID del pedido, el valor y la moneda; repetir la llamada con el mismo ID de pedido es seguro. StartMessaging atribuye la venta a la campaña cuyo mensaje llegó por última vez a ese cliente dentro de su ventana de conversión (1–30 días, 7 por defecto), y el informe de la campaña muestra clientes, valor y tasa de conversión. Los leads movidos a una etapa ganada del pipeline también cuentan.",
+              "id": "Ya, di paket Business. Saat pesanan dibayar, panggil POST /api/v1/conversions (kunci API dengan scope conversions:write) dengan nomor telepon pelanggan dan, opsional, ID pesanan, nilai, dan mata uang; mengulang panggilan dengan ID pesanan yang sama aman. StartMessaging mengkreditkan penjualan ke kampanye yang pesannya terakhir menjangkau pelanggan itu dalam jendela konversi Anda (1–30 hari, default 7), dan laporan kampanye menampilkan pelanggan, nilai, dan tingkat konversinya. Lead yang dipindahkan ke tahap pipeline menang juga dihitung.",
+              "ar": "نعم، ضمن خطة Business. عند دفع قيمة الطلب، استدعِ POST /api/v1/conversions (بمفتاح API يملك نطاق conversions:write) مع رقم هاتف العميل، واختيارياً معرّف الطلب والقيمة والعملة؛ وتكرار الاستدعاء بنفس معرّف الطلب آمن. تنسب StartMessaging البيع إلى الحملة التي وصلت رسالتها إلى ذلك العميل آخر مرة ضمن نافذة التحويل لديك (من 1 إلى 30 يوماً، و7 أيام افتراضياً)، ويعرض تقرير الحملة العملاء والقيمة ومعدل التحويل. كما يُحتسب العملاء المحتملون الذين نُقلوا إلى مرحلة فوز في مسار المبيعات.",
+              "tr": "Evet, Business planında. Bir sipariş ödendiğinde, müşterinin telefon numarası ve isteğe bağlı olarak sipariş kimliği, tutar ve para birimiyle POST /api/v1/conversions çağırın (conversions:write kapsamlı API anahtarı); aynı sipariş kimliğiyle çağrıyı tekrarlamak güvenlidir. StartMessaging satışı, dönüşüm pencereniz içinde (1–30 gün, varsayılan 7) o müşteriye mesajı en son ulaşan kampanyaya yazar; kampanya raporu müşterileri, tutarı ve dönüşüm oranını gösterir. Satış hattında kazanıldı aşamasına taşınan potansiyel müşteriler de sayılır."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I send birthday offers or re-send to customers who didn't read?",
+              "pt": "Posso enviar ofertas de aniversário ou reenviar para clientes que não leram?",
+              "es": "¿Puedo enviar ofertas de cumpleaños o reenviar a clientes que no leyeron?",
+              "id": "Bisakah saya mengirim penawaran ulang tahun atau mengirim ulang ke pelanggan yang belum membaca?",
+              "ar": "هل يمكنني إرسال عروض أعياد الميلاد أو إعادة الإرسال للعملاء الذين لم يقرؤوا الرسالة؟",
+              "tr": "Doğum günü teklifleri gönderebilir veya okumayan müşterilere yeniden gönderebilir miyim?"
+            },
+            "answer": {
+              "en": "Yes, on the Business plan. Save the birthday (or any other date) on the contact, and a campaign that repeats every day sends to whoever matches that day; a day with nobody is skipped. To follow up a campaign, retarget the people who got it but didn't read it, read it but didn't reply, or tapped a particular button. Set quiet hours in your workspace so campaigns never send overnight — sending waits and carries on by itself. Opted-out contacts are always skipped.",
+              "pt": "Sim, no plano Business. Salve o aniversário (ou qualquer outra data) no contato, e uma campanha que se repete todo dia envia para quem corresponde naquele dia; um dia sem ninguém é pulado. Para dar sequência a uma campanha, faça retargeting de quem a recebeu mas não leu, leu mas não respondeu, ou tocou em um botão específico. Configure o horário de silêncio no workspace para que as campanhas nunca enviem durante a noite — o envio espera e continua sozinho. Contatos descadastrados são sempre pulados.",
+              "es": "Sí, en el plan Business. Guarde el cumpleaños (o cualquier otra fecha) en el contacto, y una campaña que se repite cada día envía a quien coincide ese día; un día sin nadie se omite. Para dar seguimiento a una campaña, haga retargeting a quienes la recibieron pero no la leyeron, la leyeron pero no respondieron, o tocaron un botón concreto. Configure horas de silencio en su espacio de trabajo para que las campañas nunca envíen de noche — el envío espera y continúa solo. Los contactos dados de baja siempre se omiten.",
+              "id": "Ya, di paket Business. Simpan tanggal ulang tahun (atau tanggal lain) di kontak, dan kampanye yang berulang setiap hari mengirim ke siapa pun yang cocok pada hari itu; hari tanpa penerima dilewati. Untuk menindaklanjuti kampanye, retarget orang yang menerimanya tetapi tidak membaca, membaca tetapi tidak membalas, atau mengetuk tombol tertentu. Atur jam tenang di workspace agar kampanye tidak pernah mengirim di malam hari — pengiriman menunggu dan berlanjut sendiri. Kontak yang berhenti berlangganan selalu dilewati.",
+              "ar": "نعم، ضمن خطة Business. احفظ تاريخ الميلاد (أو أي تاريخ آخر) في جهة الاتصال، فترسل حملة تتكرر يومياً إلى كل من يطابق ذلك اليوم، ويتم تخطي اليوم الذي لا يطابقه أحد. ولمتابعة حملة، أعد استهداف من تسلّمها ولم يقرأها، أو قرأها ولم يرد، أو نقر على زر معيّن. اضبط ساعات الهدوء في مساحة العمل حتى لا ترسل الحملات ليلاً أبداً — ينتظر الإرسال ثم يُستأنف تلقائياً. ويتم دائماً تخطي جهات الاتصال الملغية.",
+              "tr": "Evet, Business planında. Doğum gününü (veya başka bir tarihi) kişiye kaydedin; her gün tekrarlanan bir kampanya o gün eşleşen herkese gönderir, kimsenin olmadığı gün atlanır. Bir kampanyanın devamı için kampanyayı alıp okumayanları, okuyup yanıtlamayanları veya belirli bir butona dokunanları yeniden hedefleyin. Kampanyaların gece asla gönderilmemesi için çalışma alanınızda sessiz saatler ayarlayın — gönderim bekler ve kendiliğinden devam eder. Çıkış yapan kişiler her zaman atlanır."
             }
           }
         ]
@@ -726,12 +799,12 @@
           "ng": "Boost Your E-Commerce with WhatsApp"
         },
         "subtext": {
-          "en": "Start with a 14-day free trial of every feature.",
-          "pt": "Comece com um teste grátis de 14 dias com todos os recursos.",
-          "es": "Comience con una prueba gratuita de 14 días con todas las funciones.",
-          "id": "Mulai dengan uji coba gratis 14 hari untuk semua fitur.",
-          "ar": "ابدأ بتجربة مجانية لمدة 14 يوماً لجميع الميزات.",
-          "tr": "Tüm özellikleri içeren 14 günlük ücretsiz denemeyle başlayın."
+          "en": "Start with a 14-day free trial of the Business plan.",
+          "pt": "Comece com um teste grátis de 14 dias do plano Business.",
+          "es": "Empiece con una prueba gratis de 14 días del plan Business.",
+          "id": "Mulai dengan uji coba gratis 14 hari paket Business.",
+          "ar": "ابدأ بتجربة مجانية لمدة 14 يوماً لخطة Business.",
+          "tr": "Business planının 14 günlük ücretsiz denemesiyle başlayın."
         },
         "primaryCta": {
           "en": "Start free trial",

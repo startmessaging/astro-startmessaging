@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-12",
   "seo": {
     "ogImage": "/og/whatsapp-api.jpg",
     "title": {
@@ -51,12 +51,12 @@
           "tr": "WhatsApp İçinde Yapılandırılmış Yanıtlar Toplayın"
         },
         "subtitle": {
-          "en": "Build a form in Meta's Flow Builder, sync it into StartMessaging and attach it to a template button. Customers fill it in without leaving the chat, and every answer arrives as labelled fields in your inbox, the API and your webhooks.",
-          "pt": "Crie um formulário no Flow Builder da Meta, sincronize-o com a StartMessaging e anexe-o a um botão de template. Os clientes preenchem sem sair da conversa, e cada resposta chega como campos identificados na sua caixa de entrada, na API e nos seus webhooks.",
-          "es": "Cree un formulario en el Flow Builder de Meta, sincronícelo con StartMessaging y adjúntelo a un botón de plantilla. Los clientes lo completan sin salir del chat, y cada respuesta llega como campos etiquetados en su bandeja de entrada, la API y sus webhooks.",
-          "id": "Buat formulir di Flow Builder Meta, sinkronkan ke StartMessaging, dan lampirkan ke tombol template. Pelanggan mengisinya tanpa keluar dari chat, dan setiap jawaban tiba sebagai kolom berlabel di kotak masuk, API, dan webhook Anda.",
-          "ar": "صمّم نموذجًا في Flow Builder من Meta، ثم زامنه مع StartMessaging واربطه بزر في قالب. يملؤه العملاء دون مغادرة المحادثة، وتصل كل إجابة كحقول معنونة في صندوق الوارد وواجهة API والـwebhooks لديك.",
-          "tr": "Meta'nın Flow Builder'ında bir form oluşturun, StartMessaging'e senkronize edin ve bir şablon düğmesine ekleyin. Müşteriler sohbetten çıkmadan formu doldurur; her yanıt gelen kutunuza, API'ye ve webhook'larınıza etiketli alanlar olarak gelir."
+          "en": "Build a form in Meta's Flow Builder, sync it into StartMessaging and attach it to a template button. Customers fill it in without leaving the chat, and every answer arrives as labelled fields in your inbox, the API and your webhooks. WhatsApp Forms are on the Business plan and the 14-day free trial.",
+          "pt": "Crie um formulário no Flow Builder da Meta, sincronize-o com a StartMessaging e anexe-o a um botão de template. Os clientes preenchem sem sair da conversa, e cada resposta chega como campos identificados na sua caixa de entrada, na API e nos seus webhooks. Os WhatsApp Forms fazem parte do plano Business e do teste grátis de 14 dias.",
+          "es": "Cree un formulario en el Flow Builder de Meta, sincronícelo con StartMessaging y adjúntelo a un botón de plantilla. Los clientes lo completan sin salir del chat, y cada respuesta llega como campos etiquetados en su bandeja de entrada, la API y sus webhooks. Los WhatsApp Forms están en el plan Business y en la prueba gratis de 14 días.",
+          "id": "Buat formulir di Flow Builder Meta, sinkronkan ke StartMessaging, dan lampirkan ke tombol template. Pelanggan mengisinya tanpa keluar dari chat, dan setiap jawaban tiba sebagai kolom berlabel di kotak masuk, API, dan webhook Anda. WhatsApp Forms tersedia di paket Business dan uji coba gratis 14 hari.",
+          "ar": "صمّم نموذجًا في Flow Builder من Meta، ثم زامنه مع StartMessaging واربطه بزر في قالب. يملؤه العملاء دون مغادرة المحادثة، وتصل كل إجابة كحقول معنونة في صندوق الوارد وواجهة API والـwebhooks لديك. نماذج واتساب متاحة في باقة Business وفي التجربة المجانية لمدة 14 يوماً.",
+          "tr": "Meta'nın Flow Builder'ında bir form oluşturun, StartMessaging'e senkronize edin ve bir şablon düğmesine ekleyin. Müşteriler sohbetten çıkmadan formu doldurur; her yanıt gelen kutunuza, API'ye ve webhook'larınıza etiketli alanlar olarak gelir. WhatsApp Forms, Business paketinde ve 14 günlük ücretsiz denemededir."
         },
         "primaryCta": {
           "en": "Start 14-day free trial",
@@ -746,6 +746,24 @@
           },
           {
             "question": {
+              "en": "Which plan includes WhatsApp Forms?",
+              "pt": "Qual plano inclui os WhatsApp Forms?",
+              "es": "¿Qué plan incluye los WhatsApp Forms?",
+              "id": "Paket mana yang mencakup WhatsApp Forms?",
+              "ar": "ما الباقة التي تتضمن نماذج واتساب؟",
+              "tr": "WhatsApp Forms hangi pakette var?"
+            },
+            "answer": {
+              "en": "The Business plan, and the 14-day free trial, together with chatbot flows. Syncing forms from Meta and adding a Flow (WhatsApp Form) button to a template need Business. Team covers the shared inbox, contacts, campaigns and keyword auto-replies, but not forms.",
+              "pt": "O plano Business e o teste grátis de 14 dias, junto com os fluxos de chatbot. Sincronizar formulários da Meta e adicionar um botão Flow (WhatsApp Form) a um template exigem o Business. O Team cobre a caixa de entrada compartilhada, os contatos, as campanhas e as respostas automáticas por palavra-chave, mas não os formulários.",
+              "es": "El plan Business y la prueba gratis de 14 días, junto con los flujos de chatbot. Sincronizar formularios desde Meta y añadir un botón Flow (WhatsApp Form) a una plantilla requieren Business. Team cubre la bandeja de entrada compartida, los contactos, las campañas y las respuestas automáticas por palabra clave, pero no los formularios.",
+              "id": "Paket Business, dan uji coba gratis 14 hari, bersama alur chatbot. Menyinkronkan formulir dari Meta dan menambahkan tombol Flow (WhatsApp Form) ke template memerlukan Business. Team mencakup kotak masuk bersama, kontak, kampanye, dan balasan otomatis kata kunci, tetapi tidak formulir.",
+              "ar": "باقة Business، والتجربة المجانية لمدة 14 يوماً، مع تدفقات الشات بوت. تتطلب مزامنة النماذج من Meta وإضافة زر Flow (نموذج واتساب) إلى قالب باقة Business. أما باقة Team فتشمل صندوق الوارد المشترك وجهات الاتصال والحملات والردود التلقائية بالكلمات المفتاحية، لكنها لا تشمل النماذج.",
+              "tr": "Business paketi ve 14 günlük ücretsiz deneme, chatbot akışlarıyla birlikte. Formları Meta’dan senkronize etmek ve bir şablona Flow (WhatsApp Form) butonu eklemek Business gerektirir. Team; ortak gelen kutusunu, kişileri, kampanyaları ve anahtar kelime otomatik yanıtlarını kapsar, ancak formları kapsamaz."
+            }
+          },
+          {
+            "question": {
               "en": "Do WhatsApp Forms cost extra?",
               "pt": "Os Formulários do WhatsApp têm custo extra?",
               "es": "¿Los Formularios de WhatsApp tienen un costo adicional?",
@@ -754,12 +772,12 @@
               "tr": "WhatsApp Formları ek ücretli mi?"
             },
             "answer": {
-              "en": "StartMessaging doesn't charge per form or per message. Meta bills the template that carries the form, by its category, directly to your own WhatsApp Business Account.",
-              "pt": "A StartMessaging não cobra por formulário nem por mensagem. A Meta cobra o template que leva o formulário, conforme a categoria, diretamente na sua própria conta do WhatsApp Business.",
-              "es": "StartMessaging no cobra por formulario ni por mensaje. Meta factura la plantilla que lleva el formulario, según su categoría, directamente a su propia cuenta de WhatsApp Business.",
-              "id": "StartMessaging tidak menagih per formulir atau per pesan. Meta menagih template yang membawa formulir, sesuai kategorinya, langsung ke Akun WhatsApp Business Anda sendiri.",
-              "ar": "لا تفرض StartMessaging رسومًا على كل نموذج أو كل رسالة. تفوتر Meta القالب الذي يحمل النموذج، حسب فئته، مباشرة على حساب واتساب للأعمال الخاص بك.",
-              "tr": "StartMessaging form veya mesaj başına ücret almaz. Meta, formu taşıyan şablonu kategorisine göre doğrudan kendi WhatsApp Business Hesabınıza faturalandırır."
+              "en": "StartMessaging doesn’t charge per form or per message: WhatsApp Forms come with the Business plan. Meta charges every delivered template, including the one that carries the form, at its category’s rate, directly to your own WhatsApp Business Account.",
+              "pt": "A StartMessaging não cobra por formulário nem por mensagem: os WhatsApp Forms vêm com o plano Business. A Meta cobra todo template entregue, inclusive o que leva o formulário, pela tarifa da categoria dele, diretamente na sua própria Conta do WhatsApp Business.",
+              "es": "StartMessaging no cobra por formulario ni por mensaje: los WhatsApp Forms vienen con el plan Business. Meta cobra cada plantilla entregada, incluida la que lleva el formulario, según la tarifa de su categoría, directamente a tu propia Cuenta de WhatsApp Business.",
+              "id": "StartMessaging tidak menagih per formulir atau per pesan: WhatsApp Forms sudah termasuk dalam paket Business. Meta menagih setiap template yang terkirim, termasuk yang membawa formulir, sesuai tarif kategorinya, langsung ke Akun WhatsApp Business milik Anda sendiri.",
+              "ar": "لا يتقاضى StartMessaging أي رسوم لكل نموذج أو لكل رسالة: تأتي نماذج واتساب مع باقة Business. وتحتسب Meta كل قالب يتم تسليمه، بما فيه القالب الذي يحمل النموذج، بسعر فئته، مباشرة على حساب واتساب للأعمال الخاص بك.",
+              "tr": "StartMessaging form veya mesaj başına ücret almaz: WhatsApp Forms, Business paketiyle gelir. Meta, formu taşıyan da dahil teslim edilen her şablonu kendi kategorisinin ücretiyle doğrudan kendi WhatsApp Business Hesabınıza fatura eder."
             }
           }
         ]
@@ -836,12 +854,12 @@
           "tr": "WhatsApp'ta Yanıt Toplamaya Başlayın"
         },
         "subtext": {
-          "en": "Connect your WhatsApp Business Account, sync your forms from Meta and send your first one during the 14-day free trial.",
-          "pt": "Conecte sua conta do WhatsApp Business, sincronize seus formulários da Meta e envie o primeiro durante o teste grátis de 14 dias.",
-          "es": "Conecte su cuenta de WhatsApp Business, sincronice sus formularios desde Meta y envíe el primero durante la prueba gratuita de 14 días.",
-          "id": "Hubungkan Akun WhatsApp Business Anda, sinkronkan formulir dari Meta, dan kirim yang pertama selama uji coba gratis 14 hari.",
-          "ar": "اربط حساب واتساب للأعمال، وزامن نماذجك من Meta، وأرسل أول نموذج خلال التجربة المجانية لمدة 14 يومًا.",
-          "tr": "WhatsApp Business Hesabınızı bağlayın, formlarınızı Meta'dan senkronize edin ve ilkini 14 günlük ücretsiz deneme sırasında gönderin."
+          "en": "Connect your WhatsApp Business Account, sync your forms from Meta and send your first one during the 14-day free trial. WhatsApp Forms are on the Business plan.",
+          "pt": "Conecte sua Conta do WhatsApp Business, sincronize seus formulários da Meta e envie o primeiro durante o teste grátis de 14 dias. Os WhatsApp Forms fazem parte do plano Business.",
+          "es": "Conecta tu Cuenta de WhatsApp Business, sincroniza tus formularios desde Meta y envía el primero durante la prueba gratis de 14 días. Los WhatsApp Forms están en el plan Business.",
+          "id": "Hubungkan Akun WhatsApp Business Anda, sinkronkan formulir dari Meta, dan kirim formulir pertama selama uji coba gratis 14 hari. WhatsApp Forms tersedia di paket Business.",
+          "ar": "اربط حساب واتساب للأعمال، وزامن نماذجك من Meta، وأرسل أول نموذج خلال التجربة المجانية لمدة 14 يوماً. نماذج واتساب متاحة في باقة Business.",
+          "tr": "WhatsApp Business Hesabınızı bağlayın, formlarınızı Meta’dan senkronize edin ve ilkini 14 günlük ücretsiz deneme sırasında gönderin. WhatsApp Forms, Business paketindedir."
         },
         "primaryCta": {
           "en": "Start 14-day free trial",

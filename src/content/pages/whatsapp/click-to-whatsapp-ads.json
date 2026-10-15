@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-12",
   "seo": {
     "title": {
       "en": "Click-to-WhatsApp Ads Attribution — Track Ad Leads — StartMessaging",
@@ -20,12 +20,12 @@
       "tr": "Click-to-WhatsApp Reklam İlişkilendirme — Reklam Lead Takibi — StartMessaging"
     },
     "description": {
-      "en": "See which Click-to-WhatsApp ad started every chat. Ad leads are saved as contacts with the ad headline, ad ID and click ID, and the referral reaches your systems by webhook.",
-      "pt": "Veja qual anúncio Click-to-WhatsApp iniciou cada conversa. Leads de anúncios são salvos como contatos com o título, o ID do anúncio e o ID do clique, e a referência chega aos seus sistemas por webhook.",
-      "es": "Vea qué anuncio Click-to-WhatsApp inició cada chat. Los leads de anuncios se guardan como contactos con el título, el ID del anuncio y el ID del clic, y la referencia llega a sus sistemas por webhook.",
-      "id": "Lihat iklan Click-to-WhatsApp mana yang memulai setiap chat. Lead dari iklan disimpan sebagai kontak dengan judul iklan, ID iklan, dan ID klik, dan data rujukan dikirim ke sistem Anda lewat webhook.",
-      "ar": "اعرف أي إعلان Click-to-WhatsApp بدأ كل محادثة. يُحفظ العملاء القادمون من الإعلانات كجهات اتصال مع عنوان الإعلان ومعرّفه ومعرّف النقرة، وتصل بيانات الإحالة إلى أنظمتك عبر webhook.",
-      "tr": "Her sohbeti hangi Click-to-WhatsApp reklamının başlattığını görün. Reklam lead'leri reklam başlığı, reklam kimliği ve tıklama kimliğiyle kişi olarak kaydedilir; yönlendirme bilgisi sistemlerinize webhook ile ulaşır."
+      "en": "See which Click-to-WhatsApp ad started every chat. Ad leads are saved as contacts with the ad headline, ad ID and click ID, and the referral reaches your systems by webhook. The inbox shows when Meta’s 72-hour free entry point window ends.",
+      "pt": "Veja qual anúncio Click-to-WhatsApp iniciou cada conversa. Leads de anúncios são salvos como contatos com o título, o ID do anúncio e o ID do clique, e a referência chega aos seus sistemas por webhook. A caixa de entrada mostra quando termina a janela de ponto de entrada gratuito de 72 horas da Meta.",
+      "es": "Vea qué anuncio Click-to-WhatsApp inició cada chat. Los leads de anuncios se guardan como contactos con el título, el ID del anuncio y el ID del clic, y la referencia llega a sus sistemas por webhook. La bandeja de entrada muestra cuándo termina la ventana de punto de entrada gratuito de 72 horas de Meta.",
+      "id": "Lihat iklan Click-to-WhatsApp mana yang memulai setiap chat. Lead dari iklan disimpan sebagai kontak dengan judul iklan, ID iklan, dan ID klik, dan data rujukan dikirim ke sistem Anda lewat webhook. Kotak masuk menampilkan kapan jendela titik masuk gratis 72 jam dari Meta berakhir.",
+      "ar": "اعرف أي إعلان Click-to-WhatsApp بدأ كل محادثة. يُحفظ العملاء القادمون من الإعلانات كجهات اتصال مع عنوان الإعلان ومعرّفه ومعرّف النقرة، وتصل بيانات الإحالة إلى أنظمتك عبر webhook. ويعرض صندوق الوارد موعد انتهاء نافذة نقطة الدخول المجانية من Meta ومدتها 72 ساعة.",
+      "tr": "Her sohbeti hangi Click-to-WhatsApp reklamının başlattığını görün. Reklam lead'leri reklam başlığı, reklam kimliği ve tıklama kimliğiyle kişi olarak kaydedilir; yönlendirme bilgisi sistemlerinize webhook ile ulaşır. Gelen kutusu, Meta’nın 72 saatlik ücretsiz giriş noktası penceresinin ne zaman bittiğini gösterir."
     },
     "ogImage": "/og/whatsapp-marketing.jpg"
   },
@@ -121,6 +121,14 @@
             "id": "ID klik (ctwaClid) disimpan untuk pelaporan konversi Anda",
             "ar": "الاحتفاظ بمعرّف النقرة (ctwaClid) لتقارير التحويل الخاصة بك",
             "tr": "Dönüşüm raporlamanız için tıklama kimliği (ctwaClid) saklanır"
+          },
+          {
+            "en": "A “Free ad window ends…” pill while Meta’s 72-hour free window is open",
+            "pt": "Um selo “A janela grátis do anúncio termina…” enquanto a janela grátis de 72 horas da Meta está aberta",
+            "es": "Una etiqueta “La ventana gratis del anuncio termina…” mientras la ventana gratis de 72 horas de Meta está abierta",
+            "id": "Label “Jendela iklan gratis berakhir…” selama jendela gratis 72 jam dari Meta terbuka",
+            "ar": "شارة “تنتهي نافذة الإعلان المجانية…” ما دامت نافذة Meta المجانية ومدتها 72 ساعة مفتوحة",
+            "tr": "Meta’nın 72 saatlik ücretsiz penceresi açıkken “Ücretsiz reklam penceresi bitiyor…” etiketi"
           }
         ],
         "image": "/images/marketing-analytics.webp",
@@ -303,12 +311,12 @@
               "tr": "5. Dönüşümü kendiniz bildirin"
             },
             "description": {
-              "en": "When the lead buys, your own system sends the stored ctwaClid to Meta's Conversions API. StartMessaging does not send conversions to Meta for you.",
-              "pt": "Quando o lead compra, o seu próprio sistema envia o ctwaClid salvo para a API de Conversões da Meta. O StartMessaging não envia conversões à Meta por você.",
-              "es": "Cuando el lead compra, su propio sistema envía el ctwaClid guardado a la API de Conversiones de Meta. StartMessaging no envía conversiones a Meta por usted.",
-              "id": "Saat lead membeli, sistem Anda sendiri mengirim ctwaClid yang tersimpan ke Conversions API Meta. StartMessaging tidak mengirim konversi ke Meta untuk Anda.",
-              "ar": "عندما يشتري العميل، يرسل نظامك أنت معرّف ctwaClid المحفوظ إلى واجهة Conversions API من Meta. لا يرسل StartMessaging التحويلات إلى Meta نيابةً عنك.",
-              "tr": "Lead satın aldığında, saklanan ctwaClid'i kendi sisteminiz Meta'nın Dönüşümler API'sine gönderir. StartMessaging dönüşümleri sizin yerinize Meta'ya göndermez."
+              "en": "When the lead buys, your own system sends the stored ctwaClid to Meta’s Conversions API; StartMessaging does not send conversions to Meta for you. To credit the sale to a StartMessaging campaign instead, report it with POST /api/v1/conversions on the Business plan.",
+              "pt": "Quando o lead compra, o seu próprio sistema envia o ctwaClid salvo para a API de Conversões da Meta; o StartMessaging não envia conversões à Meta por você. Para creditar a venda a uma campanha do StartMessaging, informe-a com POST /api/v1/conversions no plano Business.",
+              "es": "Cuando el lead compra, su propio sistema envía el ctwaClid guardado a la API de Conversiones de Meta; StartMessaging no envía conversiones a Meta por usted. Para acreditar la venta a una campaña de StartMessaging, infórmela con POST /api/v1/conversions en el plan Business.",
+              "id": "Saat lead membeli, sistem Anda sendiri mengirim ctwaClid yang tersimpan ke Conversions API Meta; StartMessaging tidak mengirim konversi ke Meta untuk Anda. Untuk mengkreditkan penjualan ke kampanye StartMessaging, laporkan dengan POST /api/v1/conversions di paket Business.",
+              "ar": "عندما يشتري العميل، يرسل نظامك أنت معرّف ctwaClid المحفوظ إلى واجهة Conversions API من Meta، ولا يرسل StartMessaging التحويلات إلى Meta نيابةً عنك. ولنسب البيع إلى حملة في StartMessaging، أبلغ عنه عبر POST /api/v1/conversions في باقة Business.",
+              "tr": "Lead satın aldığında, saklanan ctwaClid’i kendi sisteminiz Meta’nın Dönüşümler API’sine gönderir; StartMessaging dönüşümleri sizin yerinize Meta’ya göndermez. Satışı bir StartMessaging kampanyasına yazmak için Business paketinde POST /api/v1/conversions ile bildirin."
             }
           }
         ]
@@ -512,6 +520,33 @@
               "ar": "دون تغيير",
               "tr": "Değişmez"
             }
+          ],
+          [
+            {
+              "en": "Free entry point window (72 hours)",
+              "pt": "Janela de ponto de entrada gratuito (72 horas)",
+              "es": "Ventana de punto de entrada gratuito (72 horas)",
+              "id": "Jendela titik masuk gratis (72 jam)",
+              "ar": "نافذة نقطة الدخول المجانية (72 ساعة)",
+              "tr": "Ücretsiz giriş noktası penceresi (72 saat)"
+            },
+            {
+              "en": "“Free ad window ends…” pill on the chat",
+              "pt": "Selo “A janela grátis do anúncio termina…” no chat",
+              "es": "Etiqueta “La ventana gratis del anuncio termina…” en el chat",
+              "id": "Label “Jendela iklan gratis berakhir…” di obrolan",
+              "ar": "شارة “تنتهي نافذة الإعلان المجانية…” على المحادثة",
+              "tr": "Sohbette “Ücretsiz reklam penceresi bitiyor…” etiketi"
+            },
+            "—",
+            {
+              "en": "freeEntryPointExpiresAt on the conversation",
+              "pt": "freeEntryPointExpiresAt na conversa",
+              "es": "freeEntryPointExpiresAt en la conversación",
+              "id": "freeEntryPointExpiresAt pada percakapan",
+              "ar": "freeEntryPointExpiresAt على المحادثة",
+              "tr": "Konuşmada freeEntryPointExpiresAt"
+            }
           ]
         ]
       }
@@ -643,12 +678,30 @@
               "tr": "StartMessaging dönüşümleri Meta'nın Dönüşümler API'sine gönderir mi?"
             },
             "answer": {
-              "en": "No. StartMessaging keeps the click ID (ctwaClid) on the contact and on the webhook. When a lead converts, your own server, or an automation tool you control, sends the ctwaClid to Meta's Conversions API.",
-              "pt": "Não. O StartMessaging guarda o ID de clique (ctwaClid) no contato e no webhook. Quando um lead converte, o seu próprio servidor, ou uma ferramenta de automação que você controla, envia o ctwaClid para a API de Conversões da Meta.",
-              "es": "No. StartMessaging guarda el ID de clic (ctwaClid) en el contacto y en el webhook. Cuando un lead convierte, su propio servidor, o una herramienta de automatización que usted controla, envía el ctwaClid a la API de Conversiones de Meta.",
-              "id": "Tidak. StartMessaging menyimpan ID klik (ctwaClid) di kontak dan di webhook. Saat lead berkonversi, server Anda sendiri, atau alat otomasi yang Anda kelola, mengirim ctwaClid ke Conversions API Meta.",
-              "ar": "لا. يحتفظ StartMessaging بمعرّف النقرة (ctwaClid) على جهة الاتصال وفي الـ webhook. وعندما يتحول العميل المحتمل إلى عميل، يرسل خادمك أنت، أو أداة أتمتة تتحكم بها، معرّف ctwaClid إلى Conversions API من Meta.",
-              "tr": "Hayır. StartMessaging tıklama kimliğini (ctwaClid) kişide ve webhook'ta saklar. Bir lead dönüştüğünde ctwaClid'i Meta'nın Dönüşümler API'sine kendi sunucunuz ya da kontrol ettiğiniz bir otomasyon aracı gönderir."
+              "en": "No. StartMessaging keeps the click ID (ctwaClid) on the contact and on the webhook. When a lead converts, your own server, or an automation tool you control, sends the ctwaClid to Meta's Conversions API. To credit a sale to a StartMessaging campaign, the Business plan adds POST /api/v1/conversions: report the sale with the customer’s phone, and the last campaign delivered to them within your conversion window gets the credit.",
+              "pt": "Não. O StartMessaging guarda o ID de clique (ctwaClid) no contato e no webhook. Quando um lead converte, o seu próprio servidor, ou uma ferramenta de automação que você controla, envia o ctwaClid para a API de Conversões da Meta. Para creditar uma venda a uma campanha do StartMessaging, o plano Business oferece POST /api/v1/conversions: informe a venda com o telefone do cliente, e a última campanha entregue a ele dentro da sua janela de conversão recebe o crédito.",
+              "es": "No. StartMessaging guarda el ID de clic (ctwaClid) en el contacto y en el webhook. Cuando un lead convierte, su propio servidor, o una herramienta de automatización que usted controla, envía el ctwaClid a la API de Conversiones de Meta. Para acreditar una venta a una campaña de StartMessaging, el plan Business ofrece POST /api/v1/conversions: informe la venta con el teléfono del cliente, y la última campaña entregada a él dentro de su ventana de conversión recibe el crédito.",
+              "id": "Tidak. StartMessaging menyimpan ID klik (ctwaClid) di kontak dan di webhook. Saat lead berkonversi, server Anda sendiri, atau alat otomasi yang Anda kelola, mengirim ctwaClid ke Conversions API Meta. Untuk mengkreditkan penjualan ke kampanye StartMessaging, paket Business menyediakan POST /api/v1/conversions: laporkan penjualan dengan nomor telepon pelanggan, dan kampanye terakhir yang terkirim kepadanya dalam jendela konversi Anda mendapat kreditnya.",
+              "ar": "لا. يحتفظ StartMessaging بمعرّف النقرة (ctwaClid) على جهة الاتصال وفي الـ webhook. وعندما يتحول العميل المحتمل إلى عميل، يرسل خادمك أنت، أو أداة أتمتة تتحكم بها، معرّف ctwaClid إلى Conversions API من Meta. ولنسب عملية بيع إلى حملة في StartMessaging، تضيف باقة Business الطلب POST /api/v1/conversions: أبلغ عن البيع برقم هاتف العميل، فتُنسب إلى آخر حملة سُلّمت إليه ضمن نافذة التحويل لديك.",
+              "tr": "Hayır. StartMessaging tıklama kimliğini (ctwaClid) kişide ve webhook'ta saklar. Bir lead dönüştüğünde ctwaClid'i Meta'nın Dönüşümler API'sine kendi sunucunuz ya da kontrol ettiğiniz bir otomasyon aracı gönderir. Bir satışı StartMessaging kampanyasına yazmak için Business paketi POST /api/v1/conversions sunar: satışı müşterinin telefonuyla bildirin; dönüşüm pencereniz içinde ona teslim edilen son kampanya payı alır."
+            }
+          },
+          {
+            "question": {
+              "en": "Does Meta charge for messages in an ad chat?",
+              "pt": "A Meta cobra pelas mensagens em um chat vindo de anúncio?",
+              "es": "¿Meta cobra los mensajes en un chat que llega de un anuncio?",
+              "id": "Apakah Meta menagih pesan di obrolan dari iklan?",
+              "ar": "هل تحتسب Meta رسوماً على الرسائل في محادثة قادمة من إعلان؟",
+              "tr": "Meta, reklamdan gelen bir sohbetteki mesajlar için ücret alır mı?"
+            },
+            "answer": {
+              "en": "Not inside the free entry point window. When a customer writes in from a Click-to-WhatsApp ad and you reply in time, Meta opens a 72-hour free entry point window in which it charges nothing for messages in that chat, templates included. The inbox shows a “Free ad window ends…” pill until then, and the API returns the end time as freeEntryPointExpiresAt on the conversation. The window doesn’t replace the 24-hour rule: once the customer’s 24 hours have passed, you still need an approved template. After it ends, Meta’s normal rates apply.",
+              "pt": "Não dentro da janela de ponto de entrada gratuito. Quando um cliente escreve a partir de um anúncio Click-to-WhatsApp e você responde a tempo, a Meta abre uma janela de ponto de entrada gratuito de 72 horas em que não cobra nada pelas mensagens daquele chat, templates incluídos. A caixa de entrada mostra o selo “A janela grátis do anúncio termina…” até lá, e a API devolve o horário de término como freeEntryPointExpiresAt na conversa. A janela não substitui a regra das 24 horas: passadas as 24 horas do cliente, você ainda precisa de um template aprovado. Depois que ela termina, valem as tarifas normais da Meta.",
+              "es": "No dentro de la ventana de punto de entrada gratuito. Cuando un cliente escribe desde un anuncio Click-to-WhatsApp y usted responde a tiempo, Meta abre una ventana de punto de entrada gratuito de 72 horas en la que no cobra nada por los mensajes de ese chat, plantillas incluidas. La bandeja de entrada muestra la etiqueta “La ventana gratis del anuncio termina…” hasta entonces, y la API devuelve la hora de fin como freeEntryPointExpiresAt en la conversación. La ventana no reemplaza la regla de las 24 horas: pasadas las 24 horas del cliente, sigue necesitando una plantilla aprobada. Cuando termina, se aplican las tarifas normales de Meta.",
+              "id": "Tidak, selama jendela titik masuk gratis. Saat pelanggan menulis dari iklan Click-to-WhatsApp dan Anda membalas tepat waktu, Meta membuka jendela titik masuk gratis 72 jam yang selama itu Meta tidak menagih pesan di obrolan tersebut, termasuk template. Kotak masuk menampilkan label “Jendela iklan gratis berakhir…” hingga saat itu, dan API mengembalikan waktu berakhirnya sebagai freeEntryPointExpiresAt pada percakapan. Jendela ini tidak menggantikan aturan 24 jam: setelah 24 jam pelanggan lewat, Anda tetap memerlukan template yang disetujui. Setelah jendela berakhir, tarif normal Meta berlaku.",
+              "ar": "ليس داخل نافذة نقطة الدخول المجانية. عندما يراسلك عميل من إعلان Click-to-WhatsApp وتردّ في الوقت المناسب، تفتح Meta نافذة نقطة دخول مجانية مدتها 72 ساعة لا تحتسب خلالها أي رسوم على رسائل تلك المحادثة، بما فيها القوالب. ويعرض صندوق الوارد شارة “تنتهي نافذة الإعلان المجانية…” حتى ذلك الحين، وتعيد الواجهة البرمجية وقت انتهائها في الحقل freeEntryPointExpiresAt على المحادثة. ولا تحل هذه النافذة محل قاعدة الـ24 ساعة: بعد مرور 24 ساعة العميل تظل بحاجة إلى قالب معتمد. وبعد انتهائها تُطبَّق أسعار Meta المعتادة.",
+              "tr": "Ücretsiz giriş noktası penceresi içinde almaz. Bir müşteri Click-to-WhatsApp reklamından yazdığında ve siz zamanında yanıt verdiğinizde Meta, o sohbetteki mesajlar için şablonlar dahil hiçbir ücret almadığı 72 saatlik bir ücretsiz giriş noktası penceresi açar. Gelen kutusu o zamana kadar “Ücretsiz reklam penceresi bitiyor…” etiketini gösterir ve API bitiş zamanını konuşmada freeEntryPointExpiresAt olarak döndürür. Pencere 24 saat kuralının yerini almaz: müşterinin 24 saati geçtikten sonra yine onaylı bir şablon gerekir. Pencere bittikten sonra Meta’nın normal ücretleri geçerlidir."
             }
           },
           {
@@ -661,12 +714,12 @@
               "tr": "Reklam lead'lerine otomatik yanıt verebilir miyim?"
             },
             "answer": {
-              "en": "Yes. A chatbot flow with the first-message trigger starts on a contact's first message in the chat, so it greets every new chat, including ad clicks. It can ask questions, add tags, move the contact to a pipeline stage and hand the chat to an agent. Keyword auto-replies work too. Because the customer wrote first, the 24-hour window is open and you can reply with free-form messages. Chatbot flows are included on the Advanced plan and during the 14-day trial.",
-              "pt": "Sim. Um fluxo de chatbot com o gatilho de primeira mensagem começa na primeira mensagem do contato na conversa, então recebe cada nova conversa, inclusive cliques em anúncios. Ele pode fazer perguntas, adicionar tags, mover o contato para uma etapa do funil e passar a conversa para um agente. As respostas automáticas por palavra-chave também funcionam. Como o cliente escreveu primeiro, a janela de 24 horas está aberta e você pode responder com mensagens livres. Os fluxos de chatbot estão incluídos no plano Advanced e durante o teste de 14 dias.",
-              "es": "Sí. Un flujo de chatbot con el disparador de primer mensaje se inicia con el primer mensaje del contacto en el chat, así que recibe cada chat nuevo, incluidos los clics en anuncios. Puede hacer preguntas, agregar etiquetas, mover el contacto a una etapa del embudo y pasar el chat a un agente. Las respuestas automáticas por palabra clave también funcionan. Como el cliente escribió primero, la ventana de 24 horas está abierta y puede responder con mensajes libres. Los flujos de chatbot están incluidos en el plan Advanced y durante la prueba de 14 días.",
-              "id": "Ya. Alur chatbot dengan pemicu pesan pertama berjalan pada pesan pertama kontak di chat tersebut, sehingga menyapa setiap chat baru, termasuk dari klik iklan. Alur ini bisa mengajukan pertanyaan, menambahkan tag, memindahkan kontak ke tahap pipeline, dan menyerahkan chat ke agen. Balasan otomatis berdasarkan kata kunci juga bisa dipakai. Karena pelanggan menulis lebih dulu, jendela 24 jam terbuka dan Anda bisa membalas dengan pesan bebas. Alur chatbot tersedia di paket Advanced dan selama uji coba 14 hari.",
-              "ar": "نعم. يبدأ تدفق الشات بوت المرتبط بمشغّل الرسالة الأولى مع أول رسالة من جهة الاتصال في المحادثة، لذا يرحّب بكل محادثة جديدة، بما فيها النقرات على الإعلانات. يمكنه طرح الأسئلة وإضافة الوسوم ونقل جهة الاتصال إلى مرحلة في مسار المبيعات وتحويل المحادثة إلى موظف. وتعمل الردود التلقائية بالكلمات المفتاحية أيضًا. ولأن العميل كتب أولًا، تكون نافذة الـ 24 ساعة مفتوحة ويمكنك الرد برسائل حرة. تدفقات الشات بوت متاحة في خطة Advanced وخلال التجربة المجانية لمدة 14 يومًا.",
-              "tr": "Evet. İlk mesaj tetikleyicili bir chatbot akışı, kişinin sohbetteki ilk mesajıyla başlar; böylece reklam tıklamaları dahil her yeni sohbeti karşılar. Sorular sorabilir, etiket ekleyebilir, kişiyi bir satış hattı aşamasına taşıyabilir ve sohbeti bir temsilciye devredebilir. Anahtar kelimeli otomatik yanıtlar da çalışır. Müşteri önce yazdığı için 24 saatlik pencere açıktır ve serbest mesajlarla yanıt verebilirsiniz. Chatbot akışları Advanced planında ve 14 günlük deneme süresince kullanılabilir."
+              "en": "Yes. A chatbot flow with the first-message trigger starts on a contact's first message in the chat, so it greets every new chat, including ad clicks. It can ask questions, add tags, move the contact to a pipeline stage and hand the chat to an agent. Keyword auto-replies work too. Because the customer wrote first, the 24-hour window is open and you can reply with free-form messages. Chatbot flows are on the Business plan and the 14-day free trial; keyword auto-replies are on Team and Business.",
+              "pt": "Sim. Um fluxo de chatbot com o gatilho de primeira mensagem começa na primeira mensagem do contato na conversa, então recebe cada nova conversa, inclusive cliques em anúncios. Ele pode fazer perguntas, adicionar tags, mover o contato para uma etapa do funil e passar a conversa para um agente. As respostas automáticas por palavra-chave também funcionam. Como o cliente escreveu primeiro, a janela de 24 horas está aberta e você pode responder com mensagens livres. Os fluxos de chatbot fazem parte do plano Business e do teste grátis de 14 dias; as respostas automáticas por palavra-chave, dos planos Team e Business.",
+              "es": "Sí. Un flujo de chatbot con el disparador de primer mensaje se inicia con el primer mensaje del contacto en el chat, así que recibe cada chat nuevo, incluidos los clics en anuncios. Puede hacer preguntas, agregar etiquetas, mover el contacto a una etapa del embudo y pasar el chat a un agente. Las respuestas automáticas por palabra clave también funcionan. Como el cliente escribió primero, la ventana de 24 horas está abierta y puede responder con mensajes libres. Los flujos de chatbot están en el plan Business y en la prueba gratis de 14 días; las respuestas automáticas por palabra clave, en Team y Business.",
+              "id": "Ya. Alur chatbot dengan pemicu pesan pertama berjalan pada pesan pertama kontak di chat tersebut, sehingga menyapa setiap chat baru, termasuk dari klik iklan. Alur ini bisa mengajukan pertanyaan, menambahkan tag, memindahkan kontak ke tahap pipeline, dan menyerahkan chat ke agen. Balasan otomatis berdasarkan kata kunci juga bisa dipakai. Karena pelanggan menulis lebih dulu, jendela 24 jam terbuka dan Anda bisa membalas dengan pesan bebas. Alur chatbot tersedia di paket Business dan uji coba gratis 14 hari; balasan otomatis kata kunci tersedia di Team dan Business.",
+              "ar": "نعم. يبدأ تدفق الشات بوت المرتبط بمشغّل الرسالة الأولى مع أول رسالة من جهة الاتصال في المحادثة، لذا يرحّب بكل محادثة جديدة، بما فيها النقرات على الإعلانات. يمكنه طرح الأسئلة وإضافة الوسوم ونقل جهة الاتصال إلى مرحلة في مسار المبيعات وتحويل المحادثة إلى موظف. وتعمل الردود التلقائية بالكلمات المفتاحية أيضًا. ولأن العميل كتب أولًا، تكون نافذة الـ 24 ساعة مفتوحة ويمكنك الرد برسائل حرة. تدفقات الشات بوت متاحة في خطة Business وفي التجربة المجانية لمدة 14 يومًا، والردود التلقائية بالكلمات المفتاحية في خطتي Team وBusiness.",
+              "tr": "Evet. İlk mesaj tetikleyicili bir chatbot akışı, kişinin sohbetteki ilk mesajıyla başlar; böylece reklam tıklamaları dahil her yeni sohbeti karşılar. Sorular sorabilir, etiket ekleyebilir, kişiyi bir satış hattı aşamasına taşıyabilir ve sohbeti bir temsilciye devredebilir. Anahtar kelimeli otomatik yanıtlar da çalışır. Müşteri önce yazdığı için 24 saatlik pencere açıktır ve serbest mesajlarla yanıt verebilirsiniz. Chatbot akışları Business planında ve 14 günlük ücretsiz denemededir; anahtar kelimeli otomatik yanıtlar Team ve Business planlarındadır."
             }
           },
           {

@@ -2,7 +2,7 @@
 title: "Webhooks"
 description: "Receive signed WhatsApp events from StartMessaging: incoming messages, delivery receipts, contact consent, conversation changes, template reviews and campaign completion. Setup, payloads, signature verification and retries."
 product: whatsapp
-order: 8
+order: 9
 ---
 
 ## Overview
@@ -14,7 +14,17 @@ You can add endpoints in two ways:
 - **Dashboard:** **Developers → Webhooks → Add endpoint.** Enter a public `https://` URL, an optional description and the events to receive. The signing secret is shown on the endpoint's details, where you can also send a test event, see the delivery log, redeliver, rotate the secret and turn the endpoint off or on.
 - **API:** `GET /api/v1/webhooks`, `POST /api/v1/webhooks` and `DELETE /api/v1/webhooks/{id}`, with the `webhooks:manage` scope. This is the subscribe/unsubscribe pair Zapier, Make and Pabbly-style tools use.
 
-Endpoints per workspace depend on your plan: **Trial 2, Basic 5, Advanced 20.** Disabled endpoints count too. Adding one beyond the limit answers `403 PLAN_LIMIT_REACHED` with `details.limit: "max_api_webhooks"`.
+Endpoints per workspace depend on your plan:
+
+| Plan | Webhook endpoints |
+|---|---|
+| Free trial | 5 |
+| Developer (every size, Free included) | 2 |
+| Team | 1 |
+| Business | 5 |
+| Enterprise | Unlimited |
+
+Disabled endpoints count too. Adding one beyond the limit answers `403 PLAN_LIMIT_REACHED` with `details.limit: "max_api_webhooks"`.
 
 ## Events
 
@@ -26,14 +36,14 @@ Endpoints per workspace depend on your plan: **Trial 2, Basic 5, Advanced 20.** 
 | `message.read` | Read receipt. | `messages:read` |
 | `message.failed` | Meta reported the message could not be delivered. | `messages:read` |
 | `contact.created` | A contact was created (inbound message, dashboard or API; not per row of a CSV import). | `contacts:read` |
-| `contact.opted_out` | Consent withdrawn (STOP, WhatsApp marketing preference, dashboard, API). | `contacts:read` |
+| `contact.opted_out` | Consent withdrawn (STOP, dashboard, API). Not fired when a customer turns off marketing inside WhatsApp. | `contacts:read` |
 | `contact.opted_in` | Consent given back (START, dashboard, API). | `contacts:read` |
 | `conversation.assigned` | A conversation's assignment changed. | `conversations:read` |
 | `conversation.resolved` | A conversation's resolution changed. | `conversations:read` |
 | `template.status_updated` | A template's review status changed. | `templates:read` |
 | `campaign.completed` | A campaign finished sending. | `campaigns:read` |
 
-There is also a `ping` event, sent only by **Send test** in the dashboard (see below).
+There is also a `ping` event, sent only by **Send test event** in the dashboard (see below).
 
 ## Subscribe through the API
 
@@ -108,7 +118,7 @@ Response (`201 Created`):
 }
 ```
 
-- `GET /api/v1/webhooks` lists every endpoint in the workspace (made in the dashboard or the API), newest first. Secrets are never listed.
+- `GET /api/v1/webhooks` lists every endpoint in the workspace (made in the dashboard or the API), newest first. It is paginated like every list (`limit`, default 25, and `cursor`; see [Pagination & Idempotency](/docs/whatsapp/pagination-and-idempotency)). Secrets are never listed.
 - `DELETE /api/v1/webhooks/{id}` deletes an endpoint (`204`). It works even after your subscription has lapsed.
 - `POST /api/v1/webhooks` accepts an `Idempotency-Key` header.
 
@@ -136,9 +146,9 @@ Saving an endpoint checks what it can without DNS and refuses a bad URL with `42
 | `credentials_not_allowed` | Remove the username and password. |
 | `port_not_allowed` | Use the standard HTTPS port, 443. |
 | `private_address` | `localhost` or an IP on a private or local network. Use a public address. |
-| `url_too_long` | Keep it under 2,048 characters once encoded. |
+| `url_too_long` | Keep it to 2,048 characters or fewer once encoded; anything over 2,048 is refused. |
 
-A hostname is resolved on every connection, not when saved. One that resolves to a private, loopback or link-local address is accepted, but every delivery to it fails with `blocked_address` in the delivery log. Click **Send test** right after saving to catch this.
+A hostname is resolved on every connection, not when saved. One that resolves to a private, loopback or link-local address is accepted, but every delivery to it fails with `blocked_address` in the delivery log. Click **Send test event** right after saving to catch this.
 
 ## The envelope
 
@@ -156,6 +166,19 @@ Every delivery has the same body:
 
 `id` is the event id, the same across retries and redeliveries: use it to deduplicate. `data` depends on `type`, as below.
 
+### Customers without a phone number
+
+Someone with a WhatsApp username can write to you without Meta sharing their number. Until they share it, the payloads name them by Meta's business-scoped user id instead (a two-letter country code, a period, an optional `ENT.`, then up to 128 letters and digits, such as `IN.13491208655302741918`; the pattern is `^[A-Z]{2}\.(?:ENT\.)?[A-Za-z0-9]{1,128}$`):
+
+| Event | Number (may be `null`) | User id |
+|---|---|---|
+| `message.received` | `message.from`, `contact.phone` | `message.fromUserId`, `contact.waUserId` |
+| `message.sent` and the receipts | `message.to` | `message.toUserId` (see below) |
+| `contact.*` | `contact.phone` | `contact.waUserId` |
+| `conversation.*` | `conversation.contactPhone` | `conversation.contactWaUserId` |
+
+Key your records on our ids (`contactId`, `conversationId`) rather than the phone number, and treat every number field as nullable.
+
 ## Payloads
 
 ### message.received
@@ -172,30 +195,33 @@ Every delivery has the same body:
       "conversationId": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
       "contactId": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
       "from": "+919812345678",
-      "type": "text",
+      "fromUserId": "IN.13491208655302741918",
+      "type": "interactive",
       "text": "Yes, confirm order",
       "media": null,
-      "reply": { "kind": "quick_reply", "id": "COD_CONFIRM", "title": "Yes, confirm order" },
+      "reply": { "kind": "button", "id": "cod_confirm", "title": "Yes, confirm order" },
       "context": { "messageId": "7d1e2f3a-4b5c-4d6e-8f9a-0b1c2d3e4f5a", "clientReference": "order-1042" },
       "form": null,
       "referral": null,
       "timestamp": "2026-10-02T10:15:00.000Z"
     },
-    "contact": { "id": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d", "phone": "+919812345678", "name": "Asha Verma" }
+    "contact": { "id": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d", "phone": "+919812345678", "waUserId": "IN.13491208655302741918", "name": "Asha Verma" }
   }
 }
 ```
 
 | Field | Description |
 |---|---|
+| `from` | The sender's number in E.164, or `null` for a username-only customer. |
+| `fromUserId` | Meta's business-scoped user id for the sender, when Meta sent one; otherwise `null`. |
 | `type` | `text`, `template`, `image`, `video`, `audio`, `document`, `sticker` or `interactive`. `interactive` is a tap on your reply buttons or list (see `reply.kind`) or a submitted WhatsApp Form (`form` is set). Kinds the API does not model (location, contact card, reaction, a tap on a template's quick-reply button) are `text`: a placeholder such as `[location]`, or the button's label for a quick reply. Branch on `reply`, not on the text. |
 | `text` | The message's words. An uncaptioned photo has `text: null`; a caption is also in `media.caption`. For a submitted form it is a one-line summary (at most 300 characters), such as `Full name: Asha Rao · City: Pune`. Read the answers from `form`. |
 | `media` | `type`, `mimeType`, `filename`, `caption`, or `null`. Metadata only: no download URL. |
-| `reply` | What the customer tapped, or `null`. `kind` is `button` (interactive reply button), `list` (list row) or `quick_reply` (a template quick-reply button). `id` is the id you gave the option, or the quick-reply button's payload. Branch on `id`; `title` is the label as the customer saw it and can change with translation. |
+| `reply` | What the customer tapped, or `null`. `kind` is `button` (interactive reply button), `list` (list row) or `quick_reply` (a template quick-reply button). For a reply button or list row you sent, `id` is the id you gave the option: branch on it, since `title` is the label as the customer saw it and can change with translation. For a template quick-reply button sent through the API, you cannot set the `id`: match `title` (the button text as approved) and find your message with `context.clientReference`. |
 | `context` | Set when the customer replied to a specific message (tapping a button on it counts). `messageId` is our id for that message, or `null` when it is not one of this workspace's; `clientReference` is the reference it was sent with. A forwarded message is not a reply. |
 | `referral` | Set on the first message from a Click-to-WhatsApp ad or boosted post: `sourceType`, `sourceId`, `sourceUrl`, `headline`, `body`, `ctwaClid` (any of them `null` when Meta left it out). `ctwaClid` is the click id Meta's Conversions API takes. |
 | `form` | Set when the customer submitted a WhatsApp Form or WhatsApp's address request. See below. |
-| `contact` | `id`, `phone`, `name`, or `null`. |
+| `contact` | `id`, `phone` (may be `null`), `waUserId` and `name`, or `null` when there is no contact. |
 
 A submitted WhatsApp Form:
 
@@ -244,6 +270,8 @@ A submitted WhatsApp Form:
 }
 ```
 
+- `to` is the number the message went to. Treat it as nullable: it can be `null` (or empty) for a username-only customer.
+- `toUserId` is Meta's user id for the customer. It is included on `message.sent` for messages sent from the inbox, automations and the API (`null` when there is none); campaign sends and the delivery receipts leave it out.
 - `status` is `sent`, `delivered`, `read` or `failed`.
 - `failureCode` and `failureReason` are Meta's own error code and explanation on `message.failed`; `null` otherwise.
 - `campaignId` is set when the message was sent by a campaign.
@@ -261,6 +289,7 @@ A submitted WhatsApp Form:
     "contact": {
       "id": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
       "phone": "+919812345678",
+      "waUserId": null,
       "name": "Asha Verma",
       "email": null,
       "tags": [],
@@ -272,7 +301,9 @@ A submitted WhatsApp Form:
 }
 ```
 
-A contact created already opted out (its number opted out before) arrives as `contact.created` with `optedIn: false` and no `contact.opted_out`. See [Contacts & Tags](/docs/whatsapp/contacts).
+A contact created already opted out (its number opted out before) arrives as `contact.created` with `optedIn: false` and no `contact.opted_out`.
+
+`contact.opted_out` fires for STOP, the dashboard and the API only. When a customer turns off your marketing messages inside WhatsApp, their consent does not change and no event fires: they still get utility and authentication templates, and marketing campaigns skip them for 90 days. See [Contacts & Tags](/docs/whatsapp/contacts).
 
 ### conversation.assigned, conversation.resolved
 
@@ -287,6 +318,7 @@ A contact created already opted out (its number opted out before) arrives as `co
       "id": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
       "contactId": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
       "contactPhone": "+919812345678",
+      "contactWaUserId": null,
       "status": "resolved",
       "assignedToUserId": "5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d"
     },
@@ -295,7 +327,7 @@ A contact created already opted out (its number opted out before) arrives as `co
 }
 ```
 
-`actor.type` is `member`, `api_key`, `staff` or `system` (its `id` is `null`). See [Conversations](/docs/whatsapp/conversations).
+`actor.type` is `member`, `api_key`, `staff` or `system`. A `system` actor's `id` is always `null`, and a `staff` actor's `id` can be `null` too. See [Conversations](/docs/whatsapp/conversations).
 
 ### template.status_updated
 
@@ -341,11 +373,11 @@ A contact created already opted out (its number opted out before) arrives as `co
 }
 ```
 
-`stats.skipped` counts opted-out recipients. See [Campaigns](/docs/whatsapp/campaigns).
+`stats.skipped` counts opted-out recipients. A campaign that is cancelled or fails does not fire it. Each follow-up step and each run of a repeating campaign is a campaign of its own and fires its own `campaign.completed` when it sends (a follow-up with nobody left to send to completes silently). A completed campaign that reopens to send a retry Meta asked for fires it again when it finishes, so key on the campaign `id` if you act only once. See [Campaigns](/docs/whatsapp/campaigns).
 
 ### ping
 
-**Send test** in the dashboard posts a `ping` event, `"data": { "ping": true }`, signed like any other and sent whatever the endpoint subscribes to. Answer it with a 2xx.
+**Send test event** in the dashboard posts a `ping` event, `"data": { "ping": true }`, signed like any other and sent whatever the endpoint subscribes to. Answer it with a 2xx.
 
 ## Headers
 
@@ -483,9 +515,9 @@ Every check fails closed: a missing or non-numeric timestamp, a missing signatur
 
 - **At least once.** Retries and manual redeliveries repeat an event. Deduplicate on the body's `id` after the signature checks out. It equals `X-SM-Event-Id`, but only the body is signed, so a replayed request could change the header and not the `id`.
 - **Unordered.** Events can arrive out of order; use the timestamps in `data`.
-- **Answer with a 2xx within 5 seconds**, then do the work afterwards (queue it). Anything else, including any redirect or a timeout, is a failure.
+- **Answer with a 2xx fast**, then do the work afterwards (queue it). Each request allows 5 seconds to connect, 5 seconds for your response headers and 5 seconds between parts of the body, and 10 seconds in all. Anything other than a 2xx, including any redirect or a timeout, is a failure.
 - **Retries** after a failure: 1 minute, 5 minutes, 30 minutes, 2 hours, 6 hours and 12 hours. Seven attempts in about 20 hours, each signed with a fresh timestamp.
-- **Auto-disable.** An endpoint whose deliveries keep using up every retry (50 in a row, or failing for 24 hours) is turned off and flagged in the dashboard (`disabledReason: "failing"`). Fix it, turn it back on in **Developers → Webhooks**, then redeliver what failed from its delivery log. Events are not kept while an endpoint is off, and a redelivery is refused while it is off.
+- **Auto-disable.** A delivery is exhausted when all 7 attempts failed. An endpoint is turned off after 50 exhausted deliveries in a row, or after 24 hours of failing (counted from the first exhausted delivery) with at least 3 exhausted, and flagged in the dashboard (`disabledReason: "failing"`). Fix it, turn it back on in **Developers → Webhooks**, then redeliver what failed from its delivery log. Events are not kept while an endpoint is off, and a redelivery is refused while it is off.
 
 ## FAQ
 
@@ -493,7 +525,7 @@ Every check fails closed: a missing or non-numeric timestamp, a missing signatur
 The usual causes: hashing parsed-and-re-serialised JSON instead of the raw body, stripping the `whsec_` prefix or base64-decoding the secret (use the whole string as text), or forgetting the dot between the timestamp and the body.
 
 **Do I need to answer a verification challenge?**
-No. There is no `hub.challenge` handshake. Save the endpoint, then use **Send test** to check it answers a signed `ping` with a 2xx.
+No. There is no `hub.challenge` handshake. Save the endpoint, then use **Send test event** to check it answers a signed `ping` with a 2xx.
 
 **Can I receive webhooks on localhost or a private IP?**
 No. Endpoints must be public HTTPS on port 443. For local development, use a tunnelling service that gives you a public HTTPS URL.

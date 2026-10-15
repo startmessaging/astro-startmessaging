@@ -1,64 +1,175 @@
 ---
 title: "Campaigns"
-description: "Send an approved WhatsApp template to many contacts with StartMessaging campaigns. Build and launch campaigns in the dashboard, then read their delivery stats over the API and the campaign.completed webhook."
+description: "Send an approved WhatsApp template to many contacts with StartMessaging campaigns: scheduling, quiet hours, pre-launch checks with a Meta cost estimate, funnel reports, A/B tests, follow-ups and repeating campaigns. Read campaigns over the API and the campaign.completed webhook."
 product: whatsapp
 order: 7
 ---
 
 ## Overview
 
-A campaign sends one approved template to many contacts at once: announcements, offers, reminders. Campaigns are **built and launched in the dashboard**. The API is **read-only** for campaigns: your systems can list them, read their delivery numbers and get a webhook when one finishes.
+A campaign sends one approved template to many contacts at once: announcements, offers, reminders. Campaigns are **built, scheduled and launched in the dashboard**. The API is **read-only** for campaigns: your systems can list them, read their delivery numbers and get a webhook when one finishes.
 
 To message one customer from your own system (an order update, a one-time password), send a template with `POST /api/v1/messages` instead. See [Send Messages](/docs/whatsapp/send-message).
 
-## Create a campaign in the dashboard
+**Plans.** Campaigns are on **Team**, **Business** and **Enterprise**, and in the free trial. Developer plans send one message at a time through the API. Business adds A/B tests, follow-ups, repeating campaigns, engagement segments, retargeting, date and pipeline-stage audiences, reply routing and conversions (see [Business features](#business-features)). Managers and above create, edit, schedule and launch campaigns; everyone else can open and read them.
 
-Go to **Campaigns → New campaign**. Managers and above can create, edit and launch campaigns. The builder has three steps, and nothing is sent until you choose **Create and launch**.
+## Create a campaign
+
+Go to **Campaigns → Create campaign**. The builder has three steps, and nothing is sent until you launch or schedule it.
 
 ### 1. Message
 
 - Name the campaign and pick an **approved** template. If none appear, create one and wait for Meta's review. See [Message Templates](/docs/whatsapp/message-templates).
-- Fill each template variable from a contact field, a custom attribute or fixed text. Every variable needs a value: Meta rejects a message with an empty one.
+- Fill each template variable from the contact's name, phone number or a custom attribute, or type the same value for everyone. Every variable needs a value: Meta rejects a message with an empty one.
+- Fill the buttons that take a value: the end of a link button's URL, or a coupon code (the same for everyone, or an attribute for a code per customer).
 - Add the header image, video or document if the template has a media header.
-- Optionally enrol every recipient in a **follow-up chatbot flow** after the message is sent, so replies are handled automatically.
+
+**Templates a campaign can't send.** The template picker hides carousel, limited-time offer, authentication (one-time code), catalog or product-list, and call-permission-request templates, and templates with a location header. Carousel, limited-time offer and authentication templates can go out one at a time from the inbox or with `POST /api/v1/messages`.
 
 ### 2. Audience
 
-- Choose recipients from your contacts by **tags** and the **opt-in** filter, or upload a **CSV** audience.
-- Opted-out contacts cannot be selected, and anyone who opts out before their turn is skipped. A CSV audience goes to every number in it that has not opted out, so upload only people who agreed to hear from you.
+| Audience | What it is | Plan |
+|---|---|---|
+| **Contacts** | Contacts you pick by hand, up to 1,000. To reach more, use **Select all matching**, which saves your filters as a segment. | Team and up |
+| **Segment** | Everyone who matches a filter when the campaign launches: tags (any or all of them), name or phone, the assigned member, whether the contact has a follow-up (yes or no). | Team and up |
+| **Segment** with engagement, a date (such as a birthday) or a pipeline stage | See [Business features](#business-features). | Business |
+| **Upload CSV** | A file with a `phone` column, up to 50,000 rows. Extra columns are values for that recipient in this campaign only, which you can use in variables; no contact is created or updated. Invalid numbers, duplicates and opted-out numbers are counted and left out when you upload. | Team and up |
+| **Retarget** | People from an earlier campaign, by what they did with it. | Business |
 
-### 3. Review
+The builder shows how many people the campaign will reach and who will be skipped. A campaign always skips:
 
-Check the summary, then save a draft or create and launch.
+- contacts who **opted out** (replied STOP, or were set to opted out);
+- for a **marketing** template, people who **turned off your promotions in WhatsApp** in the last 90 days;
+- numbers Meta reported as **unable to receive WhatsApp messages** in the last 30 days (not on WhatsApp, an outdated app);
+- for a **marketing** template, **US numbers**: Meta delivers no marketing templates to the US.
 
-### While it runs
+A CSV audience goes to every number in it that is not skipped, so upload only people who agreed to hear from you.
 
-- **Pause** a running campaign and **resume** it later.
-- **Duplicate** a campaign to send something similar again.
-- Open a campaign's insights for sent, delivered, read and failed counts and a delivery-over-time chart (when your plan includes campaign analytics).
+### 3. Review and send
+
+The review step runs a **pre-launch check** with Meta and shows what will stop or limit the campaign:
+
+- whether your number, WhatsApp account and the template can send right now, and the template's and number's quality;
+- a payment problem on your WhatsApp Business Account;
+- how many people can get it today within your daily messaging limit, and how many have a chat open with you;
+- US numbers that will be skipped, and whether it is quiet hours now;
+- an **estimated Meta charge**, from Meta's published rates for each recipient's country. The lower figure allows for messages that won't be delivered, since Meta charges only for delivered ones. People in a free entry point window are not charged. It is an estimate: Meta bills your WhatsApp Business Account directly, plus taxes, and WhatsApp Manager shows the exact amount.
+
+If you sent a **marketing** campaign in the last 48 hours, the builder warns you. Only marketing campaigns count towards that spacing.
+
+Then choose **when to send**:
+
+- **Send now:** sending starts straight away (or when quiet hours end).
+- **Schedule for later:** any time from 2 minutes to 60 days ahead. Who receives it is checked again when it sends: a segment picks up whoever matches then, and anyone who opted out since is skipped. Until it starts you can **Unschedule** it (it becomes a draft again) or cancel it.
+- **Repeat** (Business): see [Repeating campaigns](#repeating-campaigns).
+
+Or save it as a draft and launch it later.
+
+## Quiet hours
+
+Set hours of the day when campaigns don't send in **Settings → Campaigns → Quiet hours** (Managers and above). They apply every day, in your workspace's time zone.
+
+- A campaign that is sending, or scheduled, when quiet hours begin waits and carries on by itself when they end. Nobody has to resume it.
+- A campaign launched or scheduled inside quiet hours starts then and waits to send until they end. The builder tells you when it will start sending.
+- **Only campaigns wait.** Inbox replies, automations and messages sent through the API still go at any hour.
+
+Marketing that lands late at night is more likely to be muted, blocked or reported, which lowers your number's quality rating.
+
+## While it runs
+
+- **Pause** a running campaign and **resume** it later. Messages already sent can't be recalled.
+- **Cancel** stops it for good: nobody else receives it, messages already sent stay sent, and its status becomes `CANCELLED`. A scheduled campaign can be cancelled too; to send it at another time, unschedule it instead.
+- **Duplicate** a campaign to send something similar again, or **Send again to…** to retarget its audience (Business).
+- The **Calendar** view shows a month of campaigns, sent and scheduled, with your quiet hours.
+
+**Automatic retries.** When Meta refuses a message with "try later" (too many messages to the same number too quickly, or Meta's limit on marketing messages per person), the campaign tries that recipient again by itself when Meta allows, even after the campaign has completed. The report shows them as waiting to retry, and as delivered by a retry when they get through.
+
+**Template health.** If Meta pauses the template because customers blocked or reported it, the campaign pauses too, and carries on by itself when Meta releases the template, unless its quality is still low. If Meta disables the template, the campaign stops (`FAILED`); duplicate it with another template to reach the rest.
+
+## The campaign report
+
+Open a campaign to see its report. Campaign reports are on Team and up.
+
+- **Funnel:** sent (and how many Meta is still holding), delivered (and how many were delivered by a retry), read, tapped a button, replied. A reply counts when the customer writes back within 3 days of the send; a quick-reply tap counts as a reply.
+- **Didn't go through:** refused at send, failed after sending, never confirmed by Meta, cancelled, still waiting, waiting to retry.
+- **Consent:** skipped because they had opted out, turned off your promotions, couldn't get WhatsApp messages lately, had a US number (marketing), or had already replied (follow-ups); and who opted out within 3 days of the send (STOP, or offers turned off in WhatsApp).
+- **Rates:** delivery, read, reply, button tap and opt-out rates.
+- **Why messages failed:** Meta's reasons, most common first.
+- **Meta charge report:** delivered messages by Meta pricing category, with an estimated Meta charge from Meta's published rates. WhatsApp Manager shows the exact amount.
+- **Buttons:** taps on each quick-reply button (how many people, total taps, tap rate), with a shortcut to send a campaign to everyone who tapped it (Business). Clicks on link buttons aren't tracked.
+- **Recipients:** every recipient with their outcome, a link to the chat, and when they converted. **Export CSV** downloads the list (Managers and above).
+- **Conversions** and **Meta's numbers:** on Business, see below.
+
+## Business features
+
+These are on the **Business** plan (and Enterprise, and the free trial).
+
+### Repeating campaigns
+
+Send the same campaign on a schedule: **every day**, on **chosen days of the week** (for example Monday to Friday), or **every month** on a day from the 1st to the 28th, at a time in your workspace's time zone.
+
+- Each occurrence sends a **run**: a campaign of its own, sent to whoever matches the audience that day. A birthday filter picks that day's birthdays.
+- A day with nobody to send to is skipped.
+- Only picked contacts or a segment can repeat. A CSV or a retarget is a one-time list.
+- A repeating campaign can't run an A/B test.
+- **Stop repeating** at any time; it becomes a draft again.
+
+### A/B tests
+
+Test a second version (version B) against your template (version A). Version B must be an approved template with the same variables, header and category, and the same buttons that take a value (a link with a variable, a coupon code) at the same positions and of the same kind, so one set of values fills both. Choose how to test:
+
+- **Test on part of the audience first:** 10% to 50% of the audience gets the test, about half each. After 1 to 72 hours, the version with the higher rate of **replies**, **reads** or **button taps** per message Meta accepted goes to everyone else (taps only when both versions have a quick-reply button). A tie, or a test where Meta accepted nothing, goes to A. A Manager can also pick the winner by hand.
+- **Split everyone in half:** half get A and half B. Nobody is held back and no winner is sent; the report compares them.
+
+### Follow-ups
+
+Add up to **3 follow-ups**, each sent between **1 hour and 30 days** after the step before it finished, to the people who haven't replied. Anyone who writes to you, about anything, after the campaign began gets no more follow-ups. A follow-up can't take an uploaded file: give a public link for a media header.
+
+### Audiences: segments and retargeting
+
+- **Engagement segments** update themselves, by when a contact last wrote to you, tapped a button or read your messages: in the last 30 days (highly engaged), 31 to 90 days ago (at risk), more than 90 days ago (win back), or never. Each is checked when the campaign goes out.
+- **Date audiences:** a date in a contact attribute, such as **birthday today**.
+- **Pipeline stage:** contacts in a stage of your sales pipeline.
+- **Retarget** an earlier campaign's audience: who didn't get it, got it but didn't read it, read it but didn't reply, didn't reply, replied, tapped a button, didn't tap one, or tapped a particular button.
+
+On Team, tags, the assigned member and whether a contact has a follow-up still work as segment filters.
+
+### Reply routing
+
+Send the replies to a campaign somewhere other than your usual inbox routing: to **one member's queue** (a customer who replies within 3 days of the send lands there), or into a **chatbot flow** that handles them automatically.
+
+### Conversions
+
+Each campaign's report counts the customers it brought in: leads moved to a pipeline stage marked as won, and sales your own system reports with `POST /api/v1/conversions`, within the conversion window (7 days by default, 1 to 30 in **Settings → Campaigns**). See [Conversions](/docs/whatsapp/conversions).
+
+### Meta's numbers
+
+With Meta's template insights turned on for your WhatsApp Business Account (an admin confirms it once; Meta does not let anyone turn it off), the report also shows Meta's own counts for the campaign's template: sent, delivered, read, link clicks, quick-reply taps and Meta's charge.
 
 ## Good practice
 
 - **Space marketing campaigns at least 48 hours apart.** Too many messages too fast lead to blocks and reports, which lower your number's quality rating and messaging limit.
-- **Check your messaging limit.** Meta limits how many unique customers your business can message in a rolling 24 hours, shared by all its numbers. Your current limit is shown in the dashboard and in `GET /api/v1/phone-numbers`.
-- **Billing.** Meta bills campaign messages to your own WhatsApp Business Account as template messages. StartMessaging does not charge per message.
+- **Check your messaging limit.** Meta limits how many unique customers your business can message in a rolling 24 hours, shared by all its numbers. The pre-launch check estimates how many people can get the campaign today, and `GET /api/v1/phone-numbers` shows the limit.
+- **Use quiet hours** so campaigns never land at night.
+- **Billing.** Meta bills each delivered campaign message to your own WhatsApp Business Account. StartMessaging does not charge per message.
 
 ## Campaign statuses
 
 | Status | Meaning |
 |---|---|
 | `DRAFT` | Saved, not launched. Can still be edited. |
-| `SCHEDULED` | Set to start at `scheduledAt`. |
-| `RUNNING` | Sending. |
-| `PAUSED` | Paused in the dashboard; resume to continue. |
-| `COMPLETED` | Finished sending. Fires `campaign.completed`. |
-| `FAILED` | Stopped by an error before finishing. |
-
-Campaigns launched from the dashboard start sending straight away.
+| `SCHEDULED` | Set to start at `scheduledAt`. A repeating campaign stays `SCHEDULED`, with `scheduledAt` at its next run. |
+| `RUNNING` | Sending, waiting out quiet hours, or waiting for an A/B test's winner. |
+| `PAUSED` | Paused by a member, by Meta pausing the template, or by StartMessaging when Meta kept throttling the campaign and its automatic back-offs ran out. Resume to continue. |
+| `COMPLETED` | Finished sending. Fires `campaign.completed`, except for a follow-up step that had nobody left to send to. |
+| `FAILED` | Stopped by an error before finishing (for example, the template was disabled). |
+| `CANCELLED` | Cancelled by a member. Nobody else receives it. |
 
 ## List campaigns
 
 `GET /api/v1/campaigns` (scope `campaigns:read`) returns your campaigns newest first with their delivery totals, in the standard `{ "items": [...], "nextCursor": "..." }` list shape. Filter with `status` (one of the statuses above); page with `limit` (1–100, default 25) and `cursor`.
+
+Follow-up steps and the runs of a repeating campaign are campaigns of their own and are listed like any other. Tell them apart with `followUpOf` and `seriesOf`.
 
 ```bash
 curl "{{WA_API_BASE}}/api/v1/campaigns?status=RUNNING" \
@@ -94,11 +205,15 @@ Each item:
   "status": "COMPLETED",
   "templateName": "diwali_offer",
   "templateLanguage": "en",
-  "scheduledAt": null,
+  "scheduledAt": "2026-10-20T04:30:00.000Z",
   "startedAt": "2026-10-20T04:30:05.000Z",
   "completedAt": "2026-10-20T05:02:41.000Z",
   "stats": { "total": 1200, "sent": 1180, "delivered": 1102, "read": 640, "failed": 20 },
   "skippedOptedOut": 14,
+  "followUpOf": null,
+  "followUpStep": null,
+  "seriesOf": null,
+  "seriesRunOn": null,
   "createdAt": "2026-10-18T11:00:00.000Z"
 }
 ```
@@ -106,19 +221,23 @@ Each item:
 | Field | Description |
 |---|---|
 | `templateName`, `templateLanguage` | The template it sends. |
-| `scheduledAt` | When it is set to start, or `null`. |
+| `scheduledAt` | When it is set to start, or `null` if it was not scheduled. |
 | `startedAt` | When sending started; `null` until launched. |
 | `completedAt` | When sending finished. |
-| `stats.total` | Recipients the campaign may message. Opted-out contacts are left out and counted in `skippedOptedOut`. |
+| `stats.total` | Recipients the campaign may message. Every skipped recipient is left out: opted out, promotions turned off, unable to receive WhatsApp messages, US number (marketing), or already replied (follow-ups). Only the opted-out ones are counted, in `skippedOptedOut`; the other skips appear in the dashboard report, not in the API. |
 | `stats.sent` | Messages WhatsApp accepted. |
 | `stats.delivered` | Delivered to the phone (read messages count here too). |
 | `stats.read` | Opened by the customer (only customers with read receipts on are counted). |
 | `stats.failed` | Messages WhatsApp refused or could not deliver. |
-| `skippedOptedOut` | Recipients skipped because they had opted out. A skip is consent being respected, not a failure. |
+| `skippedOptedOut` | Recipients skipped because they had opted out (only those; other skips are not counted here). A skip is consent being respected, not a failure. |
+| `followUpOf` | On a follow-up step: the id of the campaign it follows up. `null` otherwise. |
+| `followUpStep` | On a follow-up step: `1` to `3`. `null` otherwise. |
+| `seriesOf` | On one run of a repeating campaign: the id of the repeating campaign. `null` otherwise. |
+| `seriesRunOn` | On a run: its day, `YYYY-MM-DD` in the workspace's time zone. `null` otherwise. |
 
 The totals are cumulative: a read message is also counted as delivered and sent. A send Meta never confirmed, and recipients still waiting their turn, count as neither sent nor failed, so the numbers may not add up to `total` while a campaign runs.
 
-The API never returns a campaign's audience list.
+The API never returns a campaign's audience list, its cost estimate or its report beyond these totals. Use the dashboard for the funnel, the Meta charge report and the recipients export.
 
 ## Get a campaign
 
@@ -137,11 +256,15 @@ curl "{{WA_API_BASE}}/api/v1/campaigns/e2d4c6b8-a1f3-4e5d-8c7b-9a0f1e2d3c4b" \
     "status": "COMPLETED",
     "templateName": "diwali_offer",
     "templateLanguage": "en",
-    "scheduledAt": null,
+    "scheduledAt": "2026-10-20T04:30:00.000Z",
     "startedAt": "2026-10-20T04:30:05.000Z",
     "completedAt": "2026-10-20T05:02:41.000Z",
     "stats": { "total": 1200, "sent": 1180, "delivered": 1102, "read": 640, "failed": 20 },
     "skippedOptedOut": 14,
+    "followUpOf": null,
+    "followUpStep": null,
+    "seriesOf": null,
+    "seriesRunOn": null,
     "createdAt": "2026-10-18T11:00:00.000Z",
     "analytics": {
       "timeseries": [
@@ -157,7 +280,7 @@ Each `timeseries` entry counts the messages **sent that day** (`date` as `YYYY-M
 
 ## The campaign.completed webhook
 
-Rather than polling for the end of a run, subscribe to `campaign.completed` (needs `campaigns:read`). It fires once, when a campaign finishes sending. A campaign that ends as `FAILED` does not fire it.
+Rather than polling for the end of a run, subscribe to `campaign.completed` (needs `campaigns:read`). It fires when a campaign finishes sending. A campaign that ends as `FAILED` or `CANCELLED` does not fire it. Each follow-up step and each run of a repeating campaign fires its own, except a follow-up step with nobody left to send to: it is marked `COMPLETED` at once without firing `campaign.completed`.
 
 ```json
 {
@@ -184,23 +307,35 @@ Rather than polling for the end of a run, subscribe to `campaign.completed` (nee
 }
 ```
 
-`stats.skipped` is the same number as `skippedOptedOut` on the API. Delivery and read receipts keep arriving after a campaign completes, so read the campaign again later for final numbers.
+`stats.skipped` is the same number as `skippedOptedOut` on the API. Delivery and read receipts keep arriving after a campaign completes, and a completed campaign can reopen to send a retry Meta asked for (it fires `campaign.completed` again when it finishes), so read the campaign again later for final numbers.
 
 Individual campaign messages also fire `message.sent`, `message.delivered`, `message.read` and `message.failed` with `campaignId` set, if you subscribe to them. See [Webhooks](/docs/whatsapp/webhooks).
 
 ## FAQ
 
-**Can I create or launch a campaign through the API?**
-No. Campaigns are created, launched, paused and resumed in the dashboard. The API reads them. To send to a list from your own system, call `POST /api/v1/messages` once per recipient within your plan's send limits.
+**Can I create, schedule or launch a campaign through the API?**
+No. Campaigns are created, scheduled, launched, paused, cancelled and resumed in the dashboard. The API reads them. To send to a list from your own system, call `POST /api/v1/messages` once per recipient within your plan's send limits.
+
+**How far ahead can I schedule a campaign?**
+From 2 minutes to 60 days. Until it starts you can unschedule it (it becomes a draft) or cancel it.
+
+**Do quiet hours delay my API messages?**
+No. Only campaigns wait for quiet hours. Inbox replies, automations and API sends go at any hour.
 
 **Why is total lower than the number of contacts I selected?**
-Opted-out contacts are left out of `total` and counted in `skippedOptedOut` instead.
+Every skipped recipient is left out of `total`: opted out, promotions turned off, unable to receive WhatsApp messages, US numbers for marketing, and (on follow-ups) people who already replied. Only the opted-out ones are counted in `skippedOptedOut`; the campaign report in the dashboard shows the other skips.
+
+**Why were some numbers skipped even though they are opted in?**
+For a marketing template, people who turned off your promotions in WhatsApp (in the last 90 days) and US numbers are skipped. Numbers Meta recently reported as unable to receive WhatsApp messages are skipped for 30 days. The report lists each reason.
+
+**Why can't I pick my carousel or limited-time-offer template?**
+Campaigns can't send carousel, limited-time offer, authentication, catalog or call-permission templates. Carousel, limited-time offer and authentication templates can go out one at a time from the inbox or with `POST /api/v1/messages`.
 
 **Why is analytics null?**
 Your plan does not include campaign analytics. `stats` are still returned on every plan.
 
 **Does StartMessaging charge per campaign message?**
-No. Meta bills template messages directly to your WhatsApp Business Account. StartMessaging charges a flat subscription.
+No. Meta bills delivered template messages directly to your WhatsApp Business Account. The pre-launch check estimates Meta's charge, and the report estimates what Meta charged. StartMessaging charges a flat subscription.
 
 **How often should I send marketing campaigns?**
 Space them at least 48 hours apart. Frequent marketing messages lead to blocks, which lower your quality rating and messaging limit.

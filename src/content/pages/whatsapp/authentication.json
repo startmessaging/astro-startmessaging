@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-12",
   "seo": {
     "ogImage": "/og/whatsapp-authentication.jpg",
     "title": {
@@ -425,13 +425,12 @@
               "ng": "Does WhatsApp support one-tap auto-fill?"
             },
             "answer": {
-              "en": "Yes! On Android devices, WhatsApp authentication messages support a one-tap auto-fill button. When users receive the OTP, they can tap a single button to automatically copy and paste the code into your app — no manual entry needed. This feature significantly reduces friction and increases conversion rates.",
+              "en": "Yes! On Android devices, WhatsApp authentication messages support a one-tap auto-fill button. When users receive the OTP, they can tap a single button to automatically copy and paste the code into your app — no manual entry needed.",
               "pt": "Sim! Em dispositivos Android, as mensagens de autenticação WhatsApp suportam um botão de preenchimento automático com um toque. Quando os usuários recebem o OTP, podem tocar em um único botão para copiar e colar automaticamente o código no seu aplicativo — sem necessidade de digitação manual.",
               "es": "¡Sí! En dispositivos Android, los mensajes de autenticación de WhatsApp soportan un botón de autocompletado con un toque. Cuando los usuarios reciben el OTP, pueden tocar un único botón para copiar y pegar automáticamente el código en su app, sin necesidad de entrada manual.",
               "id": "Ya! Di perangkat Android, pesan autentikasi WhatsApp mendukung tombol isi otomatis satu ketukan. Saat pengguna menerima OTP, mereka dapat mengetuk satu tombol untuk secara otomatis menyalin dan menempel kode ke aplikasi Anda — tidak memerlukan entri manual.",
               "ar": "نعم! على أجهزة Android، تدعم رسائل مصادقة واتساب زر ملء تلقائي بلمسة واحدة. عندما يتلقى المستخدمون OTP، يمكنهم النقر فوق زر واحد لنسخ الرمز ولصقه تلقائياً في تطبيقك - دون الحاجة إلى الإدخال اليدوي.",
-              "tr": "Evet! Android cihazlarda WhatsApp kimlik doğrulama mesajları, tek dokunuşla otomatik doldurma butonunu destekler. Kullanıcılar OTP aldığında, kodu uygulamaya otomatik olarak kopyalamak için tek bir butona dokunabilirler; manuel girişe gerek yoktur.",
-              "ng": "Yes! On Android devices, WhatsApp authentication messages support a one-tap auto-fill button. When users receive the OTP, they can tap a single button to automatically copy and paste the code into your app — no manual entry needed. This feature significantly reduces friction and increases conversion rates."
+              "tr": "Evet! Android cihazlarda WhatsApp kimlik doğrulama mesajları, tek dokunuşla otomatik doldurma butonunu destekler. Kullanıcılar OTP aldığında, kodu uygulamaya otomatik olarak kopyalamak için tek bir butona dokunabilirler; manuel girişe gerek yoktur."
             }
           },
           {
@@ -485,13 +484,48 @@
               "ng": "Can I customize the WhatsApp OTP message template?"
             },
             "answer": {
-              "en": "Yes. Meta requires authentication templates to follow a specific structure (typically containing a one-time passcode parameter and optionally a button). You can set up your brand's templates in our dashboard, and they will be sent to Meta for approval.",
-              "pt": "Sim. A Meta exige que os modelos de autenticação sigam uma estrutura específica (geralmente com um parâmetro para o código e, opcionalmente, um botão). Você pode criar os modelos no painel e enviá-los para aprovação.",
-              "es": "Sí. Meta exige que las plantillas de autenticación sigan una estructura específica (normalmente con un código único y opcionalmente un botón). Puede configurar las plantillas de su marca en nuestro panel para su aprobación.",
-              "id": "Ya. Meta mewajibkan templat autentikasi untuk mengikuti struktur tertentu (biasanya berisi parameter kode sandi satu kali dan opsional tombol). Anda dapat mengatur templat merek Anda di dasbor kami untuk disetujui.",
-              "ar": "نعم. تتطلب Meta أن تتبع قوالب المصادقة بنية محددة (تحتوي عادةً على معلمة رمز مرور لمرة واحدة وزر اختياري). يمكنك إعداد قوالب علامتك التجارية في لوحة التحكم الخاصة بنا لإرسالها للموافقة.",
-              "tr": "Evet. Meta, kimlik doğrulama şablonlarının belirli bir yapıyı takip etmesini gerektirir (genellikle tek kullanımlık bir şifre parametresi ve isteğe bağlı olarak bir buton içerir). Markanızın şablonlarını panelimizden oluşturebilirsiniz, ardından onay için Meta'ya gönderilir.",
-              "ng": "Yes. Meta requires authentication templates to follow a specific structure (typically containing a one-time passcode parameter and optionally a button). You can set up your brand's templates in our dashboard, and they will be sent to Meta for approval."
+              "en": "Within Meta’s fixed format. You create an authentication template in the template builder: Meta writes the message text itself, and you choose the language, the Copy code button, Meta’s security warning (“For your security, do not share this code.”) and an optional line saying when the code expires. The template then goes to Meta for approval.",
+              "pt": "Dentro do formato fixo da Meta. Você cria um template de autenticação no criador de templates: a Meta escreve o texto da mensagem, e você escolhe o idioma, o botão Copiar código, o aviso de segurança da Meta (“Para sua segurança, não compartilhe este código.”) e uma linha opcional dizendo quando o código expira. Depois o template vai para aprovação da Meta.",
+              "es": "Dentro del formato fijo de Meta. Usted crea una plantilla de autenticación en el creador de plantillas: Meta escribe el texto del mensaje, y usted elige el idioma, el botón Copiar código, el aviso de seguridad de Meta (“Por tu seguridad, no compartas este código.”) y una línea opcional que indica cuándo vence el código. Luego la plantilla pasa a aprobación de Meta.",
+              "id": "Dalam format tetap dari Meta. Anda membuat template autentikasi di pembuat template: Meta menulis teks pesannya sendiri, dan Anda memilih bahasa, tombol Salin kode, peringatan keamanan Meta (“Demi keamanan Anda, jangan bagikan kode ini.”), serta baris opsional yang menyebut kapan kode kedaluwarsa. Template lalu dikirim ke Meta untuk disetujui.",
+              "ar": "ضمن الصيغة الثابتة التي تحددها Meta. تنشئ قالب المصادقة في منشئ القوالب: تكتب Meta نص الرسالة بنفسها، وتختار أنت اللغة وزر نسخ الرمز وتحذير الأمان من Meta (“حفاظاً على أمانك، لا تشارك هذا الرمز.”) وسطراً اختيارياً يبيّن موعد انتهاء صلاحية الرمز. ثم يُرسل القالب إلى Meta للموافقة عليه.",
+              "tr": "Meta’nın sabit biçimi içinde. Kimlik doğrulama şablonunu şablon oluşturucuda hazırlarsınız: mesaj metnini Meta kendisi yazar; siz dili, Kodu kopyala butonunu, Meta’nın güvenlik uyarısını (“Güvenliğiniz için bu kodu paylaşmayın.”) ve kodun ne zaman sona ereceğini söyleyen isteğe bağlı bir satırı seçersiniz. Ardından şablon onay için Meta’ya gider."
+            }
+          },
+          {
+            "question": {
+              "en": "What does a WhatsApp OTP cost?",
+              "pt": "Quanto custa um OTP pelo WhatsApp?",
+              "es": "¿Cuánto cuesta un OTP por WhatsApp?",
+              "id": "Berapa biaya OTP WhatsApp?",
+              "ar": "كم تكلفة رمز OTP عبر واتساب؟",
+              "tr": "Bir WhatsApp OTP’si ne kadara mal olur?"
+            },
+            "answer": {
+              "en": "StartMessaging adds nothing per message. Meta charges every delivered authentication template at its authentication rate, billed directly to your own WhatsApp Business Account, and in some countries Meta charges a higher international authentication rate. Each message’s pricing field shows the category Meta used: authentication or authentication-international.",
+              "pt": "A StartMessaging não cobra nada por mensagem. A Meta cobra todo template de autenticação entregue pela tarifa de autenticação, diretamente na sua própria Conta do WhatsApp Business, e em alguns países cobra uma tarifa internacional de autenticação mais alta. O campo pricing de cada mensagem mostra a categoria usada pela Meta: authentication ou authentication-international.",
+              "es": "StartMessaging no cobra nada por mensaje. Meta cobra cada plantilla de autenticación entregada según su tarifa de autenticación, directamente a su propia Cuenta de WhatsApp Business, y en algunos países cobra una tarifa internacional de autenticación más alta. El campo pricing de cada mensaje muestra la categoría que usó Meta: authentication o authentication-international.",
+              "id": "StartMessaging tidak menambahkan biaya per pesan. Meta menagih setiap template autentikasi yang terkirim dengan tarif autentikasi, langsung ke Akun WhatsApp Business milik Anda, dan di beberapa negara Meta menerapkan tarif autentikasi internasional yang lebih tinggi. Kolom pricing pada setiap pesan menunjukkan kategori yang dipakai Meta: authentication atau authentication-international.",
+              "ar": "لا يضيف StartMessaging أي رسوم على الرسالة. تحتسب Meta كل قالب مصادقة يتم تسليمه بسعر المصادقة مباشرة على حساب واتساب للأعمال الخاص بك، وفي بعض الدول تحتسب سعر مصادقة دولياً أعلى. ويُظهر الحقل pricing في كل رسالة الفئة التي استخدمتها Meta: authentication أو authentication-international.",
+              "tr": "StartMessaging mesaj başına hiçbir ücret eklemez. Meta, teslim edilen her kimlik doğrulama şablonunu kimlik doğrulama ücretiyle doğrudan kendi WhatsApp Business Hesabınıza fatura eder; bazı ülkelerde ise daha yüksek bir uluslararası kimlik doğrulama ücreti uygular. Her mesajın pricing alanı Meta’nın kullandığı kategoriyi gösterir: authentication veya authentication-international."
+            }
+          },
+          {
+            "question": {
+              "en": "Can my plan’s monthly API message allowance block OTPs?",
+              "pt": "A franquia mensal de mensagens de API do meu plano pode bloquear OTPs?",
+              "es": "¿La cuota mensual de mensajes de API de mi plan puede bloquear los OTP?",
+              "id": "Bisakah kuota pesan API bulanan paket saya memblokir OTP?",
+              "ar": "هل يمكن أن تمنع الحصة الشهرية لرسائل الواجهة البرمجية في باقتي إرسال رموز OTP؟",
+              "tr": "Paketimin aylık API mesaj kotası OTP’leri engelleyebilir mi?"
+            },
+            "answer": {
+              "en": "Not on a paid Developer plan: it never stops authentication templates, even past its monthly allowance. Developer Free and the free trial stop every API send at their allowance of 100 and 1,000 messages a month, with 402 PLAN_MESSAGE_LIMIT_REACHED. Team and Business have no monthly API message limit under fair use.",
+              "pt": "Não em um plano Developer pago: ele nunca bloqueia templates de autenticação, mesmo após a franquia mensal. O Developer Free e o teste grátis param todo envio pela API na franquia de 100 e 1.000 mensagens por mês, com 402 PLAN_MESSAGE_LIMIT_REACHED. Team e Business não têm limite mensal de mensagens de API dentro do uso justo.",
+              "es": "No en un plan Developer de pago: nunca detiene las plantillas de autenticación, aunque se supere la cuota mensual. Developer Free y la prueba gratis detienen todo envío por API al llegar a su cuota de 100 y 1,000 mensajes al mes, con 402 PLAN_MESSAGE_LIMIT_REACHED. Team y Business no tienen límite mensual de mensajes de API dentro de un uso razonable.",
+              "id": "Tidak pada paket Developer berbayar: paket ini tidak pernah menghentikan template autentikasi, bahkan setelah melewati kuota bulanan. Developer Free dan uji coba gratis menghentikan setiap pengiriman API pada kuotanya, yaitu 100 dan 1.000 pesan per bulan, dengan 402 PLAN_MESSAGE_LIMIT_REACHED. Team dan Business tidak memiliki batas pesan API bulanan dalam penggunaan wajar.",
+              "ar": "ليس في باقة Developer مدفوعة: فهي لا توقف قوالب المصادقة أبداً، حتى بعد تجاوز الحصة الشهرية. أما Developer Free والتجربة المجانية فتوقفان كل إرسال عبر الواجهة عند حصتهما البالغة 100 و1,000 رسالة شهرياً، مع الاستجابة 402 PLAN_MESSAGE_LIMIT_REACHED. ولا يوجد في Team وBusiness حد شهري لرسائل الواجهة ضمن الاستخدام العادل.",
+              "tr": "Ücretli bir Developer paketinde hayır: aylık kotayı aşsa bile kimlik doğrulama şablonlarını asla durdurmaz. Developer Free ve ücretsiz deneme, her API gönderimini ayda 100 ve 1.000 mesajlık kotalarında 402 PLAN_MESSAGE_LIMIT_REACHED ile durdurur. Team ve Business’ta adil kullanım dahilinde aylık API mesaj sınırı yoktur."
             }
           }
         ]

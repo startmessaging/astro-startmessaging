@@ -40,14 +40,16 @@ StartMessaging offers a WhatsApp CRM built on the official WhatsApp Business Pla
 - Meta bills WhatsApp messages directly to the customer's own WhatsApp Business Account; StartMessaging charges only a flat CRM subscription (no per-message markup, no wallet)
 - App: ${WA_APP_URL}
 - Template builder: marketing, utility and authentication templates; carousel, limited-time offer, copy-code, URL, quick-reply, WhatsApp Form, catalog buttons; 16 languages
-- Campaigns: approved template to tagged contacts or a CSV audience, variable mapping, opted-out contacts skipped, pause/resume, delivery analytics
-- Shared team inbox: assignment, round-robin, quick replies, 24-hour window timer, interactive buttons and lists
-- CRM: contacts, tags, custom attributes, notes, kanban pipeline, CSV import/export, opt-in/opt-out handling, Click-to-WhatsApp ad attribution
-- Automation: keyword auto-replies and a visual chatbot flow builder
-- WhatsApp Forms (Meta Flows) with answers delivered to the inbox, API and webhooks
-- Analytics: agent performance, template performance, message errors, Meta volume by pricing category
-- Developer API: REST at ${WA_API_BASE}/api/v1 with Bearer API keys and scopes, idempotency keys, cursor pagination, signed webhooks (12 event types), OpenAPI reference
-- Plans: 14-day free trial, then Basic or Advanced (prices to be announced)
+- Campaigns (Team and up): approved template to tagged contacts, saved audiences or a CSV (up to 50,000 rows), variable mapping, opted-out contacts skipped; send now or schedule 2 minutes to 60 days ahead, campaign calendar, quiet hours, pre-launch check with a Meta cost estimate, pause/resume/cancel, funnel report with Meta charge and recipients export
+- Business campaign tools: A/B tests with automatic winner, up to 3 follow-ups that stop on reply, repeating campaigns, engagement segments, retargeting, birthday/date and pipeline-stage audiences, conversions
+- Shared team inbox (Team and up): assignment, round-robin, quick replies, search, media viewer, campaign reply context, 24-hour window timer, interactive buttons and lists
+- CRM: contacts, tags, custom attributes, notes, CSV import/export, opt-in/opt-out handling, Click-to-WhatsApp ad attribution; kanban sales pipeline with conversions and reply routing on Business
+- Automation: keyword auto-replies (Team and up) and a visual chatbot flow builder (Business)
+- WhatsApp Forms (Meta Flows, Business) with answers delivered to the inbox, API and webhooks
+- Analytics: template performance, message errors, Meta volume and charges by pricing category; agent performance and Meta template insights on Business
+- Developer API (every plan): REST at ${WA_API_BASE}/api/v1 with Bearer API keys and 10 scopes, idempotency keys, cursor pagination, signed webhooks (12 event types), OpenAPI reference; send templates (including carousels and limited-time offers) and session messages; conversions API (POST /api/v1/conversions, Business, scope conversions:write); GET /me shows the plan and this month's API message count
+- Plans (INR, GST included): Developer (API + view-only dashboard, by API messages a month: Developer Free ₹0 for 100, then 1K / 10K / 100K from ₹100 a month), Team ₹999 a month (3 seats), Business ₹2,999 a month (10 seats), Enterprise custom contract; extra seats ₹199 a month, viewers free; a year costs ten months. Every workspace starts with a 14-day free trial of Business; a workspace without a paid plan moves to Developer Free
+- Meta pricing (since 1 Oct 2026): every delivered template is charged, utility included even inside the 24-hour window; service replies are free up to a monthly allowance per number; Click-to-WhatsApp ad chats get a 72-hour free entry point window
 
 ## Supported Countries
 | Country | Currency | Language | Products |
@@ -63,7 +65,7 @@ StartMessaging offers a WhatsApp CRM built on the official WhatsApp Business Pla
 ## Pricing
 - SMS OTP (India): ₹0.25 per OTP (flat rate, no DLT required)
 - SMS: no monthly fees, no minimum commitment, prepaid wallet
-- WhatsApp CRM: flat subscription after a 14-day free trial (prices to be announced); Meta bills message charges directly to your WhatsApp Business Account
+- WhatsApp CRM: flat subscription after a 14-day free trial of Business — Developer from ₹100 a month (Developer Free ₹0), Team ₹999, Business ₹2,999 a month, GST included; Enterprise custom. Meta bills message charges directly to your WhatsApp Business Account
 
 ## API Base URLs
 - [SMS API](https://api.startmessaging.com)

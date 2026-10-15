@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-12",
   "seo": {
     "ogImage": "/og/whatsapp-triggers.jpg",
     "title": {
@@ -99,12 +99,12 @@
             "tr": "Yanıtlar ve teslimat durumu için teslimat günlüğü ve yeniden gönderimli imzalı webhook'lar"
           },
           {
-            "en": "Keyword auto-replies (exact, contains or starts-with) with text or template replies",
-            "pt": "Respostas automáticas por palavra-chave (exata, contém ou começa com) com texto ou template",
-            "es": "Respuestas automáticas por palabra clave (exacta, contiene o empieza por) con texto o plantilla",
-            "id": "Balasan otomatis kata kunci (persis, mengandung, atau diawali) dengan teks atau template",
-            "ar": "ردود تلقائية بالكلمات المفتاحية (مطابقة تامة أو تحتوي أو تبدأ بـ) بنص أو قالب",
-            "tr": "Metin veya şablonla anahtar kelime otomatik yanıtları (tam eşleşme, içerir veya ile başlar)"
+            "en": "Keyword auto-replies (exact, contains or starts-with) with text or template replies, matched on whole words (Team and Business)",
+            "pt": "Respostas automáticas por palavra-chave (exata, contém ou começa com) com texto ou template, com correspondência de palavras inteiras (Team e Business)",
+            "es": "Respuestas automáticas por palabra clave (exacta, contiene o empieza por) con texto o plantilla, con coincidencia de palabras completas (Team y Business)",
+            "id": "Balasan otomatis kata kunci (persis, mengandung, atau diawali) dengan teks atau template, dicocokkan sebagai kata utuh (Team dan Business)",
+            "ar": "ردود تلقائية بالكلمات المفتاحية (مطابقة تامة أو تحتوي أو تبدأ بـ) بنص أو قالب، مع مطابقة الكلمات الكاملة (Team وBusiness)",
+            "tr": "Metin veya şablonla anahtar kelime otomatik yanıtları (tam eşleşme, içerir veya ile başlar), tam kelime eşleşmesiyle (Team ve Business)"
           },
           {
             "en": "Connect Zapier, Make or Pabbly, or call the REST API from any backend",
@@ -160,12 +160,12 @@
               "tr": "Tetikleme Olayınızı Tanımlayın"
             },
             "description": {
-              "en": "Decide what sends the message: an event in your own backend, a Zapier, Make or Pabbly workflow, a keyword the customer sends, or a chatbot flow trigger.",
-              "pt": "Defina o que dispara a mensagem: um evento no seu backend, um fluxo no Zapier, Make ou Pabbly, uma palavra-chave enviada pelo cliente ou um gatilho de fluxo de chatbot.",
-              "es": "Defina qué envía el mensaje: un evento en su propio backend, un flujo de Zapier, Make o Pabbly, una palabra clave que envía el cliente o un disparador de flujo de chatbot.",
-              "id": "Tentukan apa yang mengirim pesan: peristiwa di backend Anda, alur kerja Zapier, Make, atau Pabbly, kata kunci yang dikirim pelanggan, atau pemicu alur chatbot.",
-              "ar": "حدّد ما يُرسل الرسالة: حدث في نظامك الخلفي، أو سير عمل في Zapier أو Make أو Pabbly، أو كلمة مفتاحية يرسلها العميل، أو مشغل تدفق شات بوت.",
-              "tr": "Mesajı neyin göndereceğine karar verin: kendi backend'inizdeki bir olay, bir Zapier, Make veya Pabbly iş akışı, müşterinin gönderdiği bir anahtar kelime ya da bir chatbot akış tetikleyicisi."
+              "en": "Decide what sends the message: an event in your own backend, a Zapier, Make or Pabbly workflow, a keyword the customer sends, or a chatbot flow trigger. Keyword auto-replies are on Team and Business; chatbot flows are on Business.",
+              "pt": "Defina o que dispara a mensagem: um evento no seu backend, um fluxo no Zapier, Make ou Pabbly, uma palavra-chave enviada pelo cliente ou um gatilho de fluxo de chatbot. As respostas automáticas por palavra-chave fazem parte dos planos Team e Business; os fluxos de chatbot, do Business.",
+              "es": "Defina qué envía el mensaje: un evento en su propio backend, un flujo de Zapier, Make o Pabbly, una palabra clave que envía el cliente o un disparador de flujo de chatbot. Las respuestas automáticas por palabra clave están en Team y Business; los flujos de chatbot, en Business.",
+              "id": "Tentukan apa yang mengirim pesan: peristiwa di backend Anda, alur kerja Zapier, Make, atau Pabbly, kata kunci yang dikirim pelanggan, atau pemicu alur chatbot. Balasan otomatis kata kunci tersedia di Team dan Business; alur chatbot di Business.",
+              "ar": "حدّد ما يُرسل الرسالة: حدث في نظامك الخلفي، أو سير عمل في Zapier أو Make أو Pabbly، أو كلمة مفتاحية يرسلها العميل، أو مشغل تدفق شات بوت. الردود التلقائية بالكلمات المفتاحية متاحة في Team وBusiness، وتدفقات الشات بوت في Business.",
+              "tr": "Mesajı neyin göndereceğine karar verin: kendi backend'inizdeki bir olay, bir Zapier, Make veya Pabbly iş akışı, müşterinin gönderdiği bir anahtar kelime ya da bir chatbot akış tetikleyicisi. Anahtar kelime otomatik yanıtları Team ve Business paketlerinde, chatbot akışları Business paketindedir."
             }
           },
           {
@@ -457,6 +457,45 @@
       }
     },
     {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Conversions",
+          "pt": "Conversões",
+          "es": "Conversiones",
+          "id": "Konversi",
+          "ar": "التحويلات",
+          "tr": "Dönüşümler"
+        },
+        "heading": {
+          "en": "Report the sale back, credit the campaign",
+          "pt": "Informe a venda e credite a campanha",
+          "es": "Informe la venta y acredite la campaña",
+          "id": "Laporkan penjualan, kreditkan ke kampanye",
+          "ar": "أبلغ عن البيع وانسبه إلى الحملة",
+          "tr": "Satışı geri bildirin, kampanyaya yazın"
+        },
+        "subheading": {
+          "en": "On the Business plan, when your shop or billing system records a sale, POST /api/v1/conversions credits it to the last campaign delivered to that number within your conversion window, and the campaign report adds up the value.",
+          "pt": "No plano Business, quando sua loja ou sistema de cobrança registra uma venda, POST /api/v1/conversions a credita à última campanha entregue a esse número dentro da sua janela de conversão, e o relatório da campanha soma o valor.",
+          "es": "En el plan Business, cuando su tienda o sistema de facturación registra una venta, POST /api/v1/conversions la acredita a la última campaña entregada a ese número dentro de su ventana de conversión, y el informe de la campaña suma el valor.",
+          "id": "Di paket Business, saat toko atau sistem penagihan Anda mencatat penjualan, POST /api/v1/conversions mengkreditkannya ke kampanye terakhir yang terkirim ke nomor itu dalam jendela konversi Anda, dan laporan kampanye menjumlahkan nilainya.",
+          "ar": "في باقة Business، عندما يسجّل متجرك أو نظام الفوترة عملية بيع، ينسبها POST /api/v1/conversions إلى آخر حملة سُلّمت إلى هذا الرقم ضمن نافذة التحويل لديك، ويجمع تقرير الحملة القيمة.",
+          "tr": "Business paketinde mağazanız veya faturalama sisteminiz bir satış kaydettiğinde POST /api/v1/conversions onu, dönüşüm pencereniz içinde o numaraya teslim edilen son kampanyaya yazar ve kampanya raporu tutarı toplar."
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "# Your shop marks an order paid: report it as a conversion (Business, scope conversions:write)\ncurl -X POST {{WA_API_BASE}}/api/v1/conversions \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"phone\": \"+919812345678\",\n    \"orderId\": \"ORD-10442\",\n    \"value\": 2499.5,\n    \"currency\": \"INR\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "// In your order-paid handler\nasync function reportConversion(order) {\n  const res = await fetch('{{WA_API_BASE}}/api/v1/conversions', {\n    method: 'POST',\n    headers: {\n      'Authorization': 'Bearer ' + process.env.SM_API_KEY, // sm_live_your_api_key\n      'Content-Type': 'application/json',\n    },\n    body: JSON.stringify({\n      phone: order.customerPhone, // E.164, e.g. +919812345678\n      orderId: order.id,          // safe to retry: the same orderId never counts twice\n      value: Math.round(order.total * 100) / 100, // at most 2 decimals\n      currency: 'INR',\n    }),\n  });\n  const { data } = await res.json(); // 201 = recorded, 200 = already reported\n  return data.conversion.campaign; // the campaign credited, or null\n}"
+          }
+        ]
+      }
+    },
+    {
       "type": "faqSection",
       "props": {
         "badge": {
@@ -492,6 +531,24 @@
               "id": "Penundaan diatur di tempat pemicu berada. Jika Anda mengirim dari backend atau dari Zapier, Make, atau Pabbly, atur waktu panggilan API di sana — misalnya pengingat keranjang ditinggalkan 1 jam kemudian dan pengingat kedua pada 24 jam. Di dalam alur chatbot, langkah 'tunggu' memberi jeda sebelum pesan berikutnya. Di luar jendela layanan pelanggan 24 jam, hanya template yang disetujui yang terkirim.",
               "ar": "تُضبط التأخيرات حيث يوجد المشغل. إذا كنت ترسل من نظامك الخلفي أو من Zapier أو Make أو Pabbly، فاضبط توقيت استدعاء API هناك — مثل تذكير بالسلة المهجورة بعد ساعة وتذكير ثانٍ بعد 24 ساعة. وداخل تدفقات الشات بوت، تتوقف خطوة 'الانتظار' مؤقتاً قبل الرسالة التالية. خارج نافذة خدمة العملاء البالغة 24 ساعة، لا تُسلَّم إلا القوالب المعتمدة.",
               "tr": "Gecikmeler tetikleyicinin bulunduğu yerde ayarlanır. Backend'inizden veya Zapier, Make ya da Pabbly'den gönderiyorsanız API çağrısını orada zamanlayın — örneğin terk edilmiş sepet hatırlatmasını 1 saat sonra, ikincisini 24 saat sonra. Chatbot akışlarında bir 'bekle' adımı sonraki mesajdan önce duraklar. 24 saatlik müşteri hizmetleri penceresi dışında yalnızca onaylı şablonlar iletilir."
+            }
+          },
+          {
+            "question": {
+              "en": "Which plan do I need for these automations?",
+              "pt": "Qual plano preciso para essas automações?",
+              "es": "¿Qué plan necesito para estas automatizaciones?",
+              "id": "Paket apa yang saya perlukan untuk otomatisasi ini?",
+              "ar": "ما الباقة التي أحتاجها لهذه الأتمتة؟",
+              "tr": "Bu otomasyonlar için hangi pakete ihtiyacım var?"
+            },
+            "answer": {
+              "en": "The REST API and signed webhooks are on every plan, Developer Free included. Keyword auto-replies are on Team and Business. Chatbot flows, with their wait-delay steps, and reporting conversions with POST /api/v1/conversions are on Business. The 14-day free trial includes everything in Business.",
+              "pt": "A API REST e os webhooks assinados estão em todos os planos, inclusive no Developer Free. As respostas automáticas por palavra-chave fazem parte dos planos Team e Business. Os fluxos de chatbot, com suas etapas de espera, e o envio de conversões com POST /api/v1/conversions fazem parte do Business. O teste grátis de 14 dias inclui tudo o que o Business tem.",
+              "es": "La API REST y los webhooks firmados están en todos los planes, incluido Developer Free. Las respuestas automáticas por palabra clave están en Team y Business. Los flujos de chatbot, con sus pasos de espera, y el informe de conversiones con POST /api/v1/conversions están en Business. La prueba gratis de 14 días incluye todo lo de Business.",
+              "id": "REST API dan webhook bertanda tangan tersedia di setiap paket, termasuk Developer Free. Balasan otomatis kata kunci tersedia di Team dan Business. Alur chatbot, dengan langkah tunggunya, serta pelaporan konversi dengan POST /api/v1/conversions tersedia di Business. Uji coba gratis 14 hari mencakup semua fitur Business.",
+              "ar": "واجهة REST البرمجية وwebhooks الموقّعة متاحة في كل الباقات، بما فيها Developer Free. والردود التلقائية بالكلمات المفتاحية متاحة في Team وBusiness. أما تدفقات الشات بوت بخطوات الانتظار فيها، والإبلاغ عن التحويلات عبر POST /api/v1/conversions، ففي Business. وتشمل التجربة المجانية لمدة 14 يوماً كل ما في Business.",
+              "tr": "REST API ve imzalı webhook’lar Developer Free dahil her pakettedir. Anahtar kelime otomatik yanıtları Team ve Business paketlerindedir. Bekleme adımlarıyla chatbot akışları ve POST /api/v1/conversions ile dönüşüm bildirme Business paketindedir. 14 günlük ücretsiz deneme Business’taki her şeyi içerir."
             }
           }
         ]

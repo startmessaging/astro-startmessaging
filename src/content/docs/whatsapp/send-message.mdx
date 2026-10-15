@@ -30,7 +30,7 @@ A free-form message outside the window is refused with `403 MESSAGE_WINDOW_CLOSE
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `to` | string | Yes | Recipient phone number. E.164 (`+919876543210`) is recommended; a national number (`9876543210`) is read in your workspace's country. Up to 32 characters. |
+| `to` | string | Yes | Recipient phone number. E.164 (`+919876543210`) is recommended; a national number (`9876543210`) is read in your workspace's country. Up to 32 characters. Only phone numbers are accepted. |
 | `type` | string | Yes | One of `template`, `text`, `image`, `video`, `audio`, `document`, `interactive` |
 | `template` | object | When `type` is `template` | See [Template messages](#template-messages) |
 | `text` | object | When `type` is `text` | See [Text messages](#text-messages) |
@@ -41,6 +41,8 @@ A free-form message outside the window is refused with `403 MESSAGE_WINDOW_CLOSE
 Send exactly the object that matches `type` and no other. A body with `type: "text"` plus a `template` object is a `400 VALIDATION_ERROR`, not a guess.
 
 A number that is not in your contacts yet is added automatically (source `api`), and the message appears in its conversation in the shared team inbox.
+
+Some customers use a WhatsApp username and haven't shared their number with you. Their contact has `phone: null` and a `waUserId` instead (see [Contacts](/docs/whatsapp/contacts)). The API can't send to a `waUserId`, so reply to these customers from the team inbox until they share their number.
 
 ### Headers
 
@@ -61,6 +63,8 @@ Approved templates are the only messages that can start a conversation or reach 
 | `template.parameters` | array | When the body has variables | Body variables in order. Each value is a string of up to 1,024 characters. |
 | `template.headerMediaUrl` | string | When the header is an image, video or document | A public `https` URL of the file. WhatsApp downloads it. |
 | `template.buttonParameters` | array | When a button needs a value | Send-time values for dynamic buttons (see below) |
+| `template.carouselCards` | array | For a carousel template | One entry per card, in the template's card order (see [Carousel templates](#carousel-templates)) |
+| `template.offerExpiresAt` | string | For a limited-time offer that shows its end time | When the offer ends: an ISO 8601 date-time in the future (see [Limited-time offers](#limited-time-offers)) |
 
 ### Body variables: positional or named
 
@@ -79,7 +83,9 @@ For a template with named variables (`{{first_name}}`, `{{order_id}}`), send eac
 ]
 ```
 
-The template's **Send via API** panel in the dashboard shows exactly which values a template needs and a request you can copy.
+The template's **Send via API** panel in the dashboard shows exactly which values a template needs and a request you can copy. Carousel templates are the exception: the panel's request has no cards, and the panel still says carousels can't be sent through the API. The API does send them; see [Carousel templates](#carousel-templates).
+
+Meta keeps the variable style (named or numbered) a template was created with. A template that Meta registered without its variables can't be filled in, so a send answers `422 TEMPLATE_VARIABLES_NOT_REGISTERED`. Duplicate the template in the dashboard and send the copy once Meta approves it.
 
 ### Button parameters
 
@@ -90,7 +96,7 @@ Buttons that are fully static need nothing at send time. Buttons with a send-tim
 | `index` | Position of the button in the template, counting from 0 (0–9) |
 | `subType` | `url` for a link button with a variable (and for authentication codes), `copy_code` for a coupon button, `flow` for a WhatsApp Form button |
 | `text` | The value for the URL variable, the one-time code, or the flow token for a `flow` button |
-| `couponCode` | The coupon code a `copy_code` button copies |
+| `couponCode` | The coupon code a `copy_code` button copies, up to 15 characters (WhatsApp's limit) |
 
 ```json
 "buttonParameters": [
@@ -201,6 +207,196 @@ $response = json_decode(curl_exec($ch), true);
 echo $response['data']['id'];
 ```
 
+### Carousel templates
+
+A carousel template sends 2 to 10 cards that scroll sideways. A carousel always sends **every card it was created with**, so `template.carouselCards` needs one entry per card, in the same order as the template:
+
+| Field | Required | Description |
+|---|---|---|
+| `headerMediaUrl` | Yes | The card's image or video (whichever the template's cards were created with), as a public `https` URL without credentials, up to 2,048 characters. Required on every send: WhatsApp has no default. |
+| `parameters` | When the card text has variables | The card text's variables, in order, exactly like `template.parameters` for the message body |
+| `buttonParameters` | When a card button is a link with a variable | Up to 2 entries, each `{ "index", "subType": "url", "text" }`. `index` counts the card's own buttons from 0. Quick-reply and phone buttons need nothing. |
+
+`template.parameters` still fills the message body above the cards, if it has variables.
+
+If a card is missing something, or you send a different number of cards, the API answers `422 TEMPLATE_CAROUSEL_CARDS_INCOMPLETE` before anything is sent. `details.expected` is the template's card count, `details.received` is how many you sent, and `details.problems` lists each gap as `{ "card", "missing" }`, where `card` counts from 1 and `missing` is `media`, `variables` or `button` (with `buttonIndex`).
+
+```bash
+curl -X POST {{WA_API_BASE}}/api/v1/messages \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: diwali-carousel-919876543210" \
+  -d '{
+    "to": "+919876543210",
+    "type": "template",
+    "template": {
+      "name": "diwali_collection",
+      "language": "en_US",
+      "parameters": [{ "text": "Aarti" }],
+      "carouselCards": [
+        {
+          "headerMediaUrl": "https://cdn.example.com/products/kurta-blue.jpg",
+          "parameters": [{ "text": "₹1,299" }],
+          "buttonParameters": [{ "index": 0, "subType": "url", "text": "kurta-blue" }]
+        },
+        {
+          "headerMediaUrl": "https://cdn.example.com/products/saree-red.jpg",
+          "parameters": [{ "text": "₹2,499" }],
+          "buttonParameters": [{ "index": 0, "subType": "url", "text": "saree-red" }]
+        }
+      ]
+    }
+  }'
+```
+
+```javascript
+const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.SM_API_KEY}`,
+    'Content-Type': 'application/json',
+    'Idempotency-Key': 'diwali-carousel-919876543210',
+  },
+  body: JSON.stringify({
+    to: '+919876543210',
+    type: 'template',
+    template: {
+      name: 'diwali_collection',
+      language: 'en_US',
+      parameters: [{ text: 'Aarti' }],
+      carouselCards: products.map((p) => ({
+        headerMediaUrl: p.imageUrl,
+        parameters: [{ text: p.price }],
+        buttonParameters: [{ index: 0, subType: 'url', text: p.slug }],
+      })),
+    },
+  }),
+});
+const body = await res.json();
+if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+```
+
+```python
+import os, requests
+
+res = requests.post(
+    "{{WA_API_BASE}}/api/v1/messages",
+    headers={
+        "Authorization": f"Bearer {os.environ['SM_API_KEY']}",
+        "Idempotency-Key": "diwali-carousel-919876543210",
+    },
+    json={
+        "to": "+919876543210",
+        "type": "template",
+        "template": {
+            "name": "diwali_collection",
+            "language": "en_US",
+            "parameters": [{"text": "Aarti"}],
+            "carouselCards": [
+                {
+                    "headerMediaUrl": p["image_url"],
+                    "parameters": [{"text": p["price"]}],
+                    "buttonParameters": [{"index": 0, "subType": "url", "text": p["slug"]}],
+                }
+                for p in products  # one per card, in the template's order
+            ],
+        },
+    },
+)
+body = res.json()
+if not res.ok:
+    raise RuntimeError(f"{body['error']['code']}: {body['error']['message']}")
+```
+
+### Limited-time offers
+
+A limited-time offer template can show a countdown to the end of the offer. If it does, every send needs `template.offerExpiresAt`: when the offer ends, as an ISO 8601 date-time (for example `2026-10-20T18:30:00Z`) that is still in the future. WhatsApp counts the offer down to it.
+
+- No `offerExpiresAt` on a template that shows the end time: `422 TEMPLATE_OFFER_EXPIRY_REQUIRED`.
+- An end time that has already passed: `422 TEMPLATE_OFFER_EXPIRY_INVALID`.
+
+Offer templates usually also have a coupon button (`subType: "copy_code"`, `couponCode` up to 15 characters) and a link button.
+
+```bash
+curl -X POST {{WA_API_BASE}}/api/v1/messages \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: diwali-offer-919876543210" \
+  -d '{
+    "to": "+919876543210",
+    "type": "template",
+    "template": {
+      "name": "diwali_flash_sale",
+      "language": "en_US",
+      "parameters": [{ "text": "Aarti" }],
+      "headerMediaUrl": "https://cdn.example.com/diwali-sale.jpg",
+      "offerExpiresAt": "2026-10-20T18:30:00Z",
+      "buttonParameters": [
+        { "index": 0, "subType": "copy_code", "couponCode": "DIWALI25" },
+        { "index": 1, "subType": "url", "text": "diwali" }
+      ]
+    }
+  }'
+```
+
+```javascript
+const endsAt = new Date(Date.now() + 48 * 60 * 60 * 1000); // 48 hours from now
+
+const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.SM_API_KEY}`,
+    'Content-Type': 'application/json',
+    'Idempotency-Key': 'diwali-offer-919876543210',
+  },
+  body: JSON.stringify({
+    to: '+919876543210',
+    type: 'template',
+    template: {
+      name: 'diwali_flash_sale',
+      language: 'en_US',
+      parameters: [{ text: 'Aarti' }],
+      headerMediaUrl: 'https://cdn.example.com/diwali-sale.jpg',
+      offerExpiresAt: endsAt.toISOString(),
+      buttonParameters: [
+        { index: 0, subType: 'copy_code', couponCode: 'DIWALI25' },
+        { index: 1, subType: 'url', text: 'diwali' },
+      ],
+    },
+  }),
+});
+```
+
+```python
+import os, requests
+from datetime import datetime, timedelta, timezone
+
+ends_at = datetime.now(timezone.utc) + timedelta(hours=48)
+
+res = requests.post(
+    "{{WA_API_BASE}}/api/v1/messages",
+    headers={
+        "Authorization": f"Bearer {os.environ['SM_API_KEY']}",
+        "Idempotency-Key": "diwali-offer-919876543210",
+    },
+    json={
+        "to": "+919876543210",
+        "type": "template",
+        "template": {
+            "name": "diwali_flash_sale",
+            "language": "en_US",
+            "parameters": [{"text": "Aarti"}],
+            "headerMediaUrl": "https://cdn.example.com/diwali-sale.jpg",
+            "offerExpiresAt": ends_at.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "buttonParameters": [
+                {"index": 0, "subType": "copy_code", "couponCode": "DIWALI25"},
+                {"index": 1, "subType": "url", "text": "diwali"},
+            ],
+        },
+    },
+)
+```
+
 ## Text messages
 
 | Field | Type | Required | Description |
@@ -285,7 +481,7 @@ Sending `media.caption` with `type: "audio"` is a `400 VALIDATION_ERROR`, becaus
 
 ## Interactive messages
 
-Interactive messages show **reply buttons** or a **list menu**. They need an open 24-hour window and the Interactive Messages plan feature; a plan without it answers `403 PLAN_FEATURE_REQUIRED`.
+Interactive messages show **reply buttons** or a **list menu**. They need an open 24-hour window and the Interactive Messages plan feature, which Team, Business, Enterprise and the free trial include and no Developer plan does (Developer Free included); a plan without it answers `403 PLAN_FEATURE_REQUIRED`.
 
 | Field | Type | Required | Description |
 |---|---|---|---|
@@ -404,16 +600,54 @@ So you can match a receipt or a reply to your record without storing our message
 | 400 | `VALIDATION_ERROR` | Fix the body; `error.message` names the field |
 | 400 | `MOBILE_INVALID` | `to` is not a valid mobile number |
 | 400 | `WABA_NOT_CONNECTED` | Reconnect WhatsApp on the Connect page |
+| 402 | `PLAN_MESSAGE_LIMIT_REACHED` | This month's API message allowance is used up (see [below](#monthly-api-message-allowance)) |
+| 402 | `SUBSCRIPTION_REQUIRED` | The workspace is read-only because Razorpay gave up on a subscription renewal; fix billing in the dashboard. It can also appear briefly when a trial or cancelled subscription has just ended, until the workspace moves to Developer Free. |
 | 402 | `META_PAYMENT_REQUIRED` | Add or fix the payment method in WhatsApp Manager |
 | 403 | `MESSAGE_WINDOW_CLOSED` | Send an approved template instead |
 | 404 | `TEMPLATE_NOT_FOUND` | Check `template.name` and `template.language` |
 | 422 | `TEMPLATE_NOT_APPROVED` | Wait for Meta's approval; `details.status` shows the current status |
+| 422 | `TEMPLATE_CAROUSEL_CARDS_INCOMPLETE` | Send every card with its media and values; `details.problems` names each gap |
+| 422 | `TEMPLATE_OFFER_EXPIRY_REQUIRED`, `TEMPLATE_OFFER_EXPIRY_INVALID` | Send `template.offerExpiresAt`, in the future |
+| 422 | `TEMPLATE_VARIABLES_NOT_REGISTERED` | Duplicate the template in the dashboard and send the copy |
 | 422 | `CONTACT_OPTED_OUT` | The customer replied STOP; they must opt back in first |
 | 422 | `MESSAGE_REJECTED` | WhatsApp refused the request itself; `details.metaCode` is Meta's error number |
 | 429 | `RATE_LIMIT_EXCEEDED` | Wait for `Retry-After` seconds |
 | 502 | `WABA_CONNECT_FAILED` | Transient WhatsApp failure; retry later with the same `Idempotency-Key` |
 
 The full list is on [Errors & Limits](/docs/whatsapp/errors-and-limits).
+
+## Monthly API message allowance
+
+Each plan includes a number of messages a month sent through the API (`POST /api/v1/messages` and `POST /api/v1/trigger/send`). Only sends that WhatsApp accepted count: a send that is refused, by us or by WhatsApp, does not use up the allowance. The month follows India time and starts again on the 1st.
+
+| Plan | Messages a month | Where sends stop |
+|---|---|---|
+| Free trial | 1,000 | At 1,000, authentication templates included |
+| Developer Free | 100 | At 100, authentication templates included |
+| Developer 1K, 10K, 100K | 1,000, 10,000, 100,000 | At 3× the allowance. Authentication templates are never stopped. |
+| Team, Business, Enterprise | Unlimited (fair use) | Never |
+
+When sends stop, the API answers `402 PLAN_MESSAGE_LIMIT_REACHED`:
+
+```json
+{
+  "statusCode": 402,
+  "error": {
+    "code": "PLAN_MESSAGE_LIMIT_REACHED",
+    "message": "This workspace has sent the 100 messages its plan includes through the API this month. …",
+    "details": {
+      "limit": 100,
+      "stopAt": 100,
+      "sent": 100,
+      "period": "2026-10",
+      "resetsAt": "2026-10-31T18:30:00.000Z"
+    }
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-20T10:00:00.000Z", "path": "/api/v1/messages" }
+}
+```
+
+`details.sent` is this month's count, `details.stopAt` is where sends stop, and `details.resetsAt` is when the count starts again (midnight India time on the 1st). Nothing upgrades or charges by itself: choose a bigger Developer size or another plan to send more. To warn your own users before this happens, watch `messages` in [`GET /api/v1/me`](/docs/whatsapp/authentication#check-a-key-get-me).
 
 ## Get a message
 
@@ -438,6 +672,7 @@ curl {{WA_API_BASE}}/api/v1/messages/3f6c2a1e-8b1d-4c53-9e7a-2b5d8f0c4a11 \
     "templateName": "order_confirmation",
     "failureCode": null,
     "failureReason": null,
+    "pricing": { "category": "utility", "type": "regular" },
     "apiKeyId": "0e9d8c7b-6a5f-4e3d-2c1b-0a9f8e7d6c5b",
     "clientReference": "order-1042",
     "form": null,
@@ -456,16 +691,29 @@ curl {{WA_API_BASE}}/api/v1/messages/3f6c2a1e-8b1d-4c53-9e7a-2b5d8f0c4a11 \
 | `text` | The words: the text, a template body with its variables filled in, a caption, or the label of a tapped option. `null` when there are none. |
 | `templateName` | The template sent, for a template message |
 | `failureCode` / `failureReason` | WhatsApp's error code (for example `131049`) and reason when the message failed |
+| `pricing` | How Meta classified the message for billing: `category` and `type` (see below). `null` for inbound messages and until WhatsApp's first receipt arrives. |
 | `apiKeyId` | The API key that sent it; `null` for messages sent another way |
 | `clientReference` | The reference sent with it through the API; `null` otherwise |
 | `form` | The answers when the customer submitted a WhatsApp Form; `null` otherwise |
 
 A message of another workspace answers `404 MESSAGE_NOT_FOUND`, exactly like a missing one.
 
+### Pricing
+
+`pricing` records what WhatsApp's delivery receipts say about how Meta billed an outbound message. Meta bills your WhatsApp Business Account directly; it is never a StartMessaging charge.
+
+| Field | Values |
+|---|---|
+| `pricing.category` | `marketing`, `utility`, `authentication`, `authentication-international`, `service`, or `referral_conversion` (inside a Click-to-WhatsApp ad's free window) |
+| `pricing.type` | `regular` (Meta charged the message), `free_customer_service` (a service reply inside the monthly free allowance) or `free_entry_point` (inside a Click-to-WhatsApp ad's free window) |
+
+Meta may add new values; treat an unknown one as information, not an error.
+
 ### Message statuses
 
 | Status | Meaning |
 |---|---|
+| `queued` | Recorded but not yet accepted by WhatsApp. It is part of the status list, but a message normally starts at `sent`. |
 | `sent` | WhatsApp accepted the message |
 | `delivered` | It reached the customer's phone |
 | `read` | The customer opened it (only if they have read receipts on) |
@@ -519,7 +767,10 @@ The customer has not messaged you in the last 24 hours. Outside that window What
 No. A number that is not in your contacts is added automatically with source `api`. On plans with a contact cap, a send to a new number over the cap answers `403 PLAN_LIMIT_REACHED`; numbers you already have can still be messaged.
 
 **Does StartMessaging charge per message?**
-No. Meta bills message charges directly to your WhatsApp Business Account. StartMessaging charges only the CRM subscription.
+No. Meta bills message charges directly to your WhatsApp Business Account. StartMessaging charges only the subscription. Each plan includes a monthly number of API messages (see [Monthly API message allowance](#monthly-api-message-allowance)), and each message's `pricing` shows how Meta classified it.
+
+**Can I send carousel or limited-time offer templates?**
+Yes. Send each carousel card's media and values in `template.carouselCards`, and an offer's end time in `template.offerExpiresAt`. Campaigns can't send these templates, so the API (or the inbox) is the way to send them. For a carousel, build the request from [Carousel templates](#carousel-templates) rather than the dashboard's **Send via API** panel, which has no cards and still says carousels can't be sent through the API.
 
 **Can I send location or contact-card messages?**
 Not through the API. Supported types are `template`, `text`, `image`, `video`, `audio`, `document` and `interactive`.

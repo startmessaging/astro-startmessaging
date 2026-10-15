@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-12",
   "seo": {
     "title": {
       "en": "API Limits & Usage Policies — StartMessaging",
@@ -20,12 +20,12 @@
       "tr": "API Limitleri ve Kullanım Politikaları — StartMessaging"
     },
     "description": {
-      "en": "SMS API rate limits, per-number security limits, WhatsApp API rate limits per plan, message and template limits, webhook limits, and best practices for handling 429 errors.",
-      "pt": "Limites de taxa da API de SMS, limites de segurança por número, limites de taxa da API do WhatsApp por plano, limites de mensagens e modelos, limites de webhooks e boas práticas para lidar com erros 429.",
-      "es": "Límites de tasa de la API de SMS, límites de seguridad por número, límites de tasa de la API de WhatsApp por plan, límites de mensajes y plantillas, límites de webhooks y mejores prácticas para manejar errores 429.",
-      "id": "Batas rate SMS API, batas keamanan per nomor, batas rate API WhatsApp per paket, batas pesan dan template, batas webhook, serta praktik terbaik menangani error 429.",
-      "ar": "حدود معدل SMS API وحدود الأمان لكل رقم وحدود معدل API واتساب لكل خطة وحدود الرسائل والقوالب وحدود webhook وأفضل الممارسات للتعامل مع أخطاء 429.",
-      "tr": "SMS API hız limitleri, numara başına güvenlik limitleri, plana göre WhatsApp API hız limitleri, mesaj ve şablon limitleri, webhook limitleri ve 429 hatalarını yönetmek için en iyi uygulamalar."
+      "en": "SMS API rate limits, per-number security limits, WhatsApp API limits per plan (requests, sends and monthly API messages), webhook, seat, campaign and template limits, and best practices for handling 429 and 402 errors.",
+      "pt": "Limites de taxa da API de SMS, limites de segurança por número, limites da API do WhatsApp por plano (requisições, envios e mensagens de API por mês), limites de webhooks, assentos, campanhas e modelos, e boas práticas para lidar com erros 429 e 402.",
+      "es": "Límites de tasa de la API de SMS, límites de seguridad por número, límites de la API de WhatsApp por plan (solicitudes, envíos y mensajes de API al mes), límites de webhooks, asientos, campañas y plantillas, y mejores prácticas para manejar errores 429 y 402.",
+      "id": "Batas rate SMS API, batas keamanan per nomor, batas API WhatsApp per paket (permintaan, pengiriman, dan pesan API per bulan), batas webhook, kursi, kampanye, dan template, serta praktik terbaik menangani error 429 dan 402.",
+      "ar": "حدود معدل SMS API وحدود الأمان لكل رقم وحدود API واتساب لكل خطة (الطلبات وعمليات الإرسال ورسائل API الشهرية) وحدود webhook والمقاعد والحملات والقوالب وأفضل الممارسات للتعامل مع أخطاء 429 و402.",
+      "tr": "SMS API hız limitleri, numara başına güvenlik limitleri, plana göre WhatsApp API limitleri (istekler, gönderimler ve aylık API mesajları), webhook, koltuk, kampanya ve şablon limitleri ile 429 ve 402 hatalarını yönetmek için en iyi uygulamalar."
     },
     "ogImage": "/og/limits.png"
   },
@@ -185,12 +185,12 @@
           "tr": "WhatsApp API — Plana Göre Hız Limitleri"
         },
         "subheading": {
-          "en": "Limits depend on your workspace's plan. Every API response carries IETF RateLimit-* headers, and every 429 response includes a Retry-After header. Meta's daily messaging limit, set for your business portfolio and shared by all of its WhatsApp numbers, also applies (see below).",
-          "pt": "Os limites dependem do plano do seu workspace. Cada resposta da API traz os cabeçalhos IETF RateLimit-*, e toda resposta 429 inclui o cabeçalho Retry-After. O limite diário de mensagens da Meta, definido para o seu portfólio empresarial e compartilhado por todos os seus números do WhatsApp, também se aplica (veja abaixo).",
-          "es": "Los límites dependen del plan de su workspace. Cada respuesta de la API incluye los encabezados IETF RateLimit-*, y toda respuesta 429 incluye el encabezado Retry-After. También se aplica el límite diario de mensajes de Meta, que se define para su portfolio empresarial y lo comparten todos sus números de WhatsApp (ver abajo).",
-          "id": "Batas bergantung pada paket workspace Anda. Setiap respons API menyertakan header IETF RateLimit-*, dan setiap respons 429 menyertakan header Retry-After. Batas pesan harian Meta, yang ditetapkan untuk portofolio bisnis Anda dan dibagi oleh semua nomor WhatsApp-nya, juga berlaku (lihat di bawah).",
-          "ar": "تعتمد الحدود على خطة مساحة العمل الخاصة بك. تحمل كل استجابة من API رؤوس IETF RateLimit-*، وتتضمن كل استجابة 429 رأس Retry-After. ويُطبَّق أيضاً حد المراسلة اليومي من Meta، الذي يُحدَّد لحافظة أعمالك وتتشاركه جميع أرقام واتساب التابعة لها (انظر أدناه).",
-          "tr": "Limitler çalışma alanınızın planına bağlıdır. Her API yanıtı IETF RateLimit-* başlıklarını taşır ve her 429 yanıtı bir Retry-After başlığı içerir. İşletme portföyünüz için belirlenen ve portföydeki tüm WhatsApp numaralarınızın paylaştığı Meta günlük mesajlaşma limiti de geçerlidir (aşağıya bakın)."
+          "en": "Limits depend on your workspace's plan and are counted per workspace, not per API key. Every API response carries IETF RateLimit-* headers, and every 429 response includes a Retry-After header. Enterprise limits are set by contract. Meta's daily messaging limit, set for your business portfolio and shared by all of its WhatsApp numbers, also applies (see below).",
+          "pt": "Os limites dependem do plano do seu workspace e são contados por workspace, não por chave de API. Cada resposta da API traz os cabeçalhos IETF RateLimit-*, e toda resposta 429 inclui o cabeçalho Retry-After. Os limites do Enterprise são definidos em contrato. O limite diário de mensagens da Meta, definido para o seu portfólio empresarial e compartilhado por todos os seus números do WhatsApp, também se aplica (veja abaixo).",
+          "es": "Los límites dependen del plan de su workspace y se cuentan por workspace, no por clave de API. Cada respuesta de la API incluye los encabezados IETF RateLimit-*, y toda respuesta 429 incluye el encabezado Retry-After. Los límites de Enterprise se fijan por contrato. También se aplica el límite diario de mensajes de Meta, que se define para su portfolio empresarial y lo comparten todos sus números de WhatsApp (ver abajo).",
+          "id": "Batas bergantung pada paket workspace Anda dan dihitung per workspace, bukan per kunci API. Setiap respons API menyertakan header IETF RateLimit-*, dan setiap respons 429 menyertakan header Retry-After. Batas Enterprise ditetapkan dalam kontrak. Batas pesan harian Meta, yang ditetapkan untuk portofolio bisnis Anda dan dibagi oleh semua nomor WhatsApp-nya, juga berlaku (lihat di bawah).",
+          "ar": "تعتمد الحدود على خطة مساحة العمل الخاصة بك وتُحتسب لكل مساحة عمل وليس لكل مفتاح API. تحمل كل استجابة من API رؤوس IETF RateLimit-*، وتتضمن كل استجابة 429 رأس Retry-After. تُحدَّد حدود خطة Enterprise بموجب العقد. ويُطبَّق أيضاً حد المراسلة اليومي من Meta، الذي يُحدَّد لحافظة أعمالك وتتشاركه جميع أرقام واتساب التابعة لها (انظر أدناه).",
+          "tr": "Limitler çalışma alanınızın planına bağlıdır ve API anahtarı başına değil, çalışma alanı başına sayılır. Her API yanıtı IETF RateLimit-* başlıklarını taşır ve her 429 yanıtı bir Retry-After başlığı içerir. Enterprise limitleri sözleşmeyle belirlenir. İşletme portföyünüz için belirlenen ve portföydeki tüm WhatsApp numaralarınızın paylaştığı Meta günlük mesajlaşma limiti de geçerlidir (aşağıya bakın)."
         },
         "columns": [
           {
@@ -228,19 +228,19 @@
         "rows": [
           [
             {
-              "en": "Trial (14 days)",
-              "pt": "Teste (14 dias)",
-              "es": "Prueba (14 días)",
-              "id": "Uji coba (14 hari)",
-              "ar": "التجربة (14 يوماً)",
-              "tr": "Deneme (14 gün)"
+              "en": "Free trial (14 days)",
+              "pt": "Teste grátis (14 dias)",
+              "es": "Prueba gratuita (14 días)",
+              "id": "Uji coba gratis (14 hari)",
+              "ar": "التجربة المجانية (14 يوماً)",
+              "tr": "Ücretsiz deneme (14 gün)"
             },
-            "60",
+            "300",
             "100"
           ],
           [
-            "Basic",
-            "300",
+            "Developer Free",
+            "60",
             {
               "en": "2,000",
               "pt": "2.000",
@@ -251,7 +251,31 @@
             }
           ],
           [
-            "Advanced",
+            "Developer 1K",
+            "120",
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            }
+          ],
+          [
+            "Developer 10K",
+            "300",
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            }
+          ],
+          [
+            "Developer 100K",
             {
               "en": "1,200",
               "pt": "1.200",
@@ -268,6 +292,182 @@
               "ar": "10,000",
               "tr": "10.000"
             }
+          ],
+          [
+            "Team",
+            "300",
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            }
+          ],
+          [
+            "Business",
+            {
+              "en": "1,200",
+              "pt": "1.200",
+              "es": "1,200",
+              "id": "1.200",
+              "ar": "1,200",
+              "tr": "1.200"
+            },
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "WhatsApp API Limits",
+          "pt": "Limites da API WhatsApp",
+          "es": "Límites de la API de WhatsApp",
+          "id": "Batas API WhatsApp",
+          "ar": "حدود API واتساب",
+          "tr": "WhatsApp API Limitleri"
+        },
+        "heading": {
+          "en": "WhatsApp API — Monthly Message Allowance",
+          "pt": "API do WhatsApp — Franquia Mensal de Mensagens",
+          "es": "API de WhatsApp — Asignación Mensual de Mensajes",
+          "id": "API WhatsApp — Kuota Pesan Bulanan",
+          "ar": "API واتساب — الحصة الشهرية من الرسائل",
+          "tr": "WhatsApp API — Aylık Mesaj Hakkı"
+        },
+        "subheading": {
+          "en": "Only messages sent through the API count; campaigns and inbox replies sent from the dashboard don't. When sends stop, the API answers 402 PLAN_MESSAGE_LIMIT_REACHED. GET /me shows this month's count, where sends stop and when the count resets. Meta's message charges are separate and billed by Meta to your WhatsApp Business Account.",
+          "pt": "Só contam as mensagens enviadas pela API; campanhas e respostas da caixa de entrada enviadas pelo painel não contam. Quando os envios param, a API responde 402 PLAN_MESSAGE_LIMIT_REACHED. GET /me mostra a contagem do mês, onde os envios param e quando a contagem reinicia. As cobranças de mensagens da Meta são separadas e faturadas pela Meta na sua conta do WhatsApp Business.",
+          "es": "Solo cuentan los mensajes enviados por la API; las campañas y las respuestas de la bandeja enviadas desde el panel no cuentan. Cuando los envíos se detienen, la API responde 402 PLAN_MESSAGE_LIMIT_REACHED. GET /me muestra el conteo del mes, dónde se detienen los envíos y cuándo se reinicia el conteo. Los cargos de mensajes de Meta son aparte y Meta los factura a su cuenta de WhatsApp Business.",
+          "id": "Hanya pesan yang dikirim melalui API yang dihitung; kampanye dan balasan kotak masuk yang dikirim dari dasbor tidak dihitung. Saat pengiriman berhenti, API menjawab 402 PLAN_MESSAGE_LIMIT_REACHED. GET /me menampilkan jumlah bulan ini, titik berhentinya pengiriman, dan kapan hitungan diatur ulang. Biaya pesan Meta terpisah dan ditagihkan oleh Meta ke Akun WhatsApp Business Anda.",
+          "ar": "تُحتسب فقط الرسائل المرسلة عبر API؛ أما الحملات وردود صندوق الوارد المرسلة من لوحة التحكم فلا تُحتسب. وعند توقف الإرسال، تردّ API بالخطأ 402 PLAN_MESSAGE_LIMIT_REACHED. ويعرض GET /me عدد رسائل هذا الشهر والنقطة التي يتوقف عندها الإرسال وموعد إعادة ضبط العدّاد. رسوم الرسائل من Meta منفصلة وتُصدرها Meta على حساب واتساب للأعمال الخاص بك.",
+          "tr": "Yalnızca API üzerinden gönderilen mesajlar sayılır; panelden gönderilen kampanyalar ve gelen kutusu yanıtları sayılmaz. Gönderimler durduğunda API 402 PLAN_MESSAGE_LIMIT_REACHED yanıtını verir. GET /me bu ayın sayısını, gönderimlerin nerede duracağını ve sayımın ne zaman sıfırlanacağını gösterir. Meta'nın mesaj ücretleri ayrıdır ve Meta tarafından WhatsApp Business Hesabınıza faturalanır."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Plan",
+              "pt": "Plano",
+              "es": "Plan",
+              "id": "Paket",
+              "ar": "الخطة",
+              "tr": "Plan"
+            }
+          },
+          {
+            "label": {
+              "en": "API messages a month",
+              "pt": "Mensagens de API por mês",
+              "es": "Mensajes de API al mes",
+              "id": "Pesan API per bulan",
+              "ar": "رسائل API شهرياً",
+              "tr": "Aylık API mesajı"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "When it runs out",
+              "pt": "Quando acaba",
+              "es": "Cuando se agota",
+              "id": "Saat habis",
+              "ar": "عند نفادها",
+              "tr": "Bittiğinde"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Free trial (14 days)",
+              "pt": "Teste grátis (14 dias)",
+              "es": "Prueba gratuita (14 días)",
+              "id": "Uji coba gratis (14 hari)",
+              "ar": "التجربة المجانية (14 يوماً)",
+              "tr": "Ücretsiz deneme (14 gün)"
+            },
+            {
+              "en": "1,000",
+              "pt": "1.000",
+              "es": "1,000",
+              "id": "1.000",
+              "ar": "1,000",
+              "tr": "1.000"
+            },
+            {
+              "en": "API sends stop, authentication templates included",
+              "pt": "Os envios pela API param, incluindo modelos de autenticação",
+              "es": "Los envíos por API se detienen, incluidas las plantillas de autenticación",
+              "id": "Pengiriman API berhenti, termasuk template autentikasi",
+              "ar": "تتوقف عمليات الإرسال عبر API، بما فيها قوالب المصادقة",
+              "tr": "API gönderimleri durur, kimlik doğrulama şablonları dahil"
+            }
+          ],
+          [
+            "Developer Free",
+            "100",
+            {
+              "en": "API sends stop, authentication templates included",
+              "pt": "Os envios pela API param, incluindo modelos de autenticação",
+              "es": "Los envíos por API se detienen, incluidas las plantillas de autenticación",
+              "id": "Pengiriman API berhenti, termasuk template autentikasi",
+              "ar": "تتوقف عمليات الإرسال عبر API، بما فيها قوالب المصادقة",
+              "tr": "API gönderimleri durur, kimlik doğrulama şablonları dahil"
+            }
+          ],
+          [
+            "Developer 1K / 10K / 100K",
+            {
+              "en": "1,000 / 10,000 / 100,000",
+              "pt": "1.000 / 10.000 / 100.000",
+              "es": "1,000 / 10,000 / 100,000",
+              "id": "1.000 / 10.000 / 100.000",
+              "ar": "1,000 / 10,000 / 100,000",
+              "tr": "1.000 / 10.000 / 100.000"
+            },
+            {
+              "en": "Authentication templates are never blocked; other API sends stop at 3× the allowance",
+              "pt": "Modelos de autenticação nunca são bloqueados; os outros envios pela API param em 3× a franquia",
+              "es": "Las plantillas de autenticación nunca se bloquean; los demás envíos por API se detienen al llegar a 3× la asignación",
+              "id": "Template autentikasi tidak pernah diblokir; pengiriman API lainnya berhenti di 3× kuota",
+              "ar": "لا تُحظر قوالب المصادقة أبداً؛ وتتوقف عمليات الإرسال الأخرى عبر API عند 3 أضعاف الحصة",
+              "tr": "Kimlik doğrulama şablonları hiçbir zaman engellenmez; diğer API gönderimleri hakkın 3 katında durur"
+            }
+          ],
+          [
+            "Team",
+            {
+              "en": "Unlimited (fair use)",
+              "pt": "Ilimitado (uso justo)",
+              "es": "Ilimitado (uso razonable)",
+              "id": "Tanpa batas (penggunaan wajar)",
+              "ar": "غير محدود (استخدام عادل)",
+              "tr": "Sınırsız (adil kullanım)"
+            },
+            "—"
+          ],
+          [
+            "Business",
+            {
+              "en": "Unlimited (fair use)",
+              "pt": "Ilimitado (uso justo)",
+              "es": "Ilimitado (uso razonable)",
+              "id": "Tanpa batas (penggunaan wajar)",
+              "ar": "غير محدود (استخدام عادل)",
+              "tr": "Sınırsız (adil kullanım)"
+            },
+            "—"
           ]
         ]
       }
@@ -423,12 +623,12 @@
               "tr": "Etkileşimli liste satırları"
             },
             {
-              "en": "Up to 10 (labels up to 20 characters)",
-              "pt": "Até 10 (rótulos de até 20 caracteres)",
-              "es": "Hasta 10 (etiquetas de hasta 20 caracteres)",
-              "id": "Hingga 10 (label hingga 20 karakter)",
-              "ar": "حتى 10 (عناوين بحد أقصى 20 حرفاً)",
-              "tr": "10'a kadar (etiketler en fazla 20 karakter)"
+              "en": "Up to 10 (row titles up to 24 characters)",
+              "pt": "Até 10 (títulos de linha de até 24 caracteres)",
+              "es": "Hasta 10 (títulos de fila de hasta 24 caracteres)",
+              "id": "Hingga 10 (judul baris hingga 24 karakter)",
+              "ar": "حتى 10 (عناوين الصفوف بحد أقصى 24 حرفاً)",
+              "tr": "10'a kadar (satır başlıkları en fazla 24 karakter)"
             }
           ],
           [
@@ -447,6 +647,42 @@
               "id": "Wajib menggunakan https",
               "ar": "يجب أن تستخدم https",
               "tr": "https kullanmalıdır"
+            }
+          ],
+          [
+            {
+              "en": "Coupon code (copy-code button)",
+              "pt": "Código de cupom (botão de copiar código)",
+              "es": "Código de cupón (botón de copiar código)",
+              "id": "Kode kupon (tombol salin kode)",
+              "ar": "رمز القسيمة (زر نسخ الرمز)",
+              "tr": "Kupon kodu (kodu kopyala düğmesi)"
+            },
+            {
+              "en": "Up to 15 characters",
+              "pt": "Até 15 caracteres",
+              "es": "Hasta 15 caracteres",
+              "id": "Hingga 15 karakter",
+              "ar": "حتى 15 حرفاً",
+              "tr": "En fazla 15 karakter"
+            }
+          ],
+          [
+            {
+              "en": "Carousel templates",
+              "pt": "Modelos de carrossel",
+              "es": "Plantillas de carrusel",
+              "id": "Template carousel",
+              "ar": "قوالب الكاروسيل",
+              "tr": "Karusel şablonları"
+            },
+            {
+              "en": "2–10 cards, each with its own image or video, optional text up to 160 characters and up to 2 buttons",
+              "pt": "2 a 10 cartões, cada um com sua própria imagem ou vídeo, texto opcional de até 160 caracteres e até 2 botões",
+              "es": "De 2 a 10 tarjetas, cada una con su propia imagen o video, texto opcional de hasta 160 caracteres y hasta 2 botones",
+              "id": "2–10 kartu, masing-masing dengan gambar atau video sendiri, teks opsional hingga 160 karakter, dan hingga 2 tombol",
+              "ar": "من 2 إلى 10 بطاقات، لكل منها صورتها أو مقطع الفيديو الخاص بها، ونص اختياري حتى 160 حرفاً وما يصل إلى زرّين",
+              "tr": "2–10 kart; her birinin kendi görseli veya videosu, en fazla 160 karakterlik isteğe bağlı metni ve en fazla 2 düğmesi olur"
             }
           ]
         ]
@@ -567,12 +803,282 @@
               "tr": "Plan başına webhook uç noktası"
             },
             {
-              "en": "Trial 2 · Basic 5 · Advanced 20",
-              "pt": "Teste 2 · Basic 5 · Advanced 20",
-              "es": "Prueba 2 · Basic 5 · Advanced 20",
-              "id": "Uji coba 2 · Basic 5 · Advanced 20",
-              "ar": "التجربة 2 · Basic 5 · Advanced 20",
-              "tr": "Deneme 2 · Basic 5 · Advanced 20"
+              "en": "Free trial 5 · Developer 2 · Team 1 · Business 5 · Enterprise unlimited",
+              "pt": "Teste grátis 5 · Developer 2 · Team 1 · Business 5 · Enterprise ilimitado",
+              "es": "Prueba gratuita 5 · Developer 2 · Team 1 · Business 5 · Enterprise ilimitado",
+              "id": "Uji coba gratis 5 · Developer 2 · Team 1 · Business 5 · Enterprise tanpa batas",
+              "ar": "التجربة المجانية 5 · Developer 2 · Team 1 · Business 5 · Enterprise غير محدود",
+              "tr": "Ücretsiz deneme 5 · Developer 2 · Team 1 · Business 5 · Enterprise sınırsız"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "WhatsApp API Limits",
+          "pt": "Limites da API WhatsApp",
+          "es": "Límites de la API de WhatsApp",
+          "id": "Batas API WhatsApp",
+          "ar": "حدود API واتساب",
+          "tr": "WhatsApp API Limitleri"
+        },
+        "heading": {
+          "en": "WhatsApp — Seats per Plan",
+          "pt": "WhatsApp — Assentos por Plano",
+          "es": "WhatsApp — Asientos por Plan",
+          "id": "WhatsApp — Kursi per Paket",
+          "ar": "واتساب — المقاعد لكل خطة",
+          "tr": "WhatsApp — Plana Göre Koltuklar"
+        },
+        "subheading": {
+          "en": "A seat is anyone who works chats. Viewers are free and never take a seat.",
+          "pt": "Um assento é qualquer pessoa que atende conversas. Visualizadores são gratuitos e nunca ocupam um assento.",
+          "es": "Un asiento es cualquier persona que atiende chats. Los lectores son gratis y nunca ocupan un asiento.",
+          "id": "Kursi adalah siapa pun yang menangani chat. Viewer gratis dan tidak pernah memakai kursi.",
+          "ar": "المقعد هو أي شخص يتولى المحادثات. المشاهدون مجانيون ولا يشغلون مقعداً أبداً.",
+          "tr": "Koltuk, sohbetlerle ilgilenen herkestir. Görüntüleyiciler ücretsizdir ve hiçbir zaman koltuk kullanmaz."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Limit",
+              "pt": "Limite",
+              "es": "Límite",
+              "id": "Batas",
+              "ar": "الحد",
+              "tr": "Limit"
+            }
+          },
+          {
+            "label": {
+              "en": "Value",
+              "pt": "Valor",
+              "es": "Valor",
+              "id": "Nilai",
+              "ar": "القيمة",
+              "tr": "Değer"
+            },
+            "highlight": true
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Seats included",
+              "pt": "Assentos incluídos",
+              "es": "Asientos incluidos",
+              "id": "Kursi termasuk",
+              "ar": "المقاعد المضمّنة",
+              "tr": "Dahil koltuklar"
+            },
+            {
+              "en": "Free trial 3 · Developer 1 · Team 3 · Business 10 · Enterprise 25",
+              "pt": "Teste grátis 3 · Developer 1 · Team 3 · Business 10 · Enterprise 25",
+              "es": "Prueba gratuita 3 · Developer 1 · Team 3 · Business 10 · Enterprise 25",
+              "id": "Uji coba gratis 3 · Developer 1 · Team 3 · Business 10 · Enterprise 25",
+              "ar": "التجربة المجانية 3 · Developer 1 · Team 3 · Business 10 · Enterprise 25",
+              "tr": "Ücretsiz deneme 3 · Developer 1 · Team 3 · Business 10 · Enterprise 25"
+            }
+          ],
+          [
+            {
+              "en": "Extra seats (Team, Business)",
+              "pt": "Assentos extras (Team, Business)",
+              "es": "Asientos adicionales (Team, Business)",
+              "id": "Kursi tambahan (Team, Business)",
+              "ar": "مقاعد إضافية (Team وBusiness)",
+              "tr": "Ek koltuklar (Team, Business)"
+            },
+            {
+              "en": "₹199 a month or ₹1,990 a year each, GST included, up to 500",
+              "pt": "₹199 por mês ou ₹1.990 por ano cada, GST incluído, até 500",
+              "es": "₹199 al mes o ₹1,990 al año cada uno, GST incluido, hasta 500",
+              "id": "₹199 per bulan atau ₹1.990 per tahun masing-masing, termasuk GST, hingga 500",
+              "ar": "₹199 شهرياً أو ₹1,990 سنوياً لكل مقعد، شاملة ضريبة GST، حتى 500 مقعد",
+              "tr": "Her biri ayda ₹199 veya yılda ₹1.990, GST dahil, en fazla 500"
+            }
+          ],
+          [
+            {
+              "en": "Viewers",
+              "pt": "Visualizadores",
+              "es": "Lectores",
+              "id": "Viewer",
+              "ar": "المشاهدون",
+              "tr": "Görüntüleyiciler"
+            },
+            {
+              "en": "Free on every plan",
+              "pt": "Gratuitos em todos os planos",
+              "es": "Gratis en todos los planes",
+              "id": "Gratis di setiap paket",
+              "ar": "مجانيون في كل الخطط",
+              "tr": "Her planda ücretsiz"
+            }
+          ],
+          [
+            {
+              "en": "Contacts",
+              "pt": "Contatos",
+              "es": "Contactos",
+              "id": "Kontak",
+              "ar": "جهات الاتصال",
+              "tr": "Kişiler"
+            },
+            {
+              "en": "Up to 1,000 on the free trial",
+              "pt": "Até 1.000 no teste grátis",
+              "es": "Hasta 1,000 en la prueba gratuita",
+              "id": "Hingga 1.000 pada uji coba gratis",
+              "ar": "حتى 1,000 في التجربة المجانية",
+              "tr": "Ücretsiz denemede en fazla 1.000"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "WhatsApp Campaign Limits",
+          "pt": "Limites de Campanhas do WhatsApp",
+          "es": "Límites de Campañas de WhatsApp",
+          "id": "Batas Kampanye WhatsApp",
+          "ar": "حدود حملات واتساب",
+          "tr": "WhatsApp Kampanya Limitleri"
+        },
+        "heading": {
+          "en": "WhatsApp — Campaign Limits",
+          "pt": "WhatsApp — Limites de Campanhas",
+          "es": "WhatsApp — Límites de Campañas",
+          "id": "WhatsApp — Batas Kampanye",
+          "ar": "واتساب — حدود الحملات",
+          "tr": "WhatsApp — Kampanya Limitleri"
+        },
+        "subheading": {
+          "en": "Campaigns are created in the dashboard on Team, Business and the free trial. Follow-ups are on Business.",
+          "pt": "As campanhas são criadas no painel nos planos Team e Business e no teste grátis. Os follow-ups estão no Business.",
+          "es": "Las campañas se crean en el panel en los planes Team y Business y en la prueba gratuita. Los seguimientos están en Business.",
+          "id": "Kampanye dibuat di dasbor pada paket Team, Business, dan uji coba gratis. Tindak lanjut tersedia di Business.",
+          "ar": "تُنشأ الحملات من لوحة التحكم في خطتي Team وBusiness وفي التجربة المجانية. أما رسائل المتابعة فهي ضمن خطة Business.",
+          "tr": "Kampanyalar Team ve Business planlarında ve ücretsiz denemede panelden oluşturulur. Takip mesajları Business planındadır."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Limit",
+              "pt": "Limite",
+              "es": "Límite",
+              "id": "Batas",
+              "ar": "الحد",
+              "tr": "Limit"
+            }
+          },
+          {
+            "label": {
+              "en": "Value",
+              "pt": "Valor",
+              "es": "Valor",
+              "id": "Nilai",
+              "ar": "القيمة",
+              "tr": "Değer"
+            },
+            "highlight": true
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "CSV audience",
+              "pt": "Público por CSV",
+              "es": "Audiencia por CSV",
+              "id": "Audiens CSV",
+              "ar": "جمهور ملف CSV",
+              "tr": "CSV kitlesi"
+            },
+            {
+              "en": "Up to 50,000 rows per campaign",
+              "pt": "Até 50.000 linhas por campanha",
+              "es": "Hasta 50,000 filas por campaña",
+              "id": "Hingga 50.000 baris per kampanye",
+              "ar": "حتى 50,000 صف لكل حملة",
+              "tr": "Kampanya başına en fazla 50.000 satır"
+            }
+          ],
+          [
+            {
+              "en": "Contacts picked one by one",
+              "pt": "Contatos escolhidos um a um",
+              "es": "Contactos elegidos uno a uno",
+              "id": "Kontak yang dipilih satu per satu",
+              "ar": "جهات اتصال تُختار واحدة تلو الأخرى",
+              "tr": "Tek tek seçilen kişiler"
+            },
+            {
+              "en": "Up to 1,000 (use a tag or filter for more)",
+              "pt": "Até 1.000 (use uma tag ou filtro para mais)",
+              "es": "Hasta 1,000 (use una etiqueta o un filtro para más)",
+              "id": "Hingga 1.000 (gunakan tag atau filter untuk lebih banyak)",
+              "ar": "حتى 1,000 (استخدم وسماً أو عامل تصفية للمزيد)",
+              "tr": "En fazla 1.000 (daha fazlası için etiket veya filtre kullanın)"
+            }
+          ],
+          [
+            {
+              "en": "Scheduling",
+              "pt": "Agendamento",
+              "es": "Programación",
+              "id": "Penjadwalan",
+              "ar": "الجدولة",
+              "tr": "Zamanlama"
+            },
+            {
+              "en": "From 2 minutes to 60 days ahead",
+              "pt": "De 2 minutos a 60 dias de antecedência",
+              "es": "De 2 minutos a 60 días de antelación",
+              "id": "Dari 2 menit hingga 60 hari ke depan",
+              "ar": "من دقيقتين إلى 60 يوماً مقدماً",
+              "tr": "2 dakika ile 60 gün öncesine kadar"
+            }
+          ],
+          [
+            {
+              "en": "Follow-ups (Business)",
+              "pt": "Follow-ups (Business)",
+              "es": "Seguimientos (Business)",
+              "id": "Tindak lanjut (Business)",
+              "ar": "رسائل المتابعة (Business)",
+              "tr": "Takip mesajları (Business)"
+            },
+            {
+              "en": "Up to 3 per campaign, 1 hour to 30 days apart; they stop for anyone who replies",
+              "pt": "Até 3 por campanha, com intervalo de 1 hora a 30 dias; param para quem responder",
+              "es": "Hasta 3 por campaña, con 1 hora a 30 días de separación; se detienen para quien responda",
+              "id": "Hingga 3 per kampanye, berjarak 1 jam hingga 30 hari; berhenti untuk siapa pun yang membalas",
+              "ar": "حتى 3 لكل حملة، بفاصل من ساعة إلى 30 يوماً؛ وتتوقف لكل من يرد",
+              "tr": "Kampanya başına en fazla 3, aralarında 1 saat ile 30 gün; yanıt veren herkes için durur"
+            }
+          ],
+          [
+            {
+              "en": "Templates a campaign can't send",
+              "pt": "Modelos que uma campanha não pode enviar",
+              "es": "Plantillas que una campaña no puede enviar",
+              "id": "Template yang tidak bisa dikirim kampanye",
+              "ar": "قوالب لا يمكن للحملة إرسالها",
+              "tr": "Kampanyanın gönderemediği şablonlar"
+            },
+            {
+              "en": "Carousel, limited-time offer, authentication, catalog and call-permission templates (carousel, limited-time offer and authentication templates can be sent from the inbox or the API)",
+              "pt": "Carrossel, oferta por tempo limitado, autenticação, catálogo e permissão de chamada (carrossel, oferta por tempo limitado e autenticação podem ser enviados pela caixa de entrada ou pela API)",
+              "es": "Carrusel, oferta por tiempo limitado, autenticación, catálogo y permiso de llamada (las de carrusel, oferta por tiempo limitado y autenticación pueden enviarse desde la bandeja de entrada o la API)",
+              "id": "Carousel, penawaran waktu terbatas, autentikasi, katalog, dan izin panggilan (template carousel, penawaran waktu terbatas, dan autentikasi bisa dikirim dari kotak masuk atau API)",
+              "ar": "الكاروسيل والعرض لفترة محدودة والمصادقة والكتالوج وإذن الاتصال (يمكن إرسال قوالب الكاروسيل والعرض لفترة محدودة والمصادقة من صندوق الوارد أو عبر API)",
+              "tr": "Karusel, sınırlı süreli teklif, kimlik doğrulama, katalog ve arama izni şablonları (karusel, sınırlı süreli teklif ve kimlik doğrulama şablonları gelen kutusundan veya API'den gönderilebilir)"
             }
           ]
         ]
@@ -683,12 +1189,30 @@
               "tr": "WhatsApp API için hangi limitler geçerlidir?"
             },
             "answer": {
-              "en": "Two kinds. Our API rate limits depend on your plan: Trial allows 60 requests per minute and 100 API sends per hour, Basic allows 300 and 2,000, and Advanced allows 1,200 and 10,000. Meta also limits how many unique customers you can start conversations with (business-initiated template messages) in a rolling 24 hours. That limit is set for your business portfolio, shared by all of its WhatsApp numbers, and rises with your tier and quality rating; when it is reached, sends fail with PHONE_DAILY_LIMIT_REACHED. You can see your current limit in the dashboard under account health.",
-              "pt": "Há dois tipos. Nossos limites de taxa da API dependem do seu plano: o Teste permite 60 requisições por minuto e 100 envios via API por hora, o Basic permite 300 e 2.000, e o Advanced permite 1.200 e 10.000. A Meta também limita com quantos clientes únicos você pode iniciar conversas (mensagens de modelo iniciadas pela empresa) em um período móvel de 24 horas. Esse limite é definido para o seu portfólio empresarial, compartilhado por todos os seus números do WhatsApp e aumenta com o seu nível e a sua classificação de qualidade; quando ele é atingido, os envios falham com PHONE_DAILY_LIMIT_REACHED. Você pode ver o seu limite atual no painel, em saúde da conta.",
-              "es": "Hay dos tipos. Nuestros límites de tasa de la API dependen de su plan: la Prueba permite 60 solicitudes por minuto y 100 envíos por API por hora, Basic permite 300 y 2,000, y Advanced permite 1,200 y 10,000. Meta también limita con cuántos clientes únicos puede iniciar conversaciones (mensajes de plantilla iniciados por la empresa) en un periodo móvil de 24 horas. Ese límite se define para su portfolio empresarial, lo comparten todos sus números de WhatsApp y sube con su nivel y su calificación de calidad; cuando se alcanza, los envíos fallan con PHONE_DAILY_LIMIT_REACHED. Puede ver su límite actual en el panel, en el estado de la cuenta.",
-              "id": "Ada dua jenis. Batas rate API kami bergantung pada paket Anda: Uji coba mengizinkan 60 permintaan per menit dan 100 pengiriman API per jam, Basic mengizinkan 300 dan 2.000, dan Advanced mengizinkan 1.200 dan 10.000. Meta juga membatasi jumlah pelanggan unik yang dapat Anda kirimi pesan template yang dimulai oleh bisnis untuk memulai percakapan dalam periode 24 jam bergulir. Batas ini ditetapkan untuk portofolio bisnis Anda, dibagi oleh semua nomor WhatsApp-nya, dan naik sesuai tingkat serta rating kualitas Anda; saat batas tercapai, pengiriman gagal dengan PHONE_DAILY_LIMIT_REACHED. Anda dapat melihat batas Anda saat ini di dasbor pada bagian kesehatan akun.",
-              "ar": "هناك نوعان. تعتمد حدود معدل API لدينا على خطتك: تسمح التجربة بـ 60 طلباً في الدقيقة و100 عملية إرسال عبر API في الساعة، وتسمح خطة Basic بـ 300 و2,000، وخطة Advanced بـ 1,200 و10,000. كما تحدد Meta عدد العملاء الفريدين الذين يمكنك بدء محادثات معهم (رسائل القوالب التي تبدأها الشركة) خلال فترة متجددة مدتها 24 ساعة. يُحدَّد هذا الحد لحافظة أعمالك وتتشاركه جميع أرقام واتساب التابعة لها، ويرتفع بحسب مستواك وتقييم جودتك؛ وعند بلوغه تفشل عمليات الإرسال بالخطأ PHONE_DAILY_LIMIT_REACHED. يمكنك رؤية حدك الحالي في لوحة التحكم ضمن صحة الحساب.",
-              "tr": "İki tür limit vardır. API hız limitlerimiz planınıza bağlıdır: Deneme dakikada 60 isteğe ve saatte 100 API gönderimine, Basic 300 ve 2.000'e, Advanced ise 1.200 ve 10.000'e izin verir. Meta ayrıca 24 saatlik kayan bir süre içinde görüşme başlatabileceğiniz (işletme tarafından başlatılan şablon mesajlar) benzersiz müşteri sayısını sınırlar. Bu limit işletme portföyünüz için belirlenir, portföydeki tüm WhatsApp numaralarınız tarafından paylaşılır ve kademenize ve kalite puanınıza göre yükselir; limite ulaşıldığında gönderimler PHONE_DAILY_LIMIT_REACHED hatasıyla başarısız olur. Güncel limitinizi panelde hesap durumu bölümünden görebilirsiniz."
+              "en": "Three kinds. Our API rate limits depend on your plan: requests per minute are 300 on the free trial, 60 on Developer Free, 120, 300 and 1,200 on Developer 1K, 10K and 100K, 300 on Team and 1,200 on Business; API sends per hour are 100 on the trial, 2,000 on Developer Free and 10,000 on every paid plan. Some plans also include a monthly API message allowance (see the table above); past it the API answers 402 PLAN_MESSAGE_LIMIT_REACHED. Finally, Meta limits how many unique customers you can start conversations with (business-initiated template messages) in a rolling 24 hours. That limit is set for your business portfolio, shared by all of its WhatsApp numbers, and rises with your tier and quality rating; when it is reached, sends fail with PHONE_DAILY_LIMIT_REACHED. You can see your current limit in the dashboard under account health.",
+              "pt": "Três tipos. Nossos limites de taxa da API dependem do seu plano: as requisições por minuto são 300 no teste grátis, 60 no Developer Free, 120, 300 e 1.200 no Developer 1K, 10K e 100K, 300 no Team e 1.200 no Business; os envios via API por hora são 100 no teste, 2.000 no Developer Free e 10.000 em todos os planos pagos. Alguns planos também incluem uma franquia mensal de mensagens de API (veja a tabela acima); acima dela, a API responde 402 PLAN_MESSAGE_LIMIT_REACHED. Por fim, a Meta limita com quantos clientes únicos você pode iniciar conversas (mensagens de modelo iniciadas pela empresa) em um período móvel de 24 horas. Esse limite é definido para o seu portfólio empresarial, compartilhado por todos os seus números do WhatsApp e aumenta com o seu nível e a sua classificação de qualidade; quando ele é atingido, os envios falham com PHONE_DAILY_LIMIT_REACHED. Você pode ver o seu limite atual no painel, em saúde da conta.",
+              "es": "Tres tipos. Nuestros límites de tasa de la API dependen de su plan: las solicitudes por minuto son 300 en la prueba gratuita, 60 en Developer Free, 120, 300 y 1,200 en Developer 1K, 10K y 100K, 300 en Team y 1,200 en Business; los envíos por API por hora son 100 en la prueba, 2,000 en Developer Free y 10,000 en todos los planes de pago. Algunos planes incluyen además una asignación mensual de mensajes de API (vea la tabla de arriba); al superarla, la API responde 402 PLAN_MESSAGE_LIMIT_REACHED. Por último, Meta limita con cuántos clientes únicos puede iniciar conversaciones (mensajes de plantilla iniciados por la empresa) en un periodo móvil de 24 horas. Ese límite se define para su portfolio empresarial, lo comparten todos sus números de WhatsApp y sube con su nivel y su calificación de calidad; cuando se alcanza, los envíos fallan con PHONE_DAILY_LIMIT_REACHED. Puede ver su límite actual en el panel, en el estado de la cuenta.",
+              "id": "Ada tiga jenis. Batas rate API kami bergantung pada paket Anda: permintaan per menit adalah 300 pada uji coba gratis, 60 pada Developer Free, 120, 300, dan 1.200 pada Developer 1K, 10K, dan 100K, 300 pada Team, dan 1.200 pada Business; pengiriman API per jam adalah 100 pada uji coba, 2.000 pada Developer Free, dan 10.000 pada setiap paket berbayar. Beberapa paket juga menyertakan kuota pesan API bulanan (lihat tabel di atas); setelah melewatinya, API menjawab 402 PLAN_MESSAGE_LIMIT_REACHED. Terakhir, Meta membatasi jumlah pelanggan unik yang dapat Anda kirimi pesan template yang dimulai oleh bisnis untuk memulai percakapan dalam periode 24 jam bergulir. Batas ini ditetapkan untuk portofolio bisnis Anda, dibagi oleh semua nomor WhatsApp-nya, dan naik sesuai tingkat serta rating kualitas Anda; saat batas tercapai, pengiriman gagal dengan PHONE_DAILY_LIMIT_REACHED. Anda dapat melihat batas Anda saat ini di dasbor pada bagian kesehatan akun.",
+              "ar": "هناك ثلاثة أنواع. تعتمد حدود معدل API لدينا على خطتك: عدد الطلبات في الدقيقة 300 في التجربة المجانية، و60 في Developer Free، و120 و300 و1,200 في Developer 1K و10K و100K، و300 في Team، و1,200 في Business؛ أما عمليات الإرسال عبر API في الساعة فهي 100 في التجربة، و2,000 في Developer Free، و10,000 في كل الخطط المدفوعة. وتتضمن بعض الخطط أيضاً حصة شهرية من رسائل API (انظر الجدول أعلاه)؛ وبعد تجاوزها تردّ API بالخطأ 402 PLAN_MESSAGE_LIMIT_REACHED. وأخيراً، تحدد Meta عدد العملاء الفريدين الذين يمكنك بدء محادثات معهم (رسائل القوالب التي تبدأها الشركة) خلال فترة متجددة مدتها 24 ساعة. يُحدَّد هذا الحد لحافظة أعمالك وتتشاركه جميع أرقام واتساب التابعة لها، ويرتفع بحسب مستواك وتقييم جودتك؛ وعند بلوغه تفشل عمليات الإرسال بالخطأ PHONE_DAILY_LIMIT_REACHED. يمكنك رؤية حدك الحالي في لوحة التحكم ضمن صحة الحساب.",
+              "tr": "Üç tür limit vardır. API hız limitlerimiz planınıza bağlıdır: dakika başına istek ücretsiz denemede 300, Developer Free'de 60, Developer 1K, 10K ve 100K'da 120, 300 ve 1.200, Team'de 300 ve Business'ta 1.200'dür; saat başına API gönderimi denemede 100, Developer Free'de 2.000 ve tüm ücretli planlarda 10.000'dir. Bazı planlar ayrıca aylık bir API mesaj hakkı içerir (yukarıdaki tabloya bakın); bu aşıldığında API 402 PLAN_MESSAGE_LIMIT_REACHED yanıtını verir. Son olarak Meta, 24 saatlik kayan bir süre içinde görüşme başlatabileceğiniz (işletme tarafından başlatılan şablon mesajlar) benzersiz müşteri sayısını sınırlar. Bu limit işletme portföyünüz için belirlenir, portföydeki tüm WhatsApp numaralarınız tarafından paylaşılır ve kademenize ve kalite puanınıza göre yükselir; limite ulaşıldığında gönderimler PHONE_DAILY_LIMIT_REACHED hatasıyla başarısız olur. Güncel limitinizi panelde hesap durumu bölümünden görebilirsiniz."
+            }
+          },
+          {
+            "question": {
+              "en": "What happens when my monthly WhatsApp API message allowance runs out?",
+              "pt": "O que acontece quando a franquia mensal de mensagens da API do WhatsApp acaba?",
+              "es": "¿Qué pasa cuando se agota mi asignación mensual de mensajes de la API de WhatsApp?",
+              "id": "Apa yang terjadi saat kuota pesan API WhatsApp bulanan saya habis?",
+              "ar": "ماذا يحدث عند نفاد حصتي الشهرية من رسائل API واتساب؟",
+              "tr": "Aylık WhatsApp API mesaj hakkım bittiğinde ne olur?"
+            },
+            "answer": {
+              "en": "The API answers 402 PLAN_MESSAGE_LIMIT_REACHED, with the count and the reset date in the error details. On the free trial (1,000) and Developer Free (100), every API send stops at the allowance. On a paid Developer size, authentication templates are never blocked and other sends stop at 3× the allowance, so a busy month doesn't cut off your logins; nothing upgrades or charges by itself. Team and Business have no monthly cap (fair use). Only API sends count, and the count resets every month.",
+              "pt": "A API responde 402 PLAN_MESSAGE_LIMIT_REACHED, com a contagem e a data de reinício nos detalhes do erro. No teste grátis (1.000) e no Developer Free (100), todo envio pela API para ao atingir a franquia. Em um tamanho pago do Developer, os modelos de autenticação nunca são bloqueados e os outros envios param em 3× a franquia, então um mês movimentado não interrompe seus logins; nada é atualizado nem cobrado automaticamente. Team e Business não têm limite mensal (uso justo). Só contam os envios pela API, e a contagem reinicia todo mês.",
+              "es": "La API responde 402 PLAN_MESSAGE_LIMIT_REACHED, con el conteo y la fecha de reinicio en los detalles del error. En la prueba gratuita (1,000) y en Developer Free (100), todo envío por API se detiene al llegar a la asignación. En un tamaño de pago de Developer, las plantillas de autenticación nunca se bloquean y los demás envíos se detienen al llegar a 3× la asignación, así un mes con mucho movimiento no corta sus inicios de sesión; nada se mejora ni se cobra por sí solo. Team y Business no tienen tope mensual (uso razonable). Solo cuentan los envíos por API, y el conteo se reinicia cada mes.",
+              "id": "API menjawab 402 PLAN_MESSAGE_LIMIT_REACHED, dengan jumlah dan tanggal reset di detail error. Pada uji coba gratis (1.000) dan Developer Free (100), setiap pengiriman API berhenti saat kuota tercapai. Pada ukuran Developer berbayar, template autentikasi tidak pernah diblokir dan pengiriman lainnya berhenti di 3× kuota, sehingga bulan yang sibuk tidak memutus login pengguna Anda; tidak ada yang di-upgrade atau ditagih secara otomatis. Team dan Business tidak memiliki batas bulanan (penggunaan wajar). Hanya pengiriman API yang dihitung, dan hitungan diatur ulang setiap bulan.",
+              "ar": "تردّ API بالخطأ 402 PLAN_MESSAGE_LIMIT_REACHED، مع العدد وتاريخ إعادة الضبط في تفاصيل الخطأ. في التجربة المجانية (1,000) وDeveloper Free (100)، تتوقف كل عمليات الإرسال عبر API عند بلوغ الحصة. وفي أحجام Developer المدفوعة، لا تُحظر قوالب المصادقة أبداً وتتوقف عمليات الإرسال الأخرى عند 3 أضعاف الحصة، فلا يقطع شهر مزدحم عمليات تسجيل الدخول لديك؛ ولا تتم أي ترقية أو فوترة تلقائياً. لا يوجد حد شهري في Team وBusiness (استخدام عادل). تُحتسب عمليات الإرسال عبر API فقط، ويُعاد ضبط العدّاد كل شهر.",
+              "tr": "API, hata ayrıntılarında sayı ve sıfırlanma tarihiyle birlikte 402 PLAN_MESSAGE_LIMIT_REACHED yanıtını verir. Ücretsiz denemede (1.000) ve Developer Free'de (100) hak dolduğunda tüm API gönderimleri durur. Ücretli bir Developer boyutunda kimlik doğrulama şablonları hiçbir zaman engellenmez ve diğer gönderimler hakkın 3 katında durur; böylece yoğun bir ay girişlerinizi kesmez. Hiçbir şey kendiliğinden yükseltilmez veya ücretlendirilmez. Team ve Business'ta aylık sınır yoktur (adil kullanım). Yalnızca API gönderimleri sayılır ve sayım her ay sıfırlanır."
             }
           },
           {
