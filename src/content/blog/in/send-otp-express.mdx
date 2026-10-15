@@ -2,7 +2,7 @@
 title: "How to Send OTP with Express.js (2026)"
 description: "Production-ready Express.js OTP guide using StartMessaging. Covers send, verify, idempotency, rate-limit middleware, error mapping and a session-based verification flow."
 publishedAt: "2026-04-26"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -70,12 +70,12 @@ SESSION_SECRET=replace-me-with-a-real-secret
       
 ```typescript
 // src/sm.ts
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomInt } from 'node:crypto';
 
 const BASE_URL = process.env.SM_BASE_URL!;
 const API_KEY  = process.env.SM_API_KEY!;
 
-interface SendResp { requestId: string; expiresAt: string; attemptsLeft: number; }
+interface SendResp { otpRequestId: string; messageId: string; status: string; }
 
 async function smPost(path: string, body: object) {
   const res = await fetch(\`\${BASE_URL}\${path}\`, {
@@ -95,7 +95,12 @@ async function smPost(path: string, body: object) {
 
 export const sm = {
   sendOtp: (phoneNumber: string): Promise<SendResp> =>
-    smPost('/otp/send', { phoneNumber, idempotencyKey: randomUUID() }),
+    smPost('/otp/send', {
+      phoneNumber,
+      // Your server generates the code; StartMessaging delivers it
+      variables: { otp: String(randomInt(100000, 1000000)) },
+      idempotencyKey: randomUUID(),
+    }),
   verifyOtp: (requestId: string, otpCode: string) =>
     smPost('/otp/verify', { requestId, otpCode }),
 };
@@ -119,8 +124,8 @@ auth.post('/send-otp', phoneRateLimit, async (req, res) => {
   }
   try {
     const data = await sm.sendOtp(phoneNumber);
-    req.session!.otp = { requestId: data.requestId, phoneNumber };
-    return res.json({ expiresAt: data.expiresAt, attemptsLeft: data.attemptsLeft });
+    req.session!.otp = { requestId: data.otpRequestId, phoneNumber };
+    return res.json({ status: data.status });
   } catch (e: any) {
     return res.status(e.status ?? 500).json({ error: e.message });
   }
@@ -196,7 +201,7 @@ app.listen(3001, () => console.log('Listening on :3001'));
 ```
 
 
-The session cookie holds the requestId between send and verify, so the
+The session cookie holds the `otpRequestId` between send and verify, so the
         client never has to remember it. After verify, we elevate the session
         to `userPhone`.
 

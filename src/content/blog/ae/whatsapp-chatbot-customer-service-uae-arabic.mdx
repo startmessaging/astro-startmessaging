@@ -2,7 +2,7 @@
 title: "روبوت دردشة واتساب لخدمة العملاء في الإمارات: الدليل العملي"
 description: "دليلك الشامل لتصميم وبناء روبوت دردشة واتساب لخدمة العملاء في الإمارات. تعرف على الهياكل التفاعلية، وكود Node.js webhook، والتكامل مع Zendesk وSalesforce."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "ae"
 author: "StartMessaging Team"
@@ -23,17 +23,17 @@ featured: false
 
 تواجه الشركات العاملة في دولة الإمارات العربية المتحدة تحديات متزايدة لتلبية توقعات العملاء المتسارعة، لا سيما في مراكز الأعمال الرئيسية مثل دبي وأبوظبي. فمع انتشار ثقافة التسوق الفوري واعتماد المستهلكين على التطبيقات الذكية في كافة شؤون حياتهم اليومية، أصبحت سرعة الاستجابة للاستفسارات معياراً أساسياً للنجاح أو الفشل التجاري. في هذا السياق، يمثل تصميم وتفعيل خدمات روبوت دردشة واتساب الإمارات حلاً تقنياً مبتكراً لأتمتة خدمة العملاء، وتقليص زمن الاستجابة إلى الصفر، وتخفيف الضغط على فرق الدعم البشري عبر معالجة الطلبات المتكررة آلياً وعلى مدار الساعة.
 
-إن البنية التحتية الخاصة ببوابة StartMessaging الموجهة لتطبيق واتساب للأعمال في الإمارات تمر حالياً بمرحلة تطوير وتحسين برمجية مكثفة من قبل فرقنا الهندسية. لتصميم واختبار أنظمة الرد التفاعلية وبناء نماذج الاستجابة التلقائية لمؤسستك، يمكنك الاعتماد على مسار التطوير المؤقت المخصص للمطورين `/v1/messages`. يتم تأمين وفحص كافة الطلبات المرسلة إلى بوابتنا وتفويضها بالكامل باستخدام رأس HTTP الموحد والمؤمن `X-API-Key` لضمان تكامل برمجي متين.
+StartMessaging هي منصة CRM وواجهة برمجة REST لواتساب، مبنية على Cloud API الرسمية من Meta (بصفتها Meta Tech Provider). يمكنك بناء البوت بطريقتين: بلا كود عبر [تدفقات روبوت الدردشة](/ae/whatsapp/chatbot) في لوحة التحكم (خطة Business)، أو برمجياً عبر الويب هوك و`POST https://waba-api.startmessaging.com/api/v1/messages` مع الرأس `Authorization: Bearer sm_live_...`. الرسائل التفاعلية (الأزرار والقوائم) متاحة من خطة Team فما فوق، ولا تتوفر في خطط Developer.
 
 ---
 
 ## ضغوط الدعم الفني في دبي وأبوظبي وحاجة المستهلك لاستجابة فورية
 
-تتميز سوق الإمارات بتنافسية استثنائية، حيث يتطلع المتسوق الرقمي إلى الحصول على خدمة عملاء متميزة وتجربة مستخدم خالية من العقبات. سواء كان العميل يتعامل مع متجر إلكتروني كبير، أو منصة حجز عقارات في دبي، أو يطلب وجبة طعام عبر تطبيقات التوصيل مثل Noon أو Talabat أو Careem، فإن الانتظار لعدة دقائق للحصول على رد من موظف الدعم أصبح أمراً غير مقبول. تشير الإحصاءات المحلية إلى أن أكثر من 80% من المستهلكين في الدولة يفضلون إلغاء المعاملة والذهاب للمنافسين بدلاً من الانتظار على الهاتف أو انتظار رسالة بريد إلكتروني.
+تتميز سوق الإمارات بتنافسية استثنائية، حيث يتطلع المتسوق الرقمي إلى الحصول على خدمة عملاء متميزة وتجربة مستخدم خالية من العقبات. سواء كان العميل يتعامل مع متجر إلكتروني كبير، أو منصة حجز عقارات في دبي، أو يطلب وجبة طعام عبر تطبيقات التوصيل مثل Noon أو Talabat أو Careem، فإن الانتظار لعدة دقائق للحصول على رد من موظف الدعم أصبح أمراً غير مقبول، وكثير من العملاء يفضلون الذهاب للمنافسين بدلاً من الانتظار على الهاتف أو انتظار رسالة بريد إلكتروني.
 
 تفرض هذه التوقعات المرتفعة ضغطاً هائلاً على مراكز الاتصال التابعة للشركات. حيث تغرق فرق الدعم الفني يومياً بآلاف الأسئلة المتكررة مثل: "أين هي شحنتي؟"، "كيف يمكنني استرداد أموالي؟"، "ما هي ساعات عمل فرع دبي مول؟". وهنا يأتي دور أتمتة خدمة عملاء واتساب الإمارات، حيث يمكن لروبوتات الدردشة المبرمجة تولي مهمة الإجابة عن هذه الاستفسارات الروتينية فورياً، مما يمنح الموظفين البشريين الوقت الكافي للتركيز على المشكلات المعقدة التي تتطلب تدخلاً نوعياً وتفكيراً تحليلياً.
 
-يساهم إدخال الذكاء الاصطناعي التفاعلي وقوائم الخيارات في تصفية المحادثات وتصنيفها قبل وصولها للموظف، مما يقلل من زمن التفاعل الإجمالي بنسبة تتجاوز 65% ويرفع معدلات رضا العملاء الإجمالية بشكل ملموس.
+يساهم إدخال الذكاء الاصطناعي التفاعلي وقوائم الخيارات في تصفية المحادثات وتصنيفها قبل وصولها للموظف، مما يقلل من زمن التفاعل الإجمالي ويرفع معدلات رضا العملاء بشكل ملموس.
 
 ---
 
@@ -84,159 +84,128 @@ featured: false
 في حال اختيار العميل للاستعلام عن الطلب، يطلب منه البوت إدخال رقم الطلب (مثل `ORDER-1234`). يقوم خادمك بالتحقق من قاعدة البيانات عبر طلب API داخلي، ثم يعيد للبوت حالة الشحنة بالكامل (مثال: "تم التسليم لشركة أرامكس وهي في طريقها إليك"). هذا يحل المشكلة بالكامل دون تدخل بشري.
 
 ### المرحلة 4: التحويل الذكي للدعم البشري (Human Agent Handoff)
-إذا كان استفسار العميل معقداً أو إذا اختار التحدث مع موظف دعم، يجب أن يقوم البوت بنقل المحادثة بسلاسة إلى أحد الموظفين المتاحين. يتم هذا التحويل عبر إرسال ويب هوك إلى نظام المساعدة الخاص بك (مثل Zendesk أو Salesforce)، مع تمرير سجل المحادثة الكاملة التي جرت مع البوت حتى لا يضطر العميل لإعادة شرح مشكلته للموظف البشري من جديد.
+إذا كان استفسار العميل معقداً أو إذا اختار التحدث مع موظف دعم، يجب أن يقوم البوت بنقل المحادثة بسلاسة إلى أحد الموظفين المتاحين. يمكن أن يتم هذا التحويل داخل [صندوق الوارد المشترك](/ae/whatsapp/shared-inbox) في StartMessaging (خطة Team فما فوق)، أو عبر نظام المساعدة الخاص بك (مثل Zendesk أو Salesforce) مع تمرير سجل المحادثة الكاملة التي جرت مع البوت حتى لا يضطر العميل لإعادة شرح مشكلته للموظف البشري من جديد.
 
 ---
 
 ## دليل التكامل البرمجي: كود Node.js Express لمعالجة webhook الأزرار التفاعلية والرد الفوري
 
-لتشغيل روبوت دردشة واتساب تفاعلي، يجب عليك إعداد خادم ويب لاستقبال تنبيهات الويب هوك (Webhooks) من منصة StartMessaging. عندما يقوم العميل بالنقر على زر تفاعلي في هاتفه، سترسل بوابتنا طلباً إلى خادمك يحتوي على تفاصيل هذا الإجراء.
+لتشغيل روبوت دردشة واتساب تفاعلي برمجياً، يجب عليك إعداد خادم ويب لاستقبال أحداث الويب هوك من StartMessaging (من **Developers → Webhooks → Add endpoint**). عندما يكتب العميل رسالة أو ينقر على زر تفاعلي، يصلك حدث `message.received` موقّع؛ وعند النقر على زر يكون `type` مساوياً لـ `interactive` ويحتوي الحقل `reply` على `{ kind, id, title }`.
 
-يوضح الكود التالي المكتوب بلغة Node.js باستخدام إطار العمل `Express` ومكتبة `axios` كيفية استقبال نقرات الأزرار التفاعلية والرد عليها برمجياً بشكل فوري:
+يوضح الكود التالي المكتوب بلغة Node.js باستخدام `Express` كيفية التحقق من توقيع الويب هوك، واستقبال نقرات الأزرار، والرد عليها داخل نافذة الـ 24 ساعة. دالة `verifySignature` منقولة كما هي من [دليل الويب هوك](/ae/docs/whatsapp/webhooks#verify-signatures):
 
 ```javascript
-const express = require('express');
-const axios = require('axios');
+import express from "express";
+import { createHmac, timingSafeEqual } from "node:crypto";
 
+const API = "https://waba-api.startmessaging.com/api/v1/messages";
 const app = express();
-app.use(express.json());
+const seen = new Set(); // استخدم قاعدة بياناتك أو Redis في بيئة الإنتاج
 
-// مفتاح الوصول الخاص بمنصة StartMessaging المخزن في متغيرات البيئة الآمنة
-const STARTMESSAGING_API_KEY = process.env.STARTMESSAGING_API_KEY;
+// rawBody: the request body exactly as received (a Buffer or string),
+// before any JSON parsing. secret: the whole "whsec_..." string.
+export function verifySignature(rawBody, headers, secret) {
+  const timestamp = String(headers["x-sm-timestamp"] ?? "");
+  // Refuse a missing timestamp, and anything older than 5 minutes.
+  if (!/^\d+$/.test(timestamp)) return false;
+  if (Math.abs(Date.now() / 1000 - Number(timestamp)) > 300) return false;
 
-/**
- * معالج الويب هوك الرئيسي لاستقبال رسائل وتفاعلات واتساب.
- */
-app.post('/webhook/whatsapp', async (req, res) => {
-  const incomingData = req.body;
+  const expected = Buffer.from(
+    createHmac("sha256", secret)
+      .update(`${timestamp}.`)
+      .update(rawBody)
+      .digest("hex"),
+  );
 
-  // التحقق من أن الطلب يحتوي على رسالة واردة
-  if (incomingData && incomingData.message) {
-    const senderPhone = incomingData.message.from; // رقم هاتف العميل المرسل
-    const messageType = incomingData.message.type; // نوع الرسالة الواردة
+  // While a secret is being rotated, several signatures arrive; accept any.
+  return String(headers["x-sm-signature"] ?? "")
+    .split(",")
+    .some((part) => {
+      const signature = Buffer.from(part.trim().replace(/^v1=/, ""));
+      // Compare byte lengths first: timingSafeEqual throws on a mismatch.
+      return (
+        signature.length === expected.length &&
+        timingSafeEqual(signature, expected)
+      );
+    });
+}
 
+async function send(payload) {
+  const res = await fetch(API, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+  return body.data;
+}
+
+// رد نصي حر (مسموح فقط داخل نافذة الـ 24 ساعة)
+const sendText = (to, text) => send({ to, type: "text", text: { body: text } });
+
+// قائمة ترحيب بزرين لاختيار اللغة (الرسائل التفاعلية تتطلب خطة Team فما فوق)
+const sendWelcomeMenu = (to) =>
+  send({
+    to,
+    type: "interactive",
+    interactive: {
+      interactiveType: "button",
+      body: "مرحباً بك في خدمة العملاء.\nPlease select your preferred language:",
+      buttons: [
+        { id: "lang_ar", title: "العربية" },
+        { id: "lang_en", title: "English" },
+      ],
+    },
+  });
+
+app.post(
+  "/webhooks/startmessaging",
+  express.raw({ type: "application/json" }),
+  async (req, res) => {
+    if (!verifySignature(req.body, req.headers, process.env.SM_WEBHOOK_SECRET)) {
+      return res.sendStatus(401);
+    }
+    const event = JSON.parse(req.body.toString("utf8"));
+    res.sendStatus(200); // أجب خلال 5 ثوانٍ، ثم نفّذ المعالجة
+    if (seen.has(event.id)) return; // التسليم قد يتكرر: أزل التكرار حسب id
+    seen.add(event.id);
+    if (event.type !== "message.received") return;
+
+    const msg = event.data.message;
+    if (!msg.from) return; // عميل باسم مستخدم فقط دون رقم
     try {
-      // 1. معالجة تفاعلات الأزرار (Interactive Button Replies)
-      if (messageType === 'interactive' && incomingData.message.interactive.button_reply) {
-        const buttonId = incomingData.message.interactive.button_reply.id;
-        const buttonTitle = incomingData.message.interactive.button_reply.title;
-
-        console.log(`استقبلنا نقرة زر من الرقم: ${senderPhone}. معرف الزر: ${buttonId} (${buttonTitle})`);
-
-        if (buttonId === 'lang_ar') {
-          // العميل اختار اللغة العربية
-          await sendWhatsAppResponse(senderPhone, 'أهلاً بك! لقد اخترت اللغة العربية. كيف يمكننا مساعدتك اليوم؟');
-        } else if (buttonId === 'lang_en') {
-          // العميل اختار اللغة الإنجليزية
-          await sendWhatsAppResponse(senderPhone, 'Welcome! You have selected English. How can we assist you today?');
-        } else if (buttonId === 'talk_agent') {
-          // العميل طلب التحدث مع موظف دعم
-          await sendWhatsAppResponse(senderPhone, 'جاري تحويل محادثتك الآن لأحد موظفي الدعم المتاحين في دبي. يرجى الانتظار لحين بدء التواصل.');
-          await routeToLiveAgent(senderPhone, incomingData.message);
-        } else {
-          // خيارات أخرى
-          await sendWhatsAppResponse(senderPhone, 'شكراً لتفاعلك. تم تسجيل اختيارك بنجاح وسيتصل بك البوت قريباً.');
+      if (msg.type === "interactive" && msg.reply) {
+        // اعتمد على id الذي حددته، لا على title
+        if (msg.reply.id === "lang_ar") {
+          await sendText(msg.from, "أهلاً بك! لقد اخترت اللغة العربية. كيف يمكننا مساعدتك اليوم؟");
+        } else if (msg.reply.id === "lang_en") {
+          await sendText(msg.from, "Welcome! You have selected English. How can we assist you today?");
+        } else if (msg.reply.id === "talk_agent") {
+          await sendText(msg.from, "جاري تحويل محادثتك الآن لأحد موظفي الدعم. يرجى الانتظار.");
+          await routeToLiveAgent(msg.conversationId, msg.from);
         }
-      } 
-      // 2. معالجة الرسائل النصية العادية
-      else if (messageType === 'text') {
-        const textMessage = incomingData.message.text.body.trim();
-        console.log(`رسالة نصية واردة من ${senderPhone}: ${textMessage}`);
-
-        // إرسال قائمة خيارات ترحيبية تفاعلية للمستخدم
-        await sendWelcomeMenu(senderPhone);
+      } else if (msg.type === "text") {
+        await sendWelcomeMenu(msg.from);
       }
     } catch (error) {
-      console.error('حدث خطأ أثناء معالجة رسالة الواتساب الواردة:', error.message);
+      console.error("خطأ أثناء معالجة الرسالة الواردة:", error.message);
     }
-  }
+  },
+);
 
-  // إرسال استجابة HTTP 200 فورية لتأكيد استلام بيانات الويب هوك بنجاح
-  res.status(200).send('EVENT_RECEIVED');
-});
-
-/**
- * يرسل رسالة نصية بسيطة عبر واجهة برمجة تطبيقات StartMessaging.
- */
-async function sendWhatsAppResponse(toPhone, messageText) {
-  // TODO: استبدل هذا المسار بمسار الإنتاج الرسمي بمجرد انتهاء تطوير واجهة واتساب البرمجية بالكامل
-  const apiEndpointUrl = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: toPhone,
-    type: 'text',
-    text: {
-      body: messageText
-    }
-  };
-
-  await axios.post(apiEndpointUrl, payload, {
-    headers: {
-      'X-API-Key': STARTMESSAGING_API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
+// يحوّل المحادثة إلى موظف بشري (صندوق الوارد أو نظام التذاكر لديك)
+async function routeToLiveAgent(conversationId, phone) {
+  console.log(`تحويل المحادثة ${conversationId} للرقم ${phone}...`);
 }
 
-/**
- * يرسل قائمة ترحيبية تحتوي على أزرار تفاعلية لاختيار اللغة.
- */
-async function sendWelcomeMenu(toPhone) {
-  // TODO: استبدل هذا المسار بمسار الإنتاج الرسمي بمجرد انتهاء تطوير واجهة واتساب البرمجية بالكامل
-  const apiEndpointUrl = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: toPhone,
-    type: 'interactive',
-    interactive: {
-      type: 'button',
-      body: {
-        text: 'مرحباً بك في خدمة عملاء StartMessaging.\nPlease select your preferred language:'
-      },
-      action: {
-        buttons: [
-          {
-            type: 'reply',
-            reply: {
-              id: 'lang_ar',
-              title: 'العربية 🇦🇪'
-            }
-          },
-          {
-            type: 'reply',
-            reply: {
-              id: 'lang_en',
-              title: 'English 🇬🇧'
-            }
-          }
-        ]
-      }
-    }
-  };
-
-  await axios.post(apiEndpointUrl, payload, {
-    headers: {
-      'X-API-Key': STARTMESSAGING_API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
-}
-
-/**
- * يحول المحادثة لنظام خارجي لتوزيع التذاكر على الموظفين البشريين.
- */
-async function routeToLiveAgent(phone, originalMessage) {
-  console.log(`تحويل رقم الهاتف ${phone} إلى نظام Zendesk/Salesforce...`);
-  // كود الربط الفعلي مع CRM لإجراء التحويل البشري
-}
-
-// بدء تشغيل الخادم على المنفذ المحلي 3000
-app.listen(3000, () => {
-  console.log('خادم استقبال ويب هوك واتساب يعمل بنجاح على المنفذ 3000');
-});
+app.listen(3000);
 ```
 
-يوفر هذا الكود الأساسي هيكلاً متكاملاً لاستقبال الرسائل النصية وتوجيه المستخدمين لقائمة أزرار تفاعلية، ومعالجة نقراتهم بدقة وإرسال ردود فورية مخصصة. تم تأمين العمليات البرمجية بشكل ممتاز عبر استخدام ترويسة التوثيق `X-API-Key` المخصصة لبوابة StartMessaging لضمان حماية خادمك وتأكيد مصادقة البيانات.
+يوفر هذا الكود هيكلاً أساسياً لاستقبال الرسائل، وعرض أزرار تفاعلية، ومعالجة نقرات العميل حسب `reply.id`. يرفض الخادم أي طلب لا يحمل توقيع HMAC-SHA256 صحيحاً في الرأس `X-SM-Signature`، ويُرسل كل رد بمفتاح `sm_live_` في الرأس `Authorization: Bearer`. إذا كانت مساحة عملك على خطة Developer، فسيُرفض إرسال الرسائل التفاعلية بالخطأ `403 PLAN_FEATURE_REQUIRED`.
 
 ---
 
@@ -268,7 +237,7 @@ A: نعم، يمكنك دمج خوادم استقبال الويب هوك الخ
 
 **Q: كيف يمكن للعميل سحب موافقته وإيقاف تشغيل البوت تلقائياً؟**
 
-A: التزاماً بمتطلبات قانون حماية البيانات الشخصية الإماراتي (PDPL)، يجب توفير طريقة سهلة للمستخدمين للانسحاب (Opt-out). يمكنك برمجة البوت للتعرف تلقائياً على كلمات إلغاء الاشتراك الشائعة مثل "إلغاء"، "توقف"، "Stop"، أو "Unsubscribe". بمجرد إرسال العميل لهذه الكلمة، يجب على خادمك تحديث قاعدة بياناتك لإيقاف إرسال أي رسائل تلقائية للرقم، وإرسال رسالة تأكيد للعميل تفيد بنجاح إلغاء الاشتراك.
+A: التزاماً بمتطلبات قانون حماية البيانات الشخصية الإماراتي (PDPL)، يجب توفير طريقة سهلة للمستخدمين للانسحاب (Opt-out). في StartMessaging، عندما يرسل العميل STOP يُسجَّل انسحابه تلقائياً ويصلك حدث الويب هوك `contact.opted_out`، وتُرفض أي محاولة إرسال لاحقة إليه بالخطأ `422 CONTACT_OPTED_OUT`. ويمكنك أيضاً برمجة البوت للتعرف على كلمات أخرى مثل "إلغاء" أو "توقف" أو "Unsubscribe"، وتحديث قاعدة بياناتك وإرسال رسالة تأكيد للعميل تفيد بنجاح إلغاء الاشتراك.
 
 **Q: ما هي نسبة الدعم البشري الموصى بها عند إعداد أتمتة الخدمة؟**
 
@@ -276,8 +245,8 @@ A: رغم قدرة الروبوتات على حل معظم المشكلات ال
 
 **Q: هل يدعم بوت واتساب إرسال الملفات مثل الفواتير أو الكشوفات بصيغة PDF؟**
 
-A: نعم، تدعم واجهة برمجة تطبيقات واتساب للأعمال الرسمية إرسال الرسائل الغنية بالوسائط (Media Messages). يمكنك استخدام خوادم StartMessaging لإرسال ملفات PDF وصور الفواتير والكتالوجات التفاعلية مباشرة للعملاء عبر تضمين رابط الملف المباشر (URL) في حمولة طلب الـ API، ليقوم نظامنا بتحميله وتوصيله للعميل كملف قابل للتحميل الفوري داخل محادثة الواتساب.
+A: نعم، تدعم واجهة برمجة تطبيقات واتساب للأعمال الرسمية إرسال الرسائل الغنية بالوسائط (Media Messages). يمكنك عبر StartMessaging إرسال ملفات PDF وصور الفواتير مباشرة للعملاء داخل نافذة الـ 24 ساعة، بإرسال رسالة من نوع `document` أو `image` مع رابط `https` عام للملف في الحقل `media.url`، فيقوم واتساب بتنزيله وتوصيله للعميل داخل المحادثة. وخارج النافذة، استخدم قالباً معتمداً بترويسة مستند عبر `template.headerMediaUrl`.
 
 ---
 
-يساعد تصميم وبناء روبوت دردشة واتساب لخدمة العملاء في الإمارات على تحسين مؤشرات الأداء لشركتك، ورفع رضا العملاء، وتوفير التكاليف التشغيلية بشكل ملحوظ. ومع استخدام بوابة StartMessaging التي تدعم التوثيق الآمن عبر مفاتيح `X-API-Key` المتينة، يمكنك بناء وتطوير أنظمة أتمتة قوية تدعم نمو أعمالك. لمتابعة تفاصيل حالات تسليم الرسائل واستقبال التنبيهات في الوقت الفعلي، يرجى الاطلاع على دليلنا البرمجي حول [تكوين وإعداد الويب هوك لواتساب في الإمارات](/ae/docs/whatsapp/webhooks) لمتابعة تدفقات البيانات.
+يساعد تصميم وبناء روبوت دردشة واتساب لخدمة العملاء في الإمارات على تحسين مؤشرات الأداء لشركتك، ورفع رضا العملاء، وتوفير التكاليف التشغيلية بشكل ملحوظ. ومع مفاتيح `sm_live_` والويب هوك الموقّعة في StartMessaging، يمكنك بناء أنظمة أتمتة قوية تدعم نمو أعمالك. لمتابعة تفاصيل حالات تسليم الرسائل واستقبال التنبيهات في الوقت الفعلي، يرجى الاطلاع على دليلنا البرمجي حول [تكوين وإعداد الويب هوك لواتساب](/ae/docs/whatsapp/webhooks)، ومقارنة الخطط في [صفحة الأسعار](/ae/pricing): Team بسعر ₹999 شهرياً للرسائل التفاعلية وصندوق الوارد، وBusiness بسعر ₹2,999 شهرياً لتدفقات روبوت الدردشة.

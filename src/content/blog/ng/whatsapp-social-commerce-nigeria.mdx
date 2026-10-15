@@ -2,7 +2,7 @@
 title: "WhatsApp Social Commerce in Nigeria: Sell Without a Website"
 description: "Learn how to sell on WhatsApp in Nigeria without a website. Set up WhatsApp Catalogue, automate order confirmations, and integrate Paystack payment links."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "use-cases"
 country: "ng"
 author: "StartMessaging Team"
@@ -23,7 +23,7 @@ featured: false
 
 For many micro-enterprises and retail brands in Lagos, Abuja, and other commercial hubs, building a traditional web store is not a priority. Instead, businesses use Instagram feeds, WhatsApp Status updates, and direct messaging to display products, negotiate prices, and close transactions. This shift towards whatsapp social commerce nigeria is driven by user preferences. Nigerian shoppers expect direct communication and personal trust before transferring funds. Moving your store operations onto WhatsApp allows you to engage customers in a conversational space while automating order entry.
 
-Please note that the StartMessaging WhatsApp API is currently in active development. While the endpoints are being finalised and will be available soon, you can prototype your integrations using the standard `/v1/messages` endpoint outlined in this guide. Our services use the same `X-API-Key` header authentication that powers our SMS and verification endpoints.
+StartMessaging is a WhatsApp CRM and API built on Meta's official Cloud API. The code in this guide sends through `POST https://waba-api.startmessaging.com/api/v1/messages`, authenticated with an `Authorization: Bearer sm_live_...` API key that has the `messages:send` scope.
 
 ---
 
@@ -79,63 +79,46 @@ However, the free WhatsApp Business app catalog has limitations for growing ente
 
 To overcome these scaling limits, growing merchants use the WhatsApp Business API to automate order verification and payment collection. By connecting your inventory database to the API, you can send automated messages when a user selects a product.
 
-When a customer submits their cart, your backend processes the order and sends a template message containing a secure payment link (via Paystack or Flutterwave) using the StartMessaging API.
+When a customer submits their cart, your backend processes the order and sends a template message containing a secure payment link (via Paystack or Flutterwave) using the StartMessaging API. The template (`order_checkout_payment` below) is created in the StartMessaging dashboard and approved by Meta first; here it has two body variables and a URL button whose link is `https://checkout.paystack.com/{{1}}`, so only the Paystack access code is sent at send time.
 
 ```javascript
-const axios = require('axios');
-
 /**
  * Sends an automated order checkout notification with a payment link
- * @param {string} customerPhone - Customer's WhatsApp phone number (e.g. 2348030000000)
+ * @param {string} customerPhone - Customer's WhatsApp number in E.164 (e.g. +2348030000000)
  * @param {string} orderId - Unique order identifier
  * @param {number} totalAmount - Total order value in Naira (₦)
- * @param {string} checkoutUrl - Dynamic Paystack/Flutterwave link
+ * @param {string} accessCode - The access_code Paystack returned for this checkout
  */
-async function sendAutomatedCheckout(customerPhone, orderId, totalAmount, checkoutUrl) {
-  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
-  const endpoint = 'https://api.startmessaging.com/v1/messages';
-  
-  const payload = {
-    to: customerPhone,
-    type: 'template',
-    template: {
-      name: 'order_checkout_payment',
-      language: {
-        code: 'en_NG'
+async function sendAutomatedCheckout(customerPhone, orderId, totalAmount, accessCode) {
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `order-${orderId}-checkout`,
+    },
+    body: JSON.stringify({
+      to: customerPhone,
+      type: 'template',
+      template: {
+        name: 'order_checkout_payment',
+        language: 'en_US',
+        parameters: [{ text: orderId }, { text: `₦${totalAmount.toFixed(2)}` }],
+        buttonParameters: [{ index: 0, subType: 'url', text: accessCode }],
       },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            { type: 'text', text: orderId },
-            { type: 'text', text: `₦${totalAmount.toFixed(2)}` }
-          ]
-        },
-        {
-          type: 'button',
-          index: '0',
-          sub_type: 'url',
-          parameters: [
-            { type: 'text', text: checkoutUrl.replace('https://checkout.paystack.com/', '') }
-          ]
-        }
-      ]
-    }
-  };
-
-  try {
-    await axios.post(endpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-    console.log(`Checkout link sent to ${customerPhone} for order ${orderId}`);
-  } catch (error) {
-    console.error('Error sending order checkout:', error.response ? error.response.data : error.message);
+      clientReference: `order-${orderId}`,
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) {
+    console.error(`Error sending order checkout: ${body.error.code}: ${body.error.message}`);
+    return;
   }
+  console.log(`Checkout link sent to ${body.data.to} for order ${orderId} (message ${body.data.id})`);
 }
 ```
+
+For the full Paystack side (initializing the transaction and verifying its webhook), see our [Paystack integration tutorial](/ng/blog/whatsapp-paystack-integration).
 
 This automated flow reduces manual work. The customer clicks the button, pays via transfer or card on the secure page, and your system processes the webhook to mark the order as paid.
 
@@ -147,38 +130,27 @@ Cash on Delivery (COD) remains a common payment method in Nigerian e-commerce. D
 
 While COD helps build trust and drive sales, it introduces logistical risks. Merchants often face high delivery failure rates when customers are unavailable to pay on arrival or cancel orders without notice. Each failed delivery incurs dispatch fees (typically between ₦1,500 and ₦3,500 depending on the location in Lagos), cutting into merchant profits.
 
-You can minimise COD losses by using the WhatsApp API to run delivery confirmation flows. Before dispatching a package, your system sends an interactive message with quick-reply buttons. The package is only handed to the dispatch rider once the buyer confirms.
+You can minimise COD losses by using the WhatsApp API to run delivery confirmation flows. Before dispatching a package, your system sends a message with reply buttons. The package is only handed to the dispatch rider once the buyer confirms.
+
+If the customer has messaged you in the last 24 hours (the customer service window is open), you can send an interactive message with reply buttons. Interactive messages need the Team plan or higher; on a Developer plan the API answers `403 PLAN_FEATURE_REQUIRED`. Outside the window, the API refuses it with `403 MESSAGE_WINDOW_CLOSED`, so send an approved utility template with quick-reply buttons instead.
 
 ```json
 {
-  "to": "2348030000000",
+  "to": "+2348030000000",
   "type": "interactive",
   "interactive": {
-    "type": "button",
-    "body": {
-      "text": "Hello! Your order #ORD-9876 is scheduled for delivery today. Please confirm you have ₦12,500 cash or are ready to do a bank transfer on arrival."
-    },
-    "action": {
-      "buttons": [
-        {
-          "type": "reply",
-          "reply": {
-            "id": "confirm_cod_delivery",
-            "title": "Confirm Order"
-          }
-        },
-        {
-          "type": "reply",
-          "reply": {
-            "id": "cancel_cod_order",
-            "title": "Cancel Order"
-          }
-        }
-      ]
-    }
-  }
+    "interactiveType": "button",
+    "body": "Hello! Your order #ORD-9876 is scheduled for delivery today. Please confirm you have ₦12,500 cash or are ready to do a bank transfer on arrival.",
+    "buttons": [
+      { "id": "confirm_cod_delivery", "title": "Confirm Order" },
+      { "id": "cancel_cod_order", "title": "Cancel Order" }
+    ]
+  },
+  "clientReference": "order-ORD-9876"
 }
 ```
+
+The tap comes back as a `message.received` webhook with `type: "interactive"` and `reply: { kind, id, title }`; branch on `reply.id`. (For a template quick-reply button, `reply.kind` is `quick_reply`: match on `title` and find the order with `context.clientReference`.)
 
 If the customer taps "Confirm Order", your backend updates the status to "Dispatched" and notifies your logistics provider. If they tap "Cancel Order", you save on return shipping fees and return the item to inventory, preventing delivery failures.
 
@@ -220,12 +192,12 @@ A: Currently, native in-chat payments are only available in select regions. For 
 
 **Q: How do we prevent fake cash on delivery (COD) orders?**
 
-A: The most effective method is sending an automated confirmation request on WhatsApp 24 hours before dispatch. If the customer does not tap the confirmation button, place the order on hold and contact them via phone before booking the dispatch rider.
+A: The most effective method is sending an automated confirmation request on WhatsApp 24 hours before dispatch (as an approved utility template, since the customer service window may have closed by then). If the customer does not tap the confirmation button, place the order on hold and contact them via phone before booking the dispatch rider.
 
 **Q: Can multiple sales agents use the same WhatsApp phone number?**
 
-A: Yes. By upgrading to the WhatsApp Business API, you can connect your business number to a multi-agent dashboard or customer support tool. This allows dozens of support and sales representatives to manage conversations from different devices at the same time.
+A: Yes. By upgrading to the WhatsApp Business API, you can connect your business number to a multi-agent dashboard or customer support tool. This allows several support and sales representatives to manage conversations from different devices at the same time. In StartMessaging, the shared inbox comes with the Team plan (₹999/month, 3 seats included, extra seats ₹199/month) and the Business plan (₹2,999/month, 10 seats); see [pricing](/ng/pricing) and [shared inbox](/ng/whatsapp/shared-inbox).
 
 ---
 
-Adopting a whatsapp social commerce nigeria strategy enables micro-enterprises to automate operations while keeping communications personal. By using catalogs, automating payment collections, and verifying cash-on-delivery orders, you can scale sales and reduce failed delivery costs. To begin setting up your integration, review our guide on [configuring webhook events](/ng/docs/whatsapp/webhooks) and managing API keys.
+Adopting a whatsapp social commerce nigeria strategy enables micro-enterprises to automate operations while keeping communications personal. By using catalogs, automating payment collections, and verifying cash-on-delivery orders, you can scale sales and reduce failed delivery costs. To begin setting up your integration, review our guides on [configuring webhook events](/ng/docs/whatsapp/webhooks), [sending messages](/ng/docs/whatsapp/send-message) and [managing API keys](/ng/docs/whatsapp/authentication).

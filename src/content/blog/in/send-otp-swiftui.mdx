@@ -2,7 +2,7 @@
 title: "How to Send OTP in SwiftUI (iOS) — 2026"
 description: "SwiftUI OTP tutorial using StartMessaging. URLSession, async/await, Observation, iOS keyboard auto-fill, and a clean phone+code flow."
 publishedAt: "2026-05-13"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -38,7 +38,10 @@ iOS OTP login is one of the cleanest UX wins on the platform —
       
 ```typescript
 // AuthApi.swift
-struct SendResponse: Codable { let requestId: String; let expiresAt: String }
+// Your backend calls StartMessaging POST /otp/send (with a code it generates)
+// and returns { "requestId": data.otpRequestId }.
+// Expiry and attempt limits are handled by StartMessaging on /otp/verify.
+struct SendResponse: Codable { let requestId: String }
 struct VerifyResponse: Codable { let verified: Bool }
 
 actor AuthApi {

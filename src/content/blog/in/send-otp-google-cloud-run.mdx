@@ -2,7 +2,7 @@
 title: "How to Send OTP with Google Cloud Run (2026)"
 description: "Cloud Run OTP tutorial using StartMessaging. Containerised Node service, Secret Manager for keys, Memorystore for rate limit, deployed via gcloud."
 publishedAt: "2026-05-11"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -54,7 +54,7 @@ CMD ["node", "src/index.js"]
 // src/index.ts
 import express from 'express';
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomInt } from 'node:crypto';
 
 const sm = new SecretManagerServiceClient();
 let apiKey: string | null = null;
@@ -72,16 +72,24 @@ app.post('/auth/send-otp', async (req, res) => {
   const r = await fetch('https://api.startmessaging.com/otp/send', {
     method: 'POST',
     headers: { 'X-API-Key': k, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phoneNumber: req.body.phoneNumber, idempotencyKey: randomUUID() }),
+    body: JSON.stringify({
+      phoneNumber: req.body.phoneNumber,
+      // The service generates the code; StartMessaging delivers it
+      variables: { otp: String(randomInt(100000, 1000000)) },
+      idempotencyKey: randomUUID(),
+    }),
   });
-  res.status(r.status).send(await r.text());
+  const json = await r.json();
+  if (!r.ok) return res.status(r.status).json({ error: json.message ?? 'send failed' });
+  // data: { otpRequestId, messageId, status } — the client sends otpRequestId back as requestId
+  res.json({ requestId: json.data.otpRequestId });
 });
 app.post('/auth/verify-otp', async (req, res) => {
   const k = await getKey();
   const r = await fetch('https://api.startmessaging.com/otp/verify', {
     method: 'POST',
     headers: { 'X-API-Key': k, 'Content-Type': 'application/json' },
-    body: JSON.stringify(req.body),
+    body: JSON.stringify({ requestId: req.body.requestId, otpCode: req.body.otpCode }),
   });
   res.status(r.status).send(await r.text());
 });

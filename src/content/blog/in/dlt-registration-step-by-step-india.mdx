@@ -2,7 +2,7 @@
 title: "DLT Registration in India: Step-by-Step Walkthrough (2026)"
 description: "Step-by-step DLT registration guide for Indian businesses: PE-ID, Sender ID, template approval, operator portals, costs, timelines, and DLT-free options."
 publishedAt: "2026-05-04"
-updatedAt: "2026-08-26"
+updatedAt: "2026-10-15"
 category: "compliance"
 country: "in"
 author: "StartMessaging Team"
@@ -138,6 +138,7 @@ For early-stage startups, developers, and scaling teams that cannot afford a 3-w
 
 ```typescript
 import 'dotenv/config';
+import crypto from 'node:crypto';
 
 const API_KEY = process.env.STARTMESSAGING_API_KEY!;
 const BASE_URL = 'https://api.startmessaging.com';
@@ -147,6 +148,9 @@ const BASE_URL = 'https://api.startmessaging.com';
  * @param phoneNumber Recipient mobile number in E.164 format (+919876543210)
  */
 export async function sendInstantOtp(phoneNumber: string) {
+  // Your backend generates the code; no templateId needed on the shared route
+  const otp = crypto.randomInt(100000, 1000000).toString();
+
   const response = await fetch(`${BASE_URL}/otp/send`, {
     method: 'POST',
     headers: {
@@ -155,6 +159,7 @@ export async function sendInstantOtp(phoneNumber: string) {
     },
     body: JSON.stringify({
       phoneNumber,
+      variables: { otp },
     }),
   });
 
@@ -164,11 +169,11 @@ export async function sendInstantOtp(phoneNumber: string) {
     throw new Error(payload.message || 'Failed to dispatch OTP');
   }
 
-  // Returns: { requestId: 'req_123', expiresAt: '2026-08-26T12:00:00Z', attemptsLeft: 3 }
+  // Returns: { otpRequestId: 'uuid-of-otp-request', messageId: 'uuid-of-message', status: 'queued' }
   return payload.data;
 }
 
-// Verification function
+// Verification function (requestId = data.otpRequestId from sendInstantOtp)
 export async function verifyInstantOtp(requestId: string, otpCode: string) {
   const response = await fetch(`${BASE_URL}/otp/verify`, {
     method: 'POST',

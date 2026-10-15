@@ -1,123 +1,229 @@
 ---
 title: "Authentication"
-description: "Authenticate with the StartMessaging WhatsApp API using Bearer tokens. Learn about API keys, rate limits, and security best practices."
+description: "Authenticate WhatsApp API requests with a Bearer API key. Create keys, choose scopes and presets, and check a key with GET /api/v1/me."
 product: whatsapp
 order: 2
 ---
 
-## Authentication Methods
+Every request to the StartMessaging WhatsApp API is authenticated with a workspace **API key**, sent as a Bearer token:
 
-StartMessaging uses **Bearer token authentication** for all API requests. Include your API key in the `Authorization` header:
-
-```bash
-Authorization: Bearer YOUR_API_KEY
+```http
+Authorization: Bearer sm_live_your_api_key
 ```
 
-## API Key Management
+All endpoints live under one base URL:
 
-### Generating Keys
-
-1. Navigate to **Settings → API Keys** in your dashboard
-2. Click **Generate New Key**
-3. Give it a descriptive label (e.g., "Production Server", "Staging")
-4. Copy the key immediately — it won't be shown again
-
-### Key Types
-
-| Key Type | Scope | Use Case |
-|----------|-------|----------|
-| **Production** | Full access | Live messaging, webhooks, templates |
-| **Sandbox** | Sandbox only | Testing without affecting quality rating |
-| **Read-only** | GET endpoints only | Analytics, reporting, monitoring |
-
-### Rotating Keys
-
-For security, rotate your API keys regularly:
-
-1. Generate a new key
-2. Update your application to use the new key
-3. Verify the new key works
-4. Revoke the old key from **Settings → API Keys → Revoke**
-
-## Request Format
-
-All API requests must include:
-
-```bash
-curl -X POST https://api.startmessaging.com/v1/messages \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "X-Request-ID: unique-request-id" \
-  -d '{ ... }'
+```
+{{WA_API_BASE}}/api/v1
 ```
 
-### Required Headers
+Use HTTPS only, and call the API from your server. Never put an API key in browser JavaScript, a mobile app or a public repository.
 
-| Header | Value | Description |
-|--------|-------|-------------|
-| `Authorization` | `Bearer <key>` | Your API key |
-| `Content-Type` | `application/json` | Request body format |
+## Create an API key
 
-### Optional Headers
+1. In the dashboard, open **Developers → API keys**. Members with the **Manager** role or above can create and revoke keys.
+2. Click **Create key** and give it a name that says what uses it (for example "Shopify store" or "Billing service").
+3. Choose its access: a preset or individual scopes (see below).
+4. Copy the key. It starts with `sm_live_` and is **shown only once**. StartMessaging stores only a hash of it, so it can't be shown again. If you lose it, create a new key.
 
-| Header | Value | Description |
-|--------|-------|-------------|
-| `X-Request-ID` | UUID | Idempotency key for deduplication |
-| `X-Webhook-URL` | URL | Override webhook URL for this request |
+Keys belong to the workspace, not to the member who created them. Each key's last use is shown in the list, and its calls appear in **Developers → Logs**, which keeps the workspace's last 500 requests and is cleared after 7 days without a request. A call refused with `401 INVALID_API_KEY` is not logged, because no workspace is known yet.
 
-## Rate Limits
+### Revoking a key
 
-API rate limits are per API key:
+Revoke a key in **Developers → API keys** when it leaks or is no longer needed. It stops working immediately, and webhook endpoints created with that key are turned off too. Revoking can't be undone.
 
-| Plan | Requests/second | Daily limit |
-|------|-----------------|-------------|
-| Free | 10 | 1,000 |
-| Premium | 100 | 100,000 |
-| Enterprise | Custom (up to 1,000) | Unlimited |
+## Scopes
 
-When rate-limited, you'll receive a `429 Too Many Requests` response:
+Each key carries a set of **scopes**. A call outside them is refused with `403 INSUFFICIENT_SCOPE`.
+
+| Scope | Allows |
+|---|---|
+| `messages:send` | Send messages: `POST /messages` (and the deprecated `POST /trigger/send`) |
+| `messages:read` | `GET /messages/{id}`; receiving `message.*` webhook events |
+| `contacts:read` | List and get contacts, tags and pipeline stages; `contact.*` events |
+| `contacts:write` | Create (upsert), update and delete contacts |
+| `templates:read` | List and get templates and their review status; `template.*` events |
+| `conversations:read` | List and get conversations and their messages; `conversation.*` events |
+| `conversations:write` | Assign, unassign, resolve and reopen conversations. `PATCH /conversations/{id}` also needs the team inbox, which no Developer plan includes; without it the API answers `403 PLAN_FEATURE_REQUIRED`. |
+| `campaigns:read` | List and get campaigns and their results; `campaign.*` events |
+| `conversions:write` | Report a sale or other conversion: `POST /conversions`. Needs the sales pipeline, part of the Business plan. |
+| `webhooks:manage` | List, add and remove webhook endpoints through the API |
+
+`GET /me` and `GET /phone-numbers` need no scope. Any valid key can call them.
+
+Each operation's required scope is also published in the OpenAPI document as `x-scope` (see [API Reference](/docs/whatsapp/api-reference)).
+
+### Presets
+
+When you create or edit a key, you can start from a preset:
+
+| Preset | Scopes | Good for |
+|---|---|---|
+| **Full access** | All 10 scopes | A trusted backend that does everything |
+| **Send only** | `messages:send` | A shop or app that only sends updates |
+| **Read only** | Every `:read` scope | Reporting and syncing; changes nothing |
+| **Custom** | Exactly the scopes you pick | Least-privilege integrations |
+
+You can change a key's scopes later in **Developers → API keys** without changing the key itself.
+
+### A write scope does not include its read scope
+
+`contacts:write` is not `contacts:read`, and `conversations:write` is not `conversations:read`. A write-only key can create, update and delete contacts or assign and resolve conversations, but the response carries only the record's id, never the record:
+
+- `POST /contacts` returns `{ "contact": { "id": "…" }, "created": true }`
+- `PATCH /contacts/{idOrPhone}` and `PATCH /conversations/{id}` return `{ "id": "…" }`
+
+Grant the matching `:read` scope if your integration needs the full record back.
+
+## Check a key: GET /me
+
+`GET /api/v1/me` tells you which workspace and plan a key belongs to, what the key may do, your rate limits, how much of them is in use right now, and how many of this month's API messages are used. It needs no scope, so it is the quickest way to test a new key.
+
+```bash
+curl {{WA_API_BASE}}/api/v1/me \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+```javascript
+const res = await fetch('{{WA_API_BASE}}/api/v1/me', {
+  headers: { Authorization: `Bearer ${process.env.SM_API_KEY}` },
+});
+const { data } = await res.json();
+console.log(data.apiKey.scopes);
+```
+
+```python
+import os, requests
+
+res = requests.get(
+    "{{WA_API_BASE}}/api/v1/me",
+    headers={"Authorization": f"Bearer {os.environ['SM_API_KEY']}"},
+)
+print(res.json()["data"]["apiKey"]["scopes"])
+```
+
+```php
+<?php
+$ch = curl_init('{{WA_API_BASE}}/api/v1/me');
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . getenv('SM_API_KEY')],
+]);
+$me = json_decode(curl_exec($ch), true);
+print_r($me['data']['apiKey']['scopes']);
+```
+
+### Response
 
 ```json
 {
-  "error": {
-    "code": "RATE_LIMITED",
-    "message": "Rate limit exceeded. Retry after 1 second.",
-    "retry_after": 1
+  "data": {
+    "workspace": {
+      "id": "6f1e2d3c-4b5a-4968-8776-5a4b3c2d1e0f",
+      "name": "Meera Boutique",
+      "slug": "meera-boutique"
+    },
+    "plan": { "code": "DEV_1K", "name": "Developer 1K", "tier": 2 },
+    "apiKey": {
+      "id": "0e9d8c7b-6a5f-4e3d-2c1b-0a9f8e7d6c5b",
+      "prefix": "sm_live_ab12",
+      "scopes": ["messages:send", "messages:read"]
+    },
+    "limits": { "requestsPerMinute": 120, "sendsPerHour": 10000 },
+    "usage": { "requestsThisMinute": 12, "sendsThisHour": 140 },
+    "messages": {
+      "period": "2026-10",
+      "sent": 420,
+      "limit": 1000,
+      "stopAt": 3000,
+      "resetsAt": "2026-10-31T18:30:00.000Z"
+    }
+  },
+  "meta": {
+    "requestId": "b7c1e0d2-5a4f-4c3b-9e8d-1f2a3b4c5d6e",
+    "timestamp": "2026-10-02T10:00:00.000Z"
   }
 }
 ```
 
-## Security Best Practices
+| Field | Meaning |
+|---|---|
+| `workspace` | The workspace the key belongs to: `id`, `name` and the `slug` used in dashboard URLs |
+| `plan` | The plan: `code`, `name` and `tier` (0 = trial). Codes are `TRIAL`, `DEV_FREE`, `DEV_1K`, `DEV_10K`, `DEV_100K`, `TEAM`, `BUSINESS` and `ENTERPRISE`; treat any other code as a custom plan. |
+| `apiKey` | The key making the call: `id`, its visible `prefix` and its `scopes` |
+| `limits` | Requests per minute and messages sent per hour, for the whole workspace |
+| `usage` | Requests made in the current minute (this one included) and messages sent through the API in the current hour |
+| `messages` | This month's API messages against the plan's allowance (see below) |
 
-1. **Never expose API keys in client-side code** — use a backend proxy
-2. **Use environment variables** — don't hardcode keys in source code
-3. **Rotate keys regularly** — at least every 90 days
-4. **Use IP allowlists** — restrict API key usage to known server IPs (Settings → Security)
-5. **Monitor usage** — set up alerts for unusual activity in your dashboard
+### messages
 
-## Webhook Authentication
+| Field | Meaning |
+|---|---|
+| `period` | The month being counted, India time (`YYYY-MM`) |
+| `sent` | Messages sent through the API this month that WhatsApp accepted. A refused send does not count. |
+| `limit` | The plan's monthly allowance; `null` means unlimited (Team, Business, Enterprise) |
+| `stopAt` | Where sends stop with `402 PLAN_MESSAGE_LIMIT_REACHED`: the allowance itself on Developer Free and the trial, 3× the allowance on a paid Developer plan (which never stops authentication templates). `null` means never. |
+| `resetsAt` | When the count starts again: the 1st of next month, 00:00 India time |
 
-When receiving webhooks, verify the signature:
+Watch `messages` to warn your own users before sends stop. See [Errors & Limits](/docs/whatsapp/errors-and-limits#monthly-api-message-allowance) for each plan's allowance.
 
-```javascript
-const crypto = require('crypto');
+Limits are counted per workspace, so creating more keys does not add throughput. The full rate-limit table and headers are on [Errors & Limits](/docs/whatsapp/errors-and-limits).
 
-function verifyWebhookSignature(payload, signature, secret) {
-  const expected = crypto
-    .createHmac('sha256', secret)
-    .update(payload)
-    .digest('hex');
-  return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expected)
-  );
+## Authentication errors
+
+Errors use the standard error envelope. Branch on `error.code`, not on the message text.
+
+### 401 INVALID_API_KEY
+
+The `Authorization` header is missing, malformed, or the key was revoked. Every rejection of the key itself returns the same response; the API does not say which case it was.
+
+```json
+{
+  "statusCode": 401,
+  "error": {
+    "code": "INVALID_API_KEY",
+    "message": "Missing or invalid API key. Send it as `Authorization: Bearer sm_live_…`."
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z", "path": "/api/v1/me" }
 }
 ```
 
+### 403 INSUFFICIENT_SCOPE
+
+The key is valid but lacks the scope the route needs. `details` names the scope required and the scopes the key holds.
+
+```json
+{
+  "statusCode": 403,
+  "error": {
+    "code": "INSUFFICIENT_SCOPE",
+    "message": "This API key is missing the \"contacts:read\" scope.",
+    "details": {
+      "required": "contacts:read",
+      "granted": ["messages:send"]
+    }
+  },
+  "meta": { "requestId": "…", "timestamp": "2026-10-02T10:00:00.000Z", "path": "/api/v1/contacts" }
+}
+```
+
+Add the scope to the key in **Developers → API keys**, or use a key that has it. Retrying unchanged will not help.
+
+Other access errors you may see: `402 SUBSCRIPTION_REQUIRED` when the workspace is read-only (writes, sends included, are refused; reads still work), and `403 PLAN_FEATURE_REQUIRED` when the plan does not include the developer API or a route's extra feature. A workspace is read-only when Razorpay gives up on a subscription renewal: it stays on its old plan until billing is fixed. A renewal that has only just failed shows as past due and stays writable. Every plan includes the API, and a workspace whose trial ends, or whose subscription is cancelled or ends, moves to Developer Free, where the API keeps working. In the short gap between the end and that move, writes can briefly answer `402 SUBSCRIPTION_REQUIRED` too. See [Errors & Limits](/docs/whatsapp/errors-and-limits) for the full list.
+
 ## FAQ
 
-**Can I have multiple API keys?**
-Yes — you can create up to 10 API keys per account. Each key can have different permissions and labels for tracking.
+**How many API keys can I create?**
+Create one key per integration so you can see its traffic in the logs and revoke it on its own. Rate limits are shared by the whole workspace, so extra keys do not add throughput.
 
-**What happens if my API key is compromised?**
-Immediately revoke the compromised key from your dashboard and generate a new one. Contact support@startmessaging.com if you suspect unauthorized usage.
+**I lost my API key. Can I see it again?**
+No. Keys are shown once and stored only as a hash. Create a new key, update your integration, then revoke the old one.
+
+**What scopes do keys created before scopes existed have?**
+They were given `messages:send` only, which is exactly what they could do before. Edit the key to add more.
+
+**Does a key with contacts:write let me read contacts?**
+No. Write scopes do not include read scopes. A write-only key gets back only the id of what it changed. Add `contacts:read` if you need the record.
+
+**Can I restrict a key to certain IP addresses?**
+Not today. Keep keys on your server, give each key only the scopes it needs, and revoke any key that may have leaked.

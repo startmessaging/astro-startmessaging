@@ -15,7 +15,7 @@ import ServiceCards          from './sections/ServiceCards.astro';
 import TestimonialsSection   from './sections/TestimonialsSection.astro';
 import FaqSection            from './sections/FaqSection.astro';
 import TrustBadges           from './sections/TrustBadges.astro';
-import PricingTeaser         from './sections/PricingTeaser.astro';
+import TeamSection           from './sections/TeamSection.astro';
 import FeatureSplit          from './sections/FeatureSplit.astro';
 import ComparisonTable       from './sections/ComparisonTable.astro';
 import PricingTabs           from './sections/PricingTabs.astro';
@@ -41,7 +41,7 @@ export const componentMap: Record<string, any> = {
   testimonials:    TestimonialsSection,
   faqSection:      FaqSection,
   trustBadges:     TrustBadges,
-  pricingTeaser:   PricingTeaser,
+  teamSection:     TeamSection,
   featureSplit:    FeatureSplit,
   comparisonTable: ComparisonTable,
   pricingTabs:     PricingTabs,

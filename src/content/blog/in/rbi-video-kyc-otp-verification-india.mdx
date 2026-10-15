@@ -2,7 +2,7 @@
 title: "RBI Video KYC & SMS OTP: Building Compliant e-KYC Flows 2026"
 description: "Build an RBI-compliant Video KYC and SMS OTP verification flow in Node.js. Learn V-CIP guidelines, Aadhaar OTP rules, volume costs, and fraud prevention."
 publishedAt: "2026-08-26"
-updatedAt: "2026-08-26"
+updatedAt: "2026-10-15"
 category: "use-cases"
 country: "in"
 author: "StartMessaging Team"
@@ -158,6 +158,9 @@ export class VcipOtpEngine {
 
     const session: VcipSession = JSON.parse(rawSession);
 
+    // Generate the 6-digit code on your backend with a CSPRNG
+    const otp = crypto.randomInt(100000, 1000000).toString();
+
     // Call StartMessaging OTP API for instant sub-3s delivery
     const response = await fetch(`${BASE_URL}/otp/send`, {
       method: 'POST',
@@ -167,6 +170,7 @@ export class VcipOtpEngine {
       },
       body: JSON.stringify({
         phoneNumber: session.phoneNumber,
+        variables: { otp },
       }),
     });
 
@@ -178,7 +182,7 @@ export class VcipOtpEngine {
     }
 
     // Attach OTP Request ID to V-CIP session state
-    session.otpRequestId = payload.data.requestId;
+    session.otpRequestId = payload.data.otpRequestId;
     session.status = 'VIDEO_ACTIVE';
 
     await redis.setex(`vcip:session:${sessionId}`, 900, JSON.stringify(session));
@@ -186,8 +190,8 @@ export class VcipOtpEngine {
     return {
       success: true,
       sessionId,
-      requestId: payload.data.requestId,
-      expiresAt: payload.data.expiresAt,
+      messageId: payload.data.messageId, // poll GET /messages/:id for delivery status
+      status: payload.data.status,
     };
   }
 

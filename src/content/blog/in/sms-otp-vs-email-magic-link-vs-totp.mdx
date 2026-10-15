@@ -2,7 +2,7 @@
 title: "SMS OTP vs Email Magic Link vs TOTP: Authentication Guide 2026"
 description: "Compare SMS OTP, Email Magic Links, and TOTP authenticator apps for 2026. Learn delivery latency, security trade-offs, UX friction, and Indian market norms."
 publishedAt: "2026-07-04"
-updatedAt: "2026-08-26"
+updatedAt: "2026-10-15"
 category: "comparisons"
 country: "in"
 author: "StartMessaging Team"
@@ -124,6 +124,9 @@ export class AuthenticationEngine {
    * Primary Authentication: Dispatches an SMS OTP via StartMessaging
    */
   static async sendSmsOtp(phoneNumber: string) {
+    // Your backend generates the code; StartMessaging delivers and verifies it
+    const otp = crypto.randomInt(100000, 1000000).toString();
+
     const response = await fetch(`${BASE_URL}/otp/send`, {
       method: 'POST',
       headers: {
@@ -132,6 +135,7 @@ export class AuthenticationEngine {
       },
       body: JSON.stringify({
         phoneNumber,
+        variables: { otp },
       }),
     });
 
@@ -140,7 +144,9 @@ export class AuthenticationEngine {
       throw new Error(payload.message || 'SMS OTP dispatch failed.');
     }
 
-    return payload.data; // { requestId, expiresAt, attemptsLeft }
+    // { otpRequestId, messageId, status: 'queued' }
+    // Pass otpRequestId as `requestId` to verifySmsOtp()
+    return payload.data;
   }
 
   /**

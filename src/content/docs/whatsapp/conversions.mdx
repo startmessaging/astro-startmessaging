@@ -1,0 +1,180 @@
+---
+title: "Conversions"
+description: "Report sales from your shop, billing system or CRM to StartMessaging with POST /api/v1/conversions, so the WhatsApp campaign that brought the customer gets the credit. Safe to repeat per orderId."
+product: whatsapp
+order: 8
+---
+
+## Overview
+
+A conversion is a customer who bought after a campaign reached them. Report each sale from your own system with `POST /api/v1/conversions` and StartMessaging credits it to the campaign that last reached that customer on WhatsApp. The campaign's report then shows how many customers it brought in, what their purchases were worth and its conversion rate.
+
+| Method & path | Scope | What it does |
+|---|---|---|
+| `POST /api/v1/conversions` | `conversions:write` | Report a sale |
+
+- **Plan:** conversions are part of the sales pipeline, on the **Business** and **Enterprise** plans and the free trial. On other plans the call answers `403 PLAN_FEATURE_REQUIRED` with `details.feature: "sales_pipeline"`.
+- **Scope:** create a key with the `conversions:write` scope in **Developers → API keys**. A key without it gets `403 INSUFFICIENT_SCOPE`.
+- **Write only:** there is no endpoint to list conversions. They show up in each campaign's report in the dashboard.
+
+All paths are relative to the API host, for example `{{WA_API_BASE}}/api/v1/conversions`. Every request needs `Authorization: Bearer sm_live_your_api_key`.
+
+## How a sale is credited
+
+1. We match the `phone` you send to the customer's WhatsApp chat.
+2. We look back from `occurredAt` for the **last campaign message that was delivered or read** on that chat, within your workspace's **conversion window**.
+3. That campaign gets the credit. If no campaign reached the customer inside the window, the conversion is still recorded, with `campaign: null`.
+
+The credit is decided once, when you report the sale. A campaign sent afterwards cannot claim it. A follow-up step and each run of a repeating campaign are campaigns of their own, so each earns its own credit.
+
+**The conversion window** is 7 days unless you change it. Managers and above set it to anything from 1 to 30 days in **Settings → Campaigns → Conversions**. A change applies to sales recorded from then on.
+
+**A number does not have to be a contact.** Someone a CSV campaign reached still counts: `contactId` is then `null`.
+
+**Pipeline stages count too.** Besides sales your system reports, a lead moved from a stage that is not won into a pipeline stage marked as **won** counts as a conversion for the campaign that last reached them within the window (with no value; with no campaign when none did). The move can come from the dashboard, from `PATCH /api/v1/contacts/{idOrPhone}` with `pipelineStageId`, or from a chatbot flow. Moving the lead out of every won stage deletes that conversion again. Those conversions have `source: "pipeline"`; the ones you report have `source: "api"`.
+
+## Report a sale
+
+`POST /api/v1/conversions`
+
+| Field | Description |
+|---|---|
+| `phone` | **Required.** The customer's phone number, up to 32 characters. E.164 (`+` and country code) is safest; a number without a country code is read against your workspace's country. |
+| `orderId` | Your own reference for the sale, up to 100 characters. Send it and the call is safe to repeat (see below). |
+| `value` | What the sale was worth, in `currency`. Zero or more, with at most two decimal places. |
+| `currency` | A 3-letter ISO 4217 code for `value`, such as `INR` or `USD`. Defaults to `INR`. Stored only with a `value`. |
+| `occurredAt` | When the sale happened, as an ISO 8601 date-time. Defaults to now. Not in the future, and not more than a year ago. |
+
+- **New sale:** `201 Created`, `created: true`.
+- **Same `orderId` again:** `200 OK`, `created: false`, with the conversion already recorded, credited as it was the first time. The new body is ignored, so a retry never counts a sale twice or moves its credit.
+
+Without `orderId`, every call records a new conversion. Send an `orderId`, or at least an `Idempotency-Key` header, so a retried request cannot count the sale twice. See [Pagination & Idempotency](/docs/whatsapp/pagination-and-idempotency).
+
+```bash
+curl -X POST "{{WA_API_BASE}}/api/v1/conversions" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "+919812345678",
+    "orderId": "ORD-10442",
+    "value": 2499.50,
+    "currency": "INR",
+    "occurredAt": "2026-10-12T10:30:00+05:30"
+  }'
+```
+
+```javascript
+const res = await fetch("{{WA_API_BASE}}/api/v1/conversions", {
+  method: "POST",
+  headers: {
+    Authorization: "Bearer sm_live_your_api_key",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    phone: "+919812345678",
+    orderId: "ORD-10442",
+    value: 2499.5,
+    currency: "INR",
+    occurredAt: "2026-10-12T10:30:00+05:30",
+  }),
+});
+const { data } = await res.json(); // res.status is 201 (new) or 200 (already reported)
+console.log(data.created, data.conversion.campaign?.name ?? "no campaign");
+```
+
+```python
+import requests
+
+res = requests.post(
+    "{{WA_API_BASE}}/api/v1/conversions",
+    headers={"Authorization": "Bearer sm_live_your_api_key"},
+    json={
+        "phone": "+919812345678",
+        "orderId": "ORD-10442",
+        "value": 2499.50,
+        "currency": "INR",
+        "occurredAt": "2026-10-12T10:30:00+05:30",
+    },
+)
+data = res.json()["data"]
+print(res.status_code, data["created"], data["conversion"]["campaign"])
+```
+
+Response (`201 Created`):
+
+```json
+{
+  "data": {
+    "conversion": {
+      "id": "5b2f9d3e-1c4a-4e7b-8f6d-2a3b4c5d6e7f",
+      "source": "api",
+      "contactId": "3f0c2a52-8a51-4c0e-9d0a-2b7f8f3a9c11",
+      "phone": "+919812345678",
+      "orderId": "ORD-10442",
+      "value": 2499.5,
+      "currency": "INR",
+      "occurredAt": "2026-10-12T05:00:00.000Z",
+      "campaign": { "id": "9a7e5c1b-3f2d-4e8a-b6c0-1d2e3f4a5b6c", "name": "Diwali offer" },
+      "touchedAt": "2026-10-10T04:30:12.000Z"
+    },
+    "created": true
+  },
+  "meta": { "requestId": "...", "timestamp": "2026-10-12T05:00:01.000Z" }
+}
+```
+
+| Field | Description |
+|---|---|
+| `id` | Conversion id. |
+| `source` | `api` for a sale reported here, `pipeline` for a lead moved to a won stage. |
+| `contactId` | The contact with this number, or `null` when there is none. |
+| `phone` | The number, in E.164. |
+| `orderId`, `value`, `currency` | As you sent them, or `null`. `currency` is `null` when there is no `value`. |
+| `occurredAt` | When the sale happened. |
+| `campaign` | The campaign credited with the sale (`id` and `name`), or `null` when none reached this number within the window. |
+| `touchedAt` | When the credited campaign's message went, or `null`. |
+
+## What the campaign report shows
+
+Each campaign's report in the dashboard has a **Conversions** section:
+
+- **Customers:** conversions credited to the campaign, from both sources.
+- **Value:** the total of the reported sales that had a `value`, per currency. A won pipeline stage counts as a customer but adds no value.
+- **Conversion rate:** customers out of the people the campaign was delivered to.
+
+The campaign's recipient list and CSV export also show when each number converted.
+
+## Errors
+
+| Status | Code | When |
+|---|---|---|
+| `400` | `MOBILE_INVALID` | `phone` is not a phone number. |
+| `400` | `VALIDATION_ERROR` | A missing `phone`, a negative `value` or one with more than two decimals, a currency that is not 3 letters, or an `occurredAt` in the future or more than a year ago. |
+| `402` | `SUBSCRIPTION_REQUIRED` | The workspace's subscription has ended and it can only read. |
+| `403` | `PLAN_FEATURE_REQUIRED` | The plan does not include the sales pipeline (`details.feature: "sales_pipeline"`). Conversions are on Business, Enterprise and the free trial. |
+| `403` | `INSUFFICIENT_SCOPE` | The key lacks `conversions:write`. |
+| `409` | `IDEMPOTENCY_KEY_IN_USE` | A request with the same `Idempotency-Key` is still being processed. |
+| `422` | `IDEMPOTENCY_KEY_REUSED` | The `Idempotency-Key` was used before with a different body. |
+| `429` | `RATE_LIMIT_EXCEEDED` | Too many requests this minute. Wait for `Retry-After`. |
+
+See [Errors & Limits](/docs/whatsapp/errors-and-limits) for the error format.
+
+## FAQ
+
+**Do I have to send a value?**
+No. Without `value` the sale still counts as a customer for the campaign; it just adds nothing to the campaign's value total.
+
+**What if the customer was never reached by a campaign?**
+The conversion is recorded with `campaign: null`. Nothing is credited.
+
+**Can I report a sale from last month?**
+Yes, with `occurredAt`, up to a year back. The credit goes to the campaign that reached the number within your conversion window before that time.
+
+**I sent the same order twice with a different value. Which one counts?**
+The first. A repeated `orderId` returns the stored conversion with `200` and changes nothing.
+
+**Where do I set the conversion window?**
+In **Settings → Campaigns → Conversions**, from 1 to 30 days (7 by default). Managers and above can change it.
+
+**Which plan do I need?**
+Business or Enterprise, or the free trial. Conversions are part of the sales pipeline.

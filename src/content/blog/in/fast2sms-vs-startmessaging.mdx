@@ -2,7 +2,7 @@
 title: "Fast2SMS vs StartMessaging: Which OTP API is Better in 2026?"
 description: "Honest comparison of Fast2SMS vs StartMessaging for OTP delivery in India: pricing, DLT requirements, delivery speed, developer experience, and which to pick."
 publishedAt: "2026-04-25"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: comparisons
 country: "in"
 author: "StartMessaging Team"
@@ -105,9 +105,9 @@ Fast2SMS exposes both GET and POST endpoints with query-string
 
 
 Critically, StartMessaging offers a real `/otp/verify` 
-        endpoint — you never store the OTP code yourself. With Fast2SMS,
-        you generate the code, store it (hopefully hashed), and check it on
-        your own server. That is a security responsibility many small teams
+        endpoint — you generate the code and pass it in `variables.otp`,
+        but you never store it yourself. With Fast2SMS, you generate the
+        code, store it (hopefully hashed), and check it on your own server. That is a security responsibility many small teams
         get wrong.
 
 

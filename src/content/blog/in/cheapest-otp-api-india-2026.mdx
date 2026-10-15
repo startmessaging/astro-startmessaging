@@ -2,7 +2,7 @@
 title: "Cheapest OTP API in India (2026): Honest Pricing Comparison"
 description: "Compare the real cost of OTP API providers in India for 2026. Includes headline rates, DLT registration fees, hidden minimums, and TCO model calculations."
 publishedAt: "2026-04-27"
-updatedAt: "2026-08-26"
+updatedAt: "2026-10-15"
 category: "comparisons"
 country: "in"
 author: "StartMessaging Team"
@@ -108,7 +108,7 @@ Modelling a growth-stage product with 100,000 monthly OTPs, assuming a realistic
 | TCO Expense Component | StartMessaging | MSG91 (DIY DLT) | Fast2SMS (DIY DLT) | Twilio |
 |---|---|---|---|---|
 | **Domestic SMS (95,000)** | ₹23,750 (@ ₹0.25) | ₹19,950 (@ ₹0.21) | ₹18,050 (@ ₹0.19) | ₹66,500 (@ ₹0.70) |
-| **Voice Fallback (3,000)** | Included / Optional | ₹1,500 | ₹1,500 | ₹3,000 |
+| **Voice Fallback (3,000)** | Not offered (separate voice provider) | ₹1,500 | ₹1,500 | ₹3,000 |
 | **Intl Traffic (2,000)** | Standard flat mix | ₹2,500 | ₹2,500 | ₹5,500 |
 | **Monthly Amortized DLT** | **₹0** | ₹600 | ₹600 | ₹600 |
 | **Total Monthly Spend** | **₹25,000** | **₹24,550** | **₹22,650** | **₹75,600** |
@@ -130,23 +130,26 @@ A provider’s value is not measured solely in rupees—it is also measured in d
 
 ### Option A: Integrating StartMessaging DLT-Free OTP API
 
-StartMessaging handles OTP generation, storage, delivery, and verification through a clean REST interface. You do not need to construct DLT template strings or handle custom OTP generator math.
+Your backend generates a 6-digit code with one line of secure random code; StartMessaging handles delivery and verification through a clean REST interface. You do not need to construct DLT template strings or store and compare codes yourself.
 
 ```typescript
 import 'dotenv/config';
+import crypto from 'node:crypto';
 
 const API_KEY = process.env.STARTMESSAGING_API_KEY!;
 const BASE_URL = 'https://api.startmessaging.com';
 
-// 1. Dispatch OTP (Generates code & delivers via SMS)
+// 1. Dispatch OTP (you generate the code, StartMessaging delivers it via SMS)
 async function sendOtp(phoneNumber: string) {
+  const otp = crypto.randomInt(100000, 1000000).toString();
+
   const response = await fetch(`${BASE_URL}/otp/send`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-API-Key': API_KEY,
     },
-    body: JSON.stringify({ phoneNumber }),
+    body: JSON.stringify({ phoneNumber, variables: { otp } }),
   });
 
   const payload = await response.json();
@@ -154,11 +157,11 @@ async function sendOtp(phoneNumber: string) {
     throw new Error(payload.message || 'Failed to dispatch OTP');
   }
 
-  // Returns: { requestId: 'req_12345', expiresAt: '2026-08-26T12:10:00Z', attemptsLeft: 3 }
+  // Returns: { otpRequestId: 'uuid-of-otp-request', messageId: 'uuid-of-message', status: 'queued' }
   return payload.data;
 }
 
-// 2. Verify OTP
+// 2. Verify OTP (requestId = data.otpRequestId from sendOtp)
 async function verifyOtp(requestId: string, code: string) {
   const response = await fetch(`${BASE_URL}/otp/verify`, {
     method: 'POST',
@@ -176,7 +179,7 @@ async function verifyOtp(requestId: string, code: string) {
 
 ### Option B: Traditional SMS Gateway Integration (DIY DLT Route)
 
-With traditional SMS gateways, your backend must manually generate a random 6-digit number, store it in Redis with an expiration TTL, format the payload using exact registered DLT template variables, and pass PE-ID headers:
+With traditional SMS gateways, your backend must generate the code, store it in Redis with an expiration TTL, compare it on verification itself, format the payload using exact registered DLT template variables, and pass PE-ID headers:
 
 ```typescript
 // Legacy Gateway Integration (Requires self-managed Redis & DLT Template IDs)

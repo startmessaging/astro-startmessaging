@@ -1,0 +1,1393 @@
+{
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
+  "theme": "whatsapp",
+  "updatedAt": "2026-10-12",
+  "seo": {
+    "title": {
+      "en": "WhatsApp API for Developers — REST & Signed Webhooks — StartMessaging",
+      "pt": "API do WhatsApp para Desenvolvedores — REST e Webhooks Assinados — StartMessaging",
+      "es": "API de WhatsApp para Desarrolladores — REST y Webhooks Firmados — StartMessaging",
+      "id": "API WhatsApp untuk Developer — REST & Webhook Bertanda Tangan — StartMessaging",
+      "ar": "واجهة برمجة واتساب للمطورين — REST وWebhooks موقَّعة — StartMessaging",
+      "tr": "Geliştiriciler için WhatsApp API — REST ve İmzalı Webhook'lar — StartMessaging"
+    },
+    "description": {
+      "en": "Send WhatsApp templates and messages, sync contacts and conversations, report conversions and receive signed webhooks with the StartMessaging REST API, on every plan from Developer Free. Scoped API keys, idempotency keys, cursor pagination and an OpenAPI reference.",
+      "pt": "Envie templates e mensagens do WhatsApp, sincronize contatos e conversas, informe conversões e receba webhooks assinados com a API REST da StartMessaging, em todos os planos a partir do Developer Free. Chaves de API com escopos, chaves de idempotência, paginação por cursor e uma referência OpenAPI.",
+      "es": "Envíe plantillas y mensajes de WhatsApp, sincronice contactos y conversaciones, informe conversiones y reciba webhooks firmados con la API REST de StartMessaging, en todos los planes desde Developer Free. Claves de API con alcances, claves de idempotencia, paginación por cursor y una referencia OpenAPI.",
+      "id": "Kirim template dan pesan WhatsApp, sinkronkan kontak dan percakapan, laporkan konversi, dan terima webhook bertanda tangan dengan REST API StartMessaging, di setiap paket mulai dari Developer Free. Kunci API ber-scope, kunci idempotensi, paginasi kursor, dan referensi OpenAPI.",
+      "ar": "أرسل قوالب ورسائل واتساب، وزامن جهات الاتصال والمحادثات، وأبلغ عن التحويلات، واستقبل webhooks موقّعة عبر واجهة StartMessaging البرمجية REST، في كل الباقات بدءاً من Developer Free. مفاتيح API محددة الصلاحيات، ومفاتيح عدم التكرار، وترقيم بالمؤشر، ومرجع OpenAPI.",
+      "tr": "StartMessaging REST API ile WhatsApp şablonları ve mesajları gönderin, kişileri ve sohbetleri senkronize edin, dönüşümleri bildirin ve imzalı webhook’lar alın; Developer Free’den başlayarak her pakette. Kapsamlı API anahtarları, idempotency anahtarları, imleçli sayfalama ve bir OpenAPI referansı."
+    },
+    "ogImage": "/og/whatsapp-api.jpg"
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Developer API",
+          "pt": "API para Desenvolvedores",
+          "es": "API para Desarrolladores",
+          "id": "API Developer",
+          "ar": "واجهة برمجة للمطورين",
+          "tr": "Geliştirici API'si"
+        },
+        "title": {
+          "en": "A WhatsApp REST API and Webhooks Built for Integrations",
+          "pt": "API REST e Webhooks do WhatsApp Feitos para Integrações",
+          "es": "API REST y Webhooks de WhatsApp Hechos para Integraciones",
+          "id": "REST API dan Webhook WhatsApp yang Dibuat untuk Integrasi",
+          "ar": "واجهة REST وwebhooks لواتساب مصممة للتكاملات",
+          "tr": "Entegrasyonlar İçin Tasarlanmış WhatsApp REST API'si ve Webhook'lar"
+        },
+        "subtitle": {
+          "en": "Send templates and messages, sync contacts, tags and conversations, and get a signed webhook for every reply and delivery receipt. Plain REST at /api/v1 with scoped API keys, on the official WhatsApp Business Platform. No SDK to install. The API is on every plan, from Developer Free with 100 API messages a month.",
+          "pt": "Envie templates e mensagens, sincronize contatos, tags e conversas e receba um webhook assinado a cada resposta e confirmação de entrega. REST simples em /api/v1 com chaves de API com escopos, na plataforma oficial WhatsApp Business. Nenhum SDK para instalar. A API está em todos os planos, a partir do Developer Free com 100 mensagens de API por mês.",
+          "es": "Envíe plantillas y mensajes, sincronice contactos, etiquetas y conversaciones, y reciba un webhook firmado por cada respuesta y confirmación de entrega. REST simple en /api/v1 con claves de API con alcances, sobre la plataforma oficial WhatsApp Business. Sin SDK que instalar. La API está en todos los planes, desde Developer Free con 100 mensajes de API al mes.",
+          "id": "Kirim template dan pesan, sinkronkan kontak, tag, dan percakapan, serta dapatkan webhook bertanda tangan untuk setiap balasan dan tanda terima pengiriman. REST sederhana di /api/v1 dengan kunci API ber-scope, di WhatsApp Business Platform resmi. Tanpa SDK yang perlu dipasang. API tersedia di setiap paket, mulai dari Developer Free dengan 100 pesan API per bulan.",
+          "ar": "أرسل القوالب والرسائل، وزامن جهات الاتصال والوسوم والمحادثات، واحصل على webhook موقَّع لكل رد وإشعار تسليم. واجهة REST بسيطة على ‎/api/v1 بمفاتيح API محددة الصلاحيات، على منصة WhatsApp Business الرسمية. لا حاجة لتثبيت أي SDK. الواجهة البرمجية متاحة في كل الباقات، بدءاً من Developer Free مع 100 رسالة عبر الواجهة شهرياً.",
+          "tr": "Şablon ve mesaj gönderin; kişileri, etiketleri ve sohbetleri senkronize edin; her yanıt ve teslim bildirimi için imzalı bir webhook alın. Resmi WhatsApp Business Platformu üzerinde, kapsamlı API anahtarlarıyla /api/v1 adresinde sade REST. Kurulacak SDK yok. API, ayda 100 API mesajı içeren Developer Free’den başlayarak her pakettedir."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Inicie la prueba gratuita de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ تجربة مجانية لمدة 14 يومًا",
+          "tr": "14 günlük ücretsiz denemeyi başlatın"
+        },
+        "primaryHref": "https://waba.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Read the docs",
+          "pt": "Leia a documentação",
+          "es": "Lea la documentación",
+          "id": "Baca dokumentasi",
+          "ar": "اقرأ التوثيق",
+          "tr": "Belgeleri okuyun"
+        },
+        "secondaryHref": "/docs/whatsapp/getting-started"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "One REST API for Your Whole WhatsApp CRM",
+          "pt": "Uma API REST para Todo o Seu CRM de WhatsApp",
+          "es": "Una API REST para Todo Su CRM de WhatsApp",
+          "id": "Satu REST API untuk Seluruh CRM WhatsApp Anda",
+          "ar": "واجهة REST واحدة لكامل CRM واتساب لديك",
+          "tr": "Tüm WhatsApp CRM'iniz İçin Tek Bir REST API"
+        },
+        "body": {
+          "en": "Authenticate with a workspace API key (Authorization: Bearer sm_live_…) and call /api/v1. Send template, text, media and interactive messages; upsert and tag contacts; read tags, pipeline stages, templates and campaigns; list, assign and resolve conversations; manage webhook endpoints; and report sales as conversions. Every success uses the same {data, meta} envelope, and every error a stable code you can branch on.",
+          "pt": "Autentique-se com uma chave de API do workspace (Authorization: Bearer sm_live_…) e chame /api/v1. Envie templates, texto, mídia e mensagens interativas; crie, atualize e marque contatos com tags; leia tags, etapas do funil, templates e campanhas; liste, atribua e resolva conversas; gerencie endpoints de webhook; e informe vendas como conversões. Toda resposta de sucesso usa o mesmo envelope {data, meta}, e todo erro traz um código estável para você tratar.",
+          "es": "Autentíquese con una clave de API del workspace (Authorization: Bearer sm_live_…) y llame a /api/v1. Envíe plantillas, texto, multimedia y mensajes interactivos; cree, actualice y etiquete contactos; lea etiquetas, etapas del embudo, plantillas y campañas; liste, asigne y resuelva conversaciones; administre endpoints de webhook; e informe ventas como conversiones. Toda respuesta exitosa usa el mismo envoltorio {data, meta}, y todo error un código estable sobre el que puede decidir.",
+          "id": "Autentikasi dengan kunci API workspace (Authorization: Bearer sm_live_…) dan panggil /api/v1. Kirim pesan template, teks, media, dan interaktif; buat, perbarui, dan beri tag pada kontak; baca tag, tahap pipeline, template, dan kampanye; tampilkan, tugaskan, dan selesaikan percakapan; kelola endpoint webhook; serta laporkan penjualan sebagai konversi. Setiap respons sukses memakai amplop {data, meta} yang sama, dan setiap error memiliki kode tetap yang bisa Anda jadikan acuan.",
+          "ar": "صادق باستخدام مفتاح API لمساحة العمل (Authorization: Bearer sm_live_…) واستدعِ ‎/api/v1. أرسل رسائل القوالب والنصوص والوسائط والرسائل التفاعلية؛ وأنشئ جهات الاتصال وحدّثها ووسمها؛ واقرأ الوسوم ومراحل مسار المبيعات والقوالب والحملات؛ واعرض المحادثات وعيّنها وأغلقها؛ وأدِر نقاط نهاية webhook؛ وأبلغ عن المبيعات كتحويلات. كل استجابة ناجحة تستخدم الغلاف نفسه {data, meta}، وكل خطأ يحمل رمزًا ثابتًا يمكنك البناء عليه.",
+          "tr": "Bir çalışma alanı API anahtarıyla (Authorization: Bearer sm_live_…) kimlik doğrulayın ve /api/v1 adresini çağırın. Şablon, metin, medya ve etkileşimli mesajlar gönderin; kişileri oluşturun, güncelleyin ve etiketleyin; etiketleri, satış hattı aşamalarını, şablonları ve kampanyaları okuyun; sohbetleri listeleyin, atayın ve çözün; webhook uç noktalarını yönetin; satışları dönüşüm olarak bildirin. Her başarılı yanıt aynı {data, meta} zarfını, her hata ise üzerine karar verebileceğiniz sabit bir kodu kullanır."
+        },
+        "bullets": [
+          {
+            "en": "Keys created in Developers → API keys and shown once",
+            "pt": "Chaves criadas em Desenvolvedores → Chaves de API e exibidas uma única vez",
+            "es": "Claves creadas en Desarrolladores → Claves de API y mostradas una sola vez",
+            "id": "Kunci dibuat di Developers → API keys dan hanya ditampilkan sekali",
+            "ar": "تُنشأ المفاتيح من المطورون ← مفاتيح API وتُعرض مرة واحدة فقط",
+            "tr": "Anahtarlar Geliştiriciler → API anahtarları bölümünde oluşturulur ve yalnızca bir kez gösterilir"
+          },
+          {
+            "en": "10 scopes, with Full access, Send only, Read only and Custom presets",
+            "pt": "10 escopos, com os modelos Acesso total, Somente envio, Somente leitura e Personalizado",
+            "es": "10 alcances, con los modelos Acceso total, Solo envío, Solo lectura y Personalizado",
+            "id": "10 scope, dengan preset Akses penuh, Hanya kirim, Hanya baca, dan Kustom",
+            "ar": "10 نطاقات صلاحيات، مع إعدادات جاهزة: وصول كامل، إرسال فقط، قراءة فقط، ومخصص",
+            "tr": "Tam erişim, Yalnızca gönderme, Yalnızca okuma ve Özel ön ayarlarıyla 10 kapsam"
+          },
+          {
+            "en": "Message charges billed by Meta to your own WhatsApp Business Account; the API never charges per message",
+            "pt": "As cobranças de mensagens são feitas pela Meta na sua própria conta do WhatsApp Business; a API nunca cobra por mensagem",
+            "es": "Meta factura los cargos de mensajes a su propia cuenta de WhatsApp Business; la API nunca cobra por mensaje",
+            "id": "Biaya pesan ditagih Meta langsung ke WhatsApp Business Account Anda; API tidak pernah menagih per pesan",
+            "ar": "تفوتر Meta رسوم الرسائل مباشرةً على حساب واتساب للأعمال الخاص بك؛ ولا تفرض الواجهة أي رسوم لكل رسالة",
+            "tr": "Mesaj ücretlerini Meta doğrudan kendi WhatsApp Business Hesabınıza faturalar; API hiçbir zaman mesaj başına ücret almaz"
+          }
+        ],
+        "image": "/images/trigger-engine.webp",
+        "imageAlt": {
+          "en": "StartMessaging WhatsApp REST API",
+          "pt": "API REST de WhatsApp do StartMessaging",
+          "es": "API REST de WhatsApp de StartMessaging",
+          "id": "REST API WhatsApp StartMessaging",
+          "ar": "واجهة REST لواتساب من StartMessaging",
+          "tr": "StartMessaging WhatsApp REST API'si"
+        },
+        "reversed": false,
+        "ctaLabel": {
+          "en": "Open the API reference",
+          "pt": "Abrir a referência da API",
+          "es": "Abrir la referencia de la API",
+          "id": "Buka referensi API",
+          "ar": "افتح مرجع الواجهة",
+          "tr": "API referansını açın"
+        },
+        "ctaHref": "/docs/whatsapp/api-reference"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "Signed Webhooks You Can Trust",
+          "pt": "Webhooks Assinados em que Você Pode Confiar",
+          "es": "Webhooks Firmados en los que Puede Confiar",
+          "id": "Webhook Bertanda Tangan yang Bisa Dipercaya",
+          "ar": "Webhooks موقَّعة يمكنك الوثوق بها",
+          "tr": "Güvenebileceğiniz İmzalı Webhook'lar"
+        },
+        "body": {
+          "en": "Subscribe an HTTPS endpoint to any of 12 events: messages received, sent, delivered, read and failed; contacts created, opted out and opted in; conversations assigned and resolved; template status changes; and finished campaigns. Every delivery is signed with HMAC-SHA256 in the X-SM-Signature header, retried after 1m, 5m, 30m, 2h, 6h and 12h, and listed in a delivery log where you can redeliver it.",
+          "pt": "Inscreva um endpoint HTTPS em qualquer um dos 12 eventos: mensagens recebidas, enviadas, entregues, lidas e com falha; contatos criados, descadastrados e recadastrados; conversas atribuídas e resolvidas; mudanças de status de templates; e campanhas concluídas. Cada entrega é assinada com HMAC-SHA256 no cabeçalho X-SM-Signature, reenviada após 1m, 5m, 30m, 2h, 6h e 12h e listada em um registro de entregas onde você pode reenviá-la.",
+          "es": "Suscriba un endpoint HTTPS a cualquiera de los 12 eventos: mensajes recibidos, enviados, entregados, leídos y fallidos; contactos creados, dados de baja y dados de alta; conversaciones asignadas y resueltas; cambios de estado de plantillas; y campañas finalizadas. Cada entrega se firma con HMAC-SHA256 en el encabezado X-SM-Signature, se reintenta tras 1m, 5m, 30m, 2h, 6h y 12h y aparece en un registro de entregas desde donde puede reenviarla.",
+          "id": "Daftarkan endpoint HTTPS ke salah satu dari 12 event: pesan diterima, terkirim, sampai, dibaca, dan gagal; kontak dibuat, berhenti berlangganan, dan berlangganan kembali; percakapan ditugaskan dan diselesaikan; perubahan status template; serta kampanye yang selesai. Setiap pengiriman ditandatangani dengan HMAC-SHA256 di header X-SM-Signature, dicoba ulang setelah 1m, 5m, 30m, 2j, 6j, dan 12j, dan tercatat di log pengiriman tempat Anda bisa mengirimnya ulang.",
+          "ar": "اشترك بنقطة نهاية HTTPS في أي من 12 حدثًا: الرسائل المستلمة والمرسلة والمسلَّمة والمقروءة والفاشلة؛ وجهات الاتصال المُنشأة والمُلغى اشتراكها والمُعاد اشتراكها؛ والمحادثات المعيَّنة والمغلقة؛ وتغييرات حالة القوالب؛ والحملات المكتملة. كل إرسال موقَّع بـ HMAC-SHA256 في ترويسة X-SM-Signature، ويُعاد المحاولة بعد 1د و5د و30د و2س و6س و12س، ويظهر في سجل التسليم حيث يمكنك إعادة إرساله.",
+          "tr": "Bir HTTPS uç noktasını 12 olaydan herhangi birine abone edin: alınan, gönderilen, teslim edilen, okunan ve başarısız mesajlar; oluşturulan, abonelikten çıkan ve yeniden abone olan kişiler; atanan ve çözülen sohbetler; şablon durum değişiklikleri; ve tamamlanan kampanyalar. Her teslimat X-SM-Signature başlığında HMAC-SHA256 ile imzalanır, 1dk, 5dk, 30dk, 2sa, 6sa ve 12sa sonra yeniden denenir ve yeniden gönderebileceğiniz bir teslimat günlüğünde listelenir."
+        },
+        "bullets": [
+          {
+            "en": "Delivered at least once: deduplicate on the event id",
+            "pt": "Entregue pelo menos uma vez: elimine duplicatas pelo id do evento",
+            "es": "Entregado al menos una vez: elimine duplicados por el id del evento",
+            "id": "Dikirim setidaknya sekali: hapus duplikat berdasarkan id event",
+            "ar": "يُسلَّم مرة واحدة على الأقل: أزل التكرار باستخدام معرّف الحدث",
+            "tr": "En az bir kez teslim edilir: olay kimliğine göre yinelenenleri ayıklayın"
+          },
+          {
+            "en": "Endpoints that keep failing (50 in a row, or for 24 hours) are turned off and flagged",
+            "pt": "Endpoints que falham seguidamente (50 vezes seguidas ou por 24 horas) são desativados e sinalizados",
+            "es": "Los endpoints que fallan continuamente (50 veces seguidas o durante 24 horas) se desactivan y se señalan",
+            "id": "Endpoint yang terus gagal (50 kali berturut-turut, atau selama 24 jam) dinonaktifkan dan ditandai",
+            "ar": "تُعطَّل نقاط النهاية التي تفشل باستمرار (50 مرة متتالية أو لمدة 24 ساعة) ويُنبَّه إليها",
+            "tr": "Sürekli başarısız olan uç noktalar (art arda 50 kez veya 24 saat boyunca) kapatılır ve işaretlenir"
+          },
+          {
+            "en": "Rotate the signing secret with a 24-hour overlap",
+            "pt": "Troque o segredo de assinatura com 24 horas de sobreposição",
+            "es": "Rote el secreto de firma con 24 horas de superposición",
+            "id": "Ganti secret penandatanganan dengan masa tumpang tindih 24 jam",
+            "ar": "بدّل سر التوقيع مع فترة تداخل مدتها 24 ساعة",
+            "tr": "İmzalama sırrını 24 saatlik çakışmayla değiştirin"
+          }
+        ],
+        "image": "/images/notifications-alerts.webp",
+        "imageAlt": {
+          "en": "Signed WhatsApp webhook events",
+          "pt": "Eventos de webhook do WhatsApp assinados",
+          "es": "Eventos de webhook de WhatsApp firmados",
+          "id": "Event webhook WhatsApp bertanda tangan",
+          "ar": "أحداث webhook واتساب موقَّعة",
+          "tr": "İmzalı WhatsApp webhook olayları"
+        },
+        "reversed": true,
+        "ctaLabel": {
+          "en": "Read the webhooks guide",
+          "pt": "Leia o guia de webhooks",
+          "es": "Lea la guía de webhooks",
+          "id": "Baca panduan webhook",
+          "ar": "اقرأ دليل webhooks",
+          "tr": "Webhook rehberini okuyun"
+        },
+        "ctaHref": "/docs/whatsapp/webhooks"
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": {
+          "en": "Built for Production",
+          "pt": "Feita para Produção",
+          "es": "Hecha para Producción",
+          "id": "Siap untuk Produksi",
+          "ar": "مصممة للإنتاج",
+          "tr": "Üretim İçin Tasarlandı"
+        },
+        "heading": {
+          "en": "The Details Integrations Depend On",
+          "pt": "Os Detalhes de que as Integrações Dependem",
+          "es": "Los Detalles de los que Dependen las Integraciones",
+          "id": "Detail yang Diandalkan Integrasi",
+          "ar": "التفاصيل التي تعتمد عليها التكاملات",
+          "tr": "Entegrasyonların Dayandığı Ayrıntılar"
+        },
+        "columns": 3,
+        "items": [
+          {
+            "icon": "api",
+            "title": {
+              "en": "Idempotent sends",
+              "pt": "Envios idempotentes",
+              "es": "Envíos idempotentes",
+              "id": "Pengiriman idempoten",
+              "ar": "إرسال دون تكرار",
+              "tr": "İdempotent gönderimler"
+            },
+            "description": {
+              "en": "Send an Idempotency-Key on a POST. The same key and body within 24 hours returns the original response with Idempotent-Replayed: true, so a retry never sends twice.",
+              "pt": "Envie um Idempotency-Key em um POST. A mesma chave e o mesmo corpo em até 24 horas retornam a resposta original com Idempotent-Replayed: true, então uma nova tentativa nunca envia duas vezes.",
+              "es": "Envíe un Idempotency-Key en un POST. La misma clave y el mismo cuerpo dentro de 24 horas devuelven la respuesta original con Idempotent-Replayed: true, así un reintento nunca envía dos veces.",
+              "id": "Kirim Idempotency-Key pada POST. Kunci dan body yang sama dalam 24 jam mengembalikan respons asli dengan Idempotent-Replayed: true, sehingga percobaan ulang tidak pernah mengirim dua kali.",
+              "ar": "أرسل Idempotency-Key مع طلب POST. المفتاح نفسه والمحتوى نفسه خلال 24 ساعة يعيدان الاستجابة الأصلية مع Idempotent-Replayed: true، فلا تُرسل إعادة المحاولة الرسالة مرتين.",
+              "tr": "POST isteğinde bir Idempotency-Key gönderin. Aynı anahtar ve gövde 24 saat içinde orijinal yanıtı Idempotent-Replayed: true ile döndürür; böylece yeniden deneme asla iki kez göndermez."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Cursor pagination and sync",
+              "pt": "Paginação por cursor e sincronização",
+              "es": "Paginación por cursor y sincronización",
+              "id": "Paginasi kursor dan sinkronisasi",
+              "ar": "ترقيم بالمؤشر ومزامنة",
+              "tr": "İmleçli sayfalama ve senkronizasyon"
+            },
+            "description": {
+              "en": "Lists take limit (1–100) and cursor and return nextCursor. On contacts and conversations, updatedSince returns only what changed, oldest first, for incremental sync.",
+              "pt": "As listas aceitam limit (1–100) e cursor e retornam nextCursor. Em contatos e conversas, updatedSince retorna só o que mudou, do mais antigo para o mais recente, para sincronização incremental.",
+              "es": "Las listas aceptan limit (1–100) y cursor y devuelven nextCursor. En contactos y conversaciones, updatedSince devuelve solo lo que cambió, del más antiguo al más reciente, para sincronización incremental.",
+              "id": "Daftar menerima limit (1–100) dan cursor serta mengembalikan nextCursor. Pada kontak dan percakapan, updatedSince hanya mengembalikan yang berubah, dari yang terlama, untuk sinkronisasi bertahap.",
+              "ar": "تقبل القوائم limit (من 1 إلى 100) وcursor وتعيد nextCursor. وفي جهات الاتصال والمحادثات، يعيد updatedSince ما تغيّر فقط، الأقدم أولًا، للمزامنة التدريجية.",
+              "tr": "Listeler limit (1–100) ve cursor alır ve nextCursor döndürür. Kişilerde ve sohbetlerde updatedSince, artımlı senkronizasyon için yalnızca değişenleri en eskiden başlayarak döndürür."
+            }
+          },
+          {
+            "icon": "template",
+            "title": {
+              "en": "Your own references",
+              "pt": "Suas próprias referências",
+              "es": "Sus propias referencias",
+              "id": "Referensi Anda sendiri",
+              "ar": "مراجعك الخاصة",
+              "tr": "Kendi referanslarınız"
+            },
+            "description": {
+              "en": "Add a clientReference such as your order id to a send. It comes back on the response, on GET /messages/{id} and on every sent, delivered, read and failed webhook.",
+              "pt": "Adicione um clientReference, como o id do seu pedido, a um envio. Ele volta na resposta, em GET /messages/{id} e em todo webhook de enviado, entregue, lido e com falha.",
+              "es": "Agregue un clientReference, como el id de su pedido, a un envío. Vuelve en la respuesta, en GET /messages/{id} y en cada webhook de enviado, entregado, leído y fallido.",
+              "id": "Tambahkan clientReference seperti id pesanan Anda ke pengiriman. Nilainya kembali di respons, di GET /messages/{id}, dan di setiap webhook terkirim, sampai, dibaca, dan gagal.",
+              "ar": "أضف clientReference مثل رقم طلبك إلى عملية الإرسال. يعود في الاستجابة وفي GET /messages/{id} وفي كل webhook للإرسال والتسليم والقراءة والفشل.",
+              "tr": "Bir gönderime sipariş numaranız gibi bir clientReference ekleyin. Yanıtta, GET /messages/{id} üzerinde ve her gönderildi, teslim edildi, okundu ve başarısız webhook'unda geri gelir."
+            }
+          },
+          {
+            "icon": "shield",
+            "title": {
+              "en": "Least-privilege keys",
+              "pt": "Chaves com privilégio mínimo",
+              "es": "Claves con privilegio mínimo",
+              "id": "Kunci dengan hak akses minimal",
+              "ar": "مفاتيح بأقل صلاحيات لازمة",
+              "tr": "En az yetkili anahtarlar"
+            },
+            "description": {
+              "en": "Give each integration its own key with only the scopes it needs. A webhook created with a key receives an event family only while that key holds its read scope.",
+              "pt": "Dê a cada integração sua própria chave, só com os escopos de que precisa. Um webhook criado com uma chave recebe uma família de eventos apenas enquanto essa chave tiver o escopo de leitura correspondente.",
+              "es": "Dé a cada integración su propia clave, solo con los alcances que necesita. Un webhook creado con una clave recibe una familia de eventos solo mientras esa clave tenga el alcance de lectura correspondiente.",
+              "id": "Beri setiap integrasi kuncinya sendiri dengan scope yang dibutuhkan saja. Webhook yang dibuat dengan sebuah kunci hanya menerima satu kelompok event selama kunci itu memiliki scope baca yang sesuai.",
+              "ar": "امنح كل تكامل مفتاحه الخاص بالصلاحيات التي يحتاجها فقط. ولا يستقبل webhook أُنشئ بمفتاح ما عائلةَ أحداث إلا ما دام ذلك المفتاح يملك صلاحية القراءة الخاصة بها.",
+              "tr": "Her entegrasyona yalnızca ihtiyaç duyduğu kapsamlara sahip kendi anahtarını verin. Bir anahtarla oluşturulan webhook, bir olay ailesini yalnızca o anahtar ilgili okuma kapsamına sahip olduğu sürece alır."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Request and delivery logs",
+              "pt": "Registros de requisições e entregas",
+              "es": "Registros de solicitudes y entregas",
+              "id": "Log permintaan dan pengiriman",
+              "ar": "سجلات الطلبات والتسليم",
+              "tr": "İstek ve teslimat günlükleri"
+            },
+            "description": {
+              "en": "See the last 500 API requests from the past 7 days in the dashboard, filtered by key or errors only, and redeliver any webhook from its endpoint's delivery log.",
+              "pt": "Veja no painel as últimas 500 requisições à API dos últimos 7 dias, filtradas por chave ou só erros, e reenvie qualquer webhook pelo registro de entregas do endpoint.",
+              "es": "Vea en el panel las últimas 500 solicitudes a la API de los últimos 7 días, filtradas por clave o solo errores, y reenvíe cualquier webhook desde el registro de entregas de su endpoint.",
+              "id": "Lihat 500 permintaan API terakhir dari 7 hari terakhir di dasbor, difilter per kunci atau hanya error, dan kirim ulang webhook mana pun dari log pengiriman endpoint-nya.",
+              "ar": "اطّلع في لوحة التحكم على آخر 500 طلب API خلال آخر 7 أيام، مع التصفية حسب المفتاح أو الأخطاء فقط، وأعد إرسال أي webhook من سجل التسليم الخاص بنقطة النهاية.",
+              "tr": "Panelde son 7 gündeki son 500 API isteğini anahtara göre veya yalnızca hatalar olarak filtreleyerek görün; herhangi bir webhook'u uç noktasının teslimat günlüğünden yeniden gönderin."
+            }
+          },
+          {
+            "icon": "bot",
+            "title": {
+              "en": "OpenAPI reference",
+              "pt": "Referência OpenAPI",
+              "es": "Referencia OpenAPI",
+              "id": "Referensi OpenAPI",
+              "ar": "مرجع OpenAPI",
+              "tr": "OpenAPI referansı"
+            },
+            "description": {
+              "en": "An OpenAPI JSON document at /api/v1/openapi.json and Swagger UI at /api/v1/docs, with each operation's scope listed as x-scope. The same reference is in the dashboard under Developers.",
+              "pt": "Um documento OpenAPI JSON em /api/v1/openapi.json e o Swagger UI em /api/v1/docs, com o escopo de cada operação listado como x-scope. A mesma referência está no painel, em Desenvolvedores.",
+              "es": "Un documento OpenAPI JSON en /api/v1/openapi.json y Swagger UI en /api/v1/docs, con el alcance de cada operación indicado como x-scope. La misma referencia está en el panel, en Desarrolladores.",
+              "id": "Dokumen OpenAPI JSON di /api/v1/openapi.json dan Swagger UI di /api/v1/docs, dengan scope tiap operasi tercantum sebagai x-scope. Referensi yang sama ada di dasbor pada menu Developers.",
+              "ar": "مستند OpenAPI بصيغة JSON على ‎/api/v1/openapi.json وواجهة Swagger UI على ‎/api/v1/docs، مع ذكر صلاحية كل عملية في x-scope. والمرجع نفسه متاح في لوحة التحكم ضمن قسم المطورين.",
+              "tr": "/api/v1/openapi.json adresinde bir OpenAPI JSON belgesi ve /api/v1/docs adresinde Swagger UI; her işlemin kapsamı x-scope olarak listelenir. Aynı referans panelde Geliştiriciler bölümünde de bulunur."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Endpoints",
+          "pt": "Endpoints",
+          "es": "Endpoints",
+          "id": "Endpoint",
+          "ar": "نقاط النهاية",
+          "tr": "Uç Noktalar"
+        },
+        "heading": {
+          "en": "What the API Covers",
+          "pt": "O que a API Cobre",
+          "es": "Lo que Cubre la API",
+          "id": "Cakupan API",
+          "ar": "ما تغطيه الواجهة",
+          "tr": "API'nin Kapsadıkları"
+        },
+        "subheading": {
+          "en": "All paths are under /api/v1. Creating templates and campaigns is dashboard-only for now: the API reads them, and sends approved templates one message at a time.",
+          "pt": "Todos os caminhos ficam em /api/v1. Criar templates e campanhas, por enquanto, é feito só pelo painel: a API os lê e envia templates aprovados uma mensagem por vez.",
+          "es": "Todas las rutas están bajo /api/v1. Por ahora, crear plantillas y campañas solo se hace desde el panel: la API las lee y envía plantillas aprobadas un mensaje a la vez.",
+          "id": "Semua path ada di bawah /api/v1. Untuk saat ini, membuat template dan kampanye hanya bisa di dasbor: API membacanya dan mengirim template yang disetujui satu pesan per permintaan.",
+          "ar": "جميع المسارات تحت ‎/api/v1. إنشاء القوالب والحملات متاح حاليًا من لوحة التحكم فقط: تقرؤها الواجهة وترسل القوالب المعتمدة رسالةً واحدة في كل مرة.",
+          "tr": "Tüm yollar /api/v1 altındadır. Şablon ve kampanya oluşturma şimdilik yalnızca panelden yapılır: API bunları okur ve onaylı şablonları her seferinde tek mesaj olarak gönderir."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Resource",
+              "pt": "Recurso",
+              "es": "Recurso",
+              "id": "Resource",
+              "ar": "المورد",
+              "tr": "Kaynak"
+            }
+          },
+          {
+            "label": {
+              "en": "Endpoints",
+              "pt": "Endpoints",
+              "es": "Endpoints",
+              "id": "Endpoint",
+              "ar": "نقاط النهاية",
+              "tr": "Uç noktalar"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Scope",
+              "pt": "Escopo",
+              "es": "Alcance",
+              "id": "Scope",
+              "ar": "الصلاحية",
+              "tr": "Kapsam"
+            }
+          },
+          {
+            "label": {
+              "en": "What it does",
+              "pt": "O que faz",
+              "es": "Qué hace",
+              "id": "Fungsinya",
+              "ar": "ما الذي تفعله",
+              "tr": "Ne yapar"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Account",
+              "pt": "Conta",
+              "es": "Cuenta",
+              "id": "Akun",
+              "ar": "الحساب",
+              "tr": "Hesap"
+            },
+            "GET /me, GET /phone-numbers",
+            {
+              "en": "Any valid key",
+              "pt": "Qualquer chave válida",
+              "es": "Cualquier clave válida",
+              "id": "Kunci valid apa pun",
+              "ar": "أي مفتاح صالح",
+              "tr": "Geçerli herhangi bir anahtar"
+            },
+            {
+              "en": "Workspace, plan, key scopes, limits and live usage; your numbers with quality rating and messaging limit",
+              "pt": "Workspace, plano, escopos da chave, limites e uso em tempo real; seus números com classificação de qualidade e limite de mensagens",
+              "es": "Workspace, plan, alcances de la clave, límites y uso en vivo; sus números con calificación de calidad y límite de mensajes",
+              "id": "Workspace, paket, scope kunci, batas, dan pemakaian langsung; nomor Anda beserta rating kualitas dan batas pesan",
+              "ar": "مساحة العمل والخطة وصلاحيات المفتاح والحدود والاستخدام الحالي؛ وأرقامك مع تقييم الجودة وحد المراسلة",
+              "tr": "Çalışma alanı, plan, anahtar kapsamları, limitler ve anlık kullanım; kalite puanı ve mesajlaşma limitiyle numaralarınız"
+            }
+          ],
+          [
+            {
+              "en": "Messages",
+              "pt": "Mensagens",
+              "es": "Mensajes",
+              "id": "Pesan",
+              "ar": "الرسائل",
+              "tr": "Mesajlar"
+            },
+            "POST /messages, GET /messages/{id}",
+            "messages:send, messages:read",
+            {
+              "en": "Template (carousels and limited-time offers included), text, image, video, audio, document and interactive messages (interactive needs Team or Business); status, failure reason and Meta’s pricing category",
+              "pt": "Mensagens de template (incluindo carrosséis e ofertas por tempo limitado), texto, imagem, vídeo, áudio, documento e interativas (interativas exigem Team ou Business); status, motivo de falha e categoria de preço da Meta",
+              "es": "Mensajes de plantilla (incluidos carruseles y ofertas por tiempo limitado), texto, imagen, video, audio, documento e interactivos (los interactivos requieren Team o Business); estado, motivo de fallo y categoría de precio de Meta",
+              "id": "Pesan template (termasuk carousel dan penawaran waktu terbatas), teks, gambar, video, audio, dokumen, dan interaktif (interaktif memerlukan Team atau Business); status, alasan gagal, dan kategori harga Meta",
+              "ar": "رسائل القوالب (بما فيها الدوّارة والعروض محدودة المدة) والنصوص والصور والفيديو والصوت والمستندات والرسائل التفاعلية (التفاعلية تتطلب Team أو Business)؛ الحالة وسبب الفشل وفئة التسعير لدى Meta",
+              "tr": "Şablon (karuseller ve süreli teklifler dahil), metin, görsel, video, ses, belge ve etkileşimli mesajlar (etkileşimli mesajlar Team veya Business gerektirir); durum, hata nedeni ve Meta’nın fiyat kategorisi"
+            }
+          ],
+          [
+            {
+              "en": "Contacts",
+              "pt": "Contatos",
+              "es": "Contactos",
+              "id": "Kontak",
+              "ar": "جهات الاتصال",
+              "tr": "Kişiler"
+            },
+            "GET/POST /contacts, GET/PATCH/DELETE /contacts/{idOrPhone}",
+            "contacts:read, contacts:write",
+            {
+              "en": "Upsert by phone number, tags, custom attributes, opt-in and opt-out; putting a contact in a pipeline stage needs Business",
+              "pt": "Criar ou atualizar pelo número de telefone, tags, atributos personalizados, opt-in e opt-out; colocar um contato em uma etapa do funil exige Business",
+              "es": "Crear o actualizar por número de teléfono, etiquetas, atributos personalizados, alta y baja; poner un contacto en una etapa del embudo requiere Business",
+              "id": "Buat atau perbarui berdasarkan nomor telepon, tag, atribut kustom, opt-in dan opt-out; memasukkan kontak ke tahap pipeline memerlukan Business",
+              "ar": "إنشاء أو تحديث حسب رقم الهاتف، والوسوم، والسمات المخصصة، والاشتراك وإلغاؤه؛ وضع جهة اتصال في مرحلة من مسار المبيعات يتطلب Business",
+              "tr": "Telefon numarasına göre oluşturma veya güncelleme, etiketler, özel öznitelikler, izin verme ve izni geri çekme; bir kişiyi satış hattı aşamasına koymak Business gerektirir"
+            }
+          ],
+          [
+            {
+              "en": "Tags and pipeline",
+              "pt": "Tags e funil",
+              "es": "Etiquetas y embudo",
+              "id": "Tag dan pipeline",
+              "ar": "الوسوم ومسار المبيعات",
+              "tr": "Etiketler ve satış hattı"
+            },
+            "GET /tags, GET /pipeline-stages",
+            "contacts:read",
+            {
+              "en": "Tags with contact counts; your lead pipeline stages",
+              "pt": "Tags com contagem de contatos; as etapas do seu funil de leads",
+              "es": "Etiquetas con número de contactos; las etapas de su embudo de leads",
+              "id": "Tag dengan jumlah kontak; tahap pipeline lead Anda",
+              "ar": "الوسوم مع عدد جهات الاتصال؛ ومراحل مسار العملاء المحتملين",
+              "tr": "Kişi sayılarıyla etiketler; lead satış hattı aşamalarınız"
+            }
+          ],
+          [
+            {
+              "en": "Templates",
+              "pt": "Templates",
+              "es": "Plantillas",
+              "id": "Template",
+              "ar": "القوالب",
+              "tr": "Şablonlar"
+            },
+            "GET /templates, GET /templates/{id}",
+            "templates:read",
+            {
+              "en": "Read-only: templates are created in the dashboard and reviewed by Meta",
+              "pt": "Somente leitura: templates são criados no painel e revisados pela Meta",
+              "es": "Solo lectura: las plantillas se crean en el panel y Meta las revisa",
+              "id": "Hanya baca: template dibuat di dasbor dan ditinjau oleh Meta",
+              "ar": "للقراءة فقط: تُنشأ القوالب في لوحة التحكم وتراجعها Meta",
+              "tr": "Yalnızca okuma: şablonlar panelde oluşturulur ve Meta tarafından incelenir"
+            }
+          ],
+          [
+            {
+              "en": "Conversations",
+              "pt": "Conversas",
+              "es": "Conversaciones",
+              "id": "Percakapan",
+              "ar": "المحادثات",
+              "tr": "Sohbetler"
+            },
+            "GET /conversations, GET /conversations/{id}, GET /conversations/{id}/messages, PATCH /conversations/{id}",
+            "conversations:read, conversations:write",
+            {
+              "en": "Message history and windowOpen; assign, unassign, resolve and reopen (reading works on every plan; changes need Team or Business)",
+              "pt": "Histórico de mensagens e windowOpen; atribuir, remover atribuição, resolver e reabrir (a leitura funciona em todos os planos; alterações exigem Team ou Business)",
+              "es": "Historial de mensajes y windowOpen; asignar, desasignar, resolver y reabrir (la lectura funciona en todos los planes; los cambios requieren Team o Business)",
+              "id": "Riwayat pesan dan windowOpen; tugaskan, lepas tugas, selesaikan, dan buka kembali (membaca berfungsi di setiap paket; perubahan memerlukan Team atau Business)",
+              "ar": "سجل الرسائل وwindowOpen؛ التعيين وإلغاء التعيين والإغلاق وإعادة الفتح (القراءة متاحة في كل الباقات، والتعديلات تتطلب Team أو Business)",
+              "tr": "Mesaj geçmişi ve windowOpen; atama, atamayı kaldırma, çözme ve yeniden açma (okuma her pakette çalışır; değişiklikler Team veya Business gerektirir)"
+            }
+          ],
+          [
+            {
+              "en": "Campaigns",
+              "pt": "Campanhas",
+              "es": "Campañas",
+              "id": "Kampanye",
+              "ar": "الحملات",
+              "tr": "Kampanyalar"
+            },
+            "GET /campaigns, GET /campaigns/{id}",
+            "campaigns:read",
+            {
+              "en": "Read-only stats; campaigns are created and launched in the dashboard",
+              "pt": "Estatísticas somente leitura; campanhas são criadas e lançadas no painel",
+              "es": "Estadísticas de solo lectura; las campañas se crean y lanzan en el panel",
+              "id": "Statistik hanya baca; kampanye dibuat dan dijalankan di dasbor",
+              "ar": "إحصاءات للقراءة فقط؛ تُنشأ الحملات وتُطلق من لوحة التحكم",
+              "tr": "Yalnızca okunabilir istatistikler; kampanyalar panelde oluşturulur ve başlatılır"
+            }
+          ],
+          [
+            {
+              "en": "Conversions",
+              "pt": "Conversões",
+              "es": "Conversiones",
+              "id": "Konversi",
+              "ar": "التحويلات",
+              "tr": "Dönüşümler"
+            },
+            "POST /conversions",
+            "conversions:write",
+            {
+              "en": "Report a sale so the campaign that brought the customer gets the credit (Business)",
+              "pt": "Informe uma venda para que a campanha que trouxe o cliente receba o crédito (Business)",
+              "es": "Informe una venta para que la campaña que trajo al cliente reciba el crédito (Business)",
+              "id": "Laporkan penjualan agar kampanye yang mendatangkan pelanggan mendapat kreditnya (Business)",
+              "ar": "أبلغ عن عملية بيع لتُنسب إلى الحملة التي جلبت العميل (Business)",
+              "tr": "Müşteriyi getiren kampanyanın payını alması için bir satışı bildirin (Business)"
+            }
+          ],
+          [
+            {
+              "en": "Webhooks",
+              "pt": "Webhooks",
+              "es": "Webhooks",
+              "id": "Webhook",
+              "ar": "Webhooks",
+              "tr": "Webhook'lar"
+            },
+            "GET/POST /webhooks, DELETE /webhooks/{id}",
+            "webhooks:manage",
+            {
+              "en": "Subscribe and unsubscribe endpoints (REST hooks)",
+              "pt": "Inscrever e cancelar endpoints (REST hooks)",
+              "es": "Suscribir y cancelar endpoints (REST hooks)",
+              "id": "Mendaftarkan dan membatalkan endpoint (REST hooks)",
+              "ar": "الاشتراك بنقاط النهاية وإلغاؤه (REST hooks)",
+              "tr": "Uç noktaları abone etme ve abonelikten çıkarma (REST hooks)"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Rate Limits",
+          "pt": "Limites de Taxa",
+          "es": "Límites de Uso",
+          "id": "Batas Laju",
+          "ar": "حدود المعدل",
+          "tr": "Hız Limitleri"
+        },
+        "heading": {
+          "en": "API Limits by Plan",
+          "pt": "Limites da API por Plano",
+          "es": "Límites de la API por Plan",
+          "id": "Batas API per Paket",
+          "ar": "حدود الواجهة البرمجية حسب الخطة",
+          "tr": "Plana Göre API Limitleri"
+        },
+        "subheading": {
+          "en": "Counted per workspace, not per key. Counted responses carry RateLimit-* headers and every 429 carries Retry-After. API messages a month count only messages sent through the API; past the allowance a send gets 402 PLAN_MESSAGE_LIMIT_REACHED. Meta’s own messaging limit for your number still applies.",
+          "pt": "Contados por workspace, não por chave. As respostas contadas trazem os cabeçalhos RateLimit-* e todo 429 traz Retry-After. As mensagens de API por mês contam só o que é enviado pela API; passada a franquia, um envio recebe 402 PLAN_MESSAGE_LIMIT_REACHED. O limite de mensagens da própria Meta para o seu número continua valendo.",
+          "es": "Se cuentan por workspace, no por clave. Las respuestas contadas incluyen los encabezados RateLimit-* y todo 429 incluye Retry-After. Los mensajes de API al mes cuentan solo lo enviado por la API; superada la cuota, un envío recibe 402 PLAN_MESSAGE_LIMIT_REACHED. El límite de mensajes propio de Meta para su número sigue aplicando.",
+          "id": "Dihitung per workspace, bukan per kunci. Respons yang dihitung membawa header RateLimit-* dan setiap 429 membawa Retry-After. Pesan API per bulan hanya menghitung pesan yang dikirim lewat API; setelah kuota habis, pengiriman mendapat 402 PLAN_MESSAGE_LIMIT_REACHED. Batas pesan dari Meta untuk nomor Anda tetap berlaku.",
+          "ar": "تُحتسب لكل مساحة عمل وليس لكل مفتاح. تحمل الاستجابات المحتسبة ترويسات RateLimit-*، وكل استجابة 429 تحمل Retry-After. ولا تُحتسب ضمن رسائل الواجهة الشهرية إلا الرسائل المرسلة عبر الواجهة البرمجية، وبعد تجاوز الحصة يتلقى الإرسال 402 PLAN_MESSAGE_LIMIT_REACHED. ويظل حد المراسلة الخاص بـ Meta لرقمك ساريًا.",
+          "tr": "Anahtar başına değil, çalışma alanı başına sayılır. Sayılan yanıtlar RateLimit-* başlıklarını, her 429 yanıtı ise Retry-After başlığını taşır. Aylık API mesajlarına yalnızca API ile gönderilen mesajlar sayılır; kota aşıldığında gönderim 402 PLAN_MESSAGE_LIMIT_REACHED alır. Meta’nın numaranız için koyduğu mesajlaşma limiti de geçerlidir."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Plan",
+              "pt": "Plano",
+              "es": "Plan",
+              "id": "Paket",
+              "ar": "الخطة",
+              "tr": "Plan"
+            }
+          },
+          {
+            "label": {
+              "en": "Requests / minute",
+              "pt": "Requisições / minuto",
+              "es": "Solicitudes / minuto",
+              "id": "Permintaan / menit",
+              "ar": "الطلبات / دقيقة",
+              "tr": "İstek / dakika"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "API sends / hour",
+              "pt": "Envios pela API / hora",
+              "es": "Envíos por API / hora",
+              "id": "Pengiriman API / jam",
+              "ar": "رسائل الواجهة / ساعة",
+              "tr": "API gönderimi / saat"
+            }
+          },
+          {
+            "label": {
+              "en": "API messages / month",
+              "pt": "Mensagens de API / mês",
+              "es": "Mensajes de API / mes",
+              "id": "Pesan API / bulan",
+              "ar": "رسائل الواجهة / شهر",
+              "tr": "API mesajı / ay"
+            }
+          },
+          {
+            "label": {
+              "en": "Webhook endpoints",
+              "pt": "Endpoints de webhook",
+              "es": "Endpoints de webhook",
+              "id": "Endpoint webhook",
+              "ar": "نقاط نهاية webhook",
+              "tr": "Webhook uç noktaları"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "Free trial (14 days)",
+              "pt": "Teste grátis (14 dias)",
+              "es": "Prueba gratis (14 días)",
+              "id": "Uji coba gratis (14 hari)",
+              "ar": "التجربة المجانية (14 يومًا)",
+              "tr": "Ücretsiz deneme (14 gün)"
+            },
+            "300",
+            "100",
+            {
+              "en": "1,000",
+              "pt": "1.000",
+              "es": "1,000",
+              "id": "1.000",
+              "ar": "1,000",
+              "tr": "1.000"
+            },
+            "5"
+          ],
+          [
+            "Developer Free",
+            "60",
+            {
+              "en": "2,000",
+              "pt": "2.000",
+              "es": "2,000",
+              "id": "2.000",
+              "ar": "2,000",
+              "tr": "2.000"
+            },
+            "100",
+            "2"
+          ],
+          [
+            "Developer 1K",
+            "120",
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            },
+            {
+              "en": "1,000",
+              "pt": "1.000",
+              "es": "1,000",
+              "id": "1.000",
+              "ar": "1,000",
+              "tr": "1.000"
+            },
+            "2"
+          ],
+          [
+            "Developer 10K",
+            "300",
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            },
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            },
+            "2"
+          ],
+          [
+            "Developer 100K",
+            {
+              "en": "1,200",
+              "pt": "1.200",
+              "es": "1,200",
+              "id": "1.200",
+              "ar": "1,200",
+              "tr": "1.200"
+            },
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            },
+            {
+              "en": "100,000",
+              "pt": "100.000",
+              "es": "100,000",
+              "id": "100.000",
+              "ar": "100,000",
+              "tr": "100.000"
+            },
+            "2"
+          ],
+          [
+            "Team",
+            "300",
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            },
+            {
+              "en": "Unlimited (fair use)",
+              "pt": "Ilimitado (uso justo)",
+              "es": "Ilimitado (uso razonable)",
+              "id": "Tanpa batas (penggunaan wajar)",
+              "ar": "غير محدود (استخدام عادل)",
+              "tr": "Sınırsız (adil kullanım)"
+            },
+            "1"
+          ],
+          [
+            "Business",
+            {
+              "en": "1,200",
+              "pt": "1.200",
+              "es": "1,200",
+              "id": "1.200",
+              "ar": "1,200",
+              "tr": "1.200"
+            },
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            },
+            {
+              "en": "Unlimited (fair use)",
+              "pt": "Ilimitado (uso justo)",
+              "es": "Ilimitado (uso razonable)",
+              "id": "Tanpa batas (penggunaan wajar)",
+              "ar": "غير محدود (استخدام عادل)",
+              "tr": "Sınırsız (adil kullanım)"
+            },
+            "5"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Developer Plans",
+          "pt": "Planos Developer",
+          "es": "Planes Developer",
+          "id": "Paket Developer",
+          "ar": "باقات Developer",
+          "tr": "Developer Paketleri"
+        },
+        "heading": {
+          "en": "Just the API? Pick a Developer Size",
+          "pt": "Só a API? Escolha um tamanho Developer",
+          "es": "¿Solo la API? Elija un tamaño Developer",
+          "id": "Hanya API? Pilih Ukuran Developer",
+          "ar": "الواجهة البرمجية فقط؟ اختر حجم Developer",
+          "tr": "Yalnızca API mi? Bir Developer Boyutu Seçin"
+        },
+        "subheading": {
+          "en": "Developer plans are the API with a view-only dashboard: 1 seat, 2 webhook endpoints and the API messages a month shown here. Prices include GST, and a year costs ten months. Paid sizes never stop authentication templates.",
+          "pt": "Os planos Developer são a API com um painel somente leitura: 1 assento, 2 endpoints de webhook e as mensagens de API por mês mostradas aqui. Os preços incluem GST, e um ano custa dez meses. Os tamanhos pagos nunca bloqueiam templates de autenticação.",
+          "es": "Los planes Developer son la API con un panel de solo lectura: 1 puesto, 2 endpoints de webhook y los mensajes de API al mes que se muestran aquí. Los precios incluyen GST, y un año cuesta diez meses. Los tamaños de pago nunca detienen las plantillas de autenticación.",
+          "id": "Paket Developer adalah API dengan dasbor hanya-lihat: 1 kursi, 2 endpoint webhook, dan pesan API per bulan seperti di bawah. Harga sudah termasuk GST, dan satu tahun seharga sepuluh bulan. Ukuran berbayar tidak pernah menghentikan template autentikasi.",
+          "ar": "باقات Developer هي الواجهة البرمجية مع لوحة تحكم للعرض فقط: مقعد واحد، ونقطتا نهاية webhook، ورسائل الواجهة الشهرية المبيّنة هنا. الأسعار شاملة ضريبة GST، والسنة بسعر عشرة أشهر. ولا توقف الأحجام المدفوعة قوالب المصادقة أبداً.",
+          "tr": "Developer paketleri, salt görüntülenen bir panelle birlikte API’dir: 1 koltuk, 2 webhook uç noktası ve burada gösterilen aylık API mesajları. Fiyatlara GST dahildir ve bir yıl on ay fiyatınadır. Ücretli boyutlar kimlik doğrulama şablonlarını asla durdurmaz."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Plan",
+              "pt": "Plano",
+              "es": "Plan",
+              "id": "Paket",
+              "ar": "الخطة",
+              "tr": "Plan"
+            }
+          },
+          {
+            "label": {
+              "en": "Price / month",
+              "pt": "Preço / mês",
+              "es": "Precio / mes",
+              "id": "Harga / bulan",
+              "ar": "السعر / شهر",
+              "tr": "Fiyat / ay"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "API messages / month",
+              "pt": "Mensagens de API / mês",
+              "es": "Mensajes de API / mes",
+              "id": "Pesan API / bulan",
+              "ar": "رسائل الواجهة / شهر",
+              "tr": "API mesajı / ay"
+            }
+          },
+          {
+            "label": {
+              "en": "Requests / minute",
+              "pt": "Requisições / minuto",
+              "es": "Solicitudes / minuto",
+              "id": "Permintaan / menit",
+              "ar": "الطلبات / دقيقة",
+              "tr": "İstek / dakika"
+            }
+          }
+        ],
+        "rows": [
+          [
+            "Developer Free",
+            "₹0",
+            "100",
+            "60"
+          ],
+          [
+            "Developer 1K",
+            "₹100",
+            {
+              "en": "1,000",
+              "pt": "1.000",
+              "es": "1,000",
+              "id": "1.000",
+              "ar": "1,000",
+              "tr": "1.000"
+            },
+            "120"
+          ],
+          [
+            "Developer 10K",
+            "₹499",
+            {
+              "en": "10,000",
+              "pt": "10.000",
+              "es": "10,000",
+              "id": "10.000",
+              "ar": "10,000",
+              "tr": "10.000"
+            },
+            "300"
+          ],
+          [
+            "Developer 100K",
+            "₹999",
+            {
+              "en": "100,000",
+              "pt": "100.000",
+              "es": "100,000",
+              "id": "100.000",
+              "ar": "100,000",
+              "tr": "100.000"
+            },
+            {
+              "en": "1,200",
+              "pt": "1.200",
+              "es": "1,200",
+              "id": "1.200",
+              "ar": "1,200",
+              "tr": "1.200"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Quickstart",
+          "pt": "Início Rápido",
+          "es": "Inicio Rápido",
+          "id": "Mulai Cepat",
+          "ar": "البدء السريع",
+          "tr": "Hızlı Başlangıç"
+        },
+        "heading": {
+          "en": "Check your key, then send a template",
+          "pt": "Verifique sua chave e envie um template",
+          "es": "Verifique su clave y envíe una plantilla",
+          "id": "Periksa kunci Anda, lalu kirim template",
+          "ar": "تحقّق من مفتاحك ثم أرسل قالبًا",
+          "tr": "Anahtarınızı kontrol edin, ardından bir şablon gönderin"
+        },
+        "subheading": {
+          "en": "GET /me needs no scope. The send needs messages:send and an approved template.",
+          "pt": "GET /me não exige escopo. O envio exige messages:send e um template aprovado.",
+          "es": "GET /me no requiere alcance. El envío requiere messages:send y una plantilla aprobada.",
+          "id": "GET /me tidak memerlukan scope. Pengiriman memerlukan messages:send dan template yang disetujui.",
+          "ar": "لا يحتاج GET /me إلى أي صلاحية. ويحتاج الإرسال إلى messages:send وقالب معتمد.",
+          "tr": "GET /me kapsam gerektirmez. Gönderim için messages:send ve onaylı bir şablon gerekir."
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "# 1. Check your key: workspace, plan, scopes, limits and usage\ncurl {{WA_API_BASE}}/api/v1/me \\\n  -H \"Authorization: Bearer sm_live_your_api_key\"\n\n# 2. Send an approved template, safe to retry with the same Idempotency-Key\ncurl -X POST {{WA_API_BASE}}/api/v1/messages \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: order-10421-ready\" \\\n  -d '{\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"order_ready_for_pickup\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        { \"text\": \"Asha\" },\n        { \"text\": \"10421\" }\n      ]\n    },\n    \"clientReference\": \"order-10421\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const API = '{{WA_API_BASE}}/api/v1';\nconst auth = { Authorization: 'Bearer sm_live_your_api_key' };\n\n// 1. Check your key\nconst me = await fetch(`${API}/me`, { headers: auth }).then((r) => r.json());\nconsole.log(me.data.plan.code, me.data.apiKey.scopes, me.data.limits);\n\n// 2. Send an approved template, safe to retry with the same Idempotency-Key\nconst res = await fetch(`${API}/messages`, {\n  method: 'POST',\n  headers: {\n    ...auth,\n    'Content-Type': 'application/json',\n    'Idempotency-Key': 'order-10421-ready',\n  },\n  body: JSON.stringify({\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"order_ready_for_pickup\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        { \"text\": \"Asha\" },\n        { \"text\": \"10421\" }\n      ]\n    },\n    \"clientReference\": \"order-10421\"\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.id, data.status, res.headers.get('Idempotent-Replayed'));"
+          },
+          {
+            "lang": "Python",
+            "code": "import requests\n\nAPI = '{{WA_API_BASE}}/api/v1'\nAUTH = {'Authorization': 'Bearer sm_live_your_api_key'}\n\n# 1. Check your key\nme = requests.get(f'{API}/me', headers=AUTH).json()['data']\nprint(me['plan']['code'], me['apiKey']['scopes'], me['limits'])\n\n# 2. Send an approved template, safe to retry with the same Idempotency-Key\nres = requests.post(\n    f'{API}/messages',\n    headers={**AUTH, 'Idempotency-Key': 'order-10421-ready'},\n    json={\n      \"to\": \"+919812345678\",\n      \"type\": \"template\",\n      \"template\": {\n        \"name\": \"order_ready_for_pickup\",\n        \"language\": \"en_US\",\n        \"parameters\": [\n          { \"text\": \"Asha\" },\n          { \"text\": \"10421\" }\n        ]\n      },\n      \"clientReference\": \"order-10421\"\n    },\n)\n\ndata = res.json()['data']\nprint(data['id'], data['status'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$api = '{{WA_API_BASE}}/api/v1';\n$auth = 'Authorization: Bearer sm_live_your_api_key';\n\n// 1. Check your key\n$ch = curl_init(\"$api/me\");\ncurl_setopt_array($ch, [\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [$auth],\n]);\n$me = json_decode(curl_exec($ch), true)['data'];\necho $me['plan']['code'] . ' ' . implode(',', $me['apiKey']['scopes']) . \"\\n\";\n\n// 2. Send an approved template, safe to retry with the same Idempotency-Key\n$body = <<<'JSON'\n{\n  \"to\": \"+919812345678\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"order_ready_for_pickup\",\n    \"language\": \"en_US\",\n    \"parameters\": [\n      { \"text\": \"Asha\" },\n      { \"text\": \"10421\" }\n    ]\n  },\n  \"clientReference\": \"order-10421\"\n}\nJSON;\n\n$ch = curl_init(\"$api/messages\");\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        $auth,\n        'Content-Type: application/json',\n        'Idempotency-Key: order-10421-ready',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['status'];"
+          }
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Webhooks",
+          "pt": "Webhooks",
+          "es": "Webhooks",
+          "id": "Webhook",
+          "ar": "Webhooks",
+          "tr": "Webhook'lar"
+        },
+        "heading": {
+          "en": "Verify every webhook before you trust it",
+          "pt": "Verifique cada webhook antes de confiar nele",
+          "es": "Verifique cada webhook antes de confiar en él",
+          "id": "Verifikasi setiap webhook sebelum memercayainya",
+          "ar": "تحقّق من كل webhook قبل أن تثق به",
+          "tr": "Her webhook'u güvenmeden önce doğrulayın"
+        },
+        "subheading": {
+          "en": "X-SM-Signature is v1=HMAC-SHA256(secret, timestamp + \".\" + raw body). Use the whole whsec_ secret as the key.",
+          "pt": "X-SM-Signature é v1=HMAC-SHA256(secret, timestamp + \".\" + corpo bruto). Use o segredo whsec_ inteiro como chave.",
+          "es": "X-SM-Signature es v1=HMAC-SHA256(secret, timestamp + \".\" + cuerpo sin procesar). Use el secreto whsec_ completo como clave.",
+          "id": "X-SM-Signature adalah v1=HMAC-SHA256(secret, timestamp + \".\" + body mentah). Gunakan seluruh secret whsec_ sebagai kunci.",
+          "ar": "قيمة X-SM-Signature هي v1=HMAC-SHA256(secret, timestamp + \".\" + المحتوى الخام). استخدم سر whsec_ كاملًا كمفتاح.",
+          "tr": "X-SM-Signature değeri v1=HMAC-SHA256(secret, timestamp + \".\" + ham gövde) şeklindedir. Anahtar olarak whsec_ sırrının tamamını kullanın."
+        },
+        "snippets": [
+          {
+            "lang": "Node.js",
+            "code": "import express from 'express';\nimport { createHmac, timingSafeEqual } from 'node:crypto';\n\nconst app = express();\nconst SECRET = process.env.SM_WEBHOOK_SECRET; // the whole whsec_… string\n\nfunction verify(rawBody, headers) {\n  const ts = headers['x-sm-timestamp'];\n  const sigs = headers['x-sm-signature'];\n  if (!/^\\d+$/.test(ts ?? '') || typeof sigs !== 'string') return false;\n  if (Math.abs(Date.now() / 1000 - Number(ts)) > 300) return false; // 5-minute tolerance\n  const expected = createHmac('sha256', SECRET).update(`${ts}.`).update(rawBody).digest();\n  return sigs.split(',').some((part) => {\n    const m = /^v1=([0-9a-f]{64})$/.exec(part.trim());\n    return m !== null && timingSafeEqual(Buffer.from(m[1], 'hex'), expected);\n  });\n}\n\napp.post('/webhooks/startmessaging', express.raw({ type: 'application/json' }), (req, res) => {\n  if (!verify(req.body, req.headers)) return res.sendStatus(401);\n  res.sendStatus(200); // answer 2xx within 5 seconds, then do the work\n\n  const event = JSON.parse(req.body);\n  // Delivered at least once: skip event.id if you have already handled it.\n  if (event.type === 'message.delivered') {\n    console.log(event.data.message.clientReference, 'delivered');\n  }\n});"
+          },
+          {
+            "lang": "Python",
+            "code": "import hmac, hashlib, json, os, time\nfrom flask import Flask, request\n\napp = Flask(__name__)\nSECRET = os.environ['SM_WEBHOOK_SECRET'].encode()  # the whole whsec_… string\n\ndef verify(raw_body, ts, sigs):\n    if not ts or not ts.isdigit() or not sigs:\n        return False\n    if abs(time.time() - int(ts)) > 300:  # 5-minute tolerance\n        return False\n    expected = hmac.new(SECRET, f'{ts}.'.encode() + raw_body, hashlib.sha256).hexdigest()\n    return any(\n        hmac.compare_digest(part.strip()[3:], expected)\n        for part in sigs.split(',') if part.strip().startswith('v1=')\n    )\n\n@app.post('/webhooks/startmessaging')\ndef startmessaging_webhook():\n    raw = request.get_data()\n    if not verify(raw, request.headers.get('X-SM-Timestamp'), request.headers.get('X-SM-Signature')):\n        return '', 401\n    event = json.loads(raw)\n    # Delivered at least once: skip event['id'] if you have already handled it.\n    if event['type'] == 'message.delivered':\n        print(event['data']['message']['clientReference'], 'delivered')\n    return '', 200"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$secret = getenv('SM_WEBHOOK_SECRET'); // the whole whsec_… string\n$raw = file_get_contents('php://input');\n$ts = $_SERVER['HTTP_X_SM_TIMESTAMP'] ?? '';\n$sigs = $_SERVER['HTTP_X_SM_SIGNATURE'] ?? '';\n\nfunction sm_verify(string $raw, string $ts, string $sigs, string $secret): bool\n{\n    if (!ctype_digit($ts) || $sigs === '') return false;\n    if (abs(time() - (int) $ts) > 300) return false; // 5-minute tolerance\n    $expected = hash_hmac('sha256', $ts . '.' . $raw, $secret);\n    foreach (explode(',', $sigs) as $part) {\n        $part = trim($part);\n        if (strncmp($part, 'v1=', 3) === 0 && hash_equals($expected, substr($part, 3))) {\n            return true;\n        }\n    }\n    return false;\n}\n\nif (!sm_verify($raw, $ts, $sigs, $secret)) {\n    http_response_code(401);\n    exit;\n}\nhttp_response_code(200); // answer 2xx within 5 seconds\n\n$event = json_decode($raw, true);\n// Delivered at least once: skip $event['id'] if you have already handled it.\nif ($event['type'] === 'message.delivered') {\n    error_log($event['data']['message']['clientReference'] . ' delivered');\n}"
+          }
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Conversions",
+          "pt": "Conversões",
+          "es": "Conversiones",
+          "id": "Konversi",
+          "ar": "التحويلات",
+          "tr": "Dönüşümler"
+        },
+        "heading": {
+          "en": "Report a sale, credit the campaign",
+          "pt": "Informe uma venda e credite a campanha",
+          "es": "Informe una venta y acredite la campaña",
+          "id": "Laporkan penjualan, kreditkan ke kampanye",
+          "ar": "أبلغ عن عملية بيع وانسبها إلى الحملة",
+          "tr": "Bir satışı bildirin, kampanyaya yazın"
+        },
+        "subheading": {
+          "en": "On the Business plan, POST /api/v1/conversions credits the sale to the last campaign delivered to that number within your conversion window (7 days unless you change it), and the campaign report adds up the value.",
+          "pt": "No plano Business, POST /api/v1/conversions credita a venda à última campanha entregue a esse número dentro da sua janela de conversão (7 dias se você não alterar), e o relatório da campanha soma o valor.",
+          "es": "En el plan Business, POST /api/v1/conversions acredita la venta a la última campaña entregada a ese número dentro de su ventana de conversión (7 días salvo que la cambie), y el informe de la campaña suma el valor.",
+          "id": "Di paket Business, POST /api/v1/conversions mengkreditkan penjualan ke kampanye terakhir yang terkirim ke nomor itu dalam jendela konversi Anda (7 hari kecuali Anda mengubahnya), dan laporan kampanye menjumlahkan nilainya.",
+          "ar": "في باقة Business ينسب POST /api/v1/conversions عملية البيع إلى آخر حملة سُلّمت إلى هذا الرقم ضمن نافذة التحويل لديك (7 أيام ما لم تغيّرها)، ويجمع تقرير الحملة القيمة.",
+          "tr": "Business paketinde POST /api/v1/conversions, satışı dönüşüm pencereniz içinde (siz değiştirmedikçe 7 gün) o numaraya teslim edilen son kampanyaya yazar ve kampanya raporu tutarı toplar."
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "# Business plan, scope conversions:write\ncurl -X POST {{WA_API_BASE}}/api/v1/conversions \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"phone\": \"+919812345678\",\n    \"orderId\": \"ORD-10442\",\n    \"value\": 2499.5,\n    \"currency\": \"INR\",\n    \"occurredAt\": \"2026-10-12T10:30:00+05:30\"\n  }'\n\n# 201 = recorded now, 200 = this orderId was reported already"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const res = await fetch('{{WA_API_BASE}}/api/v1/conversions', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + process.env.SM_API_KEY, // sm_live_your_api_key\n    'Content-Type': 'application/json',\n  },\n  body: JSON.stringify({\n    phone: '+919812345678',\n    orderId: 'ORD-10442', // the same orderId again never counts the sale twice\n    value: 2499.5,\n    currency: 'INR',\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.created, data.conversion.campaign?.name ?? 'no campaign credited');"
+          },
+          {
+            "lang": "Python",
+            "code": "import os, requests\n\nres = requests.post(\n    '{{WA_API_BASE}}/api/v1/conversions',\n    headers={'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\"},  # sm_live_your_api_key\n    json={\n        'phone': '+919812345678',\n        'orderId': 'ORD-10442',\n        'value': 2499.5,\n        'currency': 'INR',\n    },\n)\n\ndata = res.json()['data']\ncampaign = data['conversion']['campaign']\nprint(data['created'], campaign['name'] if campaign else 'no campaign credited')"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": {
+          "en": "FAQs",
+          "pt": "Perguntas Frequentes",
+          "es": "Preguntas Frecuentes",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "WhatsApp API — FAQ",
+          "pt": "API do WhatsApp — Perguntas Frequentes",
+          "es": "API de WhatsApp — Preguntas Frecuentes",
+          "id": "API WhatsApp — FAQ",
+          "ar": "واجهة واتساب البرمجية — الأسئلة الشائعة",
+          "tr": "WhatsApp API — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "Is there an SDK?",
+              "pt": "Existe um SDK?",
+              "es": "¿Hay un SDK?",
+              "id": "Apakah ada SDK?",
+              "ar": "هل توجد مكتبة SDK؟",
+              "tr": "Bir SDK var mı?"
+            },
+            "answer": {
+              "en": "No. The API is plain REST over HTTPS with JSON, so any language or tool that can make an HTTPS request works. The docs show cURL, Node.js, Python and PHP, and the OpenAPI document describes every request and response field.",
+              "pt": "Não. A API é REST simples sobre HTTPS com JSON, então qualquer linguagem ou ferramenta capaz de fazer uma requisição HTTPS funciona. A documentação mostra cURL, Node.js, Python e PHP, e o documento OpenAPI descreve todos os campos de requisição e resposta.",
+              "es": "No. La API es REST simple sobre HTTPS con JSON, así que funciona cualquier lenguaje o herramienta que pueda hacer una solicitud HTTPS. La documentación muestra cURL, Node.js, Python y PHP, y el documento OpenAPI describe cada campo de solicitud y respuesta.",
+              "id": "Tidak. API ini adalah REST sederhana lewat HTTPS dengan JSON, jadi bahasa atau alat apa pun yang bisa membuat permintaan HTTPS dapat dipakai. Dokumentasi menampilkan cURL, Node.js, Python, dan PHP, dan dokumen OpenAPI menjelaskan setiap kolom permintaan dan respons.",
+              "ar": "لا. الواجهة REST بسيطة عبر HTTPS مع JSON، لذا تعمل معها أي لغة أو أداة قادرة على إرسال طلب HTTPS. يعرض التوثيق أمثلة cURL وNode.js وPython وPHP، ويصف مستند OpenAPI كل حقل في الطلبات والاستجابات.",
+              "tr": "Hayır. API, JSON ile HTTPS üzerinden sade REST'tir; bu yüzden HTTPS isteği yapabilen her dil veya araç çalışır. Belgeler cURL, Node.js, Python ve PHP örnekleri gösterir; OpenAPI belgesi ise her istek ve yanıt alanını açıklar."
+            }
+          },
+          {
+            "question": {
+              "en": "Which plans include the API?",
+              "pt": "Quais planos incluem a API?",
+              "es": "¿Qué planes incluyen la API?",
+              "id": "Paket mana yang menyertakan API?",
+              "ar": "ما الخطط التي تتضمن الواجهة البرمجية؟",
+              "tr": "Hangi planlar API'yi içerir?"
+            },
+            "answer": {
+              "en": "Every plan, Developer Free included. Developer plans are the API with a view-only dashboard, sized by API messages a month: Developer Free with 100, then 1K, 10K and 100K. Team and Business add the shared inbox, contacts and campaigns, with no monthly API message limit under fair use. The 14-day free trial includes the API with 1,000 API messages. Requests a minute and webhook endpoints depend on the plan, and GET /me shows your plan, limits and this month’s count.",
+              "pt": "Todos os planos, inclusive o Developer Free. Os planos Developer são a API com um painel somente leitura, dimensionados por mensagens de API por mês: Developer Free com 100, depois 1K, 10K e 100K. Team e Business acrescentam a caixa de entrada compartilhada, os contatos e as campanhas, sem limite mensal de mensagens de API dentro do uso justo. O teste grátis de 14 dias inclui a API com 1.000 mensagens de API. As requisições por minuto e os endpoints de webhook dependem do plano, e GET /me mostra seu plano, os limites e a contagem do mês.",
+              "es": "Todos los planes, incluido Developer Free. Los planes Developer son la API con un panel de solo lectura, dimensionados por mensajes de API al mes: Developer Free con 100, luego 1K, 10K y 100K. Team y Business añaden la bandeja de entrada compartida, los contactos y las campañas, sin límite mensual de mensajes de API dentro de un uso razonable. La prueba gratis de 14 días incluye la API con 1,000 mensajes de API. Las solicitudes por minuto y los endpoints de webhook dependen del plan, y GET /me muestra su plan, los límites y el conteo del mes.",
+              "id": "Setiap paket, termasuk Developer Free. Paket Developer adalah API dengan dasbor hanya-lihat, yang ukurannya ditentukan oleh pesan API per bulan: Developer Free dengan 100, lalu 1K, 10K, dan 100K. Team dan Business menambahkan kotak masuk bersama, kontak, dan kampanye, tanpa batas pesan API bulanan dalam penggunaan wajar. Uji coba gratis 14 hari mencakup API dengan 1.000 pesan API. Permintaan per menit dan endpoint webhook bergantung pada paket, dan GET /me menampilkan paket, batas, dan hitungan bulan ini.",
+              "ar": "كل الباقات، بما فيها Developer Free. باقات Developer هي الواجهة البرمجية مع لوحة تحكم للعرض فقط، وتختلف أحجامها بعدد رسائل الواجهة شهرياً: Developer Free مع 100 رسالة، ثم 1K و10K و100K. وتضيف باقتا Team وBusiness صندوق الوارد المشترك وجهات الاتصال والحملات، دون حد شهري لرسائل الواجهة ضمن الاستخدام العادل. وتشمل التجربة المجانية لمدة 14 يوماً الواجهة البرمجية مع 1,000 رسالة. ويعتمد عدد الطلبات في الدقيقة ونقاط نهاية webhook على الباقة، ويعرض GET /me باقتك وحدودها وعدد رسائل هذا الشهر.",
+              "tr": "Developer Free dahil her paket. Developer paketleri, aylık API mesajı sayısına göre boyutlanan, salt görüntülenen bir panelle birlikte API’dir: 100 mesajlı Developer Free, ardından 1K, 10K ve 100K. Team ve Business; ortak gelen kutusunu, kişileri ve kampanyaları ekler ve adil kullanım dahilinde aylık API mesaj sınırı yoktur. 14 günlük ücretsiz deneme 1.000 API mesajıyla API’yi içerir. Dakikadaki istek sayısı ve webhook uç noktaları pakete bağlıdır; GET /me paketinizi, limitlerinizi ve bu ayın sayısını gösterir."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I create templates or campaigns through the API?",
+              "pt": "Posso criar templates ou campanhas pela API?",
+              "es": "¿Puedo crear plantillas o campañas a través de la API?",
+              "id": "Bisakah saya membuat template atau kampanye lewat API?",
+              "ar": "هل يمكنني إنشاء القوالب أو الحملات عبر الواجهة؟",
+              "tr": "API üzerinden şablon veya kampanya oluşturabilir miyim?"
+            },
+            "answer": {
+              "en": "Not yet. Templates are created in the dashboard and reviewed by Meta; campaigns are built and launched in the dashboard's campaign wizard. The API reads both, sends approved templates one message at a time with POST /messages, and tells you when a campaign finishes with the campaign.completed webhook.",
+              "pt": "Ainda não. Templates são criados no painel e revisados pela Meta; campanhas são montadas e lançadas no assistente de campanhas do painel. A API lê ambos, envia templates aprovados uma mensagem por vez com POST /messages e avisa quando uma campanha termina com o webhook campaign.completed.",
+              "es": "Todavía no. Las plantillas se crean en el panel y Meta las revisa; las campañas se arman y lanzan con el asistente de campañas del panel. La API lee ambas, envía plantillas aprobadas un mensaje a la vez con POST /messages y le avisa cuando una campaña termina con el webhook campaign.completed.",
+              "id": "Belum. Template dibuat di dasbor dan ditinjau oleh Meta; kampanye disusun dan dijalankan di wizard kampanye pada dasbor. API membaca keduanya, mengirim template yang disetujui satu pesan per permintaan dengan POST /messages, dan memberi tahu Anda saat kampanye selesai lewat webhook campaign.completed.",
+              "ar": "ليس بعد. تُنشأ القوالب في لوحة التحكم وتراجعها Meta، وتُبنى الحملات وتُطلق من معالج الحملات في لوحة التحكم. تقرأ الواجهة كليهما، وترسل القوالب المعتمدة رسالةً واحدة في كل مرة عبر POST /messages، وتُعلمك بانتهاء الحملة عبر webhook ‏campaign.completed.",
+              "tr": "Henüz değil. Şablonlar panelde oluşturulur ve Meta tarafından incelenir; kampanyalar paneldeki kampanya sihirbazında hazırlanıp başlatılır. API ikisini de okur, onaylı şablonları POST /messages ile her seferinde tek mesaj olarak gönderir ve bir kampanya bittiğinde campaign.completed webhook'u ile bildirir."
+            }
+          },
+          {
+            "question": {
+              "en": "Can the API send carousels and limited-time offers?",
+              "pt": "A API pode enviar carrosséis e ofertas por tempo limitado?",
+              "es": "¿La API puede enviar carruseles y ofertas por tiempo limitado?",
+              "id": "Bisakah API mengirim carousel dan penawaran waktu terbatas?",
+              "ar": "هل يمكن للواجهة البرمجية إرسال القوالب الدوّارة والعروض محدودة المدة؟",
+              "tr": "API karusel ve süreli teklif gönderebilir mi?"
+            },
+            "answer": {
+              "en": "Yes. For a carousel template, send template.carouselCards with one entry per card, in order, each with its headerMediaUrl (https) and optional parameters and buttonParameters. For a limited-time offer, set template.offerExpiresAt to a future ISO 8601 time, and WhatsApp shows the customer a countdown. Campaigns can’t send these templates, so they go out one at a time from the API or the inbox.",
+              "pt": "Sim. Para um template carrossel, envie template.carouselCards com uma entrada por cartão, na ordem, cada uma com seu headerMediaUrl (https) e, opcionalmente, parameters e buttonParameters. Para uma oferta por tempo limitado, defina template.offerExpiresAt com um horário ISO 8601 futuro, e o WhatsApp mostra uma contagem regressiva ao cliente. Campanhas não enviam esses templates, então eles saem um por vez pela API ou pela caixa de entrada.",
+              "es": "Sí. Para una plantilla de carrusel, envíe template.carouselCards con una entrada por tarjeta, en orden, cada una con su headerMediaUrl (https) y, opcionalmente, parameters y buttonParameters. Para una oferta por tiempo limitado, defina template.offerExpiresAt con una hora ISO 8601 futura, y WhatsApp muestra al cliente una cuenta regresiva. Las campañas no envían estas plantillas, así que salen una a una por la API o la bandeja de entrada.",
+              "id": "Ya. Untuk template carousel, kirim template.carouselCards dengan satu entri per kartu, berurutan, masing-masing dengan headerMediaUrl (https) serta parameters dan buttonParameters opsional. Untuk penawaran waktu terbatas, isi template.offerExpiresAt dengan waktu ISO 8601 di masa depan, dan WhatsApp menampilkan hitung mundur kepada pelanggan. Kampanye tidak dapat mengirim template ini, jadi template dikirim satu per satu lewat API atau kotak masuk.",
+              "ar": "نعم. للقالب الدوّار أرسل template.carouselCards بإدخال لكل بطاقة وبالترتيب، ولكل منها headerMediaUrl (https) مع parameters وbuttonParameters اختيارياً. وللعرض محدود المدة عيّن template.offerExpiresAt بوقت مستقبلي بصيغة ISO 8601، فيعرض واتساب للعميل عدّاداً تنازلياً. لا يمكن للحملات إرسال هذه القوالب، لذا تُرسل واحدة تلو الأخرى عبر الواجهة البرمجية أو صندوق الوارد.",
+              "tr": "Evet. Karusel şablonu için her kart için bir giriş içeren template.carouselCards’ı sırayla gönderin; her birinin kendi headerMediaUrl’si (https) ve isteğe bağlı parameters ile buttonParameters’ı olur. Süreli teklif için template.offerExpiresAt’i gelecekteki bir ISO 8601 zamanına ayarlayın; WhatsApp müşteriye bir geri sayım gösterir. Kampanyalar bu şablonları gönderemez; bu yüzden API’den veya gelen kutusundan tek tek gönderilirler."
+            }
+          },
+          {
+            "question": {
+              "en": "What happens when the monthly API message allowance runs out?",
+              "pt": "O que acontece quando a franquia mensal de mensagens de API acaba?",
+              "es": "¿Qué pasa cuando se agota la cuota mensual de mensajes de API?",
+              "id": "Apa yang terjadi saat kuota pesan API bulanan habis?",
+              "ar": "ماذا يحدث عند نفاد الحصة الشهرية لرسائل الواجهة البرمجية؟",
+              "tr": "Aylık API mesaj kotası bitince ne olur?"
+            },
+            "answer": {
+              "en": "Developer plans and the free trial include a number of API messages a month, counted from the 1st; only messages sent through the API count. Developer Free and the trial stop at their allowance. A paid Developer plan stops other messages at three times its size and never stops authentication templates. A send past the limit gets 402 PLAN_MESSAGE_LIMIT_REACHED with sent, stopAt and resetsAt in its details, and GET /me shows the count before that happens. Team and Business have no monthly API message limit (fair use).",
+              "pt": "Os planos Developer e o teste grátis incluem um número de mensagens de API por mês, contado a partir do dia 1º; só contam as mensagens enviadas pela API. O Developer Free e o teste param na franquia. Um plano Developer pago para as demais mensagens em três vezes o seu tamanho e nunca bloqueia templates de autenticação. Um envio além do limite recebe 402 PLAN_MESSAGE_LIMIT_REACHED com sent, stopAt e resetsAt nos detalhes, e GET /me mostra a contagem antes disso. Team e Business não têm limite mensal de mensagens de API (uso justo).",
+              "es": "Los planes Developer y la prueba gratis incluyen una cantidad de mensajes de API al mes, contada desde el día 1; solo cuentan los mensajes enviados por la API. Developer Free y la prueba se detienen en su cuota. Un plan Developer de pago detiene los demás mensajes al triple de su tamaño y nunca detiene las plantillas de autenticación. Un envío que supera el límite recibe 402 PLAN_MESSAGE_LIMIT_REACHED con sent, stopAt y resetsAt en los detalles, y GET /me muestra el conteo antes de que ocurra. Team y Business no tienen límite mensual de mensajes de API (uso razonable).",
+              "id": "Paket Developer dan uji coba gratis mencakup sejumlah pesan API per bulan, dihitung mulai tanggal 1; hanya pesan yang dikirim lewat API yang dihitung. Developer Free dan uji coba berhenti di kuotanya. Paket Developer berbayar menghentikan pesan lain pada tiga kali ukurannya dan tidak pernah menghentikan template autentikasi. Pengiriman yang melewati batas mendapat 402 PLAN_MESSAGE_LIMIT_REACHED dengan sent, stopAt, dan resetsAt di detailnya, dan GET /me menampilkan hitungannya sebelum itu terjadi. Team dan Business tidak memiliki batas pesan API bulanan (penggunaan wajar).",
+              "ar": "تتضمن باقات Developer والتجربة المجانية عدداً من رسائل الواجهة شهرياً يُحتسب من اليوم الأول من الشهر، ولا تُحتسب إلا الرسائل المرسلة عبر الواجهة البرمجية. يتوقف Developer Free والتجربة عند حصتهما. أما باقة Developer المدفوعة فتوقف الرسائل الأخرى عند ثلاثة أضعاف حجمها ولا توقف قوالب المصادقة أبداً. ويتلقى الإرسال الذي يتجاوز الحد 402 PLAN_MESSAGE_LIMIT_REACHED مع sent وstopAt وresetsAt في التفاصيل، ويعرض GET /me العدد قبل حدوث ذلك. ولا يوجد في Team وBusiness حد شهري لرسائل الواجهة (استخدام عادل).",
+              "tr": "Developer paketleri ve ücretsiz deneme, ayın 1’inden itibaren sayılan belirli sayıda aylık API mesajı içerir; yalnızca API ile gönderilen mesajlar sayılır. Developer Free ve deneme kotalarında durur. Ücretli bir Developer paketi diğer mesajları boyutunun üç katında durdurur ve kimlik doğrulama şablonlarını asla durdurmaz. Limiti aşan bir gönderim, ayrıntılarında sent, stopAt ve resetsAt bulunan 402 PLAN_MESSAGE_LIMIT_REACHED alır; GET /me bu olmadan önce sayıyı gösterir. Team ve Business’ta aylık API mesaj sınırı yoktur (adil kullanım)."
+            }
+          },
+          {
+            "question": {
+              "en": "How do I connect Zapier, Make or Pabbly Connect?",
+              "pt": "Como conecto Zapier, Make ou Pabbly Connect?",
+              "es": "¿Cómo conecto Zapier, Make o Pabbly Connect?",
+              "id": "Bagaimana cara menghubungkan Zapier, Make, atau Pabbly Connect?",
+              "ar": "كيف أربط Zapier أو Make أو Pabbly Connect؟",
+              "tr": "Zapier, Make veya Pabbly Connect'i nasıl bağlarım?"
+            },
+            "answer": {
+              "en": "There are no official StartMessaging apps in those marketplaces yet. Use their generic modules: a catch-hook or custom webhook trigger to receive events, and an HTTP request action with your API key to call the API. Builders of their own app can subscribe and unsubscribe with POST /webhooks and DELETE /webhooks/{id}.",
+              "pt": "Ainda não há apps oficiais do StartMessaging nesses marketplaces. Use os módulos genéricos: um gatilho de catch-hook ou webhook personalizado para receber eventos e uma ação de requisição HTTP com sua chave de API para chamar a API. Quem cria o próprio app pode se inscrever e cancelar com POST /webhooks e DELETE /webhooks/{id}.",
+              "es": "Todavía no hay apps oficiales de StartMessaging en esos marketplaces. Use sus módulos genéricos: un disparador de catch-hook o webhook personalizado para recibir eventos y una acción de solicitud HTTP con su clave de API para llamar a la API. Quien cree su propia app puede suscribirse y cancelar con POST /webhooks y DELETE /webhooks/{id}.",
+              "id": "Belum ada aplikasi resmi StartMessaging di marketplace tersebut. Gunakan modul generik mereka: pemicu catch-hook atau webhook kustom untuk menerima event, dan aksi permintaan HTTP dengan kunci API Anda untuk memanggil API. Pembuat aplikasi sendiri bisa berlangganan dan berhenti dengan POST /webhooks dan DELETE /webhooks/{id}.",
+              "ar": "لا توجد بعد تطبيقات رسمية لـ StartMessaging في هذه المتاجر. استخدم وحداتها العامة: مشغّل catch-hook أو webhook مخصص لاستقبال الأحداث، وإجراء طلب HTTP بمفتاح API الخاص بك لاستدعاء الواجهة. ومن يبني تطبيقه الخاص يمكنه الاشتراك وإلغاؤه عبر POST /webhooks وDELETE /webhooks/{id}.",
+              "tr": "Bu pazar yerlerinde henüz resmi StartMessaging uygulaması yok. Genel modüllerini kullanın: olayları almak için catch-hook veya özel webhook tetikleyicisi, API'yi çağırmak için API anahtarınızla bir HTTP isteği eylemi. Kendi uygulamasını geliştirenler POST /webhooks ve DELETE /webhooks/{id} ile abone olup aboneliği kaldırabilir."
+            }
+          },
+          {
+            "question": {
+              "en": "What happens if I retry a send?",
+              "pt": "O que acontece se eu repetir um envio?",
+              "es": "¿Qué pasa si reintento un envío?",
+              "id": "Apa yang terjadi jika saya mengulang pengiriman?",
+              "ar": "ماذا يحدث إذا أعدت محاولة الإرسال؟",
+              "tr": "Bir gönderimi yeniden denersem ne olur?"
+            },
+            "answer": {
+              "en": "With the same Idempotency-Key and the same body within 24 hours, you get the original response back with Idempotent-Replayed: true, and nothing is sent twice. Reusing a key with a different body is refused with IDEMPOTENCY_KEY_REUSED. After a 429 or a 5xx, retry with the same key.",
+              "pt": "Com o mesmo Idempotency-Key e o mesmo corpo em até 24 horas, você recebe a resposta original com Idempotent-Replayed: true, e nada é enviado duas vezes. Reutilizar uma chave com um corpo diferente é recusado com IDEMPOTENCY_KEY_REUSED. Após um 429 ou 5xx, tente de novo com a mesma chave.",
+              "es": "Con el mismo Idempotency-Key y el mismo cuerpo dentro de 24 horas, recibe la respuesta original con Idempotent-Replayed: true, y nada se envía dos veces. Reutilizar una clave con un cuerpo distinto se rechaza con IDEMPOTENCY_KEY_REUSED. Tras un 429 o un 5xx, reintente con la misma clave.",
+              "id": "Dengan Idempotency-Key dan body yang sama dalam 24 jam, Anda menerima respons asli dengan Idempotent-Replayed: true, dan tidak ada yang terkirim dua kali. Memakai ulang kunci dengan body berbeda ditolak dengan IDEMPOTENCY_KEY_REUSED. Setelah 429 atau 5xx, coba lagi dengan kunci yang sama.",
+              "ar": "مع Idempotency-Key نفسه والمحتوى نفسه خلال 24 ساعة، تحصل على الاستجابة الأصلية مع Idempotent-Replayed: true، ولا يُرسل شيء مرتين. وإعادة استخدام المفتاح مع محتوى مختلف تُرفض بالرمز IDEMPOTENCY_KEY_REUSED. وبعد استجابة 429 أو 5xx، أعد المحاولة بالمفتاح نفسه.",
+              "tr": "Aynı Idempotency-Key ve aynı gövdeyle 24 saat içinde, orijinal yanıtı Idempotent-Replayed: true ile geri alırsınız ve hiçbir şey iki kez gönderilmez. Bir anahtarı farklı bir gövdeyle yeniden kullanmak IDEMPOTENCY_KEY_REUSED ile reddedilir. 429 veya 5xx sonrasında aynı anahtarla yeniden deneyin."
+            }
+          },
+          {
+            "question": {
+              "en": "How do rate limits work?",
+              "pt": "Como funcionam os limites de taxa?",
+              "es": "¿Cómo funcionan los límites de uso?",
+              "id": "Bagaimana cara kerja batas laju?",
+              "ar": "كيف تعمل حدود المعدل؟",
+              "tr": "Hız limitleri nasıl çalışır?"
+            },
+            "answer": {
+              "en": "Limits are per workspace, so more keys never add throughput. Requests a minute: 60 on Developer Free, 120 on Developer 1K, 300 on Developer 10K, Team and the free trial, and 1,200 on Developer 100K and Business. API sends an hour: 10,000 on paid plans, 2,000 on Developer Free and 100 on the trial. A send counts against both budgets, and a send that is refused gives its hourly budget back. A 429 tells you how long to wait in Retry-After. Meta’s own messaging limit for your number applies on top.",
+              "pt": "Os limites são por workspace, então mais chaves nunca aumentam a vazão. Requisições por minuto: 60 no Developer Free, 120 no Developer 1K, 300 no Developer 10K, no Team e no teste grátis, e 1.200 no Developer 100K e no Business. Envios pela API por hora: 10.000 nos planos pagos, 2.000 no Developer Free e 100 no teste. Um envio conta nos dois limites, e um envio recusado devolve sua cota por hora. Um 429 informa em Retry-After quanto tempo esperar. O limite de mensagens da própria Meta para o seu número vale por cima disso.",
+              "es": "Los límites son por workspace, así que más claves nunca suman capacidad. Solicitudes por minuto: 60 en Developer Free, 120 en Developer 1K, 300 en Developer 10K, Team y la prueba gratis, y 1,200 en Developer 100K y Business. Envíos por API por hora: 10,000 en los planes de pago, 2,000 en Developer Free y 100 en la prueba. Un envío cuenta en ambos límites, y un envío rechazado devuelve su cupo por hora. Un 429 le indica en Retry-After cuánto esperar. El límite de mensajes propio de Meta para su número se aplica además.",
+              "id": "Batas berlaku per workspace, jadi menambah kunci tidak pernah menambah kapasitas. Permintaan per menit: 60 di Developer Free, 120 di Developer 1K, 300 di Developer 10K, Team, dan uji coba gratis, serta 1.200 di Developer 100K dan Business. Pengiriman API per jam: 10.000 di paket berbayar, 2.000 di Developer Free, dan 100 di uji coba. Satu pengiriman dihitung pada kedua batas, dan pengiriman yang ditolak mengembalikan kuota per jamnya. Respons 429 memberi tahu lama menunggu di Retry-After. Batas pesan Meta untuk nomor Anda tetap berlaku di atasnya.",
+              "ar": "الحدود لكل مساحة عمل، لذا لا تزيد المفاتيح الإضافية من السعة أبداً. الطلبات في الدقيقة: 60 في Developer Free، و120 في Developer 1K، و300 في Developer 10K وTeam والتجربة المجانية، و1,200 في Developer 100K وBusiness. رسائل الواجهة في الساعة: 10,000 في الباقات المدفوعة، و2,000 في Developer Free، و100 في التجربة. يُحتسب الإرسال على الحدّين معاً، والإرسال المرفوض يعيد حصته الساعية. وتخبرك الاستجابة 429 بمدة الانتظار في Retry-After. ويُطبَّق حد المراسلة الخاص بـ Meta لرقمك فوق ذلك.",
+              "tr": "Limitler çalışma alanı başınadır; bu yüzden daha fazla anahtar asla kapasite eklemez. Dakikadaki istek: Developer Free’de 60, Developer 1K’da 120, Developer 10K, Team ve ücretsiz denemede 300, Developer 100K ve Business’ta 1.200. Saatlik API gönderimi: ücretli paketlerde 10.000, Developer Free’de 2.000 ve denemede 100. Bir gönderim iki bütçeden de düşer ve reddedilen bir gönderim saatlik payını geri verir. 429 yanıtı Retry-After ile ne kadar bekleneceğini söyler. Meta’nın numaranız için koyduğu mesajlaşma limiti bunun üzerine uygulanır."
+            }
+          },
+          {
+            "question": {
+              "en": "Does StartMessaging charge per API message?",
+              "pt": "O StartMessaging cobra por mensagem enviada pela API?",
+              "es": "¿StartMessaging cobra por mensaje enviado por la API?",
+              "id": "Apakah StartMessaging menagih per pesan API?",
+              "ar": "هل يفرض StartMessaging رسومًا على كل رسالة عبر الواجهة؟",
+              "tr": "StartMessaging API mesajı başına ücret alıyor mu?"
+            },
+            "answer": {
+              "en": "No. StartMessaging is a Meta Tech Provider: you connect your own WhatsApp Business Account, and Meta bills message charges to it directly at Meta’s rates. Meta charges every delivered template, utility ones included even inside the 24-hour window, and service replies beyond a monthly free allowance. StartMessaging charges a flat plan, with no wallet and no per-message markup; Developer plans are sized by how many API messages a month they include. Each message’s pricing field shows how Meta classified it.",
+              "pt": "Não. A StartMessaging é Meta Tech Provider: você conecta sua própria Conta do WhatsApp Business, e a Meta cobra as mensagens diretamente nela, pelas tarifas da Meta. A Meta cobra todo template entregue, inclusive os de utilidade mesmo dentro da janela de 24 horas, e as respostas de atendimento além de uma franquia mensal grátis. A StartMessaging cobra um plano fixo, sem carteira e sem acréscimo por mensagem; os planos Developer são dimensionados pela quantidade de mensagens de API por mês que incluem. O campo pricing de cada mensagem mostra como a Meta a classificou.",
+              "es": "No. StartMessaging es Meta Tech Provider: usted conecta su propia Cuenta de WhatsApp Business, y Meta le cobra los mensajes directamente a ella, con las tarifas de Meta. Meta cobra cada plantilla entregada, incluidas las de utilidad aun dentro de la ventana de 24 horas, y las respuestas de atención más allá de una cuota mensual gratuita. StartMessaging cobra un plan fijo, sin billetera y sin recargo por mensaje; los planes Developer se dimensionan por cuántos mensajes de API al mes incluyen. El campo pricing de cada mensaje muestra cómo lo clasificó Meta.",
+              "id": "Tidak. StartMessaging adalah Meta Tech Provider: Anda menghubungkan Akun WhatsApp Business Anda sendiri, dan Meta menagih biaya pesan langsung ke akun tersebut dengan tarif Meta. Meta menagih setiap template yang terkirim, termasuk template utilitas bahkan di dalam jendela 24 jam, serta balasan layanan di atas kuota gratis bulanan. StartMessaging menagih paket tetap, tanpa dompet dan tanpa markup per pesan; ukuran paket Developer ditentukan oleh jumlah pesan API per bulan yang disertakan. Kolom pricing pada setiap pesan menunjukkan klasifikasi dari Meta.",
+              "ar": "لا. StartMessaging مزوّد تقني لدى Meta (Meta Tech Provider): تربط حساب واتساب للأعمال الخاص بك، وتحتسب Meta رسوم الرسائل عليه مباشرة بأسعارها. تحتسب Meta كل قالب يتم تسليمه، بما في ذلك قوالب الخدمات حتى داخل نافذة الـ24 ساعة، وردود خدمة العملاء بعد تجاوز حد مجاني شهري. ويتقاضى StartMessaging اشتراكاً ثابتاً دون محفظة ودون هامش على كل رسالة؛ وتختلف أحجام باقات Developer بعدد رسائل الواجهة الشهرية التي تتضمنها. ويُظهر الحقل pricing في كل رسالة كيف صنّفتها Meta.",
+              "tr": "Hayır. StartMessaging bir Meta Tech Provider’dır: kendi WhatsApp Business Hesabınızı bağlarsınız ve Meta mesaj ücretlerini kendi fiyatlarıyla doğrudan bu hesaba fatura eder. Meta, 24 saatlik pencerenin içinde bile yardımcı şablonlar dahil teslim edilen her şablonu ve aylık ücretsiz kotayı aşan hizmet yanıtlarını ücretlendirir. StartMessaging cüzdan ve mesaj başına ek ücret olmadan sabit bir paket ücreti alır; Developer paketleri içerdikleri aylık API mesajı sayısına göre boyutlanır. Her mesajın pricing alanı, Meta’nın onu nasıl sınıflandırdığını gösterir."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "صفحات ذات صلة",
+          "tr": "İlgili Sayfalar"
+        },
+        "links": [
+          {
+            "label": {
+              "en": "Getting Started Guide",
+              "pt": "Guia de Primeiros Passos",
+              "es": "Guía de Primeros Pasos",
+              "id": "Panduan Memulai",
+              "ar": "دليل البدء",
+              "tr": "Başlangıç Rehberi"
+            },
+            "href": "/docs/whatsapp/getting-started"
+          },
+          {
+            "label": {
+              "en": "Webhooks Docs",
+              "pt": "Documentação de Webhooks",
+              "es": "Documentación de Webhooks",
+              "id": "Dokumentasi Webhook",
+              "ar": "توثيق Webhooks",
+              "tr": "Webhook Belgeleri"
+            },
+            "href": "/docs/whatsapp/webhooks"
+          },
+          {
+            "label": {
+              "en": "Integrations & Recipes",
+              "pt": "Integrações e Receitas",
+              "es": "Integraciones y Recetas",
+              "id": "Integrasi & Resep",
+              "ar": "التكاملات والوصفات",
+              "tr": "Entegrasyonlar ve Tarifler"
+            },
+            "href": "/docs/whatsapp/integrations"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Templates",
+              "pt": "Templates do WhatsApp",
+              "es": "Plantillas de WhatsApp",
+              "id": "Template WhatsApp",
+              "ar": "قوالب واتساب",
+              "tr": "WhatsApp Şablonları"
+            },
+            "href": "/whatsapp/templates"
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Build Your WhatsApp Integration",
+          "pt": "Crie Sua Integração com o WhatsApp",
+          "es": "Cree Su Integración con WhatsApp",
+          "id": "Bangun Integrasi WhatsApp Anda",
+          "ar": "ابنِ تكاملك مع واتساب",
+          "tr": "WhatsApp Entegrasyonunuzu Kurun"
+        },
+        "subtext": {
+          "en": "Your first workspace gets a 14-day free trial; after it, Developer Free keeps the API on with 100 messages a month. Connect your own WhatsApp Business number, create a key and make your first call.",
+          "pt": "Seu primeiro workspace ganha um teste grátis de 14 dias; depois dele, o Developer Free mantém a API ativa com 100 mensagens por mês. Conecte seu próprio número do WhatsApp Business, crie uma chave e faça sua primeira chamada.",
+          "es": "Su primer workspace obtiene una prueba gratis de 14 días; después, Developer Free mantiene la API activa con 100 mensajes al mes. Conecte su propio número de WhatsApp Business, cree una clave y haga su primera llamada.",
+          "id": "Workspace pertama Anda mendapat uji coba gratis 14 hari; setelahnya, Developer Free tetap mengaktifkan API dengan 100 pesan per bulan. Hubungkan nomor WhatsApp Business Anda sendiri, buat kunci, dan lakukan panggilan pertama.",
+          "ar": "تحصل مساحة عملك الأولى على تجربة مجانية لمدة 14 يومًا، وبعدها تُبقي باقة Developer Free الواجهة البرمجية تعمل مع 100 رسالة شهريًا. اربط رقم واتساب للأعمال الخاص بك، وأنشئ مفتاحًا، ونفّذ أول استدعاء.",
+          "tr": "İlk çalışma alanınız 14 günlük ücretsiz deneme alır; sonrasında Developer Free, ayda 100 mesajla API’yi açık tutar. Kendi WhatsApp Business numaranızı bağlayın, bir anahtar oluşturun ve ilk çağrınızı yapın."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Inicie la prueba gratuita de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ تجربة مجانية لمدة 14 يومًا",
+          "tr": "14 günlük ücretsiz denemeyi başlatın"
+        },
+        "primaryHref": "https://waba.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Read the docs",
+          "pt": "Leia a documentação",
+          "es": "Lea la documentación",
+          "id": "Baca dokumentasi",
+          "ar": "اقرأ التوثيق",
+          "tr": "Belgeleri okuyun"
+        },
+        "secondaryHref": "/docs/whatsapp/getting-started"
+      }
+    }
+  ]
+}

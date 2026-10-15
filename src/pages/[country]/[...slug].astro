@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES, DEFAULT_COUNTRY, type Country } from '@/config/countries';
-import { buildService, buildContactPage, buildProductOffer } from '@/lib/jsonld';
+import { buildService, buildContactPage } from '@/lib/jsonld';
 import { r } from '@/i18n/r';
 
 export async function getStaticPaths() {
@@ -68,35 +68,8 @@ if (slug === 'contact') {
   );
 }
 
-// 4. Product/Offer schema for pricing page (localized pricing)
-if (slug === 'pricing') {
-  // Get country-specific Premium plan pricing from page data
-  const pricingSection = page.data.sections?.find?.((s: any) => s.type === 'pricingTabs');
-  const plans = pricingSection?.props?.['plans'];
-  const premiumPlan = Array.isArray(plans) ? plans.find((p: any) => {
-    try {
-      return r(p.name, country as Country) === 'Premium';
-    } catch {
-      return false;
-    }
-  }) : null;
-  
-  if (premiumPlan) {
-    const price = String(r(premiumPlan.price, country as Country)).replace(/[^\d.]/g, ''); // Extract number only
-    const currencyMap: Record<string, string> = {
-      'in': 'INR', 'br': 'BRL', 'mx': 'MXN', 'id': 'IDR', 'ae': 'AED', 'tr': 'TRY', 'ng': 'USD'
-    };
-    schemas.push(
-      buildProductOffer({
-        name: 'StartMessaging Premium Plan',
-        description: String(r(premiumPlan.description, country as Country)),
-        price: price || '49',
-        priceCurrency: currencyMap[country as string] || 'USD',
-        url: `https://startmessaging.com/${country}/pricing`,
-      })
-    );
-  }
-}
+// 4. No Product/Offer schema on the pricing page: WhatsApp plan prices are not
+// published yet, so there is no price to put in structured data.
 
 const seoWithSchema = {
   ...page.data.seo,

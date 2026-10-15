@@ -2,7 +2,7 @@
 title: "Send OTP via SMS in Python (Requests)"
 description: "Python tutorial to send and verify OTP via SMS using the requests library and StartMessaging API. Includes Flask and Django integration examples."
 publishedAt: "2026-01-18"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -80,18 +80,28 @@ BASE_URL = "https://api.startmessaging.com"
 ## Send an OTP
 
 The `/otp/send` endpoint accepts a JSON body with the
-        phone number in E.164 format and returns a request ID you will use
-        later for verification.
+        phone number in E.164 format and a `variables` object
+        containing `otp`, the 4–6 digit code your backend generates.
+        It returns an `otpRequestId` you will use later for
+        verification.
 
       
 ```python
+import secrets
 import requests
+
+def generate_otp() -> str:
+    """Cryptographically secure 6-digit code."""
+    return f"{secrets.randbelow(1_000_000):06d}"
 
 def send_otp(phone_number: str) -> dict:
     """Send an OTP to the given phone number."""
     response = requests.post(
         f"{BASE_URL}/otp/send",
-        json={"phoneNumber": phone_number},
+        json={
+            "phoneNumber": phone_number,
+            "variables": {"otp": generate_otp()},
+        },
         headers={
             "Content-Type": "application/json",
             "X-API-Key": API_KEY,
@@ -103,8 +113,8 @@ def send_otp(phone_number: str) -> dict:
 
 # Usage
 result = send_otp("+919876543210")
-print(f"OTP sent. Request ID: {result['requestId']}")
-print(f"Expires at: {result['expiresAt']}")
+print(f"OTP sent. OTP request ID: {result['otpRequestId']}")
+print(f"Message ID: {result['messageId']}")
 ```
 
 
@@ -112,16 +122,18 @@ The response `data` object contains:
 
 
 
-- `requestId` — unique identifier to use during verification.
-- `expiresAt` — ISO 8601 timestamp for when the OTP expires.
-- `attemptsLeft` — number of verification attempts remaining.
+- `otpRequestId` — unique identifier to use during verification.
+- `messageId` — ID of the SMS; pass it to `GET /messages/:id` to check delivery status.
+- `status` — initial message status, usually `queued`.
+
+The top-level `requestId` in the response envelope is a request trace ID, not the OTP ID.
 
 
 
 ## Verify the OTP
 
 After the user enters the code they received, send it to 
-        `/otp/verify` along with the `requestId`:
+        `/otp/verify` as `otpCode`, with the `otpRequestId` passed as `requestId`:
 
       
 ```
@@ -140,7 +152,7 @@ def verify_otp(request_id: str, otp_code: str) -> bool:
     return response.json()["data"]["verified"]
 
 # Usage
-is_valid = verify_otp(result["requestId"], "384920")
+is_valid = verify_otp(result["otpRequestId"], "384920")
 if is_valid:
     print("Phone number verified!")
 ```
@@ -153,6 +165,7 @@ For cleaner code, wrap the API calls in a client class that handles
 
       
 ```python
+import secrets
 import uuid
 import requests
 
@@ -169,8 +182,12 @@ class StartMessagingOTP:
         self.session.timeout = 10  # seconds
 
     def send(self, phone_number: str, idempotency_key: str | None = None) -> dict:
-        """Send an OTP. Returns dict with requestId, expiresAt, attemptsLeft."""
-        payload = {"phoneNumber": phone_number}
+        """Send an OTP. Returns dict with otpRequestId, messageId, status."""
+        payload = {
+            "phoneNumber": phone_number,
+            # Your backend generates the code; StartMessaging delivers it
+            "variables": {"otp": f"{secrets.randbelow(1_000_000):06d}"},
+        }
         if idempotency_key:
             payload["idempotencyKey"] = idempotency_key
         else:
@@ -194,9 +211,9 @@ class StartMessagingOTP:
 otp_client = StartMessagingOTP(api_key=API_KEY)
 
 data = otp_client.send("+919876543210")
-print(f"Request ID: {data['requestId']}")
+print(f"OTP request ID: {data['otpRequestId']}")
 
-verified = otp_client.verify(data["requestId"], "482910")
+verified = otp_client.verify(data["otpRequestId"], "482910")
 print(f"Verified: {verified}")
 ```
 
@@ -228,10 +245,8 @@ def handle_send_otp():
 
     try:
         data = otp_client.send(phone)
-        return jsonify({
-            "requestId": data["requestId"],
-            "expiresAt": data["expiresAt"],
-        })
+        # The client sends this back to /auth/verify-otp as requestId
+        return jsonify({"requestId": data["otpRequestId"]})
     except requests.HTTPError as e:
         status = e.response.status_code if e.response else 500
         message = e.response.json().get("message", str(e)) if e.response else str(e)
@@ -307,7 +322,7 @@ def send_otp_view(request):
     if not phone:
         return Response({"error": "phoneNumber is required"}, status=400)
     data = otp_client.send(phone)
-    return Response({"requestId": data["requestId"], "expiresAt": data["expiresAt"]})
+    return Response({"requestId": data["otpRequestId"]})
 
 @api_view(["POST"])
 def verify_otp_view(request):

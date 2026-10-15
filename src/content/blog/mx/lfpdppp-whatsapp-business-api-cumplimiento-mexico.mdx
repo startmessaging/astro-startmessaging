@@ -1,8 +1,8 @@
 ---
 title: "LFPDPPP y WhatsApp Business API: Cómo Cumplir la Ley en México"
-description: "Evita multas del INAI. Conoce cómo cumplir con la LFPDPPP al usar WhatsApp Business API: consentimiento (opt-in), aviso de privacidad y derechos ARCO."
+description: "Evita sanciones. Conoce cómo cumplir con la LFPDPPP al usar WhatsApp Business API: consentimiento (opt-in), aviso de privacidad, bajas y derechos ARCO."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "compliance"
 country: "mx"
 author: "StartMessaging Team"
@@ -19,9 +19,9 @@ relatedSlugs:
 featured: false
 ---
 
-El uso de sistemas automatizados de mensajería instantánea permite a las empresas mexicanas agilizar el servicio al cliente y potenciar las ventas de sus canales digitales. No obstante, recopilar números celulares y procesar logs de chats implica una responsabilidad legal ante la normativa mexicana de protección de datos. Bajo las reglas de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), el número telefónico, nombre de usuario e historial de conversación constituyen datos personales. Garantizar que tus envíos e integraciones con la lfpdppp whatsapp business mexico oficial cumplan con la ley es un requisito indispensable para evitar sanciones del INAI y resguardar la reputación de tu marca.
+El uso de sistemas automatizados de mensajería instantánea permite a las empresas mexicanas agilizar el servicio al cliente y potenciar las ventas de sus canales digitales. No obstante, recopilar números celulares y procesar logs de chats implica una responsabilidad legal ante la normativa mexicana de protección de datos. Bajo las reglas de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), el número telefónico, nombre de usuario e historial de conversación constituyen datos personales. Garantizar que tus envíos e integraciones con la lfpdppp whatsapp business mexico oficial cumplan con la ley es un requisito indispensable para evitar sanciones y resguardar la reputación de tu marca.
 
-La API del StartMessaging para WhatsApp se encuentra en desarrollo activo de nuevas funcionalidades. Mientras nuestro equipo de ingeniería libera los endpoints definitivos para producción que estarán disponibles próximamente, ya puedes estructurar tus flujos de seguridad y validar tus procesos técnicos de datos utilizando la ruta temporal `/v1/messages`. El acceso de desarrollador está autenticado mediante el encabezado HTTP personalizado `X-API-Key`, garantizando una integración simple.
+StartMessaging es un CRM de WhatsApp con API, construido sobre la Cloud API oficial de Meta (StartMessaging es un Meta Tech Provider). Conectas tu propia cuenta de WhatsApp Business mediante el registro integrado de Meta, y la API REST en `https://waba-api.startmessaging.com/api/v1` ofrece lo que un flujo de cumplimiento necesita: registrar consentimiento y bajas por contacto, recibir los eventos `contact.opted_out` y `contact.opted_in` por webhook y bloquear automáticamente los envíos a quien se dio de baja. Este artículo es informativo y no sustituye la asesoría de un abogado.
 
 ---
 
@@ -79,7 +79,7 @@ El Aviso de Privacidad es la pieza legal central exigida por la LFPDPPP. Toda em
 
 El Aviso de Privacidad debe especificar claramente:
 - Que se recopilarán datos telefónicos y registros de chats para brindar soporte y enviar alertas transaccionales o publicitarias.
-- Que la información se comparte con terceros (el proveedor de servicios de API o pasarela de mensajería como StartMessaging) para habilitar el servicio de conectividad en la nube de Meta.
+- Que la información se comparte con terceros encargados (tu plataforma de mensajería, como StartMessaging, y Meta como operador de WhatsApp) para prestar el servicio.
 - Los mecanismos que el cliente tiene disponibles para revocar el consentimiento del uso de su número.
 
 Respecto a la retención de datos, la ley indica que la información personal solo debe conservarse durante el tiempo estrictamente necesario para cumplir con la finalidad del tratamiento. Implementa políticas de eliminación programada en tus bases de dados para depurar los logs de chats antiguos (por ejemplo, eliminando conversaciones de soporte después de 180 días) una vez que el llamado haya sido cerrado y resuelto de forma definitiva.
@@ -88,64 +88,68 @@ Respecto a la retención de datos, la ley indica que la información personal so
 
 ## Código: Endpoint para Tratar Solicitudes de Cancelación (Derechos ARCO)
 
-La LFPDPPP garantiza a los mexicanos los Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) sobre su información. Cuando un usuario ejerce su derecho de **Cancelación**, tu sistema técnico debe ser capaz de eliminar sus datos personales de las bases de datos activas y detener el envío de cualquier comunicación de WhatsApp.
+La LFPDPPP garantiza a los mexicanos los Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) sobre su información. Cuando un usuario ejerce su derecho de **Cancelación** u **Oposición**, tu sistema técnico debe ser capaz de detener el envío de cualquier comunicación de WhatsApp y eliminar sus datos personales de las bases de datos activas.
 
-El script de Express.js presentado a continuación muestra cómo estructurar la ruta en tu backend para procesar estas solicitudes de cancelación de datos de forma automática:
+En StartMessaging, un cliente que responde **STOP**, **UNSUBSCRIBE**, **OPT OUT**, **OPTOUT** o **CANCEL** (el mensaje completo) queda dado de baja automáticamente: los envíos a su número se rechazan con `422 CONTACT_OPTED_OUT` y las campañas lo omiten. Palabras en español como "BAJA" no se reconocen automáticamente; si las ofreces, detéctalas en tu webhook y registra la baja con la API, como en el ejemplo.
+
+El script de Express.js de abajo usa una llave de API con el permiso `contacts:write`. Primero registra la baja en StartMessaging (para que no salga ningún envío más), después elimina el contacto y por último borra los datos de tu propia base, conservando solo lo que la ley obliga a guardar (como datos fiscales):
 
 ```javascript
-const express = require('express');
+import express from 'express';
+import db from '../models/index.js'; // tus modelos de base de datos
+
+const API = 'https://waba-api.startmessaging.com/api/v1';
+const headers = {
+  Authorization: `Bearer ${process.env.SM_API_KEY}`,
+  'Content-Type': 'application/json',
+};
 const router = express.Router();
-const db = require('../models'); // Simulación de base de datos local de clientes
 
-/**
- * Endpoint para gestionar solicitudes ARCO de Cancelación bajo las directrices de la LFPDPPP.
- * Desactiva al cliente de listas de envío promocional y elimina su historial de mensajes.
- */
-router.post('/compliance/arco-cancelacion', async (req, res) => {
-  const { phoneNum, confirmarCancelacion } = req.body;
-
-  if (!phoneNum || !confirmarCancelacion) {
+router.post('/compliance/arco-cancelacion', express.json(), async (req, res) => {
+  const { telefono, confirmarCancelacion } = req.body; // E.164, ej: "+525512345678"
+  if (!telefono || !confirmarCancelacion) {
     return res.status(400).json({ error: 'Parámetros obligatorios incompletos.' });
   }
+  const idOrPhone = encodeURIComponent(telefono); // el "+" se vuelve %2B
 
   try {
-    // 1. Busca el registro del titular en la base de datos
-    const client = await db.Client.findOne({ where: { phone: phoneNum } });
-    if (!client) {
-      return res.status(404).json({ error: 'Número de cliente no localizado en el sistema.' });
+    // 1. Registra la baja: los envíos futuros se rechazan con 422 CONTACT_OPTED_OUT
+    const baja = await fetch(`${API}/contacts/${idOrPhone}`, {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify({ optedIn: false }),
+    });
+    if (!baja.ok && baja.status !== 404) {
+      const { error } = await baja.json();
+      throw new Error(`${error.code}: ${error.message}`);
     }
 
-    // 2. Elimina la autorización de la tabla de consentimientos activos (opt-in)
-    await db.OptInRegistry.destroy({ where: { phone: phoneNum } });
+    // 2. Elimina el contacto en StartMessaging (borrado lógico; la baja sigue en el número)
+    await fetch(`${API}/contacts/${idOrPhone}`, { method: 'DELETE', headers });
 
-    // 3. Borra el historial de conversaciones y logs asociados al cliente
-    await db.ChatHistory.destroy({ where: { clientId: client.id } });
+    // 3. Borra los datos de tu propia base, salvo lo que la ley obliga a conservar
+    await db.OptInRegistry.destroy({ where: { phone: telefono } });
+    await db.ChatHistory.destroy({ where: { phone: telefono } });
 
-    // 4. Elimina la ficha de contacto del cliente
-    await client.destroy();
-
-    console.log(`Cancelación de datos ARCO ejecutada con éxito para el teléfono: ${phoneNum}`);
-    return res.status(200).json({ 
-      message: 'Los datos del cliente han sido borrados de los registros activos de mensajería.' 
-    });
+    return res.status(200).json({ message: 'Solicitud de cancelación procesada.' });
   } catch (error) {
     console.error('Error al ejecutar la solicitud ARCO de cancelación:', error);
-    return res.status(500).json({ error: 'Fallo interno del servidor al procesar la cancelación.' });
+    return res.status(500).json({ error: 'Fallo interno al procesar la cancelación.' });
   }
 });
 
-module.exports = router;
+export default router;
 ```
 
-Este controlador procesa la solicitud de cancelación ARCO removiendo el consentimiento activo del usuario en la tabla de mensajería y borrando los historiales asociados, cumpliendo con la solicitud del titular.
+Dos detalles de `DELETE /api/v1/contacts/{idOrPhone}`: es un **borrado lógico** (el contacto desaparece de las listas, pero las conversaciones conservan su historial en el espacio de trabajo) y **no borra el consentimiento** (la baja queda guardada en el número para que el cliente no vuelva a recibir mensajes por error). Para solicitudes que incluyan el historial de conversaciones guardado en StartMessaging, consulta el [aviso de privacidad](/mx/privacy-policy) y escribe a [soporte](/mx/contact).
 
 ---
 
-## Fiscalización e Infracciones del INAI en México
+## Fiscalización e Infracciones en México
 
-El INAI (Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales) es la entidad federal mexicana encargada de vigilar el cumplimiento de la LFPDPPP. Los clientes que consideren que sus datos telefónicos han sido utilizados sin consentimiento para el envío masivo de publicidad en WhatsApp pueden presentar quejas ante el INAI.
+Durante años, el INAI fue la autoridad encargada de vigilar la LFPDPPP. Con la nueva LFPDPPP publicada en marzo de 2025, esas funciones pasaron a la Secretaría Anticorrupción y Buen Gobierno. Los clientes que consideren que sus datos se usaron sin consentimiento para enviarles publicidad por WhatsApp pueden presentar quejas ante la autoridad; confirma con tu asesor legal la autoridad y los procedimientos vigentes.
 
-Las multas económicas que el INAI puede imponer a las empresas infractoras son significativas y se basan en el valor de la Unidad de Medida y Actualización (UMA) vigente:
+Las multas económicas son significativas y se calculan con base en la Unidad de Medida y Actualización (UMA) vigente. Los montos de la tabla son aproximados y orientativos; verifica los vigentes con tu asesor legal:
 
 | Severidad de la Infracción | Tipo de Violación Legal | Multa Promedio en México ($ MXN) |
 |---|---|---|
@@ -153,7 +157,7 @@ Las multas económicas que el INAI puede imponer a las empresas infractoras son 
 | **Infracciones Moderadas** | Tratar datos personales sin el consentimiento previo (opt-in) | Desde $150,000 hasta $1,500,000 MXN aproximadamente |
 | **Infracciones Graves** | Omitir la atención de solicitudes ARCO o reincidencia | Hasta más de $32,000,000 MXN en casos extremos |
 
-Además de las multas financieras del INAI, el envío de spam o mensajes masivos de publicidad no solicitada genera un alto índice de bloqueos y reportes por parte de los destinatarios. Esto provoca la caída en la clasificación de calidad de tu línea en Meta, limitando tu capacidad de envíos diarios o suspendiendo tu cuenta comercial de forma definitiva.
+Además de las multas, el envío de spam o mensajes masivos de publicidad no solicitada genera un alto índice de bloqueos y reportes por parte de los destinatarios. Esto provoca la caída en la clasificación de calidad de tu línea en Meta, limitando tu capacidad de envíos diarios o suspendiendo tu cuenta comercial de forma definitiva.
 
 ---
 
@@ -162,7 +166,7 @@ Además de las multas financieras del INAI, el envío de spam o mensajes masivos
 Para comprobar que tus procesos de integración con el WhatsApp Business API cumplen con el marco legal mexicano, revisa esta lista de control:
 
 - [ ] **Evidencia del Opt-in:** Conservas la bitácora técnica de registro con fecha, hora, dirección IP y aceptación de cada cliente.
-- [ ] **Mecanismo de Opt-out:** Permites a los clientes darse de baja de los disparos con comandos sencillos (por ejemplo: "Responde BAJA para cancelar suscripción").
+- [ ] **Mecanismo de Opt-out:** Permites a los clientes darse de baja de los disparos con comandos sencillos (por ejemplo: "Responde STOP para cancelar tu suscripción", palabra que StartMessaging reconoce automáticamente).
 - [ ] **Aviso de Privacidad Visible:** Tu sitio incluye un aviso de privacidad que detalla el uso del WhatsApp para comunicación de soporte o marketing.
 - [ ] **Minimización de Datos Personales:** No solicitas ni incluyes datos sensibles, contraseñas o números completos de tarjetas bancarias en los textos de tus mensajes.
 - [ ] **Proceso ARCO Definido:** Tu equipo de atención al cliente conoce las vías para procesar solicitudes de acceso, rectificación, cancelación u oposición.
@@ -178,11 +182,11 @@ A: Solo si al recopilar sus datos en la tienda física obtuviste su consentimien
 
 **Q: ¿Qué diferencia hay entre el Aviso de Privacidad Simplificado e Integral para WhatsApp?**
 
-A: El Aviso Simplificado es el texto corto que colocas debajo del formulario de captura del número telefónico (por ejemplo: "StartMessaging usará tu número para enviar notificaciones de compra. Consulta el Aviso de Privacidad Integral en [Enlace]"). El Aviso Integral es el documento largo y detallado publicado en tu web que explica todo el ciclo de vida del dato personal.
+A: El Aviso Simplificado es el texto corto que colocas debajo del formulario de captura del número telefónico (por ejemplo: "[Nombre de tu empresa] usará tu número para enviarte notificaciones de compra por WhatsApp. Consulta el Aviso de Privacidad Integral en [Enlace]"). El Aviso Integral es el documento largo y detallado publicado en tu web que explica todo el ciclo de vida del dato personal.
 
 **Q: ¿Dónde deben guardarse los servidores que procesan los datos personales de clientes mexicanos?**
 
-A: La LFPDPPP permite la transferencia internacional de datos personales siempre y cuando los servidores remotos cumplan con medidas de seguridad equivalentes a las exigidas en México. El uso de servidores en la nube de proveedores confiables (como AWS o Google Cloud en EE. UU. o Europa) cumple con esta exigencia.
+A: La LFPDPPP permite que encargados (como tu proveedor de nube o tu plataforma de mensajería) traten datos fuera de México, siempre que el responsable lo informe en su aviso de privacidad y el encargado aplique medidas de seguridad equivalentes. Revisa dónde procesa los datos cada proveedor (tu servidor, StartMessaging y Meta), documéntalo en el aviso y confirma el encuadre con tu asesor legal.
 
 **Q: ¿Las confirmaciones automáticas de pedidos con OXXO Pay requieren consentimiento expreso de mercadotecnia?**
 
@@ -190,4 +194,4 @@ A: No necesariamente. Las confirmaciones de compra o fichas de cobro de pedidos 
 
 ---
 
-Garantizar que tus disparos automatizados y bases de contactos cumplan con la LFPDPPP protege a tu empresa mexicana de multas administrativas del INAI y resguarda la privacidad de tus clientes. Al registrar consentimientos claros e implementar endpoints para procesar cancelaciones ARCO de forma automática, construyes un canal de comunicación confiable. Para configurar las respuestas de tu servidor y registrar eventos de red, consulta nuestro tutorial de [configuración de webhooks de WhatsApp](/mx/docs/whatsapp/webhooks) e integra tus flujos de datos.
+Garantizar que tus envíos automatizados y bases de contactos cumplan con la LFPDPPP protege a tu empresa de sanciones y resguarda la privacidad de tus clientes. Para automatizar el registro de consentimiento y bajas, consulta la [documentación de contactos](/mx/docs/whatsapp/contacts) y configura los [webhooks](/mx/docs/whatsapp/webhooks) para recibir los eventos `contact.opted_out` y `contact.opted_in` en tiempo real.

@@ -2,7 +2,7 @@
 title: "How to Send OTP with Cloudflare Workers (2026)"
 description: "Cloudflare Workers OTP tutorial using StartMessaging. Uses Workers fetch, KV for rate-limit, signed-cookie session, and Durable Objects for production-grade pumping defence."
 publishedAt: "2026-05-09"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -57,6 +57,15 @@ import { Hono } from 'hono';
 type Env = { Bindings: { SM_API_KEY: string; RATE_LIMIT_KV: KVNamespace }};
 const app = new Hono<Env>();
 
+// 6-digit code from Web Crypto (rejection sampling avoids modulo bias)
+function generateOtp(): string {
+  const limit = 4294967296 - (4294967296 % 900000);
+  const buf = new Uint32Array(1);
+  do { crypto.getRandomValues(buf); } while (buf[0] >= limit);
+  return String(100000 + (buf[0] % 900000));
+}
+
+
 app.post('/auth/send-otp', async (c) => {
   const { phoneNumber } = await c.req.json();
   // simple per-phone hour cap
@@ -68,10 +77,12 @@ app.post('/auth/send-otp', async (c) => {
   const r = await fetch('https://api.startmessaging.com/otp/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': c.env.SM_API_KEY },
-    body: JSON.stringify({ phoneNumber, idempotencyKey: crypto.randomUUID() }),
+    body: JSON.stringify({ phoneNumber, variables: { otp: generateOtp() }, idempotencyKey: crypto.randomUUID() }),
   });
   if (!r.ok) return c.json({ error: 'upstream' }, 502);
-  return c.json((await r.json<any>()).data);
+  const { data } = await r.json<any>();
+  // Pass otpRequestId to POST /otp/verify along with the code the user enters
+  return c.json({ otpRequestId: data.otpRequestId });
 });
 
 export default app;

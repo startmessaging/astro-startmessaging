@@ -2,7 +2,7 @@
 title: "SMS OTP for BNPL Apps in India: KYC, Loan Disbursal, and RBI Compliance (2026)"
 description: "Implement secure bnpl otp india flows. Learn RBI digital lending rules, KYC SMS verification, consent audits under DPDP Act, and disbursal routing models."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "use-cases"
 country: "in"
 author: "StartMessaging Team"
@@ -62,6 +62,7 @@ We will write a Node.js serverless function implementation that handles the fina
 
 ```javascript
 // bnpl-disbursal-service.js
+import crypto from 'node:crypto';
 
 const STARTMESSAGING_API_KEY = process.env.STARTMESSAGING_KEY || 'sm_live_your_key_here';
 const DISPATCH_URL = 'https://api.startmessaging.com/otp/send';
@@ -76,7 +77,8 @@ export async function initiateLoanDisbursal(userId, phone, loanAmount, merchantN
   console.log(`[Disbursal Start] User: ${userId} | Amount: Rs ${loanAmount} at ${merchantName}`);
 
   // Generate the 6-digit loan signature code
-  const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+  // (cryptographically secure, never Math.random)
+  const verificationCode = crypto.randomInt(100000, 1000000).toString();
 
   // DLT-approved parameters structure
   const variables = {
@@ -93,6 +95,7 @@ export async function initiateLoanDisbursal(userId, phone, loanAmount, merchantN
       },
       body: JSON.stringify({
         phoneNumber: phone,
+        templateId: process.env.DLT_LOAN_TEMPLATE_ID, // DLT routes only
         variables: variables
       })
     });
@@ -103,16 +106,18 @@ export async function initiateLoanDisbursal(userId, phone, loanAmount, merchantN
       throw new Error(result.message || 'OTP dispatch failed');
     }
 
-    const messageId = result.data.messageId;
+    const { otpRequestId, messageId } = result.data;
 
     // Log the transaction attempt immediately for auditing
     await logConsentAudit(userId, messageId, 'LOAN_DISBURSAL_REQUEST', clientIp);
 
-    // Save validationCode and messageId in your database with a 5-minute expiration
+    // Store otpRequestId against this disbursal; when the user enters the code,
+    // call POST /otp/verify with { requestId: otpRequestId, otpCode }.
+    // Use messageId with GET /messages/:id to check delivery status.
     return {
       success: true,
-      messageId: messageId,
-      expiresInSeconds: 300
+      otpRequestId,
+      messageId
     };
   } catch (error) {
     console.error(`Disbursal initialization failed: ${error.message}`);

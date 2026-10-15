@@ -43,11 +43,21 @@ print(res.json()['requestId'])`,
   },
 } as const;
 
+/**
+ * WhatsApp CRM app + public API host. Defined in content-tokens.mjs so the
+ * MDX remark plugin and page JSON (`{{WA_API_BASE}}` tokens) share one value.
+ */
+import { WA_APP_URL, WA_API_BASE } from './content-tokens.mjs';
+export { WA_APP_LIVE, WA_APP_URL, WA_LOGIN_URL, WA_API_BASE, replaceContentTokens, waSignupOpen, SIGNUP_URL_PATTERN } from './content-tokens.mjs';
+export const WA_SIGNUP_URL = `${WA_APP_URL}/signup`;
+
 /** External links */
 export const EXTERNAL_LINKS = {
   app: 'https://app.startmessaging.com',
   signup: 'https://app.startmessaging.com/signup',
   login: 'https://app.startmessaging.com',
   apiDocs: 'https://api.startmessaging.com/api/docs',
+  waApiDocs: `${WA_API_BASE}/api/v1/docs`,
+  waOpenApi: `${WA_API_BASE}/api/v1/openapi.json`,
   whatsappSupport: 'https://wa.me/916376383348',
 } as const;

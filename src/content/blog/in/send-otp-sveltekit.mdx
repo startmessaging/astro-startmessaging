@@ -2,7 +2,7 @@
 title: "How to Send OTP with SvelteKit (2026)"
 description: "SvelteKit OTP tutorial using StartMessaging — uses form actions, server-only modules, hooks for session, and Zod for validation. Production-ready end-to-end flow."
 publishedAt: "2026-04-27"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -58,7 +58,7 @@ SvelteKit exposes these via `$env/static/private` — perfectly
 ```typescript
 // src/lib/server/sm.ts
 import { SM_API_KEY, SM_BASE_URL } from '$env/static/private';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomInt } from 'node:crypto';
 
 async function smPost<T>(path: string, body: object): Promise<T> {
   const res = await fetch(\`\${SM_BASE_URL}\${path}\`, {
@@ -72,11 +72,16 @@ async function smPost<T>(path: string, body: object): Promise<T> {
   return json.data as T;
 }
 
-export interface SendData { requestId: string; expiresAt: string; attemptsLeft: number; }
+export interface SendData { otpRequestId: string; messageId: string; status: string; }
 
 export const sm = {
   send: (phoneNumber: string) =>
-    smPost<SendData>('/otp/send', { phoneNumber, idempotencyKey: randomUUID() }),
+    smPost<SendData>('/otp/send', {
+      phoneNumber,
+      // Generated on the server; StartMessaging delivers it
+      variables: { otp: String(randomInt(100000, 1000000)) },
+      idempotencyKey: randomUUID(),
+    }),
   verify: (requestId: string, otpCode: string) =>
     smPost<{ verified: true }>('/otp/verify', { requestId, otpCode }),
 };
@@ -102,15 +107,15 @@ export const actions: Actions = {
     if (!parsed.success) return fail(400, { error: 'Invalid phone number' });
 
     try {
-      const { requestId, expiresAt } = await sm.send(parsed.data.phoneNumber);
-      cookies.set('otp_req', requestId, {
+      const { otpRequestId } = await sm.send(parsed.data.phoneNumber);
+      cookies.set('otp_req', otpRequestId, {
         httpOnly: true,
         secure: true,
         sameSite: 'lax',
         path: '/',
         maxAge: 15 * 60,
       });
-      return { stage: 'verify', expiresAt };
+      return { stage: 'verify' };
     } catch (e: any) {
       return fail(e.status ?? 500, { error: e.message ?? 'Failed' });
     }
@@ -147,7 +152,7 @@ export const actions: Actions = {
 
 Already wired into the same actions object above (the 
         `verify` action). The two actions read from cookies, never
-        from the browser, so a stolen requestId from the network does not let
+        from the browser, so a stolen `otpRequestId` from the network does not let
         an attacker complete the flow without the matching session.
 
 

@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
-import { buildService, buildContactPage, buildProductOffer } from '@/lib/jsonld';
+import { buildService, buildContactPage } from '@/lib/jsonld';
 import { r } from '@/i18n/r';
 
 export async function getStaticPaths() {
@@ -71,18 +71,8 @@ if (slug === 'contact') {
   );
 }
 
-// 4. Product/Offer schema for pricing page (Premium plan as example)
-if (slug === 'pricing') {
-  schemas.push(
-    buildProductOffer({
-      name: 'StartMessaging Premium Plan',
-      description: 'WhatsApp Business API platform with no-code chatbot builder, advanced analytics, and multi-agent dashboard',
-      price: '49',
-      priceCurrency: 'USD',
-      url: 'https://startmessaging.com/pricing',
-    })
-  );
-}
+// 4. No Product/Offer schema on the pricing page: WhatsApp plan prices are not
+// published yet, so there is no price to put in structured data.
 
 const seoWithSchema = {
   ...page.data.seo,

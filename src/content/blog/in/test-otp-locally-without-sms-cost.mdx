@@ -2,7 +2,7 @@
 title: "How to Test OTP Locally Without SMS Costs"
 description: "Free patterns to test your OTP integration end-to-end without burning real SMS credits: sandbox modes, mock providers, Mailhog-style local servers, and CI strategies."
 publishedAt: "2026-05-18"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -49,10 +49,15 @@ Most providers ship a sandbox key. With
 import { rest } from 'msw';
 export const handlers = [
   rest.post('https://api.startmessaging.com/otp/send', (req, res, ctx) =>
-    res(ctx.json({ data: { requestId: 'mock_123', expiresAt: 'X', attemptsLeft: 3 }}))
+    res(ctx.status(201), ctx.json({
+      success: true,
+      statusCode: 201,
+      requestId: 'req_mock',
+      data: { otpRequestId: 'mock_otp_123', messageId: 'mock_msg_123', status: 'queued' },
+    }))
   ),
   rest.post('https://api.startmessaging.com/otp/verify', (req, res, ctx) =>
-    res(ctx.json({ data: { verified: true }}))
+    res(ctx.json({ success: true, statusCode: 200, data: { verified: true }}))
   ),
 ];
 ```

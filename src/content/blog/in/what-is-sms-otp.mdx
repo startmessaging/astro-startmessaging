@@ -2,7 +2,7 @@
 title: "What is SMS OTP? How It Works and When to Use It"
 description: "SMS OTP explained: full lifecycle from generation to verification, latency, cost and SIM-swap risks, India DLT context, and modern alternatives like TOTP and silent-auth."
 publishedAt: "2026-04-24"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -50,7 +50,7 @@ An **SMS OTP** is a one-time password delivered to the
 
 
 - **User triggers a flow** — types phone number, taps "Pay", or initiates a sensitive change.
-- **Backend calls the OTP API** with the phone number. The API generates a 4–6 digit code, computes a bcrypt hash, stores (hash, expiresAt, attemptsLeft) keyed by a request ID, and dispatches the SMS through a multi-provider gateway.
+- **Backend generates a 4–6 digit code and calls the OTP API** with the phone number and the code (in StartMessaging, `variables.otp`). The API computes a bcrypt hash, stores it with an expiry and attempt count keyed by a request ID (`otpRequestId`), and dispatches the SMS through a multi-provider gateway.
 - **SMS travels through the gateway → aggregator → telecom operator → handset.** In India this hop also passes through the DLT scrubber.
 - **User reads the code** from the SMS or — on Android and iOS — has it auto-filled by the OS.
 - **Backend calls /otp/verify** with (requestId, code). The API hashes and compares, decrements attempt count, returns verified=true or an error.

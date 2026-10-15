@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "whatsapp",
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-10-12",
   "seo": {
     "ogImage": "/og/whatsapp-triggers.jpg",
     "title": {
@@ -22,12 +22,12 @@
       "ng": "WhatsApp Auto-Trigger Messages — Event Triggers — StartMessaging"
     },
     "description": {
-      "en": "Automate WhatsApp messages triggered by user actions — abandoned carts, sign-ups, purchase confirmations, and more.",
-      "pt": "Automatize mensagens WhatsApp disparadas por ações do usuário — carrinhos abandonados, cadastros, confirmações de compra e mais.",
-      "es": "Automatice mensajes de WhatsApp activados por acciones del usuario — carritos abandonados, registros, confirmaciones de compra y más.",
-      "id": "Otomatisasi pesan WhatsApp yang dipicu oleh tindakan pengguna — keranjang belanja, pendaftaran, konfirmasi pembelian, dan lainnya.",
-      "ar": "أتمت رسائل واتساب المُشغَّلة بإجراءات المستخدم — سلال مهجورة، تسجيلات، تأكيدات شراء، والمزيد.",
-      "tr": "Kullanıcı eylemleriyle tetiklenen WhatsApp mesajlarını otomatikleştirin — terk edilmiş sepetler, kayıtlar, satın alma onayları ve daha fazlası."
+      "en": "Send WhatsApp messages automatically when something happens — from your backend via the REST API, from Zapier, Make or Pabbly, or with keyword auto-replies and chatbot flows.",
+      "pt": "Envie mensagens do WhatsApp automaticamente quando algo acontece — do seu backend via API REST, pelo Zapier, Make ou Pabbly, ou com respostas automáticas por palavra-chave e fluxos de chatbot.",
+      "es": "Envíe mensajes de WhatsApp automáticamente cuando algo ocurre — desde su backend mediante la API REST, desde Zapier, Make o Pabbly, o con respuestas automáticas por palabra clave y flujos de chatbot.",
+      "id": "Kirim pesan WhatsApp secara otomatis saat sesuatu terjadi — dari backend Anda melalui REST API, dari Zapier, Make, atau Pabbly, atau dengan balasan otomatis kata kunci dan alur chatbot.",
+      "ar": "أرسل رسائل واتساب تلقائياً عند وقوع حدث ما — من نظامك الخلفي عبر REST API، أو من Zapier أو Make أو Pabbly، أو عبر الردود التلقائية بالكلمات المفتاحية وتدفقات الشات بوت.",
+      "tr": "Bir şey olduğunda WhatsApp mesajlarını otomatik gönderin — backend'inizden REST API ile, Zapier, Make veya Pabbly'den ya da anahtar kelime otomatik yanıtları ve chatbot akışlarıyla."
     }
   },
   "sections": [
@@ -52,12 +52,12 @@
           "tr": "Kullanıcı Olaylarına Göre WhatsApp Mesajlarını Otomatikleştirin"
         },
         "subtitle": {
-          "en": "Set up webhook-driven triggers that automatically send WhatsApp messages when users take specific actions — abandoned cart after 1 hour, welcome message on sign-up, review request after delivery.",
-          "pt": "Configure triggers baseados em webhook que enviam mensagens WhatsApp automaticamente quando usuários realizam ações específicas — carrinho abandonado após 1 hora, mensagem de boas-vindas no cadastro, pedido de avaliação após entrega.",
-          "es": "Configure triggers basados en webhook que envían mensagens automáticamente cuando los usuarios realizan acciones — carrito abandonado, mensaje de bienvenida, solicitud de reseña.",
-          "id": "Atur trigger berbasis webhook yang secara otomatis mengirim pesan WhatsApp saat pengguna melakukan tindakan tertentu — keranjang ditinggalkan setelah 1 jam, pesan selamat datang saat mendaftar, permintaan ulasan setelah pengiriman.",
-          "ar": "أعِد إعداد مشغلات قائمة على webhook ترسل رسائل واتساب تلقائياً عند إجراءات محددة — سلة مهجورة بعد ساعة، رسالة ترحيب عند التسجيل، طلب مراجعة بعد التسليم.",
-          "tr": "Kullanıcılar belirli eylemler gerçekleştirdiğinde otomatik olarak WhatsApp mesajları gönderen webhook tabanlı tetikleyiciler ayarlayın — 1 saat sonra terk edilmiş sepet, kayıtta hoş geldin mesajı, teslimattan sonra inceleme isteği."
+          "en": "Send WhatsApp messages the moment something happens: call the REST API from your backend, connect Zapier, Make or Pabbly, reply to keywords automatically, or start a chatbot flow when a customer writes in.",
+          "pt": "Envie mensagens do WhatsApp no momento em que algo acontece: chame a API REST do seu backend, conecte Zapier, Make ou Pabbly, responda automaticamente a palavras-chave ou inicie um fluxo de chatbot quando o cliente escrever.",
+          "es": "Envíe mensajes de WhatsApp en el momento en que algo ocurre: llame a la API REST desde su backend, conecte Zapier, Make o Pabbly, responda automáticamente a palabras clave o inicie un flujo de chatbot cuando el cliente escriba.",
+          "id": "Kirim pesan WhatsApp saat sesuatu terjadi: panggil REST API dari backend Anda, hubungkan Zapier, Make, atau Pabbly, balas kata kunci secara otomatis, atau mulai alur chatbot saat pelanggan mengirim pesan.",
+          "ar": "أرسل رسائل واتساب لحظة وقوع الحدث: استدعِ REST API من نظامك الخلفي، أو اربط Zapier أو Make أو Pabbly، أو ردّ تلقائياً على الكلمات المفتاحية، أو ابدأ تدفق شات بوت عندما يراسلك العميل.",
+          "tr": "Bir şey olduğu anda WhatsApp mesajları gönderin: backend'inizden REST API'yi çağırın, Zapier, Make veya Pabbly'yi bağlayın, anahtar kelimelere otomatik yanıt verin ya da müşteri yazdığında bir chatbot akışı başlatın."
         },
         "primaryCta": {
           "en": "Set Up Auto-Triggers",
@@ -67,7 +67,7 @@
           "ar": "إعداد التشغيل التلقائي",
           "tr": "Otomatik Tetikleyicileri Ayarla"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://waba.startmessaging.com/signup"
       }
     },
     {
@@ -82,37 +82,37 @@
           "tr": "Olay Odaklı Mesaj Otomasyonu"
         },
         "body": {
-          "en": "Trigger highly personalized messages instantly based on user actions in your app or online store. Connect your webhooks to automate recovery flows for abandoned checkouts, dispatch transactional welcome messages on new sign-ups, and trigger feedback requests immediately after successful deliveries.",
-          "pt": "Dispare mensagens altamente personalizadas instantaneamente com base nas ações do usuário em seu aplicativo ou loja online. Conecte webhooks para automatizar carrinhos abandonados, boas-vindas e avaliações.",
-          "es": "Active mensajes altamente personalizados instantáneamente basados en las acciones del usuario en su aplicación o tienda en línea. Conecte webhooks para automatizar carritos abandonados.",
-          "id": "Picu pesan yang sangat dipersonalisasi secara instan berdasarkan tindakan pengguna di aplikasi atau toko online Anda. Hubungkan webhook Anda untuk otomatisasi keranjang belanja.",
-          "ar": "شغِّل رسائل مخصصة للغاية على الفور بناءً على إجراءات المستخدم في تطبيقك أو متجرك الإلكتروني. اربط الـ webhooks الخاصة بك لأتمتة عمليات الاسترداد.",
-          "tr": "Uygulamanızdaki veya çevrimiçi mağazanızdaki kullanıcı eylemlerine göre anında son derece kişiselleştirilmiş mesajları tetikleyin. Terk edilmiş sepetleri kurtarmak için webhook'larınızı bağlayın."
+          "en": "Call one API endpoint from your app or store backend — or use Zapier, Make or Pabbly — to send abandoned-checkout reminders, welcome messages and feedback requests as approved templates. Customer replies and delivery updates come back to you as signed webhooks.",
+          "pt": "Chame um único endpoint da API a partir do backend do seu app ou loja — ou use Zapier, Make ou Pabbly — para enviar lembretes de checkout abandonado, mensagens de boas-vindas e pedidos de avaliação como templates aprovados. Respostas dos clientes e atualizações de entrega voltam para você como webhooks assinados.",
+          "es": "Llame a un único endpoint de la API desde el backend de su app o tienda — o use Zapier, Make o Pabbly — para enviar recordatorios de checkout abandonado, mensajes de bienvenida y solicitudes de reseña como plantillas aprobadas. Las respuestas de los clientes y las actualizaciones de entrega le llegan como webhooks firmados.",
+          "id": "Panggil satu endpoint API dari backend aplikasi atau toko Anda — atau gunakan Zapier, Make, atau Pabbly — untuk mengirim pengingat checkout yang ditinggalkan, pesan selamat datang, dan permintaan ulasan sebagai template yang disetujui. Balasan pelanggan dan pembaruan pengiriman kembali kepada Anda sebagai webhook bertanda tangan.",
+          "ar": "استدعِ نقطة API واحدة من النظام الخلفي لتطبيقك أو متجرك — أو استخدم Zapier أو Make أو Pabbly — لإرسال تذكيرات السلال المهجورة ورسائل الترحيب وطلبات التقييم كقوالب معتمدة. تعود إليك ردود العملاء وتحديثات التسليم كـ webhooks موقّعة.",
+          "tr": "Uygulamanızın veya mağazanızın backend'inden tek bir API uç noktasını çağırın — ya da Zapier, Make veya Pabbly kullanın — ve terk edilmiş ödeme hatırlatmalarını, hoş geldin mesajlarını ve değerlendirme isteklerini onaylı şablonlar olarak gönderin. Müşteri yanıtları ve teslimat güncellemeleri size imzalı webhook'lar olarak geri gelir."
         },
         "bullets": [
           {
-            "en": "Real-time webhook ingestion with automated retry queues",
-            "pt": "Ingestão de webhook em tempo real com filas de retentativa automáticas",
-            "es": "Ingesta de webhook en tiempo real con colas de reintento automatizadas",
-            "id": "Ingesti webhook waktu nyata dengan antrean coba ulang otomatis",
-            "ar": "استقبال webhook في الوقت الفعلي مع قوائم إعادة المحاولة التلقائية",
-            "tr": "Otomatik yeniden deneme kuyruklarıyla gerçek zamanlı webhook alımı"
+            "en": "Signed webhooks for replies and delivery status, with a delivery log and redelivery",
+            "pt": "Webhooks assinados para respostas e status de entrega, com log de entregas e reenvio",
+            "es": "Webhooks firmados para respuestas y estado de entrega, con registro de entregas y reenvío",
+            "id": "Webhook bertanda tangan untuk balasan dan status pengiriman, dengan log pengiriman dan pengiriman ulang",
+            "ar": "Webhooks موقّعة للردود وحالة التسليم، مع سجل للتسليم وإعادة الإرسال",
+            "tr": "Yanıtlar ve teslimat durumu için teslimat günlüğü ve yeniden gönderimli imzalı webhook'lar"
           },
           {
-            "en": "Conditional delays and time-zone aware scheduling filters",
-            "pt": "Atrasos condicionais e filtros de agendamento cientes do fuso horário",
-            "es": "Retrasos condicionales y filtros de programación adaptados a la zona horaria",
-            "id": "Penundaan bersyarat dan filter penjadwalan peka zona waktu",
-            "ar": "تأخيرات مشروطة وفلاتر جدولة تراعي المناطق الزمنية",
-            "tr": "Koşullu gecikmeler ve saat dilimine duyarlı zamanlama filtreleri"
+            "en": "Keyword auto-replies (exact, contains or starts-with) with text or template replies, matched on whole words (Team and Business)",
+            "pt": "Respostas automáticas por palavra-chave (exata, contém ou começa com) com texto ou template, com correspondência de palavras inteiras (Team e Business)",
+            "es": "Respuestas automáticas por palabra clave (exacta, contiene o empieza por) con texto o plantilla, con coincidencia de palabras completas (Team y Business)",
+            "id": "Balasan otomatis kata kunci (persis, mengandung, atau diawali) dengan teks atau template, dicocokkan sebagai kata utuh (Team dan Business)",
+            "ar": "ردود تلقائية بالكلمات المفتاحية (مطابقة تامة أو تحتوي أو تبدأ بـ) بنص أو قالب، مع مطابقة الكلمات الكاملة (Team وBusiness)",
+            "tr": "Metin veya şablonla anahtar kelime otomatik yanıtları (tam eşleşme, içerir veya ile başlar), tam kelime eşleşmesiyle (Team ve Business)"
           },
           {
-            "en": "Seamless custom integrations with Shopify, WooCommerce, and custom backends",
-            "pt": "Integrações personalizadas perfeitas com Shopify, WooCommerce e backends próprios",
-            "es": "Integraciones personalizadas sin problemas con Shopify, WooCommerce y backends a medida",
-            "id": "Integrasi khusus yang lancar dengan Shopify, WooCommerce, dan backend kustom",
-            "ar": "تكاملات مخصصة سلسة مع Shopify و WooCommerce والأنظمة الخلفية الخاصة بك",
-            "tr": "Shopify, WooCommerce ve özel arka uçlarla sorunsuz entegrasyonlar"
+            "en": "Connect Zapier, Make or Pabbly, or call the REST API from any backend",
+            "pt": "Conecte Zapier, Make ou Pabbly, ou chame a API REST de qualquer backend",
+            "es": "Conecte Zapier, Make o Pabbly, o llame a la API REST desde cualquier backend",
+            "id": "Hubungkan Zapier, Make, atau Pabbly, atau panggil REST API dari backend mana pun",
+            "ar": "اربط Zapier أو Make أو Pabbly، أو استدعِ REST API من أي نظام خلفي",
+            "tr": "Zapier, Make veya Pabbly'yi bağlayın ya da REST API'yi herhangi bir backend'den çağırın"
           }
         ],
         "image": "/images/trigger-engine.webp",
@@ -160,30 +160,30 @@
               "tr": "Tetikleme Olayınızı Tanımlayın"
             },
             "description": {
-              "en": "Choose from pre-built events (abandoned cart, sign-up, purchase) or create custom webhook triggers from your backend systems.",
-              "pt": "Escolha entre eventos pré-construídos (carrinho abandonado, cadastro, compra) ou crie triggers de webhook personalizados a partir de seus sistemas backend.",
-              "es": "Elija entre eventos predefinidos (carrito abandonado, registro, compra) o cree desencadenadores de webhook personalizados desde sus sistemas backend.",
-              "id": "Pilih dari acara yang telah dibuat sebelumnya (keranjang ditinggalkan, pendaftaran, pembelian) atau buat pemicu webhook kustom dari sistem backend Anda.",
-              "ar": "اختر من الأحداث المُعدَّة مسبقاً (سلة مهجورة، تسجيل، شراء) أو أنشئ مشغلات webhook مخصصة من أنظمتك الخلفية.",
-              "tr": "Hazır etkinliklerden (terk edilmiş sepet, kayıt, satın alma) seçin veya arka uç sistemlerinizden özel webhook tetikleyicileri oluşturun."
+              "en": "Decide what sends the message: an event in your own backend, a Zapier, Make or Pabbly workflow, a keyword the customer sends, or a chatbot flow trigger. Keyword auto-replies are on Team and Business; chatbot flows are on Business.",
+              "pt": "Defina o que dispara a mensagem: um evento no seu backend, um fluxo no Zapier, Make ou Pabbly, uma palavra-chave enviada pelo cliente ou um gatilho de fluxo de chatbot. As respostas automáticas por palavra-chave fazem parte dos planos Team e Business; os fluxos de chatbot, do Business.",
+              "es": "Defina qué envía el mensaje: un evento en su propio backend, un flujo de Zapier, Make o Pabbly, una palabra clave que envía el cliente o un disparador de flujo de chatbot. Las respuestas automáticas por palabra clave están en Team y Business; los flujos de chatbot, en Business.",
+              "id": "Tentukan apa yang mengirim pesan: peristiwa di backend Anda, alur kerja Zapier, Make, atau Pabbly, kata kunci yang dikirim pelanggan, atau pemicu alur chatbot. Balasan otomatis kata kunci tersedia di Team dan Business; alur chatbot di Business.",
+              "ar": "حدّد ما يُرسل الرسالة: حدث في نظامك الخلفي، أو سير عمل في Zapier أو Make أو Pabbly، أو كلمة مفتاحية يرسلها العميل، أو مشغل تدفق شات بوت. الردود التلقائية بالكلمات المفتاحية متاحة في Team وBusiness، وتدفقات الشات بوت في Business.",
+              "tr": "Mesajı neyin göndereceğine karar verin: kendi backend'inizdeki bir olay, bir Zapier, Make veya Pabbly iş akışı, müşterinin gönderdiği bir anahtar kelime ya da bir chatbot akış tetikleyicisi. Anahtar kelime otomatik yanıtları Team ve Business paketlerinde, chatbot akışları Business paketindedir."
             }
           },
           {
             "title": {
-              "en": "Configure Your Template & Delay",
-              "pt": "Configure Seu Template e Atraso",
-              "es": "Configure Su Plantilla y Retraso",
-              "id": "Konfigurasi Template & Penundaan Anda",
-              "ar": "ضبط القالب والتأخير",
-              "tr": "Şablonunuzu ve Gecikmenizi Yapılandırın"
+              "en": "Pick Your Template & Variables",
+              "pt": "Escolha o Template e as Variáveis",
+              "es": "Elija la Plantilla y las Variables",
+              "id": "Pilih Template & Variabel",
+              "ar": "اختر القالب والمتغيرات",
+              "tr": "Şablonunuzu ve Değişkenleri Seçin"
             },
             "description": {
-              "en": "Select a pre-approved WhatsApp template, set personalization variables, and configure the delay (e.g., 1 hour after cart abandonment).",
-              "pt": "Selecione um template WhatsApp pré-aprovado, defina variáveis de personalização e configure o atraso (ex.: 1 hora após abandono do carrinho).",
-              "es": "Seleccione una plantilla de WhatsApp preaprobada, configure variables de personalización y defina el retraso (p.ej., 1 hora después del abandono).",
-              "id": "Pilih template WhatsApp yang sudah disetujui, atur variabel personalisasi, dan konfigurasikan penundaan (mis., 1 jam setelah keranjang ditinggalkan).",
-              "ar": "حدد قالب واتساب معتمداً واضبط متغيرات التخصيص والتأخير (مثل ساعة بعد التخلي عن السلة).",
-              "tr": "Önceden onaylanmış bir WhatsApp şablonu seçin, kişiselleştirme değişkenlerini ayarlayın ve gecikmeyi yapılandırın (örn. sepet terkinden 1 saat sonra)."
+              "en": "Select an approved WhatsApp template and fill its variables for each customer. Delays such as '1 hour after cart abandonment' are timed by your own system or automation tool.",
+              "pt": "Selecione um template aprovado do WhatsApp e preencha as variáveis para cada cliente. Atrasos como '1 hora após o abandono do carrinho' são controlados pelo seu próprio sistema ou ferramenta de automação.",
+              "es": "Seleccione una plantilla de WhatsApp aprobada y complete sus variables para cada cliente. Los retrasos como '1 hora después del abandono del carrito' los controla su propio sistema o herramienta de automatización.",
+              "id": "Pilih template WhatsApp yang disetujui dan isi variabelnya untuk setiap pelanggan. Penundaan seperti '1 jam setelah keranjang ditinggalkan' diatur oleh sistem atau alat otomatisasi Anda sendiri.",
+              "ar": "اختر قالب واتساب معتمداً واملأ متغيراته لكل عميل. أما التأخيرات مثل 'بعد ساعة من التخلي عن السلة' فيضبطها نظامك أو أداة الأتمتة لديك.",
+              "tr": "Onaylı bir WhatsApp şablonu seçin ve değişkenlerini her müşteri için doldurun. 'Sepet terkinden 1 saat sonra' gibi gecikmeleri kendi sisteminiz veya otomasyon aracınız zamanlar."
             }
           },
           {
@@ -196,12 +196,12 @@
               "tr": "Etkinleştir ve İzle"
             },
             "description": {
-              "en": "Turn on your trigger and monitor performance in real-time. Track delivery, opens, clicks, and conversion rates from your dashboard.",
-              "pt": "Ative seu trigger e monitore o desempenho em tempo real. Acompanhe entrega, aberturas, cliques e taxas de conversão no painel.",
-              "es": "Active su trigger y monitoree el rendimiento en tiempo real. Realice seguimiento de entrega, aperturas, clics y tasas de conversión desde su panel.",
-              "id": "Aktifkan pemicu Anda dan pantau kinerja secara real-time. Lacak pengiriman, buka, klik, dan tingkat konversi dari dasbor Anda.",
-              "ar": "شغّل مشغلك وراقب الأداء في الوقت الفعلي. تتبع التسليم والفتح والنقرات ومعدلات التحويل من لوحة التحكم.",
-              "tr": "Tetikleyicinizi açın ve performansı gerçek zamanlı izleyin. Panelinizden teslimat, açılma, tıklama ve dönüşüm oranlarını takip edin."
+              "en": "Turn it on and follow delivery and read status in the dashboard, through the API, or by webhook.",
+              "pt": "Ative e acompanhe o status de entrega e leitura no painel, pela API ou por webhook.",
+              "es": "Actívelo y siga el estado de entrega y lectura en el panel, mediante la API o por webhook.",
+              "id": "Aktifkan dan pantau status terkirim dan dibaca di dasbor, melalui API, atau via webhook.",
+              "ar": "فعّله وتابع حالة التسليم والقراءة في لوحة التحكم أو عبر API أو webhook.",
+              "tr": "Etkinleştirin ve teslimat ile okunma durumunu panelden, API'den veya webhook ile takip edin."
             }
           }
         ]
@@ -288,12 +288,12 @@
               "tr": "Mesaj Gecikmesi"
             },
             {
-              "en": "< 1 second (Direct push)",
-              "pt": "< 1 segundo (Push direto)",
-              "es": "< 1 segundo (Push directo)",
-              "id": "< 1 detik (Push langsung)",
-              "ar": "< ثانية (بث مباشر)",
-              "tr": "< 1 saniye (Doğrudan push)"
+              "en": "Seconds (sent as the event happens)",
+              "pt": "Segundos (enviado quando o evento acontece)",
+              "es": "Segundos (enviado cuando ocurre el evento)",
+              "id": "Detik (dikirim saat peristiwa terjadi)",
+              "ar": "ثوانٍ (تُرسل عند وقوع الحدث)",
+              "tr": "Saniyeler (olay gerçekleşince gönderilir)"
             },
             {
               "en": "Minutes to hours (Batch run)",
@@ -304,12 +304,12 @@
               "tr": "Dakikalar ila saatler (Toplu çalışma)"
             },
             {
-              "en": "< 1 second (Direct hook)",
-              "pt": "< 1 segundo (Hook direto)",
-              "es": "< 1 segundo (Hook directo)",
-              "id": "< 1 detik (Hook langsung)",
-              "ar": "< ثانية (Hook مباشر)",
-              "tr": "< 1 saniye (Doğrudan hook)"
+              "en": "Seconds (direct hook)",
+              "pt": "Segundos (hook direto)",
+              "es": "Segundos (hook directo)",
+              "id": "Detik (hook langsung)",
+              "ar": "ثوانٍ (Hook مباشر)",
+              "tr": "Saniyeler (doğrudan hook)"
             }
           ],
           [
@@ -382,20 +382,20 @@
           ],
           [
             {
-              "en": "Error Fallback Handling",
-              "pt": "Tratamento de Fallback de Erros",
-              "es": "Manejo de Fallback de Errores",
-              "id": "Penanganan Fallback Error",
-              "ar": "معالجة الأخطاء الاحتياطية",
-              "tr": "Hata Yedek Yönetimi"
+              "en": "Error Handling",
+              "pt": "Tratamento de Erros",
+              "es": "Manejo de Errores",
+              "id": "Penanganan Error",
+              "ar": "معالجة الأخطاء",
+              "tr": "Hata Yönetimi"
             },
             {
-              "en": "✓ (Built-in retry queues)",
-              "pt": "✓ (Filas de retentativa integradas)",
-              "es": "✓ (Colas de reintento integradas)",
-              "id": "✓ (Antrean coba ulang bawaan)",
-              "ar": "✓ (صفوف إعادة محاولة مدمجة)",
-              "tr": "✓ (Dahili yeniden deneme kuyrukları)"
+              "en": "✓ (Safe retries with Idempotency-Key, webhook redelivery)",
+              "pt": "✓ (Retentativas seguras com Idempotency-Key, reenvio de webhooks)",
+              "es": "✓ (Reintentos seguros con Idempotency-Key, reenvío de webhooks)",
+              "id": "✓ (Coba ulang aman dengan Idempotency-Key, kirim ulang webhook)",
+              "ar": "✓ (إعادة محاولة آمنة باستخدام Idempotency-Key وإعادة إرسال webhook)",
+              "tr": "✓ (Idempotency-Key ile güvenli yeniden deneme, webhook yeniden gönderimi)"
             },
             {
               "en": "✗ (Manual correction needed)",
@@ -421,37 +421,76 @@
       "type": "codeShowcase",
       "props": {
         "badge": {
-          "en": "Trigger API",
-          "pt": "API de Trigger",
-          "es": "API de Trigger",
-          "id": "API Pemicu",
-          "ar": "API التشغيل",
-          "tr": "Tetikleme API'si"
+          "en": "API triggers",
+          "pt": "Gatilhos via API",
+          "es": "Disparadores por API",
+          "id": "Pemicu API",
+          "ar": "مشغّلات API",
+          "tr": "API tetikleyicileri"
         },
         "heading": {
-          "en": "Register a Automated Message Trigger",
-          "pt": "Registrar um Trigger de Mensagem Automatizado",
-          "es": "Registrar un Disparador de Mensajes Automatizado",
-          "id": "Daftarkan Pemicu Pesan Otomatis",
-          "ar": "تسجيل مشغل رسائل آلي",
-          "tr": "Otomatik Mesaj Tetikleyicisi Kaydedin"
-        },
-        "overlayText": {
-          "en": "Auto-Trigger API Sandbox — Coming Soon",
-          "pt": "Sandbox API Auto-Trigger — Em Breve",
-          "es": "Sandbox API Auto-Trigger — Próximamente",
-          "id": "Sandbox API Auto-Trigger — Segera Hadir",
-          "ar": "بيئة تجريبية API Auto-Trigger — قريباً",
-          "tr": "Auto-Trigger API Sanal Alanı — Çok Yakında"
+          "en": "Send an automated message from your own backend",
+          "pt": "Envie uma mensagem automática a partir do seu backend",
+          "es": "Envía un mensaje automático desde tu propio backend",
+          "id": "Kirim pesan otomatis dari backend Anda sendiri",
+          "ar": "أرسل رسالة تلقائية من نظامك الخلفي",
+          "tr": "Kendi backend’inizden otomatik mesaj gönderin"
         },
         "snippets": [
           {
             "lang": "cURL",
-            "code": "curl -X POST https://api.startmessaging.com/v1/triggers \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-API-Key: sm_live_your_api_key_here\" \\\n  -d '{\n    \"trigger_name\": \"cart_abandoned_recovery\",\n    \"event_source\": \"shopify_checkout_abandoned\",\n    \"delay_seconds\": 3600,\n    \"template_name\": \"abandoned_cart_discount\",\n    \"fallback_channel\": \"sms\"\n  }'"
+            "code": "curl -X POST {{WA_API_BASE}}/api/v1/messages \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Idempotency-Key: order-1042-confirm\" \\\n  -d '{\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"cod_order_confirmation\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        {\n          \"text\": \"Asha\"\n        },\n        {\n          \"text\": \"#1042\"\n        },\n        {\n          \"text\": \"₹1,299\"\n        }\n      ]\n    },\n    \"clientReference\": \"order-1042\"\n  }'"
           },
           {
             "lang": "Node.js",
-            "code": "await fetch(\"https://api.startmessaging.com/v1/triggers\", {\n  method: \"POST\",\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"X-API-Key\": \"sm_live_your_api_key_here\"\n  },\n  body: JSON.stringify({\n    trigger_name: \"cart_abandoned_recovery\",\n    event_source: \"shopify_checkout_abandoned\",\n    delay_seconds: 3600,\n    template_name: \"abandoned_cart_discount\",\n    fallback_channel: \"sms\"\n  })\n});"
+            "code": "const res = await fetch('{{WA_API_BASE}}/api/v1/messages', {\n  method: 'POST',\n  headers: {\n    'Authorization': 'Bearer ' + process.env.SM_API_KEY,\n    'Content-Type': 'application/json',\n    'Idempotency-Key': 'order-1042-confirm',\n  },\n  body: JSON.stringify({\n    \"to\": \"+919812345678\",\n    \"type\": \"template\",\n    \"template\": {\n      \"name\": \"cod_order_confirmation\",\n      \"language\": \"en_US\",\n      \"parameters\": [\n        {\n          \"text\": \"Asha\"\n        },\n        {\n          \"text\": \"#1042\"\n        },\n        {\n          \"text\": \"₹1,299\"\n        }\n      ]\n    },\n    \"clientReference\": \"order-1042\"\n  }),\n});\n\nconst { data } = await res.json();\nconsole.log(data.id, data.status);"
+          },
+          {
+            "lang": "Python",
+            "code": "import os, requests\n\nres = requests.post(\n    '{{WA_API_BASE}}/api/v1/messages',\n    headers={\n        'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\",\n        'Idempotency-Key': 'order-1042-confirm',\n    },\n    json={\n      \"to\": \"+919812345678\",\n      \"type\": \"template\",\n      \"template\": {\n        \"name\": \"cod_order_confirmation\",\n        \"language\": \"en_US\",\n        \"parameters\": [\n          {\n            \"text\": \"Asha\"\n          },\n          {\n            \"text\": \"#1042\"\n          },\n          {\n            \"text\": \"₹1,299\"\n          }\n        ]\n      },\n      \"clientReference\": \"order-1042\"\n    },\n)\n\ndata = res.json()['data']\nprint(data['id'], data['status'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$body = <<<'JSON'\n{\n  \"to\": \"+919812345678\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"cod_order_confirmation\",\n    \"language\": \"en_US\",\n    \"parameters\": [\n      {\n        \"text\": \"Asha\"\n      },\n      {\n        \"text\": \"#1042\"\n      },\n      {\n        \"text\": \"₹1,299\"\n      }\n    ]\n  },\n  \"clientReference\": \"order-1042\"\n}\nJSON;\n\n$ch = curl_init('{{WA_API_BASE}}/api/v1/messages');\ncurl_setopt_array($ch, [\n    CURLOPT_POST => true,\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        'Authorization: Bearer ' . getenv('SM_API_KEY'),\n        'Content-Type: application/json',\n        'Idempotency-Key: order-1042-confirm',\n    ],\n    CURLOPT_POSTFIELDS => $body,\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['status'];"
+          }
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Conversions",
+          "pt": "Conversões",
+          "es": "Conversiones",
+          "id": "Konversi",
+          "ar": "التحويلات",
+          "tr": "Dönüşümler"
+        },
+        "heading": {
+          "en": "Report the sale back, credit the campaign",
+          "pt": "Informe a venda e credite a campanha",
+          "es": "Informe la venta y acredite la campaña",
+          "id": "Laporkan penjualan, kreditkan ke kampanye",
+          "ar": "أبلغ عن البيع وانسبه إلى الحملة",
+          "tr": "Satışı geri bildirin, kampanyaya yazın"
+        },
+        "subheading": {
+          "en": "On the Business plan, when your shop or billing system records a sale, POST /api/v1/conversions credits it to the last campaign delivered to that number within your conversion window, and the campaign report adds up the value.",
+          "pt": "No plano Business, quando sua loja ou sistema de cobrança registra uma venda, POST /api/v1/conversions a credita à última campanha entregue a esse número dentro da sua janela de conversão, e o relatório da campanha soma o valor.",
+          "es": "En el plan Business, cuando su tienda o sistema de facturación registra una venta, POST /api/v1/conversions la acredita a la última campaña entregada a ese número dentro de su ventana de conversión, y el informe de la campaña suma el valor.",
+          "id": "Di paket Business, saat toko atau sistem penagihan Anda mencatat penjualan, POST /api/v1/conversions mengkreditkannya ke kampanye terakhir yang terkirim ke nomor itu dalam jendela konversi Anda, dan laporan kampanye menjumlahkan nilainya.",
+          "ar": "في باقة Business، عندما يسجّل متجرك أو نظام الفوترة عملية بيع، ينسبها POST /api/v1/conversions إلى آخر حملة سُلّمت إلى هذا الرقم ضمن نافذة التحويل لديك، ويجمع تقرير الحملة القيمة.",
+          "tr": "Business paketinde mağazanız veya faturalama sisteminiz bir satış kaydettiğinde POST /api/v1/conversions onu, dönüşüm pencereniz içinde o numaraya teslim edilen son kampanyaya yazar ve kampanya raporu tutarı toplar."
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "# Your shop marks an order paid: report it as a conversion (Business, scope conversions:write)\ncurl -X POST {{WA_API_BASE}}/api/v1/conversions \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"phone\": \"+919812345678\",\n    \"orderId\": \"ORD-10442\",\n    \"value\": 2499.5,\n    \"currency\": \"INR\"\n  }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "// In your order-paid handler\nasync function reportConversion(order) {\n  const res = await fetch('{{WA_API_BASE}}/api/v1/conversions', {\n    method: 'POST',\n    headers: {\n      'Authorization': 'Bearer ' + process.env.SM_API_KEY, // sm_live_your_api_key\n      'Content-Type': 'application/json',\n    },\n    body: JSON.stringify({\n      phone: order.customerPhone, // E.164, e.g. +919812345678\n      orderId: order.id,          // safe to retry: the same orderId never counts twice\n      value: Math.round(order.total * 100) / 100, // at most 2 decimals\n      currency: 'INR',\n    }),\n  });\n  const { data } = await res.json(); // 201 = recorded, 200 = already reported\n  return data.conversion.campaign; // the campaign credited, or null\n}"
           }
         ]
       }
@@ -486,12 +525,30 @@
               "tr": "Tetiklenen mesajlar için gecikmeler ayarlayabilir miyim?"
             },
             "answer": {
-              "en": "Yes. You can configure delays from 0 seconds (instant) up to 72 hours after the trigger event. For example, send an abandoned cart reminder 1 hour after the user left your site, followed by a second reminder at 24 hours with a discount offer.",
-              "pt": "Sim. Você pode configurar atrasos de 0 segundos (instantâneo) até 72 horas após o evento de disparo. Por exemplo, envie um lembrete de carrinho abandonado 1 hora após o usuário sair do site, seguido de um segundo lembrete em 24 horas com uma oferta de desconto.",
-              "es": "Sí. Puede configurar retrasos de 0 segundos (instantáneo) hasta 72 horas después del evento de activación. Por ejemplo, enviar un recordatorio de carrito abandonado 1 hora después de que el usuario abandonó su sitio, seguido de un segundo recordatorio a las 24 horas con una oferta de descuento.",
-              "id": "Ya. Anda dapat mengonfigurasi penundaan dari 0 detik (instan) hingga 72 jam setelah acara pemicu. Misalnya, kirim pengingat keranjang ditinggalkan 1 jam setelah pengguna meninggalkan situs Anda, diikuti dengan pengingat kedua dalam 24 jam dengan penawaran diskon.",
-              "ar": "نعم. يمكنك ضبط تأخيرات من 0 ثانية (فوري) حتى 72 ساعة بعد حدث التشغيل. على سبيل المثال، أرسل تذكيراً بالسلة المهجورة بعد ساعة من مغادرة المستخدم للموقع.",
-              "tr": "Evet. Tetikleme olayından 0 saniye (anında) ile 72 saate kadar gecikme yapılandırabilirsiniz. Örneğin, kullanıcı sitenizi terk ettikten 1 saat sonra terk edilmiş sepet hatırlatması gönderin, ardından 24 saat sonra bir indirim teklifi içeren ikinci bir hatırlatma gönderin."
+              "en": "Delays are set where the trigger lives. If you send from your backend or from Zapier, Make or Pabbly, time the API call there — for example, an abandoned-cart reminder 1 hour later and a second one at 24 hours. Inside chatbot flows, a 'wait delay' step pauses before the next message. Outside the 24-hour customer service window, only approved templates are delivered.",
+              "pt": "Os atrasos são definidos onde o gatilho está. Se você envia pelo seu backend ou pelo Zapier, Make ou Pabbly, programe a chamada da API lá — por exemplo, um lembrete de carrinho abandonado 1 hora depois e outro em 24 horas. Nos fluxos de chatbot, uma etapa de 'aguardar' pausa antes da próxima mensagem. Fora da janela de atendimento de 24 horas, só templates aprovados são entregues.",
+              "es": "Los retrasos se definen donde vive el disparador. Si envía desde su backend o desde Zapier, Make o Pabbly, programe allí la llamada a la API — por ejemplo, un recordatorio de carrito abandonado 1 hora después y otro a las 24 horas. En los flujos de chatbot, un paso de 'esperar' pausa antes del siguiente mensaje. Fuera de la ventana de atención de 24 horas, solo se entregan plantillas aprobadas.",
+              "id": "Penundaan diatur di tempat pemicu berada. Jika Anda mengirim dari backend atau dari Zapier, Make, atau Pabbly, atur waktu panggilan API di sana — misalnya pengingat keranjang ditinggalkan 1 jam kemudian dan pengingat kedua pada 24 jam. Di dalam alur chatbot, langkah 'tunggu' memberi jeda sebelum pesan berikutnya. Di luar jendela layanan pelanggan 24 jam, hanya template yang disetujui yang terkirim.",
+              "ar": "تُضبط التأخيرات حيث يوجد المشغل. إذا كنت ترسل من نظامك الخلفي أو من Zapier أو Make أو Pabbly، فاضبط توقيت استدعاء API هناك — مثل تذكير بالسلة المهجورة بعد ساعة وتذكير ثانٍ بعد 24 ساعة. وداخل تدفقات الشات بوت، تتوقف خطوة 'الانتظار' مؤقتاً قبل الرسالة التالية. خارج نافذة خدمة العملاء البالغة 24 ساعة، لا تُسلَّم إلا القوالب المعتمدة.",
+              "tr": "Gecikmeler tetikleyicinin bulunduğu yerde ayarlanır. Backend'inizden veya Zapier, Make ya da Pabbly'den gönderiyorsanız API çağrısını orada zamanlayın — örneğin terk edilmiş sepet hatırlatmasını 1 saat sonra, ikincisini 24 saat sonra. Chatbot akışlarında bir 'bekle' adımı sonraki mesajdan önce duraklar. 24 saatlik müşteri hizmetleri penceresi dışında yalnızca onaylı şablonlar iletilir."
+            }
+          },
+          {
+            "question": {
+              "en": "Which plan do I need for these automations?",
+              "pt": "Qual plano preciso para essas automações?",
+              "es": "¿Qué plan necesito para estas automatizaciones?",
+              "id": "Paket apa yang saya perlukan untuk otomatisasi ini?",
+              "ar": "ما الباقة التي أحتاجها لهذه الأتمتة؟",
+              "tr": "Bu otomasyonlar için hangi pakete ihtiyacım var?"
+            },
+            "answer": {
+              "en": "The REST API and signed webhooks are on every plan, Developer Free included. Keyword auto-replies are on Team and Business. Chatbot flows, with their wait-delay steps, and reporting conversions with POST /api/v1/conversions are on Business. The 14-day free trial includes everything in Business.",
+              "pt": "A API REST e os webhooks assinados estão em todos os planos, inclusive no Developer Free. As respostas automáticas por palavra-chave fazem parte dos planos Team e Business. Os fluxos de chatbot, com suas etapas de espera, e o envio de conversões com POST /api/v1/conversions fazem parte do Business. O teste grátis de 14 dias inclui tudo o que o Business tem.",
+              "es": "La API REST y los webhooks firmados están en todos los planes, incluido Developer Free. Las respuestas automáticas por palabra clave están en Team y Business. Los flujos de chatbot, con sus pasos de espera, y el informe de conversiones con POST /api/v1/conversions están en Business. La prueba gratis de 14 días incluye todo lo de Business.",
+              "id": "REST API dan webhook bertanda tangan tersedia di setiap paket, termasuk Developer Free. Balasan otomatis kata kunci tersedia di Team dan Business. Alur chatbot, dengan langkah tunggunya, serta pelaporan konversi dengan POST /api/v1/conversions tersedia di Business. Uji coba gratis 14 hari mencakup semua fitur Business.",
+              "ar": "واجهة REST البرمجية وwebhooks الموقّعة متاحة في كل الباقات، بما فيها Developer Free. والردود التلقائية بالكلمات المفتاحية متاحة في Team وBusiness. أما تدفقات الشات بوت بخطوات الانتظار فيها، والإبلاغ عن التحويلات عبر POST /api/v1/conversions، ففي Business. وتشمل التجربة المجانية لمدة 14 يوماً كل ما في Business.",
+              "tr": "REST API ve imzalı webhook’lar Developer Free dahil her pakettedir. Anahtar kelime otomatik yanıtları Team ve Business paketlerindedir. Bekleme adımlarıyla chatbot akışları ve POST /api/v1/conversions ile dönüşüm bildirme Business paketindedir. 14 günlük ücretsiz deneme Business’taki her şeyi içerir."
             }
           }
         ]
@@ -511,14 +568,36 @@
         "links": [
           {
             "label": {
-              "en": "Chatbot Builder",
-              "pt": "Construtor de Chatbot",
-              "es": "Constructor de Chatbot",
-              "id": "Pembuat Chatbot",
-              "ar": "منشئ الشات بوت",
-              "tr": "Chatbot Oluşturucu"
+              "en": "Developer API",
+              "pt": "API para Desenvolvedores",
+              "es": "API para Desarrolladores",
+              "id": "API untuk Developer",
+              "ar": "واجهة API للمطورين",
+              "tr": "Geliştirici API'si"
+            },
+            "href": "/whatsapp/api"
+          },
+          {
+            "label": {
+              "en": "Chatbot Flows",
+              "pt": "Fluxos de Chatbot",
+              "es": "Flujos de Chatbot",
+              "id": "Alur Chatbot",
+              "ar": "تدفقات الشات بوت",
+              "tr": "Chatbot Akışları"
             },
             "href": "/whatsapp/chatbot"
+          },
+          {
+            "label": {
+              "en": "CRM & Pipeline",
+              "pt": "CRM e Pipeline",
+              "es": "CRM y Pipeline",
+              "id": "CRM & Pipeline",
+              "ar": "CRM ومسار المبيعات",
+              "tr": "CRM ve Satış Hattı"
+            },
+            "href": "/whatsapp/crm"
           },
           {
             "label": {
@@ -530,28 +609,6 @@
               "tr": "Yardımcı Bildirimler"
             },
             "href": "/whatsapp/utility"
-          },
-          {
-            "label": {
-              "en": "Broadcast Messaging",
-              "pt": "Mensagens de Transmissão",
-              "es": "Mensajes de Difusión",
-              "id": "Pesan Siaran",
-              "ar": "رسائل البث",
-              "tr": "Yayın Mesajlaşması"
-            },
-            "href": "/whatsapp/broadcast"
-          },
-          {
-            "label": {
-              "en": "Technical Support",
-              "pt": "Suporte Técnico",
-              "es": "Soporte Técnico",
-              "id": "Dukungan Teknis",
-              "ar": "الدعم التقني",
-              "tr": "Teknik Destek"
-            },
-            "href": "/contact"
           }
         ]
       }
@@ -568,22 +625,22 @@
           "tr": "Müşteri Yolculuklarınızı Otomatikleştirin"
         },
         "subtext": {
-          "en": "Free plan. No credit card required.",
-          "pt": "Plano grátis. Sem cartão.",
-          "es": "Plan gratis. Sin tarjeta.",
-          "id": "Paket gratis. Tanpa kartu.",
-          "ar": "خطة مجانية. بدون بطاقة.",
-          "tr": "Ücretsiz plan. Kredi kartı yok."
+          "en": "14-day free trial. Connect your own WhatsApp Business number in minutes.",
+          "pt": "Teste grátis de 14 dias. Conecte seu próprio número do WhatsApp Business em minutos.",
+          "es": "Prueba gratis de 14 días. Conecte su propio número de WhatsApp Business en minutos.",
+          "id": "Uji coba gratis 14 hari. Hubungkan nomor WhatsApp Business Anda sendiri dalam hitungan menit.",
+          "ar": "تجربة مجانية لمدة 14 يوماً. اربط رقم واتساب للأعمال الخاص بك في دقائق.",
+          "tr": "14 günlük ücretsiz deneme. Kendi WhatsApp Business numaranızı dakikalar içinde bağlayın."
         },
         "primaryCta": {
-          "en": "Get Started Free",
-          "pt": "Começar Grátis",
-          "es": "Empieza Gratis",
-          "id": "Mulai Gratis",
-          "ar": "ابدأ مجاناً",
-          "tr": "Ücretsiz Başla"
+          "en": "Start Free Trial",
+          "pt": "Começar Teste Grátis",
+          "es": "Iniciar Prueba Gratis",
+          "id": "Mulai Uji Coba Gratis",
+          "ar": "ابدأ التجربة المجانية",
+          "tr": "Ücretsiz Denemeyi Başlat"
         },
-        "primaryHref": "https://app.startmessaging.com/signup"
+        "primaryHref": "https://waba.startmessaging.com/signup"
       }
     }
   ]

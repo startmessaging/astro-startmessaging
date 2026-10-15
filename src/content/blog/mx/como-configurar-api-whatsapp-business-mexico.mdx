@@ -1,8 +1,8 @@
 ---
 title: "Cómo Configurar la API de WhatsApp Business en México: Guía Paso a Paso para Desarrolladores (2026)"
-description: "Aprende cómo configurar la API de WhatsApp Business en México. Guía paso a paso para crear la app Meta, validar la línea y enviar mensajes con Node.js."
+description: "Aprende a configurar la API de WhatsApp Business en México: conecta tu cuenta con Meta, crea la llave de API y envía tu primera plantilla paso a paso."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "mx"
 author: "StartMessaging Team"
@@ -13,151 +13,178 @@ keywords:
   - "whatsapp business tutorial mexico 2026"
   - "meta business manager mexico"
   - "api de whatsapp empresarial"
-relatedSlugs: []
+relatedSlugs:
+  - "chatbot-whatsapp-atencion-clientes-mexico"
+  - "envio-masivo-whatsapp-api-mexico"
 featured: false
 ---
 
-El uso de canales de mensajería instantánea para interactuar con los clientes se ha convertido en una prioridad estratégica para las marcas en México. Con una de las mayores tasas de adopción de smartphones en América Latina, los usuarios mexicanos esperan respuestas inmediatas en su canal de comunicación preferido. No obstante, cuando un negocio escala y el volumen de interacciones crece, depender de un celular físico con la aplicación convencional resulta ineficiente. En este tutorial paso a paso, aprenderás cómo configurar la api whatsapp business mexico oficial desde cero, registrando tu aplicación en la consola de Meta e integrando tus primeros envíos programáticos.
+El uso de canales de mensajería instantánea para interactuar con los clientes se ha convertido en una prioridad estratégica para las marcas en México. Los usuarios mexicanos esperan respuestas inmediatas en su canal de comunicación preferido. No obstante, cuando un negocio escala y el volumen de interacciones crece, depender de un celular físico con la aplicación convencional resulta ineficiente. En este tutorial paso a paso, aprenderás cómo configurar la api whatsapp business mexico oficial desde cero: conectar tu cuenta con Meta, crear una llave de API y enviar tu primera plantilla.
 
-La API de StartMessaging para WhatsApp está actualmente en fase activa de desarrollo por nuestro equipo de ingeniería. Mientras se liberan los endpoints definitivos para el entorno de producción, que estarán disponibles muy pronto, puedes estructurar tus conexiones y probar tus integraciones utilizando la ruta temporal `/v1/messages`. Nuestra pasarela utiliza autenticación segura por medio del encabezado HTTP personalizado `X-API-Key`, garantizando una integración sencilla e idéntica a nuestros servicios de SMS.
+StartMessaging es un CRM de WhatsApp con API, construido sobre la Cloud API oficial de Meta (StartMessaging es un Meta Tech Provider). Conectas **tu propia** cuenta de WhatsApp Business (WABA) mediante el registro integrado (Embedded Signup) de Meta, y tu sistema se comunica con ella por una API REST en `https://waba-api.startmessaging.com/api/v1`, autenticada con una llave en el encabezado `Authorization: Bearer sm_live_...`, y por webhooks firmados.
 
 ---
 
 ## ¿Por qué Migrar del App de WhatsApp Business a la API Oficial?
 
-Muchas microempresas y comercios locales inician su atención utilizando la aplicación móvil gratuita WhatsApp Business. Aunque esta herramienta es útil en fases tempranas, presenta limitaciones críticas para empresas medianas o en crecimiento. El app móvil tradicional requiere estar vinculada a un teléfono físico y solo permite conectar un máximo de cuatro dispositivos adicionales a través de su versión web, lo cual limita la capacidad de respuesta cuando se tiene un equipo de atención grande.
+Muchas microempresas y comercios locales inician su atención utilizando la aplicación móvil gratuita WhatsApp Business. Aunque esta herramienta es útil en fases tempranas, presenta limitaciones para empresas medianas o en crecimiento: depende de un teléfono principal con pocos dispositivos vinculados, lo cual limita la capacidad de respuesta cuando se tiene un equipo de atención grande.
 
-Por el contrario, la API oficial (WhatsApp Business Platform) elimina cualquier dependencia de teléfonos celulares y se ejecuta directamente en servidores en la nube. Esto permite:
+Por el contrario, la API oficial (WhatsApp Business Platform) se ejecuta en la nube de Meta y no depende de un celular encendido. Esto permite:
 
-- **Multicanalidad y Multiagentes:** Decenas de asesores de ventas o soporte pueden responder chats al mismo tiempo desde una sola línea telefónica utilizando una plataforma de helpdesk centralizada.
-- **Automatización Avanzada:** Conexión de chatbots inteligentes y asistentes virtuales que resuelven dudas frecuentes las 24 horas del día sin necesidad de agentes humanos.
-- **Mensajería Transaccional:** Disparo automatizado de alertas de compra, estados de envío, notificaciones de cobro SPEI y confirmaciones de pago con OXXO Pay generadas directamente por los eventos de tu backend.
+- **Multiagentes:** varios asesores de ventas o soporte responden chats al mismo tiempo desde una sola línea, en una bandeja de entrada compartida.
+- **Automatización:** chatbots y respuestas automáticas que resuelven dudas frecuentes las 24 horas del día.
+- **Mensajería Transaccional:** alertas de compra, estados de envío, notificaciones de cobro SPEI y fichas de pago de OXXO generadas directamente por los eventos de tu backend.
 
-Otro aspecto fundamental es el cumplimiento de las políticas de Meta. Realizar envíos masivos o automatizados a través de emuladores o softwares de terceros en el app convencional provoca la suspensión inmediata y definitiva del número telefónico. La API oficial es el único método autorizado y seguro para implementar campañas de comunicación a gran escala en México.
+Otro aspecto fundamental es el cumplimiento de las políticas de Meta. Realizar envíos masivos o automatizados a través de emuladores o softwares de terceros en el app convencional suele provocar la suspensión del número. La API oficial es el canal autorizado por Meta para automatizar, siempre que uses plantillas aprobadas y respetes el consentimiento de tus clientes.
 
 ---
 
 ## Requisitos Previos para la Configuración en México
 
-Antes de escribir el código de integración técnica, es indispensable contar con una serie de activos empresariales requeridos por Meta y la pasarela de StartMessaging. La validación previa de estos requisitos agilizará el proceso de aprobación de tu cuenta de WhatsApp empresarial (WABA).
+Antes de empezar, reúne lo que Meta exige. Sin estos elementos no podrás completar la conexión ni enviar plantillas.
 
-Los tres requisitos indispensables son:
+1. **Una cuenta de Facebook que administre (o pueda crear) un portafolio comercial de Meta:** ahí viven tu cuenta de WhatsApp Business y tu número. La verificación del negocio en Meta (con documentos como la Constancia de Situación Fiscal) no es obligatoria para empezar, pero habilita límites de envío más altos.
+2. **Un número telefónico del negocio que pueda recibir un código de verificación:** si el número está activo en WhatsApp o en WhatsApp Business App, el flujo de registro de Meta explica cómo migrarlo.
+3. **Un método de pago (tarjeta) en el Administrador de WhatsApp:** Meta lo exige antes del primer envío de plantilla y ahí cobra los mensajes. Ese cargo nunca pasa por StartMessaging.
 
-1. **Cuenta comercial en Meta Business Manager:** Es el administrador comercial de Meta donde gestionas las páginas de tu negocio. Para acceder a volúmenes altos de envío y validar tu número definitivo, tu cuenta de negocio de Meta debe estar verificada con la documentación oficial de tu empresa (como el Acta Constitutiva o la Constancia de Situación Fiscal ante el SAT).
-2. **Línea telefónica dedicada:** Requieres un número telefónico (móvil o fijo) exclusivo para la API. Este número no debe estar registrado en ninguna aplicación activa de WhatsApp (común o Business). Si el número está activo en un celular, deberás dar de baja la cuenta en los ajustes de la aplicación antes de asociarlo a la API oficial.
-3. **Cuenta de Desarrollador en StartMessaging:** StartMessaging actúa como tu proveedor de servicios (ISV), simplificando la conexión técnica, gestionando la entrega de webhooks y proporcionándote las claves secretas de autenticación.
-
-La siguiente tabla detalla la infraestructura de configuración requerida para el inicio del proyecto de desarrollo:
-
-| Componente Técnico | Requisito en México | Propósito Principal |
+| Componente | Requisito | Propósito |
 |---|---|---|
-| **Meta Business Manager** | Cuenta comercial con verificación de RFC/SAT | Validar la existencia legal del negocio y habilitar límites altos de mensajería |
-| **Línea de Teléfono** | Número exclusivo (LADA mexicana + 10 dígitos) | Recepción del código de verificación de Meta por llamada o SMS |
-| **StartMessaging Console** | Cuenta activa con saldo y API Key generada | Conexión con los servidores del gateway, recepción de webhooks y API de disparo |
+| **Portafolio comercial de Meta** | Cuenta de Facebook con acceso de administrador | Crear o elegir la cuenta de WhatsApp Business (WABA) durante el registro |
+| **Línea de teléfono** | Número del negocio (+52 y 10 dígitos) que reciba SMS o llamada | Recibir el código de verificación de Meta |
+| **Método de pago en Meta** | Tarjeta registrada en el Administrador de WhatsApp | Permitir el envío de plantillas; Meta cobra los mensajes directamente |
+| **Espacio de trabajo en StartMessaging** | Cuenta creada en waba.startmessaging.com | Conectar el número, crear plantillas, llaves de API y webhooks |
 
 ---
 
-## Paso a Paso: Configurando tu API en la Consola de Meta
+## Paso a Paso: Conectando WhatsApp con StartMessaging
 
-El procedimiento técnico de vinculación se realiza asociando tu línea telefónica a un proyecto de desarrollo en el portal de Meta para desarrolladores. Sigue estos pasos para obtener las credenciales de tu línea:
+No necesitas crear una app en la consola de Meta for Developers ni copiar identificadores a mano. La conexión se hace con el registro integrado de Meta, dentro del panel.
 
-### Paso 1: Crear un Aplicación en Meta for Developers
-Ingresa a [Meta for Developers](https://developers.facebook.com) con tu cuenta de administrador. Haz clic en **Crear App**, selecciona la opción de caso de uso comercial para empresas y asigna un nombre de proyecto. Vincula la aplicación a tu cuenta comercial de Meta Business Manager.
+### Paso 1: Habla con ventas para abrir tu espacio de trabajo
+[Habla con ventas](/mx/contact) y nosotros abrimos tu espacio de trabajo. Inicia con una **prueba gratuita de 14 días del plan Business**, para hasta 3 personas, 1,000 contactos y 1,000 mensajes de API, con la API de desarrollador incluida.
 
-### Paso 2: Agregar el Producto WhatsApp
-Dentro de la consola de tu nueva aplicación, localiza la sección de productos disponibles y haz clic en **Configurar** en el bloque de WhatsApp. Meta creará una cuenta de prueba temporal con un número de simulación para que realices pruebas iniciales de envío de API sin costo.
+### Paso 2: Conectar WhatsApp con el registro integrado
+Abre **Connect** en el menú del espacio de trabajo y haz clic en **Connect with Facebook**. En la ventana de Meta, inicia sesión con Facebook, elige o crea tu portafolio comercial, tu cuenta de WhatsApp Business y tu número. Verifica el número con el código que Meta envía por SMS o llamada y, de vuelta en StartMessaging, define un **PIN de verificación en dos pasos de 6 dígitos** para registrar el número en la Cloud API.
 
-### Paso 3: Registrar tu Número Telefónico Mexicano
-Para utilizar tu número definitivo, navega a la sección de configuración de WhatsApp dentro del app de Meta y haz clic en **Agregar número de teléfono**. Ingresa los datos de tu línea mexicana. Meta enviará un código de seguridad de 6 dígitos mediante un mensaje SMS o llamada de voz para validar la propiedad de la línea. Una vez verificado, el portal te mostrará tu Identificador de Cuenta de WhatsApp Business (WABA ID) y el Identificador de Teléfono (Phone Number ID).
+### Paso 3: Agregar el método de pago en Meta
+En la página Connect aparece el punto **Payment method added in Meta**. Haz clic en **Open WhatsApp Manager →** y agrega una tarjeta a tu cuenta de WhatsApp Business. Sin ella, Meta rechaza los envíos de plantillas y la API responde `402 META_PAYMENT_REQUIRED`.
 
-### Paso 4: Obtener tu Credencial de StartMessaging
-Ingresa a la consola de StartMessaging, asocia tu Phone Number ID y crea una llave secreta de desarrollo. Esta clave se enviará en tus integraciones mediante el cabezal HTTP `X-API-Key` para autorizar las solicitudes de envío que realices desde tu servidor.
+### Paso 4: Crear y aprobar una plantilla
+Para iniciar una conversación (o escribir a un cliente cuya ventana de 24 horas cerró), WhatsApp solo permite **plantillas aprobadas**. En **Templates → Create template**, elige la categoría (Marketing, Utility o Authentication), el idioma (`es_MX`) y el texto, con un ejemplo para cada variable, y haz clic en **Submit to Meta**. Meta revisa cada plantilla y define los tiempos.
+
+### Paso 5: Crear tu llave de API
+En **Developers → API keys**, haz clic en **Create key**, ponle un nombre y elige el acceso (**Full access**, **Send only**, **Read only** o permisos personalizados). La llave empieza con `sm_live_` y **se muestra una sola vez**: guárdala en una variable de entorno o en un gestor de secretos, nunca en código del navegador o de una app móvil.
 
 ---
 
 ## Integración Práctica: Enviando tu Primer Mensaje en Node.js
 
-Una vez que tu número esté registrado en la consola de Meta y hayas generado tu clave secreta en StartMessaging, puedes configurar tu código de envío. Para realizar disparos de texto libre o modelos transaccionales, debes enviar solicitudes HTTP POST en formato JSON a la pasarela.
+Primero prueba la llave con `GET /api/v1/me`, que no requiere permisos y muestra tu espacio de trabajo, tu plan, los permisos de la llave y el uso del mes:
 
-El código de Node.js presentado a continuación muestra cómo estructurar el envío de un mensaje de prueba utilizando Axios y el endpoint provisional de StartMessaging:
-
-```javascript
-const axios = require('axios');
-
-/**
- * Envía una notificación de texto simple a un número celular en México.
- * 
- * @param {string} phoneMX - Número de teléfono del destinatario con código de país (ex: "525512345678")
- * @param {string} bodyText - Contenido del mensaje a enviar
- */
-async function enviarMensajeWhatsApp(phoneMX, bodyText) {
-  // TODO: Actualizar al endpoint oficial de producción una vez concluido el desarrollo de la API de WhatsApp
-  const urlEndpoint = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: phoneMX,
-    type: 'text',
-    text: {
-      body: bodyText
-    }
-  };
-
-  try {
-    const response = await axios.post(urlEndpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log('Mensaje enviado con éxito. ID de transacción:', response.data.messageId);
-    return response.data;
-  } catch (error) {
-    console.error('Error al realizar el envío vía WhatsApp API:', error.response ? error.response.data : error.message);
-    throw error;
-  }
-}
-
-// Ejemplo de llamada: envía mensaje de prueba a un celular de la Ciudad de México
-const numeroDestino = '525512345678';
-const mensaje = 'Hola, este es un mensaje de prueba enviado mediante la API de StartMessaging.';
-enviarMensajeWhatsApp(numeroDestino, mensaje);
+```bash
+curl https://waba-api.startmessaging.com/api/v1/me \
+  -H "Authorization: Bearer sm_live_tu_llave"
 ```
 
-Este script configura la conexión enviando el número de celular de destino y el texto del cuerpo en formato JSON. La autenticación se maneja de forma segura enviando la clave secreta a través del encabezado `X-API-Key`. Asegúrate de almacenar esta clave en la variable de ambiente `STARTMESSAGING_API_KEY` para autorizar tus llamadas de red de forma correcta.
+Después envía la plantilla aprobada con `POST /api/v1/messages`. Usa el **nombre** de la plantilla tal como Meta la aprobó y su código de idioma. El destinatario va en formato E.164:
+
+```javascript
+/**
+ * Envía una plantilla aprobada con la API de StartMessaging.
+ * Requiere la variable de entorno SM_API_KEY con una llave sm_live_...
+ */
+async function enviarPlantilla(telefono, nombreCliente, numeroPedido) {
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      // Una llave única por mensaje: un reintento nunca envía dos veces
+      'Idempotency-Key': `pedido-${numeroPedido}-confirmacion`,
+    },
+    body: JSON.stringify({
+      to: telefono,
+      type: 'template',
+      template: {
+        name: 'confirmacion_pedido',
+        language: 'es_MX',
+        parameters: [{ text: nombreCliente }, { text: numeroPedido }],
+      },
+      clientReference: `pedido-${numeroPedido}`,
+    }),
+  });
+
+  const body = await res.json();
+  if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+  console.log('Mensaje aceptado por WhatsApp:', body.data.id, body.data.status); // "sent"
+  return body.data;
+}
+
+// Celular de la Ciudad de México: +52 seguido de los 10 dígitos
+enviarPlantilla('+525512345678', 'Sofía', '#1042');
+```
+
+Una respuesta `201` significa que WhatsApp aceptó el mensaje. Las confirmaciones de entrega y lectura llegan después por los webhooks `message.*`. El destinatario se agrega a tus contactos y, en los planes con bandeja de entrada (Team, Business, Enterprise y la prueba gratuita), la conversación aparece para que tu equipo responda.
+
+Los mensajes de texto libre (`type: "text"`) solo se pueden enviar dentro de la ventana de atención de 24 horas que abre el último mensaje del cliente. Fuera de ella, la API responde `403 MESSAGE_WINDOW_CLOSED` y debes enviar una plantilla.
 
 ---
 
 ## Consideraciones Especiales con Líneas de México (LADA y Prefijos)
 
-La telefonía en México presenta particularidades técnicas en la estructura de prefijos numéricos que pueden provocar fallas de envío si no se configuran de manera correcta en la base de datos de tu aplicación.
+La telefonía en México presenta particularidades en la estructura de prefijos que pueden provocar fallas de envío si no se normalizan en tu base de datos.
 
-Los principales puntos a considerar al formatear los números telefónicos son:
-
-- **Eliminación del Prefijo "1" en Celulares:** Históricamente, para marcar a celulares en México desde el extranjero, se debía insertar un "1" después del código de país `52` (por ejemplo, `52 1 55...`). Con las actualizaciones de marcación unificada en México y las reglas actuales de Meta, el prefijo "1" ya no debe incluirse. Los números de celular deben enviarse con un total de 12 dígitos: código de país `52` seguido de los 10 dígitos locales del celular (LADA + número, por ejemplo: `525512345678`).
-- **Números de Teléfono Fijos:** Si registraste un número telefónico fijo de oficina para usarlo en la API de WhatsApp, la marcación también debe estructurarse con el código de país `52` seguido de los 10 dígitos locales sin prefijos adicionales.
-- **Verificación de la LADA:** Asegúrate de que los números ingresados por tus clientes incluyan la LADA (Clave de Larga Distancia) local de 2 o 3 dígitos correspondiente a su ciudad (por ejemplo, `55` para CDMX, `81` para Monterrey, `33` para Guadalajara) antes del número local.
+- **Sin el "1" adicional en celulares:** históricamente, para marcar a celulares mexicanos desde el extranjero se insertaba un "1" después del código de país (`52 1 55...`). Con la marcación unificada ya no se usa: guarda los números como `+52` seguido de los 10 dígitos (por ejemplo, `+525512345678`).
+- **Números fijos:** si registraste un fijo de oficina para la API, sigue la misma estructura: `+52` y los 10 dígitos.
+- **Verificación de la LADA:** asegúrate de que los números de tus clientes incluyan la LADA de su ciudad (por ejemplo, `55` para CDMX, `81` para Monterrey, `33` para Guadalajara). La API acepta números nacionales y los interpreta con el país de tu espacio de trabajo, pero E.164 es lo más seguro.
 
 ---
 
-## Preguntas Frequentes
+## Errores Comunes y Cómo Resolverlos
 
-**Q: ¿Puedo migrar mi número de WhatsApp actual para usarlo en la API oficial?**
+Los errores siguen un formato estándar. Decide según `error.code`, no según el texto del mensaje.
 
-A: Sí. Sin embargo, antes de asociar el número a la API oficial, debes eliminar por completo la cuenta existente en la aplicación móvil de WhatsApp (común o Business) desde los ajustes de tu celular. Una vez eliminado el registro de la app física, el número quedará libre para vincularse a los servidores en la nube de Meta.
+* **401 `INVALID_API_KEY`:** falta el encabezado `Authorization`, está mal formado o la llave fue revocada.
+* **403 `INSUFFICIENT_SCOPE`:** la llave es válida pero no tiene el permiso de la ruta (por ejemplo, `messages:send`).
+* **402 `META_PAYMENT_REQUIRED`:** falta el método de pago en tu cuenta de WhatsApp Business.
+* **422 `TEMPLATE_NOT_APPROVED` / 404 `TEMPLATE_NOT_FOUND`:** la plantilla sigue en revisión, o el nombre o el idioma no coinciden.
+* **429 `RATE_LIMIT_EXCEEDED`:** superaste el límite de solicitudes de tu plan; espera los segundos de `Retry-After`.
 
-**Q: ¿Cuánto tiempo tarda la verificación del Meta Business Manager en México?**
-
-A: Si la documentación oficial de tu empresa (como la Constancia de Situación Fiscal o comprobantes de domicilio corporativos) está actualizada y coincide exactamente con el nombre de tu cuenta de Meta, la aprobación básica suele tardar entre 24 y 72 horas hábiles.
-
-**Q: ¿Cuánto cuestan las notificaciones enviadas por la API en Pesos Mexicanos ($ MXN)?**
-
-A: Los costos de mensajería del WhatsApp Business API están basados en un esquema de tarifas por conversación de 24 horas y varían según el tipo de plantilla (Marketing, Utilidad o Autenticación). El costo promedio por conversación de Marketing iniciada por el negocio oscila entre $0.60 y $0.80 MXN, mientras que las de Utilidad son más económicas. Las primeras 1,000 conversaciones mensuales de soporte (iniciadas por el cliente) son gratuitas.
-
-**Q: ¿Es posible utilizar un número 800 de larga distancia gratuita para la API oficial?**
-
-A: Sí. El portal de Meta para desarrolladores admite el registro de líneas 800 fijas siempre y cuando puedan recibir llamadas telefónicas externas de verificación. Dado que los números 800 no reciben mensajes SMS de forma convencional, deberás seleccionar la opción técnica de "Llamada Telefónica" durante el paso de verificación del código de seguridad de Meta.
+La lista completa está en [Errores y límites](/mx/docs/whatsapp/errors-and-limits).
 
 ---
 
-Configurar de manera adecuada la API de WhatsApp Business oficial en México establece un canal seguro y escalable para interactuar con tus clientes. Con tu número de teléfono verificado y la autenticación configurada mediante la clave `X-API-Key`, puedes programar automaciones eficientes para tu negocio. Para configurar las respuestas de tu servidor y capturar eventos de entrega en tiempo real, consulta nuestra documentación sobre [cómo configurar webhooks de WhatsApp](/mx/docs/whatsapp/webhooks) y gestiona tus eventos.
+## Cuánto Cuesta: Planes de StartMessaging y Tarifas de Meta
+
+Son dos cobros distintos:
+
+- **Meta cobra los mensajes** directamente al método de pago de tu cuenta de WhatsApp Business, según las tarifas que publica Meta. Desde el 1 de octubre de 2026 el cobro es **por mensaje entregado**: cada plantilla entregada se cobra (marketing, utilidad, incluso dentro de la ventana de 24 horas, y autenticación). Las respuestas de atención dentro de la ventana de 24 horas son gratuitas hasta una cuota mensual por número. Las tarifas por país están en la [página oficial de precios de Meta](https://developers.facebook.com/docs/whatsapp/pricing).
+- **StartMessaging cobra solo la suscripción**, sin cargo por mensaje, monedero ni créditos. Los precios están en rupias indias (INR), con GST incluido, y el cobro es solo en INR: **Developer** (API y panel de solo lectura) gratis con 100 mensajes de API al mes, o desde ₹100/mes; **Team** ₹999/mes, con bandeja de entrada compartida, contactos, campañas y respuestas automáticas; **Business** ₹2.999/mes, con flujos de chatbot, WhatsApp Forms y embudo de ventas; y **Enterprise** con contrato a la medida. Consulta los detalles en [precios](/mx/pricing).
+
+---
+
+## Preguntas Frecuentes
+
+**Q: ¿Puedo usar mi número de WhatsApp actual en la API oficial?**
+
+A: Sí. Si el número está activo en WhatsApp o en WhatsApp Business App, el flujo de registro integrado de Meta explica cómo migrarlo a la plataforma durante la conexión.
+
+**Q: ¿Existe un entorno de pruebas (sandbox)?**
+
+A: No. Conectas tu propia cuenta de WhatsApp Business desde el inicio. La prueba gratuita de 14 días incluye la API de desarrollador (1,000 mensajes de API), suficiente para construir y probar una integración completa. Después, Developer Free mantiene la API con 100 mensajes al mes.
+
+**Q: ¿Cuánto tarda la aprobación de plantillas y la verificación del negocio?**
+
+A: Los tiempos los define Meta. El panel muestra la plantilla como **Pending review** hasta que Meta decide, y el webhook `template.status_updated` avisa a tu sistema cuando cambia el estado.
+
+**Q: ¿Cuánto cuestan las notificaciones enviadas por la API en México?**
+
+A: Ya no hay cobro por "conversación" de 24 horas: desde el 1 de octubre de 2026, Meta cobra cada plantilla entregada según su categoría (Marketing, Utilidad o Autenticación) y el país del destinatario. Las respuestas de atención dentro de la ventana de 24 horas son gratuitas hasta una cuota mensual por número, y un cliente que llega desde un anuncio de clic a WhatsApp o un botón de una página de Facebook abre una ventana de punto de entrada gratuito de 72 horas cuando respondes en menos de 24 horas. Consulta las tarifas vigentes en la [página oficial de precios de Meta](https://developers.facebook.com/docs/whatsapp/pricing).
+
+**Q: ¿Es posible utilizar un número 800 para la API oficial?**
+
+A: Meta permite registrar números fijos siempre que puedan recibir el código de verificación. Si la línea no recibe SMS, elige la opción de llamada telefónica al verificar el número.
+
+---
+
+Configurar de manera adecuada la API oficial de WhatsApp Business en México establece un canal seguro y escalable para interactuar con tus clientes. Para seguir, lee la guía de [primeros pasos](/mx/docs/whatsapp/getting-started), configura los [webhooks de WhatsApp](/mx/docs/whatsapp/webhooks) para recibir respuestas y confirmaciones en tiempo real, o [habla con ventas](/mx/contact) para abrir tu espacio de trabajo con la prueba gratuita.

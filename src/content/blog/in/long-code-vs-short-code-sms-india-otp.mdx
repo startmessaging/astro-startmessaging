@@ -2,7 +2,7 @@
 title: "Long Code vs Short Code SMS API in India: OTP Cost & Speed Guide"
 description: "Compare Long Code vs Short Code SMS API in India for OTP delivery. Learn throughput limits, TRAI DLT header rules, costs, and 2026 developer best practices."
 publishedAt: "2026-08-26"
-updatedAt: "2026-08-26"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "in"
 author: "StartMessaging Team"
@@ -180,6 +180,7 @@ Create `otp-service.ts` to execute asynchronous OTP dispatching:
 
 ```typescript
 import 'dotenv/config';
+import crypto from 'node:crypto';
 
 const API_KEY = process.env.STARTMESSAGING_API_KEY!;
 const BASE_URL = process.env.STARTMESSAGING_BASE_URL || 'https://api.startmessaging.com';
@@ -187,9 +188,9 @@ const BASE_URL = process.env.STARTMESSAGING_BASE_URL || 'https://api.startmessag
 interface SendOtpResponse {
   success: boolean;
   data?: {
-    requestId: string;
-    expiresAt: string;
-    attemptsLeft: number;
+    otpRequestId: string; // pass as requestId to POST /otp/verify
+    messageId: string;    // use with GET /messages/:id for delivery status
+    status: string;       // "queued"
   };
   error?: string;
 }
@@ -206,6 +207,9 @@ export async function sendHighSpeedOtp(phoneNumber: string): Promise<SendOtpResp
       throw new Error('INVALID_PHONE_NUMBER: Must be a valid 10-digit Indian mobile number with +91 prefix.');
     }
 
+    // Your backend generates the 6-digit code; StartMessaging delivers it
+    const otp = crypto.randomInt(100000, 1000000).toString();
+
     const response = await fetch(`${BASE_URL}/otp/send`, {
       method: 'POST',
       headers: {
@@ -214,6 +218,7 @@ export async function sendHighSpeedOtp(phoneNumber: string): Promise<SendOtpResp
       },
       body: JSON.stringify({
         phoneNumber,
+        variables: { otp },
       }),
     });
 
@@ -248,8 +253,8 @@ async function run() {
 
   if (result.success && result.data) {
     console.log('OTP Dispatched Successfully!');
-    console.log('Request ID:', result.data.requestId);
-    console.log('Expires At:', result.data.expiresAt);
+    console.log('OTP Request ID:', result.data.otpRequestId);
+    console.log('Message ID:', result.data.messageId);
   } else {
     console.error('Dispatch Failed:', result.error);
   }
@@ -260,12 +265,12 @@ run();
 
 ### Step 3: Implement Atomic OTP Verification
 
-Validate submitted codes against the generated `requestId`:
+Validate submitted codes against the `otpRequestId` returned by the send call. StartMessaging enforces expiry and attempt limits:
 
 ```typescript
 /**
  * Verifies a user-submitted OTP against StartMessaging
- * @param requestId The request ID returned during OTP dispatch
+ * @param requestId The data.otpRequestId returned during OTP dispatch
  * @param code The 6-digit OTP code entered by the user
  */
 export async function verifyOtpCode(requestId: string, code: string): Promise<boolean> {

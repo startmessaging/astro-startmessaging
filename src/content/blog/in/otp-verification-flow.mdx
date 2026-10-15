@@ -2,7 +2,7 @@
 title: "Build a Complete OTP Verification Flow"
 description: "Architecture guide for building a production-ready OTP verification flow covering generation, delivery, verification, retry logic, expiry, and security best practices."
 publishedAt: "2026-01-25"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -48,9 +48,9 @@ A complete OTP verification flow consists of four stages:
 
 
 - **Initiation** — The user requests verification (e.g. enters their phone number on a registration form).
-- **Generation and Delivery** — Your backend calls the OTP API, which generates a code, sends it via SMS, and returns a request ID.
+- **Generation and Delivery** — Your backend generates a code and calls the OTP API, which sends it via SMS and returns an `otpRequestId`.
 - **User Input** — The user receives the SMS and enters the code in your application.
-- **Verification** — Your backend sends the code and request ID to the OTP API for verification.
+- **Verification** — Your backend sends the code and `otpRequestId` to the OTP API, which checks the code and enforces expiry and attempt limits.
 
 
 
@@ -64,8 +64,8 @@ User          Your Frontend       Your Backend       StartMessaging      SMS Pro
   |                |-- POST /send-otp -->|                    |                    |
   |                |                    |-- POST /otp/send -->|                    |
   |                |                    |                    |-- Deliver SMS ----->|
-  |                |                    |<-- { requestId } --|                    |
-  |                |<-- { requestId } --|                    |                    |
+  |                |                    |<--{ otpRequestId }-|                    |
+  |                |<-- { sent: true } -|                    |                    |
   |<-- Show OTP input --|                |                    |       |-- SMS -->User
   |                |                    |                    |                    |
   |-- Enter code ->|                    |                    |                    |
@@ -92,22 +92,23 @@ When the user submits their phone number, your frontend sends it to
 
 ## Step 2: Generation and Delivery
 
-Your backend calls the `POST /otp/send` endpoint on the
-        StartMessaging API. The API handles all of the following:
+Your backend generates the code and calls the `POST /otp/send` endpoint on the
+        StartMessaging API. The split of responsibilities:
 
 
 
-- **Code generation** — A cryptographically random 6-digit code is generated.
-- **Code hashing** — The code is hashed with bcrypt before storage. The plaintext code is never stored.
-- **SMS delivery** — The code is sent via SMS with automatic provider fallback if the primary carrier fails.
-- **Expiry and attempt tracking** — The API sets an expiry time (default 10 minutes) and a maximum number of verification attempts (default 3).
+- **Code generation (your backend)** — Generate a cryptographically random 4-6 digit code, for example `crypto.randomInt(100000, 1000000)` in Node.js, and pass it as `variables.otp` along with `phoneNumber`.
+- **SMS delivery (StartMessaging)** — The code is sent via SMS with automatic provider fallback if the primary carrier fails.
+- **Code checking (StartMessaging)** — `POST /otp/verify` checks the user's input against the code you sent, so you do not need to store the code yourself.
+- **Expiry and attempt limits (StartMessaging)** — When you verify through `POST /otp/verify`, StartMessaging enforces the code's expiry and the maximum number of verification attempts.
 
 
 
-Your backend receives a response with `requestId`, 
-        `expiresAt`, and `attemptsLeft`. Store the 
-        `requestId` in your session or database, associated with
-        the user or phone number. Forward it to your frontend.
+Your backend receives a `201` response with `data.otpRequestId` and
+        `data.messageId` (the top-level `requestId` is only a trace ID for the
+        HTTP call). Store the `otpRequestId` and the send time in your session or
+        database, associated with the user or phone number. Use the `messageId`
+        with `GET /messages/:id` if you want to track delivery.
 
 
 Always include an 
@@ -132,9 +133,9 @@ Your frontend shows an OTP input screen. The user checks their SMS and
 
 ## Step 4: Verification
 
-When the user submits the code, your frontend sends both the code and
-        the `requestId` to your backend. Your backend then calls 
-        `POST /otp/verify` on the StartMessaging API.
+When the user submits the code, your frontend sends it to your backend.
+        Your backend looks up the stored `otpRequestId` and calls
+        `POST /otp/verify` with `{ requestId: otpRequestId, otpCode }`.
 
 
 Possible outcomes:
@@ -161,21 +162,21 @@ Possible outcomes:
             </tr>
             <tr>
               <td>Wrong code, attempts remaining</td>
-              <td>Error with attempts left count</td>
+              <td>Not verified</td>
               <td>
-                Show error to user with remaining attempts. Let them try again.
+                Show an error and let them try again.
               </td>
             </tr>
             <tr>
               <td>Wrong code, no attempts left</td>
-              <td>Error indicating max attempts exceeded</td>
+              <td>Error (attempt limit reached)</td>
               <td>
                 The OTP is invalidated. The user must request a new one.
               </td>
             </tr>
             <tr>
               <td>Expired OTP</td>
-              <td>Error indicating expiry</td>
+              <td>Error (OTP expired)</td>
               <td>
                 Prompt the user to request a new OTP.
               </td>
@@ -192,10 +193,10 @@ There are two distinct retry concepts in an OTP flow, and it is
 ### Verification retries (wrong code)
 
 When the user enters the wrong code, they should be allowed to try
-        again up to the attempt limit (typically 3). After the limit is
-        exhausted, the OTP is invalidated and the user must request a new one.
-        Your frontend should display the remaining attempts to set
-        expectations.
+        again up to the attempt limit. StartMessaging enforces this limit on
+        `/otp/verify`; once it is exhausted, the OTP is invalidated and the user
+        must request a new one. Your frontend should make it clear when a new
+        code is needed.
 
 ### Resend (new OTP)
 
@@ -213,17 +214,17 @@ If the user does not receive the SMS, they may request a new OTP.
 
 ## Expiry Handling
 
-OTP codes must expire after a fixed duration. StartMessaging defaults
-        to 10 minutes, which balances security with usability for Indian
-        mobile networks where SMS delivery can sometimes be delayed.
+OTP codes must expire after a fixed duration. When you verify through
+        `/otp/verify`, StartMessaging enforces expiry for you. The send
+        response does not include an expiry timestamp.
 
 
 Handle expiry on both sides:
 
 
 
-- **Frontend:** Show a countdown timer. When it reaches zero, disable the input and show a "Request new OTP" button. Calculate the remaining time from the  `expiresAt` timestamp returned by the API.
-- **Backend:** Even if your frontend timer expires, always rely on the API-side expiry as the source of truth. The API will reject expired codes regardless of what your frontend shows.
+- **Frontend:** If you show a timer, base it on the send time your backend records and treat it as a guide. Always offer a "Request new OTP" button once the resend cooldown has passed.
+- **Backend:** Treat the `/otp/verify` result as the source of truth. The API rejects expired codes regardless of what your frontend shows.
 
 
 
@@ -268,19 +269,21 @@ Rate limiting is critical for preventing both financial abuse (someone
       </div>
 
 Implement these limits in your backend before calling the
-        StartMessaging API. Use Redis or your database for tracking.
+        StartMessaging API. Use Redis or your database for tracking. StartMessaging
+        also enforces 3 OTPs per number every 5 minutes and 20 requests per
+        second per account, returning `429 Too Many Requests` when exceeded.
 
 
 ## Security Considerations
 
 
-- **Never expose OTP codes in your API responses.** Your backend should only forward the `requestId` to the frontend, never the code itself. StartMessaging never returns the code in API responses — it is only sent via SMS.
-- **Never log OTP codes.** Since StartMessaging hashes codes with bcrypt, there is no reason for your application to see or store the plaintext code at any point.
+- **Never expose OTP codes in your API responses.** Your backend can keep the `otpRequestId` server-side and should never send the code itself to the frontend. StartMessaging never echoes the code back in API responses — it reaches the user only via SMS.
+- **Never log OTP codes.** Your backend generates the code, passes it in `variables.otp`, and can discard it right away. Verification goes through `/otp/verify`, so there is no reason to store or log the plaintext code.
 - **Use HTTPS everywhere.** All communication between your frontend, backend, and the StartMessaging API must be over TLS.
-- **Limit verification attempts.** The default of 3 attempts means an attacker has only a 0.0003% chance of guessing a 6-digit code. Do not increase this limit.
+- **Rely on attempt limits.** StartMessaging limits verification attempts per OTP on `/otp/verify`, so an attacker cannot brute-force a 6-digit code. Add your own lockouts for users who fail repeatedly across many OTPs.
 - **Prevent enumeration attacks.** Do not return different error messages for "phone number not found" versus "OTP expired." Use generic error messages on your frontend.
 - **Bind OTP to purpose.** An OTP generated for login should not be valid for password reset. If your application has multiple OTP use cases, use separate request flows for each.
-- **Implement session binding.** Store the  `requestId` in a server-side session or signed token, not in a client-side cookie that can be tampered with.
+- **Implement session binding.** Store the `otpRequestId` in a server-side session or signed token, not in a client-side cookie that can be tampered with.
 
 
 
@@ -334,7 +337,7 @@ Good UX is essential for OTP flows. A frustrating verification
 ### Error states
 
 
-- Wrong code: "Incorrect code. 2 attempts remaining."
+- Wrong code: "Incorrect code. Please try again."
 - Expired: "This code has expired. Please request a new one." with a resend button.
 - Max attempts: "Too many incorrect attempts. Please request a new code." with a resend button.
 - Rate limited: "Too many requests. Please wait a few minutes before trying again."
@@ -343,16 +346,16 @@ Good UX is essential for OTP flows. A frustrating verification
 
 ## Implementing with StartMessaging
 
-The [StartMessaging OTP API](/otp-api) is designed
-        to handle the complexity described in this guide. Here is what the API
-        manages for you:
+The [StartMessaging OTP API](/otp-api) handles the delivery side of the
+        complexity described in this guide. Here is what the API manages for you:
 
 
 
-- **Code generation and hashing** — cryptographically random 6-digit codes, bcrypt hashed.
+- **Code verification** — `/otp/verify` checks the user's input against the code you sent in `variables.otp`.
 - **SMS delivery with fallback** — automatic retry via backup SMS providers on delivery failure.
-- **Expiry enforcement** — server-side expiry that cannot be bypassed.
-- **Attempt tracking** — automatic lockout after maximum verification attempts.
+- **Expiry and attempt limits** — `/otp/verify` rejects expired codes and invalidates the OTP after too many wrong attempts.
+- **Delivery status** — poll `GET /messages/:id` with the `messageId` to see queued, sent, delivered or failed.
+- **Abuse limits** — 3 OTPs per number every 5 minutes and 20 requests per second per account (`429` when exceeded).
 - ** [Idempotency](/blog/idempotency-keys-otp) **  — duplicate send requests return the original response.
 - ** [DLT compliance](/dlt-free-otp) **  — all Indian telecom regulatory requirements handled.
 
@@ -362,9 +365,10 @@ What you need to implement on your side:
 
 
 
+- Secure code generation (4-6 digits from a cryptographic random source).
 - Phone number validation before calling the API.
 - Rate limiting at the application level (per phone, per IP, per user).
-- Session management to bind `requestId` to the user securely.
+- Session management to bind `otpRequestId` to the user securely.
 - Frontend UX (input, countdown, error handling).
 - Post-verification action (mark phone as verified, issue session token, etc.).
 

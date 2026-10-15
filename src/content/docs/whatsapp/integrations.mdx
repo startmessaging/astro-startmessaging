@@ -1,0 +1,389 @@
+---
+title: "Integrations & Recipes"
+description: "Connect the StartMessaging WhatsApp API to Zapier, Make, Pabbly or your own code. Recipes for cash-on-delivery confirmation, WhatsApp OTP, lead forms, Click-to-WhatsApp ad attribution, reporting sales to campaigns and CRM sync."
+product: whatsapp
+order: 13
+---
+
+## Overview
+
+Everything in the StartMessaging WhatsApp API is plain REST plus signed webhooks, so it works with any language and any automation tool that can make an HTTPS request and receive one. There are no SDKs to install.
+
+- **Call the API** for actions: send a template, upsert a contact, assign a conversation.
+- **Receive webhooks** for triggers: a customer replied, a message was delivered, a contact opted out.
+- **Match the two** with your own `clientReference` on each send, which comes back on every status webhook and on the customer's reply.
+
+## Zapier, Make and Pabbly Connect
+
+StartMessaging does not have official apps in these marketplaces yet. Use their generic HTTP and webhook modules, which work with any REST API:
+
+| Tool | Trigger (receive events) | Action (call the API) |
+|---|---|---|
+| Zapier | Webhooks by Zapier: Catch Hook | Webhooks by Zapier: Custom Request |
+| Make | Webhooks: Custom webhook | HTTP: Make a request |
+| Pabbly Connect | Webhook by Pabbly | API by Pabbly |
+
+### Receive events
+
+1. Create the catch-hook trigger in your tool and copy its HTTPS URL.
+2. In StartMessaging, go to **Developers → Webhooks → Add endpoint**, paste the URL and pick the events.
+3. Click **Send test event**. Your tool receives a `ping` event, `"data": { "ping": true }`, which you can use to map fields.
+4. Add a filter step so later steps run only for the event type you want (`type` in the body).
+
+The body is the [webhook envelope](/docs/whatsapp/webhooks): `id`, `type`, `createdAt`, `workspaceId` and `data`. Delivery is at least once, so deduplicate on `id` if a step must not run twice.
+
+Catch-hook triggers do not check our signature. If the scenario does something sensitive, verify `X-SM-Signature` in a code step (Zapier's Code step or Make's custom code, where available) using the samples on the [Webhooks](/docs/whatsapp/webhooks) page, or send events to a small endpoint of your own that verifies and then forwards them.
+
+### Call the API
+
+Configure the HTTP action with:
+
+- **URL:** the endpoint, for example `{{WA_API_BASE}}/api/v1/messages`
+- **Method:** `POST` (or `GET`, `PATCH`, `DELETE`)
+- **Headers:** `Authorization: Bearer sm_live_your_api_key` and `Content-Type: application/json`
+- **Body:** the JSON from the recipes below, with fields mapped from earlier steps
+- **Optional header:** `Idempotency-Key` set to something unique per run, such as the order id, so a replayed run never sends twice
+
+Create a dedicated API key for each tool in **Developers → API keys**, with only the scopes it needs.
+
+### Building your own app on these platforms
+
+If you build a private or public app on a platform that supports REST hooks, subscribe when a user turns the automation on and unsubscribe when they turn it off:
+
+- Subscribe: `POST /api/v1/webhooks` with `url` and `events`. Store the returned `id` and `secret`.
+- Unsubscribe: `DELETE /api/v1/webhooks/{id}`.
+
+The key needs `webhooks:manage` plus the read scope of each event family. Endpoints created this way stop receiving events if the key is revoked. Each plan has an endpoint limit (free trial 5, Developer 2, Team 1, Business 5, Enterprise unlimited). See [Webhooks](/docs/whatsapp/webhooks).
+
+## Recipe: cash-on-delivery confirmation
+
+Ask a COD customer to confirm before you ship, and update the order automatically.
+
+**You need:** an approved UTILITY template with quick-reply buttons, for example **Confirm order** and **Cancel order**. Subscribe to `message.delivered`, `message.failed` and `message.received`.
+
+**1. Send the template with your order id as `clientReference`:**
+
+```bash
+curl -X POST "{{WA_API_BASE}}/api/v1/messages" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: order-1042-cod" \
+  -d '{
+    "to": "+919812345678",
+    "type": "template",
+    "template": {
+      "name": "cod_confirmation",
+      "language": "en_US",
+      "parameters": [{ "text": "Asha" }, { "text": "#1042" }, { "text": "1,299" }]
+    },
+    "clientReference": "order-1042"
+  }'
+```
+
+Quick-reply buttons need no `buttonParameters`: they go out exactly as the template was approved, and the API cannot attach a payload of your own to them.
+
+**2. Track delivery.** `message.delivered` and `message.failed` carry `"clientReference": "order-1042"`, so you know which order they are about without storing our message id.
+
+**3. Act on the tap.** When the customer taps **Confirm order**, `message.received` arrives with a `reply` and a `context`. These are the fields you need:
+
+```json
+"reply": { "kind": "quick_reply", "title": "Confirm order" },
+"context": { "messageId": "7d1e2f3a-4b5c-4d6e-8f9a-0b1c2d3e4f5a", "clientReference": "order-1042" }
+```
+
+`reply` also has an `id`, but you cannot set it on a template sent through the API, so do not branch on it. Identify the tap by `reply.kind === "quick_reply"` and `reply.title` (the button text, as approved in the template), and take the order id from `context.clientReference`:
+
+```javascript
+// The button texts exactly as approved in the cod_confirmation template.
+const CONFIRM_TEXT = "Confirm order";
+const CANCEL_TEXT = "Cancel order";
+
+function handleEvent(event) {
+  if (event.type !== "message.received") return;
+  const { reply, context } = event.data.message;
+  if (reply?.kind !== "quick_reply" || !context?.clientReference) return;
+
+  const orderId = context.clientReference; // "order-1042"
+  if (reply.title === CONFIRM_TEXT) markOrderConfirmed(orderId);
+  else if (reply.title === CANCEL_TEXT) cancelOrder(orderId);
+}
+```
+
+If you send the template in more than one language, match each language's approved button text. When you change the template's buttons, update the texts in your handler too.
+
+The customer's tap opens the 24-hour window, so you can follow up with a free-form text message. Meta charges for every delivered utility template, including this one, even inside the window; free-form replies inside the window are free up to a monthly allowance.
+
+## Recipe: one-time passwords (OTP)
+
+Send login or verification codes with an approved **AUTHENTICATION** template (copy-code button). StartMessaging does not generate or verify codes: your system creates the code, sends it through the API and checks it.
+
+Put the code once, as the first body parameter. StartMessaging fills the template's code button with the same value, so you do not need `buttonParameters` (sending the code there too is harmless).
+
+```bash
+curl -X POST "{{WA_API_BASE}}/api/v1/messages" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: login-attempt-7f3a2c" \
+  -d '{
+    "to": "+919812345678",
+    "type": "template",
+    "template": {
+      "name": "login_otp",
+      "language": "en_US",
+      "parameters": [{ "text": "482913" }]
+    },
+    "clientReference": "login-attempt-7f3a2c"
+  }'
+```
+
+```python
+import secrets
+import requests
+
+code = f"{secrets.randbelow(1_000_000):06d}"
+attempt_id = "login-attempt-7f3a2c"
+
+requests.post(
+    "{{WA_API_BASE}}/api/v1/messages",
+    headers={
+        "Authorization": "Bearer sm_live_your_api_key",
+        "Idempotency-Key": attempt_id,
+    },
+    json={
+        "to": "+919812345678",
+        "type": "template",
+        "template": {
+            "name": "login_otp",
+            "language": "en_US",
+            "parameters": [{"text": code}],
+        },
+        "clientReference": attempt_id,
+    },
+)
+# Store a hash of `code` with attempt_id and an expiry, then verify it yourself.
+```
+
+`message.delivered` or `message.failed` with `clientReference: "login-attempt-7f3a2c"` tells you whether the code reached the phone. A send with no code at all (an empty first parameter and no button parameter) is `422 TEMPLATE_BUTTON_PARAM_REQUIRED`. See [Message Templates](/docs/whatsapp/message-templates).
+
+On a paid Developer plan, authentication templates are never stopped by the monthly API message allowance, so login codes keep going out even past it. Check `GET /api/v1/me` (`messages`) to see where you stand. See [Errors & Limits](/docs/whatsapp/errors-and-limits).
+
+## Recipe: lead form with a WhatsApp Form
+
+Collect structured answers (name, city, budget) inside WhatsApp and push them to your CRM.
+
+**You need:** a WhatsApp Form (Meta Flow) synced in the dashboard, and an approved template with a Form button that opens it. Subscribe to `message.received`.
+
+**1. Send the template with a flow token** that identifies the lead in your system:
+
+```bash
+curl -X POST "{{WA_API_BASE}}/api/v1/messages" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "+919812345678",
+    "type": "template",
+    "template": {
+      "name": "lead_form_invite",
+      "language": "en_US",
+      "buttonParameters": [{ "index": 0, "subType": "flow", "text": "lead-77" }]
+    },
+    "clientReference": "lead-77"
+  }'
+```
+
+**2. Receive the answers.** When the customer submits, `message.received` arrives with `type: "interactive"` and:
+
+```json
+"form": {
+  "kind": "flow",
+  "flowToken": "lead-77",
+  "flowId": "1234567890123456",
+  "flowName": "Lead capture",
+  "fields": [
+    { "key": "screen_0_Full_name_0", "label": "Full name", "value": "Asha Rao" },
+    { "key": "screen_0_City_1", "label": "City", "value": "Pune" }
+  ],
+  "raw": null
+}
+```
+
+**3. Map the fields.** Match the lead with `form.flowToken`, and map each answer by `key` (the label is generated from the key and is for display). Do not parse `text`, which is only a one-line summary.
+
+```javascript
+if (event.type === "message.received" && event.data.message.form) {
+  const { flowToken, fields } = event.data.message.form;
+  const answers = Object.fromEntries(fields.map((f) => [f.key, f.value]));
+  updateLead(flowToken, {
+    name: answers["screen_0_Full_name_0"],
+    city: answers["screen_0_City_1"],
+  });
+}
+```
+
+The same `form` is on `GET /api/v1/messages/{id}` and in the conversation's message list, so you can backfill submissions you missed.
+
+## Recipe: Click-to-WhatsApp ad attribution
+
+When someone starts a chat from a Click-to-WhatsApp ad (or a boosted post), their first message carries the ad.
+
+**On the first message**, `message.received` has `referral`:
+
+```json
+"referral": {
+  "sourceType": "ad",
+  "sourceId": "120210000000000000",
+  "sourceUrl": "https://fb.me/abc123",
+  "headline": "Diwali sale: 30% off",
+  "body": "Tap to chat with us on WhatsApp",
+  "ctwaClid": "ARAkLkA8rmlFeiCktEJQ-QTwRiyYHAFDLMNDBH0CD3qpjd0HR4irJ6LEkR7JwFF4XvnO2E4Nx0-eM-GABDLOPaOdRMv-_zfUQ2a"
+}
+```
+
+Any field can be `null` when Meta leaves it out. Send `ctwaClid` to Meta's Conversions API to report purchases or leads back to the ad.
+
+**On the contact**, a contact created by that message gets `source: "ctwa_ad"` and the ad in flat custom attributes, set once:
+
+| Attribute | Value |
+|---|---|
+| `ctwa_source_type` | `referral.sourceType` |
+| `ctwa_source_id` | `referral.sourceId` |
+| `ctwa_source_url` | `referral.sourceUrl` |
+| `ctwa_headline` | `referral.headline` |
+| `ctwa_body` | `referral.body` |
+| `ctwa_clid` | `referral.ctwaClid` |
+
+Every `ctwa_*` value is cut at 500 characters, and a field Meta left empty is not stored at all.
+
+A contact you already had keeps its source and attributes when they click an ad later; the referral still arrives on `message.received`. The contact's `source` and `ctwa_*` attributes come back on `GET /api/v1/contacts`, so the CRM sync below carries the attribution into your own system.
+
+## Recipe: report a sale from your store
+
+Credit your WhatsApp campaigns with the sales they bring in. When an order is paid in your shop (Shopify, WooCommerce, your own checkout), report it with `POST /api/v1/conversions`. StartMessaging credits it to the last campaign delivered to that customer within your conversion window (7 days by default), and the campaign's report shows the customers and the revenue.
+
+**You need:** the **Business** or **Enterprise** plan (or the free trial) and an API key with the `conversions:write` scope.
+
+**1. In your order-paid webhook or job, send the sale** with your order id, so a retry never counts it twice:
+
+```bash
+curl -X POST "{{WA_API_BASE}}/api/v1/conversions" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "+919812345678",
+    "orderId": "1042",
+    "value": 1299.00,
+    "currency": "INR",
+    "occurredAt": "2026-10-12T10:30:00+05:30"
+  }'
+```
+
+```javascript
+// e.g. in your shop's "order paid" webhook handler
+async function reportSale(order) {
+  const res = await fetch("{{WA_API_BASE}}/api/v1/conversions", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer sm_live_your_api_key",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      phone: order.customerPhone, // E.164 is safest
+      orderId: String(order.id), // repeat-safe: the same order returns 200
+      value: Math.round(Number(order.total) * 100) / 100, // at most 2 decimals
+      currency: order.currency,
+      occurredAt: order.paidAt,
+    }),
+  });
+  if (res.status === 201 || res.status === 200) {
+    const { data } = await res.json();
+    return data.conversion.campaign; // null when no campaign reached them
+  }
+  throw new Error(`conversion not recorded: ${res.status}`);
+}
+```
+
+```python
+import requests
+
+def report_sale(order):
+    res = requests.post(
+        "{{WA_API_BASE}}/api/v1/conversions",
+        headers={"Authorization": "Bearer sm_live_your_api_key"},
+        json={
+            "phone": order["customer_phone"],
+            "orderId": str(order["id"]),
+            "value": round(float(order["total"]), 2),
+            "currency": order["currency"],
+            "occurredAt": order["paid_at"],
+        },
+    )
+    res.raise_for_status()
+    return res.json()["data"]["conversion"]["campaign"]
+```
+
+**2. Read the result.** `201` means a new sale was recorded; `200` means that `orderId` was reported before and nothing changed. `conversion.campaign` names the campaign that got the credit, or is `null` when none reached the customer in the window.
+
+- Send `occurredAt` when you report late (a nightly batch, for example). It may be up to a year back, never in the future.
+- `value` takes at most two decimal places. Round before sending.
+- No-code tools work too: an HTTP action with the same JSON, mapped from the order trigger.
+
+See [Conversions](/docs/whatsapp/conversions) for the full reference.
+
+## Recipe: incremental CRM sync
+
+Keep contacts and conversations in your own database in step with StartMessaging, without missing changes and without a full export each time. Both lists accept `updatedSince` and then return changes **oldest first**.
+
+```javascript
+const API = "{{WA_API_BASE}}/api/v1";
+const headers = { Authorization: "Bearer sm_live_your_api_key" };
+
+async function syncContacts(checkpoint /* ISO string, e.g. "2020-01-01" first time */) {
+  // Start a few minutes early: changes commit in parallel.
+  const since = new Date(new Date(checkpoint).getTime() - 5 * 60 * 1000).toISOString();
+  let cursor = null;
+  let last = checkpoint;
+
+  while (true) {
+    const params = new URLSearchParams({ updatedSince: since, limit: "100" });
+    if (cursor) params.set("cursor", cursor); // keep updatedSince unchanged while paging
+    const res = await fetch(`${API}/contacts?${params}`, { headers });
+    if (res.status === 429) {
+      await new Promise((r) => setTimeout(r, Number(res.headers.get("Retry-After")) * 1000));
+      continue; // retry the same page
+    }
+    const { data } = await res.json();
+    for (const contact of data.items) {
+      await upsertLocalContact(contact.id, contact); // upsert by id: duplicates are harmless
+      last = contact.updatedAt;
+    }
+    await saveCheckpoint(last); // safe to stop and resume from here
+    if (!data.nextCursor) break;
+    cursor = data.nextCursor;
+  }
+}
+```
+
+- For the first sync, start from a date before your workspace existed, such as `2020-01-01`.
+- A row that changes while you page comes round again at the end of the walk, or in the next sync.
+- Deleted contacts drop out of the list. Subscribe to webhooks if you need to react to changes in real time, and keep the sync as a safety net.
+- The same loop works for `/conversations` (scope `conversations:read`, on every plan).
+- Some customers have no phone number (WhatsApp username users): `phone` and `contactPhone` are `null` and `waUserId` / `contactWaUserId` name them. Key your local records on `id`, never on the phone number.
+
+See [Pagination & Idempotency](/docs/whatsapp/pagination-and-idempotency) for the full rules.
+
+## FAQ
+
+**Is there an official StartMessaging app for Zapier, Make or Pabbly?**
+Not yet. Use their generic webhook trigger and HTTP request action, as described above. Everything the API does is available that way.
+
+**Can StartMessaging generate and verify OTP codes for me?**
+No. There is no OTP or verify API for WhatsApp. Your system generates and checks the code; StartMessaging delivers it with an AUTHENTICATION template.
+
+**How do I match a webhook to my own order?**
+Send `clientReference` (your order or attempt id) with the message. It comes back on every `message.sent`, `delivered`, `read` and `failed` event and, when the customer replies to that message, in `context.clientReference` on `message.received`.
+
+**My scenario ran twice for the same event. Why?**
+Webhooks are delivered at least once. Deduplicate on the event's `id`, and send an `Idempotency-Key` on API calls so a repeated run does not send twice.
+
+**Can I use one API key for every tool?**
+You can, but separate keys with only the scopes each tool needs are safer. Revoking one key then stops one integration, not all of them.

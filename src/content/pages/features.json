@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-10-12",
   "seo": {
     "title": {
       "en": "Features — StartMessaging",
@@ -103,115 +103,229 @@
           {
             "icon": "broadcast",
             "title": {
-              "en": "Bulk Broadcasts",
-              "pt": "Transmissões em Massa",
-              "es": "Difusiones Masivas",
-              "id": "Siaran Massal",
-              "ar": "البث الجماعي",
-              "tr": "Toplu Yayınlar"
+              "en": "WhatsApp Campaigns",
+              "pt": "Campanhas no WhatsApp",
+              "es": "Campañas de WhatsApp",
+              "id": "Kampanye WhatsApp",
+              "ar": "حملات واتساب",
+              "tr": "WhatsApp Kampanyaları"
             },
             "description": {
-              "en": "Send templated messages to thousands of opted-in contacts in minutes with real-time delivery tracking and analytics.",
-              "pt": "Envie mensagens padronizadas para milhares de contatos em minutos com rastreamento e análise de entrega em tempo real.",
-              "es": "Envíe mensajes con plantillas a miles de contactos en minutos con seguimiento y análisis de entrega en tiempo real.",
-              "id": "Kirim pesan template ke ribuan kontak dalam hitungan menit dengan pelacakan dan analitik pengiriman real-time.",
-              "ar": "أرسل رسائل مُنسَّقة لآلاف جهات الاتصال في دقائق مع تتبع وتحليل التسليم في الوقت الفعلي.",
-              "tr": "Gerçek zamanlı teslimat takibi ve analitikle binlerce kişiye şablonlu mesajlar gönderin."
-            }
-          },
-          {
-            "icon": "bot",
-            "title": {
-              "en": "Chatbot Builder",
-              "pt": "Construtor de Chatbot",
-              "es": "Constructor de Chatbot",
-              "id": "Pembuat Chatbot",
-              "ar": "منشئ الشات بوت",
-              "tr": "Chatbot Oluşturucu"
-            },
-            "description": {
-              "en": "Build no-code conversation flows for support, sales, and bookings. Seamless agent handoff when human help is needed.",
-              "pt": "Crie fluxos de conversa sem código para suporte, vendas e agendamentos. Passagem para agente quando ajuda humana é necessária.",
-              "es": "Cree flujos de conversación sin código para soporte, ventas y reservas. Transferencia a agente cuando se necesita ayuda humana.",
-              "id": "Buat alur percakapan tanpa kode untuk dukungan, penjualan, dan pemesanan. Serah terima agen saat bantuan manusia diperlukan.",
-              "ar": "أنشئ تدفقات محادثة بدون كود للدعم والمبيعات والحجوزات. تحويل سلس للموظف عند الحاجة.",
-              "tr": "Destek, satış ve rezervasyonlar için kodsuz konuşma akışları oluşturun. İnsan yardımı gerektiğinde sorunsuz ajan devri."
-            }
-          },
-          {
-            "icon": "api",
-            "title": {
-              "en": "REST API",
-              "pt": "API REST",
-              "es": "API REST",
-              "id": "REST API",
-              "ar": "واجهة REST API",
-              "tr": "REST API"
-            },
-            "description": {
-              "en": "Simple HTTP endpoints with code samples in 6 languages. Send messages, manage contacts, and receive webhooks programmatically.",
-              "pt": "Endpoints HTTP simples com exemplos de código em 6 linguagens. Envie mensagens, gerencie contatos e receba webhooks programaticamente.",
-              "es": "Endpoints HTTP simples con ejemplos de código en 6 lenguajes. Envíe mensajes, gestione contactos y reciba webhooks programáticamente.",
-              "id": "Endpoint HTTP sederhana dengan contoh kode dalam 6 bahasa. Kirim pesan, kelola kontak, dan terima webhook secara programatis.",
-              "ar": "نقاط نهاية HTTP بسيطة مع أمثلة كود بـ 6 لغات. أرسل الرسائل وأدِر جهات الاتصال واستقبل إشعارات الويب برمجياً.",
-              "tr": "6 dilde kod örnekleriyle basit HTTP uç noktaları. Programatik olarak mesaj gönderin, kişileri yönetin ve webhook alın."
-            }
-          },
-          {
-            "icon": "analytics",
-            "title": {
-              "en": "Real-time Analytics",
-              "pt": "Análises em Tempo Real",
-              "es": "Análisis en Real Time",
-              "id": "Analitik Real-time",
-              "ar": "تحليلات في الوقت الفعلي",
-              "tr": "Gerçek Zamanlı Analitik"
-            },
-            "description": {
-              "en": "Track delivery receipts, open rates, reply rates, and campaign ROI in a single dashboard with exportable reports.",
-              "pt": "Acompanhe confirmações de entrega, taxas de abertura, taxas de resposta e ROI de campanhas em um painel único com relatórios exportáveis.",
-              "es": "Realice seguimiento de confirmaciones de entrega, tasas de apertura, tasas de respuesta y ROI de campañas en un panel único con informes exportables.",
-              "id": "Lacak konfirmasi pengiriman, tingkat buka, tingkat balasan, dan ROI kampanye dalam satu dasbor dengan laporan yang dapat diekspor.",
-              "ar": "تتبع إيصالات التسليم ومعدلات الفتح ومعدلات الرد وعائد الاستثمار للحملات في لوحة واحدة مع تقارير قابلة للتصدير.",
-              "tr": "Dışa aktarılabilir raporlarla tek panelde teslimat onaylarını, açılma oranlarını, yanıt oranlarını ve kampanya ROI'sini takip edin."
+              "en": "Send approved templates to tagged contacts, saved audiences or a CSV in a 3-step wizard — now or scheduled up to 60 days ahead. Opted-out contacts are skipped automatically, and every campaign gets a full funnel report. On Team and Business.",
+              "pt": "Envie modelos aprovados para contatos com tags, públicos salvos ou um CSV em um assistente de 3 etapas — na hora ou agendados com até 60 dias de antecedência. Contatos que saíram são ignorados automaticamente, e cada campanha tem um relatório de funil completo. Nos planos Team e Business.",
+              "es": "Envíe plantillas aprobadas a contactos etiquetados, audiencias guardadas o un CSV en un asistente de 3 pasos — al momento o programadas hasta con 60 días de antelación. Los contactos dados de baja se omiten automáticamente y cada campaña tiene un informe de embudo completo. En los planes Team y Business.",
+              "id": "Kirim template yang disetujui ke kontak bertag, audiens tersimpan, atau CSV dalam wizard 3 langkah — langsung atau dijadwalkan hingga 60 hari ke depan. Kontak yang opt-out dilewati otomatis, dan setiap kampanye mendapat laporan funnel lengkap. Di paket Team dan Business.",
+              "ar": "أرسل القوالب المعتمدة إلى جهات الاتصال الموسومة أو الجماهير المحفوظة أو ملف CSV عبر معالج من 3 خطوات — فوراً أو مجدولة حتى 60 يوماً مقدماً. يتم تخطي جهات الاتصال التي ألغت الاشتراك تلقائياً، وتحصل كل حملة على تقرير مسار تحويل كامل. في خطتي Team وBusiness.",
+              "tr": "Onaylı şablonları etiketli kişilere, kayıtlı kitlelere veya bir CSV'ye 3 adımlı bir sihirbazla gönderin — hemen ya da 60 güne kadar ileriye zamanlanmış olarak. Abonelikten çıkan kişiler otomatik olarak atlanır ve her kampanya eksiksiz bir dönüşüm hunisi raporu alır. Team ve Business planlarında."
             }
           },
           {
             "icon": "template",
             "title": {
-              "en": "Message Templates",
-              "pt": "Modelos de Mensagem",
-              "es": "Plantillas de Mensajes",
-              "id": "Template Pesan",
-              "ar": "قوالب الرسائل",
-              "tr": "Mesaj Şablonları"
+              "en": "Shared Team Inbox",
+              "pt": "Caixa de Entrada Compartilhada",
+              "es": "Bandeja de Entrada Compartida",
+              "id": "Kotak Masuk Tim Bersama",
+              "ar": "صندوق وارد مشترك للفريق",
+              "tr": "Ortak Ekip Gelen Kutusu"
             },
             "description": {
-              "en": "Pre-approved templates for transactional alerts, OTP codes, and marketing campaigns. Rich media, buttons, and quick replies included.",
-              "pt": "Modelos pré-aprovados para alertas transacionais, códigos OTP e campanhas de marketing. Inclui mídia rica, botões e respostas rápidas.",
-              "es": "Plantillas preaprobadas para alertas transaccionales, códigos OTP y campañas de marketing. Incluye medios enriquecidos, botones y respuestas rápidas.",
-              "id": "Template pra-persetujuan untuk peringatan transaksional, kode OTP, dan kampanye pemasaran. Termasuk media kaya, tombol, dan balasan cepat.",
-              "ar": "قوالب معتمدة مسبقاً للتنبيهات المعاملاتية ورموز OTP والحملات التسويقية. تشمل الوسائط الغنية والأزرار والردود السريعة.",
-              "tr": "İşlemsel uyarılar, OTP kodları ve pazarlama kampanyaları için önceden onaylanmış şablonlar. Zengin medya, butonlar ve hızlı yanıtlar dahil."
+              "en": "Work every WhatsApp chat as a team in real time: claim, assign and resolve chats, round-robin auto-assignment, quick replies, search, a media viewer and a 24-hour window countdown. On Team and Business.",
+              "pt": "Atenda todas as conversas do WhatsApp em equipe em tempo real: assuma, atribua e resolva conversas, com atribuição automática em rodízio, respostas rápidas, busca, visualizador de mídia e contagem regressiva da janela de 24 horas. Nos planos Team e Business.",
+              "es": "Atienda cada chat de WhatsApp en equipo y en tiempo real: tome, asigne y resuelva chats, con asignación automática por turnos, respuestas rápidas, búsqueda, visor de multimedia y cuenta regresiva de la ventana de 24 horas. En los planes Team y Business.",
+              "id": "Tangani setiap chat WhatsApp sebagai tim secara real-time: klaim, tugaskan, dan selesaikan chat, penugasan otomatis round-robin, balasan cepat, pencarian, penampil media, dan hitung mundur jendela 24 jam. Di paket Team dan Business.",
+              "ar": "تعامل مع كل محادثة واتساب كفريق وفي الوقت الفعلي: استلم المحادثات وأسندها وأغلقها، مع إسناد تلقائي بالتناوب وردود سريعة وبحث وعارض وسائط وعدّاد تنازلي لنافذة الـ 24 ساعة. في خطتي Team وBusiness.",
+              "tr": "Her WhatsApp sohbetini ekip olarak gerçek zamanlı yönetin: sohbetleri üstlenin, atayın ve çözün; sıralı otomatik atama, hızlı yanıtlar, arama, medya görüntüleyici ve 24 saatlik pencere geri sayımı. Team ve Business planlarında."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "CRM & Sales Pipeline",
+              "pt": "CRM e Funil de Vendas",
+              "es": "CRM y Embudo de Ventas",
+              "id": "CRM & Pipeline Penjualan",
+              "ar": "إدارة العملاء ومسار المبيعات",
+              "tr": "CRM ve Satış Hunisi"
+            },
+            "description": {
+              "en": "Contacts with tags, custom attributes, notes and follow-up dates, CSV import and export, and opt-outs tracked per number, on Team and up. Business adds a drag-and-drop pipeline with custom stages and the conversions your campaigns earn.",
+              "pt": "Contatos com tags, atributos personalizados, notas e datas de follow-up, importação e exportação de CSV e opt-outs registrados por número, a partir do Team. O Business adiciona um funil de arrastar e soltar com etapas personalizadas e as conversões que suas campanhas geram.",
+              "es": "Contactos con etiquetas, atributos personalizados, notas y fechas de seguimiento, importación y exportación de CSV y bajas registradas por número, desde Team. Business añade un embudo de arrastrar y soltar con etapas personalizadas y las conversiones que generan sus campañas.",
+              "id": "Kontak dengan tag, atribut khusus, catatan, dan tanggal tindak lanjut, impor dan ekspor CSV, serta opt-out yang dilacak per nomor, mulai paket Team. Business menambahkan pipeline seret-dan-lepas dengan tahap khusus serta konversi yang dihasilkan kampanye Anda.",
+              "ar": "جهات اتصال بوسوم وسمات مخصصة وملاحظات وتواريخ متابعة، واستيراد وتصدير CSV، وتتبع إلغاء الاشتراك لكل رقم، بدءاً من خطة Team. وتضيف خطة Business مسار مبيعات بالسحب والإفلات بمراحل مخصصة والتحويلات التي تحققها حملاتك.",
+              "tr": "Etiketli, özel nitelikli, notlu ve takip tarihli kişiler, CSV içe ve dışa aktarma ve numara başına takip edilen abonelik iptalleri Team ve üstünde. Business, özel aşamalı sürükle-bırak bir satış hunisi ve kampanyalarınızın getirdiği dönüşümleri ekler."
+            }
+          },
+          {
+            "icon": "bot",
+            "title": {
+              "en": "Auto-Replies & Chatbot Flows",
+              "pt": "Respostas Automáticas e Fluxos de Chatbot",
+              "es": "Respuestas Automáticas y Flujos de Chatbot",
+              "id": "Balasan Otomatis & Alur Chatbot",
+              "ar": "الردود التلقائية وتدفقات الشات بوت",
+              "tr": "Otomatik Yanıtlar ve Chatbot Akışları"
+            },
+            "description": {
+              "en": "Keyword auto-replies on Team and up. Business adds a visual no-code flow builder with buttons, lists, conditions, tags, pipeline stages and agent handoff. Start from an industry starter flow.",
+              "pt": "Respostas automáticas por palavra-chave a partir do Team. O Business adiciona um construtor visual de fluxos sem código com botões, listas, condições, tags, etapas do funil e transferência para agentes. Comece com um fluxo inicial do seu setor.",
+              "es": "Respuestas automáticas por palabra clave desde Team. Business añade un constructor visual de flujos sin código con botones, listas, condiciones, etiquetas, etapas del embudo y traspaso a agentes. Empiece con un flujo inicial de su sector.",
+              "id": "Balasan otomatis berbasis kata kunci mulai paket Team. Business menambahkan pembuat alur visual tanpa kode dengan tombol, daftar, kondisi, tag, tahap pipeline, dan pengalihan ke agen. Mulai dari alur awal sesuai industri.",
+              "ar": "ردود تلقائية بالكلمات المفتاحية بدءاً من خطة Team. وتضيف خطة Business منشئ مسارات مرئياً دون برمجة مع أزرار وقوائم وشروط ووسوم ومراحل مسار المبيعات وتحويل إلى الوكلاء. ابدأ من مسار جاهز لمجال عملك.",
+              "tr": "Anahtar kelimeli otomatik yanıtlar Team ve üstünde. Business; düğmeler, listeler, koşullar, etiketler, satış hunisi aşamaları ve temsilciye aktarma içeren görsel, kodsuz bir akış oluşturucu ekler. Sektörünüze uygun hazır bir akışla başlayın."
+            }
+          },
+          {
+            "icon": "template",
+            "title": {
+              "en": "Templates & WhatsApp Forms",
+              "pt": "Modelos e Formulários do WhatsApp",
+              "es": "Plantillas y Formularios de WhatsApp",
+              "id": "Template & WhatsApp Forms",
+              "ar": "القوالب ونماذج واتساب",
+              "tr": "Şablonlar ve WhatsApp Formları"
+            },
+            "description": {
+              "en": "Build Marketing, Utility and Authentication templates with media headers, carousels, limited-time offers and up to 10 buttons. On Business, attach WhatsApp Forms and get structured answers in the inbox, the API and webhooks.",
+              "pt": "Crie modelos de Marketing, Utilidade e Autenticação com cabeçalhos de mídia, carrosséis, ofertas por tempo limitado e até 10 botões. No Business, anexe WhatsApp Forms e receba respostas estruturadas na caixa de entrada, na API e nos webhooks.",
+              "es": "Cree plantillas de Marketing, Utilidad y Autenticación con encabezados multimedia, carruseles, ofertas por tiempo limitado y hasta 10 botones. En Business, adjunte WhatsApp Forms y reciba respuestas estructuradas en la bandeja de entrada, la API y los webhooks.",
+              "id": "Buat template Marketing, Utilitas, dan Autentikasi dengan header media, carousel, penawaran waktu terbatas, dan hingga 10 tombol. Di Business, lampirkan WhatsApp Forms dan dapatkan jawaban terstruktur di kotak masuk, API, dan webhook.",
+              "ar": "أنشئ قوالب التسويق والخدمات والمصادقة مع ترويسات وسائط وكاروسيل وعروض لفترة محدودة وما يصل إلى 10 أزرار. وفي خطة Business، أرفق WhatsApp Forms واحصل على إجابات منظمة في صندوق الوارد وواجهة API وwebhooks.",
+              "tr": "Medya başlıkları, karuseller, sınırlı süreli teklifler ve en fazla 10 düğmeyle Pazarlama, Fayda ve Kimlik Doğrulama şablonları oluşturun. Business planında WhatsApp Forms ekleyin ve yapılandırılmış yanıtları gelen kutusunda, API'de ve webhook'larda alın."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Click-to-WhatsApp Ad Attribution",
+              "pt": "Atribuição de Anúncios Click-to-WhatsApp",
+              "es": "Atribución de Anuncios Click-to-WhatsApp",
+              "id": "Atribusi Iklan Click-to-WhatsApp",
+              "ar": "إسناد إعلانات Click-to-WhatsApp",
+              "tr": "Click-to-WhatsApp Reklam İlişkilendirmesi"
+            },
+            "description": {
+              "en": "Every contact records its source: WhatsApp, manual, CSV, link, API or a Click-to-WhatsApp ad, with the ad's details attached so you know which ads bring in chats.",
+              "pt": "Cada contato registra sua origem: WhatsApp, manual, CSV, link, API ou um anúncio Click-to-WhatsApp, com os detalhes do anúncio anexados para você saber quais anúncios geram conversas.",
+              "es": "Cada contacto registra su origen: WhatsApp, manual, CSV, enlace, API o un anuncio Click-to-WhatsApp, con los detalles del anuncio adjuntos para saber qué anuncios generan conversaciones.",
+              "id": "Setiap kontak mencatat sumbernya: WhatsApp, manual, CSV, tautan, API, atau iklan Click-to-WhatsApp, lengkap dengan detail iklan agar Anda tahu iklan mana yang menghasilkan chat.",
+              "ar": "تسجّل كل جهة اتصال مصدرها: واتساب أو إدخال يدوي أو CSV أو رابط أو API أو إعلان Click-to-WhatsApp، مع إرفاق تفاصيل الإعلان لتعرف أي الإعلانات تجلب المحادثات.",
+              "tr": "Her kişi kaynağını kaydeder: WhatsApp, manuel, CSV, bağlantı, API veya Click-to-WhatsApp reklamı. Reklam ayrıntıları da eklenir, böylece hangi reklamların sohbet getirdiğini bilirsiniz."
+            }
+          },
+          {
+            "icon": "api",
+            "title": {
+              "en": "Developer API & Signed Webhooks",
+              "pt": "API para Desenvolvedores e Webhooks Assinados",
+              "es": "API para Desarrolladores y Webhooks Firmados",
+              "id": "API Developer & Webhook Bertanda Tangan",
+              "ar": "واجهة API للمطورين وإشعارات ويب موقّعة",
+              "tr": "Geliştirici API'si ve İmzalı Webhook'lar"
+            },
+            "description": {
+              "en": "Send messages, manage contacts and report conversions over a REST API with API keys limited to the scopes you grant. Receive HMAC-signed webhooks for message status and inbound events, with a delivery log and redelivery. The API comes with every plan; Developer plans are API only.",
+              "pt": "Envie mensagens, gerencie contatos e registre conversões por uma API REST com chaves de API limitadas aos escopos que você conceder. Receba webhooks assinados com HMAC para status de mensagens e eventos recebidos, com registro de entregas e reenvio. A API vem com todos os planos; os planos Developer são somente API.",
+              "es": "Envíe mensajes, gestione contactos y registre conversiones mediante una API REST con claves de API limitadas a los permisos que conceda. Reciba webhooks firmados con HMAC para estados de mensajes y eventos entrantes, con registro de entregas y reenvío. La API viene en todos los planes; los planes Developer son solo API.",
+              "id": "Kirim pesan, kelola kontak, dan laporkan konversi melalui REST API dengan kunci API yang dibatasi pada cakupan yang Anda berikan. Terima webhook bertanda tangan HMAC untuk status pesan dan event masuk, dengan log pengiriman dan pengiriman ulang. API tersedia di setiap paket; paket Developer hanya API.",
+              "ar": "أرسل الرسائل وأدر جهات الاتصال وسجّل التحويلات عبر REST API بمفاتيح API مقيدة بالصلاحيات التي تمنحها. واستقبل webhooks موقّعة بـ HMAC لحالات الرسائل والأحداث الواردة، مع سجل تسليم وإعادة إرسال. تتوفر واجهة API في كل الخطط؛ وخطط Developer لواجهة API فقط.",
+              "tr": "Mesaj gönderin, kişileri yönetin ve dönüşümleri bildirin; tümü, yalnızca verdiğiniz kapsamlarla sınırlı API anahtarlarıyla çalışan bir REST API üzerinden. Mesaj durumu ve gelen olaylar için HMAC imzalı webhook'lar alın; teslim günlüğü ve yeniden gönderimle birlikte. API her planda vardır; Developer planları yalnızca API'dir."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Analytics",
+              "pt": "Análises",
+              "es": "Análisis",
+              "id": "Analitik",
+              "ar": "التحليلات",
+              "tr": "Analitik"
+            },
+            "description": {
+              "en": "Track conversations, response times, campaign funnels and what Meta charged for each campaign, with Meta message volume by pricing category. Business adds agent performance and Meta's own template insights.",
+              "pt": "Acompanhe conversas, tempos de resposta, funis de campanha e quanto a Meta cobrou por cada campanha, com o volume de mensagens da Meta por categoria de preço. O Business adiciona o desempenho dos agentes e os insights de modelos da própria Meta.",
+              "es": "Siga conversaciones, tiempos de respuesta, embudos de campaña y lo que Meta cobró por cada campaña, con el volumen de mensajes de Meta por categoría de precio. Business añade el rendimiento de los agentes y las estadísticas de plantillas de la propia Meta.",
+              "id": "Lacak percakapan, waktu respons, funnel kampanye, dan biaya yang ditagih Meta untuk setiap kampanye, dengan volume pesan Meta per kategori harga. Business menambahkan kinerja agen dan insight template dari Meta sendiri.",
+              "ar": "تتبّع المحادثات وأوقات الاستجابة ومسارات تحويل الحملات وما فرضته Meta على كل حملة، مع حجم رسائل Meta حسب فئة التسعير. وتضيف خطة Business أداء الوكلاء ورؤى القوالب من Meta نفسها.",
+              "tr": "Görüşmeleri, yanıt sürelerini, kampanya hunilerini ve Meta'nın her kampanya için ne ücret aldığını, fiyatlandırma kategorisine göre Meta mesaj hacmiyle birlikte takip edin. Business, temsilci performansını ve Meta'nın kendi şablon içgörülerini ekler."
             }
           },
           {
             "icon": "shield",
             "title": {
-              "en": "Enterprise Security",
-              "pt": "Segurança Empresarial",
-              "es": "Seguridad Empresarial",
-              "id": "Keamanan Enterprise",
-              "ar": "أمان المؤسسات",
-              "tr": "Kurumsal Güvenlik"
+              "en": "Team Roles & Access",
+              "pt": "Funções e Acesso da Equipe",
+              "es": "Roles y Acceso del Equipo",
+              "id": "Peran & Akses Tim",
+              "ar": "أدوار الفريق والصلاحيات",
+              "tr": "Ekip Rolleri ve Erişim"
             },
             "description": {
-              "en": "GDPR/LGPD compliant. End-to-end encryption, SOC 2 practices, data residency options, and 99.9% uptime SLA.",
-              "pt": "Conformidade com LGPD/GDPR. Criptografia de ponta a ponta, práticas SOC 2, opções de residência de dados e SLA de 99,9%.",
-              "es": "Cumplimiento GDPR/LGPD. Cifrado de extremo a extremo, prácticas SOC 2, opciones de residencia de datos y SLA del 99,9%.",
-              "id": "Kepatuhan GDPR/LGPD. Enkripsi end-to-end, praktik SOC 2, opsi residensi data, dan SLA uptime 99,9%.",
-              "ar": "متوافق مع GDPR/LGPD. تشفير من طرف إلى طرف وممارسات SOC 2 وخيارات إقامة البيانات واتفاقية مستوى خدمة 99.9%.",
-              "tr": "GDPR/LGPD uyumlu. Uçtan uca şifreleme, SOC 2 uygulamaları, veri yerleşimi seçenekleri ve %99,9 çalışma süresi SLA."
+              "en": "Invite teammates by email as Owner, Admin, Manager, Agent or Viewer. API keys carry only the scopes you grant, and recent API requests are logged for review.",
+              "pt": "Convide colegas por e-mail como Proprietário, Admin, Gerente, Agente ou Visualizador. As chaves de API têm apenas os escopos que você conceder, e as requisições recentes à API ficam registradas para revisão.",
+              "es": "Invite a su equipo por correo como Propietario, Admin, Gerente, Agente o Lector. Las claves de API solo tienen los alcances que usted otorgue, y las solicitudes recientes a la API quedan registradas para revisión.",
+              "id": "Undang rekan tim lewat email sebagai Owner, Admin, Manager, Agent, atau Viewer. Kunci API hanya memiliki cakupan yang Anda berikan, dan permintaan API terbaru dicatat untuk ditinjau.",
+              "ar": "ادعُ زملاءك عبر البريد الإلكتروني بدور المالك أو المسؤول أو المدير أو الموظف أو المشاهد. لا تحمل مفاتيح API إلا الصلاحيات التي تمنحها، وتُسجَّل طلبات API الأخيرة للمراجعة.",
+              "tr": "Ekip arkadaşlarınızı Sahip, Yönetici, Müdür, Ajan veya İzleyici olarak e-postayla davet edin. API anahtarları yalnızca verdiğiniz kapsamlara sahiptir ve son API istekleri incelemeniz için kaydedilir."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Scheduling & Cost Control",
+              "pt": "Agendamento e Controle de Custos",
+              "es": "Programación y Control de Costos",
+              "id": "Penjadwalan & Kontrol Biaya",
+              "ar": "الجدولة والتحكم في التكلفة",
+              "tr": "Zamanlama ve Maliyet Kontrolü"
+            },
+            "description": {
+              "en": "Schedule campaigns from 2 minutes to 60 days ahead and see them on a calendar. Quiet hours hold sending overnight, and a pre-launch check estimates Meta's charge and warns before your daily limit runs out.",
+              "pt": "Agende campanhas de 2 minutos a 60 dias de antecedência e veja-as em um calendário. O horário de silêncio segura os envios durante a noite, e uma verificação antes do lançamento estima a cobrança da Meta e avisa antes que seu limite diário acabe.",
+              "es": "Programe campañas desde 2 minutos hasta 60 días de antelación y véalas en un calendario. El horario de silencio retiene los envíos por la noche, y una comprobación previa al lanzamiento estima el cargo de Meta y avisa antes de que se agote su límite diario.",
+              "id": "Jadwalkan kampanye dari 2 menit hingga 60 hari ke depan dan lihat di kalender. Jam tenang menahan pengiriman di malam hari, dan pemeriksaan sebelum peluncuran memperkirakan biaya Meta serta memberi peringatan sebelum batas harian Anda habis.",
+              "ar": "جدول الحملات من دقيقتين إلى 60 يوماً مقدماً واطلع عليها في تقويم. تؤجل ساعات الهدوء الإرسال ليلاً، ويقدّر فحص ما قبل الإطلاق رسوم Meta وينبهك قبل نفاد حدك اليومي.",
+              "tr": "Kampanyaları 2 dakika ile 60 gün öncesine kadar zamanlayın ve takvimde görün. Sessiz saatler gece gönderimi bekletir; gönderim öncesi kontrol Meta ücretini tahmin eder ve günlük limitiniz dolmadan uyarır."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "A/B Tests, Follow-ups & Repeats",
+              "pt": "Testes A/B, Follow-ups e Recorrência",
+              "es": "Pruebas A/B, Seguimientos y Repeticiones",
+              "id": "Uji A/B, Tindak Lanjut & Pengulangan",
+              "ar": "اختبارات A/B والمتابعة والتكرار",
+              "tr": "A/B Testleri, Takipler ve Tekrarlar"
+            },
+            "description": {
+              "en": "On Business: test two versions and send the winner automatically, add up to 3 follow-ups that stop when someone replies, and repeat campaigns on a schedule.",
+              "pt": "No Business: teste duas versões e envie a vencedora automaticamente, adicione até 3 follow-ups que param quando alguém responde e repita campanhas de forma programada.",
+              "es": "En Business: pruebe dos versiones y envíe la ganadora automáticamente, añada hasta 3 seguimientos que se detienen cuando alguien responde y repita campañas de forma programada.",
+              "id": "Di Business: uji dua versi dan kirim pemenangnya secara otomatis, tambahkan hingga 3 tindak lanjut yang berhenti saat seseorang membalas, dan ulangi kampanye sesuai jadwal.",
+              "ar": "في خطة Business: اختبر نسختين وأرسل النسخة الفائزة تلقائياً، وأضف حتى 3 رسائل متابعة تتوقف عندما يرد الشخص، وكرّر الحملات وفق جدول.",
+              "tr": "Business planında: iki sürümü test edip kazananı otomatik gönderin, biri yanıt verdiğinde duran en fazla 3 takip mesajı ekleyin ve kampanyaları bir programa göre tekrarlayın."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Segments, Retargeting & Conversions",
+              "pt": "Segmentos, Retargeting e Conversões",
+              "es": "Segmentos, Retargeting y Conversiones",
+              "id": "Segmen, Retargeting & Konversi",
+              "ar": "الشرائح وإعادة الاستهداف والتحويلات",
+              "tr": "Segmentler, Yeniden Hedefleme ve Dönüşümler"
+            },
+            "description": {
+              "en": "On Business: build audiences from engagement, birthdays, dates and pipeline stages, retarget people who didn't read, didn't reply or tapped a button in an earlier campaign, and report sales through the conversions API to see what each campaign earned.",
+              "pt": "No Business: crie públicos por engajamento, aniversários, datas e etapas do funil, faça retargeting de quem não leu, não respondeu ou tocou em um botão de uma campanha anterior e registre vendas pela API de conversões para ver quanto cada campanha gerou.",
+              "es": "En Business: cree audiencias por interacción, cumpleaños, fechas y etapas del embudo, haga retargeting a quienes no leyeron, no respondieron o tocaron un botón en una campaña anterior y registre ventas con la API de conversiones para ver cuánto generó cada campaña.",
+              "id": "Di Business: buat audiens dari keterlibatan, ulang tahun, tanggal, dan tahap pipeline, lakukan retargeting pada orang yang tidak membaca, tidak membalas, atau mengetuk tombol di kampanye sebelumnya, dan laporkan penjualan melalui API konversi untuk melihat hasil setiap kampanye.",
+              "ar": "في خطة Business: أنشئ جماهير حسب التفاعل وأعياد الميلاد والتواريخ ومراحل مسار المبيعات، وأعد استهداف من لم يقرأ أو لم يرد أو نقر على زر في حملة سابقة، وسجّل المبيعات عبر API التحويلات لترى عائد كل حملة.",
+              "tr": "Business planında: etkileşime, doğum günlerine, tarihlere ve satış hunisi aşamalarına göre kitleler oluşturun, önceki bir kampanyada okumayan, yanıt vermeyen veya bir düğmeye dokunan kişileri yeniden hedefleyin ve her kampanyanın ne kazandırdığını görmek için satışları dönüşüm API'siyle bildirin."
             }
           }
         ]
@@ -221,45 +335,61 @@
       "type": "featureSplit",
       "props": {
         "heading": {
-          "en": "Broadcast to Millions in Minutes",
-          "pt": "Transmita para Milhões em Minutos",
-          "es": "Difunda a Millones en Minutos",
-          "id": "Siaran ke Jutaan dalam Hitungan Menit",
-          "ar": "أرسل بثاً لملايين في دقائق",
-          "tr": "Dakikalar İçinde Milyonlara Yayın Yapın"
+          "en": "Run Campaigns in Three Steps",
+          "pt": "Execute Campanhas em Três Etapas",
+          "es": "Lance Campañas en Tres Pasos",
+          "id": "Jalankan Kampanye dalam Tiga Langkah",
+          "ar": "أطلق حملات في ثلاث خطوات",
+          "tr": "Üç Adımda Kampanya Yürütün"
         },
         "body": {
-          "en": "Our broadcast engine handles millions of WhatsApp messages with intelligent throttling, automatic retry logic, and real-time delivery tracking. Target specific user segments with personalized template variables.",
-          "pt": "Nosso motor de transmissão processa milhões de mensagens WhatsApp com limitação inteligente, lógica de reenvio automático e rastreamento de entrega em tempo real. Segmente usuários específicos com variáveis de modelo personalizadas.",
-          "es": "Nuestro motor de difusión maneja millones de mensajes de WhatsApp con limitación inteligente, lógica de reintento automático y seguimiento de entrega en tiempo real. Diríjase a segmentos de usuarios específicos con variables de plantilla personalizadas.",
-          "id": "Mesin siaran kami menangani jutaan pesan WhatsApp dengan pembatasan cerdas, logika percobaan ulang otomatis, dan pelacakan pengiriman real-time. Targetkan segmen pengguna tertentu dengan variabel template yang dipersonalisasi.",
-          "ar": "محرك البث الخاص بنا يعالج ملايين رسائل واتساب مع تحكم ذكي في السرعة ومنطق إعادة المحاولة التلقائي وتتبع التسليم في الوقت الفعلي. استهدف شرائح مستخدمين محددة بمتغيرات قوالب مخصصة.",
-          "tr": "Yayın motorumuz akıllı hız sınırlama, otomatik yeniden deneme mantığı ve gerçek zamanlı teslimat takibiyle milyonlarca WhatsApp mesajını yönetir. Kişiselleştirilmiş şablon değişkenleriyle belirli kullanıcı segmentlerini hedefleyin."
+          "en": "Pick an approved template, choose your audience and review before launch. Map template variables from contact fields, attributes or fixed text, add header media, and optionally start a chatbot flow when customers reply. Send now or schedule it, respect quiet hours, and check Meta's estimated charge before you launch. Pause, resume, cancel or duplicate any campaign.",
+          "pt": "Escolha um modelo aprovado, selecione seu público e revise antes do lançamento. Mapeie as variáveis do modelo a partir de campos do contato, atributos ou texto fixo, adicione mídia no cabeçalho e, se quiser, inicie um fluxo de chatbot quando os clientes responderem. Envie na hora ou agende, respeite o horário de silêncio e confira a cobrança estimada da Meta antes de lançar. Pause, retome, cancele ou duplique qualquer campanha.",
+          "es": "Elija una plantilla aprobada, seleccione su audiencia y revise antes del lanzamiento. Asigne las variables de la plantilla desde campos del contacto, atributos o texto fijo, añada multimedia en el encabezado y, si lo desea, inicie un flujo de chatbot cuando los clientes respondan. Envíela al momento o prográmela, respete el horario de silencio y revise el cargo estimado de Meta antes de lanzar. Pause, reanude, cancele o duplique cualquier campaña.",
+          "id": "Pilih template yang disetujui, tentukan audiens, dan tinjau sebelum peluncuran. Petakan variabel template dari kolom kontak, atribut, atau teks tetap, tambahkan media header, dan jika perlu mulai alur chatbot saat pelanggan membalas. Kirim langsung atau jadwalkan, patuhi jam tenang, dan periksa estimasi biaya Meta sebelum meluncurkan. Jeda, lanjutkan, batalkan, atau duplikat kampanye apa pun.",
+          "ar": "اختر قالباً معتمداً وحدد جمهورك وراجع قبل الإطلاق. اربط متغيرات القالب بحقول جهة الاتصال أو السمات أو نص ثابت، وأضف وسائط الترويسة، وابدأ اختيارياً مسار روبوت محادثة عندما يرد العملاء. أرسل فوراً أو جدول الحملة، والتزم بساعات الهدوء، وراجع رسوم Meta المقدّرة قبل الإطلاق. أوقف أي حملة مؤقتاً أو استأنفها أو ألغها أو انسخها.",
+          "tr": "Onaylı bir şablon seçin, kitlenizi belirleyin ve göndermeden önce gözden geçirin. Şablon değişkenlerini kişi alanlarından, niteliklerden veya sabit metinden eşleyin, başlık medyası ekleyin ve isterseniz müşteriler yanıt verdiğinde bir chatbot akışı başlatın. Hemen gönderin veya zamanlayın, sessiz saatlere uyun ve başlatmadan önce Meta'nın tahmini ücretini kontrol edin. Herhangi bir kampanyayı duraklatın, sürdürün, iptal edin veya çoğaltın."
         },
         "bullets": [
           {
-            "en": "Send to 100K+ contacts per campaign",
-            "pt": "Envie para mais de 100 mil contatos por campanha",
-            "es": "Envíe a más de 100K contactos por campaña",
-            "id": "Kirim ke 100 ribu+ kontak per kampanye",
-            "ar": "أرسل إلى أكثر من 100 ألف جهة اتصال لكل حملة",
-            "tr": "Kampanya başına 100 bin+ kişiye gönderin"
+            "en": "Campaigns to tagged contacts or CSV audiences, opted-out contacts skipped automatically",
+            "pt": "Campanhas para contatos com tags ou públicos de CSV, com descadastrados ignorados automaticamente",
+            "es": "Campañas a contactos etiquetados o audiencias de CSV, con las bajas omitidas automáticamente",
+            "id": "Kampanye ke kontak bertag atau audiens CSV, kontak yang opt-out dilewati otomatis",
+            "ar": "حملات لجهات اتصال موسومة أو جماهير من CSV، مع تخطي من ألغوا الاشتراك تلقائياً",
+            "tr": "Etiketli kişilere veya CSV kitlelerine kampanyalar; abonelikten çıkanlar otomatik atlanır"
           },
           {
-            "en": "Intelligent rate limiting & auto-retry",
-            "pt": "Limitação de taxa inteligente e reenvio automático",
-            "es": "Limitación de tasa inteligente y reintento automático",
-            "id": "Pembatasan kecepatan cerdas dan percobaan ulang otomatis",
-            "ar": "تحكم ذكي في السرعة وإعادة المحاولة التلقائية",
-            "tr": "Akıllı hız sınırlama ve otomatik yeniden deneme"
+            "en": "Variable mapping from contact fields, attributes or fixed text",
+            "pt": "Mapeamento de variáveis a partir de campos do contato, atributos ou texto fixo",
+            "es": "Asignación de variables desde campos del contacto, atributos o texto fijo",
+            "id": "Pemetaan variabel dari kolom kontak, atribut, atau teks tetap",
+            "ar": "ربط المتغيرات بحقول جهة الاتصال أو السمات أو نص ثابت",
+            "tr": "Kişi alanlarından, özel alanlardan veya sabit metinden değişken eşleme"
           },
           {
-            "en": "Real-time delivery & read receipts",
-            "pt": "Confirmações de entrega e leitura em tempo real",
-            "es": "Confirmaciones de entrega y lectura en tiempo real",
-            "id": "Konfirmasi pengiriman dan baca real-time",
-            "ar": "إيصالات التسليم والقراءة في الوقت الفعلي",
-            "tr": "Gerçek zamanlı teslimat ve okundu bilgisi"
+            "en": "Funnel report from sent to replied, with Meta's charge and a recipients export",
+            "pt": "Relatório de funil do envio à resposta, com a cobrança da Meta e exportação dos destinatários",
+            "es": "Informe de embudo del envío a la respuesta, con el cargo de Meta y exportación de destinatarios",
+            "id": "Laporan funnel dari terkirim hingga dibalas, dengan biaya Meta dan ekspor penerima",
+            "ar": "تقرير مسار التحويل من الإرسال حتى الرد، مع رسوم Meta وتصدير قائمة المستلمين",
+            "tr": "Gönderimden yanıta dönüşüm hunisi raporu; Meta ücreti ve alıcı dışa aktarımıyla"
+          },
+          {
+            "en": "Scheduling, quiet hours and a pre-launch Meta cost estimate on every plan with campaigns",
+            "pt": "Agendamento, horário de silêncio e estimativa de custo da Meta antes do lançamento em todos os planos com campanhas",
+            "es": "Programación, horario de silencio y estimación del costo de Meta antes del lanzamiento en todos los planes con campañas",
+            "id": "Penjadwalan, jam tenang, dan estimasi biaya Meta sebelum peluncuran di setiap paket yang memiliki kampanye",
+            "ar": "الجدولة وساعات الهدوء وتقدير تكلفة Meta قبل الإطلاق في كل الخطط التي تتضمن الحملات",
+            "tr": "Kampanye içeren her planda zamanlama, sessiz saatler ve gönderim öncesi Meta maliyet tahmini"
+          },
+          {
+            "en": "A/B tests, follow-ups, repeating campaigns and retargeting on Business",
+            "pt": "Testes A/B, follow-ups, campanhas recorrentes e retargeting no Business",
+            "es": "Pruebas A/B, seguimientos, campañas recurrentes y retargeting en Business",
+            "id": "Uji A/B, tindak lanjut, kampanye berulang, dan retargeting di Business",
+            "ar": "اختبارات A/B ورسائل المتابعة والحملات المتكررة وإعادة الاستهداف في خطة Business",
+            "tr": "Business planında A/B testleri, takip mesajları, tekrarlayan kampanyalar ve yeniden hedefleme"
           }
         ],
         "image": "/images/broadcast-dashboard.webp",
@@ -274,6 +404,15 @@
         "imageWidth": 600,
         "imageHeight": 400,
         "imageMaxWidth": "max-w-[600px]",
+        "ctaLabel": {
+          "en": "Start your 14-day free trial of Business",
+          "pt": "Comece seu teste grátis de 14 dias do Business",
+          "es": "Comience su prueba gratuita de 14 días de Business",
+          "id": "Mulai uji coba gratis 14 hari paket Business",
+          "ar": "ابدأ تجربتك المجانية لخطة Business لمدة 14 يوماً",
+          "tr": "Business planının 14 günlük ücretsiz denemesini başlatın"
+        },
+        "ctaHref": "https://waba.startmessaging.com/signup",
         "reversed": false
       }
     },
@@ -285,41 +424,41 @@
           "pt": "Construtor de Chatbot Sem Código",
           "es": "Constructor de Chatbot Sin Código",
           "id": "Pembuat Chatbot Tanpa Kode",
-          "ar": "منşئ شات بوت بدون كود",
+          "ar": "منشئ شات بوت بدون كود",
           "tr": "Kodsuz Chatbot Oluşturucu"
         },
         "body": {
-          "en": "Design conversation flows visually with our drag-and-drop builder. Handle FAQs, collect leads, process orders, and route complex queries to human agents — all without writing a single line of code.",
-          "pt": "Desenhe fluxos de conversa visualmente com nosso construtor drag-and-drop. Gerencie perguntas frequentes, colete leads, processe pedidos e direcione consultas complexas para agentes humanos — tudo sem escrever uma única linha de código.",
-          "es": "Diseñe flujos de conversación visualmente con nuestro constructor de arrastrar y soltar. Gestione preguntas frecuentes, recopile leads, procese pedidos y dirija consultas complejas a agentes humanos — todo sin escribir una sola línea de código.",
-          "id": "Rancang alur percakapan secara visual dengan pembuat drag-and-drop kami. Tangani FAQ, kumpulkan lead, proses pesanan, dan arahkan pertanyaan kompleks ke agen manusia — semuanya tanpa menulis satu baris kode pun.",
-          "ar": "صمم تدفقات المحادثة بصرياً باستخدام أداة السحب والإفلات. أدِر الأسئلة الشائعة واجمع العملاء المحتملين ومعالجة الطلبات وتوجيه الاستفسارات المعقدة لموظفين — كل ذلك بدون كتابة سطر كود واحد.",
-          "tr": "Sürükle-bırak oluşturucumuzla konuşma akışlarını görsel olarak tasarlayın. SSS'leri yönetin, lead toplayın, siparişleri işleyin ve karmaşık sorguları insan ajanlara yönlendirin — tek bir satır kod yazmadan."
+          "en": "Design conversation flows visually on the Business plan. Trigger a flow on a customer's first message, any inbound message, a keyword or manually, then send messages and templates, wait for replies, branch on buttons, lists or conditions, update tags, fields and pipeline stages, and hand off to an agent — all without code.",
+          "pt": "Desenhe fluxos de conversa visualmente no plano Business. Acione um fluxo na primeira mensagem do cliente, em qualquer mensagem recebida, por palavra-chave ou manualmente; depois envie mensagens e modelos, aguarde respostas, crie ramificações por botões, listas ou condições, atualize tags, campos e etapas do funil e transfira para um agente — tudo sem código.",
+          "es": "Diseñe flujos de conversación de forma visual en el plan Business. Active un flujo con el primer mensaje del cliente, cualquier mensaje entrante, una palabra clave o manualmente; luego envíe mensajes y plantillas, espere respuestas, ramifique por botones, listas o condiciones, actualice etiquetas, campos y etapas del embudo y transfiera a un agente — todo sin código.",
+          "id": "Rancang alur percakapan secara visual di paket Business. Picu alur pada pesan pertama pelanggan, pesan masuk apa pun, kata kunci, atau secara manual, lalu kirim pesan dan template, tunggu balasan, buat percabangan berdasarkan tombol, daftar, atau kondisi, perbarui tag, kolom, dan tahap pipeline, serta alihkan ke agen — semuanya tanpa kode.",
+          "ar": "صمّم مسارات المحادثة بصرياً في خطة Business. شغّل المسار عند أول رسالة من العميل أو أي رسالة واردة أو كلمة مفتاحية أو يدوياً، ثم أرسل الرسائل والقوالب، وانتظر الردود، وفرّع حسب الأزرار أو القوائم أو الشروط، وحدّث الوسوم والحقول ومراحل مسار المبيعات، وحوّل المحادثة إلى وكيل — كل ذلك دون برمجة.",
+          "tr": "Konuşma akışlarını Business planında görsel olarak tasarlayın. Bir akışı müşterinin ilk mesajında, herhangi bir gelen mesajda, bir anahtar kelimeyle veya elle tetikleyin; ardından mesaj ve şablon gönderin, yanıt bekleyin, düğmelere, listelere veya koşullara göre dallanın, etiketleri, alanları ve satış hunisi aşamalarını güncelleyin ve bir temsilciye aktarın — hepsi kodsuz."
         },
         "bullets": [
           {
-            "en": "Visual drag-and-drop flow builder",
-            "pt": "Construtor visual de fluxos drag-and-drop",
-            "es": "Constructor visual de flujos de arrastrar y soltar",
-            "id": "Pembuat alur visual seret dan lepas",
-            "ar": "منشئ تدفق مرئي بالسحب والإفلات",
-            "tr": "Görsel sürükle-bırak akış oluşturucu"
+            "en": "Visual flow builder with 4 industry starter flows",
+            "pt": "Construtor visual de fluxos com 4 fluxos iniciais por setor",
+            "es": "Constructor visual de flujos con 4 flujos iniciales por sector",
+            "id": "Pembuat alur visual dengan 4 alur awal industri",
+            "ar": "منشئ تدفقات مرئي مع 4 تدفقات جاهزة حسب القطاع",
+            "tr": "4 sektörel başlangıç akışıyla görsel akış oluşturucu"
           },
           {
-            "en": "Automatic agent handoff with context",
-            "pt": "Passagem automática para agente com contexto",
-            "es": "Transferencia automática a agente con contexto",
-            "id": "Serah terima otomatis ke agen dengan konteks",
-            "ar": "تحويل تلقائي للموظف مع السياق",
-            "tr": "Bağlamla otomatik ajan devri"
+            "en": "Hand off to an agent in the shared inbox",
+            "pt": "Transferência para um agente na caixa de entrada compartilhada",
+            "es": "Transferencia a un agente en la bandeja de entrada compartida",
+            "id": "Serah terima ke agen di kotak masuk bersama",
+            "ar": "التحويل إلى موظف في صندوق الوارد المشترك",
+            "tr": "Ortak gelen kutusunda bir ajana devir"
           },
           {
-            "en": "Multi-language bot responses",
-            "pt": "Respostas de bot em vários idiomas",
-            "es": "Respuestas de bot en varios idiomas",
-            "id": "Respons bot multi-bahasa",
-            "ar": "ردود البوت متعددة اللغات",
-            "tr": "Çok dilli bot yanıtları"
+            "en": "Keyword auto-replies on Team and up: exact, contains or starts-with match",
+            "pt": "Respostas automáticas por palavra-chave a partir do Team: correspondência exata, contém ou começa com",
+            "es": "Respuestas automáticas por palabra clave desde Team: coincidencia exacta, contiene o empieza por",
+            "id": "Balasan otomatis kata kunci mulai paket Team: cocok persis, mengandung, atau diawali dengan",
+            "ar": "ردود تلقائية بالكلمات المفتاحية بدءاً من خطة Team: تطابق تام أو يحتوي على أو يبدأ بـ",
+            "tr": "Team ve üstünde anahtar kelimeli otomatik yanıtlar: tam eşleşme, içerir veya ile başlar"
           }
         ],
         "image": "/images/chatbot-flow.webp",
@@ -437,27 +576,39 @@
         "rows": [
           [
             {
-              "en": "Official Meta BSP",
-              "pt": "BSP Oficial Meta",
-              "es": "BSP Oficial Meta",
-              "id": "BSP Resmi Meta",
-              "ar": "شريك Meta الرسمي",
-              "tr": "Resmi Meta BSP"
+              "en": "Meta Tech Provider",
+              "pt": "Tech Provider da Meta",
+              "es": "Tech Provider de Meta",
+              "id": "Tech Provider Meta",
+              "ar": "مزوّد تقنية معتمد من Meta (Tech Provider)",
+              "tr": "Meta Tech Provider"
             },
             "✓",
             "✗"
           ],
           [
             {
-              "en": "Free plan with 1,000 msgs",
-              "pt": "Plano gratuito com 1.000 msgs",
-              "es": "Plan gratuito con 1.000 msgs",
-              "id": "Paket gratis 1.000 pesan",
-              "ar": "خطة مجانية مع 1,000 رسالة",
-              "tr": "1.000 mesajlık ücretsiz plan"
+              "en": "14-day free trial of Business",
+              "pt": "Teste grátis de 14 dias do Business",
+              "es": "Prueba gratuita de 14 días de Business",
+              "id": "Uji coba gratis 14 hari paket Business",
+              "ar": "تجربة مجانية لخطة Business لمدة 14 يوماً",
+              "tr": "Business planının 14 günlük ücretsiz denemesi"
             },
             "✓",
-            "✗"
+            "—"
+          ],
+          [
+            {
+              "en": "Meta bills messages directly to your WhatsApp Business Account",
+              "pt": "A Meta cobra as mensagens diretamente na sua conta do WhatsApp Business",
+              "es": "Meta factura los mensajes directamente a su cuenta de WhatsApp Business",
+              "id": "Meta menagih pesan langsung ke Akun WhatsApp Business Anda",
+              "ar": "تُصدر Meta فواتير الرسائل مباشرة إلى حساب واتساب للأعمال الخاص بك",
+              "tr": "Meta mesajları doğrudan WhatsApp Business Hesabınıza faturalandırır"
+            },
+            "✓",
+            "—"
           ],
           [
             {
@@ -473,15 +624,15 @@
           ],
           [
             {
-              "en": "Multi-country pricing",
-              "pt": "Preços multi-país",
-              "es": "Precios multi-país",
-              "id": "Harga multi-negara",
-              "ar": "تسعير متعدد البلدان",
-              "tr": "Çok ülkeli fiyatlandırma"
+              "en": "Meta cost estimate before every campaign",
+              "pt": "Estimativa de custo da Meta antes de cada campanha",
+              "es": "Estimación del costo de Meta antes de cada campaña",
+              "id": "Estimasi biaya Meta sebelum setiap kampanye",
+              "ar": "تقدير تكلفة Meta قبل كل حملة",
+              "tr": "Her kampanyadan önce Meta maliyet tahmini"
             },
             "✓",
-            "✗"
+            "—"
           ],
           [
             {
@@ -497,12 +648,12 @@
           ],
           [
             {
-              "en": "99.9% SLA uptime",
-              "pt": "SLA de 99,9% de disponibilidade",
-              "es": "SLA del 99,9% de disponibilidad",
-              "id": "SLA uptime 99,9%",
-              "ar": "اتفاقية خدمة 99.9%",
-              "tr": "%99,9 SLA çalışma süresi"
+              "en": "Shared team inbox & CRM pipeline",
+              "pt": "Caixa de entrada compartilhada e funil de CRM",
+              "es": "Bandeja de entrada compartida y embudo de CRM",
+              "id": "Kotak masuk tim bersama & pipeline CRM",
+              "ar": "صندوق وارد مشترك ومسار مبيعات CRM",
+              "tr": "Ortak gelen kutusu ve CRM hunisi"
             },
             "✓",
             "—"
@@ -552,12 +703,12 @@
               "tr": "StartMessaging'i hem pazarlama hem de işlemsel mesajlar için kullanabilir miyim?"
             },
             "answer": {
-              "en": "Yes. StartMessaging supports all WhatsApp message categories: marketing (promotions, broadcasts), utility (order updates, shipping alerts), authentication (OTPs), and service (customer support). Each category has its own pricing tier as defined by Meta.",
-              "pt": "Sim. O StartMessaging suporta todas as categorias de mensagem do WhatsApp: marketing (promoções, transmissões), utilitário (atualizações de pedido, alertas de envio), autenticação (OTPs) e serviço (suporte ao cliente). Cada categoria tem seu próprio nível de preço definido pela Meta.",
-              "es": "Sí. StartMessaging soporta todas las categorías de mensajes de WhatsApp: marketing (promociones, difusiones), utilidad (actualizaciones de pedidos, alertas de envío), autenticación (OTPs) y servicio (soporte al cliente). Cada categoría tiene su propio nivel de precios definido por Meta.",
-              "id": "Ya. StartMessaging mendukung semua kategori pesan WhatsApp: marketing (promosi, siaran), utilitas (pembaruan pesanan, peringatan pengiriman), autentikasi (OTP), dan layanan (dukungan pelanggan). Setiap kategori memiliki tingkat harga tersendiri yang ditentukan oleh Meta.",
-              "ar": "نعم. يدعم StartMessaging جميع فئات رسائل واتساب: التسويق (العروض والبث) والخدمات (تحديثات الطلبات وتنبيهات الشحن) والمصادقة (OTP) والخدمة (دعم العملاء). لكل فئة مستوى تسعير خاص بها كما حددتها Meta.",
-              "tr": "Evet. StartMessaging tüm WhatsApp mesaj kategorilerini destekler: pazarlama (promosyonlar, yayınlar), yardımcı program (sipariş güncellemeleri, kargo uyarıları), kimlik doğrulama (OTP) ve hizmet (müşteri desteği). Her kategorinin Meta tarafından belirlenen kendi fiyatlandırma katmanı vardır."
+              "en": "Yes. StartMessaging supports all WhatsApp message categories: marketing (promotions, broadcasts), utility (order updates, shipping alerts), authentication (OTPs) and service (customer support). Meta bills message charges directly to your WhatsApp Business Account. Under Meta's pricing since 1 October 2026, every delivered template is charged at its category's rate — utility too, even inside the 24-hour customer service window. Service replies are free up to a monthly allowance per number, and chats that start from a Click-to-WhatsApp ad get a 72-hour free window.",
+              "pt": "Sim. O StartMessaging oferece todas as categorias de mensagens do WhatsApp: marketing (promoções, transmissões), utilidade (atualizações de pedidos, alertas de envio), autenticação (OTPs) e atendimento (suporte ao cliente). A Meta fatura as cobranças de mensagens diretamente na sua conta do WhatsApp Business. Pelos preços da Meta em vigor desde 1º de outubro de 2026, todo modelo entregue é cobrado pela tarifa da sua categoria — inclusive os de utilidade, mesmo dentro da janela de atendimento de 24 horas. As respostas de atendimento são gratuitas até uma franquia mensal por número, e conversas iniciadas por um anúncio de clique para o WhatsApp têm uma janela gratuita de 72 horas.",
+              "es": "Sí. StartMessaging admite todas las categorías de mensajes de WhatsApp: marketing (promociones, difusiones), utilidad (actualizaciones de pedidos, alertas de envío), autenticación (OTP) y servicio (atención al cliente). Meta factura los cargos de mensajes directamente a su cuenta de WhatsApp Business. Con los precios de Meta vigentes desde el 1 de octubre de 2026, se cobra toda plantilla entregada según la tarifa de su categoría — también las de utilidad, incluso dentro de la ventana de atención de 24 horas. Las respuestas de servicio son gratuitas hasta una asignación mensual por número, y los chats que empiezan en un anuncio de clic a WhatsApp tienen una ventana gratuita de 72 horas.",
+              "id": "Ya. StartMessaging mendukung semua kategori pesan WhatsApp: marketing (promosi, siaran), utilitas (pembaruan pesanan, notifikasi pengiriman), autentikasi (OTP), dan layanan (dukungan pelanggan). Meta menagihkan biaya pesan langsung ke Akun WhatsApp Business Anda. Menurut harga Meta sejak 1 Oktober 2026, setiap template yang terkirim dikenai tarif kategorinya — termasuk utilitas, bahkan di dalam jendela layanan pelanggan 24 jam. Balasan layanan gratis hingga kuota bulanan per nomor, dan chat yang dimulai dari iklan Click-to-WhatsApp mendapat jendela gratis 72 jam.",
+              "ar": "نعم. يدعم StartMessaging جميع فئات رسائل واتساب: التسويق (العروض الترويجية والبث)، والخدمات (تحديثات الطلبات وتنبيهات الشحن)، والمصادقة (رموز OTP)، والخدمة (دعم العملاء). تُصدر Meta فواتير رسوم الرسائل مباشرةً على حساب واتساب للأعمال الخاص بك. وبموجب أسعار Meta المعمول بها منذ 1 أكتوبر 2026، يُحتسب كل قالب يتم تسليمه بسعر فئته — بما في ذلك قوالب الخدمات، حتى داخل نافذة خدمة العملاء لمدة 24 ساعة. وتكون ردود الخدمة مجانية حتى حصة شهرية لكل رقم، وتحصل المحادثات التي تبدأ من إعلان النقر للانتقال إلى واتساب على نافذة مجانية مدتها 72 ساعة.",
+              "tr": "Evet. StartMessaging tüm WhatsApp mesaj kategorilerini destekler: pazarlama (promosyonlar, toplu yayınlar), fayda (sipariş güncellemeleri, kargo bildirimleri), kimlik doğrulama (OTP'ler) ve hizmet (müşteri desteği). Meta mesaj ücretlerini doğrudan WhatsApp Business Hesabınıza faturalar. Meta'nın 1 Ekim 2026'dan beri geçerli fiyatlandırmasında teslim edilen her şablon kendi kategorisinin ücretinden faturalanır — fayda şablonları da, 24 saatlik müşteri hizmetleri penceresi içinde bile. Hizmet yanıtları numara başına aylık bir kotaya kadar ücretsizdir ve Click-to-WhatsApp reklamından başlayan sohbetler 72 saatlik ücretsiz bir pencere alır."
             }
           },
           {
@@ -570,12 +721,12 @@
               "tr": "API hangi programlama dillerini destekliyor?"
             },
             "answer": {
-              "en": "Our REST API works with any language that can make HTTP requests. We provide official code samples and SDKs for cURL, Node.js, Python, PHP, Java, and Go. Community SDKs are also available for Ruby, C#, and Kotlin.",
-              "pt": "Nossa API REST funciona com qualquer linguagem que faça requisições HTTP. Oferecemos exemplos de código oficiais e SDKs para cURL, Node.js, Python, PHP, Java e Go. SDKs da comunidade também estão disponíveis para Ruby, C# e Kotlin.",
-              "es": "Nuestra API REST funciona con cualquier lenguaje que pueda hacer solicitudes HTTP. Proporcionamos ejemplos de código oficiales y SDKs para cURL, Node.js, Python, PHP, Java y Go. También hay SDKs de la comunidad disponibles para Ruby, C# y Kotlin.",
-              "id": "REST API kami bekerja dengan bahasa apa pun yang dapat membuat permintaan HTTP. Kami menyediakan contoh kode resmi dan SDK untuk cURL, Node.js, Python, PHP, Java, dan Go. SDK komunitas juga tersedia untuk Ruby, C#, dan Kotlin.",
-              "ar": "تعمل واجهة REST API الخاصة بنا مع أي لغة يمكنها إجراء طلبات HTTP. نوفر أمثلة كود رسمية وSDK لـ cURL وNode.js وPython وPHP وJava وGo. كما تتوفر SDK مجتمعية لـ Ruby وC# وKotlin.",
-              "tr": "REST API'miz HTTP istekleri yapabilen herhangi bir dille çalışır. cURL, Node.js, Python, PHP, Java ve Go için resmi kod örnekleri ve SDK'lar sağlıyoruz. Ruby, C# ve Kotlin için topluluk SDK'ları da mevcuttur."
+              "en": "Our REST API works with any language that can make HTTP requests. The docs include ready-to-copy examples for cURL, Node.js, Python, PHP, Java and Go, and the WhatsApp app shows the exact API request for each of your templates.",
+              "pt": "Nossa API REST funciona com qualquer linguagem que faça requisições HTTP. A documentação traz exemplos prontos para copiar em cURL, Node.js, Python, PHP, Java e Go, e o app do WhatsApp mostra a requisição exata da API para cada um dos seus modelos.",
+              "es": "Nuestra API REST funciona con cualquier lenguaje que pueda hacer solicitudes HTTP. La documentación incluye ejemplos listos para copiar en cURL, Node.js, Python, PHP, Java y Go, y la app de WhatsApp muestra la solicitud exacta de la API para cada una de sus plantillas.",
+              "id": "REST API kami bekerja dengan bahasa apa pun yang dapat membuat permintaan HTTP. Dokumentasi menyertakan contoh siap salin untuk cURL, Node.js, Python, PHP, Java, dan Go, dan aplikasi WhatsApp menampilkan permintaan API yang tepat untuk setiap template Anda.",
+              "ar": "تعمل واجهة REST API الخاصة بنا مع أي لغة يمكنها إجراء طلبات HTTP. يتضمن التوثيق أمثلة جاهزة للنسخ لـ cURL وNode.js وPython وPHP وJava وGo، ويعرض تطبيق واتساب طلب API الدقيق لكل قالب من قوالبك.",
+              "tr": "REST API'miz HTTP isteği yapabilen her dille çalışır. Dokümanlar cURL, Node.js, Python, PHP, Java ve Go için kopyalamaya hazır örnekler içerir; WhatsApp uygulaması da her şablonunuz için tam API isteğini gösterir."
             }
           },
           {
@@ -588,12 +739,12 @@
               "tr": "StartMessaging zengin medya mesajlarını destekliyor mu?"
             },
             "answer": {
-              "en": "Absolutely. You can send images, videos, documents, audio files, location pins, contact cards, and interactive buttons/quick replies through our API. All media types are supported in both broadcast and chatbot flows.",
-              "pt": "Com certeza. Você pode enviar imagens, vídeos, documentos, arquivos de áudio, pins de localização, cartões de contato e botões interativos/respostas rápidas através da nossa API. Todos os tipos de mídia são suportados em fluxos de transmissão e chatbot.",
-              "es": "Absolutamente. Puede enviar imágenes, videos, documentos, archivos de audio, ubicaciones, tarjetas de contacto y botones interactivos/respuestas rápidas a través de nuestra API. Todos los tipos de medios son compatibles tanto en flujos de difusión como de chatbot.",
-              "id": "Tentu saja. Anda dapat mengirim gambar, video, dokumen, file audio, pin lokasi, kartu kontak, dan tombol interaktif/balasan cepat melalui API kami. Semua jenis media didukung dalam alur siaran maupun chatbot.",
-              "ar": "بالتأكيد. يمكنك إرسال صور وفيديوهات ومستندات وملفات صوتية ودبابيس موقع وبطاقات اتصال وأزرار تفاعلية/ردود سريعة من خلال واجهتنا. جميع أنواع الوسائط مدعومة في تدفقات البث والشات بوت.",
-              "tr": "Kesinlikle. API'miz aracılığıyla resimler, videolar, belgeler, ses dosyaları, konum pinleri, kişi kartları ve etkileşimli butonlar/hızlı yanıtlar gönderebilirsiniz. Tüm medya türleri hem yayın hem de chatbot akışlarında desteklenir."
+              "en": "Yes. Templates support image, video or document headers, carousels and up to 10 buttons (quick reply, URL, phone, copy code, WhatsApp Form and more). In the shared inbox, agents can send attachments and interactive messages with up to 3 reply buttons or a list of up to 10 rows.",
+              "pt": "Sim. Os modelos aceitam cabeçalhos de imagem, vídeo ou documento, carrosséis e até 10 botões (resposta rápida, URL, telefone, copiar código, Formulário do WhatsApp e outros). Na caixa de entrada compartilhada, os agentes podem enviar anexos e mensagens interativas com até 3 botões de resposta ou uma lista de até 10 linhas.",
+              "es": "Sí. Las plantillas admiten encabezados de imagen, video o documento, carruseles y hasta 10 botones (respuesta rápida, URL, teléfono, copiar código, Formulario de WhatsApp y más). En la bandeja de entrada compartida, los agentes pueden enviar adjuntos y mensajes interactivos con hasta 3 botones de respuesta o una lista de hasta 10 filas.",
+              "id": "Ya. Template mendukung header gambar, video, atau dokumen, carousel, dan hingga 10 tombol (balasan cepat, URL, telepon, salin kode, WhatsApp Form, dan lainnya). Di kotak masuk bersama, agen dapat mengirim lampiran dan pesan interaktif dengan hingga 3 tombol balasan atau daftar hingga 10 baris.",
+              "ar": "نعم. تدعم القوالب ترويسات الصور أو الفيديو أو المستندات والعروض الدوّارة وما يصل إلى 10 أزرار (رد سريع ورابط وهاتف ونسخ الرمز ونموذج واتساب وغيرها). وفي صندوق الوارد المشترك، يمكن للموظفين إرسال المرفقات والرسائل التفاعلية مع ما يصل إلى 3 أزرار رد أو قائمة من 10 صفوف.",
+              "tr": "Evet. Şablonlar görsel, video veya belge başlıklarını, karuselleri ve 10'a kadar butonu (hızlı yanıt, URL, telefon, kodu kopyala, WhatsApp Formu ve daha fazlası) destekler. Ortak gelen kutusunda ajanlar ek dosyalar ve en fazla 3 yanıt butonu ya da 10 satırlık bir liste içeren etkileşimli mesajlar gönderebilir."
             }
           },
           {
@@ -606,12 +757,30 @@
               "tr": "Chatbot karmaşık sorguları nasıl yönetiyor?"
             },
             "answer": {
-              "en": "When a conversation exceeds the chatbot's capability, it automatically hands off to a human agent with full conversation context. Agents see the entire chat history, user profile, and bot interaction summary so they can help instantly without asking the customer to repeat themselves.",
-              "pt": "Quando uma conversa excede a capacidade do chatbot, ela é automaticamente passada para um agente humano com contexto completo da conversa. Os agentes veem todo o histórico de chat, perfil do usuário e resumo da interação com o bot para ajudar instantaneamente.",
-              "es": "Cuando una conversación excede la capacidad del chatbot, se transfiere automáticamente a un agente humano con el contexto completo de la conversación. Los agentes ven todo el historial del chat, el perfil del usuario y el resumen de la interacción del bot.",
-              "id": "Ketika percakapan melebihi kemampuan chatbot, percakapan otomatis diserahkan ke agen manusia dengan konteks percakapan lengkap. Agen melihat seluruh riwayat chat, profil pengguna, dan ringkasan interaksi bot sehingga mereka dapat membantu secara instan.",
-              "ar": "عندما تتجاوز المحادثة قدرة الشات بوت، يتم تحويلها تلقائياً إلى موظف بشري مع سياق المحادثة الكامل. يرى الموظفون كامل سجل المحادثة وملف المستخدم وملخص تفاعل البوت.",
-              "tr": "Bir konuşma chatbot'un kapasitesini aştığında, tam konuşma bağlamıyla otomatik olarak bir insan ajana aktarılır. Ajanlar tüm sohbet geçmişini, kullanıcı profilini ve bot etkileşim özetini görerek anında yardımcı olabilir."
+              "en": "Add an \"assign agent\" step to your flow. The conversation moves to the shared inbox, where the agent sees the full chat history and the contact's tags, attributes and notes before replying.",
+              "pt": "Adicione uma etapa \"atribuir agente\" ao fluxo. A conversa vai para a caixa de entrada compartilhada, onde o agente vê todo o histórico do chat e as tags, atributos e notas do contato antes de responder.",
+              "es": "Añada un paso \"asignar agente\" a su flujo. La conversación pasa a la bandeja de entrada compartida, donde el agente ve todo el historial del chat y las etiquetas, atributos y notas del contacto antes de responder.",
+              "id": "Tambahkan langkah \"tugaskan agen\" ke alur Anda. Percakapan berpindah ke kotak masuk bersama, tempat agen melihat seluruh riwayat chat serta tag, atribut, dan catatan kontak sebelum membalas.",
+              "ar": "أضف خطوة \"تعيين موظف\" إلى التدفق. تنتقل المحادثة إلى صندوق الوارد المشترك، حيث يرى الموظف سجل المحادثة كاملاً ووسوم جهة الاتصال وسماتها وملاحظاتها قبل الرد.",
+              "tr": "Akışınıza bir \"ajan ata\" adımı ekleyin. Konuşma ortak gelen kutusuna geçer; ajan yanıtlamadan önce tüm sohbet geçmişini ve kişinin etiketlerini, özel alanlarını ve notlarını görür."
+            }
+          },
+          {
+            "question": {
+              "en": "Which features come with which WhatsApp plan?",
+              "pt": "Quais recursos vêm em cada plano do WhatsApp?",
+              "es": "¿Qué funciones incluye cada plan de WhatsApp?",
+              "id": "Fitur apa saja yang ada di setiap paket WhatsApp?",
+              "ar": "ما الميزات المتاحة في كل خطة واتساب؟",
+              "tr": "Hangi WhatsApp planında hangi özellikler var?"
+            },
+            "answer": {
+              "en": "Developer is the API with a view-only dashboard, sized by API messages a month (Developer Free included). Team adds the shared inbox, contacts, interactive messages, campaigns with scheduling and analytics, and keyword auto-replies. Business adds chatbot flows, WhatsApp Forms, A/B tests, follow-ups, repeating campaigns, segments and retargeting, the sales pipeline with conversions, and agent analytics. Enterprise is Business on a custom contract. Every workspace starts with a 14-day free trial of Business.",
+              "pt": "O Developer é a API com um painel somente leitura, dimensionado por mensagens de API por mês (incluindo o Developer Free). O Team adiciona a caixa de entrada compartilhada, contatos, mensagens interativas, campanhas com agendamento e análises, e respostas automáticas por palavra-chave. O Business adiciona fluxos de chatbot, WhatsApp Forms, testes A/B, follow-ups, campanhas recorrentes, segmentos e retargeting, o funil de vendas com conversões e análises de agentes. O Enterprise é o Business com contrato personalizado. Todo workspace começa com um teste grátis de 14 dias do Business.",
+              "es": "Developer es la API con un panel de solo lectura, dimensionado por mensajes de API al mes (incluido Developer Free). Team añade la bandeja de entrada compartida, contactos, mensajes interactivos, campañas con programación y analíticas, y respuestas automáticas por palabra clave. Business añade flujos de chatbot, WhatsApp Forms, pruebas A/B, seguimientos, campañas recurrentes, segmentos y retargeting, el embudo de ventas con conversiones y analíticas de agentes. Enterprise es Business con un contrato personalizado. Todo workspace empieza con una prueba gratuita de 14 días de Business.",
+              "id": "Developer adalah API dengan dasbor hanya-lihat, diukur berdasarkan pesan API per bulan (termasuk Developer Free). Team menambahkan kotak masuk bersama, kontak, pesan interaktif, kampanye dengan penjadwalan dan analitik, serta balasan otomatis kata kunci. Business menambahkan alur chatbot, WhatsApp Forms, uji A/B, tindak lanjut, kampanye berulang, segmen dan retargeting, pipeline penjualan dengan konversi, serta analitik agen. Enterprise adalah Business dengan kontrak khusus. Setiap workspace dimulai dengan uji coba gratis 14 hari paket Business.",
+              "ar": "خطة Developer هي واجهة API مع لوحة تحكم للعرض فقط، ويُحدَّد حجمها بعدد رسائل API شهرياً (بما في ذلك Developer Free). وتضيف خطة Team صندوق الوارد المشترك وجهات الاتصال والرسائل التفاعلية والحملات مع الجدولة والتحليلات والردود التلقائية بالكلمات المفتاحية. وتضيف خطة Business مسارات روبوت المحادثة وWhatsApp Forms واختبارات A/B ورسائل المتابعة والحملات المتكررة والشرائح وإعادة الاستهداف ومسار المبيعات مع التحويلات وتحليلات الوكلاء. أما Enterprise فهي خطة Business بعقد مخصص. تبدأ كل مساحة عمل بتجربة مجانية لخطة Business لمدة 14 يوماً.",
+              "tr": "Developer, aylık API mesajı sayısına göre boyutlandırılan, salt görüntüleme panelli API'dir (Developer Free dahil). Team; ortak gelen kutusu, kişiler, etkileşimli mesajlar, zamanlama ve analizli kampanyalar ve anahtar kelimeli otomatik yanıtlar ekler. Business; chatbot akışları, WhatsApp Forms, A/B testleri, takip mesajları, tekrarlayan kampanyalar, segmentler ve yeniden hedefleme, dönüşümlü satış hunisi ve temsilci analizleri ekler. Enterprise, özel sözleşmeli Business'tır. Her çalışma alanı Business planının 14 günlük ücretsiz denemesiyle başlar."
             }
           }
         ]

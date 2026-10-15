@@ -2,7 +2,7 @@
 title: "WhatsApp for Fintech in Nigeria: Onboarding, Alerts, and KYC"
 description: "Use the WhatsApp Business API for fintech in Nigeria. Optimise customer onboarding, transaction alerts, and KYC notifications while staying NDPA compliant."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "use-cases"
 country: "ng"
 author: "StartMessaging Team"
@@ -23,19 +23,19 @@ featured: false
 
 Nigerian fintech platforms have undergone unprecedented growth over the last decade. From payment processors to digital banks and micro-lenders, companies are constantly seeking ways to improve communication with their users. By integrating the whatsapp business api fintech nigeria startups can create a direct, secure line of communication. Traditional channels like SMS and email suffer from delivery failures and low open rates. Moving notifications to WhatsApp solves these delivery challenges while providing an interactive space for onboarding and compliance.
 
-Please note that the StartMessaging WhatsApp API is currently in active development. While the endpoints are being finalised and will be available soon, you can prototype your integration using the standard `/v1/messages` endpoint outlined below. Our system utilises the same `X-API-Key` header authentication that powers our existing SMS services.
+StartMessaging is a WhatsApp CRM and API built on Meta's official Cloud API. Every send goes through `POST https://waba-api.startmessaging.com/api/v1/messages`, authenticated with an `Authorization: Bearer sm_live_...` API key that has the `messages:send` scope.
 
 ---
 
 ## Why WhatsApp Beats SMS and Email for Nigerian Fintechs
 
-Nigerian consumers have a clear communication preference. WhatsApp is the most widely used messaging app in Nigeria, boasting over 90% penetration among active internet users. Traditional communication channels like SMS and email fail to deliver the speed and reliability that financial services require. 
+Nigerian consumers have a clear communication preference. WhatsApp is one of the most widely used messaging apps in Nigeria, and most smartphone users check it many times a day. Traditional communication channels like SMS and email fail to deliver the speed and reliability that financial services require. 
 
 Traditional SMS delivery is plagued by carrier issues. In Nigeria, mobile networks (MTN, Airtel Nigeria, Glo, and 9mobile) enforce strict spam filters and Do-Not-Disturb (DND) registries that frequently block critical transaction alerts. Furthermore, SMS offers no delivery verification and lacks interactive features. If a customer receives a fraud alert, they cannot reply to confirm or block their card. They must dial a USSD code or call a support hotline, increasing friction.
 
 Email is equally ineffective for real-time alerts. High mobile data costs in Nigeria mean many users turn off background synchronization to conserve data. As a result, critical credit or debit notices sit unread in crowded email inboxes. WhatsApp, by contrast, operates on light data packages and is checked multiple times daily. It ensures that transaction alerts are seen within seconds of a payment.
 
-From a cost perspective, the economics of WhatsApp are highly competitive. Instead of paying per character or per delivery attempt, WhatsApp billing uses 24-hour conversation windows. A business can send multiple alerts within a 24-hour period for a single fee. This pricing model makes WhatsApp an attractive option for high-volume notification services.
+From a cost perspective, Meta uses per-message pricing and bills your own WhatsApp Business Account directly, using the payment method you add in WhatsApp Manager. Since 1 October 2026, Meta charges every delivered template message: marketing, utility (even inside the 24-hour customer service window) and authentication. Service replies inside the 24-hour window are free up to a monthly allowance per phone number. Rates vary by country and category, so check [Meta's rate card](https://developers.facebook.com/docs/whatsapp/pricing) for Nigeria before modelling high-volume alerts. StartMessaging never charges per message; you pay only for your [plan](/ng/pricing).
 
 ---
 
@@ -46,51 +46,43 @@ The first point of contact for any financial application is user registration. S
 Fintech platforms like OPay, Moniepoint, and PiggyVest can optimise this process by moving onboarding conversations directly to WhatsApp. A user initiates a chat by scanning a QR code or clicking a chat link on a landing page. The platform then uses an automated chatbot to guide them through account setup.
 
 ```javascript
-const axios = require('axios');
-
 /**
  * Initiates an onboarding welcome sequence on WhatsApp
- * @param {string} customerNumber - Customer's WhatsApp number (e.g. 2348030000000)
+ * @param {string} customerNumber - Customer's WhatsApp number in E.164 (e.g. +2348030000000)
  * @param {string} customerName - First name of the user
+ * @param {string} userId - Your internal user id
  */
-async function initiateOnboardingWhatsApp(customerNumber, customerName) {
-  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
-  const endpoint = 'https://api.startmessaging.com/v1/messages';
-  
-  const payload = {
-    to: customerNumber,
-    type: 'template',
-    template: {
-      name: 'kyc_welcome_onboarding',
-      language: {
-        code: 'en_NG'
+async function initiateOnboardingWhatsApp(customerNumber, customerName, userId) {
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `onboarding-${userId}`,
+    },
+    body: JSON.stringify({
+      to: customerNumber,
+      type: 'template',
+      template: {
+        name: 'kyc_welcome_onboarding',
+        language: 'en_US',
+        parameters: [{ text: customerName }],
       },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            { type: 'text', text: customerName }
-          ]
-        }
-      ]
-    }
-  };
-
-  try {
-    await axios.post(endpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-    console.log(`Onboarding message sent to ${customerNumber}`);
-  } catch (error) {
-    console.error('Error starting onboarding flow:', error.response ? error.response.data : error.message);
+      clientReference: `onboarding-${userId}`,
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) {
+    console.error(`Error starting onboarding flow: ${body.error.code}: ${body.error.message}`);
+    return;
   }
+  console.log(`Onboarding message sent to ${body.data.to} (message ${body.data.id})`);
 }
 ```
 
-This onboarding welcome message prompts the user to respond, opening a interactive session. The customer can then upload their government-issued identity cards (such as the National Identification Number - NIN, or BVN details) by taking a photo and sending it directly in the chat. The backend processes these images using optical character recognition (OCR) and verifies the information against national databases, confirming account activation within minutes.
+The `kyc_welcome_onboarding` template is created in the StartMessaging dashboard and approved by Meta before you can send it; the API sends approved templates but does not create them.
+
+This onboarding welcome message prompts the user to respond, opening the 24-hour customer service window for a guided conversation. For identity documents (such as the National Identification Number - NIN, or BVN details), send the customer a link to your own secure KYC upload page rather than asking for photos in the chat: the StartMessaging webhooks carry media metadata only, with no download URL, so your backend cannot pull the image from a WhatsApp message for OCR. Your KYC system then verifies the information against national databases and you confirm activation back on WhatsApp.
 
 ---
 
@@ -100,38 +92,34 @@ Reliable transaction alerts are the core of a consumer's relationship with their
 
 Integrating the WhatsApp Business API allows fintechs to send rich transaction notifications. Unlike basic text alerts, WhatsApp messages can display structured metadata, transaction breakdowns, and quick-reply buttons that let users take action immediately. If a transaction fails due to insufficient funds, the alert can include a payment link to top up the wallet using Paystack or Flutterwave.
 
-Here is a cost comparison of a typical transaction notification strategy for a digital bank handling 1,000,000 monthly messages:
+Here is how the main notification channels compare for a digital bank:
 
-| Communication Channel | Delivery Success Rate | Average Delivery Speed | Estimated Monthly Cost (NGN) | Key Disadvantage |
+| Communication Channel | Delivery Feedback | Interactivity | Cost Model | Key Disadvantage |
 |---|---|---|---|---|
-| Traditional SMS Alert | 78% - 85% | 15 - 90 seconds | ₦4,000,000 | Blocked by DND, no security status feedback |
-| Basic Email Notification | 92% | 5 - 10 minutes | ₦500,000 | Low open rates, ignored by users offline |
-| WhatsApp Business API | 97% - 99% | 2 - 5 seconds | ₦3,500,000 (Based on utility rates) | Requires user opt-in consent |
+| Traditional SMS Alert | Depends on your SMS provider | None | Per SMS, set by your SMS provider | Blocked by DND, no security status feedback |
+| Basic Email Notification | Limited | Links only | Usually low | Low open rates, ignored by users offline |
+| WhatsApp Business API | Sent, delivered, read and failed webhooks | Buttons, lists, replies | Meta's per-message rates ([rate card](https://developers.facebook.com/docs/whatsapp/pricing)) | Requires user opt-in consent and an approved template |
 
-As shown, WhatsApp provides high delivery success rates and rapid delivery speeds, making it a reliable choice for transaction tracking. 
+Because every WhatsApp message reports `sent`, `delivered`, `read` or `failed` through webhooks, you always know whether a transaction alert reached the customer.
 
-A sample payload for a dynamic credit transaction alert is configured as follows:
+A sample request body for a credit transaction alert (`POST https://waba-api.startmessaging.com/api/v1/messages`) looks like this:
 
 ```json
 {
-  "to": "2348030000000",
+  "to": "+2348030000000",
   "type": "template",
   "template": {
     "name": "transaction_alert_credit",
-    "language": { "code": "en_NG" },
-    "components": [
-      {
-        "type": "body",
-        "parameters": [
-          { "type": "text", "text": "Adegoke" },
-          { "type": "text", "text": "Credit" },
-          { "type": "text", "text": "₦50,000.00" },
-          { "type": "text", "text": "OPay Transfer from K. Ibrahim" },
-          { "type": "text", "text": "16-06-2026 12:35" }
-        ]
-      }
+    "language": "en_US",
+    "parameters": [
+      { "text": "Adegoke" },
+      { "text": "Credit" },
+      { "text": "₦50,000.00" },
+      { "text": "OPay Transfer from K. Ibrahim" },
+      { "text": "16-06-2026 12:35" }
     ]
-  }
+  },
+  "clientReference": "txn-88213"
 }
 ```
 
@@ -183,21 +171,21 @@ When sending financial notifications, Nigerian businesses must align their proce
 To comply with the NDPA, businesses must adhere to these requirements:
 * **Active Consent (Opt-in):** You must obtain explicit consent from a customer before sending transaction alerts or onboarding notifications on WhatsApp. This consent can be gathered during sign-up on your web platform or mobile app through an active checkbox.
 * **Data Minimisation:** Do not send unnecessary personal data over messaging lines. For example, mask account numbers (e.g., 901****321) and do not include sensitive credentials like PINs, passwords, or full credit card details in the message body.
-* **Consent Management:** Customers must have a straightforward way to opt out of WhatsApp alerts. If a customer replies with "STOP" or "OPTOUT", your system must automatically process the request and revert their notification preference back to SMS or email.
+* **Consent Management:** Customers must have a straightforward way to opt out of WhatsApp alerts. If a customer replies with "STOP" or "OPTOUT", StartMessaging marks the contact as opted out, fires a `contact.opted_out` webhook and refuses later sends to that number with `422 CONTACT_OPTED_OUT`. Listen for that webhook and switch the customer's notification preference to SMS (through your own SMS provider) or email in your own system.
 * **Audit Trails:** Maintain records showing when and how a customer opted in or out of your messaging lists. The NDPC can audit these records, and failure to present proof of consent can result in administrative fines of up to ₦10,000,000 or 2% of annual gross revenue.
 
 ---
 
 ## WhatsApp Approved Message Template Examples
 
-To help you design your communication strategy, here are three real-world examples of WhatsApp-approved message templates used by local fintech companies.
+To help you design your communication strategy, here are three example templates you could submit for Meta's approval. The brand names are placeholders.
 
 ### Onboarding Welcome Template
 * **Template Name:** `onboarding_welcome`
 * **Category:** Utility
 * **Body Text:**
-  > "Hello `{{1}}`, welcome to StartPay! Your account setup is almost complete. To activate your account, please reply to this message and upload your KYC identity document. Let us get you started!"
-* **Quick Replies:** "Upload NIN", "Contact Support"
+  > "Hello `{{1}}`, welcome to StartPay! Your account setup is almost complete. To activate your account, tap the button below to upload your KYC identity document on our secure page. Let us get you started!"
+* **Buttons:** "Upload Documents" (URL button to your secure KYC page), "Contact Support" (quick reply)
 
 ### Credit Transaction Alert Template
 * **Template Name:** `transaction_credit_alert`
@@ -223,7 +211,7 @@ A: Yes. While USSD codes are highly popular because they do not require internet
 
 **Q: How do we handle customer opt-outs to remain NDPA compliant?**
 
-A: You must program your webhook to listen for incoming messages. If a user replies with keywords like "Stop", "Unsubscribe", or "Optout", your server must remove their phone number from your WhatsApp broadcast database and update their preference in your user management system. You can confirm this action by sending a final confirmation message on WhatsApp.
+A: StartMessaging processes opt-out keywords such as "STOP", "UNSUBSCRIBE" and "OPTOUT" automatically: the contact is marked opted out, campaigns skip them, and API sends to them are refused with `422 CONTACT_OPTED_OUT`. Subscribe your webhook endpoint to `contact.opted_out` and use it to update the customer's preference in your own user management system so your records match. See [opt-in and opt-out rules](/ng/docs/whatsapp/contacts).
 
 **Q: Does the NDPA require all customer transaction data to be stored within Nigeria?**
 
@@ -231,8 +219,8 @@ A: The NDPA (2023) permits cross-border data transfer provided the destination c
 
 **Q: What happens if a WhatsApp alert fails to deliver?**
 
-A: You should configure your messaging backend to listen for webhook status notifications. If a message status returns `failed` or remains in `sent` status without transitioning to `delivered` within a set window (e.g., 5 minutes for transaction alerts), you should automatically failover to traditional SMS delivery to ensure the customer receives their alert.
+A: You should configure your messaging backend to listen for webhook status notifications. If a message status returns `failed` or remains in `sent` status without transitioning to `delivered` within a set window (e.g., 5 minutes for transaction alerts), you can send the alert by SMS through your own SMS provider. StartMessaging has no automatic SMS fallback for WhatsApp, so this step lives in your backend. A customer who is not on WhatsApp shows up as a failed send (for example `422 MESSAGE_UNDELIVERABLE`) or a `message.failed` webhook.
 
 ---
 
-Implementing the whatsapp business api fintech nigeria strategy allows startups to secure their delivery lines, improve customer retention, and resolve onboarding bottlenecks. By moving from SMS to interactive WhatsApp flows, platforms like OPay, Moniepoint, and PiggyVest can ensure their users receive reliable notifications in a space they check daily. To start building your integration, review our guide on [setting up webhook endpoints](/ng/docs/whatsapp/webhooks) and configuring your security credentials.
+Implementing the whatsapp business api fintech nigeria strategy allows startups to secure their delivery lines, improve customer retention, and resolve onboarding bottlenecks. By moving from SMS to interactive WhatsApp flows, platforms like OPay, Moniepoint, and PiggyVest can ensure their users receive reliable notifications in a space they check daily. To start building your integration, review our guides on [setting up webhook endpoints](/ng/docs/whatsapp/webhooks), [sending messages](/ng/docs/whatsapp/send-message) and [API keys and scopes](/ng/docs/whatsapp/authentication).

@@ -2,7 +2,7 @@
 title: "How OTP Works: A Step-by-Step Walkthrough (2026)"
 description: 'A step-by-step explanation of what happens when you click "Send OTP": from generation and hashing on the server, to telecom routing in India, to verification and replay protection.'
 publishedAt: "2026-04-27"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -57,18 +57,20 @@ Tap "Send OTP", "Pay", or "Verify".
 
 ## 2. Backend Calls the OTP API
 
-Your server calls the OTP service's `/otp/send` with
+Your server generates the code and calls the OTP service's
+        `/otp/send` with the phone number, the code in `variables.otp`, and
         an idempotency key. Including the key protects against 
         [duplicate sends](/blog/idempotency-keys-otp) when a
-        retry kicks in.
+        retry kicks in. The response carries an `otpRequestId` (used to
+        verify) and a `messageId` (used to check delivery status).
 
 
 ## 3. Code Generation and Hashing
 
 
-- The OTP service uses a CSPRNG (typically  `crypto.randomInt`) to pick a 6-digit code from  `[100000, 999999]`.
-- A bcrypt or scrypt hash of the code is computed with a cost factor of 10–12.
-- The hash is persisted with `(requestId, expiresAt, attemptsLeft, idempotencyKey)`.
+- Your server uses a CSPRNG (typically `crypto.randomInt(100000, 1000000)`) to pick a 6-digit code from `[100000, 999999]`, never `Math.random`.
+- The OTP service computes a bcrypt or scrypt hash of the code with a cost factor of 10–12.
+- The hash is persisted with `(otpRequestId, expiry window, attemptsLeft, idempotencyKey)`.
 - The plaintext code is held in memory only long enough to be passed to the SMS gateway.
 
 
@@ -89,7 +91,9 @@ On Indian networks the message is enriched with the registered
 
 
 Latency: P50 ~3s, P95 ~10–15s on a healthy route. Failures appear as
-        DLR codes returned to the gateway and surfaced via webhook.
+        DLR codes returned to the gateway. With StartMessaging you read them
+        by polling `GET /messages/:id` with the `messageId` from the send
+        response (status `delivered` or `failed`).
 
 
 ## 5. User Reads (or Auto-Fills) the Code
@@ -112,12 +116,12 @@ See our breakdown of
 ## 6. Verification
 
 
-- Frontend submits `(requestId, otpCode)` to  `/auth/verify-otp`.
+- Frontend submits `(requestId, otpCode)` to `/auth/verify-otp`, where `requestId` is the `otpRequestId` from step 2.
 - Backend forwards to `/otp/verify`.
 - OTP service hashes the submitted code and compares against the stored hash in constant time.
 - On success: invalidate the request ID so it cannot be reused.
 - On wrong code: decrement `attemptsLeft`; on zero, invalidate the request.
-- On expiry: return 410 Gone.
+- On expiry: the OTP service rejects the code and the user requests a new one (StartMessaging enforces expiry and attempt limits for you).
 
 
 

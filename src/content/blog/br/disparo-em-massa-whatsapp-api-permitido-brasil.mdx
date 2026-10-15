@@ -1,8 +1,8 @@
 ---
 title: "Disparos em Massa no WhatsApp: Regras, Qualidade e Boas Práticas"
-description: "Entenda o que é permitido no disparo de mensagens em massa no WhatsApp. Evite bloqueios de conta, monitore a qualidade do número e use templates."
+description: "Entenda o que é permitido no disparo de mensagens em massa no WhatsApp. Evite bloqueios de conta, monitore a qualidade do número e use modelos aprovados."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "br"
 author: "StartMessaging Team"
@@ -20,9 +20,9 @@ relatedSlugs:
 featured: false
 ---
 
-O disparo de mensagens promocionais em massa é uma das ferramentas mais poderosas para impulsionar vendas rápidas e engajar clientes no mercado brasileiro. A altíssima taxa de abertura e o uso cotidiano do aplicativo criam uma oportunidade valiosa para varejistas e empresas de serviços. No entanto, o envio indiscriminado de spam gera punições e o bloqueio de números. Entender a diferença entre ferramentas informais e o canal oficial de disparo whatsapp em massa (WhatsApp Business API) é essencial para realizar campanhas de marketing seguras. Neste guia, apresentamos as principais diretrizes técnicas e de conformidade para proteger o número de atendimento de sua marca.
+O disparo de mensagens promocionais em massa é uma das ferramentas mais poderosas para impulsionar vendas rápidas e engajar clientes no mercado brasileiro. O uso cotidiano do aplicativo cria uma oportunidade valiosa para varejistas e empresas de serviços. No entanto, o envio indiscriminado de spam gera punições e o bloqueio de números. Entender a diferença entre ferramentas informais e o canal oficial de disparo whatsapp em massa (WhatsApp Business Platform) é essencial para realizar campanhas de marketing seguras. Neste guia, apresentamos as principais diretrizes técnicas e de conformidade para proteger o número de atendimento de sua marca.
 
-A API do StartMessaging para WhatsApp está atualmente em fase de desenvolvimento interno de novas funções. Enquanto nossa equipe de engenharia valida os endpoints definitivos de produção para o ambiente em nuvem, que serão lançados em breve, você já pode desenvolver e testar suas lógicas de disparo utilizando a rota provisória `/v1/messages`. O acesso técnico de autorização é feito de forma simplificada por meio do cabeçalho `X-API-Key`.
+A StartMessaging é um CRM de WhatsApp com API, construído sobre a Cloud API oficial da Meta (a StartMessaging é uma Meta Tech Provider). Você pode disparar de duas formas: por **campanhas** criadas no painel (planos Team, Business e Enterprise) ou mensagem a mensagem pela API REST em `https://waba-api.startmessaging.com/api/v1/messages`, autenticada com `Authorization: Bearer sm_live_...`.
 
 ---
 
@@ -30,131 +30,124 @@ A API do StartMessaging para WhatsApp está atualmente em fase de desenvolviment
 
 Muitos gestores de marketing buscam alternativas de baixo custo para realizar disparos em massa, recorrendo a softwares ou extensões de navegador não oficiais. Essas ferramentas funcionam por meio do espelhamento do aplicativo convencional de celular (WhatsApp Web), enviando mensagens de forma sequencial e simulando a digitação humana de forma automatizada.
 
-O uso dessas ferramentas traz sérios riscos para a sua operação comercial. O sistema de segurança do WhatsApp monitora o comportamento da conta. Padrões de envio rápidos e a ausência de interações de volta ativam alertas de comportamento robótico. O resultado é o banimento definitivo do número de telefone em poucas horas de disparo, sem possibilidade de recuperação do histórico de clientes e dos contatos acumulados na conta.
+O uso dessas ferramentas traz sérios riscos para a sua operação comercial. O sistema de segurança do WhatsApp monitora o comportamento da conta. Padrões de envio rápidos e a ausência de interações de volta ativam alertas de comportamento robótico. O resultado costuma ser o banimento do número, com a perda do histórico de clientes acumulado na conta.
 
-A API Oficial do WhatsApp Business Platform (WhatsApp Broadcast) é o único método seguro reconhecido pela Meta. Ela funciona por meio de conexões diretas entre servidores, eliminando a dependência de celulares conectados e permitindo o envio de alto volume de mensagens promocionais homologadas. Essa infraestrutura oficial garante taxas de entrega elevadas e segurança técnica para a sua empresa.
+A WhatsApp Business Platform (Cloud API) é o canal oficial da Meta para envios em volume. Ela funciona por conexões diretas entre servidores, sem depender de celulares conectados, e permite enviar modelos aprovados a clientes que aceitaram receber suas mensagens.
 
 ---
 
 ## O Sistema de Qualidade de Número (Quality Rating) da Meta
 
-A Meta adota um sistema dinâmico para monitorar a reputação das contas corporativas que utilizam a API do WhatsApp. O chamado **Quality Rating** (Classificação de Qualidade) é exibido no seu painel de controle de negócios e avalia a recepção das suas mensagens pelos destinatários em um intervalo de até sete dias.
+A Meta adota um sistema dinâmico para monitorar a reputação das contas que utilizam a API do WhatsApp. A chamada **Quality Rating** (classificação de qualidade) reflete como os destinatários recebem suas mensagens nos últimos dias, com base em bloqueios, denúncias e silenciamentos. Na StartMessaging, a página **Connect** mostra a qualidade do número e o limite diário vindos da Meta.
 
-A classificação de qualidade é dividida em três níveis principais:
+* **Verde (Alta Qualidade):** sua empresa segue as boas práticas, com mensagens relevantes e poucas reclamações ou bloqueios.
+* **Amarela (Média Qualidade):** sinaliza aumento de denúncias ou bloqueios. É hora de revisar a segmentação e diminuir a frequência.
+* **Vermelha (Baixa Qualidade):** o número recebe muitas reclamações. Se continuar assim, a Meta pode reduzir o limite de envios ou pausar os modelos afetados.
 
-* **Verde (Alta Qualidade):** Indica que a sua empresa segue as melhores práticas de envio, com mensagens relevantes e baixo volume de reclamações ou bloqueios por parte dos destinatários.
-* **Amarela (Média Qualidade):** Sinaliza um aumento no número de reportes de spam ou taxas de rejeição. É um alerta para revisar a segmentação das suas listas de contatos e diminuir a frequência dos disparos.
-* **Vermelha (Baixa Qualidade):** Indica que o número de telefone está recebendo um alto índice de reclamações. Se o número permanecer nessa classificação por muito tempo, a Meta reduzirá o limite diário de mensagens ou suspenderá temporariamente o envio de campanhas.
-
-Para evitar a perda de reputação do seu número de atendimento, a empresa deve manter a qualidade sob controle. Oferecer campanhas segmentadas baseadas em preferências declaradas de clientes é a melhor alternativa para evitar que os destinatários marquem suas mensagens como conteúdo indesejado.
+Para proteger a reputação do seu número, envie campanhas segmentadas a quem realmente pediu para recebê-las.
 
 ---
 
-## Modelos de Mensagem (Templates) Aprovados: Estrutura e Envio
+## Campanhas no Painel: O Caminho Mais Seguro para Disparos
 
-Para iniciar conversas com clientes (mensagens ativas), a API do WhatsApp exige o uso de modelos de mensagem (Message Templates) aprovados previamente. Esses modelos garantem que a empresa siga as políticas de comércio do canal, impedindo o envio de comunicações invasivas ou de spam.
+Nos planos Team e acima, uma **campanha** envia um modelo aprovado a muitos contatos de uma vez, e o próprio painel aplica várias proteções:
 
-Abaixo, apresentamos o exemplo de código em Node.js utilizando Axios para realizar um disparo de template ativo com o endpoint provisório do StartMessaging:
+- **Público:** contatos escolhidos, segmentos por tags ou um arquivo CSV de até 50.000 linhas. Contatos que pediram para sair (opt-out) são sempre ignorados, assim como, em modelos de marketing, quem desativou suas promoções no WhatsApp nos últimos 90 dias.
+- **Verificação antes do envio:** mostra se o número, a conta e o modelo podem enviar, quantas pessoas podem receber hoje dentro do seu limite diário e uma **estimativa do custo da Meta**, calculada pelas tarifas publicadas pela Meta para o país de cada destinatário.
+- **Agendamento e horário de silêncio:** agende de 2 minutos a 60 dias à frente e defina horas em que campanhas não enviam; o envio espera e continua sozinho quando o horário acaba.
+- **Aviso de espaçamento:** o painel avisa se você enviou uma campanha de marketing nas últimas 48 horas.
+- **Relatório de funil:** enviados, entregues, lidos, toques em botões, respostas, falhas e opt-outs.
+
+O plano Business acrescenta testes A/B, follow-ups, campanhas recorrentes, segmentos por engajamento, retargeting e conversões. Pela API, as campanhas são somente leitura: seu sistema lista campanhas, lê os resultados e recebe o webhook `campaign.completed`.
+
+---
+
+## Modelos de Mensagem (Templates) Aprovados: Estrutura e Envio pela API
+
+Para iniciar conversas com clientes, o WhatsApp exige modelos de mensagem aprovados pela Meta. Os modelos são criados no painel (**Templates → Create template**) e revisados pela Meta.
+
+Para enviar um modelo a um cliente a partir do seu próprio sistema, por exemplo quando um evento acontece na sua loja, use `POST /api/v1/messages`. O exemplo abaixo preenche duas variáveis e um botão de copiar cupom (`copy_code`, com até 15 caracteres):
 
 ```javascript
-const axios = require('axios');
-
 /**
- * Envia uma mensagem ativa utilizando um template promocional homologado no WhatsApp.
- * 
- * @param {string} toPhone - Telefone do cliente final no formato internacional (ex: "5511977777777")
- * @param {string} clientName - Nome personalizado do cliente para preenchimento de variável
- * @param {string} couponCode - Código do cupom de desconto gerado pelo sistema
+ * Envia um modelo promocional aprovado para um cliente que deu opt-in.
+ * @param {string} telefone - E.164, ex: "+5511977777777"
  */
-async function dispararCampanhaDesconto(toPhone, clientName, couponCode) {
-  // TODO: Substituir pelo endpoint de produção definitivo assim que a API do WhatsApp for disponibilizada
-  const apiURL = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: toPhone,
-    type: 'template',
-    template: {
-      name: 'promocao_fim_de_semana',
-      language: {
-        code: 'pt_BR'
+async function enviarPromocao(telefone, nomeCliente, cupom) {
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `promo-fim-de-semana-${telefone}`,
+    },
+    body: JSON.stringify({
+      to: telefone,
+      type: 'template',
+      template: {
+        name: 'promocao_fim_de_semana',
+        language: 'pt_BR',
+        parameters: [{ text: nomeCliente }, { text: cupom }],
+        buttonParameters: [{ index: 0, subType: 'copy_code', couponCode: cupom }],
       },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            { type: 'text', text: clientName },
-            { type: 'text', text: couponCode }
-          ]
-        }
-      ]
-    }
-  };
+      clientReference: 'campanha-fim-de-semana',
+    }),
+  });
 
-  try {
-    const response = await axios.post(apiURL, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-    console.log(`Mensagem promocional enviada com sucesso para ${clientName}. ID: ${response.data.messageId}`);
-    return response.data;
-  } catch (err) {
-    console.error('Falha no envio do template de broadcast:', err.response ? err.response.data : err.message);
-    throw err;
+  const body = await res.json();
+  if (!res.ok) {
+    // Ex.: 422 CONTACT_OPTED_OUT quando o cliente pediu para sair
+    throw new Error(`${body.error.code}: ${body.error.message}`);
   }
+  console.log(`Mensagem aceita para ${nomeCliente}. ID: ${body.data.id}`);
+  return body.data;
 }
 
-// Execução de envio para um cliente da lista
-dispararCampanhaDesconto('5511977777777', 'Ana Silva', 'DESCONTO10');
+enviarPromocao('+5511977777777', 'Ana Silva', 'DESCONTO10');
 ```
 
-Este script estrutura a chamada de rede repassando o identificador do template desejado. Ele injeta as variáveis dinâmicas de nome e código do cupom, enviando a requisição com autenticação segura pelo cabeçalho `X-API-Key`.
+Envios para contatos que pediram para sair são recusados com `422 CONTACT_OPTED_OUT`. Para disparar a uma lista inteira, prefira uma campanha no painel: ela pula opt-outs, respeita o horário de silêncio e mostra a estimativa de custo antes do envio.
 
 ---
 
 ## Como Construir uma Lista de Contatos Válida (Opt-in)
 
-O sucesso das suas campanhas de disparos em massa depende da qualidade da sua lista de contatos. Comprar bases de dados prontas de terceiros ou raspar números na internet são práticas ilegais que violam a LGPD e resultam no bloqueio rápido do número de atendimento da empresa.
+O sucesso das suas campanhas depende da qualidade da sua lista. Comprar bases de dados prontas de terceiros ou raspar números na internet viola a LGPD e leva rapidamente ao bloqueio do número.
 
-As principais estratégias legítimas para captação de opt-in incluem:
-
-* **Integração no Fluxo de Compra (Checkout):** Inclua uma caixa de seleção separada no formulário de compra (ex: "Desejo receber cupons e atualizações de produtos via WhatsApp").
-* **Pixel de Captura em Landing Pages:** Ofereça cupons de desconto imediatos na primeira compra em troca do preenchimento voluntário do número de WhatsApp em uma página de captura.
-* **Uso de QR Code em Lojas Físicas:** Disponibilize QR Codes em locais visíveis na loja física (como no caixa ou em displays de mesa), direcionando o cliente para iniciar uma conversa no WhatsApp e receber ofertas exclusivas automaticamente.
+* **Integração no Fluxo de Compra (Checkout):** inclua uma caixa de seleção separada, desmarcada por padrão (ex: "Desejo receber cupons e atualizações de produtos via WhatsApp").
+* **Landing Pages:** ofereça um benefício na primeira compra em troca do preenchimento voluntário do número de WhatsApp.
+* **QR Code em Lojas Físicas:** disponibilize QR Codes no caixa ou em displays de mesa para o cliente iniciar uma conversa no WhatsApp.
 
 ---
 
 ## Melhores Horários e Boas Práticas para Envios
 
-O consumidor brasileiro preza pela conveniência do contato, mas se incomoda com abordagens comerciais invasivas fora do horário comercial. Definir regras claras de agendamento em seu sistema evita taxas altas de bloqueio.
+O consumidor brasileiro preza pela conveniência do contato, mas se incomoda com abordagens comerciais invasivas fora do horário comercial.
 
-As boas práticas recomendadas para envios comerciais incluem:
-
-* **Evitar Horários Extremos:** Nunca envie disparos de marketing antes das 9h ou após as 20h. Além de gerarem reclamações, mensagens enviadas tarde da noite apresentam taxas menores de conversão e podem irritar o cliente.
-* **Controlar a Frequência Semanal:** O limite recomendado para disparos de novidades ou promoções gerais é de 1 a 2 contatos por semana para um mesmo número de cliente. Ultrapassar esse limite desgasta o relacionamento com a marca e aumenta os reportes de spam.
-* **Oferecer Opção Clara de Opt-out:** Toda mensagem promocional deve conter um comando simples e claro para descadastro de forma visível (ex: "Para parar de receber nossas mensagens, responda com PARAR"). Processar essas exclusões de forma automatizada em seu sistema é essencial para manter a conformidade da conta.
+* **Evitar Horários Extremos:** não envie marketing antes das 9h ou após as 20h. Configure o **horário de silêncio** em **Settings → Campaigns → Quiet hours** para que nenhuma campanha saia à noite.
+* **Controlar a Frequência:** espace campanhas de marketing em pelo menos 48 horas e limite-se a 1 ou 2 promoções por semana para o mesmo cliente.
+* **Oferecer Opção Clara de Opt-out:** a StartMessaging registra o opt-out automaticamente quando o cliente envia uma das palavras-chave **STOP**, **UNSUBSCRIBE**, **OPT OUT**, **OPTOUT** ou **CANCEL** (a mensagem inteira deve ser a palavra). Palavras em português, como "PARAR" ou "SAIR", não são reconhecidas automaticamente: se você as oferecer, trate-as no webhook `message.received` e registre o opt-out com `PATCH /api/v1/contacts/{idOrPhone}` e `optedIn: false`, ou escreva no rodapé "Responda STOP para não receber mais ofertas".
 
 ---
 
 ## Perguntas Frequentes
 
-**Q: Qual o custo cobrado pela Meta para o disparo de mensagens promocionais (Marketing)?**
+**Q: Quanto a Meta cobra pelo disparo de mensagens promocionais (Marketing)?**
 
-A: Diferente do envio de mensagens de atendimento de suporte (Service), a Meta cobra uma tarifa diferenciada para conversas da categoria "Marketing" (envio de promoções, ofertas e novidades). No Brasil, o valor de cada conversa de marketing iniciada pela empresa varia entre R$ 0,30 e R$ 0,40, dependendo da cotação e de ajustes na política de preços da Meta.
+A: Desde 1º de outubro de 2026, a Meta cobra **por mensagem de modelo entregue**, não mais por conversa. Todo modelo entregue é cobrado (marketing, utilidade, mesmo dentro da janela de 24 horas, e autenticação), com tarifas que variam por país e categoria. A Meta cobra diretamente na forma de pagamento da sua Conta do WhatsApp Business; a StartMessaging não cobra por mensagem, só a assinatura do plano. Consulte os valores atuais para o Brasil na [página oficial de preços da Meta](https://developers.facebook.com/docs/whatsapp/pricing); a verificação antes do envio da campanha mostra uma estimativa.
 
 **Q: Posso enviar cupons e links de pagamento Pix em disparos de marketing?**
 
-A: Sim. Você pode criar templates promocionais que incluam botões interativos direcionando o cliente para links de pagamento (como checkout do Paystack ou páginas de ofertas), além de disponibilizar códigos de desconto dinâmicos associados a variáveis em suas mensagens.
+A: Sim. Crie modelos com um botão de link com variável (para a página de pagamento ou checkout, como Mercado Pago ou PagSeguro) e um botão de copiar código para o cupom, com até 15 caracteres.
 
-**Q: Existe um limite máximo de envios diários de disparos em massa?**
+**Q: Existe um limite máximo de envios diários?**
 
-A: Sim, conforme o nível (tier) de qualidade do seu número de WhatsApp corporativo. Contas novas iniciam no limite de 1.000 destinatários únicos por dia. A Meta aumenta esse limite para 10.000, 100.000 e disparos ilimitados à medida que a qualidade da conta se mantém alta e o volume de envios aumenta.
+A: Sim. A Meta limita quantos clientes únicos sua empresa pode contatar em 24 horas móveis, limite compartilhado por todos os números da empresa, e o aumenta conforme você envia com boa qualidade. A página Connect mostra o limite atual ("Daily conversation limit"), e a verificação antes do envio estima quantas pessoas podem receber a campanha hoje. Os níveis e as regras atuais estão na documentação da Meta.
 
 **Q: É necessário que o cliente salve o número da minha empresa na agenda para receber o disparo?**
 
-A: Não. Através da API oficial do WhatsApp Business, as mensagens promocionais serão entregues normalmente na caixa de entrada do destinatário, mesmo que ele não possua o número da sua empresa cadastrado nos contatos do celular.
+A: Não. Pela API oficial, os modelos aprovados são entregues normalmente, mesmo que o cliente não tenha o número da sua empresa salvo.
 
 ---
 
-Planejar disparos promocionais em massa seguindo as diretrizes e regras oficiais do WhatsApp Business API maximiza o alcance das campanhas e protege o número de atendimento de sua empresa. Ao utilizar templates aprovados e respeitar as preferências de opt-out de seus destinatários, você garante a sustentabilidade comercial da ferramenta. Para acompanhar o status de envio em tempo real e monitorar a entrega dos disparos, confira nosso guia sobre [configuração de webhooks do WhatsApp](/br/docs/whatsapp/webhooks) e gerencie os eventos em sua plataforma.
+Planejar disparos seguindo as regras oficiais do WhatsApp maximiza o alcance das campanhas e protege o número da sua empresa. Conheça as [campanhas de WhatsApp](/br/whatsapp/campaigns), leia a [documentação de campanhas](/br/docs/whatsapp/campaigns) e configure os [webhooks](/br/docs/whatsapp/webhooks) para acompanhar entregas e opt-outs em tempo real. Planos e preços estão na [página de preços](/br/pricing).

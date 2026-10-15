@@ -2,6 +2,7 @@
 title: "Passkeys in India: Does Your App Still Need SMS OTP? (2026)"
 description: "Visa Payment Passkeys are live in India. Discover what they mean for developer authentication flows and why SMS OTP remains the essential fallback path."
 publishedAt: "2026-07-06"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "in"
 author: "StartMessaging Team"
@@ -151,6 +152,7 @@ If the platform check returns `false` or the user is not registered, the system 
 ```javascript
 // authController.js
 import axios from 'axios';
+import crypto from 'node:crypto';
 
 export async function loginChallenge(req, res) {
   const { userId, phoneNumber } = req.body;
@@ -161,16 +163,15 @@ export async function loginChallenge(req, res) {
       return res.status(200).json({ method: 'passkey', challengeData: challenge });
     }
     // Fallback path
-    const response = await axios.post('https://api.startmessaging.com/v1/otp/send', {
-      to: phoneNumber,
-      senderId: 'STRMSG',
-      templateId: '1207161728392019',
-      length: 6,
-      expiry: 300
+    const otpCode = crypto.randomInt(100000, 1000000).toString();
+    const response = await axios.post('https://api.startmessaging.com/otp/send', {
+      phoneNumber,
+      templateId: 'YOUR_TEMPLATE_ID',
+      variables: { otp: otpCode, appName: 'YourApp' }
     }, {
-      headers: { 'Authorization': `Bearer ${process.env.STARTMESSAGING_API_KEY}`, 'Content-Type': 'application/json' }
+      headers: { 'X-API-Key': process.env.STARTMESSAGING_API_KEY, 'Content-Type': 'application/json' }
     });
-    if (response.status === 200) {
+    if (response.status === 201) {
       return res.status(200).json({ method: 'sms', message: 'OTP sent to registered number.' });
     }
     return res.status(500).json({ error: 'Failed to dispatch verification code.' });
@@ -205,7 +206,7 @@ Actionable Checklist for Q3/Q4 2026:
 
 Ensure your SMS templates comply with DLT regulations. Templates that miss a registered PE-ID match are blocked before carrier transmission. Review the latest [DLT template approval rules](/blog/dlt-template-variables-rules-india) to ensure template updates don't lock out fallback traffic.
 
-Maintain a clear failover plan. If your primary messaging route suffers carrier congestion, your auth handler should automatically route fallback codes to a backup channel, such as [WhatsApp OTP with SMS fallback](/blog/whatsapp-otp-india-developer-guide-authentication-template-sms-fallback). This guarantees delivery even during network outages.
+Maintain a clear failover plan. If your primary messaging route suffers carrier congestion, your auth handler should automatically route fallback codes to a backup channel, such as [WhatsApp OTP with an SMS OTP backup](/blog/whatsapp-otp-india-developer-guide-authentication-template-sms-fallback). This guarantees delivery even during network outages.
 
 StartMessaging provides an API tailored for this hybrid layout. At a transparent rate of ₹0.25 per message with no monthly maintenance fees, it allows developers to run a high-performance fallback pipeline without paying premium enterprise rates. By pairing a free, device-based passkey layer for high-end devices with StartMessaging's cost-effective API for feature phones and legacy systems, teams can minimize their total auth spend while keeping checkout rates high.
 

@@ -2,7 +2,7 @@
 title: "How to Send OTP in Jetpack Compose (Android) — 2026"
 description: "Jetpack Compose OTP tutorial using StartMessaging. Retrofit/Ktor client, Compose state, Android SMS Retriever auto-fill, and a clean two-screen flow."
 publishedAt: "2026-05-13"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -53,7 +53,9 @@ class AuthApi(private val client: HttpClient) {
     }.body()
 }
 
-@Serializable data class SendResp(val requestId: String, val expiresAt: String)
+// Your backend generates the code, calls StartMessaging with its API key,
+// and returns the otpRequestId as requestId. The app never holds the key.
+@Serializable data class SendResp(val requestId: String)
 @Serializable data class VerifyResp(val verified: Boolean)
 ```
 

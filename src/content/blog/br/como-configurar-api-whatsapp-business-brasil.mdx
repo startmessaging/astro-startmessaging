@@ -1,8 +1,8 @@
 ---
 title: "Como Configurar a API WhatsApp Business do Zero (Guia de Integração 2026)"
-description: "Aprenda como configurar a API WhatsApp Business do zero. Passo a passo para criar o app Meta, validar o número e integrar o StartMessaging via API."
+description: "Aprenda como configurar a API WhatsApp Business do zero. Passo a passo para conectar sua conta pela Meta, criar a chave de API e enviar o primeiro modelo."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "br"
 author: "StartMessaging Team"
@@ -18,122 +18,133 @@ relatedSlugs:
 featured: false
 ---
 
-Integrar as comunicações de sua empresa diretamente com o WhatsApp é o caminho mais curto para aumentar o engajamento e a taxa de conversão no mercado brasileiro. Com mais de 90% de penetração em smartphones no Brasil, o aplicativo é a ferramenta preferida para transações comerciais. No entanto, quando sua empresa cresce e o volume de conversas aumenta, o aplicativo móvel comum torna-se insuficiente. Neste tutorial passo a passo, você aprenderá como configurar a API oficial do WhatsApp Business do absoluto zero, preparando a infraestrutura no Meta Business Manager e escrevendo suas primeiras linhas de código.
+Integrar as comunicações de sua empresa diretamente com o WhatsApp é o caminho mais curto para aumentar o engajamento e a taxa de conversão no mercado brasileiro. O aplicativo é a ferramenta preferida dos brasileiros para conversar com marcas. No entanto, quando sua empresa cresce e o volume de conversas aumenta, o aplicativo móvel comum torna-se insuficiente. Neste tutorial passo a passo, você aprenderá como configurar a API oficial do WhatsApp Business do zero: conectar a sua conta pela Meta, criar uma chave de API e enviar o seu primeiro modelo de mensagem.
 
-A API do StartMessaging para WhatsApp está atualmente em fase ativa de desenvolvimento. Embora a equipe de engenharia esteja finalizando os endpoints de produção que estarão disponíveis muito em breve, você já pode estruturar suas chamadas e prototipar sua aplicação utilizando a rota temporária `/v1/messages`. Nossa plataforma adota um sistema de autenticação via cabeçalho HTTP personalizado usando a chave `X-API-Key`, garantindo simplicidade e total padronização com nossos serviços de SMS e verificação.
+A StartMessaging é um CRM de WhatsApp com API, construído sobre a Cloud API oficial da Meta (a StartMessaging é uma Meta Tech Provider). Você conecta a **sua própria** Conta do WhatsApp Business (WABA) pelo Cadastro Incorporado (Embedded Signup) da Meta, e o seu sistema conversa com ela por uma API REST em `https://waba-api.startmessaging.com/api/v1`, autenticada com uma chave enviada no cabeçalho `Authorization: Bearer sm_live_...`, e por webhooks assinados.
 
 ---
 
 ## API Oficial do WhatsApp Business vs. App Comum: As Diferenças Cruciais
 
-Muitos empreendedores e desenvolvedores iniciantes confundem o aplicativo móvel gratuito (WhatsApp Business App) com a API Oficial (WhatsApp Business Platform). O aplicativo comum foi projetado para pequenas empresas locais que lidam com baixo volume de mensagens. Ele funciona em apenas um celular e pode ser conectado a, no máximo, quatro dispositivos web secundários. Toda a comunicação depende de digitação manual de atendentes humanos, sem suporte real a bancos de dados centralizados ou disparo automatizado em massa.
+Muitos empreendedores e desenvolvedores iniciantes confundem o aplicativo móvel gratuito (WhatsApp Business App) com a API Oficial (WhatsApp Business Platform). O aplicativo comum foi projetado para pequenas empresas locais que lidam com baixo volume de mensagens. Ele funciona em um celular principal com alguns aparelhos vinculados, e toda a comunicação depende de digitação manual, sem suporte real a integrações com o seu sistema ou a envios automatizados.
 
-A API Oficial, por outro lado, elimina qualquer dependência física de smartphones ligados à internet. Ela é hospedada diretamente em servidores de nuvem, permitindo que múltiplos agentes respondam simultaneamente a partir de um painel de helpdesk centralizado. Além disso, a API possibilita a integração com softwares de CRM (como HubSpot ou RD Station) e o disparo programático de notificações transacionais disparadas por eventos do seu sistema. Isso inclui alertas de segurança, confirmações de pagamento instantâneo via Pix e atualizações de entrega logística.
+A API Oficial, por outro lado, elimina a dependência de um smartphone ligado. Ela roda na nuvem da Meta, permitindo que vários agentes respondam a partir de uma caixa de entrada compartilhada. Além disso, a API possibilita a integração com seus sistemas (loja virtual, ERP, CRM) e o envio programático de notificações disparadas por eventos: alertas de segurança, confirmações de pagamento via Pix e atualizações de entrega.
 
-Outra diferença crítica está no cumprimento das políticas da Meta. Disparar mensagens de forma robotizada usando aplicativos comuns ou emuladores não oficiais causa o banimento imediato do número de telefone da sua empresa. A API Oficial é o único canal legalizado que assegura a integridade das suas campanhas de comunicação, oferecendo taxas de entrega extremamente elevadas e proteção total contra o bloqueio definitivo de sua conta corporativa.
+Outra diferença crítica está no cumprimento das políticas da Meta. Disparar mensagens de forma robotizada usando aplicativos comuns ou emuladores não oficiais costuma levar ao bloqueio do número. A API Oficial é o canal autorizado pela Meta para automação, desde que você use modelos aprovados e respeite o consentimento dos clientes.
 
 ---
 
 ## Pré-requisitos para a Configuração Oficial
 
-Antes de começar a escrever o código de integração, você precisa validar e preparar a infraestrutura corporativa exigida pela Meta e pelo StartMessaging. Sem esses elementos validados, não é possível obter as credenciais de produção necessárias.
+Antes de começar, separe os itens que a Meta exige. Sem eles, não é possível concluir a conexão nem enviar modelos.
 
-Os três pré-requisitos essenciais são descritos a seguir:
+1. **Uma conta do Facebook que administre (ou possa criar) um portfólio empresarial da Meta:** é nele que ficam a sua Conta do WhatsApp Business e o seu número. A verificação da empresa na Meta não é obrigatória para começar, mas libera limites de envio maiores.
+2. **Um número de telefone da empresa que receba um código de verificação:** se o número estiver em uso no WhatsApp ou no WhatsApp Business App, o fluxo de cadastro da Meta explica como migrá-lo.
+3. **Uma forma de pagamento (cartão) para cadastrar no Gerenciador do WhatsApp:** a Meta exige essa forma de pagamento antes do primeiro envio de modelo, e é nela que a Meta cobra as mensagens. Essa cobrança nunca passa pela StartMessaging.
 
-1. **Conta no Gerenciador de Negócios da Meta (Meta Business Manager):** Esta é a central que organiza os ativos da sua marca (páginas do Facebook, perfis do Instagram e contas de anúncios). A empresa deve possuir um cadastro ativo e verificado para garantir limites de mensagens mais altos e obter aprovação rápida dos templates de disparo.
-2. **Número de Telefone Dedicado:** Você precisa de um número de telefone (celular ou fixo) que não esteja ativo em nenhuma conta comum ou Business do WhatsApp. Se o número já estiver configurado em um aplicativo móvel comum, você precisará apagar a conta associada nas configurações do telefone antes de vinculá-lo à API oficial.
-3. **Plataforma de Mensageria StartMessaging:** O StartMessaging atua como o seu provedor de infraestrutura (ISV), simplificando a comunicação direta com os servidores de nuvem da Meta, fornecendo logs de depuração detalhados e fornecendo webhooks confiáveis de entrega e leitura.
-
-A tabela a seguir apresenta os requisitos de infraestrutura e sua importância para o projeto de desenvolvimento:
-
-| Ativo de Configuração | Requisito Técnico | Objetivo Principal |
+| Item | Requisito | Para que serve |
 |---|---|---|
-| **Meta Business Suite** | Conta de empresa criada e verificada na Meta | Obter acesso de administrador para criação da conta de WhatsApp Business (WABA) |
-| **Linha de Telefone** | Número exclusivo, livre de contas pessoais | Receber chamadas de verificação por voz ou código SMS enviados pela Meta |
-| **StartMessaging Dashboard** | Cadastro ativo com créditos e chave secreta criada | Acesso às ferramentas de desenvolvimento, webhooks e relatórios de envio |
+| **Portfólio empresarial da Meta** | Conta do Facebook com acesso de administrador | Criar ou escolher a Conta do WhatsApp Business (WABA) durante o cadastro |
+| **Número de telefone** | Número da empresa que receba SMS ou ligação | Receber o código de verificação enviado pela Meta |
+| **Forma de pagamento na Meta** | Cartão cadastrado no Gerenciador do WhatsApp | Permitir o envio de modelos; a Meta cobra as mensagens diretamente |
+| **Workspace na StartMessaging** | Conta criada em waba.startmessaging.com | Conectar o número, criar modelos, chaves de API e webhooks |
 
 ---
 
-## Passo a Passo: Configurando sua API no Painel da Meta
+## Passo a Passo: Conectando o WhatsApp à StartMessaging
 
-O processo de configuração inicial requer a criação de um aplicativo de desenvolvedor no console do Facebook e a vinculação da sua conta de WhatsApp Business. Siga o roteiro técnico detalhado para obter as chaves de acesso essenciais:
+Você não precisa criar um app no console de desenvolvedores da Meta nem copiar IDs de número manualmente. A conexão é feita pelo Cadastro Incorporado da Meta, dentro do painel.
 
-### Passo 1: Criar um App de Desenvolvedor no Console da Meta
-Acesse o portal [Meta for Developers](https://developers.facebook.com) utilizando a mesma conta pessoal associada ao seu painel administrativo do negócio. Clique em **Criar Aplicativo** e selecione o tipo de caso de uso comercial ou de negócios. Preencha o nome do app e vincule-o ao seu Gerenciador de Negócios (Business Manager).
+### Passo 1: Fale com vendas para abrir seu workspace
+[Fale com nosso time de vendas](/br/contact) e nós abrimos o seu workspace. Ele começa com um **teste grátis de 14 dias do plano Business**, para até 3 pessoas, 1.000 contatos e 1.000 mensagens de API, com a API de desenvolvedor incluída.
 
-### Passo 2: Adicionar o Produto WhatsApp
-No painel do aplicativo recém-criado, localize a seção de produtos e clique em **Configurar** sob a opção do WhatsApp. A Meta gerará automaticamente uma conta de teste do WhatsApp com um número temporário para testes de envio antes de você vincular a sua linha telefônica definitiva de produção.
+### Passo 2: Conectar o WhatsApp pelo Cadastro Incorporado
+Abra **Connect** no menu do workspace e clique em **Connect with Facebook**. Na janela da Meta, entre com o Facebook, escolha ou crie o portfólio empresarial, a Conta do WhatsApp Business e o número. Verifique o número com o código que a Meta envia por SMS ou ligação e, de volta à StartMessaging, defina um **PIN de verificação em duas etapas de 6 dígitos** para registrar o número na Cloud API.
 
-### Passo 3: Cadastrar o Número de Produção
-Para migrar para a linha de produção definitiva, navegue até a seção de configuração de número dentro do painel da Meta, adicione o seu número de telefone definitivo e siga o procedimento de verificação por SMS ou ligação telefônica. Com a linha validada, a Meta gerará um identificador exclusivo da conta de WhatsApp (WABA ID) e um identificador do número de telefone (Phone Number ID).
+### Passo 3: Cadastrar a forma de pagamento na Meta
+Na página Connect aparece o item **Payment method added in Meta**. Clique em **Open WhatsApp Manager →** e cadastre um cartão na sua Conta do WhatsApp Business. Sem isso, a Meta recusa envios de modelos e a API responde `402 META_PAYMENT_REQUIRED`.
 
-### Passo 4: Integrar com a Conta StartMessaging
-Acesse o console de desenvolvedor do StartMessaging e associe o seu Phone Number ID obtido no painel da Meta. Crie uma chave secreta exclusiva do projeto. Essa chave funcionará como a sua chave `X-API-Key` de autenticação que validará todas as requisições enviadas do seu backend para a nossa API Gateway.
+### Passo 4: Criar e aprovar um modelo
+Para iniciar uma conversa (ou falar com um cliente cuja janela de 24 horas fechou), o WhatsApp só permite **modelos aprovados**. Em **Templates → Create template**, escolha a categoria (Marketing, Utility ou Authentication), o idioma (`pt_BR`) e o texto, com um exemplo para cada variável, e clique em **Submit to Meta**. A Meta revisa cada modelo e define o prazo.
+
+### Passo 5: Criar a chave de API
+Em **Developers → API keys**, clique em **Create key**, dê um nome e escolha o acesso (**Full access**, **Send only**, **Read only** ou escopos personalizados). A chave começa com `sm_live_` e **aparece uma única vez**: guarde-a em uma variável de ambiente ou em um cofre de segredos, nunca no código do navegador ou do app.
 
 ---
 
 ## Integração Prática: Enviando sua Primeira Mensagem via API
 
-Com as credenciais salvas e o seu número homologado no console da Meta, você está pronto para configurar a integração de software. Para realizar disparos, você deve enviar requisições POST em formato JSON contendo o número do destinatário em formato internacional (DDI + DDD + Número) e o conteúdo a ser entregue.
+Comece testando a chave com `GET /api/v1/me`, que não exige escopo e mostra o workspace, o plano, os escopos da chave e o uso do mês:
 
-O script a seguir, escrito em Node.js usando o módulo nativo do Axios, demonstra o envio de uma mensagem de texto utilizando o endpoint temporário do StartMessaging:
-
-```javascript
-const axios = require('axios');
-
-/**
- * Envia uma mensagem de texto simples via API do StartMessaging para o WhatsApp.
- * 
- * @param {string} toPhone - Número de telefone do destinatário no formato E.164 (ex: "5511999999999")
- * @param {string} messageText - Conteúdo textual da mensagem
- */
-async function enviarMensagemWhatsApp(toPhone, messageText) {
-  // TODO: Atualizar para o endpoint de produção oficial assim que a API do WhatsApp for disponibilizada globalmente
-  const apiEndpoint = 'https://api.startmessaging.com/v1/messages';
-  
-  const payload = {
-    to: toPhone,
-    type: 'text',
-    text: {
-      body: messageText
-    }
-  };
-
-  try {
-    const response = await axios.post(apiEndpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log('Mensagem enviada com sucesso! ID da transação:', response.data.messageId);
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao chamar a API do WhatsApp:', error.response ? error.response.data : error.message);
-    throw error;
-  }
-}
-
-// Exemplo de execução: envia mensagem de teste para o número indicado
-const destinatario = '5511999999999';
-const texto = 'Olá! Esta é uma mensagem de teste enviada pela API do StartMessaging.';
-enviarMensagemWhatsApp(destinatario, texto);
+```bash
+curl https://waba-api.startmessaging.com/api/v1/me \
+  -H "Authorization: Bearer sm_live_sua_chave"
 ```
 
-Este código inicializa a chamada de rede repassando o objeto com o destino e o texto a ser enviado. Ele envia a chave secreta de autenticação de forma segura pelo cabeçalho `X-API-Key`. Certifique-se de configurar a variável de ambiente `STARTMESSAGING_API_KEY` com o valor gerado no seu painel de controle para garantir a autorização da requisição.
+Em seguida, envie o modelo aprovado com `POST /api/v1/messages`. Use o **nome** do modelo exatamente como a Meta aprovou e o código de idioma. O número do destinatário vai em formato E.164 (`+55`, DDD e número):
+
+```javascript
+/**
+ * Envia um modelo aprovado pela API da StartMessaging.
+ * Requer a variável de ambiente SM_API_KEY com uma chave sm_live_...
+ */
+async function enviarModelo(telefone, nomeCliente, numeroPedido) {
+  const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      // Uma chave única por mensagem: uma nova tentativa nunca envia duas vezes
+      'Idempotency-Key': `pedido-${numeroPedido}-confirmacao`,
+    },
+    body: JSON.stringify({
+      to: telefone,
+      type: 'template',
+      template: {
+        name: 'confirmacao_pedido',
+        language: 'pt_BR',
+        parameters: [{ text: nomeCliente }, { text: numeroPedido }],
+      },
+      clientReference: `pedido-${numeroPedido}`,
+    }),
+  });
+
+  const body = await res.json();
+  if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+  console.log('Mensagem aceita pelo WhatsApp:', body.data.id, body.data.status); // "sent"
+  return body.data;
+}
+
+enviarModelo('+5511999999999', 'Ana', '#1042');
+```
+
+Uma resposta `201` significa que o WhatsApp aceitou a mensagem. Os recibos de entrega e leitura chegam depois pelos webhooks `message.*`. O destinatário entra automaticamente nos seus contatos e, nos planos com caixa de entrada (Team, Business, Enterprise e o teste grátis), a conversa aparece para a sua equipe responder.
+
+Mensagens de texto livre (`type: "text"`) só podem ser enviadas dentro da janela de atendimento de 24 horas, aberta pela última mensagem do cliente. Fora dela, a API responde `403 MESSAGE_WINDOW_CLOSED` e você deve enviar um modelo.
 
 ---
 
 ## Erros Comuns na Configuração da API e Como Resolvê-los
 
-Ao realizar integrações de rede com a API oficial do WhatsApp, desenvolvedores costumam se deparar com erros de retorno HTTP. Tratar essas respostas adequadamente em seu código garante estabilidade técnica.
+Os erros seguem um envelope padrão. Trate cada caso pelo campo `error.code`, não pelo texto da mensagem.
 
-Os três cenários de erro mais comuns e suas correções são apresentados abaixo:
+* **401 `INVALID_API_KEY`:** o cabeçalho `Authorization` está ausente, mal formado ou a chave foi revogada. Envie `Authorization: Bearer sm_live_...` sem espaços extras.
+* **403 `INSUFFICIENT_SCOPE`:** a chave é válida, mas não tem o escopo da rota (por exemplo, `messages:send`). Ajuste os escopos em **Developers → API keys**.
+* **402 `META_PAYMENT_REQUIRED`:** falta a forma de pagamento na sua Conta do WhatsApp Business. Cadastre-a no Gerenciador do WhatsApp.
+* **422 `TEMPLATE_NOT_APPROVED` / 404 `TEMPLATE_NOT_FOUND`:** o modelo ainda está em revisão, ou o nome ou o idioma não conferem.
+* **429 `RATE_LIMIT_EXCEEDED`:** você passou do limite de requisições do plano. Espere os segundos indicados em `Retry-After` e use filas (como Redis e BullMQ) para controlar o ritmo.
+* **400 `VALIDATION_ERROR` / `MOBILE_INVALID`:** o corpo está incorreto ou o número não é válido. Prefira o formato E.164 (`+5511999999999`).
 
-* **HTTP 401 Unauthorized (Chave Incorreta):** Ocorre quando o cabeçalho `X-API-Key` não foi passado ou contém uma chave inválida. Certifique-se de que a string de autenticação é a mesma exibida no console do StartMessaging e que não há espaços em branco ao redor.
-* **HTTP 429 Too Many Requests (Limite Excedido):** Acontece se a frequência de envio superar o limite do nível de qualidade atual do seu número verificado. A melhor prática é implementar filas de tarefas assíncronas (como Redis e BullMQ) para moderar os disparos e gerenciar o volume.
-* **HTTP 400 Bad Request (Payload Inválido):** Indica falha na estrutura JSON enviada. Verifique se o número de telefone de destino segue o formato estrito internacional `E.164` (ex: `5511999999999` para o Brasil, sem caracteres especiais como parênteses ou traços).
+A lista completa está em [Erros e limites](/br/docs/whatsapp/errors-and-limits).
+
+---
+
+## Quanto Custa: Planos da StartMessaging e Tarifas da Meta
+
+São duas cobranças separadas:
+
+- **A Meta cobra as mensagens** diretamente na forma de pagamento da sua Conta do WhatsApp Business, pelas tarifas publicadas pela Meta. Desde 1º de outubro de 2026, a cobrança é **por mensagem entregue**: todo modelo entregue é cobrado (marketing, utilidade, mesmo dentro da janela de 24 horas, e autenticação). Respostas de atendimento dentro da janela de 24 horas são gratuitas até uma cota mensal por número. As tarifas por país estão na [página oficial de preços da Meta](https://developers.facebook.com/docs/whatsapp/pricing).
+- **A StartMessaging cobra apenas a assinatura**, sem taxa por mensagem, carteira ou créditos. Os preços são em rúpias indianas (INR), com GST incluído: **Developer** (API e painel somente leitura) grátis com 100 mensagens de API por mês, ou a partir de ₹100/mês; **Team** ₹999/mês, com caixa de entrada compartilhada, contatos, campanhas e respostas automáticas; **Business** ₹2.999/mês, com fluxos de chatbot, WhatsApp Forms e funil de vendas; e **Enterprise** sob contrato. Veja todos os detalhes na [página de preços](/br/pricing).
 
 ---
 
@@ -141,20 +152,20 @@ Os três cenários de erro mais comuns e suas correções são apresentados abai
 
 **Q: Preciso de um número de telefone novo para usar a API oficial do WhatsApp?**
 
-A: Sim, é altamente recomendado. O número escolhido para a API não pode estar ativo no aplicativo móvel convencional. Caso pretenda utilizar o seu número atual de atendimento, você precisará desinstalar a conta comum do WhatsApp do seu celular antes de iniciar o processo de vinculação de API.
+A: Não necessariamente. Você pode usar um número novo ou o número atual da empresa. Se ele estiver ativo no WhatsApp ou no WhatsApp Business App, o fluxo de cadastro da Meta explica como migrá-lo para a plataforma.
 
-**Q: Posso usar o meu número pessoal na integração técnica?**
+**Q: Existe um ambiente de testes (sandbox)?**
 
-A: Tecnicamente sim, mas comercialmente é desaconselhável. Ao integrar o número pessoal na API oficial, você perde a capacidade de ler e responder mensagens diretamente pelo aplicativo móvel oficial do WhatsApp. Toda a comunicação passará a depender da infraestrutura de software e de sistemas helpdesk integrados à API.
+A: Não. Você conecta a sua própria Conta do WhatsApp Business desde o início. O teste grátis de 14 dias inclui a API de desenvolvedor (1.000 mensagens de API), o suficiente para construir e testar uma integração completa. Depois dele, o Developer Free mantém a API com 100 mensagens por mês.
 
-**Q: Quanto tempo leva para a aprovação definitiva da conta da minha empresa?**
+**Q: Quanto tempo leva a aprovação dos modelos e a verificação da empresa?**
 
-A: O processo básico de aprovação de número e criação de aplicativos de teste leva poucos minutos. No entanto, a verificação completa do cadastro comercial da sua empresa (Meta Business Manager) pela equipe humana da Meta pode demorar de 24 a 72 horas úteis, dependendo do envio correto dos documentos de registro.
+A: Quem define os prazos é a Meta. O painel mostra o modelo como **Pending review** até a decisão, e o webhook `template.status_updated` avisa o seu sistema quando o status muda.
 
-**Q: Há custos associados ao recebimento de mensagens enviadas por clientes?**
+**Q: Há custos ao receber mensagens dos clientes?**
 
-A: Não diretamente. O WhatsApp adota o modelo de cobrança por sessões de conversação de 24 horas. Se o cliente iniciar o contato enviando uma mensagem para sua empresa, uma sessão de atendimento (Service Conversation) é aberta. As primeiras 1.000 conversações iniciadas por usuários mensalmente são gratuitas para todas as contas oficiais.
+A: Receber mensagens não gera cobrança. Quando o cliente escreve, abre-se a janela de atendimento de 24 horas: suas respostas de texto livre, mídia e mensagens interativas são gratuitas até uma cota mensal por número; depois disso, a Meta também as cobra. Modelos enviados dentro da janela continuam sendo cobrados pela Meta. Não há mais cobrança por "conversa" de 24 horas.
 
 ---
 
-Configurar de forma correta a infraestrutura oficial do WhatsApp Business API estabelece um canal direto, seguro e escalável de contato com seus clientes no Brasil. Com os pré-requisitos validados e a autenticação estruturada por meio do cabeçalho `X-API-Key`, a programação de sistemas integrados de conversação torna-se simples. Para continuar evoluindo em sua integração técnica, confira nosso guia sobre [configuração de webhooks do WhatsApp](/br/docs/whatsapp/webhooks) e gerencie eventos e status em tempo real.
+Configurar a API oficial do WhatsApp Business de forma correta estabelece um canal direto, seguro e escalável com seus clientes no Brasil. Para ir além, leia o guia de [primeiros passos](/br/docs/whatsapp/getting-started), configure os [webhooks do WhatsApp](/br/docs/whatsapp/webhooks) para receber respostas e recibos em tempo real, ou [fale com nosso time de vendas](/br/contact) para abrir seu workspace com o teste grátis.

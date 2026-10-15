@@ -2,7 +2,7 @@
 title: "What is Voice OTP? When to Use It Instead of SMS"
 description: "Voice OTP explained — how the OTP is read aloud over a robocall, when it beats SMS, accessibility benefits, India regulatory context, and integration patterns."
 publishedAt: "2026-04-24"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -105,25 +105,29 @@ See our deep comparison of
       
 ```typescript
 // Pseudo-code: SMS first, voice fallback after 30s
-const { requestId } = await sendSmsOtp(phone);
+const otp = crypto.randomInt(100000, 1000000).toString(); // your backend generates the code
+// POST /otp/send { phoneNumber, variables: { otp } } → data.otpRequestId
+const { otpRequestId } = await sendSmsOtp(phone, otp);
 
 // On the client, watch for OTP autofill or user input
 // If neither happens within 30s:
-await sendVoiceOtpFallback(requestId, phone);
+// (sendVoiceOtpFallback calls a separate voice provider with the same code)
+await sendVoiceOtpFallback(phone, otp);
 ```
 
 
-StartMessaging's OTP API supports voice OTP as a fallback option
-        on the same request ID, so the verify call works regardless of which
-        channel actually delivered the code. See 
-        [our API docs](/otp-api).
+StartMessaging's OTP API is SMS-only: it does not offer voice OTP
+        or automatic voice fallback. If you add voice, use a separate voice
+        provider and send it the same code your backend generated, so the user
+        enters one code whichever channel delivered it. See 
+        [our API docs](/otp-api) for the SMS side.
 
 
 ## FAQ
 
 Most products start with SMS OTP and add voice only after they see
         delivery failures in the wild. 
-        [StartMessaging](/dlt-free-otp) handles both
-        channels, both regulatory regimes, and shared verification on a single
-        request ID — no DLT registration, no double integration.
+        [StartMessaging](/dlt-free-otp) handles the SMS
+        channel with no DLT registration; pair it with a separate voice
+        provider if you need a voice fallback.
 

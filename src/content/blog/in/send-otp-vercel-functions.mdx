@@ -2,7 +2,7 @@
 title: "How to Send OTP with Vercel Functions (2026)"
 description: "Vercel Functions OTP tutorial using StartMessaging. Edge vs Node runtime trade-offs, environment variables, signed cookies, and KV-style rate limiting."
 publishedAt: "2026-05-09"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -51,12 +51,17 @@ export const config = { runtime: 'edge' };
 export default async function handler(req: Request) {
   if (req.method !== 'POST') return new Response('method not allowed', { status: 405 });
   const { phoneNumber } = await req.json();
+  // Generate the 6-digit code here (Web Crypto works on the Edge runtime)
+  const otp = String(100000 + (crypto.getRandomValues(new Uint32Array(1))[0] % 900000));
   const r = await fetch('https://api.startmessaging.com/otp/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': process.env.SM_API_KEY! },
-    body: JSON.stringify({ phoneNumber, idempotencyKey: crypto.randomUUID() }),
+    body: JSON.stringify({ phoneNumber, variables: { otp }, idempotencyKey: crypto.randomUUID() }),
   });
-  return new Response(await r.text(), { status: r.status });
+  const json = await r.json();
+  if (!r.ok) return Response.json(json, { status: r.status });
+  // Only hand the client the ID it needs for /otp/verify, never the code
+  return Response.json({ requestId: json.data.otpRequestId });
 }
 ```
 
@@ -67,11 +72,11 @@ export const config = { runtime: 'edge' };
 
 export default async function handler(req: Request) {
   if (req.method !== 'POST') return new Response('method not allowed', { status: 405 });
-  const body = await req.json();
+  const { requestId, otpCode } = await req.json(); // requestId = otpRequestId from send
   const r = await fetch('https://api.startmessaging.com/otp/verify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': process.env.SM_API_KEY! },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ requestId, otpCode }),
   });
   return new Response(await r.text(), { status: r.status });
 }

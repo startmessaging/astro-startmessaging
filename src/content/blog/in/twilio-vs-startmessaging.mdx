@@ -2,7 +2,7 @@
 title: "Twilio vs StartMessaging for OTP in India"
 description: "Detailed comparison of Twilio and StartMessaging for sending OTPs in India. Pricing, DLT, API simplicity, billing currency, and code examples."
 publishedAt: "2026-02-04"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: comparisons
 country: "in"
 author: "StartMessaging Team"
@@ -194,8 +194,8 @@ With StartMessaging, the process is:
 
 
 - Sign up and get your API key
-- Call `POST /otp/send` with the phone number
-- Call `POST /otp/verify` with the OTP code
+- Generate a 4–6 digit code on your server and call `POST /otp/send` with the phone number and `variables.otp`
+- Call `POST /otp/verify` with the returned `otpRequestId` and the code the user entered
 
 
 
@@ -209,17 +209,21 @@ No SDK required. No service configuration. No DLT paperwork. Just a REST API wit
       
 ```typescript
 // No SDK needed — plain fetch
+import crypto from 'node:crypto';
+
+const otp = crypto.randomInt(100000, 1000000).toString(); // your server generates the code
+
 const res = await fetch('https://api.startmessaging.com/otp/send', {
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer sm_live_your_api_key',
+    'X-API-Key': 'sm_live_your_api_key',
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify({ phoneNumber: '+919876543210' }),
+  body: JSON.stringify({ phoneNumber: '+919876543210', variables: { otp } }),
 });
 
-const { data } = await res.json();
-console.log('OTP Request ID:', data.requestId);
+const { data } = await res.json(); // { otpRequestId, messageId, status: 'queued' }
+console.log('OTP Request ID:', data.otpRequestId);
 ```
 
 
@@ -229,12 +233,12 @@ console.log('OTP Request ID:', data.requestId);
 const res = await fetch('https://api.startmessaging.com/otp/verify', {
   method: 'POST',
   headers: {
-    'Authorization': 'Bearer sm_live_your_api_key',
+    'X-API-Key': 'sm_live_your_api_key',
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    requestId: 'req_abc123',
-    otp: '482916',
+    requestId: data.otpRequestId, // from the /otp/send response
+    otpCode: '482916',            // what the user typed
   }),
 });
 
@@ -344,7 +348,7 @@ The Twilio approach requires an SDK dependency, account credentials management (
             <tr>
               <td>Voice, Email, WhatsApp</td>
               <td>**Yes**</td>
-              <td>No (SMS OTP focused)</td>
+              <td>WhatsApp only (separate WhatsApp CRM and API)</td>
             </tr>
             <tr>
               <td>Dashboard</td>
@@ -423,7 +427,7 @@ If you are currently using Twilio and want to switch to StartMessaging, the migr
 
 
 - **Sign up** at  [app.startmessaging.com](https://app.startmessaging.com)  and create an API key
-- **Replace the send call:** Replace your Twilio Verify  `verifications.create()` with a `POST /otp/send` call
+- **Replace the send call:** Replace your Twilio Verify  `verifications.create()` with a `POST /otp/send` call (Twilio generates the code for you; with StartMessaging your server generates it and passes it in `variables.otp`)
 - **Replace the verify call:** Replace `verificationChecks.create()`  with `POST /otp/verify`
 - **Remove the Twilio SDK** from your dependencies if it was only used for OTP
 - **Top up your wallet** with INR and you are ready to go

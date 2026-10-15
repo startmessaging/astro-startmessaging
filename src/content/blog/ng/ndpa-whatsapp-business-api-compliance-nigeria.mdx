@@ -2,7 +2,7 @@
 title: "NDPA and WhatsApp Business API: Stay Compliant in Nigeria"
 description: "Stay compliant with the Nigeria Data Protection Act (2023). Learn NDPA requirements for WhatsApp Business API opt-ins, data storage, and customer rights."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "compliance"
 country: "ng"
 author: "StartMessaging Team"
@@ -23,7 +23,7 @@ featured: false
 
 Nigerian businesses are increasingly adopting automated customer messaging to streamline operations. However, implementing these solutions requires strict adherence to data protection standards. Under the Nigeria Data Protection Act (NDPA), 2023, customer telephone numbers and chat logs constitute personal data. Aligning your communications with ndpa whatsapp compliance nigeria guidelines is a legal requirement. This guide breaks down the core components of the regulation and outlines what your team must implement to remain compliant.
 
-Please note that the StartMessaging WhatsApp API is currently in active development. While the endpoints are being finalised and will be available soon, you can prototype your compliance flows using the standard `/v1/messages` endpoint. Our systems use the same `X-API-Key` header authentication that powers our existing SMS and verification services.
+StartMessaging is a WhatsApp CRM and API built on Meta's official Cloud API. You connect your own WhatsApp Business Account, and every send goes through `POST https://waba-api.startmessaging.com/api/v1/messages` with an `Authorization: Bearer sm_live_...` API key, so the compliance flows below can be wired straight into your integration.
 
 > **Disclaimer:** *This article is for informational purposes and does not constitute formal legal advice. Consult a qualified legal practitioner or a registered Data Protection Compliance Organisation (DPCO) in Nigeria regarding your specific business requirements.*
 
@@ -78,7 +78,7 @@ If a customer initiates contact on WhatsApp (for example, by sending a support e
 
 ## Data Storage Obligations: Conversations, Archiving, and Hosting
 
-Section 34 of the NDPA regulates how long companies can retain customer data. Businesses cannot store conversational records indefinitely. Data must only be kept for as long as necessary to fulfill the purpose for which it was gathered.
+The NDPA's storage limitation principle regulates how long companies can retain customer data. Businesses cannot store conversational records indefinitely. Data must only be kept for as long as necessary to fulfill the purpose for which it was gathered.
 
 To meet these requirements, your database should enforce automated data retention policies. For instance, you might archive customer support chats after 90 days and permanently delete them from active databases after 180 days, unless financial audits require longer retention.
 
@@ -97,12 +97,14 @@ The NDPA grants Nigerian citizens specific rights over their personal data. Thes
 
 If a customer submits a deletion request, your engineering team must be prepared to process it. You must remove their phone number from your messaging databases and scrub their interaction logs from your analytics platforms.
 
-Below is an example of an Express.js endpoint to handle customer deletion requests and stop all WhatsApp messaging campaigns:
+Below is an example of an Express.js endpoint to handle customer deletion requests and stop all WhatsApp messaging. It also deletes the customer's contact in StartMessaging with `DELETE /api/v1/contacts/{idOrPhone}`, which needs an API key with the `contacts:write` scope:
 
 ```javascript
 const express = require('express');
 const router = express.Router();
 const db = require('../models'); // Simulated database model
+
+const SM_API = 'https://waba-api.startmessaging.com/api/v1';
 
 /**
  * Handles customer data erasure requests under NDPA guidelines
@@ -127,7 +129,17 @@ router.post('/compliance/delete-customer', async (req, res) => {
     // 3. Anonymise or delete chat log records
     await db.ChatHistory.destroy({ where: { customerId: customer.id } });
     
-    // 4. Update customer status to deleted
+    // 4. Delete the contact in StartMessaging (answers 204 No Content)
+    const smRes = await fetch(`${SM_API}/contacts/${encodeURIComponent(phoneNumber)}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${process.env.SM_API_KEY}` },
+    });
+    if (!smRes.ok && smRes.status !== 404) {
+      const body = await smRes.json();
+      throw new Error(`${body.error.code}: ${body.error.message}`);
+    }
+
+    // 5. Update customer status to deleted
     await customer.destroy();
 
     console.log(`NDPA deletion request executed for: ${phoneNumber}`);
@@ -141,7 +153,10 @@ router.post('/compliance/delete-customer', async (req, res) => {
 module.exports = router;
 ```
 
-This script ensures that all references to the customer's phone number and message history are removed from your active marketing registries, ensuring compliance with the user's right to be forgotten.
+This script removes the customer's phone number and message history from your own databases and marketing registries. Two things to know about the StartMessaging side:
+
+* **A contact delete is a soft delete.** The contact disappears from lists and lookups, but its conversations keep their history in the shared inbox. If a customer asks for that history to be erased too, [contact our support team](/ng/contact) and we will remove it from StartMessaging.
+* **An opt-out survives the delete.** If the customer replied STOP, the opt-out stays on the number, so a later send is still refused with `422 CONTACT_OPTED_OUT`. That is what you want for a customer who asked to be forgotten.
 
 ---
 
@@ -166,7 +181,7 @@ To ensure your WhatsApp messaging integrations align with the NDPA (2023), revie
 
 - [ ] **Documented Consent:** Ensure you record the IP address, timestamp, and consent status for every opt-in.
 - [ ] **WhatsApp Opt-in Checkbox:** Use a standalone checkbox for WhatsApp updates during registration.
-- [ ] **Opt-out Management:** Set up your system to process keywords like "STOP" and "OPTOUT" automatically.
+- [ ] **Opt-out Management:** Process keywords like "STOP" automatically. In StartMessaging, a customer who sends STOP is marked opted out and fires a `contact.opted_out` webhook, and any later send to that contact is refused with `422 CONTACT_OPTED_OUT`. Sync that event to your own records.
 - [ ] **Data Minimisation:** Do not include sensitive information (such as PINs or full account numbers) in message bodies.
 - [ ] **Updated Privacy Policy:** Publish an updated privacy policy on your website detailing your WhatsApp data practices.
 - [ ] **Data Retention Policies:** Enforce clear retention limits to delete old chat logs automatically.
@@ -194,4 +209,4 @@ A: You must maintain a secure log database containing the customer's phone numbe
 
 ---
 
-Ensuring your messaging systems align with ndpa whatsapp compliance nigeria regulations protects your customer relationships and avoids regulatory penalties. By obtaining explicit consent, securing data storage, and setting up automated deletion workflows, you can build a reliable messaging channel. Review our guide on [configuring webhook handlers](/ng/docs/whatsapp/webhooks) and managing API keys to begin building your integration.
+Ensuring your messaging systems align with ndpa whatsapp compliance nigeria regulations protects your customer relationships and avoids regulatory penalties. By obtaining explicit consent, securing data storage, and setting up automated deletion workflows, you can build a reliable messaging channel. Review our guides on [configuring webhook handlers](/ng/docs/whatsapp/webhooks) and [managing API keys](/ng/docs/whatsapp/authentication) to begin building your integration.

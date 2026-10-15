@@ -2,7 +2,7 @@
 title: "What is OTP? A Complete Guide for Developers and Users (2026)"
 description: "OTP (One-Time Password) explained: how it works, where it is used, the difference between SMS OTP, TOTP, HOTP, and Voice OTP, and how to add OTP to your app safely."
 publishedAt: "2026-04-22"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -68,7 +68,7 @@ At a high level, OTP-based verification has three actors: the user, your
 
 
 - **User triggers the flow.** They enter their phone number to log in or to confirm a payment.
-- **Your backend asks the OTP service to send a code.**  The service generates a 4–6 digit number, stores a hashed copy with an expiry timestamp, and dispatches it to the user's phone via SMS, voice, or WhatsApp.
+- **Your backend generates a 4–6 digit code and asks the OTP service to send it.** The service stores a hashed copy with an expiry timestamp, dispatches it to the user's phone via SMS, voice, or WhatsApp, and returns a request ID you use to verify.
 - **The user types the code into your app.**
 - **Your backend asks the OTP service to verify.** The service compares the submitted code to the hash, checks expiry and attempt counts, and returns  `{ verified: true }` or an error.
 - **You issue a session** (JWT, cookie, etc.) to the authenticated user.
@@ -179,13 +179,13 @@ The fastest path is to call a managed OTP API rather than build the
 
       
 ```
-// 1. Send
-POST /otp/send  { "phoneNumber": "+919876543210" }
-// → { requestId, expiresAt, attemptsLeft }
+// 1. Send (your server generates the 4-6 digit code)
+POST /otp/send  { "phoneNumber": "+919876543210", "variables": { "otp": "482910" } }
+// → { data: { otpRequestId, messageId, status: "queued" } }
 
-// 2. Verify
+// 2. Verify (requestId = otpRequestId from step 1)
 POST /otp/verify  { "requestId": "...", "otpCode": "482910" }
-// → { verified: true }
+// → { data: { verified: true } }
 ```
 
 

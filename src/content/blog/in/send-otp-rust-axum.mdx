@@ -2,7 +2,7 @@
 title: "Send OTP in Rust with Axum and Reqwest — 2026 Guide"
 description: "Build a production OTP backend in Rust using Axum and reqwest, calling the StartMessaging API. Includes structs, handlers, error type, and tower-http rate limiting."
 publishedAt: "2026-04-23"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -50,6 +50,7 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tower-http = { version = "0.5", features = ["limit"] }
 uuid = { version = "1", features = ["v4"] }
+rand = "0.8"
 anyhow = "1"
 ```
 
@@ -57,6 +58,7 @@ anyhow = "1"
 ## StartMessaging Client
       
 ```typescript
+use rand::{rngs::OsRng, Rng};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
@@ -67,10 +69,18 @@ pub struct StartMessaging {
 }
 
 #[derive(Serialize)]
-struct SendBody<'a> { phoneNumber: &'a str, idempotencyKey: String }
+struct Variables { otp: String } // the 4-6 digit code your backend generates
+
+#[derive(Serialize)]
+struct SendBody<'a> { phoneNumber: &'a str, variables: Variables, idempotencyKey: String }
 
 #[derive(Deserialize)]
-pub struct SendData { pub requestId: String, pub expiresAt: String, pub attemptsLeft: u32 }
+pub struct SendData { pub otpRequestId: String, pub messageId: String, pub status: String }
+
+// Cryptographically secure 6-digit code from the OS RNG
+fn generate_otp() -> String {
+    OsRng.gen_range(100_000..1_000_000).to_string()
+}
 
 #[derive(Deserialize)]
 struct Envelope<T> { data: T }
@@ -81,7 +91,11 @@ impl StartMessaging {
     }
 
     pub async fn send_otp(&self, phone: &str) -> anyhow::Result<SendData> {
-        let body = SendBody { phoneNumber: phone, idempotencyKey: uuid::Uuid::new_v4().to_string() };
+        let body = SendBody {
+            phoneNumber: phone,
+            variables: Variables { otp: generate_otp() },
+            idempotencyKey: uuid::Uuid::new_v4().to_string(),
+        };
         let env: Envelope<SendData> = self.http
             .post("https://api.startmessaging.com/otp/send")
             .header("X-API-Key", &self.api_key)
@@ -114,14 +128,14 @@ impl StartMessaging {
 use axum::{routing::post, Json, Router, extract::State};
 
 #[derive(Deserialize)] struct SendReq { phone: String }
-#[derive(Serialize)]   struct SendRes { request_id: String, expires_at: String }
+#[derive(Serialize)]   struct SendRes { request_id: String } // otpRequestId, sent back to verify
 
 async fn send_handler(
     State(sm): State<StartMessaging>,
     Json(req): Json<SendReq>,
 ) -> Result<Json<SendRes>, String> {
     let data = sm.send_otp(&req.phone).await.map_err(|e| e.to_string())?;
-    Ok(Json(SendRes { request_id: data.requestId, expires_at: data.expiresAt }))
+    Ok(Json(SendRes { request_id: data.otpRequestId }))
 }
 
 #[tokio::main]

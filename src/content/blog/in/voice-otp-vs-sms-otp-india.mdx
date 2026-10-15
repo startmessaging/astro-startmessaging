@@ -2,7 +2,7 @@
 title: "Voice OTP vs SMS OTP in India: When Each Makes Sense"
 description: "Voice OTP vs SMS OTP in India compared honestly. Covers accessibility, cost, TRAI routing, IVR UX, carrier fallback, and when each channel fits your stack."
 publishedAt: "2026-04-13"
-updatedAt: "2026-06-24"
+updatedAt: "2026-10-15"
 category: use-cases
 country: "in"
 author: "StartMessaging Team"
@@ -124,7 +124,11 @@ async function sendOtpWithVoiceFallback(phoneNumber, otpCode, attempt = 1) {
         'Content-Type': 'application/json',
         'X-API-Key': process.env.STARTMESSAGING_API_KEY,
       },
-      body: JSON.stringify({ phoneNumber, expiry: 300 }),
+      body: JSON.stringify({
+        phoneNumber,
+        templateId: 'YOUR_TEMPLATE_ID',
+        variables: { otp: otpCode, appName: 'YourApp' },
+      }),
     });
 
     if (smsResult.ok) {
@@ -132,7 +136,8 @@ async function sendOtpWithVoiceFallback(phoneNumber, otpCode, attempt = 1) {
     }
   }
 
-  // Fallback: Voice OTP after 2 failed SMS attempts
+  // Fallback: Voice OTP after 2 failed SMS attempts.
+  // StartMessaging does not offer voice OTP: sendVoiceOtp wraps a separate voice provider.
   if (attempt <= 4) {
     const voiceResult = await sendVoiceOtp({
       to: phoneNumber,
@@ -170,7 +175,7 @@ Voice OTP at ₹0.50 per call is 2x the cost of SMS OTP at ₹0.25 per message. 
 - **Your verification volume exceeds 1,00,000 per month.** At high volumes, the 2x cost premium of voice OTP adds up quickly. Optimise SMS delivery first (better templates, multi-carrier routing) before adding voice as a channel.
 - **You do not have IVR infrastructure.** Building or integrating voice OTP requires a telephony provider, IVR scripting, call routing, and audio quality monitoring — infrastructure that SMS APIs do not need.
 
-For the SMS layer, [StartMessaging's OTP API](/otp-api) provides ₹0.25-per-message delivery with [no DLT registration required](/dlt-free-otp), built-in rate limiting, fraud detection, and multi-carrier failover. It is the reliable primary channel that your voice OTP fallback layers on top of. [Sign up free](https://app.startmessaging.com/register) and test SMS delivery on your own numbers before deciding whether voice adds enough value for your user base.
+For the SMS layer, [StartMessaging's OTP API](/otp-api) provides ₹0.25-per-message delivery with [no DLT registration required](/dlt-free-otp), built-in rate limiting, fraud detection, and multi-carrier failover. It is the reliable primary channel that your voice OTP fallback layers on top of. StartMessaging does not offer voice OTP, so the voice layer comes from a separate voice provider. [Sign up free](https://app.startmessaging.com/register) and test SMS delivery on your own numbers before deciding whether voice adds enough value for your user base.
 
 ## Frequently Asked Questions
 

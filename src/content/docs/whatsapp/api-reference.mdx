@@ -1,0 +1,97 @@
+---
+title: "API Reference"
+description: "The OpenAPI document and Swagger UI for the StartMessaging WhatsApp API, scopes per operation, in-app request logs and the API versioning policy."
+product: whatsapp
+order: 12
+---
+
+The full, field-by-field reference for the WhatsApp API is generated from the server's own code, so it always matches what the API accepts and returns.
+
+## OpenAPI document
+
+The OpenAPI document is public and needs no login or API key:
+
+| Format | URL |
+|---|---|
+| JSON | `{{WA_API_BASE}}/api/v1/openapi.json` |
+| YAML | `{{WA_API_BASE}}/api/v1/openapi.yaml` |
+| Swagger UI (browse and try requests) | `{{WA_API_BASE}}/api/v1/docs` |
+
+Import the JSON or YAML into Postman, Insomnia or any OpenAPI tool, or generate a typed client from it with a generator of your choice.
+
+```bash
+curl -o startmessaging-openapi.json {{WA_API_BASE}}/api/v1/openapi.json
+```
+
+What the document includes:
+
+- Every endpoint under `/api/v1`, its request body, query parameters and response schema, with examples.
+- The error codes each operation can return.
+- Named request examples for `POST /messages`: template, authentication (OTP), text, document and interactive. Carousel cards (`template.carouselCards`) and limited-time offers (`template.offerExpiresAt`) are described on the template schema and in [Send Messages](/docs/whatsapp/send-message#carousel-templates).
+- The scope each operation needs, as the extension field **`x-scope`** on the operation. `GET /me` and `GET /phone-numbers` need no scope.
+
+Operations are grouped by tag: Account, Messages, Contacts, Tags, Pipeline, Templates, Conversations, Campaigns, Conversions and Webhooks. There are 10 scopes in all (see [Authentication](/docs/whatsapp/authentication#scopes)).
+
+## In the dashboard
+
+The **Developers** section of the app has the same reference and tools for debugging:
+
+- **Developers → API reference**: the reference built from the OpenAPI document, with code samples ready to copy.
+- **Developers → Logs**: each API call with its result and any error. The last 500 requests from the past 7 days are kept. Requests made with an unknown key are not listed, because they belong to no workspace.
+- **Developers → API keys** and **Developers → Webhooks**: manage keys, scopes and webhook endpoints.
+- The **API** tab of the in-app help panel on every page shows the endpoints that automate that page.
+- Each template's **Send via API** panel shows the exact request for that template.
+
+## Base URL
+
+```
+{{WA_API_BASE}}/api/v1
+```
+
+All requests use HTTPS and the `Authorization: Bearer sm_live_…` header (see [Authentication](/docs/whatsapp/authentication)).
+
+## Endpoints at a glance
+
+| Method and path | Scope |
+|---|---|
+| `GET /me` | none |
+| `GET /phone-numbers` | none |
+| `POST /messages` | `messages:send` |
+| `GET /messages/{id}` | `messages:read` |
+| `GET /contacts`, `GET /contacts/{idOrPhone}` | `contacts:read` |
+| `POST /contacts`, `PATCH /contacts/{idOrPhone}`, `DELETE /contacts/{idOrPhone}` | `contacts:write` |
+| `GET /tags`, `GET /pipeline-stages` | `contacts:read` |
+| `GET /templates`, `GET /templates/{id}` | `templates:read` |
+| `GET /conversations`, `GET /conversations/{id}`, `GET /conversations/{id}/messages` | `conversations:read` |
+| `PATCH /conversations/{id}` | `conversations:write` (plan with the team inbox) |
+| `GET /campaigns`, `GET /campaigns/{id}` | `campaigns:read` |
+| `POST /conversions` | `conversions:write` (Business plan: sales pipeline) |
+| `GET /webhooks`, `POST /webhooks`, `DELETE /webhooks/{id}` | `webhooks:manage` |
+| `POST /trigger/send` | `messages:send` (deprecated) |
+
+## Versioning
+
+`/api/v1` is the customer contract. Within v1 we only **add**: new optional request fields, new response fields, new endpoints and new webhook event types. Removing or renaming anything would be a new version (v2).
+
+To stay compatible:
+
+- Ignore response fields and webhook event types you don't recognise.
+- Branch on `error.code`. For a code you don't recognise, decide by HTTP status: a `429` (after `Retry-After`) or a `5xx` is worth retrying; any other `4xx` will fail the same way until the request, plan or account changes.
+
+### Deprecated: POST /trigger/send
+
+`POST /api/v1/trigger/send` was the original template-sending endpoint. It still works, uses the same send path and hourly budget, and accepts `clientReference`, but its response keeps the old shape. Use `POST /api/v1/messages` for new integrations; it covers templates and every other message type.
+
+## FAQ
+
+**Do I need an API key to read the OpenAPI document?**
+No. The JSON, YAML and Swagger UI are public. Calling the endpoints themselves needs a key.
+
+**Is there an official SDK?**
+No. The API is plain REST with JSON, so any HTTP client works. You can generate a client from the OpenAPI document if you want typed models.
+
+**How do I see why a request failed?**
+Check the response's `error.code` and `meta.requestId`, then find the request in Developers → Logs, which keeps the last 500 requests from the past 7 days.
+
+**Will v1 change under me?**
+Only by addition. Fields and endpoints are never removed or renamed within v1, so an integration that ignores unknown fields keeps working.

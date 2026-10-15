@@ -1,8 +1,8 @@
 ---
 title: "Chatbot no WhatsApp com API: Como Automatizar Seu Atendimento de Forma Humanizada"
-description: "Aprenda a estruturar um chatbot de atendimento no WhatsApp Business API. Guia prático de webhooks, escalonamento humano e fluxos em Node.js."
+description: "Aprenda a estruturar um chatbot de atendimento no WhatsApp Business API: webhooks assinados, botões interativos e transferência humana em Node.js."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "br"
 author: "StartMessaging Team"
@@ -20,9 +20,9 @@ relatedSlugs:
 featured: false
 ---
 
-A centralização do suporte no aplicativo predileto dos brasileiros tornou-se obrigatória para qualquer marca de alto crescimento no país. No entanto, contratar dezenas de atendentes humanos apenas para responder perguntas frequentes sobre status de entrega, segundas vias de boleto ou horários de atendimento gera custos operacionais elevados e filas de espera demoradas. A integração de um chatbot whatsapp business api brasil resolve esse problema de escalabilidade, automatizando conversas iniciais e respondendo chamados 24 horas por dia. Neste guia detalhado, você aprenderá a desenhar um fluxo automatizado e estruturar o tratamento técnico de webhooks no seu backend.
+A centralização do suporte no aplicativo predileto dos brasileiros tornou-se obrigatória para qualquer marca de alto crescimento no país. No entanto, contratar dezenas de atendentes humanos apenas para responder perguntas frequentes sobre status de entrega, segundas vias de boleto ou horários de atendimento gera custos operacionais elevados e filas de espera demoradas. A integração de um chatbot whatsapp business api brasil resolve esse problema de escalabilidade, automatizando conversas iniciais e respondendo chamados 24 horas por dia. Neste guia, você aprenderá a desenhar um fluxo automatizado e a tratar os webhooks no seu backend.
 
-A API do StartMessaging está atualmente em fase de desenvolvimento interno de novas funções conversacionais. Enquanto nossos engenheiros finalizam as rotas definitivas para o ambiente de produção, que serão disponibilizadas em breve, você já pode desenvolver e testar sua lógica de chatbot direcionando suas chamadas HTTP para o endpoint provisório `/v1/messages`. Nossos serviços utilizam a autenticação via cabeçalho `X-API-Key`, mantendo o mesmo padrão de integração.
+A StartMessaging é um CRM de WhatsApp com API, construído sobre a Cloud API oficial da Meta (a StartMessaging é uma Meta Tech Provider). Há dois caminhos para o seu bot: montar um **fluxo de chatbot sem código** no painel (plano Business e teste grátis) ou programar a lógica no seu servidor com a API REST em `https://waba-api.startmessaging.com/api/v1` e webhooks assinados. Este guia mostra o segundo caminho e explica quando o primeiro é suficiente.
 
 ---
 
@@ -30,27 +30,21 @@ A API do StartMessaging está atualmente em fase de desenvolvimento interno de n
 
 Ao planejar a automação do seu canal no WhatsApp, a primeira decisão técnica consiste em selecionar a abordagem conversacional do seu bot. Existem dois caminhos principais, cada um adequado para diferentes volumes e perfis de clientes.
 
-As duas abordagens conversacionais são detalhadas a seguir:
+* **Chatbots Estruturados (Baseados em Menu):** Funcionam como uma árvore de opções por botões de resposta ou listas. São fáceis de programar, evitam desvios na conversa e resolvem tarefas objetivas (ex: "Pedidos", "Suporte"). Essa abordagem é a mais recomendada para canais transacionais diretos, pois reduz a taxa de incompreensão do bot.
+* **Chatbots Inteligentes (Com NLP):** Utilizam motores de inteligência artificial (como Dialogflow, Watson ou modelos GPT) para tentar compreender a intenção por trás de mensagens digitadas de forma livre. São ideais para interações dinâmicas, mas exigem ajustes constantes para se adaptarem a termos regionais e gírias do público brasileiro (ex: "cadê meu pacote?", "não chegou ainda", "está atrasado").
 
-* **Chatbots Estruturados (Baseados em Menu):** Funcionam como uma árvore de opções numérica ou por botões rápidos de clique (URA). São fáceis de programar, evitam desvios na conversa e resolvem tarefas objetivas (ex: "Selecione 1 para Pedidos, 2 para Suporte"). Essa abordagem é a mais recomendada para canais transacionais diretos, pois reduz a taxa de incompreensão do bot.
-* **Chatbots Inteligentes (Com NLP):** Utilizam motores de inteligência artificial (como Dialogflow, Watson ou modelos GPT) para tentar compreender a intenção por trás de mensagens digitadas de forma livre. São ideais para interações dinâmicas, mas exigem treinamento constante de dicionários para se adaptarem a termos regionais e gírias do público brasileiro (ex: "cadê meu pacote?", "não chegou ainda", "está atrasado").
-
-Para a maioria dos negócios de médio porte no Brasil, iniciar com uma abordagem híbrida é a melhor prática: use menus interativos e estruturados de botões para triagem rápida e reserve a linguagem livre apenas para etapas específicas ou para direcionar a conversa para o setor humano correto.
+Para a maioria dos negócios de médio porte no Brasil, iniciar com uma abordagem híbrida é a melhor prática: use botões e listas interativas para a triagem rápida e reserve a linguagem livre apenas para etapas específicas ou para direcionar a conversa para o setor humano correto.
 
 ---
 
 ## Estrutura de um Fluxo de Atendimento Eficiente e Saudável
 
-Um chatbot bem desenhado deve guiar o cliente de forma objetiva até a solução do seu problema, evitando loops de conversas repetitivas. Para criar um fluxo eficiente, divida a jornada do cliente em etapas claras.
+Um chatbot bem desenhado deve guiar o cliente de forma objetiva até a solução do seu problema, evitando loops de conversas repetitivas. O fluxo recomendado tem quatro fases:
 
-O fluxo de conversação recomendado é estruturado em quatro fases essenciais:
-
-1. **A Saudação e Identificação:** O bot recebe o cliente, se identifica como assistente virtual do negócio e exibe a mensagem de boas-vindas contendo as opções iniciais do menu.
-2. **A Triagem Operacional:** O cliente seleciona o tema do seu chamado (financeiro, comercial ou suporte técnico) por meio de um menu de botões de clique rápido.
-3. **A Resolução Automatizada (Self-Service):** O bot executa consultas de banco de dados para responder à solicitação específica de forma imediata (ex: gerar a linha digitável de um boleto ou a chave de cópia do Pix pendente).
-4. **O Escalonamento Humano:** Caso o bot não consiga resolver a solicitação em até duas interações ou se o usuário selecionar explicitamente a opção correspondente, a conversa deve ser direcionada para a fila de atendimento humano, preservando o histórico da conversa para o operador.
-
-A imagem a seguir apresenta a arquitetura básica de um fluxo de roteamento inteligente para WhatsApp:
+1. **A Saudação e Identificação:** O bot recebe o cliente, se identifica como assistente virtual do negócio e exibe as opções iniciais do menu.
+2. **A Triagem Operacional:** O cliente seleciona o tema do seu chamado (financeiro, comercial ou suporte técnico) por meio de botões de resposta (até 3) ou de uma lista (até 10 linhas).
+3. **A Resolução Automatizada (Self-Service):** O bot consulta o seu banco de dados para responder de forma imediata (ex: o status de um pedido ou o código Pix pendente).
+4. **O Escalonamento Humano:** Se o bot não resolver em até duas interações, ou se o cliente pedir, a conversa vai para a caixa de entrada da equipe, com todo o histórico visível para o atendente.
 
 ```
 +-------------------------------------------------------------+
@@ -69,178 +63,170 @@ A imagem a seguir apresenta a arquitetura básica de um fluxo de roteamento inte
 +------------------+  +------------------+  +-----------------+
           |                   |                   |
           v                   v                   v
-[Consulta Catálogo]   [Código Copia Pix]    [Fila de Helpdesk]
+[Consulta Catálogo]   [Código Copia Pix]    [Caixa de entrada]
 ```
 
-Manter essa estrutura clara garante agilidade no suporte e reduz a frustração do cliente, otimizando o tempo de resposta da equipe.
+Manter essa estrutura clara garante agilidade no suporte e reduz a frustração do cliente.
+
+---
+
+## Sem Código ou Com Código: O Que Cada Plano Oferece
+
+Antes de programar, veja se o painel já resolve o seu caso:
+
+| Recurso | Plano | Como funciona |
+|---|---|---|
+| **Respostas automáticas por palavra-chave** | Team e Business | Responde a uma palavra-chave com um texto ou modelo, sem fluxo |
+| **Fluxos de chatbot sem código** | Business (e teste grátis) | Gatilhos por primeira mensagem, qualquer mensagem, palavra-chave ou manual; etapas de enviar, esperar resposta, ramificar por botão ou lista, definir campos, tags, etapa do funil e atribuir agente |
+| **Bot próprio pela API** | Mensagens de texto: qualquer plano com API; botões e listas: Team e acima | Seu servidor recebe `message.received` e responde com `POST /api/v1/messages` |
+
+Mensagens interativas (botões e listas) não estão nos planos Developer: a API responde `403 PLAN_FEATURE_REQUIRED`. Transferir a conversa para um atendente também exige a caixa de entrada compartilhada (Team e acima).
 
 ---
 
 ## Como Funcionam os Webhooks na API do WhatsApp
 
-O funcionamento em tempo real de um chatbot é sustentado pelo conceito de Webhooks (HTTP Callbacks). Quando um cliente envia uma mensagem para o número da sua empresa, os servidores da Meta interceptam esse evento, geram um payload estruturado e fazem uma requisição POST direcionada para a URL do seu servidor.
+Quando um cliente envia uma mensagem para o número da sua empresa, a StartMessaging faz um `POST` assinado para a URL que você cadastrou em **Developers → Webhooks → Add endpoint**, com o evento `message.received`. O corpo tem sempre o mesmo envelope: `id` (o identificador do evento, use-o para eliminar duplicados), `type`, `createdAt`, `workspaceId` e `data`.
 
-O seu servidor atua como um escutador (listener) que deve analisar o corpo do JSON recebido, interpretar a ação do cliente, tomar decisões de negócios e retornar uma resposta para o cliente usando a API do StartMessaging.
+Quando o cliente toca em um botão ou linha de lista que você enviou, a mensagem chega com `type: "interactive"` e `reply: { kind, id, title }`. Use o `id` que você definiu no botão, não o título. Os recibos de envio chegam como `message.sent`, `message.delivered`, `message.read` e `message.failed`.
 
-Além do recebimento de mensagens novas, os webhooks notificam o seu sistema sobre alterações no status de envio de mensagens anteriores. O webhook envia eventos de confirmação contendo os estados `sent` (enviada), `delivered` (entregue) e `read` (lida), permitindo que você acompanhe o status de entrega de cada mensagem.
+Cada entrega traz os cabeçalhos `X-SM-Timestamp` e `X-SM-Signature` (`v1=` seguido de um HMAC-SHA256). Verifique a assinatura sobre o corpo bruto antes de confiar no evento e responda com um código 2xx em até 5 segundos; processe o trabalho depois.
 
 ---
 
 ## Código: Receptor de Webhook e Controlador de Respostas em Node.js
 
-Para processar as interações em tempo real dos clientes, seu servidor backend deve expor uma rota POST pública. O script abaixo, escrito em Express.js, demonstra como escutar mensagens de entrada e responder aos comandos enviados pelo usuário de forma automatizada:
+O servidor Express abaixo verifica a assinatura, responde na hora e trata a mensagem em seguida. A função `verificarAssinatura` segue o exemplo da [documentação de webhooks](/br/docs/whatsapp/webhooks#verify-signatures).
 
 ```javascript
-const express = require('express');
-const axios = require('axios');
+import express from 'express';
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
+const API = 'https://waba-api.startmessaging.com/api/v1';
 const app = express();
+const vistos = new Set(); // em produção, use o banco de dados ou Redis
 
-app.use(express.json());
+// rawBody: o corpo exatamente como recebido. secret: o segredo inteiro "whsec_...".
+function verificarAssinatura(rawBody, headers, secret) {
+  const timestamp = String(headers['x-sm-timestamp'] ?? '');
+  if (!/^\d+$/.test(timestamp)) return false;
+  if (Math.abs(Date.now() / 1000 - Number(timestamp)) > 300) return false;
 
-// Rota de recebimento de Webhook chamada pelo StartMessaging
-app.post('/webhook-whatsapp', async (req, res) => {
-  const { event, data } = req.body;
+  const esperado = Buffer.from(
+    createHmac('sha256', secret).update(`${timestamp}.`).update(rawBody).digest('hex'),
+  );
 
-  // Filtra eventos para responder apenas a novas mensagens de texto recebidas
-  if (event === 'message.received' && data.type === 'text') {
-    const telefoneCliente = data.from;
-    const textoEntrada = data.text.body.trim().toLowerCase();
+  // Durante a rotação do segredo chegam várias assinaturas; aceite qualquer uma.
+  return String(headers['x-sm-signature'] ?? '')
+    .split(',')
+    .some((parte) => {
+      const assinatura = Buffer.from(parte.trim().replace(/^v1=/, ''));
+      return assinatura.length === esperado.length && timingSafeEqual(assinatura, esperado);
+    });
+}
 
-    console.log(`Mensagem recebida de ${telefoneCliente}: "${textoEntrada}"`);
-
-    // Lógica básica de controle de intenções do menu
-    if (textoEntrada === 'ola' || textoEntrada === 'oi' || textoEntrada === 'menu') {
-      await enviarMenuPrincipal(telefoneCliente);
-    } else if (textoEntrada === 'suporte') {
-      await encaminharSuporte(telefoneCliente);
-    } else if (textoEntrada.startsWith('pedido-')) {
-      const codigoPedido = textoEntrada.toUpperCase();
-      await consultarStatusPedido(telefoneCliente, codigoPedido);
-    } else {
-      await enviarOpcaoPadrao(telefoneCliente);
-    }
+app.post('/webhooks/startmessaging', express.raw({ type: 'application/json' }), (req, res) => {
+  if (!verificarAssinatura(req.body, req.headers, process.env.SM_WEBHOOK_SECRET)) {
+    return res.sendStatus(401);
   }
+  const evento = JSON.parse(req.body.toString('utf8'));
+  res.sendStatus(200); // responda em até 5 segundos, depois faça o trabalho
 
-  // Retorna HTTP 200 imediatamente para o StartMessaging para confirmar recepção
-  res.sendStatus(200);
+  if (vistos.has(evento.id)) return; // entrega "pelo menos uma vez": elimine duplicados
+  vistos.add(evento.id);
+
+  if (evento.type === 'message.received') {
+    tratarMensagem(evento.data.message).catch(console.error);
+  }
 });
 
-/**
- * Envia o menu principal interativo para o cliente
- */
-async function enviarMenuPrincipal(telefone) {
-  // TODO: Atualizar para o endpoint de produção oficial quando o suporte oficial for lançado
-  const url = 'https://api.startmessaging.com/v1/messages';
+async function tratarMensagem(msg) {
+  // Clientes que usam só nome de usuário chegam sem número: responda pela caixa de entrada.
+  if (!msg.from) return;
 
-  const payload = {
+  const opcao = msg.reply?.id; // o id do botão que você enviou
+  const texto = (msg.text ?? '').trim().toLowerCase();
+
+  if (opcao === 'btn_pedido') {
+    await enviar({ to: msg.from, type: 'text', text: { body: 'Envie o número do pedido assim: pedido-1234' } });
+  } else if (opcao === 'btn_suporte' || texto === 'atendente') {
+    await passarParaAtendente(msg);
+  } else if (texto.startsWith('pedido-')) {
+    await consultarStatusPedido(msg.from, texto.toUpperCase());
+  } else {
+    await enviarMenuPrincipal(msg.from);
+  }
+}
+
+// Botões de resposta: até 3, título com até 20 caracteres (Team e acima).
+async function enviarMenuPrincipal(telefone) {
+  await enviar({
     to: telefone,
     type: 'interactive',
     interactive: {
-      type: 'button',
-      body: {
-        text: "Olá! Seja bem-vindo ao nosso canal. Como podemos te ajudar hoje?\n\n- Digite 'pedido-NUMERO' para rastrear seu pacote\n- Digite 'suporte' para falar com nossa equipe"
-      },
-      action: {
-        buttons: [
-          { type: 'reply', reply: { id: 'btn_pedido', title: 'Consultar Pedido' } },
-          { type: 'reply', reply: { id: 'btn_suporte', title: 'Falar com Atendente' } }
-        ]
-      }
-    }
-  };
-
-  await chamarApiWhatsApp(url, payload);
+      interactiveType: 'button',
+      body: 'Olá! Seja bem-vindo ao nosso canal. Como podemos te ajudar hoje?',
+      buttons: [
+        { id: 'btn_pedido', title: 'Consultar pedido' },
+        { id: 'btn_suporte', title: 'Falar com atendente' },
+      ],
+    },
+  });
 }
 
-/**
- * Encaminha o fluxo para o suporte humano
- */
-async function encaminharSuporte(telefone) {
-  // TODO: Atualizar para o endpoint de produção oficial quando a API oficial for lançada
-  const url = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: telefone,
-    type: 'text',
-    text: {
-      body: "Estou transferindo você para um de nossos especialistas. Aguarde um instante na linha..."
-    }
-  };
-
-  await chamarApiWhatsApp(url, payload);
-  // Lógica complementar: disparar evento webhook para direcionar a conversa no Zendesk/RD Station
-}
-
-/**
- * Consulta status de pedidos simulados do banco
- */
 async function consultarStatusPedido(telefone, codigo) {
-  // TODO: Atualizar para o endpoint de produção oficial
-  const url = 'https://api.startmessaging.com/v1/messages';
-
-  // Simulação de retorno de banco de dados
-  const infoEntrega = `Pedido ${codigo}:\nStatus: A caminho\nEntrega estimada: 18/06/2026\nTransportadora: Correios`;
-
-  const payload = {
-    to: telefone,
-    type: 'text',
-    text: {
-      body: infoEntrega
-    }
-  };
-
-  await chamarApiWhatsApp(url, payload);
+  // Substitua pela consulta ao seu banco de dados
+  const info = `Pedido ${codigo}:\nStatus: A caminho\nEntrega estimada: 18/10/2026\nTransportadora: Correios`;
+  await enviar({ to: telefone, type: 'text', text: { body: info } });
 }
 
-/**
- * Resposta de fallback quando o comando não é reconhecido
- */
-async function enviarOpcaoPadrao(telefone) {
-  // TODO: Atualizar para o endpoint de produção oficial
-  const url = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: telefone,
+async function passarParaAtendente(msg) {
+  await enviar({
+    to: msg.from,
     type: 'text',
-    text: {
-      body: "Não entendi sua mensagem. Por favor, envie 'menu' para ver as opções disponíveis."
-    }
-  };
+    text: { body: 'Estou transferindo você para um de nossos especialistas. Aguarde um instante...' },
+  });
 
-  await chamarApiWhatsApp(url, payload);
+  // Atribui a conversa a um membro da equipe (escopo conversations:write, caixa de entrada no plano).
+  await fetch(`${API}/conversations/${msg.conversationId}`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ assignedToUserId: process.env.ID_ATENDENTE_PLANTAO, status: 'open' }),
+  });
 }
 
-/**
- * Função utilitária de chamada de rede
- */
-async function chamarApiWhatsApp(endpoint, payload) {
-  try {
-    await axios.post(endpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-  } catch (err) {
-    console.error('Erro de envio via API:', err.response ? err.response.data : err.message);
+async function enviar(payload) {
+  const res = await fetch(`${API}/messages`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const { error } = await res.json();
+    console.error(`Erro de envio: ${error.code}: ${error.message}`);
   }
 }
 
-app.listen(3000, () => console.log('Receptor de Webhooks rodando na porta 3000'));
+app.listen(3000, () => console.log('Receptor de webhooks rodando na porta 3000'));
 ```
 
-Este código Express.js escuta as mensagens recebidas na rota `/webhook-whatsapp` e aciona respostas personalizadas para os comandos do cliente, utilizando autenticação por cabeçalho `X-API-Key`.
+As respostas do bot são mensagens de texto livre e interativas, permitidas porque o cliente acabou de escrever (a janela de atendimento de 24 horas está aberta). Fora da janela, a API responde `403 MESSAGE_WINDOW_CLOSED` e você precisa de um modelo aprovado.
 
 ---
 
 ## Integração com Sistemas de CRM e Helpdesk no Brasil
 
-Para operações comerciais estruturadas, o chatbot não deve funcionar de forma isolada. Conectar seu fluxo de mensagens a sistemas de relacionamento com clientes (CRMs) e helpdesks centraliza o histórico de suporte da empresa.
+Para operações comerciais estruturadas, o chatbot não deve funcionar de forma isolada.
 
-As principais integrações recomendadas no cenário corporativo brasileiro são:
-
-* **Integração com CRMs Nacionais (RD Station, HubSpot):** Quando um cliente inicia uma conversa comercial, a integração do chatbot com o RD Station permite criar um lead de forma automática, atualizar sua etapa de funil de vendas e registrar conversões de compras iniciadas a partir do WhatsApp.
-* **Integração com Helpdesks (Zendesk, Freshdesk, Zoho):** Em caso de chamados complexos, o chatbot redireciona a conversa para a fila de atendimento do helpdesk. O atendente humano assume a interação por meio de um painel de chamados centralizado, tendo acesso a todo o histórico de mensagens trocadas com o assistente virtual.
+* **Contatos e funil na própria StartMessaging:** cada número que escreve vira um contato. Pela API você atualiza tags e campos personalizados (`PATCH /api/v1/contacts/{idOrPhone}`) e, no plano Business, move o contato entre etapas do funil de vendas.
+* **CRMs nacionais e internacionais (RD Station, HubSpot):** use o webhook `message.received` para criar ou atualizar o lead no seu CRM e registrar conversões iniciadas no WhatsApp.
+* **Helpdesks (Zendesk, Freshdesk, Zoho):** se a sua equipe já trabalha em um helpdesk, abra o chamado a partir do webhook. Se preferir, a caixa de entrada compartilhada da StartMessaging (Team e acima) mostra ao atendente toda a conversa, as tags e os campos do contato.
 
 ---
 
@@ -248,20 +234,20 @@ As principais integrações recomendadas no cenário corporativo brasileiro são
 
 **Q: Preciso contratar servidores de inteligência artificial caros para iniciar?**
 
-A: Não. Para a maioria das necessidades de suporte operacional de pequenas e médias empresas, um chatbot híbrido baseado em menus e botões de clique rápido é suficiente. Essa solução resolve cerca de 80% das interações rotineiras, sem a necessidade de investimentos em processamento de linguagem natural (NLP).
+A: Não. Para a maioria das necessidades de suporte operacional de pequenas e médias empresas, um chatbot baseado em botões e listas é suficiente e não exige investimentos em processamento de linguagem natural. No plano Business, você monta esse fluxo sem código no painel.
 
 **Q: Qual o tempo de resposta aceitável para o cliente brasileiro no WhatsApp?**
 
-A: O consumidor brasileiro espera respostas imediatas no WhatsApp. Para interações gerenciadas por chatbots, o ideal é que o tempo de retorno seja menor do que 3 segundos. Para transições humanas, o tempo de espera inicial na fila deve ser mantido abaixo de 5 minutos.
+A: O consumidor brasileiro espera respostas imediatas no WhatsApp. Para interações automatizadas, responda em poucos segundos. Para transições humanas, mantenha o tempo de espera inicial na fila baixo, de preferência poucos minutos.
 
-**Q: O WhatsApp cobra tarifas adicionais por mensagens enviadas pelo chatbot?**
+**Q: O WhatsApp cobra pelas mensagens enviadas pelo chatbot?**
 
-A: A cobrança é feita pelo modelo de sessões de conversação de 24 horas. Se o cliente iniciar o contato, sua primeira resposta abre uma sessão de suporte (Service Conversation). Durante as 24 horas seguintes, o envio de mensagens pelo chatbot ou atendentes humanos não gera custos adicionais.
+A: Desde 1º de outubro de 2026, a Meta cobra por mensagem entregue, não mais por conversa de 24 horas. Respostas de atendimento (texto livre, mídia e mensagens interativas) dentro da janela de 24 horas são gratuitas até uma cota mensal por número de telefone; depois disso, a Meta também as cobra. Todo modelo entregue é cobrado, inclusive os de utilidade dentro da janela. Se o cliente chegou por um anúncio de clique para WhatsApp ou pelo botão de uma Página do Facebook e você responde em até 24 horas, abre-se uma janela de ponto de entrada gratuito de 72 horas. A Meta cobra diretamente na sua Conta do WhatsApp Business; a StartMessaging não cobra por mensagem. Veja as tarifas na [página oficial de preços da Meta](https://developers.facebook.com/docs/whatsapp/pricing).
 
 **Q: Posso enviar anexos, como PDFs ou imagens de comprovantes Pix, pelo chatbot?**
 
-A: Sim. A API oficial do WhatsApp Business oferece suporte nativo para mensagens multimídia. Você pode configurar o chatbot para enviar comprovantes de entrega, faturas em formato PDF ou imagens promocionais de produtos, utilizando URLs públicas hospedadas em servidores seguros.
+A: Sim. Envie `type` `image`, `document`, `video` ou `audio` com `media.url` apontando para um arquivo público em `https`. O WhatsApp baixa o arquivo do seu link na entrega. Mídias também exigem a janela de 24 horas aberta.
 
 ---
 
-Desenvolver um fluxo de chatbot estruturado no WhatsApp melhora o atendimento comercial de sua empresa e reduz custos de suporte. Ao integrar canais de atendimento humano e tratar requisições em tempo real por meio de webhooks, você constrói uma experiência confiável para seus clientes. Para configurar e validar a integridade de seu webhook de eventos, confira nosso guia de [configuração de webhooks do WhatsApp](/br/docs/whatsapp/webhooks) e gerencie o fluxo de mensagens de sua plataforma.
+Desenvolver um fluxo de chatbot estruturado no WhatsApp melhora o atendimento comercial de sua empresa e reduz custos de suporte. Para começar, configure os [webhooks do WhatsApp](/br/docs/whatsapp/webhooks), veja os tipos de mensagem em [enviar mensagens](/br/docs/whatsapp/send-message) ou conheça o [construtor de chatbot sem código](/br/whatsapp/chatbot) e os [planos](/br/pricing).

@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-10-07",
   "seo": {
     "title": {
       "en": "Business Use Cases — StartMessaging",
@@ -109,13 +109,12 @@
               "ng": "Customer Support"
             },
             "description": {
-              "en": "24/7 automated support with chatbots, ticket updates, and seamless agent handoff.",
-              "pt": "Suporte automatizado 24/7 com chatbots, atualizações de chamados e transferência perfeita para agentes.",
-              "es": "Soporte automatizado 24/7 con chatbots, actualizaciones de tickets y transferencia a agentes.",
-              "id": "Dukungan otomatis 24/7 dengan chatbot, pembaruan tiket, dan serah terima agen yang mulus.",
-              "ar": "دعم مؤتمت على مدار الساعة طوال أيام الأسبوع مع الشات بوت وتحديثات التذاكر وتحويل سلس للموظف.",
-              "tr": "Chatbot'lar, bilet güncellemeleri ve sorunsuz temsilci devri ile 7/24 otomatik destek.",
-              "ng": "24/7 automated support with chatbots, ticket updates, and seamless agent handoff."
+              "en": "A shared team inbox, no-code chatbot flows and agent handoff with round-robin assignment.",
+              "pt": "Caixa de entrada compartilhada, fluxos de chatbot sem código e transferência para agentes com atribuição em rodízio.",
+              "es": "Bandeja de entrada compartida, flujos de chatbot sin código y transferencia a agentes con asignación rotativa.",
+              "id": "Kotak masuk tim bersama, alur chatbot tanpa kode, dan serah terima ke agen dengan penugasan bergilir.",
+              "ar": "صندوق وارد مشترك للفريق، وتدفقات شات بوت بدون كود، وتحويل إلى الموظفين مع توزيع دوري.",
+              "tr": "Paylaşılan ekip gelen kutusu, kodsuz chatbot akışları ve sıralı atamalı temsilci devri."
             },
             "href": "/use-cases/customer-support",
             "icon": "headset"
@@ -131,13 +130,12 @@
               "ng": "Marketing Campaigns"
             },
             "description": {
-              "en": "Promotional broadcasts, product launches, seasonal sales, and re-engagement campaigns with 98% open rates.",
-              "pt": "Transmissões promocionais, lançamentos de produtos e campanhas de reengajamento com taxa de abertura de 98%.",
-              "es": "Difusiones promocionales, lanzamientos de productos y campañas de reactivación con tasa de apertura del 98%.",
-              "id": "Siaran promosi, peluncuran produk, penjualan musiman, dan kampanye re-engagement dengan tingkat buka 98%.",
-              "ar": "رسائل بث ترويجية وإطلاق المنتجات والخصومات الموسمية وحملات إعادة التفاعل بمعدل فتح 98%.",
-              "tr": "%98 açılma oranıyla tanıtım yayınları, ürün lansmanları, sezonluk indirimler ve yeniden etkileşim kampanyaları.",
-              "ng": "Promotional broadcasts, product launches, seasonal sales, and re-engagement campaigns with 98% open rates."
+              "en": "Promotional campaigns, product launches, seasonal sales and re-engagement, sent as approved templates to opted-in contacts.",
+              "pt": "Campanhas promocionais, lançamentos de produtos, promoções sazonais e reengajamento, enviados como templates aprovados para contatos com opt-in.",
+              "es": "Campañas promocionales, lanzamientos de productos, ventas de temporada y reactivación, enviadas como plantillas aprobadas a contactos con consentimiento.",
+              "id": "Kampanye promosi, peluncuran produk, promo musiman, dan re-engagement, dikirim sebagai templat yang disetujui ke kontak yang sudah opt-in.",
+              "ar": "حملات ترويجية وإطلاق منتجات وتخفيضات موسمية وإعادة تفاعل، تُرسل كقوالب معتمدة إلى جهات الاتصال الموافقة.",
+              "tr": "Onaylı şablonlar olarak izin vermiş kişilere gönderilen tanıtım kampanyaları, ürün lansmanları, sezonluk indirimler ve yeniden etkileşim."
             },
             "href": "/use-cases/marketing-campaigns",
             "icon": "megaphone"
@@ -175,16 +173,18 @@
               "ng": "OTP Authentication"
             },
             "description": {
-              "en": "User verification, two-factor authentication, and secure login via WhatsApp OTP with SMS fallback.",
-              "pt": "Verificação de usuário, autenticação de dois fatores e login seguro via WhatsApp OTP com fallback para SMS.",
-              "es": "Verificación de usuario, autenticación de dos factores y login seguro vía WhatsApp OTP con respaldo de SMS.",
-              "id": "Verifikasi pengguna, autentikasi dua faktor, dan login aman melalui OTP WhatsApp dengan cadangan SMS.",
-              "ar": "التحقق من المستخدمين، والمصادقة الثنائية، وتسجيل الدخول الآمن عبر OTP واتساب مع رسائل SMS احتياطية.",
-              "tr": "WhatsApp OTP ve SMS yedekleme ile kullanıcı doğrulama, iki faktörlü kimlik doğrulama ve güvenli giriş.",
-              "ng": "User verification, two-factor authentication, and secure login via WhatsApp OTP with SMS fallback."
+              "en": "User verification, two-factor authentication and secure login with SMS OTP, or WhatsApp authentication templates.",
+              "pt": "Verificação de usuário, autenticação de dois fatores e login seguro com OTP por SMS ou templates de autenticação do WhatsApp.",
+              "es": "Verificación de usuario, autenticación de dos factores e inicio de sesión seguro con OTP por SMS o plantillas de autenticación de WhatsApp.",
+              "id": "Verifikasi pengguna, autentikasi dua faktor, dan login aman dengan OTP SMS atau templat autentikasi WhatsApp.",
+              "ar": "التحقق من المستخدمين والمصادقة الثنائية وتسجيل الدخول الآمن عبر OTP بالـ SMS أو قوالب المصادقة في واتساب.",
+              "tr": "SMS OTP veya WhatsApp kimlik doğrulama şablonlarıyla kullanıcı doğrulama, iki faktörlü kimlik doğrulama ve güvenli giriş."
             },
             "href": "/use-cases/otp-authentication",
-            "icon": "lock"
+            "icon": "lock",
+            "countries": [
+              "in"
+            ]
           }
         ]
       }
@@ -211,13 +211,12 @@
           "ng": "StartMessaging vs. Legacy Systems vs. Custom Builds"
         },
         "subheading": {
-          "en": "Compare integration velocity, delivery speeds, and maintenance overhead for business communications.",
-          "pt": "Compare velocidade de integração, entrega e custos de manutenção para comunicação corporativa.",
-          "es": "Compare la velocidad de integración, la entrega y los costos de mantenimiento para la comunicación.",
-          "id": "Bandingkan kecepatan integrasi, kecepatan pengiriman, dan biaya pemeliharaan untuk komunikasi bisnis.",
-          "ar": "قارن سرعة التكامل وسرعات التسليم وتكاليف الصيانة للاتصالات التجارية.",
-          "tr": "Kurumsal iletişim için entegrasyon hızını, teslimat hızlarını ve bakım maliyetlerini karşılaştırın.",
-          "ng": "Compare integration velocity, delivery speeds, and maintenance overhead for business communications."
+          "en": "Compare integration effort, delivery tracking, compliance and maintenance for business messaging.",
+          "pt": "Compare esforço de integração, rastreamento de entregas, conformidade e manutenção na comunicação corporativa.",
+          "es": "Compare el esfuerzo de integración, el seguimiento de entregas, el cumplimiento y el mantenimiento de la mensajería empresarial.",
+          "id": "Bandingkan upaya integrasi, pelacakan pengiriman, kepatuhan, dan pemeliharaan untuk pesan bisnis.",
+          "ar": "قارن جهد التكامل وتتبع التسليم والامتثال والصيانة لرسائل الأعمال.",
+          "tr": "Kurumsal mesajlaşmada entegrasyon çabasını, teslimat takibini, uyumluluğu ve bakımı karşılaştırın."
         },
         "columns": [
           {
@@ -278,19 +277,18 @@
               "ng": "Integration Speed"
             },
             {
-              "en": "Minutes (Single unified API)",
-              "pt": "Minutos (API única unificada)",
-              "es": "Minutos (API única unificada)",
-              "id": "Menit (Satu API terpadu)",
-              "ar": "دقائق (واجهة برمجة موحدة واحدة)",
-              "tr": "Dakikalar (Tek bir birleşik API)",
-              "ng": "Minutes (Single unified API)"
+              "en": "Minutes (REST APIs with copy-paste examples)",
+              "pt": "Minutos (APIs REST com exemplos prontos)",
+              "es": "Minutos (APIs REST con ejemplos listos para copiar)",
+              "id": "Menit (REST API dengan contoh siap salin)",
+              "ar": "دقائق (واجهات REST مع أمثلة جاهزة للنسخ)",
+              "tr": "Dakikalar (kopyala-yapıştır örnekli REST API'ler)"
             },
             {
               "en": "Weeks (Complex provider setups)",
               "pt": "Semanas (Configuração complexa)",
               "es": "Semanas (Configuración compleja)",
-              "id": "Semanas (Configuración compleja)",
+              "id": "Minggu (Penyiapan penyedia yang rumit)",
               "ar": "أسابيع (إعدادات مزود الخدمة المعقدة)",
               "tr": "Haftalar (Karmaşık sağlayıcı kurulumları)",
               "ng": "Weeks (Complex provider setups)"
@@ -307,40 +305,36 @@
           ],
           [
             {
-              "en": "Multi-Channel Fallback",
-              "pt": "Fallback Multicanal",
-              "es": "Respaldo Multicanal",
-              "id": "Fallback Multi-Saluran",
-              "ar": "بدائل قنوات متعددة",
-              "tr": "Çok Kanallı Yedekleme",
-              "ng": "Multi-Channel Fallback"
+              "en": "Delivery Tracking",
+              "pt": "Rastreamento de Entrega",
+              "es": "Seguimiento de Entrega",
+              "id": "Pelacakan Pengiriman",
+              "ar": "تتبع التسليم",
+              "tr": "Teslimat Takibi"
             },
             {
-              "en": "✓ (WhatsApp to SMS auto-fallback)",
-              "pt": "✓ (Fallback automático WhatsApp para SMS)",
-              "es": "✓ (Respaldo automático de WhatsApp a SMS)",
-              "id": "✓ (Fallback otomatis WhatsApp ke SMS)",
-              "ar": "✓ (تحويل تلقائي من واتساب إلى SMS)",
-              "tr": "✓ (WhatsApp'tan SMS'e otomatik yedekleme)",
-              "ng": "✓ (WhatsApp to SMS auto-fallback)"
+              "en": "✓ (Signed webhooks with your own reference)",
+              "pt": "✓ (Webhooks assinados com sua própria referência)",
+              "es": "✓ (Webhooks firmados con su propia referencia)",
+              "id": "✓ (Webhook bertanda tangan dengan referensi Anda sendiri)",
+              "ar": "✓ (ويب هوك موقّعة مع مرجعك الخاص)",
+              "tr": "✓ (Kendi referansınızı taşıyan imzalı webhook'lar)"
             },
             {
-              "en": "✗ (Requires custom coding)",
-              "pt": "✗ (Exige programação personalizada)",
-              "es": "✗ (Requiere programación personalizada)",
-              "id": "✗ (Memerlukan coding kustom)",
-              "ar": "✗ (يتطلب برمجة مخصصة)",
-              "tr": "✗ (Özel kodlama gerektirir)",
-              "ng": "✗ (Requires custom coding)"
+              "en": "✗ (Build and host it yourself)",
+              "pt": "✗ (Você constrói e hospeda)",
+              "es": "✗ (Debe construirlo y alojarlo usted)",
+              "id": "✗ (Bangun dan host sendiri)",
+              "ar": "✗ (تبنيه وتستضيفه بنفسك)",
+              "tr": "✗ (Kendiniz kurar ve barındırırsınız)"
             },
             {
-              "en": "✗ (Manual routing configurations)",
-              "pt": "✗ (Configuração manual de rotas)",
-              "es": "✗ (Configuración manual de rutas)",
-              "id": "✗ (Konfigurasi perutean manual)",
-              "ar": "✗ (تكوينات توجيه يدوية)",
-              "tr": "✗ (Manuel yönlendirme yapılandırmaları)",
-              "ng": "✗ (Manual routing configurations)"
+              "en": "Basic delivery reports",
+              "pt": "Relatórios de entrega básicos",
+              "es": "Informes de entrega básicos",
+              "id": "Laporan pengiriman dasar",
+              "ar": "تقارير تسليم أساسية",
+              "tr": "Temel teslimat raporları"
             }
           ],
           [
@@ -354,13 +348,12 @@
               "ng": "Compliance Guards"
             },
             {
-              "en": "✓ (Auto DLT & Opt-in check)",
-              "pt": "✓ (Verificação automática de DLT e Opt-in)",
-              "es": "✓ (Verificación automática de DLT y Opt-in)",
-              "id": "✓ (Verifikasi DLT & Opt-in otomatis)",
-              "ar": "✓ (تحقق تلقائي من DLT والاشتراك)",
-              "tr": "✓ (Otomatik DLT ve onay kontrolü)",
-              "ng": "✓ (Auto DLT & Opt-in check)"
+              "en": "✓ (Opt-outs enforced; DLT templates for SMS)",
+              "pt": "✓ (Descadastros respeitados; templates DLT para SMS)",
+              "es": "✓ (Bajas respetadas; plantillas DLT para SMS)",
+              "id": "✓ (Opt-out ditegakkan; templat DLT untuk SMS)",
+              "ar": "✓ (تطبيق إلغاء الاشتراك؛ قوالب DLT لرسائل SMS)",
+              "tr": "✓ (Abonelikten çıkmalar uygulanır; SMS için DLT şablonları)"
             },
             {
               "en": "✗ (User-maintained compliance)",
@@ -392,13 +385,12 @@
               "ng": "Ongoing Maintenance"
             },
             {
-              "en": "Zero (Managed API updates)",
-              "pt": "Zero (Atualizações gerenciadas da API)",
-              "es": "Cero (Actualizaciones gestionadas de API)",
-              "id": "Nol (Pembaruan API yang dikelola)",
-              "ar": "صفر (تحديثات واجهة برمجة مدارة)",
-              "tr": "Sıfır (Yönetilen API güncellemeleri)",
-              "ng": "Zero (Managed API updates)"
+              "en": "Low (we track Meta and operator changes)",
+              "pt": "Baixa (acompanhamos as mudanças da Meta e das operadoras)",
+              "es": "Baja (seguimos los cambios de Meta y de los operadores)",
+              "id": "Rendah (kami memantau perubahan Meta dan operator)",
+              "ar": "منخفضة (نتابع تغييرات Meta والمشغلين)",
+              "tr": "Düşük (Meta ve operatör değişikliklerini biz takip ederiz)"
             },
             {
               "en": "High (API provider updates)",

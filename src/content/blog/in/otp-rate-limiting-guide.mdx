@@ -2,7 +2,7 @@
 title: "How to Rate Limit OTP Requests Properly"
 description: "Learn proven rate limiting strategies for OTP APIs: per-phone, per-IP, and sliding window approaches to prevent SMS pumping and brute force attacks."
 publishedAt: "2026-01-24"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: guides
 country: "in"
 author: "StartMessaging Team"
@@ -360,9 +360,9 @@ For the user-facing experience, show a clear message with a countdown timer.
 
 
 
-- **Per-phone rate limits** that match the thresholds described above, tuned for the Indian market.
+- **Per-phone rate limits** of 3 OTPs per number every 5 minutes; further sends return `429 Too Many Requests`.
 - **Per-IP rate limits** with CGNAT-aware thresholds to avoid false positives on mobile networks.
-- **Global rate limits** per API key, with configurable thresholds available on request.
+- **Account-wide throughput limits** of 20 requests per second (1,200 per minute), with higher limits available on request.
 - **Automatic SMS pumping detection** that identifies suspicious patterns (random number sequences, high-rate international numbers) and blocks them before delivery.
 
 

@@ -2,7 +2,7 @@
 title: "How to Design OTP Flows That Stop Social Engineering"
 description: "Learn how to design otp social engineering india developer defenses. A technical guide on secure OTP screen copy, backend rate limiting, and device binding."
 publishedAt: "2026-07-16"
-updatedAt: "2026-07-16"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "in"
 author: "StartMessaging Team"
@@ -195,10 +195,12 @@ app.post('/api/otp/request', rateLimitOTP, async (req, res) => {
     await redisClient.expire(dailyKey, 86400); // 24 hours
   }
 
-  // Build transaction-specific context
-  let messageText = `Your PaySwift verification OTP is ${otpCode}.`;
+  // Pick a transaction-specific template
+  let templateId = 'YOUR_LOGIN_TEMPLATE_ID'; // "Your PaySwift verification OTP is ..."
+  const variables = { otp: otpCode, appName: 'PaySwift' };
   if (purpose === 'TRANSFER' && amount && payee) {
-    messageText = `OTP for ₹${amount} transfer to ${payee} is ${otpCode}. Valid for 5 min. Do not share.`;
+    templateId = 'YOUR_TRANSFER_TEMPLATE_ID'; // "OTP for ₹{amount} transfer to {payee} is ... Do not share."
+    Object.assign(variables, { amount, payee }); // Custom placeholders in your template
   }
 
   try {
@@ -210,10 +212,8 @@ app.post('/api/otp/request', rateLimitOTP, async (req, res) => {
       },
       body: JSON.stringify({
         phoneNumber,
-        variables: {
-          otp: otpCode,
-          customText: messageText // If using non-DLT flexible formatting
-        }
+        templateId,
+        variables
       })
     });
 
@@ -339,4 +339,4 @@ By implementing these rate limits and updating the OTP screen copy, Priya resolv
 
 Securing your authentication flows requires going beyond telling users not to share their codes—it requires designing systems that make fraud structurally difficult to execute. 
 
-StartMessaging helps developers build secure authentication systems, offering low-latency, direct-route OTP delivery, fixed DLT sender IDs, and WhatsApp OTP fallbacks. [Register for a StartMessaging account](https://app.startmessaging.com/register) to access secure OTP delivery in India for ₹0.25 per OTP.
+StartMessaging helps developers build secure authentication systems, offering low-latency, direct-route OTP delivery, fixed DLT sender IDs, and a separate [WhatsApp API](/whatsapp/api) for sending OTPs with authentication templates. [Register for a StartMessaging account](https://app.startmessaging.com/register) to access secure OTP delivery in India for ₹0.25 per OTP.

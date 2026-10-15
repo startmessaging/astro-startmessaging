@@ -4,6 +4,15 @@
  * For WhatsApp: links to external pricing PDF/Excel.
  * For SMS (India): shows ₹0.25/transactional SMS.
  * Plans: Free (Pay-as-you-go), Premium, Enterprise.
+ * Optional per-plan props: `priceLabel` (text shown instead of a price when
+ * `price` is absent, e.g. "Pricing coming soon"), `secondaryCtaLabel` /
+ * `secondaryCtaHref` (ghost button under the primary CTA), `priceNote` (small
+ * line under the price, e.g. the yearly price), `tiers` (a list of sizes, each
+ * `{ label, detail?, price }`, shown under the price).
+ * Optional section props: `showPrices` (true shows WhatsApp prices as they are
+ * — no blur, no "to be determined" notice; default false keeps the old
+ * behaviour), `columns` (3 default, or 4) and `note` (centred line under the
+ * cards).
  *
  * Example JSON:
  * {
@@ -26,6 +35,7 @@ import Text from '@/components/ui/Text.astro';
 import Badge from '@/components/ui/Badge.astro';
 import Button from '@/components/ui/Button.astro';
 import { r } from '@/i18n/r';
+import { waSignupOpen } from '@/lib/constants';
 
 const {
   badge,
@@ -37,8 +47,21 @@ const {
   showSms = false,
   // currency is passed via $currency placeholder but rendered inside plan.price strings
   smsNote,
+  showPrices = false,
+  columns = 3,
+  note,
   country,
 } = Astro.props;
+
+const hidePrices = isWhatsappTheme() && !showPrices;
+function isWhatsappTheme() {
+  const t = Astro.props.theme || 'sms';
+  if (country !== 'in') return true;
+  return t === 'whatsapp' || Astro.url.pathname.includes('/whatsapp');
+}
+const gridClass = columns === 4
+  ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto mb-10 overflow-visible'
+  : 'grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10 overflow-visible';
 
 // Determine theme dynamically based on country and url pathname / page content
 let theme = Astro.props.theme || 'sms';
@@ -74,7 +97,7 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
     )}
 
     {/* Plan cards */}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10 overflow-visible">
+    <div class={gridClass}>
       {plans.map((plan: any) => {
         const isPopular = plan.popular;
         return (
@@ -92,7 +115,7 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
               {r(plan.name, country)}
             </Heading>
 
-            {isWhatsapp && (
+            {hidePrices && !plan.priceLabel && (
               <div class="mb-3 bg-amber-500/10 text-amber-600 text-[11px] font-bold px-2.5 py-1 rounded inline-block border border-amber-500/20">
                 {r({
                   en: "Pricing to be determined — launching soon",
@@ -107,19 +130,45 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
             )}
 
             <div class="mb-4 relative">
+              {!plan.price && plan.priceLabel && (
+                <span class="text-title-lg font-semibold text-ink">{r(plan.priceLabel, country)}</span>
+              )}
               {plan.price && (
                 <span class:list={[
                   "text-display-sm font-bold text-ink",
-                  isWhatsapp && "blur-sm select-none"
+                  hidePrices && "blur-sm select-none"
                 ]}>{r(plan.price, country)}</span>
               )}
               {plan.period && (
                 <span class:list={[
                   "text-body-sm text-muted ml-1",
-                  isWhatsapp && "blur-sm select-none"
+                  hidePrices && "blur-sm select-none"
                 ]}>{r(plan.period, country)}</span>
               )}
+              {plan.priceNote && (
+                <Text size="body-sm" tone="muted" class:list={["mt-1", hidePrices && "blur-sm select-none"]}>
+                  {r(plan.priceNote, country)}
+                </Text>
+              )}
             </div>
+
+            {plan.tiers && plan.tiers.length > 0 && (
+              <ul class:list={[
+                "mb-4 flex flex-col divide-y rounded-md border",
+                isWhatsapp ? "border-accent-wa/15 divide-accent-wa/10" : "border-hairline divide-hairline",
+                hidePrices && "blur-sm select-none"
+              ]}>
+                {plan.tiers.map((tier: any) => (
+                  <li class="flex items-baseline justify-between gap-3 px-3 py-2">
+                    <span class="flex flex-col">
+                      <Text as="span" size="body-sm" tone="body" class="font-medium">{r(tier.label, country)}</Text>
+                      {tier.detail && <Text as="span" size="body-sm" tone="muted">{r(tier.detail, country)}</Text>}
+                    </span>
+                    <Text as="span" size="body-sm" tone="body" class="font-semibold whitespace-nowrap">{r(tier.price, country)}</Text>
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <Text size="body-sm" tone="muted" class="mb-6">
               {r(plan.description, country)}
@@ -140,7 +189,7 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
 
             <div class="mt-auto">
               <Button
-                href={plan.ctaHref || 'https://app.startmessaging.com/signup'}
+                href={plan.ctaHref || (waSignupOpen(country) ? 'https://app.startmessaging.com/signup' : `/${country}/contact`)}
                 variant={isPopular ? 'primary' : 'secondary'}
                 size="md"
                 class:list={[
@@ -152,6 +201,16 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
               >
                 {r(plan.ctaLabel || { en: 'Get Started' }, country)}
               </Button>
+              {plan.secondaryCtaLabel && (
+                <Button
+                  href={plan.secondaryCtaHref || '/contact'}
+                  variant="ghost"
+                  size="md"
+                  class:list={["w-full justify-center mt-2", isWhatsapp && "hover:!bg-accent-wa/[0.06] !text-accent-wa"]}
+                >
+                  {r(plan.secondaryCtaLabel, country)}
+                </Button>
+              )}
             </div>
           </div>
         );
@@ -168,6 +227,13 @@ const pricingLinkClass = isWhatsapp ? 'hover:!bg-accent-wa/[0.06] !text-accent-w
           {r(smsNote, country)}
         </Text>
       </div>
+    )}
+
+    {/* Note under the cards (e.g. currency and tax) */}
+    {note && (
+      <Text size="body-sm" tone="muted" class="text-center max-w-3xl mx-auto mb-6">
+        {r(note, country)}
+      </Text>
     )}
 
     {/* WhatsApp pricing link */}

@@ -1,8 +1,8 @@
 ---
-title: "WhatsApp OTP for Indian Developers: Templates, Autofill, and Fallback"
-description: "A complete 2026 developer guide to WhatsApp OTP in India. Covers Meta authentication templates, iOS 26 autofill, Node.js code, and SMS fallback."
+title: "WhatsApp OTP in India: Developer Guide with an SMS OTP Backup"
+description: "Send WhatsApp OTPs in India with Meta authentication templates and the StartMessaging API, then call our separate SMS OTP API when WhatsApp delivery fails."
 publishedAt: "2026-06-26"
-updatedAt: "2026-06-26"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "in"
 author: "StartMessaging Team"
@@ -13,7 +13,7 @@ keywords:
   - "send otp via whatsapp india"
   - "whatsapp authentication template india"
   - "whatsapp otp autofill android india"
-  - "whatsapp otp fallback sms india"
+  - "whatsapp otp sms backup india"
   - "whatsapp otp cost india 2026"
   - "dlt free otp india whatsapp"
   - "whatsapp otp node.js india"
@@ -26,18 +26,18 @@ featured: true
 image: "/blog/images/whatsapp-otp-india-developer-guide-authentication-template-sms-fallback.webp"
 ---
 
-Vikram sat back in his chair at 11:45 PM, staring at the metrics dashboard for RupeeFlow, a Bengaluru-based neo-banking startup. The sign-up funnel conversion chart was bleeding red. Over the last 30 days, the platform had lost nearly 14% of onboarding users at the mobile verification step. The cause wasn't a broken frontend UI or slow database queries; it was SMS OTP latency. Jio and Airtel subscribers in tier-2 cities were regularly waiting up to 45 seconds for their 6-digit codes to arrive. Many just closed the app. Even worse, the startup’s monthly SMS bill was scaling faster than actual transaction volume, driven by rising telecom carrier rates and aggressive OTP pumping bots. Vikram knew they needed an alternative, and WhatsApp OTP was the obvious candidate.
+Vikram sat back in his chair at 11:45 PM, staring at the metrics dashboard for RupeeFlow, a Bengaluru-based neo-banking startup. The sign-up funnel conversion chart was bleeding red. Over the last 30 days, the platform had lost nearly 14% of onboarding users at the mobile verification step. The cause wasn't a broken frontend UI or slow database queries; it was SMS OTP latency. Jio and Airtel subscribers in tier-2 cities were regularly waiting up to 45 seconds for their 6-digit codes to arrive. Many just closed the app. Vikram knew they needed another channel, and WhatsApp OTP was the obvious candidate.
 
-But switching authentication channels is never a drop-in replacement. As Vikram’s team soon discovered, moving to WhatsApp OTP in the Indian market requires navigating Meta's strict authentication template rules, understanding the 2026 push notification autofill changes on iOS and Android, handling the 10% of users who do not have WhatsApp installed, and avoiding the costly international WABA pricing trap. This guide breaks down the exact steps, architectural decisions, and Node.js code required to implement a production-grade WhatsApp OTP flow with a secure SMS fallback cascade.
+But switching authentication channels is never a drop-in replacement. As Vikram's team soon discovered, moving to WhatsApp OTP in India means working within Meta's fixed authentication template format, understanding how autofill works on Android and iOS, handling the users who do not have WhatsApp, and knowing how Meta prices authentication messages. This guide covers the decisions and the Node.js code for a production-grade WhatsApp OTP flow, plus how your backend can switch to StartMessaging's separate SMS OTP API when a WhatsApp code can't be delivered.
 
 ---
 
 ## Why Indian Developers Are Moving to WhatsApp OTP in 2026
 
-The shift from traditional SMS OTP to WhatsApp verification in India is driven by three main factors: developer friction, transactional costs, and delivery performance. However, designing a reliable authentication system means evaluating these advantages against real-world limitations.
+The shift from SMS OTP to WhatsApp verification in India comes down to three things: developer friction, delivery experience and cost. A reliable authentication system weighs these against real limits.
 
 ### Bypassing the DLT Bureaucracy
-For any developer who has set up SMS verification in India, the Distributed Ledger Technology (DLT) mandate is a source of constant friction. (See our [step-by-step DLT registration guide](/blog/dlt-registration-step-by-step-india) or learn how to write compliant [DLT template variables](/blog/dlt-template-variables-rules-india)). Mandated by the Telecom Regulatory Authority of India (TRAI), DLT registration requires entity verification, header (sender ID) approvals, and strict content template scrubbing. 
+For any developer who has set up SMS verification in India, the Distributed Ledger Technology (DLT) mandate is a source of constant friction. (See our [step-by-step DLT registration guide](/blog/dlt-registration-step-by-step-india) or learn how to write compliant [DLT template variables](/blog/dlt-template-variables-rules-india)). Mandated by the Telecom Regulatory Authority of India (TRAI), DLT registration requires entity verification, header (sender ID) approvals, and strict content template scrubbing.
 Under the DLT system, if you want to tweak a single word in your SMS OTP text, you must submit it to the DLT portal (such as Jio, VIL, or BSNL DLT) and wait anywhere from 48 hours to 2 weeks for approval. If you send an OTP message that deviates by even a single whitespace character from the approved template, the telecom carriers scrub and block it at the gateway. The headers themselves are constrained by strict 6-character alphabetic rules (e.g., `AD-RPFLOW`), which are hard to reserve and manage.
 
 ```
@@ -45,116 +45,78 @@ SMS DLT Flow:
 [Submit Template to DLT] ➔ [Wait 2-14 Days for Manual Review] ➔ [Approve Header] ➔ [TRAI Gatekeeper Scrubbing] ➔ [Strict Match Block on Handset]
 
 WhatsApp Flow:
-[Submit Meta Template] ➔ [Auto-Scanned by Meta AI Console] ➔ [Approved in < 1 Hour] ➔ [Direct API Send via BSP]
+[Create authentication template in the dashboard] ➔ [Meta reviews it] ➔ [Approved] ➔ [Send with POST /api/v1/messages]
 ```
 
-WhatsApp completely bypasses the DLT gateway. Meta's template approval process is programmatic and automated. Because authentication templates follow a pre-approved, standardized structure, approvals typically take less than 10 minutes, allowing engineering teams to ship updates rapidly. There are no principal entity registrations (PE-ID) to link to headers, and no carrier-level message filtering to debug.
+WhatsApp messages are not part of the DLT system. Authentication templates are sent over Meta's WhatsApp Business Platform, so TRAI's DLT registration, which applies to SMS, is not needed for them. There are no principal entity registrations (PE-ID) to link to headers. You still need the user's consent and a Meta-approved authentication template. Meta reviews every template and sets the review time; because Meta writes the body text of an authentication template itself, there is little for you to get wrong.
 
-### The Cost Equation (Including 18% GST)
-For high-volume applications, cost is the deciding factor. In India, the cost of a transactional SMS OTP fluctuates between ₹0.12 and ₹0.25 depending on your aggregator, routing quality, and volume commitments. 
+### The Cost Equation
+For high-volume applications, cost is often the deciding factor, and the two channels are priced differently:
 
-In contrast, Meta’s official utility and authentication rates in the Indian market are highly competitive. As of 2026, a delivered WhatsApp authentication message costs approximately ₹0.115.
+- **SMS OTP:** a per-message price from your SMS provider. StartMessaging's non-DLT SMS for India is a flat [₹0.25 per SMS](/pricing).
+- **WhatsApp OTP:** Meta charges every delivered authentication template at its authentication rate, which varies by country, and bills it **directly to your own WhatsApp Business Account** using the payment method you add in WhatsApp Manager. StartMessaging adds nothing per message: you pay only for your StartMessaging plan.
 
-| Billing Category | SMS OTP (Average Route) | WhatsApp OTP (Authentication) |
+Meta's rates change from time to time, so check [Meta's official WhatsApp pricing](https://developers.facebook.com/docs/whatsapp/pricing) for the current Indian authentication rate rather than relying on a number in a blog post. Each message you send through the API also carries a `pricing` field that shows the category Meta billed it under.
+
+| Billing factor | SMS OTP (StartMessaging, India) | WhatsApp OTP (StartMessaging) |
 | :--- | :--- | :--- |
-| **Base Price per Message** | ₹0.180 | ₹0.115 |
-| **18% GST (India)** | ₹0.032 | ₹0.021 |
-| **Effective Cost per Unit** | ₹0.212 | ₹0.136 |
-| **Est. Monthly Cost (100k Sends)** | ₹21,240 | ₹13,570 |
-| **Est. Monthly Cost (500k Sends)** | ₹1,06,200 | ₹67,850 |
-
-When operating at millions of transactions per month, this price differential translates into direct bottom-line savings. Additionally, unlike SMS where you are billed for *sent* messages (even if they fail to deliver due to network issues, handset power-offs, or SIM inactivation), WhatsApp charges are based on *delivered* conversations, meaning you do not pay for messages that never reach the user's handset.
+| **Per-message charge** | ₹0.25 per SMS | Meta's authentication rate, billed by Meta to your WABA |
+| **StartMessaging per-message fee** | Included in the ₹0.25 | None |
+| **Platform fee** | None | Your StartMessaging plan (Developer Free, or from ₹100/month) |
+| **What Meta charges for** | Not applicable | Delivered messages |
 
 ### Delivery and User Retention
-SMS relies on cellular signal and ss7 signaling protocols. In high-density apartments or basement offices across urban India, cellular signals degrade, causing SMS delivery delays. WhatsApp, running on IP networks, delivers messages over mobile data and Wi-Fi. 
+SMS relies on cellular signal and SS7 signalling. In high-density apartments or basement offices across urban India, cellular signals degrade and SMS delivery can be delayed. WhatsApp runs over IP and delivers over mobile data and Wi-Fi, which helps where SMS filtering or congestion delays codes.
 
-Average delivery latency for a WhatsApp OTP is 2 to 3 seconds, compared to SMS which frequently spikes to 15–30 seconds during peak hours. This speed directly reduces sign-up abandonment rates; if users receive their code instantly, they complete the authentication flow without turning to competitor apps.
-
-However, WhatsApp OTP is not a silver bullet. Roughly 8% to 12% of mobile users in India—predominantly in rural demographics, senior citizen segments, or BSNL-heavy networks—do not have active WhatsApp accounts or use internet-connected smartphones. If your app relies solely on WhatsApp, you lock out these users from the onboarding funnel. For this reason, a secure SMS fallback cascade must be treated as a core architectural requirement, not an optional feature (read more on our [SMS deliverability checklist](/blog/otp-sms-deliverability-checklist) or check our [head-to-head comparison of SMS OTP vs WhatsApp OTP](/blog/sms-otp-vs-whatsapp-otp)).
+WhatsApp OTP is not a silver bullet, though. Some of your users, often in rural areas, older age groups or on basic phones, don't use WhatsApp or are offline when they sign up. If your app relies only on WhatsApp, you lock them out of onboarding. Plan a second channel from the start (read our [SMS deliverability checklist](/blog/otp-sms-deliverability-checklist) or the [head-to-head comparison of SMS OTP vs WhatsApp OTP](/blog/sms-otp-vs-whatsapp-otp)).
 
 ---
 
-## WhatsApp Authentication Templates: Casing, Autofill, and Pitfalls
+## WhatsApp Authentication Templates: Format, Autofill, and Pitfalls
 
-Unlike promotional templates, Meta enforces strict layout rules on authentication templates. You cannot include custom text, URLs, media attachments, or promotional copy. The template must consist solely of the transaction code, an optional security disclaimer, and interactive buttons.
+Unlike marketing or utility templates, authentication templates have a fixed format. You cannot add your own body text, URLs, media or promotional copy.
 
 ### The Template Anatomy
-A standard authentication template comprises:
-1. **Body Text:** A predefined message: `"Your verification code is {{1}}."` or `"{{1}} is your verification code. For your security, do not share this code."`
-2. **Footer:** Optional expiration disclaimer, such as `"This code expires in 10 minutes."`
-3. **Buttons:** Interactive tap targets to help the user complete verification.
+You create an authentication template in the StartMessaging dashboard (**Templates → Create template**). Templates can't be created through the API. Meta writes the message text itself, for example "123456 is your verification code", and you choose:
 
-```json
-{
-  "name": "auth_otp_secure",
-  "category": "AUTHENTICATION",
-  "components": [
-    {
-      "type": "BODY",
-      "text": "Your verification code is {{1}}."
-    },
-    {
-      "type": "FOOTER",
-      "text": "This code expires in 10 minutes."
-    },
-    {
-      "type": "BUTTONS",
-      "buttons": [
-        {
-          "type": "OTP",
-          "otp_type": "COPY_CODE",
-          "text": "Copy Code"
-        }
-      ]
-    }
-  ]
-}
-```
+1. **Language** of the template.
+2. **Security warning:** Meta's optional line, "For your security, do not share this code."
+3. **Code expiry:** an optional line saying how long the code is valid.
+4. **Button:** a **Copy code** button, so nobody has to retype the code.
+
+The template then goes to Meta for review. Only templates with the status `APPROVED` can be sent; anything else answers `422 TEMPLATE_NOT_APPROVED`. The `template.status_updated` webhook tells your system the moment Meta decides.
 
 ### Button Configurations: Copy Code vs. One-Tap Autofill
-Meta offers three primary interactive button options for authentication templates:
 
-1. **Copy Code Button (Universal):** Renders a simple button that, when tapped, copies the 6-digit OTP to the user's clipboard. The user then switches back to your app and pastes the code. This works on all platforms (iOS, Android, Web).
-2. **One-Tap Autofill Button (Android):** When clicked, this button triggers an Android Intent that directly communicates with your application, autofilling the input field and submitting the login form without requiring the user to copy or type anything. This uses the SMS Retriever API equivalent for WhatsApp.
-3. **Zero-Tap Autofill (Android Advanced):** Requires implementing a specific Broadcast Receiver in your Android app code. The app listens for the incoming WhatsApp push notification payload and verifies the number silently in the background.
+1. **Copy code (universal):** a button that copies the code to the clipboard. The user switches back to your app and pastes it. This works on Android and iOS.
+2. **One-tap autofill (Android):** on supported Android apps, a single tap hands the code to your app and fills it in. Meta ties one-tap autofill to your Android app's package name and signing key hash, so only your app receives the code.
 
-To implement One-Tap Autofill on Android, you must configure your Meta template with the app's package name and the SHA-256 hash of your app's signing certificate. This ensures that only your application can intercept the intent containing the code, preventing security interception.
+On iOS, users tap the copy-code button and paste the code into your app.
 
-### The iOS 26 Push Notification Update (June 15, 2026)
-Starting in mid-2026 with the release of iOS 26, Apple introduced native keyboard detection for WhatsApp verification codes. If a WhatsApp notification contains a structured authentication template code, the iOS keyboard automatically parses the numeric string from the push notification preview and suggests it in the autofill bar. 
+### The Authentication-International Rate
+Meta prices WhatsApp messages by the recipient's country and the message category. In some countries, Meta charges a higher **authentication-international** rate for authentication messages, depending on where Meta considers the sending business to be based. Check how this applies to you on [Meta's pricing page](https://developers.facebook.com/docs/whatsapp/pricing) before you launch.
 
-This brings the frictionless login experience of SMS OTP to WhatsApp on iOS without requiring developers to write complex app-level notification listener extensions or modify their Objective-C/Swift codebase. The keyboard takes care of the extraction as long as the push notification permissions are active.
-
-### The Authentication-International Rate Trap
-This is the single most common mistake engineering teams make during transition. Meta determines the pricing of WhatsApp messages based on the country code of the recipient *and* the registration origin of your WhatsApp Business Account (WABA).
-
-If your startup is headquartered in Bengaluru, but your WABA was set up using a US entity (or via a global partner hosted in Europe/Singapore), Meta will classify your domestic Indian OTP sends as **Authentication-International**. 
-
-```
-Domestic WABA:
-[India Registered WABA] ➔ [Send to Indian Number (+91)] ➔ Domestic Rate (₹0.115)
-
-International WABA:
-[US/SG Registered WABA] ➔ [Send to Indian Number (+91)] ➔ International Rate (up to ₹2.30)
-```
-
-Instead of ₹0.115 per message, you will be billed up to ₹2.30 per OTP—nearly 20 times the domestic cost. To avoid this, always register your WABA using verified Indian business documents (GSTIN or Business PAN) and integrate through a domestic Business Solution Provider (BSP) like StartMessaging that routes traffic natively.
+You can see what Meta actually did: each sent message's `pricing.category` is `authentication` or `authentication-international`. Look up a message with `GET /api/v1/messages/{id}` after the first delivery receipt and check it on your first test sends.
 
 ---
 
 ## Full Node.js Implementation: End-to-End
 
-Let's build a secure WhatsApp OTP verification flow. We will use Node.js, Express, Redis to manage secure session state, and Axios to interact with the API.
+Let's build a WhatsApp OTP verification flow with Node.js, Express and Redis. StartMessaging only delivers the message: there is no separate OTP or verify endpoint for WhatsApp, so **you generate the code, store it and verify it yourself**.
 
 ### Prerequisites
-Before writing code, ensure you have:
-* A registered WhatsApp Business Account (WABA) pointing to your verified Indian entity.
-* An approved template named `auth_otp_secure` using the standard Meta schema.
-* An active API key from StartMessaging.
+Before writing code, make sure you have:
+* A StartMessaging workspace with your own WhatsApp Business Account connected (Meta's Embedded Signup, on the **Connect** page).
+* A payment method added in WhatsApp Manager. Without it Meta refuses template sends and the API answers `402 META_PAYMENT_REQUIRED`.
+* An approved authentication template, here named `login_otp` in `en_US`.
+* An API key from **Developers → API keys** (it starts with `sm_live_`). The **Send only** preset (`messages:send`) is enough to send.
+* A webhook endpoint for `message.delivered` and `message.failed`, added in **Developers → Webhooks**, with its signing secret.
 * A running Redis instance for temporary OTP storage.
 
-### 1. Generating a Secure OTP and Storing in Redis
-Never use `Math.random()` to generate One-Time Passwords. It is a pseudo-random number generator that is cryptographically insecure. Instead, use Node's native `crypto` module.
+Every plan includes the developer API. Developer Free sends up to 100 API messages a month; a paid Developer plan never stops authentication templates, even past its monthly allowance. See [pricing](/pricing) for the sizes.
+
+### 1. Generating a Secure OTP and Storing a Hash in Redis
+Never use `Math.random()` to generate one-time passwords. Use Node's `crypto` module, and store only a hash of the code.
 
 ```javascript
 // otpService.js
@@ -164,388 +126,375 @@ import { createClient } from 'redis';
 const redisClient = createClient({ url: process.env.REDIS_URL || 'redis://localhost:6379' });
 await redisClient.connect();
 
-const OTP_EXPIRY_SECONDS = 600; // 10 minutes standard window
+const OTP_EXPIRY_SECONDS = 600; // match the expiry shown in your template
 
-/**
- * Generate a cryptographically secure 6-digit numeric OTP.
- */
+/** Cryptographically secure 6-digit code, leading zeros allowed. */
 function generateSecureOTP() {
-  return crypto.randomInt(100000, 999999).toString();
+  return String(crypto.randomInt(0, 1_000_000)).padStart(6, '0');
+}
+
+function sha256(value) {
+  return crypto.createHash('sha256').update(value).digest('hex');
 }
 
 /**
- * Hash recipient phone number for DPDP Act audit alignment.
- * Never store plaintext phone numbers alongside OTP states in cache databases.
+ * Save a hash of the OTP against a login attempt id.
+ * Never store plaintext codes or phone numbers in cache keys or logs.
  */
-function hashPhoneNumber(phone) {
-  return crypto.createHash('sha256').update(phone).digest('hex');
-}
-
-/**
- * Save OTP to Redis with attempt rate tracking.
- */
-async function storeOTP(phone, otp) {
-  const hashedPhone = hashPhoneNumber(phone);
-  const redisKey = `otp:${hashedPhone}`;
-  
-  // Save OTP and set attempts tracking structure
+async function storeOTP(attemptId, phone, otp) {
+  const redisKey = `otp:${attemptId}`;
   await redisClient.hSet(redisKey, {
-    code: otp,
+    phoneHash: sha256(phone),
+    codeHash: sha256(otp),
     attempts: '0',
-    createdAt: Date.now().toString()
+    channel: 'whatsapp',
+    createdAt: Date.now().toString(),
   });
-  
   await redisClient.expire(redisKey, OTP_EXPIRY_SECONDS);
 }
 
-export { generateSecureOTP, storeOTP, hashPhoneNumber, redisClient };
+export { generateSecureOTP, storeOTP, sha256, redisClient };
 ```
 
 ### 2. Sending the WhatsApp Authentication Message
-Now we make the API call to send the template. The payload uses the standard StartMessaging API contract, forwarding the template name and assigning the variable arguments.
+Send the template with `POST /api/v1/messages`. The code goes **once, as the first entry of `parameters`**: it fills the body, and StartMessaging puts the same code on the template's copy-code button for you. Send the template's Meta name and its language code as plain strings.
 
 ```javascript
 // whatsappClient.js
-import axios from 'axios';
-
-const STARTMESSAGING_API_URL = 'https://api.startmessaging.com/v1/messages';
-const API_TOKEN = process.env.STARTMESSAGING_API_KEY;
+const WA_API_BASE = 'https://waba-api.startmessaging.com';
 
 /**
- * Send WhatsApp authentication template containing the generated OTP.
+ * Send the authentication template carrying the code.
+ * Returns the message id; throws with the API's error code on failure.
  */
-async function sendWhatsAppOTP(phone, otp) {
-  const payload = {
-    to: phone,
-    channel: 'whatsapp',
-    type: 'template',
-    template: {
-      name: 'auth_otp_secure',
-      language: { code: 'en' },
-      components: [
-        {
-          type: 'body',
-          parameters: [
-            {
-              type: 'text',
-              text: otp // Maps to {{1}} in body template
-            }
-          ]
-        },
-        {
-          type: 'button',
-          sub_type: 'url',
-          index: 0,
-          parameters: [
-            {
-              type: 'text',
-              text: otp // Maps to value expected by dynamic copy button
-            }
-          ]
-        }
-      ]
-    }
-  };
+async function sendWhatsAppOTP(phone, otp, attemptId) {
+  const res = await fetch(`${WA_API_BASE}/api/v1/messages`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `otp-${attemptId}`,
+    },
+    body: JSON.stringify({
+      to: phone, // E.164, e.g. +919876543210
+      type: 'template',
+      template: {
+        name: 'login_otp',
+        language: 'en_US',
+        parameters: [{ text: otp }],
+      },
+      clientReference: `login-attempt-${attemptId}`,
+    }),
+  });
 
-  try {
-    const response = await axios.post(STARTMESSAGING_API_URL, payload, {
-      headers: {
-        'Authorization': `Bearer ${API_TOKEN}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    // Return unique platform message ID for tracking fallback state
-    return response.data.messageId;
-  } catch (error) {
-    console.error('WhatsApp API dispatch failed:', error.response?.data || error.message);
-    throw new Error('WHATSAPP_DISPATCH_FAILED');
+  const body = await res.json();
+  if (!res.ok) {
+    const err = new Error(`${body.error.code}: ${body.error.message}`);
+    err.code = body.error.code; // branch on error.code, never on the message
+    err.status = res.status;
+    throw err;
   }
+  return body.data.id; // status is "sent" once WhatsApp accepted it
 }
 
 export { sendWhatsAppOTP };
 ```
 
-### 3. Server-Side Verification with Lockout Counter
-To prevent brute-force attacks, we must limit verification attempts. If a user inputs the wrong OTP 3 times, we immediately delete the key and lock them out for a cooling-off period. (Read our guide on [OTP failed attempt lockout strategies](/blog/otp-failed-attempt-lockout-strategies) and see how to structure your [OTP database schema](/blog/otp-database-schema-best-practices).)
+A `201` response looks like this:
+
+```json
+{
+  "data": {
+    "id": "3f6c2a1e-8b1d-4c53-9e7a-2b5d8f0c4a11",
+    "status": "sent",
+    "conversationId": "8a1b9c2d-3e4f-4a5b-8c6d-7e8f9a0b1c2d",
+    "contactId": "5d4c3b2a-1f0e-4d9c-8b7a-6f5e4d3c2b1a",
+    "to": "+919876543210",
+    "type": "template",
+    "clientReference": "login-attempt-7f3a2c",
+    "createdAt": "2026-10-02T10:00:00.000Z"
+  },
+  "meta": {
+    "requestId": "b7c1e0d2-5a4f-4c3b-9e8d-1f2a3b4c5d6e",
+    "timestamp": "2026-10-02T10:00:00.000Z"
+  }
+}
+```
+
+The errors worth handling in an OTP flow:
+
+| HTTP | `error.code` | What it means for OTP |
+|---|---|---|
+| 422 | `MESSAGE_UNDELIVERABLE` | WhatsApp won't deliver to this number (for example it isn't on WhatsApp). Offer SMS. |
+| 422 | `TEMPLATE_NOT_APPROVED` | The template isn't approved yet; `details.status` shows its status. |
+| 422 | `TEMPLATE_BUTTON_PARAM_REQUIRED` | `parameters` was empty: put the code in `parameters`. |
+| 404 | `TEMPLATE_NOT_FOUND` | Check `template.name` (the Meta name) and `template.language`. |
+| 402 | `META_PAYMENT_REQUIRED` | Add or fix the payment method in WhatsApp Manager. |
+| 402 | `PLAN_MESSAGE_LIMIT_REACHED` | Developer Free or the trial has used its monthly API messages. |
+| 429 | `RATE_LIMIT_EXCEEDED` | Wait for `Retry-After` seconds, then retry with the same `Idempotency-Key`. |
+| 502 | `WABA_CONNECT_FAILED` | Transient WhatsApp failure; retry with the same `Idempotency-Key`. |
+
+### 3. Server-Side Verification with a Lockout Counter
+To prevent brute-force attacks, limit verification attempts. After 3 wrong codes, delete the attempt. (Read our guide on [OTP failed attempt lockout strategies](/blog/otp-failed-attempt-lockout-strategies) and see how to structure your [OTP database schema](/blog/otp-database-schema-best-practices).)
 
 ```javascript
 // verifyService.js
-import { hashPhoneNumber, redisClient } from './otpService.js';
+import crypto from 'node:crypto';
+import { sha256, redisClient } from './otpService.js';
 
 const MAX_VERIFICATION_ATTEMPTS = 3;
 
-/**
- * Verify submitted OTP against cached Redis state.
- */
-async function verifyUserOTP(phone, submittedOtp) {
-  const hashedPhone = hashPhoneNumber(phone);
-  const redisKey = `otp:${hashedPhone}`;
-  
-  const otpState = await redisClient.hGetAll(redisKey);
-  
-  if (!otpState || !otpState.code) {
+async function verifyUserOTP(attemptId, submittedOtp) {
+  const redisKey = `otp:${attemptId}`;
+  const state = await redisClient.hGetAll(redisKey);
+
+  if (!state || !state.codeHash) {
     return { success: false, reason: 'OTP_EXPIRED_OR_NOT_FOUND' };
   }
-  
-  const currentAttempts = parseInt(otpState.attempts, 10);
-  
-  if (currentAttempts >= MAX_VERIFICATION_ATTEMPTS) {
-    await redisClient.del(redisKey); // Clear trace
+
+  if (parseInt(state.attempts, 10) >= MAX_VERIFICATION_ATTEMPTS) {
+    await redisClient.del(redisKey);
     return { success: false, reason: 'MAX_ATTEMPTS_EXCEEDED' };
   }
-  
-  if (otpState.code !== submittedOtp) {
-    // Increment wrong attempt counter
+
+  // Compare hashes in constant time.
+  const expected = Buffer.from(state.codeHash, 'hex');
+  const actual = Buffer.from(sha256(String(submittedOtp)), 'hex');
+  if (!crypto.timingSafeEqual(expected, actual)) {
     await redisClient.hIncrBy(redisKey, 'attempts', 1);
     return { success: false, reason: 'INVALID_OTP' };
   }
-  
-  // Successful verification - delete state to prevent replay attacks
+
+  // Used once: delete it so it can't be replayed.
   await redisClient.del(redisKey);
-  
   return { success: true };
 }
 
 export { verifyUserOTP };
 ```
 
-### 4. Handling Meta Webhooks for Status Tracking
-Meta sends delivery status events to your webhook URL when messages are sent, delivered, read, or fail. Below is the webhook handler implementation to inspect payload events.
+### 4. Receiving Delivery Webhooks
+StartMessaging posts `message.delivered` and `message.failed` events to your endpoint. Each one is signed: compute HMAC-SHA256 of `X-SM-Timestamp`, a dot and the **raw** body, using the whole `whsec_…` secret as the key, and compare it with the `v1=` values in `X-SM-Signature`. Every status event carries the `clientReference` you sent, so you can find the login attempt without storing our message id.
 
 ```javascript
 // webhookHandler.js
 import express from 'express';
-const router = express.Router();
+import { createHmac, timingSafeEqual } from 'node:crypto';
 
-/**
- * Sample Meta Webhook Payload Structure:
- * {
- *   "event": "message.status",
- *   "messageId": "msg_984712530182",
- *   "status": "delivered",
- *   "timestamp": 1782482651
- * }
- */
-router.post('/startmessaging', (req, res) => {
-  const { event, messageId, status, error } = req.body;
+export function verifySignature(rawBody, headers, secret) {
+  const timestamp = String(headers['x-sm-timestamp'] ?? '');
+  if (!/^\d+$/.test(timestamp)) return false;
+  if (Math.abs(Date.now() / 1000 - Number(timestamp)) > 300) return false;
 
-  if (event === 'message.status') {
-    switch (status) {
-      case 'sent':
-        console.log(`Message ${messageId} successfully sent from server.`);
-        break;
-      case 'delivered':
-        console.log(`Message ${messageId} reached recipient device.`);
-        break;
-      case 'read':
-        console.log(`Recipient opened/read the message ${messageId}.`);
-        break;
-      case 'failed':
-        console.warn(`Message ${messageId} failed delivery. Error code: ${error?.code} - ${error?.message}`);
-        // This is a direct trigger for SMS failover
-        break;
+  const expected = Buffer.from(
+    createHmac('sha256', secret).update(`${timestamp}.`).update(rawBody).digest('hex'),
+  );
+  return String(headers['x-sm-signature'] ?? '')
+    .split(',')
+    .some((part) => {
+      const signature = Buffer.from(part.trim().replace(/^v1=/, ''));
+      return signature.length === expected.length && timingSafeEqual(signature, expected);
+    });
+}
+
+export function webhookRouter(onStatus) {
+  const router = express.Router();
+
+  router.post('/startmessaging', express.raw({ type: 'application/json' }), (req, res) => {
+    if (!verifySignature(req.body, req.headers, process.env.SM_WEBHOOK_SECRET)) {
+      return res.sendStatus(401);
     }
-  }
+    const event = JSON.parse(req.body.toString('utf8'));
+    res.sendStatus(200); // answer fast, then do the work
 
-  res.sendStatus(200);
-});
+    if (event.type === 'message.delivered' || event.type === 'message.failed') {
+      const { clientReference, status, failureCode, failureReason } = event.data.message;
+      onStatus({ eventId: event.id, clientReference, status, failureCode, failureReason });
+    }
+  });
 
-export default router;
+  return router;
+}
 ```
+
+Deliveries are at least once and can arrive out of order, so deduplicate on the event's `id`.
 
 ---
 
-## SMS Fallback Architecture
+## Adding SMS OTP as a Second Channel
 
-Building a resilient login architecture means preparing for network degradation, delivery failures, or cases where a user simply does not have WhatsApp. If you do not configure an automatic SMS failover channel, your registration funnel will suffer.
+StartMessaging's WhatsApp API has **no built-in SMS fallback**. If the customer is not on WhatsApp, the send fails, and nothing is resent for you. In India, StartMessaging also offers a separate [SMS OTP API](/otp-api). It is a different product with its own API key, base URL and pricing, and your backend decides when to call it.
 
 ```
-API Dispatch Flow:
-[Send WhatsApp OTP] ➔ [Webhook delivery fail OR 30s timeout] ➔ [Send SMS via DLT Route] ➔ [Success]
+Your backend:
+[POST /api/v1/messages (WhatsApp)] ➔ 422 MESSAGE_UNDELIVERABLE or message.failed webhook ➔ [POST /otp/send (SMS OTP API)]
 ```
 
-### Fallback Triggers and Logic
-An ideal fallback cascade should trigger under two conditions:
-1. **Immediate Failure Webhook:** When you dispatch a WhatsApp message to a non-existent number, Meta’s API immediately returns an error code or sends a `failed` status webhook with error subclassing indicating the phone number is not registered on WhatsApp.
-2. **Delivery Confirmation Timeout:** If the message is successfully sent to Meta, but you do not receive a `delivered` status webhook from the user’s device within 30 seconds, it indicates the recipient lacks network data or has uninstalled the app. The system must immediately trigger an SMS.
+### When to Switch to SMS
+1. **The send is refused:** the WhatsApp API answers `422 MESSAGE_UNDELIVERABLE`, for example because the number is not on WhatsApp.
+2. **Meta reports a failure later:** a `message.failed` webhook arrives with Meta's `failureCode` and `failureReason`.
+3. **No delivery receipt:** no `message.delivered` webhook within, say, 30 seconds. The phone may be offline. Rather than sending a second code automatically, show a "Get the code by SMS" button so the user chooses.
 
-### Building the Unified Failover Cascade
-The following backend route exposes a unified endpoint. It attempts a WhatsApp send, starts a timeout monitor, and falls back to SMS if needed.
+### The SMS OTP API Call
+The SMS OTP API lives at `https://api.startmessaging.com`, uses an `X-API-Key` header, and takes the code you generated in `variables.otp`. Send the same code, so the user can enter whichever message arrives first and your verification step stays the same.
+
+```javascript
+// smsClient.js
+async function sendSmsOTP(phone, otp) {
+  const res = await fetch('https://api.startmessaging.com/otp/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': process.env.SM_SMS_API_KEY, // the SMS product's key, not the WhatsApp key
+    },
+    body: JSON.stringify({
+      phoneNumber: phone, // E.164, e.g. +919876543210
+      variables: { otp, appName: 'RupeeFlow' },
+      // templateId: 'YOUR_TEMPLATE_ID', // required only on the DLT route
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(`SMS OTP send failed: ${res.status}`);
+  return body.data.messageId; // check status with GET /messages/:id
+}
+
+export { sendSmsOTP };
+```
+
+See the [SMS & OTP API reference](/docs/sms/send-sms) for the full request, status values and rate limits.
+
+### Wiring It Together
 
 ```javascript
 // app.js
 import express from 'express';
+import crypto from 'node:crypto';
 import { generateSecureOTP, storeOTP } from './otpService.js';
 import { sendWhatsAppOTP } from './whatsappClient.js';
-import webhookRouter from './webhookHandler.js';
-import axios from 'axios';
+import { sendSmsOTP } from './smsClient.js';
+import { webhookRouter } from './webhookHandler.js';
 
 const app = express();
-app.use(express.json());
-app.use('/api/webhooks', webhookRouter);
 
-const SMS_FALLBACK_URL = 'https://api.startmessaging.com/v1/sms/send';
-const API_TOKEN = process.env.STARTMESSAGING_API_KEY;
+// In production keep this in Redis or your database, not in memory.
+const pending = new Map(); // clientReference -> { phone, otp, timer }
 
-// Store pending fallback timeouts to prevent double sends
-const pendingFallbacks = new Map();
-
-/**
- * Helper to dispatch SMS fallback via DLT approved route
- */
-async function sendSMSFallback(phone, otp) {
-  const payload = {
-    to: phone,
-    text: `Your RupeeFlow verification code is ${otp}. Valid for 10 minutes. Please do not share this OTP with anyone.`,
-    dltTemplateId: '1407161298463510294', // Approved Transactional SMS DLT ID
-    senderId: 'RPFLOW'
-  };
-
-  try {
-    await axios.post(SMS_FALLBACK_URL, payload, {
-      headers: {
-        'Authorization': `Bearer ${API_TOKEN}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    console.log(`SMS fallback dispatched successfully to ${phone}`);
-  } catch (error) {
-    console.error(`SMS fallback failed for ${phone}:`, error.message);
-  }
+async function switchToSms(clientReference) {
+  const attempt = pending.get(clientReference);
+  if (!attempt) return; // already delivered, or already switched
+  clearTimeout(attempt.timer);
+  pending.delete(clientReference);
+  await sendSmsOTP(attempt.phone, attempt.otp);
 }
 
-/**
- * Unified OTP Dispatch Endpoint
- */
+// Mount the webhook route before express.json(): it needs the raw body.
+app.use('/webhooks', webhookRouter(({ clientReference, status }) => {
+  if (!clientReference) return;
+  if (status === 'delivered') {
+    const attempt = pending.get(clientReference);
+    if (attempt) {
+      clearTimeout(attempt.timer);
+      pending.delete(clientReference);
+    }
+  }
+  if (status === 'failed') {
+    switchToSms(clientReference).catch(console.error);
+  }
+}));
+
+app.use(express.json());
+
 app.post('/api/auth/send-otp', async (req, res) => {
-  const { phone } = req.body; // Expects international format with +91 prefix
-  
+  const { phone } = req.body; // E.164 with the +91 prefix
   if (!phone || !phone.startsWith('+91')) {
     return res.status(400).json({ error: 'INVALID_INDIAN_PHONE_NUMBER' });
   }
 
+  const attemptId = crypto.randomUUID();
   const otp = generateSecureOTP();
-  await storeOTP(phone, otp);
+  await storeOTP(attemptId, phone, otp);
+  const clientReference = `login-attempt-${attemptId}`;
 
   try {
-    const messageId = await sendWhatsAppOTP(phone, otp);
-    
-    // Set 30-second fallback timer
-    const timeoutId = setTimeout(async () => {
-      if (pendingFallbacks.has(messageId)) {
-        console.log(`WhatsApp delivery timeout for ${phone}. Triggering SMS fallback.`);
-        pendingFallbacks.delete(messageId);
-        await sendSMSFallback(phone, otp);
-      }
-    }, 30000); // 30 seconds
-
-    pendingFallbacks.set(messageId, { phone, otp, timeoutId });
-
-    return res.status(200).json({ success: true, method: 'whatsapp', messageId });
-  } catch (error) {
-    // Immediate failure (e.g. API error or network issue) -> Trigger SMS instantly
-    console.warn(`WhatsApp dispatch failed for ${phone}. Cascading to SMS instantly.`);
-    await sendSMSFallback(phone, otp);
-    return res.status(200).json({ success: true, method: 'sms' });
+    await sendWhatsAppOTP(phone, otp, attemptId);
+    // No delivery receipt in 30 seconds: let the app offer SMS.
+    const timer = setTimeout(() => {
+      const attempt = pending.get(clientReference);
+      if (attempt) attempt.offerSms = true;
+    }, 30_000);
+    pending.set(clientReference, { phone, otp, timer });
+    return res.json({ attemptId, channel: 'whatsapp' });
+  } catch (err) {
+    if (err.code === 'MESSAGE_UNDELIVERABLE') {
+      await sendSmsOTP(phone, otp);
+      return res.json({ attemptId, channel: 'sms' });
+    }
+    console.error('WhatsApp OTP send failed:', err.message);
+    return res.status(502).json({ error: 'OTP_SEND_FAILED' });
   }
 });
 
-/**
- * Webhook handler to catch delivery events and intercept fallback triggers
- */
-app.post('/api/webhooks/startmessaging-status', (req, res) => {
-  const { event, messageId, status } = req.body;
-
-  if (event === 'message.status') {
-    // If the message is delivered, clear the fallback timer
-    if (status === 'delivered' || status === 'read') {
-      const activeFallback = pendingFallbacks.get(messageId);
-      if (activeFallback) {
-        clearTimeout(activeFallback.timeoutId);
-        pendingFallbacks.delete(messageId);
-        console.log(`WhatsApp delivered to ${activeFallback.phone}. Fallback canceled.`);
-      }
-    }
-    
-    // If delivery explicitly fails, execute SMS instantly
-    if (status === 'failed') {
-      const activeFallback = pendingFallbacks.get(messageId);
-      if (activeFallback) {
-        clearTimeout(activeFallback.timeoutId);
-        pendingFallbacks.delete(messageId);
-        console.log(`WhatsApp delivery failed for ${activeFallback.phone}. Triggering instant SMS fallback.`);
-        sendSMSFallback(activeFallback.phone, activeFallback.otp);
-      }
-    }
-  }
-
-  return res.sendStatus(200);
+// Called when the user taps "Get the code by SMS".
+app.post('/api/auth/resend-sms', async (req, res) => {
+  const clientReference = `login-attempt-${req.body.attemptId}`;
+  await switchToSms(clientReference);
+  return res.json({ channel: 'sms' });
 });
 
 app.listen(3000, () => console.log('Authentication backend listening on port 3000'));
 ```
 
-For a production-ready fallback routing configuration, check out our guide on [multi-region failover for OTP APIs](/blog/multi-region-failover-otp-api) or learn about [queue-based OTP delivery using BullMQ and Redis](/blog/queue-based-otp-delivery-bullmq-redis-india).
+For production routing, see our guides on [multi-region failover for OTP APIs](/blog/multi-region-failover-otp-api) and [queue-based OTP delivery with BullMQ and Redis](/blog/queue-based-otp-delivery-bullmq-redis-india).
 
-### The Three-Tier Fallback Cascade
-For enterprise applications where sign-up rates dictate operational revenue, relying solely on SMS as a fallback can still leave gaps (e.g. DLT route failures or carrier gateways blocking). Top tier Indian applications use a three-tier cascade:
+### Adding a Third Channel
+Some apps add a voice call as a last resort for users who receive neither WhatsApp nor SMS. StartMessaging doesn't send voice OTPs, so this would be another provider your backend calls in the same way:
 
 ```
-[1. WhatsApp OTP]
+[1. WhatsApp OTP (StartMessaging WhatsApp API)]
       │
-      ├─► (if fails/timeout after 30s)
+      ├─► (refused, failed, or user asks for SMS)
       ▼
-[2. SMS Transactional DLT Route]
+[2. SMS OTP (StartMessaging SMS OTP API)]
       │
-      ├─► (if fails/timeout after 45s)
+      ├─► (still not received)
       ▼
-[3. Voice OTP (Phone Call Verification)]
+[3. Voice OTP (another provider)]
 ```
-
-* **WhatsApp:** Primary authentication layer, cost-efficient and high speed.
-* **SMS:** Second-tier fallback for users without WhatsApp or out of data coverage.
-* **Voice OTP:** Final failover layer that calls the user’s mobile and reads the code via text-to-speech. Highly resilient because voice channels bypass SMS queue congestion entirely.
 
 ---
 
-## Security, Compliance, and Cost Optimization
+## Security, Compliance, and Cost Planning
 
-Implementing OTP infrastructure in India requires strict adherence to security best practices and the Digital Personal Data Protection (DPDP) Act of 2023 (see our [guide on DPDP Act compliance for OTP](/blog/dpdp-act-otp-compliance-india)).
+Implementing OTP infrastructure in India requires strict security practices and compliance with the Digital Personal Data Protection (DPDP) Act of 2023 (see our [guide on DPDP Act compliance for OTP](/blog/dpdp-act-otp-compliance-india)).
 
-### Mitigating OTP Pumping Attacks on WhatsApp
-A common misconception is that OTP fraud and traffic pumping attacks only target SMS networks. (To prevent these, see our guide on [preventing SMS pumping fraud in India](/blog/sms-pumping-fraud-india-otp-detection-prevention) or read about [general OTP rate limiting guidelines](/blog/otp-rate-limiting-guide)). Fraudsters routinely script bot networks to hit OTP endpoints, generating millions of automated requests to drain API wallets. 
+### Mitigating OTP Pumping Attacks
+OTP fraud and traffic pumping attacks don't only target SMS. (See our guide on [preventing SMS pumping fraud in India](/blog/sms-pumping-fraud-india-otp-detection-prevention) and our [OTP rate limiting guide](/blog/otp-rate-limiting-guide).) Bots hit OTP endpoints to run up message charges, and every delivered WhatsApp authentication template is billed to your WhatsApp Business Account. Secure your backend:
 
-While WhatsApp is safer because Meta charges are based on delivery and are harder to route through virtual phone numbers, you must still secure your backend:
-
-1. **IP-Based Rate Limiting:** Limit OTP requests to 1 request per IP address every 60 seconds.
-2. **Device Level Cooldowns:** Implement a strict 60-second retry cooldown per phone number at the API level.
-3. **Daily Caps:** Restrict a single phone number to 5 OTP requests per day.
-4. **Behavioral Risk Scoring:** Use CAPTCHA challenges or silent recaptcha/Cloudflare Turnstile verifications on the client side before triggering the backend OTP send logic.
+1. **IP-based rate limiting:** limit OTP requests per IP address, for example 1 every 60 seconds.
+2. **Per-number cooldowns:** enforce a 60-second resend cooldown per phone number.
+3. **Daily caps:** restrict a single phone number to a handful of OTP requests per day.
+4. **Bot checks:** use a CAPTCHA or Cloudflare Turnstile on the client before your backend sends a code.
 
 ### DPDP Act 2023 Compliance
-Under India's Digital Personal Data Protection Act (DPDP), customer phone numbers and login transactions are classified as personal data. Your OTP infrastructure must incorporate:
+Under India's DPDP Act, phone numbers and login records are personal data. Your OTP flow should include:
 
-* **Consent Integration:** Ensure your user interface explicitly mentions that by submitting their phone number, the user consents to receive service updates and verification codes via WhatsApp and SMS.
-* **Plaintext Data Minimization:** Never store raw numeric OTP codes or plaintext phone numbers in debug logs, request logging platforms, or metrics aggregation systems. Use hashed identifiers (like the SHA-256 implementation shown in the code above) when verifying states or indexing logs.
+* **Consent:** tell users, where they enter their number, that they will receive verification codes on WhatsApp or SMS.
+* **Data minimisation:** never write raw OTP codes or plaintext phone numbers to debug logs, request logs or metrics. Use hashes and attempt ids, as in the code above.
 
-### Financial Modeling: WhatsApp vs. SMS
-To understand the financial implications, let's look at a realistic model for an Indian application processing 500,000 monthly sign-ups. We assume an average SMS price of ₹0.20 and a WhatsApp fallback rate of 10% (users without WhatsApp or failing delivery).
+### Modelling Your Costs
+Compare the two channels with your own numbers. For 500,000 OTPs a month, where a share of users (`s`) ends up on SMS:
 
 ```
-Traditional SMS Only (500k sends):
-500,000 × ₹0.20 = ₹1,00,000 + 18% GST = ₹1,18,000 total monthly cost.
+SMS only:
+500,000 × ₹0.25 (StartMessaging non-DLT SMS)
 
-WhatsApp-First with SMS Fallback:
-WhatsApp Delivered (450k): 450,000 × ₹0.115 = ₹51,750
-SMS Fallback (50k):          50,000 × ₹0.200 = ₹10,000
-Total Base Cost:                             = ₹61,750
-Total + 18% GST:                             = ₹72,865 total monthly cost.
-
-Net Monthly Savings: ₹45,135 (38.2% cost reduction)
+WhatsApp first, SMS when WhatsApp can't deliver:
+WhatsApp: 500,000 × (1 − s) × Meta's authentication rate (billed by Meta to your WABA)
+SMS:      500,000 × s × ₹0.25
+Plus:     your StartMessaging WhatsApp plan
 ```
 
-At scale, the financial benefits of routing through WhatsApp as the primary channel are significant, while still ensuring 100% login coverage via the fallback SMS tier.
+Take Meta's current Indian authentication rate from [Meta's rate card](https://developers.facebook.com/docs/whatsapp/pricing), and measure `s` from your own `MESSAGE_UNDELIVERABLE` and `message.failed` counts during a pilot.
 
 ---
 
@@ -553,24 +502,28 @@ At scale, the financial benefits of routing through WhatsApp as the primary chan
 
 **Q: Does WhatsApp OTP require DLT registration in India?**
 
-A: No. WhatsApp Business API messages bypass the DLT registration network entirely. Template review, approval, and deliverability are managed directly through Meta's automated developer console, requiring no interaction with Indian telecom operator portals.
+A: No. WhatsApp authentication templates are sent over Meta's WhatsApp Business Platform, so TRAI's DLT registration, which applies to SMS, is not needed for them. You still need the user's consent and a Meta-approved authentication template.
+
+**Q: Does StartMessaging have a WhatsApp OTP or verify endpoint?**
+
+A: No. Send an authentication template with `POST /api/v1/messages`, with the code in `template.parameters`. Generating, storing and verifying the code is up to your backend.
 
 **Q: Can WhatsApp OTP autofill like SMS Retriever on Android?**
 
-A: Yes. By configuring a Meta authentication template with a one-tap autofill button and registering the appropriate Broadcast Receiver in your Android codebase, you can capture the verification code automatically without requiring clipboard paste actions from the user.
+A: Yes, on supported Android apps. An authentication template with a one-tap autofill button hands the code to your app with one tap. Everywhere else, the copy-code button copies it for pasting.
 
-**Q: What happens if the user doesn't have WhatsApp installed?**
+**Q: What happens if the user doesn't have WhatsApp?**
 
-A: If a recipient does not have WhatsApp, the API instantly returns an error webhook (`phone_not_on_whatsapp` or `failed`). Best-practice architecture handles this event immediately by falling back to traditional transactional SMS or Voice OTP channels to ensure verification completion.
+A: The send fails: usually the API answers `422 MESSAGE_UNDELIVERABLE`, or a `message.failed` webhook arrives later. There is no automatic SMS fallback. In India, your backend can then call StartMessaging's separate SMS OTP API (`POST https://api.startmessaging.com/otp/send`) with the same code.
 
-**Q: Does RBI accept WhatsApp OTP as a valid second factor for payment authentication?**
+**Q: Does RBI accept WhatsApp OTP as a second factor for payments?**
 
-A: Yes. The Reserve Bank of India (RBI) mandates a secure Additional Factor of Authentication (AFA). It does not restrict the communication channel. WhatsApp OTPs, secured via end-to-end Signal encryption, are accepted as a valid AFA, provided the code is cryptographically generated and validated on a secure server environment.
+A: RBI's authentication directions require an additional factor of authentication but do not limit it to SMS. Whether a WhatsApp OTP fits your payment flow is a decision for your compliance team; see our [RBI authentication directions guide](/blog/rbi-authentication-directions-2025-developer-guide).
 
 **Q: Is WhatsApp OTP cheaper than SMS OTP in India?**
 
-A: Yes. Meta's official Indian domestic authentication rate is approximately ₹0.115 per delivered message, which is significantly cheaper than high-quality transactional SMS routes (averaging ₹0.18 to ₹0.25). You also only pay for successfully delivered messages on WhatsApp.
+A: It depends on Meta's current authentication rate, which you can find on Meta's rate card, compared with your SMS price (₹0.25 per SMS on StartMessaging's non-DLT route). Meta charges only for delivered WhatsApp messages and bills them directly to your WhatsApp Business Account; StartMessaging charges no per-message fee for WhatsApp.
 
 ---
 
-Ready to upgrade your login flow and reduce authentication costs? StartMessaging offers a unified API that handles primary WhatsApp delivery, automated SMS fallback, and fallback monitoring natively. [Sign up for a developer account today](https://app.startmessaging.com/register) or check out our [OTP API Documentation](/docs/auth-api/getting-started) to integrate in minutes.
+Ready to add WhatsApp OTP to your login flow? [Start a 14-day free trial](https://waba.startmessaging.com/signup), connect your own WhatsApp Business Account and follow the [WhatsApp OTP recipe in our docs](/docs/whatsapp/message-templates#whatsapp-otp-with-an-authentication-template). Meta needs a payment method on your WhatsApp Business Account before your first template send. For the SMS side, see the [SMS OTP API](/otp-api).

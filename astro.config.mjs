@@ -11,6 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import mdx from '@astrojs/mdx';
 import remarkGfm from 'remark-gfm';
+import { remarkContentTokens } from './src/lib/content-tokens.mjs';
 
 /* ------------------------------------------------------------------ */
 /*  Content date map — built once at config-load time (sync fs reads) */
@@ -164,7 +165,7 @@ export default defineConfig({
         return item;
       },
     }),
-    mdx({ remarkPlugins: [remarkGfm] }),
+    mdx({ remarkPlugins: [remarkGfm, remarkContentTokens] }),
     // IndexNow: submit only URLs whose content was modified today
     {
       name: 'indexnow-submit',

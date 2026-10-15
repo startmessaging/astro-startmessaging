@@ -2,7 +2,7 @@
 title: "Queue-Based OTP Delivery: Using BullMQ and Redis for High-Volume SMS in India"
 description: "Implement queue otp delivery india with BullMQ & Redis in Node.js. Avoid API timeouts, handle carrier TPS limits, and build scalable retry notifications."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "in"
 author: "StartMessaging Team"
@@ -87,6 +87,7 @@ With the queue configuration established, we can write the code for our API rout
 
 ```typescript
 // otp-producer.service.ts
+import { randomInt } from 'node:crypto';
 import { otpQueue } from './otp-queue.config';
 
 interface OtpJobPayload {
@@ -96,8 +97,8 @@ interface OtpJobPayload {
 }
 
 export async function requestOtpDelivery(phoneNumber: string): Promise<string> {
-  // Generate a random 6-digit OTP code
-  const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+  // Generate a cryptographically secure 6-digit OTP code
+  const generatedCode = randomInt(100000, 1000000).toString();
   const applicationName = 'ShopKart India';
 
   const jobPayload: OtpJobPayload = {
@@ -112,9 +113,10 @@ export async function requestOtpDelivery(phoneNumber: string): Promise<string> {
     jobId: `otp:${phoneNumber}`
   });
 
-  // Store the code in your database (e.g. hashed with expiry) to verify later
+  // No need to store the code: the worker saves the otpRequestId,
+  // and verification goes through StartMessaging's /otp/verify endpoint
   console.log(`Queued OTP job ${job.id} for phone number: ${phoneNumber}`);
-  return generatedCode;
+  return job.id as string;
 }
 ```
 
@@ -129,7 +131,7 @@ Create a file named `otp-worker.ts` to run the worker loop.
 ```typescript
 // otp-worker.ts
 import { Worker, Job } from 'bullmq';
-import { connectionOptions } from './otp-queue.config';
+import { connectionOptions, redisConnection } from './otp-queue.config';
 
 const STARTMESSAGING_API_URL = 'https://api.startmessaging.com/otp/send';
 const API_KEY = process.env.STARTMESSAGING_API_KEY || 'sm_live_your_api_key_here';
@@ -149,11 +151,11 @@ const worker = new Worker<OtpJobPayload>(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': API_KEY,
-        'Idempotency-Key': `job-${job.id}` // Use the job ID to guarantee idempotency
+        'X-API-Key': API_KEY
       },
       body: JSON.stringify({
         phoneNumber: job.data.phoneNumber,
+        idempotencyKey: `job-${job.id}`, // Use the job ID so queue retries never double-send
         variables: {
           otp: job.data.otpCode,
           appName: job.data.appName
@@ -170,6 +172,14 @@ const worker = new Worker<OtpJobPayload>(
       }
       throw new Error(`Gateway returned error status: ${response.status} - ${result.message}`);
     }
+
+    // Save the otpRequestId so your verify endpoint can call /otp/verify
+    await redisConnection.set(
+      `otp:request:${job.data.phoneNumber}`,
+      result.data.otpRequestId,
+      'EX',
+      600 // only clears stale IDs; /otp/verify enforces the OTP's expiry and attempt limits
+    );
 
     console.log(`Job ${job.id} completed. Message ID: ${result.data.messageId}`);
   },

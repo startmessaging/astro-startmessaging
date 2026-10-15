@@ -2,7 +2,7 @@
 title: "How to Send OTP with Nuxt 3 (2026)"
 description: "Nuxt 3 OTP login tutorial using StartMessaging. Uses server routes, useRuntimeConfig for secrets, signed cookies and a clean two-step flow."
 publishedAt: "2026-05-07"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -51,20 +51,27 @@ export default defineNuxtConfig({
       
 ```typescript
 // server/api/auth/send.post.ts
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomInt } from 'node:crypto';
+
+type SendData = { otpRequestId: string; messageId: string; status: string };
 
 export default defineEventHandler(async (event) => {
   const cfg = useRuntimeConfig();
   const { phoneNumber } = await readBody(event);
-  const data = await $fetch<{ data: { requestId: string; expiresAt: string }}>(\`\${cfg.smBaseUrl}/otp/send\`, {
+  const data = await $fetch<{ data: SendData }>(\`\${cfg.smBaseUrl}/otp/send\`, {
     method: 'POST',
     headers: { 'X-API-Key': cfg.smApiKey, 'Content-Type': 'application/json' },
-    body: { phoneNumber, idempotencyKey: randomUUID() },
+    body: {
+      phoneNumber,
+      // Generated on the server; StartMessaging delivers it
+      variables: { otp: String(randomInt(100000, 1000000)) },
+      idempotencyKey: randomUUID(),
+    },
   });
-  setCookie(event, 'otp_req', data.data.requestId, {
+  setCookie(event, 'otp_req', data.data.otpRequestId, {
     httpOnly: true, sameSite: 'lax', secure: true, maxAge: 900,
   });
-  return { expiresAt: data.data.expiresAt };
+  return { status: data.data.status };
 });
 ```
 

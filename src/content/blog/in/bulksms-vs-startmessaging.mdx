@@ -2,7 +2,7 @@
 title: "BulkSMS vs StartMessaging for OTP in India"
 description: "BulkSMS provider category vs StartMessaging compared for OTP workloads: why generic bulk-SMS providers underperform on OTP, and what to look for in an OTP-focused API."
 publishedAt: "2026-05-04"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: comparisons
 country: "in"
 author: "StartMessaging Team"
@@ -37,7 +37,7 @@ If you run an authentication workload on a marketing-focused bulk gateway, you f
 
 1. **Shared Route Congestion:** During holiday sales or peak hours, marketing blasts clog shared operator routes. Your login OTP gets stuck behind thousands of promo messages.
 2. **Lack of Cryptographic Safety:** Most bulk providers require you to generate the code, store it in your database, verify it, and manage security. A database breach during this process exposes active codes.
-3. **No Retries or Voice Fallbacks:** If a carrier network fails, a standard bulk API returns an error or silently drops the message. They do not automatically call the user or retry via WhatsApp.
+3. **No Retries or Second Channel:** If a carrier network fails, a standard bulk API returns an error or silently drops the message, and gives your backend little to act on when deciding whether to retry or switch channels.
 4. **TRAI and DLT Registration Hassles:** Indian regulators require strict template and entity registration. Bulk gateways make you handle all DLT setup yourself before you can send a single text.
 
 Dedicated OTP APIs solve these limitations by isolating transactional routes and providing automated fallback tools.
@@ -54,7 +54,7 @@ Here is how a generic bulk SMS gateway compares to StartMessaging's OTP-optimize
 | **Code Generation** | None (Developer must generate) | Built-in secure generator |
 | **Storage Security** | Developer database (plain or hashed) | bcrypt-hashed on HSM nodes |
 | **Attempt Tracking** | None (Must build manually) | Automatic (invalidates after 3 errors) |
-| **Channel Fallback** | Manual retry on secondary API | Automatic voice call and WhatsApp |
+| **Channel Fallback** | Manual retry on secondary API | WhatsApp OTP through a separate WhatsApp API your backend calls (no voice OTP; use a separate voice provider if you need one) |
 | **Idempotency Support** | Rarely supported | Supported via custom transaction keys |
 | **Global Routing** | Basic roaming | Direct international carrier binds |
 
@@ -68,7 +68,7 @@ Here is a typical cost breakdown for 100,000 monthly OTP attempts:
 |---|---|---|
 | **Base Price per SMS** | ₹0.12 - ₹0.18 | ₹0.25 (flat rate) |
 | **DLT Registration Cost** | Up to ₹5,000 + agency fees | ₹0 (No DLT registration needed) |
-| **Wasted Cost (failed sends)**| High (no automated voice retries) | ₹0 (Only pay for verified attempts) |
+| **Wasted Cost (failed sends)**| High (paid even when undelivered) | ₹0 (Only pay for verified attempts) |
 | **Integration Developer Hours**| 40+ hours (building verification engine) | Under 30 minutes |
 
 StartMessaging charges a predictable ₹0.25 per OTP with no hidden setup costs, and handles the carrier relationship directly.
@@ -84,7 +84,7 @@ You should choose StartMessaging if:
 - You need users to log in within seconds.
 - You want to launch your app today without waiting weeks for DLT template approval.
 - You need secure code generation, verification, and attempt limits out of the box.
-- You require automatic WhatsApp or Voice fallbacks when SMS delivery fails.
+- You want a second channel when SMS delivery fails: WhatsApp OTP through StartMessaging's separate WhatsApp API, called by your backend. (StartMessaging does not offer voice OTP; add a separate voice provider if you need one.)
 
 ## Code Walkthrough: Integrating a Resilient OTP Verification Flow
 
@@ -149,7 +149,7 @@ A: No. StartMessaging routes your OTPs through our pre-approved DLT templates. Y
 
 **Q: What happens if a user's cellular network has no signal and the SMS fails?**
 
-A: StartMessaging includes an optional voice-fallback feature. If the SMS is not delivered within 30 seconds, the system calls the phone number and reads the OTP code aloud using a text-to-speech engine.
+A: StartMessaging does not offer voice OTP or automatic voice fallback. Your backend can resend the SMS after a cooldown, or send the code through StartMessaging's separate WhatsApp API. If you need a voice call that reads the code aloud, integrate a separate voice provider and trigger it from your backend.
 
 **Q: Is it safe to send passwords or sensitive pins over bulk SMS?**
 

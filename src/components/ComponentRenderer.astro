@@ -21,6 +21,18 @@
 import { componentMap } from './componentMap';
 import { COUNTRY_CONFIG, hasSms, isIndia, type Country } from '@/config/countries';
 import { localizeUrl } from '@/lib/seo';
+import { replaceContentTokens as replaceTokens, WA_APP_URL, waSignupOpen, SIGNUP_URL_PATTERN } from '@/lib/constants';
+import chrome from '@/i18n/chrome.json';
+
+const SMS_APP_PATTERN = /^https:\/\/app\.startmessaging\.com(?=\/|$)/;
+
+/** CTA link keys and the label key that goes with each. */
+const CTA_PAIRS: [string, string][] = [
+  ['primaryHref', 'primaryCta'],
+  ['secondaryHref', 'secondaryCta'],
+  ['ctaHref', 'ctaLabel'],
+  ['secondaryCtaHref', 'secondaryCtaLabel'],
+];
 
 interface Props {
   type: string;
@@ -54,7 +66,7 @@ function localizeProps(obj: unknown): unknown {
   if (obj === null || obj === undefined) return obj;
   if (Array.isArray(obj)) return obj.map((item) => localizeProps(item));
   if (typeof obj === 'object') {
-    return Object.fromEntries(
+    return toContactSales(Object.fromEntries(
       Object.entries(obj as Record<string, unknown>).map(([k, v]) => {
         // Resolve magic placeholders first
         if (v === '$hasSms')   return [k, hasSms(country as Country)];
@@ -64,17 +76,46 @@ function localizeProps(obj: unknown): unknown {
 
         // Localize relative URL strings (keys ending in 'href' or 'url')
         if (typeof v === 'string' && (k.toLowerCase().endsWith('href') || k.toLowerCase().endsWith('url'))) {
-          return [k, localizeUrl(v, country as Country)];
+          let url = replaceTokens(v);
+          // WhatsApp-only countries have no SMS app: shared CTAs go to the WhatsApp CRM.
+          if (!hasSms(country as Country)) url = url.replace(SMS_APP_PATTERN, WA_APP_URL);
+          return [k, localizeUrl(url, country as Country)];
         }
+
+        if (typeof v === 'string') return [k, replaceTokens(v)];
 
         // Recurse into nested objects/arrays
         if (typeof v === 'object') return [k, localizeProps(v)];
 
         return [k, v];
       })
-    );
+    ));
   }
   return obj;
+}
+
+/**
+ * Where self-serve signup isn't open (see WA_SIGNUP_COUNTRIES), signup CTAs
+ * become "Contact Sales" → /<country>/contact. A secondary CTA that already
+ * pointed to contact is dropped so the two buttons don't repeat.
+ */
+function toContactSales(o: Record<string, unknown>): Record<string, unknown> {
+  if (waSignupOpen(country)) return o;
+  const contactHref = localizeUrl('/contact', country as Country);
+  let changed = false;
+  for (const [hrefKey, labelKey] of CTA_PAIRS) {
+    const href = o[hrefKey];
+    if (typeof href === 'string' && SIGNUP_URL_PATTERN.test(href)) {
+      o[hrefKey] = contactHref;
+      if (labelKey in o) o[labelKey] = chrome.cta.contactSales;
+      changed = true;
+    }
+  }
+  if (changed && o.primaryHref === contactHref && o.secondaryHref === contactHref) {
+    delete o.secondaryHref;
+    delete o.secondaryCta;
+  }
+  return o;
 }
 
 const resolved = localizeProps(props ?? {}) as Record<string, unknown>;

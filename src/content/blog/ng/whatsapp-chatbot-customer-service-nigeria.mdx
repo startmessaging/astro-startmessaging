@@ -2,7 +2,7 @@
 title: "WhatsApp Chatbot for Customer Service in Nigeria: Build vs. Buy"
 description: "Build vs buy: a guide to WhatsApp chatbots in Nigeria. Automate customer service, design greeting menus, handle Pidgin, and integrate helpdesk platforms."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "guides"
 country: "ng"
 author: "StartMessaging Team"
@@ -23,7 +23,7 @@ featured: false
 
 Nigerian support teams are often stretched thin by high volumes of routine customer questions. Inquiries about order tracking, store hours, payment verification, and service availability block queues, preventing agents from resolving more complex cases. Integrating a whatsapp chatbot nigeria solution helps resolve this volume problem. It automates repetitive tasks and provides immediate answers 24/7. In this guide, we will examine the build vs. buy decision, outline the structure of a customer chatbot, and show you how to implement a webhook-based bot.
 
-Please note that the StartMessaging WhatsApp API is currently in active development. While the endpoints are being finalised and will be available soon, you can build your prototype using the standard `/v1/messages` endpoint shown below. Our services use the same `X-API-Key` header authentication that powers our existing SMS and verification APIs.
+The StartMessaging WhatsApp API is built on Meta's official Cloud API. Replies go through `POST https://waba-api.startmessaging.com/api/v1/messages` with an `Authorization: Bearer sm_live_...` API key, and incoming messages reach your server as signed `message.received` webhooks.
 
 ---
 
@@ -33,7 +33,7 @@ Customer expectations regarding response times are higher than ever. Nigerian sh
 
 Manually answering every question is unsustainable as a business grows. Support departments face issues with high agent turnover, long hold times, and human errors. Furthermore, running a 24/7 support desk requires hiring overnight staff, increasing operational costs. 
 
-Moving your primary support line to WhatsApp allows you to filter incoming inquiries. A chatbot can resolve up to 80% of repetitive questions instantly. This ensures customers receive immediate help, while your human agents only handle cases that require human intervention.
+Moving your primary support line to WhatsApp allows you to filter incoming inquiries. A chatbot can answer many of these repetitive questions instantly. This ensures customers receive immediate help, while your human agents only handle cases that require human intervention.
 
 ---
 
@@ -50,7 +50,7 @@ No-code platforms provide visual editors to build conversational flows. These pl
 ### The Custom API Route (Build)
 Building directly on the WhatsApp Business API is the preferred choice for engineering teams and platforms that require deep integrations with internal systems (such as databases, billing systems, and payment gateways).
 
-* **Pros:** Full control over design, zero licensing fees, custom routing, and the ability to integrate advanced AI models.
+* **Pros:** Full control over design, no per-agent chatbot licence on top of your API plan, custom routing, and the ability to integrate advanced AI models.
 * **Cons:** Requires active maintenance and developer resources for initial setup.
 
 Here is a summary of the two approaches:
@@ -58,7 +58,7 @@ Here is a summary of the two approaches:
 | Feature Criteria | Build (Custom API Integration) | Buy (No-Code Chatbot Platforms) |
 |---|---|---|
 | **Development Cost** | Higher upfront developer resources | Lower upfront setup costs |
-| **Recurring Monthly Cost** | Low (only pay for API conversation fees) | High (USD subscription fees per agent) |
+| **Recurring Monthly Cost** | Low (API plan plus Meta's per-message charges) | High (USD subscription fees per agent) |
 | **Database Integration** | Unlimited (direct queries to SQL/NoSQL databases) | Limited to pre-built plugins or webhook setups |
 | **Pidgin English Processing** | High (integrate custom NLP models or dictionaries) | Basic keyword matching only |
 | **Launch Timeline** | 2 - 4 weeks | 1 - 3 days |
@@ -93,151 +93,125 @@ To prevent this, ensure your chatbot includes these three key components:
 
 ## Code Example: Building a Node.js Order Status Chatbot
 
-To implement a custom chatbot, you must configure a webhook listener to handle incoming messages from the StartMessaging platform. When a customer sends a message, your server processes the payload, performs any database checks, and returns a response.
+To implement a custom chatbot, add a webhook endpoint in the StartMessaging dashboard (**Developers → Webhooks → Add endpoint**) subscribed to `message.received`. When a customer sends a message, StartMessaging posts a signed event to your server; your server verifies it, performs any database checks, and replies through `POST /api/v1/messages`. Because the customer has just written to you, the 24-hour customer service window is open, so free-form text and interactive replies are allowed.
 
-Below is an Express.js script that listens for messages and checks order status from a database:
+Below is an Express.js script that listens for messages and checks order status from a database. `verifySignature` is the function from the [Webhooks docs](/ng/docs/whatsapp/webhooks#verify-signatures), copied as is:
 
 ```javascript
-const express = require('express');
-const axios = require('axios');
+import express from 'express';
+import { verifySignature } from './verify-signature.js'; // from the Webhooks docs
+
 const app = express();
+const SM_API = 'https://waba-api.startmessaging.com/api/v1/messages';
 
-app.use(express.json());
-
-// Webhook listener for incoming WhatsApp events
-app.post('/webhooks/whatsapp', async (req, res) => {
-  const { event, data } = req.body;
-
-  // Verify that the event is an incoming message
-  if (event === 'message.received' && data.type === 'text') {
-    const customerPhone = data.from;
-    const incomingText = data.text.body.trim().toLowerCase();
-
-    console.log(`Received message from ${customerPhone}: "${incomingText}"`);
-
-    // Handle menu inputs
-    if (incomingText === 'hello' || incomingText === 'menu' || incomingText === 'hi') {
-      await sendWhatsAppMenu(customerPhone);
-    } else if (incomingText.startsWith('track-')) {
-      const orderId = incomingText.replace('track-', '').toUpperCase();
-      await handleOrderTracking(customerPhone, orderId);
-    } else if (incomingText === 'agent') {
-      await escalateToAgent(customerPhone);
-    } else {
-      await sendFallbackMessage(customerPhone);
-    }
+// Webhook listener for incoming WhatsApp events (raw body for signature checks)
+app.post('/webhooks/startmessaging', express.raw({ type: 'application/json' }), async (req, res) => {
+  if (!verifySignature(req.body, req.headers, process.env.SM_WEBHOOK_SECRET)) {
+    return res.sendStatus(401);
   }
+  const event = JSON.parse(req.body.toString('utf8'));
 
-  // Always return a 200 status within 5 seconds
+  // Answer with a 2xx within 5 seconds, then do the work
   res.sendStatus(200);
+
+  // Delivery is at least once: deduplicate on event.id in your database
+  if (event.type !== 'message.received') return;
+
+  const { message } = event.data;
+  const customerPhone = message.from; // E.164, or null for a username-only customer
+  if (!customerPhone) return; // reply to these customers from the team inbox
+
+  // A tap on a reply button arrives as type "interactive" with reply.id
+  const choice = message.reply ? message.reply.id : (message.text || '').trim().toLowerCase();
+
+  console.log(`Received message from ${customerPhone}: "${choice}"`);
+
+  if (choice === 'hello' || choice === 'menu' || choice === 'hi') {
+    await sendWhatsAppMenu(customerPhone);
+  } else if (choice === 'btn_track') {
+    await sendText(customerPhone, "Please reply with 'track-' followed by your order ID, e.g. track-ORD1042");
+  } else if (choice.startsWith('track-')) {
+    const orderId = choice.replace('track-', '').toUpperCase();
+    await handleOrderTracking(customerPhone, orderId);
+  } else if (choice === 'agent' || choice === 'btn_agent') {
+    await escalateToAgent(customerPhone);
+  } else {
+    await sendText(customerPhone, "Sorry, I did not understand that. Reply with 'menu' to view our support options.");
+  }
 });
 
 /**
- * Sends the main support menu
+ * Sends the main support menu as reply buttons
+ * (interactive messages need the Team plan or higher)
  */
 async function sendWhatsAppMenu(phoneNumber) {
-  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
-  const endpoint = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
+  await callWhatsAppApi({
     to: phoneNumber,
     type: 'interactive',
     interactive: {
-      type: 'button',
-      body: {
-        text: "Welcome to our support assistant! How can we help you today?\n\nReply with:\n- 'track-ORDERID' to track an order\n- 'agent' to speak to an agent"
-      },
-      action: {
-        buttons: [
-          { type: 'reply', reply: { id: 'btn_track', title: 'Track Order' } },
-          { type: 'reply', reply: { id: 'btn_agent', title: 'Talk to Agent' } }
-        ]
-      }
-    }
-  };
-
-  await callWhatsAppApi(endpoint, payload);
+      interactiveType: 'button',
+      body: 'Welcome to our support assistant! How can we help you today?',
+      buttons: [
+        { id: 'btn_track', title: 'Track Order' },
+        { id: 'btn_agent', title: 'Talk to Agent' },
+      ],
+    },
+  });
 }
 
 /**
  * Queries database and returns order tracking info
  */
 async function handleOrderTracking(phoneNumber, orderId) {
-  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
-  const endpoint = 'https://api.startmessaging.com/v1/messages';
-  
   // Simulated database check
   const orderDetails = {
     id: orderId,
     status: 'In Transit',
     eta: '16-06-2026',
-    rider: 'Musa (08031234567)'
+    rider: 'Musa (08031234567)',
   };
 
-  const text = `Order #${orderId} Details:\nStatus: ${orderDetails.status}\nEstimated Delivery: ${orderDetails.eta}\nRider Details: ${orderDetails.rider}`;
-
-  const payload = {
-    to: phoneNumber,
-    type: 'text',
-    text: { body: text }
-  };
-
-  await callWhatsAppApi(endpoint, payload);
+  await sendText(
+    phoneNumber,
+    `Order #${orderId} Details:\nStatus: ${orderDetails.status}\nEstimated Delivery: ${orderDetails.eta}\nRider Details: ${orderDetails.rider}`,
+  );
 }
 
 /**
- * Escales conversation to a human support agent
+ * Hands the conversation to a human support agent
  */
 async function escalateToAgent(phoneNumber) {
-  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
-  const endpoint = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: phoneNumber,
-    type: 'text',
-    text: { body: "Routing your conversation to an available agent. Please hold..." }
-  };
-
-  await callWhatsAppApi(endpoint, payload);
-  // Trigger system route change in your helpdesk ticketing CRM (e.g. Zendesk/Freshdesk)
+  await sendText(phoneNumber, 'Routing your conversation to an available agent. Please hold...');
+  // The conversation is already in the StartMessaging shared inbox (Team plan or higher),
+  // where an agent can pick it up, or trigger a ticket in your own helpdesk here.
 }
 
-/**
- * Sends a fallback response
- */
-async function sendFallbackMessage(phoneNumber) {
-  // TODO: Update to the final production endpoint and authentication process once the WhatsApp API is officially released
-  const endpoint = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: phoneNumber,
-    type: 'text',
-    text: { body: "Sorry, I did not understand that. Reply with 'menu' to view our support options." }
-  };
-
-  await callWhatsAppApi(endpoint, payload);
+async function sendText(phoneNumber, body) {
+  await callWhatsAppApi({ to: phoneNumber, type: 'text', text: { body } });
 }
 
 /**
  * Standard request helper
  */
-async function callWhatsAppApi(endpoint, payload) {
-  try {
-    await axios.post(endpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-  } catch (error) {
-    console.error('Error invoking WhatsApp API:', error.response ? error.response.data : error.message);
+async function callWhatsAppApi(payload) {
+  const res = await fetch(SM_API, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.SM_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const body = await res.json();
+    console.error(`Error invoking WhatsApp API: ${body.error.code}: ${body.error.message}`);
   }
 }
 
 app.listen(3000, () => console.log('Chatbot webhook server running on port 3000'));
 ```
 
-This controller handles incoming payloads, executes mock database queries, and returns text or interactive responses using the `X-API-Key` header for authentication.
+This controller verifies each delivery, branches on the button `id` or the typed text, and returns text or interactive responses using an `Authorization: Bearer sm_live_...` API key with the `messages:send` scope. Text replies work on every plan, including the API-only Developer plan. Reply buttons and lists need the Team plan or higher; on a Developer plan they are refused with `403 PLAN_FEATURE_REQUIRED`. If you prefer not to write code, the Business plan includes no-code chatbot flows (see [pricing](/ng/pricing) and [WhatsApp chatbot](/ng/whatsapp/chatbot)).
 
 ---
 
@@ -266,7 +240,7 @@ Mapping these common phrases ensures your chatbot remains user-friendly and acce
 
 A chatbot is most effective when integrated with your helpdesk ticketing systems. When the chatbot escalates a conversation, the chat history should route into a unified dashboard, giving human support agents the context they need.
 
-The WhatsApp Business API can integrate with global helpdesk tools (such as Zendesk, Freshdesk, and Zoho Desk). It can also connect to local CRM databases and customer support platforms used by Nigerian startups (like Moniepoint or OPay CRM integrations).
+The WhatsApp Business API can integrate with global helpdesk tools (such as Zendesk, Freshdesk, and Zoho Desk). Through webhooks and the REST API, it can also connect to your own CRM databases and internal support tools. On the Team plan and above, StartMessaging also includes a [shared team inbox](/ng/whatsapp/shared-inbox) where agents can pick up escalated conversations.
 
 These integrations ensure that when an agent claims a ticket, they can review previous bot interactions. This prevents the customer from having to repeat their issue, improving the overall support experience.
 
@@ -276,7 +250,7 @@ These integrations ensure that when an agent claims a ticket, they can review pr
 
 **Q: Can a single WhatsApp Business phone number support multiple agents?**
 
-A: Yes. By upgrading from the free WhatsApp app to the WhatsApp Business API, you can link your number to a central helpdesk. This allows dozens of support agents to log in from different locations and answer incoming messages simultaneously.
+A: Yes. By upgrading from the free WhatsApp app to the WhatsApp Business API, you can link your number to a central helpdesk. This allows many support agents to log in from different locations and answer incoming messages simultaneously. In StartMessaging, the shared inbox comes with the Team plan (₹999/month, 3 seats included, extra seats ₹199/month) and the Business plan (₹2,999/month, 10 seats); see [pricing](/ng/pricing).
 
 **Q: What happens when the chatbot fails to understand the customer?**
 
@@ -284,7 +258,7 @@ A: The bot should offer a fallback response. If the customer's intent is unclear
 
 **Q: Are there monthly charges for incoming messages sent by customers?**
 
-A: No. Meta's conversation-based pricing does not charge for individual incoming messages. Instead, billing is per 24-hour conversation window. If a customer initiates contact, a "Service Conversation" window opens. You can send unlimited messages to that user within 24 hours for a single flat rate (approximately ₦3.00 to ₦4.00).
+A: No. Meta does not charge for messages customers send to you. Meta uses per-message pricing and bills your own WhatsApp Business Account directly, using the payment method you add in WhatsApp Manager. When a customer writes to you, a 24-hour customer service window opens: your free-form service replies inside it are free up to a monthly allowance per phone number, then charged. Since 1 October 2026, every delivered template message (marketing, utility even inside the window, and authentication) is charged. If the customer came from a Click-to-WhatsApp ad or a Facebook Page button and you reply within 24 hours, a 72-hour free entry point window opens. Rates vary by country and category; see [Meta's rate card](https://developers.facebook.com/docs/whatsapp/pricing). StartMessaging itself never charges per message; you pay only for your plan.
 
 **Q: Can we run our webhook chatbot serverless?**
 
@@ -292,4 +266,4 @@ A: Yes. You can deploy your chatbot webhook listener as a serverless function us
 
 ---
 
-Building a whatsapp chatbot nigeria customer support flow enables businesses to resolve support queues and automate routine enquiries. Whether you use a no-code tool or integrate directly with the StartMessaging API, aligning your system with local language preferences and helpdesks ensures a reliable customer experience. To start building your chatbot, check out our developer guide on [webhook signature verification](/ng/docs/whatsapp/authentication#webhook-authentication).
+Building a whatsapp chatbot nigeria customer support flow enables businesses to resolve support queues and automate routine enquiries. Whether you use a no-code tool or integrate directly with the StartMessaging API, aligning your system with local language preferences and helpdesks ensures a reliable customer experience. To start building your chatbot, check out our developer guide on [webhook signature verification](/ng/docs/whatsapp/webhooks#verify-signatures).

@@ -2,7 +2,7 @@
 title: "Türkiye'de WhatsApp Business API Nasıl Kurulur: Geliştirici Rehberi (2026)"
 description: "Türkiye'de WhatsApp Business API kurulumunu adım adım öğrenin. Meta Business hesabı, işletme doğrulama ve Node.js ile mesaj gönderme adımları."
 publishedAt: "2026-06-16"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "tr"
 author: "StartMessaging Team"
@@ -19,7 +19,7 @@ featured: false
 
 Şirketinizin iletişim kanallarını doğrudan WhatsApp ile entegre etmek, Türkiye pazarında müşteri bağlılığını ve satış dönüşüm oranlarını artırmanın en kestirme yoludur. Akıllı telefon kullanım oranlarının son derece yüksek olduğu ülkemizde, tüketiciler işletmelerle e-posta yerine anlık mesajlaşma uygulamaları üzerinden iletişim kurmayı tercih etmektedir. Ancak operasyon ölçeğiniz büyüdüğünde ve günlük mesaj hacmi binleri aştığında, standart mobil uygulamalar yetersiz kalır. İşte bu noktada büyük ölçekli ve güvenli mesaj gönderimini destekleyen whatsapp business api türkiye altyapısı devreye girer.
 
-StartMessaging'in WhatsApp API hizmeti şu anda mühendislik ekibimiz tarafından aktif geliştirme aşamasındadır. Yakın zamanda kullanıma sunulacak olan nihai üretim (production) API adresleri tamamlanırken, sistem entegrasyonlarınızı test etmek ve yapılandırmak için geçici olarak sunulan `/v1/messages` endpoint yolunu kullanabilirsiniz. Servisimiz üzerinden yapılacak tüm istekler, mevcut SMS OTP altyapımızda olduğu gibi HTTP `X-API-Key` özel başlık kimlik doğrulaması ile çalışır ve geliştiricilere entegrasyon kolaylığı sunar.
+StartMessaging, Meta'nın resmi WhatsApp Business Platformu (Cloud API) üzerine kurulu bir WhatsApp CRM ve REST API'sidir (Meta Tech Provider). Kendi WhatsApp Business Hesabınızı (WABA) Meta'nın Embedded Signup akışıyla bağlarsınız; numaranız, şablonlarınız ve mesaj faturalandırmanız kendi hesabınızda kalır. API canlıdır: mesajlar `POST https://waba-api.startmessaging.com/api/v1/messages` ile gönderilir ve her istek `Authorization: Bearer sm_live_...` başlığındaki API anahtarıyla doğrulanır.
 
 ---
 
@@ -33,7 +33,7 @@ Buna karşın resmi WhatsApp Business API (WhatsApp Business Platform), Meta sun
 * **Akıllı Chatbot Entegrasyonu:** Müşterilerinizden gelen sıkça sorulan sorulara yanıt vermek üzere 24 saat çalışan otomatik sohbet robotları (chatbot) bağlayabilirsiniz.
 * **İşlemsel Mesaj Gönderimi:** Fatura detayları, Troy kart ödeme onayları, kargo teslimat bilgileri ve güvenlik bildirimleri gibi şablon mesajları sunucu tetiklemeleriyle otomatik gönderebilirsiniz.
 
-En kritik faktör ise Meta'nın resmi politikalarıdır. Standart uygulamalar veya onaylanmamış üçüncü taraf yazılımlar üzerinden toplu pazarlama mesajları göndermek, hattınızın Meta tarafından kalıcı olarak engellenmesine neden olur. API altyapısı, Türkiye'deki işletmeniz için yasal, güvenli ve engelleme riski olmayan tek resmi iletişim kanalıdır.
+En kritik faktör ise Meta'nın resmi politikalarıdır. Standart uygulamalar veya onaylanmamış üçüncü taraf yazılımlar üzerinden toplu pazarlama mesajları göndermek, hattınızın Meta tarafından kalıcı olarak engellenmesine neden olur. API altyapısı, Türkiye'deki işletmeniz için Meta'nın izin verdiği resmi kanaldır; onaylı şablonlar ve açık rıza vermiş alıcılarla çalıştığınız sürece numaranızı güvenle büyütebilirsiniz.
 
 ---
 
@@ -44,87 +44,78 @@ Kodlama aşamasına geçmeden önce Meta ve StartMessaging tarafında tamamlaman
 Kurulum için hazırlamanız gereken üç ana bileşen şunlardır:
 
 1. **Meta Business Manager Hesabı:** Şirket sayfalarınızı ve WhatsApp hesaplarınızı yöneteceğiniz ana paneldir. Günlük mesaj gönderim limitlerinizi artırmak için bu hesabın şirketinize ait resmi belgeler (vergi levhası, imza sirküleri veya ticaret sicil gazetesi) ile doğrulanması gerekir.
-2. **Özel Telefon Numarası:** API'ye bağlayacağınız numaranın aktif bir kişisel veya kurumsal WhatsApp uygulamasında kayıtlı olmaması gerekir. Eğer numara bir telefonda aktifse, kurulum işleminden önce uygulamanın ayarlar menüsünden WhatsApp hesabını kalıcı olarak silmelisiniz.
-3. **StartMessaging Geliştirici Hesabı:** StartMessaging, Meta bulut sunucuları ile aranızdaki veri trafiğini yöneten resmi gateway (ISV) sağlayıcınızdır. Konsolumuz üzerinden webhook yapılandırması yapabilir ve API anahtarınızı alabilirsiniz.
+2. **İşletme Telefon Numarası:** Doğrulama kodu alabilen bir numara gerekir. Numara şu anda WhatsApp veya WhatsApp Business uygulamasında kullanılıyorsa, Meta'nın kayıt akışı numaranın nasıl taşınacağını adım adım açıklar.
+3. **Ödeme Yöntemi:** WhatsApp Manager'da WhatsApp Business Hesabınıza bir ödeme yöntemi (kart) eklemeniz gerekir. Meta, şablon mesajı gönderebilmeniz için bunu ister ve mesaj ücretlerini doğrudan bu yöntemden tahsil eder.
+
+StartMessaging, Meta'nın resmi Cloud API'si üzerine kurulu bir Meta Tech Provider'dır; WhatsApp hesabınızı Meta'nın Embedded Signup akışıyla bağlar, API anahtarlarınızı ve webhook'larınızı panelden yönetirsiniz.
 
 Aşağıdaki tablo, kurulum sürecinde ihtiyaç duyacağınız temel teknik varlıkları ve görevlerini özetlemektedir:
 
 | Teknik Altyapı | Türkiye Gereksinimleri | Temel Görevi |
 |---|---|---|
-| **Meta Business Suite** | Vergi levhası onaylı işletme hesabı | Mesaj limitlerinin açılması ve şablon onaylarının yönetimi |
+| **Meta Business portföyü** | Vergi levhası ile doğrulanabilen işletme bilgileri | Mesaj limitlerinin artması ve şablonların yönetimi |
 | **Telefon Hattı** | Sabit hat (0212/0312 vb.) veya 05xx kurumsal mobil hat | Meta tarafından gönderilecek 6 haneli doğrulama kodunu almak |
-| **StartMessaging Konsolu** | Aktif geliştirici hesabı ve bakiye | API anahtarı üretimi, webhook yönetimi ve log takibi |
+| **WhatsApp Manager ödeme yöntemi** | Kredi kartı veya Meta'nın kabul ettiği başka bir yöntem | Meta'nın mesaj ücretlerini doğrudan tahsil etmesi |
+| **StartMessaging çalışma alanı** | Bir hesap ve çalışma alanı (workspace) | API anahtarı üretimi, webhook yönetimi ve log takibi |
 
 ---
 
-## Adım Adım Meta Geliştirici Portalında API Kurulumu
+## Adım Adım StartMessaging ile WhatsApp API Kurulumu
 
-İlk yapılandırma işlemleri Meta geliştirici paneli üzerinden yürütülür. Sistem entegrasyonu için gerekli kimlik bilgilerini edinmek amacıyla şu adımları izleyin:
+Meta for Developers üzerinde ayrı bir uygulama oluşturmanız gerekmez; bağlantı StartMessaging paneli içinden Meta'nın Embedded Signup akışıyla yapılır. Ayrıntılar için [Getting Started belgesine](/tr/docs/whatsapp/getting-started) bakabilirsiniz.
 
-### Adım 1: Meta for Developers Uygulaması Oluşturma
-[Meta for Developers](https://developers.facebook.com) adresine gidin ve şirketinizin Meta Business Manager hesabına bağlı olan Facebook profilinizle giriş yapın. **Uygulama Oluştur** butonuna tıklayın, iş ortaklığı/işletme (Business) seçeneğini işaretleyin, projenize isim verin ve uygulamayı ilgili işletme hesabıyla ilişkilendirin.
+### Adım 1: Çalışma Alanı İçin Satış Ekibiyle İletişim
+[Satış ekibimizle iletişime geçin](/tr/contact), çalışma alanınızı biz açalım. Çalışma alanınız 14 günlük ücretsiz Business denemesiyle başlar (3 kişi, 1.000 kişi kaydı ve 1.000 API mesajı).
 
-### Adım 2: WhatsApp Ürününü Ekleme
-Oluşturduğunuz uygulamanın kontrol panelinde yer alan ürün listesinden WhatsApp seçeneğini bulun ve **Kurulum** butonuna tıklayın. Meta, numaranızı bağlamadan önce testler yapabilmeniz için otomatik olarak geçici bir sandbox test numarası ve test kredisi tanımlayacaktır.
+### Adım 2: WhatsApp'ı Bağlama (Embedded Signup)
+Çalışma alanındaki **Connect** sayfasında **Connect with Facebook** butonuna tıklayın. Açılan Meta penceresinde Facebook ile giriş yapın; Meta Business portföyünüzü, WhatsApp Business Hesabınızı ve Türkiye (+90) numaranızı seçin veya oluşturun. Numarayı Meta'nın SMS veya sesli arama ile gönderdiği kodla doğrulayın, ardından StartMessaging'e dönüp numara için 6 haneli iki adımlı doğrulama PIN'i girin. Bu adım numarayı Cloud API'ye kaydeder.
 
-### Adım 3: Türkiye Telefon Numaranızı Kaydetme
-Kendi numaranızı entegre etmek için WhatsApp ayarları altındaki numara ekleme alanına gidin, Türkiye ülke kodunu (+90) seçerek numaranızı girin. Doğrulama türünü SMS veya Sesli Arama olarak belirleyin. Gelen 6 haneli kodu panele girerek doğrulamayı tamamladığınızda Meta size Phone Number ID ve WhatsApp Business Account ID (WABA ID) değerlerini sunacaktır.
+### Adım 3: Ödeme Yöntemini Ekleme ve Şablon Oluşturma
+Connect sayfasındaki **Open WhatsApp Manager →** bağlantısıyla WhatsApp Business Hesabınıza ödeme yöntemi ekleyin. Ödeme yöntemi yoksa şablon gönderimleri `402 META_PAYMENT_REQUIRED` hatasıyla reddedilir. Sonra **Templates** bölümünde bir şablon oluşturup **Submit to Meta** ile onaya gönderin; yalnızca **Approved** durumundaki şablonlar gönderilebilir.
 
-### Adım 4: StartMessaging Konsolu Entegrasyonu
-StartMessaging geliştirici paneline giriş yapın, edindiğiniz Phone Number ID değerini platformumuza ekleyin ve yeni bir API anahtarı oluşturun. Bu anahtar, yapacağınız isteklerde yetkilendirme sağlamak amacıyla `X-API-Key` başlığıyla gönderilecektir.
+### Adım 4: API Anahtarı Oluşturma
+**Developers → API keys** bölümünden (Manager rolü veya üstü) yeni bir anahtar oluşturun. Anahtar `sm_live_` ile başlar ve **yalnızca bir kez gösterilir**; bir gizli anahtar yöneticisinde veya ortam değişkeninde saklayın. İsteklerde `Authorization: Bearer sm_live_...` başlığıyla gönderilir.
 
 ---
 
 ## Uygulama Entegrasyonu: Node.js ile İlk WhatsApp Mesajını Gönderme
 
-Numaranız doğrulandıktan ve StartMessaging üzerinden API anahtarınızı oluşturduktan sonra ilk test mesajınızı gönderebilirsiniz. Gönderim işlemi HTTP POST isteği üzerinden JSON biçiminde veri iletilerek gerçekleştirilir.
+Numaranız bağlandıktan, şablonunuz onaylandıktan ve API anahtarınızı oluşturduktan sonra ilk mesajınızı gönderebilirsiniz. Bir müşteriyle sohbeti başlatmak (veya 24 saatlik pencere kapandıktan sonra yazmak) için WhatsApp yalnızca **onaylı şablonlara** izin verir; serbest metin mesajları yalnızca müşterinin son mesajından sonraki 24 saat içinde gönderilebilir, aksi halde API `403 MESSAGE_WINDOW_CLOSED` döner.
 
-Aşağıda, geçici API adresimizi kullanarak Node.js ile temel bir metin mesajı gönderen örnek kod bloğu yer almaktadır:
+Anahtarınızı doğrulamak için önce kapsam gerektirmeyen `GET /api/v1/me` çağrısını deneyebilirsiniz:
 
-```javascript
-const axios = require('axios');
-
-/**
- * Türkiye'deki bir müşteriye otomatik WhatsApp mesajı gönderir.
- * 
- * @param {string} recipientPhone - Uluslararası formatta alıcı telefon numarası (örnek: "905321234567")
- * @param {string} bodyText - Gönderilmek istenen mesaj içeriği
- */
-async function gonderWhatsAppMesaji(recipientPhone, bodyText) {
-  // TODO: WhatsApp API resmi olarak yayına alındığında nihai üretim endpoint adresiyle güncelleyin
-  const apiEndpoint = 'https://api.startmessaging.com/v1/messages';
-
-  const payload = {
-    to: recipientPhone,
-    type: 'text',
-    text: {
-      body: bodyText
-    }
-  };
-
-  try {
-    const response = await axios.post(apiEndpoint, payload, {
-      headers: {
-        'X-API-Key': process.env.STARTMESSAGING_API_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    console.log('Mesaj başarıyla iletildi. Mesaj ID:', response.data.messageId);
-    return response.data;
-  } catch (error) {
-    console.error('WhatsApp API çağrısı sırasında hata oluştu:', error.response ? error.response.data : error.message);
-    throw error;
-  }
-}
-
-// Test amacıyla Türkiye numarasına deneme gönderimi
-const hedefNumara = '905321234567';
-const mesajIcerigi = 'Merhaba! Bu mesaj StartMessaging WhatsApp API entegrasyonu üzerinden gönderilmiş resmi bir test mesajıdır.';
-gonderWhatsAppMesaji(hedefNumara, mesajIcerigi);
+```bash
+curl https://waba-api.startmessaging.com/api/v1/me \
+  -H "Authorization: Bearer sm_live_your_api_key"
 ```
 
-Yukarıdaki Node.js kodu, alıcı numarasını ve mesaj metnini içeren JSON verisini oluşturur. API anahtarı güvenli bir şekilde `X-API-Key` başlığında taşınır. Yetkilendirme hatalarını önlemek için projenizdeki `STARTMESSAGING_API_KEY` çevre değişkenini konsoldan aldığınız anahtarla tanımladığınızdan emin olun.
+Aşağıda, Node.js ile onaylı bir şablon gönderen örnek yer almaktadır:
+
+```javascript
+const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.SM_API_KEY}`,
+    'Content-Type': 'application/json',
+    'Idempotency-Key': 'order-1042-confirmation',
+  },
+  body: JSON.stringify({
+    to: '+905321234567',
+    type: 'template',
+    template: {
+      name: 'order_confirmation',
+      language: 'tr',
+      parameters: [{ text: 'Ayşe' }, { text: '#1042' }],
+    },
+    clientReference: 'order-1042',
+  }),
+});
+const body = await res.json();
+if (!res.ok) throw new Error(`${body.error.code}: ${body.error.message}`);
+console.log(body.data.id);
+```
+
+`template.name`, şablonun Meta tarafından onaylanan adıyla birebir aynı olmalı; `language` da şablonun dil kodudur. `201` yanıtı, WhatsApp'ın mesajı kabul ettiği anlamına gelir; teslim ve okundu bilgileri `message.*` webhook'larıyla gelir. `Idempotency-Key` başlığı, yeniden denemelerde aynı mesajın iki kez gitmesini önler. API anahtarını `SM_API_KEY` ortam değişkeninde tutun; tarayıcı veya mobil uygulama koduna asla koymayın.
 
 ---
 
@@ -134,7 +125,7 @@ Türkiye'deki telekomünikasyon altyapısı (Turkcell, Vodafone, Türk Telekom) 
 
 Sıkça karşılaşılan operatör kaynaklı sorunlar ve çözümleri şunlardır:
 
-* **Hatalı Ülke Kodu ve Numara Formatı:** WhatsApp API, numaraların uluslararası `E.164` standardında olmasını şart koşar. Türkiye için numaraların başında sıfır (`0`) olmadan ülke kodu olan `90` eklenmelidir (örneğin; `0532 123 45 67` numarası API'ye `905321234567` şeklinde iletilmelidir). Boşluk veya parantez gibi karakterler barındıran istekler HTTP `400 Bad Request` hatası alır.
+* **Hatalı Ülke Kodu ve Numara Formatı:** Numaraları uluslararası `E.164` biçiminde göndermeniz önerilir. Türkiye için baştaki sıfır (`0`) atılır ve `+90` ülke kodu eklenir (örneğin; `0532 123 45 67` numarası API'ye `+905321234567` şeklinde iletilmelidir). Ülke kodu olmayan ulusal bir numara, çalışma alanınızın ülkesine göre yorumlanır; bu yüzden ülke kodunu her zaman açıkça yazın. Geçersiz bir istek gövdesi `400 VALIDATION_ERROR` döner.
 * **OTP SMS Filtreleme Engeli:** Doğrulama sırasında Meta'nın gönderdiği aktivasyon SMS'i Türk operatörlerinin yurt dışı SMS filtrelerine takılabilir. Eğer SMS 3 dakika içinde gelmezse, doğrulama yöntemini **Sesli Arama (Voice Call)** olarak değiştirerek kodu sesli robot araması üzerinden almayı deneyin.
 * **Sabit Hat Yönlendirmeleri:** Sabit şirket hatlarını (0212, 0312 vb.) kaydederken, numaranın dışarıdan doğrudan aranabilir olduğunu ve IVR (sesli yanıt sistemi) engeline takılmadan operatörün çağrıyı yanıtlayabildiğini kontrol edin, aksi takdirde doğrulama araması başarısız olur.
 
@@ -144,15 +135,15 @@ Sıkça karşılaşılan operatör kaynaklı sorunlar ve çözümleri şunlardı
 
 **Q: Kişisel cep telefonu numaramı WhatsApp API entegrasyonunda kullanabilir miyim?**
 
-A: Teknik olarak kullanabilirsiniz, ancak bunu yapmanız durumunda telefonunuzdaki standart WhatsApp uygulamasını artık kullanamazsınız. API'ye bağlanan numaranın kontrolü Meta bulut sunucularına geçer. Mesajları okumak ve yanıtlamak için bir yazılım arayüzü veya müşteri destek paneli kullanmanız gerekir. Bu nedenle iş süreçleriniz için ayrı bir sanal hat veya şirket hattı ayırmanız önerilir.
+A: Teknik olarak kullanabilirsiniz, ancak bunu yapmanız durumunda telefonunuzdaki standart WhatsApp uygulamasını artık kullanamazsınız. API'ye bağlanan numaranın kontrolü Meta bulut sunucularına geçer. Mesajları okumak ve yanıtlamak için bir yazılım arayüzü veya müşteri destek paneli kullanmanız gerekir (StartMessaging'in [ortak gelen kutusu](/tr/whatsapp/shared-inbox) Team ve üzeri planlarda yer alır). Bu nedenle iş süreçleriniz için ayrı bir sanal hat veya şirket hattı ayırmanız önerilir.
 
 **Q: Meta Business Manager işletme doğrulaması Türkiye'de ne kadar sürer?**
 
-A: Vergi levhanızda yazan resmi unvan ile Meta panelindeki işletme adınız birebir eşleşiyorsa ve evraklarınızı eksiksiz yüklediyseniz, onay süreci genellikle 24 ila 48 saat içinde tamamlanır. Bilgilerin uyuşmaması durumunda Meta ekibi manuel inceleme başlatır ve bu süreç 1 haftaya kadar uzayabilir.
+A: İnceleme süresini Meta belirler. Vergi levhanızda yazan resmi unvan ile Meta panelindeki işletme adınızın birebir eşleşmesi ve evraklarınızı eksiksiz yüklemeniz süreci hızlandırır; bilgiler uyuşmazsa Meta ek belge isteyebilir. Doğrulama durumunu StartMessaging'in Connect sayfasında da görebilirsiniz.
 
-**Q: WhatsApp API üzerinden mesaj gönderim ücretleri Türk Lirası cinsinden nasıl hesaplanır?**
+**Q: WhatsApp API üzerinden mesaj gönderim ücretleri nasıl hesaplanır?**
 
-A: Meta, gönderimleri 24 saatlik oturumlar (Conversation-Based Pricing) bazında faturalandırır. Ücretler mesajın kategorisine (Pazarlama, Hizmet, Kimlik Doğrulama, Kullanıcı Başlatmalı) göre değişiklik gösterir. Türkiye pazarı için pazarlama oturumu başına ücret yaklaşık 0.80 TL ile 1.20 TL arasında değişirken, hizmet odaklı yazışmalar daha uygun fiyatlıdır. Her ay gelen ilk 1.000 kullanıcı başlatmalı oturum ise tamamen ücretsizdir.
+A: 1 Ekim 2026'dan beri Meta, konuşma bazında değil mesaj başına ücretlendirir ve teslim edilen her şablon mesajı için ücret alır: pazarlama, hizmet (utility; 24 saatlik müşteri hizmetleri penceresi içinde bile) ve kimlik doğrulama. 24 saatlik pencere içindeki hizmet yanıtları, telefon numarası başına aylık bir kotaya kadar ücretsizdir; sonrasında Meta bunları da ücretlendirir. Bir müşteri size WhatsApp'a Tıkla reklamından veya Facebook Sayfası butonundan yazdığında ve 24 saat içinde yanıt verdiğinizde 72 saatlik ücretsiz giriş noktası penceresi açılır. Meta bu ücretleri yayımladığı tarifeler üzerinden doğrudan kendi WhatsApp Business Hesabınıza (WABA) faturalandırır; Türkiye için güncel tarifeler [Meta'nın fiyatlandırma sayfasında](https://developers.facebook.com/docs/whatsapp/pricing) yer alır. StartMessaging asla mesaj başına ücret almaz — yalnızca planınızın ücretini ödersiniz: Developer (ücretsiz katman ve ₹100/ay'dan başlayan paketler), Team ₹999/ay, Business ₹2.999/ay veya Enterprise. Fiyatlara GST dahildir; ayrıntılar [fiyatlandırma sayfasındadır](/tr/pricing).
 
 **Q: Webhook sunucumuzu Türkiye sınırları içinde barındırma zorunluluğumuz var mı?**
 
@@ -160,4 +151,4 @@ A: Teknik olarak böyle bir zorunluluk yoktur. Webhook isteklerinizi karşılaya
 
 ---
 
-Türkiye pazarında WhatsApp Business API altyapısını kurarak müşterilerinize anında ulaşan otomatik ve güvenli bir kanal oluşturabilirsiniz. StartMessaging'in sunduğu güçlü `X-API-Key` kimlik doğrulaması ile backend sistemlerinizi hızla yayına alabilirsiniz. Gelen kullanıcı mesajlarını işlemek ve teslimat durumlarını anlık takip etmek için geliştirici dökümanlarımızda bulunan [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızı inceleyerek entegrasyonunuzu geliştirebilirsiniz.
+Türkiye pazarında WhatsApp Business API altyapısını kurarak müşterilerinize anında ulaşan otomatik ve güvenli bir kanal oluşturabilirsiniz. StartMessaging'in `Authorization: Bearer sm_live_...` ile çalışan REST API'si sayesinde backend sistemlerinizi hızla yayına alabilirsiniz; ücretsiz denemeyle başlamak için [satış ekibimizle iletişime geçin](/tr/contact) (ilk şablon gönderiminden önce Meta, WhatsApp hesabınızda bir ödeme yöntemi ister). Gelen kullanıcı mesajlarını işlemek ve teslimat durumlarını anlık takip etmek için geliştirici dökümanlarımızda bulunan [Türkiye WhatsApp webhook kurulum kılavuzu](/tr/docs/whatsapp/webhooks) sayfamızı inceleyerek entegrasyonunuzu geliştirebilirsiniz.

@@ -2,7 +2,7 @@
 title: "How to Send OTP with WordPress (2026)"
 description: "WordPress OTP integration using StartMessaging. Custom plugin with REST API endpoints, options-page for the API key, and a shortcode-based login form. WooCommerce-friendly."
 publishedAt: "2026-05-10"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -31,7 +31,7 @@ WordPress is still the dominant CMS in India. This tutorial shows
 
 
 - Plugin file with a settings page for API key.
-- Two REST routes: `/otp/send`, `/otp/verify`.
+- Two WordPress REST routes (`sm/v1/send-otp`, `sm/v1/verify-otp`) that proxy StartMessaging's `/otp/send` and `/otp/verify`.
 - Shortcode for the login form.
 - WooCommerce checkout hook (optional).
 
@@ -79,16 +79,21 @@ add_action('rest_api_init', function () {
     'permission_callback' => '__return_true',
     'callback' => function (WP_REST_Request $req) {
       $phone = $req->get_param('phoneNumber');
+      $otp   = (string) random_int(100000, 999999); // your server generates the code
       $r = wp_remote_post('https://api.startmessaging.com/otp/send', [
         'headers' => ['X-API-Key' => get_option('sm_api_key'), 'Content-Type' => 'application/json'],
-        'body'    => json_encode(['phoneNumber' => $phone, 'idempotencyKey' => wp_generate_uuid4()]),
+        'body'    => json_encode([
+          'phoneNumber'    => $phone,
+          'variables'      => ['otp' => $otp],
+          'idempotencyKey' => wp_generate_uuid4(),
+        ]),
         'timeout' => 10,
       ]);
       $body = json_decode(wp_remote_retrieve_body($r), true);
-      if (wp_remote_retrieve_response_code($r) !== 200) return new WP_REST_Response($body, 502);
-      $data = $body['data'];
-      setcookie('sm_otp_req', $data['requestId'], time() + 900, '/', '', true, true);
-      return ['expiresAt' => $data['expiresAt']];
+      if (wp_remote_retrieve_response_code($r) !== 201) return new WP_REST_Response($body, 502);
+      $data = $body['data']; // otpRequestId, messageId, status
+      setcookie('sm_otp_req', $data['otpRequestId'], time() + 900, '/', '', true, true);
+      return ['status' => $data['status']];
     },
   ]);
   register_rest_route('sm/v1', '/verify-otp', [
@@ -102,7 +107,8 @@ add_action('rest_api_init', function () {
         'headers' => ['X-API-Key' => get_option('sm_api_key'), 'Content-Type' => 'application/json'],
         'body'    => json_encode(['requestId' => $rid, 'otpCode' => $code]),
       ]);
-      return wp_remote_retrieve_response_code($r) === 200
+      $res = json_decode(wp_remote_retrieve_body($r), true);
+      return wp_remote_retrieve_response_code($r) === 200 && !empty($res['data']['verified'])
         ? ['verified' => true]
         : new WP_REST_Response(['error' => 'invalid'], 401);
     },

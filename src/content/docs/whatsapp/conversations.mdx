@@ -1,0 +1,249 @@
+---
+title: "Conversations"
+description: "Read the shared WhatsApp inbox over the StartMessaging API: list conversations, check the 24-hour window, read message history, and assign, resolve or reopen conversations."
+product: whatsapp
+order: 6
+---
+
+## Overview
+
+A conversation is the thread between your workspace and one customer's WhatsApp number: the same threads your team works in the dashboard's shared inbox. The API lets your own systems read them, check whether the 24-hour window is open, read the message history, and assign, resolve or reopen a conversation.
+
+| Method & path | Scope | What it does |
+|---|---|---|
+| `GET /api/v1/conversations` | `conversations:read` | List conversations, with filters |
+| `GET /api/v1/conversations/{id}` | `conversations:read` | Get one conversation |
+| `GET /api/v1/conversations/{id}/messages` | `conversations:read` | The conversation's messages, newest first |
+| `PATCH /api/v1/conversations/{id}` | `conversations:write` | Assign, unassign, resolve or reopen |
+
+**Plans.** Reading conversations and their messages works on every plan, Developer included: a Developer workspace reads the conversations its own sends start. Changing one (`PATCH`) is the shared inbox's job and needs the **team inbox** on your plan (Team, Business, Enterprise and the free trial). Without it, `PATCH` answers `403 PLAN_FEATURE_REQUIRED` with `details.feature: "agent_inbox"`.
+
+An API key sees the whole inbox, whoever a conversation is assigned to. Conversations are created by inbound messages and by sends; there is no endpoint to create one directly.
+
+## The conversation object
+
+```json
+{
+  "id": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+  "contactId": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+  "contactPhone": "+919812345678",
+  "contactWaUserId": "IN.13491208655302741918",
+  "contactName": "Aarti Sharma",
+  "status": "open",
+  "assignedToUserId": "5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d",
+  "unreadCount": 2,
+  "lastMessageAt": "2026-10-02T10:15:00.000Z",
+  "lastInboundAt": "2026-10-02T10:15:00.000Z",
+  "freeEntryPointExpiresAt": null,
+  "windowOpen": true,
+  "createdAt": "2026-09-28T08:00:00.000Z",
+  "updatedAt": "2026-10-02T10:15:00.000Z"
+}
+```
+
+| Field | Description |
+|---|---|
+| `contactId` | The contact, or `null` when it has none (an old conversation, or one whose contact was deleted; it is linked again when that number writes in or is messaged). |
+| `contactPhone` | The customer's WhatsApp number in E.164, or `null` for someone with a WhatsApp username whom Meta names only by their user id (`contactWaUserId`), until they share their number by talking to you. |
+| `contactWaUserId` | Meta's business-scoped user id for the customer, once Meta has sent one, or `null`. Stable for your business; it changes only if they change their number. |
+| `contactName` | The name WhatsApp or your team recorded, or `null`. |
+| `status` | `open` or `resolved`. A new message from the customer reopens a resolved conversation automatically. |
+| `assignedToUserId` | The member handling it, or `null` while it waits in the unassigned queue. |
+| `unreadCount` | Customer messages nobody on your team has opened yet. |
+| `lastMessageAt` | Latest message in either direction. |
+| `lastInboundAt` | When the customer last wrote, or `null` if they never have. |
+| `freeEntryPointExpiresAt` | When Meta's **free entry point window** ends, or `null` when there is none. It opens when the customer came from a Click-to-WhatsApp ad (or a Facebook Page button) and you replied in time; until it ends, Meta charges nothing for messages in this conversation, templates included. It does not open the 24-hour window: outside that, you still need an approved template. |
+| `windowOpen` | Whether WhatsApp's 24-hour customer service window is open **right now**, computed when you read it. While open you may send any message; once closed, only an approved template. |
+| `updatedAt` | Last change (a message, an assignment, a status change). What `updatedSince` filters on. |
+
+## List conversations
+
+`GET /api/v1/conversations` returns conversations with the newest activity first, in the `{ "items": [...], "nextCursor": "..." }` list shape (`limit` 1–100, default 25).
+
+| Query parameter | Description |
+|---|---|
+| `status` | `open` or `resolved`. |
+| `assignedToUserId` | A member's user id, or `unassigned` for the queue nobody has picked up. |
+| `contactPhone` | The customer's number in E.164 (URL-encode `+` as `%2B`; a missing `+` is tolerated). Anything that is not a phone number is `400 MOBILE_INVALID`. A conversation with a username-only customer has no number to filter on: match it by `contactWaUserId` in your own records. |
+| `updatedSince` | Incremental sync: only conversations changed at or after this time, **oldest change first**. A date, or a date-time with a timezone (`2026-10-01T10:00:00Z`). |
+
+```bash
+curl "{{WA_API_BASE}}/api/v1/conversations?status=open&assignedToUserId=unassigned" \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+```javascript
+const params = new URLSearchParams({ status: "open", assignedToUserId: "unassigned" });
+const res = await fetch(`{{WA_API_BASE}}/api/v1/conversations?${params}`, {
+  headers: { Authorization: "Bearer sm_live_your_api_key" },
+});
+const { data } = await res.json();
+for (const c of data.items) console.log(c.contactPhone ?? c.contactWaUserId, c.windowOpen);
+```
+
+```python
+import requests
+
+res = requests.get(
+    "{{WA_API_BASE}}/api/v1/conversations",
+    headers={"Authorization": "Bearer sm_live_your_api_key"},
+    params={"status": "open", "assignedToUserId": "unassigned"},
+)
+for c in res.json()["data"]["items"]:
+    print(c["contactPhone"] or c["contactWaUserId"], c["windowOpen"])
+```
+
+The `updatedSince` recipe is the same as for contacts: keep `updatedSince` unchanged while paging, upsert by `id`, store the `updatedAt` of the last row you processed, and start the next sync a few minutes before it. A conversation that changes while you page moves to the end of the walk, so it is not lost. See [Pagination & Idempotency](/docs/whatsapp/pagination-and-idempotency).
+
+## Get a conversation
+
+```bash
+curl "{{WA_API_BASE}}/api/v1/conversations/3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33" \
+  -H "Authorization: Bearer sm_live_your_api_key"
+```
+
+Check `windowOpen` before sending anything other than a template. An unknown id, or one from another workspace, is `404 CONVERSATION_NOT_FOUND`.
+
+## List a conversation's messages
+
+`GET /api/v1/conversations/{id}/messages` returns the messages newest first, paged with `limit` and `cursor`.
+
+```json
+{
+  "id": "c4e1b2a3-9d8f-4e7a-b6c5-0a1b2c3d4e5f",
+  "conversationId": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+  "direction": "inbound",
+  "type": "interactive",
+  "status": "delivered",
+  "text": "Yes, confirm order",
+  "templateName": null,
+  "media": null,
+  "interactive": {
+    "type": "button_reply",
+    "body": null,
+    "options": [],
+    "reply": { "id": "cod_confirm", "title": "Yes, confirm order" }
+  },
+  "failureCode": null,
+  "failureReason": null,
+  "pricing": null,
+  "senderId": null,
+  "apiKeyId": null,
+  "clientReference": null,
+  "reply": { "kind": "button", "id": "cod_confirm", "title": "Yes, confirm order" },
+  "context": { "messageId": "7d1e2f3a-4b5c-4d6e-8f9a-0b1c2d3e4f5a", "clientReference": "order-1042" },
+  "form": null,
+  "timestamp": "2026-10-02T10:15:00.000Z"
+}
+```
+
+| Field | Description |
+|---|---|
+| `direction` | `inbound` (from the customer) or `outbound` (from you). |
+| `type` | `text`, `template`, `image`, `video`, `audio`, `document`, `sticker` or `interactive`. The same value `GET /api/v1/messages/{id}` and the `message.received` webhook give. Kinds the API does not model (location, contact card, reaction) are `text` with a bracketed placeholder such as `[location]`. |
+| `status` | `queued`, `sent`, `delivered`, `read` or `failed` for messages you sent; inbound messages are `delivered`. |
+| `text` | The body, a template's filled-in text, a file's caption or the tapped option's label. `null` for an uncaptioned file. |
+| `media` | `type`, `mimeType`, `filename`, `caption`. **Metadata only**: received media is served only to signed-in dashboard users, so the API never returns a media URL. |
+| `interactive` | Buttons or a list you sent (`type: button` or `list`, `body`, `options`), or the customer picking one (`button_reply` or `list_reply`, with `reply`). |
+| `failureCode`, `failureReason` | WhatsApp's error code and explanation when `status` is `failed`. |
+| `pricing` | For a message you sent, how Meta classified it once a receipt says so: `category` (such as `marketing`, `utility`, `authentication`, `service`) and `type` (`regular` when charged, `free_customer_service`, `free_entry_point`). Meta bills your WhatsApp Business Account directly; this is a record, not a StartMessaging charge. `null` for inbound messages and until the first receipt. |
+| `senderId` | The member who sent it from the inbox; `null` for inbound, automations, campaigns and API sends. |
+| `apiKeyId` | The API key that sent it, for API sends. |
+| `clientReference` | Your own reference, when the message was sent through the API with one. |
+| `reply` | What the customer tapped: `kind` (`button`, `list` or `quick_reply`), `id` and `title`. For a reply button or list row you sent, branch on `id` (the id you gave it). For a template quick-reply button you sent through the API, the API cannot set the `id`: match `title`, the button text as approved, and find your message with `context.clientReference`. |
+| `context` | Set when the customer replied to a specific message (tapping a button on it counts): `messageId` (our id, or `null` when it is not this workspace's message) and that message's `clientReference`. |
+| `form` | A submitted WhatsApp Form: `kind`, `flowToken`, `flowId`, `flowName`, `fields` (each with `key`, `label` and `value`) and `raw`. `null` otherwise. See [Webhooks](/docs/whatsapp/webhooks). |
+
+## Assign, resolve or reopen
+
+`PATCH /api/v1/conversations/{id}` takes two fields. Anything else is `400 VALIDATION_ERROR`.
+
+| Field | Description |
+|---|---|
+| `status` | `resolved` closes the conversation, `open` reopens it. |
+| `assignedToUserId` | A member's user id (an active member who is not a Viewer), or `null` to return it to the unassigned queue. Otherwise `422 ASSIGNEE_NOT_MEMBER`. |
+
+```bash
+curl -X PATCH "{{WA_API_BASE}}/api/v1/conversations/3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33" \
+  -H "Authorization: Bearer sm_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{ "assignedToUserId": "5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d", "status": "open" }'
+```
+
+```javascript
+await fetch(
+  "{{WA_API_BASE}}/api/v1/conversations/3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+  {
+    method: "PATCH",
+    headers: {
+      Authorization: "Bearer sm_live_your_api_key",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status: "resolved" }),
+  }
+);
+```
+
+```python
+requests.patch(
+    "{{WA_API_BASE}}/api/v1/conversations/3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+    headers={"Authorization": "Bearer sm_live_your_api_key"},
+    json={"assignedToUserId": None},  # back to the unassigned queue
+)
+```
+
+- The change is recorded in the conversation's history as made by your API key. A changed assignment fires `conversation.assigned`; resolving fires `conversation.resolved`. Reopening (`status: "open"`) fires no webhook.
+- Setting a value the conversation already has changes nothing and fires no event, so retrying is safe.
+- An API key cannot claim a conversation or mark it read; those stay with agents in the dashboard.
+- A key with `conversations:write` but not `conversations:read` gets back only `{ "id": "..." }`.
+
+## Conversation webhooks
+
+Subscribe to these events (they need `conversations:read`). Both carry the conversation and an `actor` saying who made the change.
+
+| Event | When |
+|---|---|
+| `conversation.assigned` | The assignment changed (assigned, reassigned or unassigned). |
+| `conversation.resolved` | The conversation was resolved (its status changed to `resolved`). Reopening it, by your team, the API or a new customer message, fires no event. |
+
+```json
+{
+  "id": "evt_8a7b6c5d-4e3f-4a2b-9c1d-0e9f8a7b6c5d",
+  "type": "conversation.assigned",
+  "createdAt": "2026-10-02T10:20:00.000Z",
+  "workspaceId": "...",
+  "data": {
+    "conversation": {
+      "id": "3f6c2a1e-8b4d-4c7a-9e21-5d0b7f9a1c33",
+      "contactId": "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d",
+      "contactPhone": "+919812345678",
+      "contactWaUserId": null,
+      "status": "open",
+      "assignedToUserId": "5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d"
+    },
+    "actor": { "type": "api_key", "id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d" }
+  }
+}
+```
+
+`actor.type` is `member` (a workspace member, with their user id), `api_key` (with the key id), `staff` (StartMessaging support, `id` may be `null`) or `system` (automatic: round-robin assignment or a chatbot flow, `id` is `null`). Use it to ignore changes your own integration made.
+
+## FAQ
+
+**How do I know if I can send a free-form message?**
+Read the conversation and check `windowOpen`. It is computed at the moment you read it. When it is `false`, send an approved template with `POST /api/v1/messages`.
+
+**Can I download media a customer sent?**
+No. The API returns media metadata (type, MIME type, file name, caption) only. Received files are available to signed-in agents in the dashboard.
+
+**Why do I get 403 PLAN_FEATURE_REQUIRED on PATCH /conversations?**
+Assigning, resolving and reopening need the team inbox, on Team, Business, Enterprise and the free trial. Reading conversations works on every plan, Developer included.
+
+**Why is contactPhone null?**
+The customer uses a WhatsApp username and Meta has given us only their user id (`contactWaUserId`). The number appears once they share it by talking to you.
+
+**Will my own PATCH trigger a webhook back to me?**
+Yes, if it changed the assignment or resolved the conversation (reopening fires no event). The event's `actor` is `{ "type": "api_key", "id": "..." }`, so you can skip events your own key caused.
+
+**Can I create a conversation through the API?**
+Not directly. Send a message with `POST /api/v1/messages` and the conversation (and contact) is created if needed.

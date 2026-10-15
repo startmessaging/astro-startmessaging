@@ -24,7 +24,7 @@ import Text from '@/components/ui/Text.astro';
 import Badge from '@/components/ui/Badge.astro';
 import { r } from '@/i18n/r';
 
-const { badge, heading, subheading, snippets = [], overlayText, country } = Astro.props;
+const { badge, heading, subheading, snippets = [], country } = Astro.props;
 
 // Determine theme dynamically based on country and url pathname / page content
 let theme = Astro.props.theme || 'sms';
@@ -83,19 +83,6 @@ const uniqueId = `code-${Math.random().toString(36).slice(2, 8)}`;
             <pre class="p-6 overflow-x-auto text-sm leading-relaxed"><code class="text-[#a9b1d6] font-mono">{snippet.code}</code></pre>
           </div>
         ))}
-        {overlayText && (
-          <div class="absolute inset-0 backdrop-blur-md bg-black/70 flex flex-col items-center justify-center text-center p-6 gap-4 z-10 select-none">
-            <span class:list={["text-lg font-bold tracking-wide uppercase", isWhatsapp ? "text-accent-wa-light" : "text-primary"]}>
-              {r(overlayText, country)}
-            </span>
-            <span class="text-body-sm text-[#a9b1d6] max-w-sm">
-              This API route is under construction. Sandbox access is available for early adopters.
-            </span>
-            <a href="https://app.startmessaging.com/signup" class:list={["px-5 py-2 rounded-md font-semibold text-button-sm text-white transition-all shadow-md", isWhatsapp ? "bg-accent-wa hover:bg-accent-wa-hover" : "bg-primary hover:bg-primary-hover"]}>
-              Request Sandbox Access
-            </a>
-          </div>
-        )}
       </div>
     </div>
   </Container>

@@ -2,7 +2,7 @@
 title: "How to Send OTP with NestJS (2026 Tutorial)"
 description: "Complete NestJS guide to send and verify SMS OTPs via StartMessaging. Covers a typed service, DTOs, ConfigModule, ThrottlerGuard, exception filters and Jest tests."
 publishedAt: "2026-04-26"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -75,10 +75,11 @@ SM_BASE_URL=https://api.startmessaging.com
 // src/auth/sm.service.ts
 import { Injectable, HttpException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, randomInt } from 'node:crypto';
 
 interface SmEnvelope<T> { data: T; }
-interface SendData { requestId: string; expiresAt: string; attemptsLeft: number; }
+// otpRequestId is what /otp/verify expects as requestId; messageId is for GET /messages/:id
+interface SendData { otpRequestId: string; messageId: string; status: string; }
 interface VerifyData { verified: true; }
 
 @Injectable()
@@ -88,6 +89,8 @@ export class StartMessagingService {
   async sendOtp(phoneNumber: string): Promise<SendData> {
     return this.post<SendData>('/otp/send', {
       phoneNumber,
+      // Your backend generates the code; StartMessaging delivers it
+      variables: { otp: String(randomInt(100000, 1000000)) },
       idempotencyKey: randomUUID(),
     });
   }
@@ -152,8 +155,9 @@ export class AuthController {
   constructor(private readonly sm: StartMessagingService) {}
 
   @Post('send-otp')
-  send(@Body() body: SendOtpDto) {
-    return this.sm.sendOtp(body.phoneNumber);
+  async send(@Body() body: SendOtpDto) {
+    const data = await this.sm.sendOtp(body.phoneNumber);
+    return { requestId: data.otpRequestId };
   }
 
   @Post('verify-otp')
@@ -206,8 +210,13 @@ import { StartMessagingService } from './sm.service';
 beforeEach(() => {
   global.fetch = jest.fn().mockResolvedValue({
     ok: true,
-    json: async () => ({ data: { requestId: 'req_abc', expiresAt: 'X', attemptsLeft: 3 } }),
-    status: 200,
+    json: async () => ({
+      success: true,
+      statusCode: 201,
+      requestId: 'req_trace_1',
+      data: { otpRequestId: 'otp_abc', messageId: 'msg_abc', status: 'queued' },
+    }),
+    status: 201,
   } as any);
 });
 
@@ -221,7 +230,7 @@ it('sends an OTP', async () => {
 
   const svc = moduleRef.get(StartMessagingService);
   const data = await svc.sendOtp('+919876543210');
-  expect(data.requestId).toBe('req_abc');
+  expect(data.otpRequestId).toBe('otp_abc');
 });
 ```
 

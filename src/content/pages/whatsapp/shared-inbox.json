@@ -1,0 +1,1144 @@
+{
+  "countries": [
+    "in",
+    "br",
+    "mx",
+    "id",
+    "ae",
+    "tr",
+    "ng"
+  ],
+  "theme": "whatsapp",
+  "updatedAt": "2026-10-15",
+  "seo": {
+    "title": {
+      "en": "WhatsApp Shared Team Inbox — Assign, Reply and Resolve — StartMessaging",
+      "pt": "Caixa de Entrada Compartilhada do WhatsApp — Atribua, Responda e Resolva — StartMessaging",
+      "es": "Bandeja de Entrada Compartida de WhatsApp — Asigna, Responde y Resuelve — StartMessaging",
+      "id": "Kotak Masuk Tim WhatsApp Bersama — Tugaskan, Balas, dan Selesaikan — StartMessaging",
+      "ar": "صندوق وارد واتساب المشترك للفريق — أسند وردّ وأغلق المحادثات — StartMessaging",
+      "tr": "WhatsApp Ortak Ekip Gelen Kutusu — Ata, Yanıtla ve Çöz — StartMessaging"
+    },
+    "description": {
+      "en": "Run every WhatsApp chat from one shared team inbox: search by name or number, real-time updates, claim and assign, round-robin, quick replies, templates, interactive replies, a 24-hour window timer and five team roles.",
+      "pt": "Gerencie todos os chats do WhatsApp em uma caixa de entrada compartilhada: busca por nome ou número, atualizações em tempo real, assumir e atribuir, round-robin, respostas rápidas, templates, respostas interativas, contador da janela de 24 horas e cinco funções de equipe.",
+      "es": "Gestiona todos los chats de WhatsApp desde una bandeja de entrada compartida: búsqueda por nombre o número, actualizaciones en tiempo real, tomar y asignar, round-robin, respuestas rápidas, plantillas, respuestas interactivas, contador de la ventana de 24 horas y cinco roles de equipo.",
+      "id": "Kelola setiap obrolan WhatsApp dari satu kotak masuk tim bersama: cari berdasarkan nama atau nomor, pembaruan real-time, klaim dan tugaskan, round-robin, balasan cepat, template, balasan interaktif, penghitung jendela 24 jam, dan lima peran tim.",
+      "ar": "أدِر كل محادثات واتساب من صندوق وارد مشترك واحد للفريق: البحث بالاسم أو الرقم، وتحديثات فورية، والاستلام والإسناد، والتوزيع الدوري، والردود السريعة، والقوالب، والردود التفاعلية، وعدّاد نافذة الـ24 ساعة، وخمسة أدوار للفريق.",
+      "tr": "Tüm WhatsApp sohbetlerini tek bir ortak ekip gelen kutusundan yönetin: ada veya numaraya göre arama, gerçek zamanlı güncellemeler, üstlenme ve atama, round-robin, hızlı yanıtlar, şablonlar, etkileşimli yanıtlar, 24 saatlik pencere sayacı ve beş ekip rolü."
+    },
+    "ogImage": "/og/whatsapp-api.jpg"
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "Shared Team Inbox",
+          "pt": "Caixa de Entrada Compartilhada",
+          "es": "Bandeja de Entrada Compartida",
+          "id": "Kotak Masuk Tim Bersama",
+          "ar": "صندوق الوارد المشترك للفريق",
+          "tr": "Ortak Ekip Gelen Kutusu"
+        },
+        "title": {
+          "en": "Your Whole Team on One WhatsApp Number",
+          "pt": "Toda a Sua Equipe em Um Só Número de WhatsApp",
+          "es": "Todo Tu Equipo en Un Solo Número de WhatsApp",
+          "id": "Seluruh Tim Anda di Satu Nomor WhatsApp",
+          "ar": "فريقك بالكامل على رقم واتساب واحد",
+          "tr": "Tüm Ekibiniz Tek Bir WhatsApp Numarasında"
+        },
+        "subtitle": {
+          "en": "Every customer chat lands in one real-time inbox. Claim, assign and resolve conversations, reply with quick replies, templates or interactive buttons, and always see how much of the 24-hour window is left. The shared inbox is on the Team and Business plans.",
+          "pt": "Todo chat de cliente chega a uma única caixa de entrada em tempo real. Assuma, atribua e resolva conversas, responda com respostas rápidas, templates ou botões interativos e veja sempre quanto resta da janela de 24 horas. A caixa de entrada compartilhada faz parte dos planos Team e Business.",
+          "es": "Cada chat de cliente llega a una sola bandeja de entrada en tiempo real. Toma, asigna y resuelve conversaciones, responde con respuestas rápidas, plantillas o botones interactivos, y ve siempre cuánto queda de la ventana de 24 horas. La bandeja de entrada compartida está en los planes Team y Business.",
+          "id": "Setiap obrolan pelanggan masuk ke satu kotak masuk real-time. Klaim, tugaskan, dan selesaikan percakapan, balas dengan balasan cepat, template, atau tombol interaktif, dan selalu lihat sisa waktu jendela 24 jam. Kotak masuk bersama tersedia di paket Team dan Business.",
+          "ar": "تصل كل محادثة عميل إلى صندوق وارد واحد يتحدّث فورياً. استلم المحادثات وأسندها وأغلقها، ورُدّ بالردود السريعة أو القوالب أو الأزرار التفاعلية، واعرف دائماً كم تبقّى من نافذة الـ24 ساعة. صندوق الوارد المشترك متاح في باقتي Team وBusiness.",
+          "tr": "Her müşteri sohbeti gerçek zamanlı tek bir gelen kutusuna düşer. Konuşmaları üstlenin, atayın ve çözün; hızlı yanıtlar, şablonlar veya etkileşimli butonlarla yanıt verin ve 24 saatlik pencereden ne kadar kaldığını her zaman görün. Ortak gelen kutusu Team ve Business paketlerindedir."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Empieza la prueba gratis de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يوماً",
+          "tr": "14 günlük ücretsiz denemeyi başlat"
+        },
+        "primaryHref": "https://waba.startmessaging.com/signup",
+        "secondaryCta": {
+          "en": "Read the conversations docs",
+          "pt": "Leia a documentação de conversas",
+          "es": "Lee la documentación de conversaciones",
+          "id": "Baca dokumentasi percakapan",
+          "ar": "اقرأ توثيق المحادثات",
+          "tr": "Konuşma dokümantasyonunu okuyun"
+        },
+        "secondaryHref": "/docs/whatsapp/conversations"
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "One Inbox, Updated in Real Time",
+          "pt": "Uma Caixa de Entrada, Atualizada em Tempo Real",
+          "es": "Una Bandeja de Entrada, Actualizada en Tiempo Real",
+          "id": "Satu Kotak Masuk, Diperbarui Secara Real-Time",
+          "ar": "صندوق وارد واحد يُحدَّث فورياً",
+          "tr": "Gerçek Zamanlı Güncellenen Tek Gelen Kutusu"
+        },
+        "body": {
+          "en": "New messages appear the moment they arrive, and browser push notifications reach the teammates who can see the chat, even when the tab is closed. Search by name or number, switch between the All, Active and My chats tabs, and filter by unread, assignee, open or closed 24-hour window, or tag. Each chat shows who owns it and whether you can still reply freely or need a template.",
+          "pt": "Novas mensagens aparecem no instante em que chegam, e as notificações push do navegador chegam aos membros da equipe que podem ver o chat, mesmo com a aba fechada. Busque por nome ou número, alterne entre as abas Todas, Ativas e Meus chats e filtre por não lidas, responsável, janela de 24 horas aberta ou fechada, ou tag. Cada chat mostra quem é o responsável e se você ainda pode responder livremente ou precisa de um template.",
+          "es": "Los mensajes nuevos aparecen en cuanto llegan, y las notificaciones push del navegador llegan a los compañeros que pueden ver el chat, incluso con la pestaña cerrada. Busca por nombre o número, cambia entre las pestañas Todos, Activos y Mis chats, y filtra por no leídos, responsable, ventana de 24 horas abierta o cerrada, o etiqueta. Cada chat muestra quién lo tiene y si aún puedes responder libremente o necesitas una plantilla.",
+          "id": "Pesan baru langsung muncul saat tiba, dan notifikasi push browser sampai ke anggota tim yang dapat melihat obrolan tersebut, meskipun tab ditutup. Cari berdasarkan nama atau nomor, beralih antara tab Semua, Aktif, dan Obrolan saya, lalu filter berdasarkan belum dibaca, penanggung jawab, jendela 24 jam terbuka atau tertutup, atau tag. Setiap obrolan menampilkan pemiliknya dan apakah Anda masih bisa membalas bebas atau perlu template.",
+          "ar": "تظهر الرسائل الجديدة لحظة وصولها، وتصل إشعارات المتصفح إلى أعضاء الفريق الذين يمكنهم رؤية المحادثة، حتى عندما تكون علامة التبويب مغلقة. ابحث بالاسم أو الرقم، وتنقّل بين تبويبات الكل والنشطة ومحادثاتي، وصفِّ حسب غير المقروءة أو الموظف المسؤول أو حالة نافذة الـ24 ساعة (مفتوحة أو مغلقة) أو الوسم. تُظهر كل محادثة مَن المسؤول عنها، وهل لا يزال بإمكانك الرد بحرية أم تحتاج إلى قالب.",
+          "tr": "Yeni mesajlar geldiği anda görünür; tarayıcı push bildirimleri sohbeti görebilen ekip üyelerine, sekme kapalıyken bile ulaşır. Ada veya numaraya göre arayın, Tümü, Aktif ve Sohbetlerim sekmeleri arasında geçiş yapın; okunmamış, atanan kişi, açık veya kapalı 24 saatlik pencere ya da etikete göre filtreleyin. Her sohbet kimin sorumlu olduğunu ve hâlâ serbest yanıt verip veremeyeceğinizi ya da şablon gerekip gerekmediğini gösterir."
+        },
+        "bullets": [
+          {
+            "en": "Search chats by name or number",
+            "pt": "Busca de chats por nome ou número",
+            "es": "Búsqueda de chats por nombre o número",
+            "id": "Cari obrolan berdasarkan nama atau nomor",
+            "ar": "البحث في المحادثات بالاسم أو الرقم",
+            "tr": "Sohbetlerde ada veya numaraya göre arama"
+          },
+          {
+            "en": "All, Active and My chats tabs",
+            "pt": "Abas Todas, Ativas e Meus chats",
+            "es": "Pestañas Todos, Activos y Mis chats",
+            "id": "Tab Semua, Aktif, dan Obrolan saya",
+            "ar": "تبويبات الكل والنشطة ومحادثاتي",
+            "tr": "Tümü, Aktif ve Sohbetlerim sekmeleri"
+          },
+          {
+            "en": "Filters for unread, assignee, window open/closed and tag",
+            "pt": "Filtros por não lidas, responsável, janela aberta/fechada e tag",
+            "es": "Filtros por no leídos, responsable, ventana abierta/cerrada y etiqueta",
+            "id": "Filter belum dibaca, penanggung jawab, jendela terbuka/tertutup, dan tag",
+            "ar": "فلاتر لغير المقروءة والموظف المسؤول وحالة النافذة والوسم",
+            "tr": "Okunmamış, atanan kişi, açık/kapalı pencere ve etiket filtreleri"
+          },
+          {
+            "en": "Push notifications only to teammates who can see the chat",
+            "pt": "Notificações push só para quem pode ver o chat",
+            "es": "Notificaciones push solo para quien puede ver el chat",
+            "id": "Notifikasi push hanya untuk anggota tim yang dapat melihat obrolan",
+            "ar": "إشعارات فورية لمن يستطيع رؤية المحادثة فقط",
+            "tr": "Push bildirimleri yalnızca sohbeti görebilen ekip üyelerine"
+          },
+          {
+            "en": "A live countdown on the 24-hour window",
+            "pt": "Contagem regressiva ao vivo da janela de 24 horas",
+            "es": "Cuenta regresiva en vivo de la ventana de 24 horas",
+            "id": "Hitung mundur langsung jendela 24 jam",
+            "ar": "عدّ تنازلي مباشر لنافذة الـ24 ساعة",
+            "tr": "24 saatlik pencere için canlı geri sayım"
+          }
+        ],
+        "image": "/images/customer-support-dashboard.webp",
+        "imageAlt": {
+          "en": "StartMessaging shared WhatsApp team inbox",
+          "pt": "Caixa de entrada compartilhada de WhatsApp da StartMessaging",
+          "es": "Bandeja de entrada compartida de WhatsApp de StartMessaging",
+          "id": "Kotak masuk tim WhatsApp bersama StartMessaging",
+          "ar": "صندوق وارد واتساب المشترك من StartMessaging",
+          "tr": "StartMessaging ortak WhatsApp ekip gelen kutusu"
+        },
+        "reversed": false
+      }
+    },
+    {
+      "type": "featureSplit",
+      "props": {
+        "heading": {
+          "en": "A Composer That Follows WhatsApp’s Rules",
+          "pt": "Um Editor de Mensagens que Segue as Regras do WhatsApp",
+          "es": "Un Editor de Mensajes que Sigue las Reglas de WhatsApp",
+          "id": "Penyusun Pesan yang Mengikuti Aturan WhatsApp",
+          "ar": "محرر رسائل يلتزم بقواعد واتساب",
+          "tr": "WhatsApp Kurallarına Uyan Bir Mesaj Editörü"
+        },
+        "body": {
+          "en": "While the customer’s 24-hour window is open, reply with free text, files, up to 3 reply buttons or a list of up to 10 rows. Type / to drop in a saved quick reply. Once the window closes, the composer offers your approved templates, and the customer’s next message opens a new 24 hours. If Meta refuses a message, the chat explains the error in plain language and what to do next.",
+          "pt": "Enquanto a janela de 24 horas do cliente estiver aberta, responda com texto livre, arquivos, até 3 botões de resposta ou uma lista de até 10 linhas. Digite / para inserir uma resposta rápida salva. Quando a janela fecha, o editor oferece seus templates aprovados, e a próxima mensagem do cliente abre mais 24 horas. Se a Meta recusar uma mensagem, o chat explica o erro em linguagem simples e o que fazer em seguida.",
+          "es": "Mientras la ventana de 24 horas del cliente esté abierta, responde con texto libre, archivos, hasta 3 botones de respuesta o una lista de hasta 10 filas. Escribe / para insertar una respuesta rápida guardada. Cuando la ventana se cierra, el editor ofrece tus plantillas aprobadas, y el siguiente mensaje del cliente abre otras 24 horas. Si Meta rechaza un mensaje, el chat explica el error en lenguaje sencillo y qué hacer a continuación.",
+          "id": "Selama jendela 24 jam pelanggan terbuka, balas dengan teks bebas, file, hingga 3 tombol balasan, atau daftar hingga 10 baris. Ketik / untuk menyisipkan balasan cepat yang tersimpan. Setelah jendela tertutup, penyusun menawarkan template Anda yang disetujui, dan pesan berikutnya dari pelanggan membuka 24 jam baru. Jika Meta menolak pesan, obrolan menjelaskan kesalahannya dengan bahasa sederhana dan langkah selanjutnya.",
+          "ar": "ما دامت نافذة الـ24 ساعة للعميل مفتوحة، ردّ بنص حر أو ملفات أو حتى 3 أزرار رد أو قائمة تصل إلى 10 صفوف. اكتب / لإدراج رد سريع محفوظ. وعند إغلاق النافذة يعرض المحرر قوالبك المعتمدة، وتفتح الرسالة التالية من العميل 24 ساعة جديدة. وإذا رفضت Meta رسالة، تشرح المحادثة الخطأ بلغة بسيطة وما يجب فعله بعد ذلك.",
+          "tr": "Müşterinin 24 saatlik penceresi açıkken serbest metin, dosyalar, en fazla 3 yanıt butonu veya en fazla 10 satırlık bir liste ile yanıt verin. Kayıtlı bir hızlı yanıt eklemek için / yazın. Pencere kapandığında editör onaylı şablonlarınızı sunar ve müşterinin bir sonraki mesajı yeni bir 24 saat açar. Meta bir mesajı reddederse sohbet, hatayı ve sonraki adımı sade bir dille açıklar."
+        },
+        "bullets": [
+          {
+            "en": "Type / for shared quick replies",
+            "pt": "Digite / para respostas rápidas compartilhadas",
+            "es": "Escribe / para respuestas rápidas compartidas",
+            "id": "Ketik / untuk balasan cepat bersama",
+            "ar": "اكتب / للردود السريعة المشتركة",
+            "tr": "Ortak hızlı yanıtlar için / yazın"
+          },
+          {
+            "en": "Approved templates at any time",
+            "pt": "Templates aprovados a qualquer momento",
+            "es": "Plantillas aprobadas en cualquier momento",
+            "id": "Template yang disetujui kapan saja",
+            "ar": "القوالب المعتمدة في أي وقت",
+            "tr": "Onaylı şablonlar her zaman"
+          },
+          {
+            "en": "Interactive replies: 3 buttons or a 10-row list",
+            "pt": "Respostas interativas: 3 botões ou lista de 10 linhas",
+            "es": "Respuestas interactivas: 3 botones o lista de 10 filas",
+            "id": "Balasan interaktif: 3 tombol atau daftar 10 baris",
+            "ar": "ردود تفاعلية: 3 أزرار أو قائمة من 10 صفوف",
+            "tr": "Etkileşimli yanıtlar: 3 buton veya 10 satırlık liste"
+          },
+          {
+            "en": "Attachments, plus Meta errors explained in plain language",
+            "pt": "Anexos e erros da Meta explicados em linguagem simples",
+            "es": "Adjuntos y errores de Meta explicados en lenguaje sencillo",
+            "id": "Lampiran, serta kesalahan Meta dijelaskan dengan bahasa sederhana",
+            "ar": "المرفقات، مع شرح أخطاء Meta بلغة بسيطة",
+            "tr": "Ekler ve sade dille açıklanan Meta hataları"
+          }
+        ],
+        "image": "/images/notifications-alerts.webp",
+        "imageAlt": {
+          "en": "Replying to a WhatsApp customer inside the 24-hour window",
+          "pt": "Respondendo a um cliente no WhatsApp dentro da janela de 24 horas",
+          "es": "Respondiendo a un cliente de WhatsApp dentro de la ventana de 24 horas",
+          "id": "Membalas pelanggan WhatsApp di dalam jendela 24 jam",
+          "ar": "الرد على عميل واتساب داخل نافذة الـ24 ساعة",
+          "tr": "24 saatlik pencere içinde bir WhatsApp müşterisine yanıt verme"
+        },
+        "reversed": true
+      }
+    },
+    {
+      "type": "featuresGrid",
+      "props": {
+        "badge": {
+          "en": "Teamwork",
+          "pt": "Trabalho em Equipe",
+          "es": "Trabajo en Equipo",
+          "id": "Kerja Tim",
+          "ar": "العمل الجماعي",
+          "tr": "Ekip Çalışması"
+        },
+        "heading": {
+          "en": "Built for Teams That Share a Number",
+          "pt": "Feito para Equipes que Compartilham um Número",
+          "es": "Hecho para Equipos que Comparten un Número",
+          "id": "Dibuat untuk Tim yang Berbagi Satu Nomor",
+          "ar": "مصمم للفرق التي تتشارك رقماً واحداً",
+          "tr": "Aynı Numarayı Paylaşan Ekipler İçin"
+        },
+        "subheading": {
+          "en": "Clear ownership, fair distribution and the customer’s context in every chat.",
+          "pt": "Responsabilidade clara, distribuição justa e o contexto do cliente em cada chat.",
+          "es": "Responsabilidad clara, reparto justo y el contexto del cliente en cada chat.",
+          "id": "Kepemilikan yang jelas, pembagian yang adil, dan konteks pelanggan di setiap obrolan.",
+          "ar": "مسؤولية واضحة وتوزيع عادل وسياق العميل في كل محادثة.",
+          "tr": "Net sahiplik, adil dağıtım ve her sohbette müşterinin bağlamı."
+        },
+        "columns": 3,
+        "items": [
+          {
+            "icon": "shield",
+            "title": {
+              "en": "Claim, Assign, Resolve, Reopen",
+              "pt": "Assumir, Atribuir, Resolver, Reabrir",
+              "es": "Tomar, Asignar, Resolver, Reabrir",
+              "id": "Ambil, Tugaskan, Selesaikan, Buka Kembali",
+              "ar": "استلام وإسناد وإغلاق وإعادة فتح",
+              "tr": "Sahiplen, Ata, Çöz, Yeniden Aç"
+            },
+            "description": {
+              "en": "Claim an unassigned chat, hand it to a teammate, or resolve it when it’s done. A resolved chat reopens by itself if the customer writes again.",
+              "pt": "Assuma um chat sem responsável, passe-o para um colega ou resolva-o quando terminar. Um chat resolvido reabre sozinho se o cliente escrever de novo.",
+              "es": "Toma un chat sin asignar, pásalo a un compañero o resuélvelo cuando termines. Un chat resuelto se reabre solo si el cliente vuelve a escribir.",
+              "id": "Ambil obrolan yang belum ditugaskan, serahkan ke rekan tim, atau selesaikan saat sudah tuntas. Obrolan yang selesai terbuka kembali otomatis jika pelanggan menulis lagi.",
+              "ar": "استلم محادثة غير مُسندة، أو سلّمها لزميل، أو أغلقها عند الانتهاء. تُعاد المحادثة المغلقة تلقائياً إذا كتب العميل مرة أخرى.",
+              "tr": "Atanmamış bir sohbeti sahiplenin, bir ekip arkadaşına devredin veya bittiğinde çözün. Çözülmüş bir sohbet, müşteri yeniden yazarsa kendiliğinden yeniden açılır."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Round-Robin Auto-Assignment",
+              "pt": "Atribuição Automática Round-Robin",
+              "es": "Asignación Automática Round-Robin",
+              "id": "Penugasan Otomatis Round-Robin",
+              "ar": "الإسناد التلقائي الدوري",
+              "tr": "Round-Robin Otomatik Atama"
+            },
+            "description": {
+              "en": "An Admin can switch on round-robin, which hands each new unassigned chat to the next available Agent or Manager in turn.",
+              "pt": "Um Admin pode ativar o round-robin, que entrega cada novo chat sem responsável ao próximo Agente ou Gerente disponível, em rodízio.",
+              "es": "Un Admin puede activar el round-robin, que entrega cada nuevo chat sin asignar al siguiente Agente o Manager disponible, por turnos.",
+              "id": "Admin dapat mengaktifkan round-robin, yang menyerahkan setiap obrolan baru yang belum ditugaskan ke Agen atau Manajer berikutnya yang tersedia secara bergiliran.",
+              "ar": "يستطيع المسؤول (Admin) تفعيل التوزيع الدوري، الذي يُسند كل محادثة جديدة غير مُسندة إلى الوكيل أو المدير المتاح التالي بالتناوب.",
+              "tr": "Bir Admin round-robin’i açabilir; her yeni atanmamış sohbet sırayla bir sonraki müsait Temsilci veya Yöneticiye verilir."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Agent Availability",
+              "pt": "Disponibilidade dos Agentes",
+              "es": "Disponibilidad de Agentes",
+              "id": "Ketersediaan Agen",
+              "ar": "توفّر الموظفين",
+              "tr": "Temsilci Müsaitliği"
+            },
+            "description": {
+              "en": "Each person marks themselves available or away for new chats, and Managers can switch someone off while they’re out. Chats already assigned stay with their owner.",
+              "pt": "Cada pessoa se marca como disponível ou ausente para novos chats, e Gerentes podem desativar alguém que estiver fora. Chats já atribuídos continuam com o responsável.",
+              "es": "Cada persona se marca como disponible o ausente para nuevos chats, y los Managers pueden desactivar a alguien mientras no está. Los chats ya asignados siguen con su responsable.",
+              "id": "Setiap orang menandai dirinya tersedia atau tidak untuk obrolan baru, dan Manajer dapat menonaktifkan seseorang saat sedang tidak ada. Obrolan yang sudah ditugaskan tetap pada pemiliknya.",
+              "ar": "يحدد كل شخص ما إذا كان متاحاً لاستقبال محادثات جديدة، ويستطيع المديرون إيقاف أحدهم أثناء غيابه. تبقى المحادثات المُسندة مسبقاً مع صاحبها.",
+              "tr": "Herkes kendini yeni sohbetler için müsait veya uzakta olarak işaretler; Yöneticiler dışarıdaki birini kapatabilir. Zaten atanmış sohbetler sahibinde kalır."
+            }
+          },
+          {
+            "icon": "bot",
+            "title": {
+              "en": "See Who Else Is Viewing",
+              "pt": "Veja Quem Mais Está Vendo",
+              "es": "Ve Quién Más Está Viendo",
+              "id": "Lihat Siapa Lagi yang Melihat",
+              "ar": "اعرف مَن يشاهد المحادثة أيضاً",
+              "tr": "Başka Kimin Baktığını Görün"
+            },
+            "description": {
+              "en": "The chat shows when a teammate has the same conversation open, so two people don’t answer the same customer twice.",
+              "pt": "O chat mostra quando um colega está com a mesma conversa aberta, para que duas pessoas não respondam o mesmo cliente duas vezes.",
+              "es": "El chat muestra cuándo un compañero tiene abierta la misma conversación, para que dos personas no respondan dos veces al mismo cliente.",
+              "id": "Obrolan menunjukkan saat rekan tim membuka percakapan yang sama, sehingga dua orang tidak membalas pelanggan yang sama dua kali.",
+              "ar": "تُظهر المحادثة متى يفتح زميل المحادثة نفسها، حتى لا يرد شخصان على العميل نفسه مرتين.",
+              "tr": "Bir ekip arkadaşı aynı konuşmayı açtığında sohbet bunu gösterir; böylece iki kişi aynı müşteriye iki kez yanıt vermez."
+            }
+          },
+          {
+            "icon": "template",
+            "title": {
+              "en": "Contact Panel Beside Every Chat",
+              "pt": "Painel do Contato ao Lado de Cada Chat",
+              "es": "Panel del Contacto Junto a Cada Chat",
+              "id": "Panel Kontak di Samping Setiap Obrolan",
+              "ar": "لوحة جهة الاتصال بجانب كل محادثة",
+              "tr": "Her Sohbetin Yanında Kişi Paneli"
+            },
+            "description": {
+              "en": "Add tags, internal notes and a follow-up date without leaving the conversation, and on the Business plan, a pipeline stage. Notes are internal; the customer never sees them, and a note you no longer need can be deleted.",
+              "pt": "Adicione tags, notas internas e uma data de acompanhamento sem sair da conversa e, no plano Business, uma etapa do funil. As notas são internas; o cliente nunca as vê, e uma nota que não serve mais pode ser excluída.",
+              "es": "Añade etiquetas, notas internas y una fecha de seguimiento sin salir de la conversación y, en el plan Business, una etapa del embudo. Las notas son internas; el cliente nunca las ve, y puedes eliminar una nota que ya no necesites.",
+              "id": "Tambahkan tag, catatan internal, dan tanggal tindak lanjut tanpa meninggalkan percakapan, dan di paket Business, tahap pipeline. Catatan bersifat internal; pelanggan tidak pernah melihatnya, dan catatan yang tidak diperlukan lagi dapat dihapus.",
+              "ar": "أضف الوسوم والملاحظات الداخلية وتاريخ المتابعة دون مغادرة المحادثة، ومرحلة خط المبيعات في باقة Business. الملاحظات داخلية ولا يراها العميل أبداً، ويمكن حذف أي ملاحظة لم تعد تحتاجها.",
+              "tr": "Konuşmadan çıkmadan etiket, dahili not ve takip tarihi ekleyin; Business paketinde satış hattı aşaması da. Notlar dahilidir; müşteri bunları asla görmez ve artık gerekmeyen bir not silinebilir."
+            }
+          },
+          {
+            "icon": "api",
+            "title": {
+              "en": "WhatsApp Form Answers in the Chat",
+              "pt": "Respostas de Formulários do WhatsApp no Chat",
+              "es": "Respuestas de Formularios de WhatsApp en el Chat",
+              "id": "Jawaban WhatsApp Form di Obrolan",
+              "ar": "إجابات نماذج واتساب داخل المحادثة",
+              "tr": "Sohbette WhatsApp Form Yanıtları"
+            },
+            "description": {
+              "en": "When a customer submits a WhatsApp Form, the answers appear in the conversation as labelled fields, ready for the agent to act on.",
+              "pt": "Quando um cliente envia um Formulário do WhatsApp, as respostas aparecem na conversa como campos identificados, prontas para o agente agir.",
+              "es": "Cuando un cliente envía un Formulario de WhatsApp, las respuestas aparecen en la conversación como campos con etiqueta, listas para que el agente actúe.",
+              "id": "Saat pelanggan mengirim WhatsApp Form, jawabannya muncul di percakapan sebagai kolom berlabel, siap ditindaklanjuti agen.",
+              "ar": "عندما يرسل العميل نموذج واتساب، تظهر الإجابات في المحادثة كحقول معنونة جاهزة ليتصرف بها الموظف.",
+              "tr": "Bir müşteri WhatsApp Form gönderdiğinde yanıtlar, temsilcinin işlem yapabileceği etiketli alanlar olarak konuşmada görünür."
+            }
+          },
+          {
+            "icon": "template",
+            "title": {
+              "en": "Photos, Videos and Voice Notes in the Chat",
+              "pt": "Fotos, Vídeos e Áudios no Chat",
+              "es": "Fotos, Videos y Notas de Voz en el Chat",
+              "id": "Foto, Video, dan Pesan Suara di Obrolan",
+              "ar": "الصور والفيديو والرسائل الصوتية داخل المحادثة",
+              "tr": "Sohbette Fotoğraf, Video ve Sesli Mesaj"
+            },
+            "description": {
+              "en": "Open a photo full size in a new tab, and play videos and voice notes right in the conversation. Quoted replies, reactions, shared locations and contact cards a customer sends are shown in the chat too.",
+              "pt": "Abra uma foto em tamanho real em uma nova aba e reproduza vídeos e áudios direto na conversa. Respostas citadas, reações, localizações compartilhadas e cartões de contato enviados pelo cliente também aparecem no chat.",
+              "es": "Abre una foto a tamaño completo en una pestaña nueva y reproduce videos y notas de voz directamente en la conversación. Las respuestas citadas, las reacciones, las ubicaciones compartidas y las tarjetas de contacto que envía el cliente también se muestran en el chat.",
+              "id": "Buka foto dalam ukuran penuh di tab baru, dan putar video serta pesan suara langsung di percakapan. Balasan kutipan, reaksi, lokasi yang dibagikan, dan kartu kontak yang dikirim pelanggan juga ditampilkan di obrolan.",
+              "ar": "افتح الصورة بحجمها الكامل في علامة تبويب جديدة، وشغّل الفيديو والرسائل الصوتية داخل المحادثة مباشرة. وتظهر في المحادثة أيضاً الردود المقتبسة والتفاعلات والمواقع المشتركة وبطاقات جهات الاتصال التي يرسلها العميل.",
+              "tr": "Bir fotoğrafı yeni sekmede tam boyutta açın; videoları ve sesli mesajları doğrudan konuşmada oynatın. Müşterinin gönderdiği alıntılı yanıtlar, tepkiler, paylaşılan konumlar ve kişi kartları da sohbette gösterilir."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Campaign Context on Replies",
+              "pt": "Contexto da Campanha nas Respostas",
+              "es": "Contexto de la Campaña en las Respuestas",
+              "id": "Konteks Kampanye pada Balasan",
+              "ar": "سياق الحملة على الردود",
+              "tr": "Yanıtlarda Kampanya Bağlamı"
+            },
+            "description": {
+              "en": "When a customer answers a campaign, the chat labels it “Campaign: name”, so the agent knows which offer or reminder they are replying to.",
+              "pt": "Quando um cliente responde a uma campanha, o chat identifica com “Campanha: nome”, para que o agente saiba a qual oferta ou lembrete ele está respondendo.",
+              "es": "Cuando un cliente responde a una campaña, el chat lo marca con “Campaña: nombre”, para que el agente sepa a qué oferta o recordatorio está respondiendo.",
+              "id": "Saat pelanggan membalas kampanye, obrolan menandainya dengan “Kampanye: nama”, sehingga agen tahu penawaran atau pengingat mana yang sedang dibalas.",
+              "ar": "عندما يرد العميل على حملة، تَسِم المحادثة ردّه بـ“الحملة: الاسم”، فيعرف الموظف على أي عرض أو تذكير يرد العميل.",
+              "tr": "Bir müşteri bir kampanyaya yanıt verdiğinde sohbet bunu “Kampanya: ad” olarak işaretler; böylece temsilci hangi teklife veya hatırlatmaya yanıt verildiğini bilir."
+            }
+          },
+          {
+            "icon": "broadcast",
+            "title": {
+              "en": "Templates Shown as the Customer Saw Them",
+              "pt": "Templates como o Cliente os Viu",
+              "es": "Plantillas tal como las vio el cliente",
+              "id": "Template Seperti yang Dilihat Pelanggan",
+              "ar": "القوالب كما رآها العميل",
+              "tr": "Şablonlar Müşterinin Gördüğü Gibi"
+            },
+            "description": {
+              "en": "A template message in the thread looks like it did on the customer’s phone: the footer, working buttons (links open, codes copy, phone numbers dial), a limited-time offer with its end time and coupon, and every carousel card with its image, text and buttons.",
+              "pt": "Uma mensagem de template na conversa aparece como no celular do cliente: o rodapé, botões que funcionam (links abrem, códigos são copiados, números são discados), uma oferta por tempo limitado com o horário de término e o cupom, e cada cartão do carrossel com imagem, texto e botões.",
+              "es": "Un mensaje de plantilla en la conversación se ve como en el teléfono del cliente: el pie, botones que funcionan (los enlaces se abren, los códigos se copian, los números se marcan), una oferta por tiempo limitado con su hora de fin y su cupón, y cada tarjeta del carrusel con su imagen, texto y botones.",
+              "id": "Pesan template di percakapan tampil seperti di ponsel pelanggan: footer, tombol yang berfungsi (tautan terbuka, kode tersalin, nomor telepon terpanggil), penawaran terbatas dengan waktu berakhir dan kuponnya, serta setiap kartu carousel dengan gambar, teks, dan tombolnya.",
+              "ar": "تظهر رسالة القالب في المحادثة كما ظهرت على هاتف العميل: التذييل، وأزرار تعمل (الروابط تُفتح، والرموز تُنسخ، والأرقام يُتصل بها)، والعرض محدود الوقت مع وقت انتهائه وقسيمته، وكل بطاقة في الكاروسيل بصورتها ونصها وأزرارها.",
+              "tr": "Konuşmadaki bir şablon mesajı, müşterinin telefonunda göründüğü gibi görünür: alt bilgi, çalışan butonlar (bağlantılar açılır, kodlar kopyalanır, numaralar aranır), bitiş zamanı ve kuponuyla sınırlı süreli teklif ve resmi, metni ve butonlarıyla her karusel kartı."
+            }
+          },
+          {
+            "icon": "analytics",
+            "title": {
+              "en": "Free Ad Window and Held Messages",
+              "pt": "Janela Grátis de Anúncio e Mensagens Retidas",
+              "es": "Ventana Gratis de Anuncio y Mensajes Retenidos",
+              "id": "Jendela Iklan Gratis dan Pesan Tertahan",
+              "ar": "نافذة الإعلان المجانية والرسائل المحتجزة",
+              "tr": "Ücretsiz Reklam Penceresi ve Bekletilen Mesajlar"
+            },
+            "description": {
+              "en": "A chat that came from a Click-to-WhatsApp ad shows a “Free ad window ends…” pill while Meta’s 72-hour free entry point window is open and Meta charges nothing for its messages. A message Meta is holding back is marked “Held by Meta”: it goes out on its own, or fails if Meta doesn’t release it.",
+              "pt": "Um chat que veio de um anúncio Click-to-WhatsApp mostra o selo “A janela grátis do anúncio termina…” enquanto a janela de ponto de entrada gratuito de 72 horas da Meta está aberta e a Meta não cobra pelas mensagens. Uma mensagem que a Meta está retendo aparece como “Retida pela Meta”: ela sai sozinha ou falha se a Meta não a liberar.",
+              "es": "Un chat que llegó desde un anuncio Click-to-WhatsApp muestra la etiqueta “La ventana gratis del anuncio termina…” mientras la ventana de punto de entrada gratuito de 72 horas de Meta está abierta y Meta no cobra sus mensajes. Un mensaje que Meta está reteniendo aparece como “Retenido por Meta”: sale solo o falla si Meta no lo libera.",
+              "id": "Obrolan yang berasal dari iklan Click-to-WhatsApp menampilkan label “Jendela iklan gratis berakhir…” selama jendela titik masuk gratis 72 jam dari Meta terbuka dan Meta tidak menagih pesannya. Pesan yang sedang ditahan Meta ditandai “Ditahan oleh Meta”: pesan itu terkirim sendiri, atau gagal jika Meta tidak melepaskannya.",
+              "ar": "تُظهر المحادثة القادمة من إعلان Click-to-WhatsApp شارة “تنتهي نافذة الإعلان المجانية…” ما دامت نافذة نقطة الدخول المجانية من Meta ومدتها 72 ساعة مفتوحة، ولا تحتسب Meta رسومًا على رسائلها. أما الرسالة التي تحتجزها Meta فتُوسم بـ“محتجزة لدى Meta”: فإما أن تُرسل من تلقاء نفسها، أو تفشل إذا لم تُفرج عنها Meta.",
+              "tr": "Click-to-WhatsApp reklamından gelen bir sohbet, Meta’nın 72 saatlik ücretsiz giriş noktası penceresi açık olduğu ve Meta mesajları için ücret almadığı sürece “Ücretsiz reklam penceresi bitiyor…” etiketini gösterir. Meta’nın beklettiği bir mesaj “Meta tarafından bekletiliyor” olarak işaretlenir: kendiliğinden gider ya da Meta serbest bırakmazsa başarısız olur."
+            }
+          },
+          {
+            "icon": "shield",
+            "title": {
+              "en": "Five Team Roles",
+              "pt": "Cinco Funções de Equipe",
+              "es": "Cinco Roles de Equipo",
+              "id": "Lima Peran Tim",
+              "ar": "خمسة أدوار للفريق",
+              "tr": "Beş Ekip Rolü"
+            },
+            "description": {
+              "en": "Owner, Admin, Manager, Agent and Viewer. Agents see their own chats and open unassigned ones; Managers and above see everyone’s and can assign; Viewers can read but not reply.",
+              "pt": "Proprietário, Admin, Gerente, Agente e Visualizador. Agentes veem seus próprios chats e os abertos sem responsável; Gerentes e acima veem todos e podem atribuir; Visualizadores leem, mas não respondem.",
+              "es": "Propietario, Admin, Manager, Agente y Visor. Los Agentes ven sus propios chats y los abiertos sin asignar; los Managers y superiores ven todos y pueden asignar; los Visores pueden leer pero no responder.",
+              "id": "Pemilik, Admin, Manajer, Agen, dan Peninjau. Agen melihat obrolan mereka sendiri dan obrolan terbuka yang belum ditugaskan; Manajer ke atas melihat semua dan dapat menugaskan; Peninjau dapat membaca tetapi tidak membalas.",
+              "ar": "المالك والمسؤول والمدير والوكيل والمشاهد. يرى الوكلاء محادثاتهم والمحادثات المفتوحة غير المُسندة؛ ويرى المديرون ومَن فوقهم كل المحادثات ويمكنهم الإسناد؛ ويستطيع المشاهدون القراءة دون الرد.",
+              "tr": "Sahip, Admin, Yönetici, Temsilci ve Görüntüleyici. Temsilciler kendi sohbetlerini ve açık atanmamış sohbetleri görür; Yöneticiler ve üstü herkesinkini görür ve atama yapabilir; Görüntüleyiciler okuyabilir ama yanıtlayamaz."
+            }
+          },
+          {
+            "icon": "template",
+            "title": {
+              "en": "Keyboard Shortcuts",
+              "pt": "Atalhos de Teclado",
+              "es": "Atajos de Teclado",
+              "id": "Pintasan Keyboard",
+              "ar": "اختصارات لوحة المفاتيح",
+              "tr": "Klavye Kısayolları"
+            },
+            "description": {
+              "en": "Press j and k to move up and down the chat list, Esc to close, and ? to open in-app help.",
+              "pt": "Pressione j e k para subir e descer na lista de chats, Esc para fechar e ? para abrir a ajuda do app.",
+              "es": "Pulsa j y k para subir y bajar por la lista de chats, Esc para cerrar y ? para abrir la ayuda de la app.",
+              "id": "Tekan j dan k untuk bergerak naik dan turun di daftar obrolan, Esc untuk menutup, dan ? untuk membuka bantuan di aplikasi.",
+              "ar": "اضغط j و k للتنقل لأعلى ولأسفل في قائمة المحادثات، وEsc للإغلاق، و? لفتح المساعدة داخل التطبيق.",
+              "tr": "Sohbet listesinde yukarı ve aşağı gitmek için j ve k, kapatmak için Esc, uygulama içi yardımı açmak için ? tuşuna basın."
+            }
+          },
+          {
+            "icon": "bot",
+            "title": {
+              "en": "Hand-Off From Chatbot Flows",
+              "pt": "Transferência a Partir de Fluxos de Chatbot",
+              "es": "Traspaso desde Flujos de Chatbot",
+              "id": "Serah Terima dari Alur Chatbot",
+              "ar": "التحويل من تدفقات الشات بوت",
+              "tr": "Chatbot Akışlarından Devir"
+            },
+            "description": {
+              "en": "An “assign agent” step in a chatbot flow puts the conversation in a teammate’s My chats, with the whole history above it. Chatbot flows are on the Business plan and the 14-day free trial.",
+              "pt": "Uma etapa “atribuir agente” em um fluxo de chatbot coloca a conversa em Meus chats de um colega, com todo o histórico acima. Os fluxos de chatbot fazem parte do plano Business e do teste grátis de 14 dias.",
+              "es": "Un paso “asignar agente” en un flujo de chatbot pone la conversación en Mis chats de un compañero, con todo el historial encima. Los flujos de chatbot están en el plan Business y en la prueba gratis de 14 días.",
+              "id": "Langkah “tugaskan agen” dalam alur chatbot memasukkan percakapan ke Obrolan saya milik rekan tim, lengkap dengan seluruh riwayatnya. Alur chatbot tersedia di paket Business dan uji coba gratis 14 hari.",
+              "ar": "تضع خطوة “إسناد موظف” في تدفق الشات بوت المحادثةَ في قائمة محادثاتي لدى أحد الزملاء، مع السجل الكامل أعلاها. تدفقات الشات بوت متاحة في باقة Business وفي التجربة المجانية لمدة 14 يوماً.",
+              "tr": "Bir chatbot akışındaki “temsilci ata” adımı konuşmayı bir ekip arkadaşının Sohbetlerim listesine, tüm geçmişiyle birlikte koyar. Chatbot akışları Business paketinde ve 14 günlük ücretsiz denemededir."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "props": {
+        "badge": {
+          "en": "Compare",
+          "pt": "Compare",
+          "es": "Compara",
+          "id": "Bandingkan",
+          "ar": "قارن",
+          "tr": "Karşılaştır"
+        },
+        "heading": {
+          "en": "Shared Inbox vs. a Shared Phone",
+          "pt": "Caixa Compartilhada vs. um Celular Compartilhado",
+          "es": "Bandeja Compartida vs. un Teléfono Compartido",
+          "id": "Kotak Masuk Bersama vs. Ponsel Bersama",
+          "ar": "صندوق الوارد المشترك مقابل هاتف مشترك",
+          "tr": "Ortak Gelen Kutusu vs. Ortak Telefon"
+        },
+        "subheading": {
+          "en": "What changes when your team works WhatsApp from a shared inbox instead of passing a phone around or using personal numbers.",
+          "pt": "O que muda quando sua equipe atende o WhatsApp por uma caixa compartilhada, em vez de passar um celular de mão em mão ou usar números pessoais.",
+          "es": "Qué cambia cuando tu equipo atiende WhatsApp desde una bandeja compartida en lugar de pasarse un teléfono o usar números personales.",
+          "id": "Apa yang berubah saat tim Anda melayani WhatsApp dari kotak masuk bersama, alih-alih bergantian memakai satu ponsel atau memakai nomor pribadi.",
+          "ar": "ما الذي يتغير عندما يعمل فريقك على واتساب من صندوق وارد مشترك بدلاً من تبادل هاتف واحد أو استخدام أرقام شخصية.",
+          "tr": "Ekibiniz WhatsApp’ı elden ele bir telefon veya kişisel numaralar yerine ortak bir gelen kutusundan yönettiğinde neler değişir."
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "Capability",
+              "pt": "Recurso",
+              "es": "Capacidad",
+              "id": "Kemampuan",
+              "ar": "القدرة",
+              "tr": "Özellik"
+            }
+          },
+          {
+            "label": {
+              "en": "StartMessaging Shared Inbox",
+              "pt": "Caixa Compartilhada StartMessaging",
+              "es": "Bandeja Compartida StartMessaging",
+              "id": "Kotak Masuk Bersama StartMessaging",
+              "ar": "صندوق StartMessaging المشترك",
+              "tr": "StartMessaging Ortak Gelen Kutusu"
+            },
+            "highlight": true
+          },
+          {
+            "label": {
+              "en": "Shared phone / WhatsApp Business app",
+              "pt": "Celular compartilhado / app WhatsApp Business",
+              "es": "Teléfono compartido / app WhatsApp Business",
+              "id": "Ponsel bersama / aplikasi WhatsApp Business",
+              "ar": "هاتف مشترك / تطبيق واتساب للأعمال",
+              "tr": "Ortak telefon / WhatsApp Business uygulaması"
+            }
+          },
+          {
+            "label": {
+              "en": "Personal numbers per agent",
+              "pt": "Números pessoais por agente",
+              "es": "Números personales por agente",
+              "id": "Nomor pribadi per agen",
+              "ar": "أرقام شخصية لكل موظف",
+              "tr": "Temsilci başına kişisel numara"
+            }
+          }
+        ],
+        "rows": [
+          [
+            {
+              "en": "One business number for every customer",
+              "pt": "Um número da empresa para todos os clientes",
+              "es": "Un número de empresa para todos los clientes",
+              "id": "Satu nomor bisnis untuk semua pelanggan",
+              "ar": "رقم أعمال واحد لكل العملاء",
+              "tr": "Tüm müşteriler için tek işletme numarası"
+            },
+            {
+              "en": "✓",
+              "pt": "✓",
+              "es": "✓",
+              "id": "✓",
+              "ar": "✓",
+              "tr": "✓"
+            },
+            {
+              "en": "✓",
+              "pt": "✓",
+              "es": "✓",
+              "id": "✓",
+              "ar": "✓",
+              "tr": "✓"
+            },
+            {
+              "en": "✗ (customers get a different number per agent)",
+              "pt": "✗ (clientes recebem um número diferente por agente)",
+              "es": "✗ (los clientes reciben un número distinto por agente)",
+              "id": "✗ (pelanggan mendapat nomor berbeda per agen)",
+              "ar": "✗ (يتلقى العملاء رقماً مختلفاً لكل موظف)",
+              "tr": "✗ (müşteriler her temsilciden farklı numara görür)"
+            }
+          ],
+          [
+            {
+              "en": "Owner per chat (claim, assign, resolve)",
+              "pt": "Responsável por chat (assumir, atribuir, resolver)",
+              "es": "Responsable por chat (tomar, asignar, resolver)",
+              "id": "Pemilik per obrolan (ambil, tugaskan, selesaikan)",
+              "ar": "مسؤول لكل محادثة (استلام، إسناد، إغلاق)",
+              "tr": "Sohbet başına sorumlu (sahiplen, ata, çöz)"
+            },
+            {
+              "en": "✓",
+              "pt": "✓",
+              "es": "✓",
+              "id": "✓",
+              "ar": "✓",
+              "tr": "✓"
+            },
+            {
+              "en": "✗ (labels only)",
+              "pt": "✗ (apenas etiquetas)",
+              "es": "✗ (solo etiquetas)",
+              "id": "✗ (hanya label)",
+              "ar": "✗ (تصنيفات فقط)",
+              "tr": "✗ (yalnızca etiketler)"
+            },
+            {
+              "en": "Whoever owns the phone",
+              "pt": "Quem for dono do celular",
+              "es": "Quien tenga el teléfono",
+              "id": "Siapa pun pemilik ponselnya",
+              "ar": "صاحب الهاتف",
+              "tr": "Telefonun sahibi kimse"
+            }
+          ],
+          [
+            {
+              "en": "Automatic distribution of new chats",
+              "pt": "Distribuição automática de novos chats",
+              "es": "Distribución automática de nuevos chats",
+              "id": "Distribusi otomatis obrolan baru",
+              "ar": "توزيع تلقائي للمحادثات الجديدة",
+              "tr": "Yeni sohbetlerin otomatik dağıtımı"
+            },
+            {
+              "en": "✓ Round-robin to available agents",
+              "pt": "✓ Round-robin para agentes disponíveis",
+              "es": "✓ Round-robin a agentes disponibles",
+              "id": "✓ Round-robin ke agen yang tersedia",
+              "ar": "✓ توزيع دوري على الموظفين المتاحين",
+              "tr": "✓ Müsait temsilcilere round-robin"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ],
+          [
+            {
+              "en": "See who else is viewing a chat",
+              "pt": "Ver quem mais está vendo um chat",
+              "es": "Ver quién más está viendo un chat",
+              "id": "Lihat siapa lagi yang melihat obrolan",
+              "ar": "معرفة مَن يشاهد المحادثة أيضاً",
+              "tr": "Bir sohbete başka kimin baktığını görme"
+            },
+            {
+              "en": "✓",
+              "pt": "✓",
+              "es": "✓",
+              "id": "✓",
+              "ar": "✓",
+              "tr": "✓"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ],
+          [
+            {
+              "en": "Role-based access",
+              "pt": "Acesso por função",
+              "es": "Acceso por roles",
+              "id": "Akses berbasis peran",
+              "ar": "صلاحيات حسب الدور",
+              "tr": "Role dayalı erişim"
+            },
+            {
+              "en": "✓ Owner, Admin, Manager, Agent, Viewer",
+              "pt": "✓ Proprietário, Admin, Gerente, Agente, Visualizador",
+              "es": "✓ Propietario, Admin, Manager, Agente, Visor",
+              "id": "✓ Pemilik, Admin, Manajer, Agen, Peninjau",
+              "ar": "✓ المالك، المسؤول، المدير، الوكيل، المشاهد",
+              "tr": "✓ Sahip, Admin, Yönetici, Temsilci, Görüntüleyici"
+            },
+            {
+              "en": "✗ (everyone with the phone sees everything)",
+              "pt": "✗ (quem tem o celular vê tudo)",
+              "es": "✗ (quien tiene el teléfono lo ve todo)",
+              "id": "✗ (siapa pun yang memegang ponsel melihat semuanya)",
+              "ar": "✗ (كل مَن يحمل الهاتف يرى كل شيء)",
+              "tr": "✗ (telefonu tutan her şeyi görür)"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ],
+          [
+            {
+              "en": "Chat history stays with the business when an agent leaves",
+              "pt": "O histórico fica com a empresa quando um agente sai",
+              "es": "El historial se queda con la empresa cuando un agente se va",
+              "id": "Riwayat obrolan tetap milik bisnis saat agen keluar",
+              "ar": "يبقى سجل المحادثات مع الشركة عند مغادرة الموظف",
+              "tr": "Bir temsilci ayrıldığında sohbet geçmişi işletmede kalır"
+            },
+            {
+              "en": "✓",
+              "pt": "✓",
+              "es": "✓",
+              "id": "✓",
+              "ar": "✓",
+              "tr": "✓"
+            },
+            {
+              "en": "✓ (on that phone)",
+              "pt": "✓ (naquele celular)",
+              "es": "✓ (en ese teléfono)",
+              "id": "✓ (di ponsel tersebut)",
+              "ar": "✓ (على ذلك الهاتف)",
+              "tr": "✓ (o telefonda)"
+            },
+            {
+              "en": "✗ (it stays on the agent’s phone)",
+              "pt": "✗ (fica no celular do agente)",
+              "es": "✗ (se queda en el teléfono del agente)",
+              "id": "✗ (tetap di ponsel agen)",
+              "ar": "✗ (يبقى على هاتف الموظف)",
+              "tr": "✗ (temsilcinin telefonunda kalır)"
+            }
+          ],
+          [
+            {
+              "en": "Chatbot hand-off to a person",
+              "pt": "Transferência do chatbot para uma pessoa",
+              "es": "Traspaso del chatbot a una persona",
+              "id": "Serah terima chatbot ke manusia",
+              "ar": "تحويل من الشات بوت إلى شخص",
+              "tr": "Chatbot’tan bir kişiye devir"
+            },
+            {
+              "en": "✓ “Assign agent” step (Business)",
+              "pt": "✓ Etapa “atribuir agente” (Business)",
+              "es": "✓ Paso “asignar agente” (Business)",
+              "id": "✓ Langkah “tugaskan agen” (Business)",
+              "ar": "✓ خطوة “إسناد موظف” (Business)",
+              "tr": "✓ “Temsilci ata” adımı (Business)"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ],
+          [
+            {
+              "en": "REST API and webhooks",
+              "pt": "API REST e webhooks",
+              "es": "API REST y webhooks",
+              "id": "REST API dan webhook",
+              "ar": "واجهة REST API وWebhooks",
+              "tr": "REST API ve webhook’lar"
+            },
+            {
+              "en": "✓",
+              "pt": "✓",
+              "es": "✓",
+              "id": "✓",
+              "ar": "✓",
+              "tr": "✓"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            },
+            {
+              "en": "✗",
+              "pt": "✗",
+              "es": "✗",
+              "id": "✗",
+              "ar": "✗",
+              "tr": "✗"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "type": "codeShowcase",
+      "props": {
+        "badge": {
+          "en": "Conversations API",
+          "pt": "API de Conversas",
+          "es": "API de Conversaciones",
+          "id": "API Percakapan",
+          "ar": "API المحادثات",
+          "tr": "Konuşma API’si"
+        },
+        "heading": {
+          "en": "Assign and resolve chats from your own system",
+          "pt": "Atribua e resolva chats a partir do seu próprio sistema",
+          "es": "Asigna y resuelve chats desde tu propio sistema",
+          "id": "Tugaskan dan selesaikan obrolan dari sistem Anda sendiri",
+          "ar": "أسند المحادثات وأغلقها من نظامك الخاص",
+          "tr": "Sohbetleri kendi sisteminizden atayın ve çözün"
+        },
+        "snippets": [
+          {
+            "lang": "cURL",
+            "code": "# Assign a conversation to a teammate\ncurl -X PATCH {{WA_API_BASE}}/api/v1/conversations/0f8e2b6a-3c1d-4e5f-9a7b-2c4d6e8f0a1b \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"assignedToUserId\": \"5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d\"\n  }'\n\n# Resolve it when the work is done (send \"open\" to reopen)\ncurl -X PATCH {{WA_API_BASE}}/api/v1/conversations/0f8e2b6a-3c1d-4e5f-9a7b-2c4d6e8f0a1b \\\n  -H \"Authorization: Bearer sm_live_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{ \"status\": \"resolved\" }'"
+          },
+          {
+            "lang": "Node.js",
+            "code": "const BASE = '{{WA_API_BASE}}/api/v1';\nconst headers = {\n  'Authorization': 'Bearer ' + process.env.SM_API_KEY, // sm_live_your_api_key\n  'Content-Type': 'application/json',\n};\n\n// Open, unassigned chats (newest activity first)\nconst list = await fetch(BASE + '/conversations?status=open&assignedToUserId=unassigned&limit=25', { headers });\nconst { data } = await list.json();\n\nfor (const conv of data.items) {\n  // Hand each one to a teammate; null would put it back in the queue\n  const res = await fetch(BASE + '/conversations/' + conv.id, {\n    method: 'PATCH',\n    headers,\n    body: JSON.stringify({ assignedToUserId: '5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d' }),\n  });\n  const { data: updated } = await res.json();\n  console.log(updated.id, updated.assignedToUserId, updated.windowOpen);\n}"
+          },
+          {
+            "lang": "Python",
+            "code": "import os, requests\n\nBASE = '{{WA_API_BASE}}/api/v1'\nheaders = {'Authorization': f\"Bearer {os.environ['SM_API_KEY']}\"}  # sm_live_your_api_key\n\n# Open, unassigned chats (newest activity first)\nitems = requests.get(\n    f'{BASE}/conversations',\n    headers=headers,\n    params={'status': 'open', 'assignedToUserId': 'unassigned', 'limit': 25},\n).json()['data']['items']\n\nfor conv in items:\n    res = requests.patch(\n        f\"{BASE}/conversations/{conv['id']}\",\n        headers=headers,\n        json={'assignedToUserId': '5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d'},\n    )\n    data = res.json()['data']\n    print(data['id'], data['assignedToUserId'], data['windowOpen'])"
+          },
+          {
+            "lang": "PHP",
+            "code": "<?php\n$ch = curl_init('{{WA_API_BASE}}/api/v1/conversations/0f8e2b6a-3c1d-4e5f-9a7b-2c4d6e8f0a1b');\ncurl_setopt_array($ch, [\n    CURLOPT_CUSTOMREQUEST => 'PATCH',\n    CURLOPT_RETURNTRANSFER => true,\n    CURLOPT_HTTPHEADER => [\n        'Authorization: Bearer ' . getenv('SM_API_KEY'), // sm_live_your_api_key\n        'Content-Type: application/json',\n    ],\n    CURLOPT_POSTFIELDS => json_encode([\n        'assignedToUserId' => '5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d',\n    ]),\n]);\n$data = json_decode(curl_exec($ch), true)['data'];\necho $data['id'] . ' ' . $data['assignedToUserId'];"
+          },
+          {
+            "lang": "Webhook",
+            "code": "{\n  \"id\": \"evt_01JCA4M2XQ\",\n  \"type\": \"conversation.assigned\",\n  \"createdAt\": \"2026-10-07T10:45:12.000Z\",\n  \"workspaceId\": \"ws_9f2c\",\n  \"data\": {\n    \"conversation\": {\n      \"id\": \"0f8e2b6a-3c1d-4e5f-9a7b-2c4d6e8f0a1b\",\n      \"contactId\": \"ct_88b1\",\n      \"contactPhone\": \"+919812345678\",\n      \"status\": \"open\",\n      \"assignedToUserId\": \"5b1d9e2c-7a3f-4c8e-b6d1-2f4a8c9e0b7d\"\n    },\n    \"actor\": { \"type\": \"api_key\", \"id\": \"key_41c7\" }\n  }\n}"
+          }
+        ]
+      }
+    },
+    {
+      "type": "faqSection",
+      "props": {
+        "badge": {
+          "en": "FAQs",
+          "pt": "FAQs",
+          "es": "FAQs",
+          "id": "FAQ",
+          "ar": "الأسئلة الشائعة",
+          "tr": "SSS"
+        },
+        "heading": {
+          "en": "Shared Inbox — FAQ",
+          "pt": "Caixa de Entrada Compartilhada — FAQ",
+          "es": "Bandeja de Entrada Compartida — FAQ",
+          "id": "Kotak Masuk Bersama — FAQ",
+          "ar": "صندوق الوارد المشترك — الأسئلة الشائعة",
+          "tr": "Ortak Gelen Kutusu — SSS"
+        },
+        "items": [
+          {
+            "question": {
+              "en": "Which plans include the shared inbox?",
+              "pt": "Quais planos incluem a caixa de entrada compartilhada?",
+              "es": "¿Qué planes incluyen la bandeja de entrada compartida?",
+              "id": "Paket mana yang mencakup kotak masuk bersama?",
+              "ar": "ما الباقات التي تتضمن صندوق الوارد المشترك؟",
+              "tr": "Ortak gelen kutusu hangi paketlerde var?"
+            },
+            "answer": {
+              "en": "Team and Business. Both include the shared inbox, interactive replies, quick replies, round-robin routing and keyword auto-replies. Chatbot flows and agent analytics are on Business, and the 14-day free trial includes everything in Business. Developer plans are the API with a view-only dashboard: chats your app starts through the API, and the replies to them, show in the inbox, but replying from it needs Team or Business.",
+              "pt": "Team e Business. Os dois incluem a caixa de entrada compartilhada, respostas interativas, respostas rápidas, distribuição round-robin e respostas automáticas por palavra-chave. Fluxos de chatbot e análises por agente fazem parte do Business, e o teste grátis de 14 dias inclui tudo o que o Business tem. Os planos Developer são a API com um painel somente leitura: os chats que seu app inicia pela API, e as respostas a eles, aparecem na caixa de entrada, mas responder por ela exige Team ou Business.",
+              "es": "Team y Business. Ambos incluyen la bandeja de entrada compartida, respuestas interactivas, respuestas rápidas, reparto round-robin y respuestas automáticas por palabra clave. Los flujos de chatbot y las analíticas por agente están en Business, y la prueba gratis de 14 días incluye todo lo de Business. Los planes Developer son la API con un panel de solo lectura: los chats que tu app inicia por la API, y sus respuestas, aparecen en la bandeja, pero responder desde ella requiere Team o Business.",
+              "id": "Team dan Business. Keduanya mencakup kotak masuk bersama, balasan interaktif, balasan cepat, distribusi round-robin, dan balasan otomatis kata kunci. Alur chatbot dan analitik agen tersedia di Business, dan uji coba gratis 14 hari mencakup semua fitur Business. Paket Developer adalah API dengan dasbor hanya-lihat: obrolan yang dimulai aplikasi Anda lewat API, beserta balasannya, tampil di kotak masuk, tetapi membalas dari sana memerlukan Team atau Business.",
+              "ar": "باقتا Team وBusiness. تتضمن كلتاهما صندوق الوارد المشترك والردود التفاعلية والردود السريعة والتوزيع الدوري والردود التلقائية بالكلمات المفتاحية. أما تدفقات الشات بوت وتحليلات الموظفين ففي باقة Business، وتشمل التجربة المجانية لمدة 14 يوماً كل ما في Business. باقات Developer هي الواجهة البرمجية مع لوحة تحكم للعرض فقط: تظهر في صندوق الوارد المحادثات التي يبدؤها تطبيقك عبر الواجهة البرمجية والردود عليها، لكن الرد من الصندوق يتطلب Team أو Business.",
+              "tr": "Team ve Business. İkisi de ortak gelen kutusunu, etkileşimli yanıtları, hızlı yanıtları, round-robin dağıtımı ve anahtar kelime otomatik yanıtlarını içerir. Chatbot akışları ve temsilci analizleri Business paketindedir; 14 günlük ücretsiz deneme Business’taki her şeyi içerir. Developer paketleri API ve salt görüntülenen bir paneldir: uygulamanızın API ile başlattığı sohbetler ve bunlara gelen yanıtlar gelen kutusunda görünür, ancak oradan yanıt vermek Team veya Business gerektirir."
+            }
+          },
+          {
+            "question": {
+              "en": "How does the inbox handle the 24-hour window?",
+              "pt": "Como a caixa de entrada lida com a janela de 24 horas?",
+              "es": "¿Cómo gestiona la bandeja la ventana de 24 horas?",
+              "id": "Bagaimana kotak masuk menangani jendela 24 jam?",
+              "ar": "كيف يتعامل صندوق الوارد مع نافذة الـ24 ساعة؟",
+              "tr": "Gelen kutusu 24 saatlik pencereyi nasıl yönetir?"
+            },
+            "answer": {
+              "en": "WhatsApp allows free-form replies only within 24 hours of the customer’s last message. Each chat shows a countdown of the time left. After it closes, only an approved template can be sent, and the customer’s next message opens the window again. Your own messages don’t extend it.",
+              "pt": "O WhatsApp permite respostas livres apenas até 24 horas após a última mensagem do cliente. Cada chat mostra uma contagem regressiva do tempo restante. Depois que ela fecha, só é possível enviar um template aprovado, e a próxima mensagem do cliente abre a janela de novo. Suas próprias mensagens não a estendem.",
+              "es": "WhatsApp solo permite respuestas libres dentro de las 24 horas posteriores al último mensaje del cliente. Cada chat muestra una cuenta regresiva del tiempo restante. Cuando se cierra, solo se puede enviar una plantilla aprobada, y el siguiente mensaje del cliente vuelve a abrir la ventana. Tus propios mensajes no la amplían.",
+              "id": "WhatsApp hanya mengizinkan balasan bebas dalam 24 jam sejak pesan terakhir pelanggan. Setiap obrolan menampilkan hitung mundur sisa waktunya. Setelah tertutup, hanya template yang disetujui yang dapat dikirim, dan pesan berikutnya dari pelanggan membuka jendela lagi. Pesan Anda sendiri tidak memperpanjangnya.",
+              "ar": "يسمح واتساب بالردود الحرة خلال 24 ساعة فقط من آخر رسالة للعميل. تعرض كل محادثة عدّاداً تنازلياً للوقت المتبقي. وبعد إغلاق النافذة لا يمكن إرسال إلا قالب معتمد، وتفتح الرسالة التالية من العميل النافذة من جديد. رسائلك أنت لا تمدّدها.",
+              "tr": "WhatsApp, serbest yanıtlara yalnızca müşterinin son mesajından sonraki 24 saat içinde izin verir. Her sohbet kalan süreyi geri sayımla gösterir. Pencere kapandıktan sonra yalnızca onaylı bir şablon gönderilebilir ve müşterinin bir sonraki mesajı pencereyi yeniden açar. Kendi mesajlarınız süreyi uzatmaz."
+            }
+          },
+          {
+            "question": {
+              "en": "How does round-robin assignment work?",
+              "pt": "Como funciona a atribuição round-robin?",
+              "es": "¿Cómo funciona la asignación round-robin?",
+              "id": "Bagaimana cara kerja penugasan round-robin?",
+              "ar": "كيف يعمل الإسناد الدوري؟",
+              "tr": "Round-robin atama nasıl çalışır?"
+            },
+            "answer": {
+              "en": "An Admin turns it on in Inbox settings. Each new unassigned inbound chat then goes to the next available Agent or Manager, taking turns. Anyone marked unavailable stops receiving new chats, but keeps the chats they already own.",
+              "pt": "Um Admin o ativa nas configurações da caixa de entrada. A partir daí, cada novo chat recebido sem responsável vai para o próximo Agente ou Gerente disponível, em rodízio. Quem estiver marcado como indisponível deixa de receber novos chats, mas mantém os que já são seus.",
+              "es": "Un Admin lo activa en la configuración de la bandeja. Desde entonces, cada nuevo chat entrante sin asignar va al siguiente Agente o Manager disponible, por turnos. Quien esté marcado como no disponible deja de recibir chats nuevos, pero conserva los que ya tiene.",
+              "id": "Admin mengaktifkannya di pengaturan Kotak Masuk. Setelah itu, setiap obrolan masuk baru yang belum ditugaskan diberikan ke Agen atau Manajer berikutnya yang tersedia, secara bergiliran. Siapa pun yang ditandai tidak tersedia berhenti menerima obrolan baru, tetapi tetap memegang obrolan yang sudah dimilikinya.",
+              "ar": "يفعّله المسؤول (Admin) من إعدادات صندوق الوارد. بعدها تذهب كل محادثة واردة جديدة غير مُسندة إلى الوكيل أو المدير المتاح التالي بالتناوب. ومَن يُعلَّم كغير متاح يتوقف عن تلقي محادثات جديدة، لكنه يحتفظ بالمحادثات التي يملكها.",
+              "tr": "Bir Admin bunu Gelen kutusu ayarlarından açar. Ardından her yeni atanmamış gelen sohbet, sırayla bir sonraki müsait Temsilci veya Yöneticiye gider. Müsait değil olarak işaretlenen kişi yeni sohbet almaz ama zaten sahip olduğu sohbetleri korur."
+            }
+          },
+          {
+            "question": {
+              "en": "What can each team role do in the inbox?",
+              "pt": "O que cada função da equipe pode fazer na caixa de entrada?",
+              "es": "¿Qué puede hacer cada rol del equipo en la bandeja?",
+              "id": "Apa yang bisa dilakukan setiap peran tim di kotak masuk?",
+              "ar": "ما الذي يمكن لكل دور في الفريق فعله في صندوق الوارد؟",
+              "tr": "Her ekip rolü gelen kutusunda neler yapabilir?"
+            },
+            "answer": {
+              "en": "Agents see their own chats and open unassigned ones. Managers, Admins and the Owner see every chat and can assign them. Viewers can read but not send messages, and see only open chats nobody has claimed. Managers and above also create the shared quick replies.",
+              "pt": "Agentes veem seus próprios chats e os abertos sem responsável. Gerentes, Admins e o Proprietário veem todos os chats e podem atribuí-los. Visualizadores podem ler, mas não enviar mensagens, e veem apenas chats abertos que ninguém assumiu. Gerentes e acima também criam as respostas rápidas compartilhadas.",
+              "es": "Los Agentes ven sus propios chats y los abiertos sin asignar. Los Managers, Admins y el Propietario ven todos los chats y pueden asignarlos. Los Visores pueden leer pero no enviar mensajes, y solo ven chats abiertos que nadie ha tomado. Los Managers y superiores también crean las respuestas rápidas compartidas.",
+              "id": "Agen melihat obrolan mereka sendiri dan obrolan terbuka yang belum ditugaskan. Manajer, Admin, dan Pemilik melihat semua obrolan dan dapat menugaskannya. Peninjau dapat membaca tetapi tidak mengirim pesan, dan hanya melihat obrolan terbuka yang belum diambil siapa pun. Manajer ke atas juga membuat balasan cepat bersama.",
+              "ar": "يرى الوكلاء محادثاتهم والمحادثات المفتوحة غير المُسندة. ويرى المديرون والمسؤولون والمالك كل المحادثات ويمكنهم إسنادها. ويستطيع المشاهدون القراءة دون إرسال رسائل، ولا يرون إلا المحادثات المفتوحة التي لم يستلمها أحد. كما ينشئ المديرون ومَن فوقهم الردود السريعة المشتركة.",
+              "tr": "Temsilciler kendi sohbetlerini ve açık atanmamış sohbetleri görür. Yöneticiler, Adminler ve Sahip tüm sohbetleri görür ve atayabilir. Görüntüleyiciler okuyabilir ama mesaj gönderemez ve yalnızca kimsenin sahiplenmediği açık sohbetleri görür. Ortak hızlı yanıtları da Yöneticiler ve üstü oluşturur."
+            }
+          },
+          {
+            "question": {
+              "en": "Can a chatbot hand a conversation to a person?",
+              "pt": "Um chatbot pode passar a conversa para uma pessoa?",
+              "es": "¿Un chatbot puede pasar la conversación a una persona?",
+              "id": "Bisakah chatbot menyerahkan percakapan ke manusia?",
+              "ar": "هل يمكن للشات بوت تحويل المحادثة إلى شخص؟",
+              "tr": "Bir chatbot konuşmayı bir kişiye devredebilir mi?"
+            },
+            "answer": {
+              "en": "Yes. Add an “assign agent” step to a chatbot flow, for example after a “Talk to a person” button. The chat lands in the agent’s My chats with the full conversation and the contact’s tags and fields. Chatbot flows are on the Business plan and the 14-day free trial.",
+              "pt": "Sim. Adicione uma etapa “atribuir agente” a um fluxo de chatbot, por exemplo após um botão “Falar com uma pessoa”. O chat cai em Meus chats do agente com a conversa completa e as tags e campos do contato. Os fluxos de chatbot fazem parte do plano Business e do teste grátis de 14 dias.",
+              "es": "Sí. Añade un paso “asignar agente” a un flujo de chatbot, por ejemplo después de un botón “Hablar con una persona”. El chat llega a Mis chats del agente con la conversación completa y las etiquetas y campos del contacto. Los flujos de chatbot están en el plan Business y en la prueba gratis de 14 días.",
+              "id": "Ya. Tambahkan langkah “tugaskan agen” ke alur chatbot, misalnya setelah tombol “Bicara dengan orang”. Obrolan masuk ke Obrolan saya milik agen dengan percakapan lengkap serta tag dan kolom kontak. Alur chatbot tersedia di paket Business dan uji coba gratis 14 hari.",
+              "ar": "نعم. أضف خطوة “إسناد موظف” إلى تدفق الشات بوت، مثلاً بعد زر “التحدث مع شخص”. تصل المحادثة إلى محادثاتي لدى الموظف مع المحادثة كاملة ووسوم جهة الاتصال وحقولها. تدفقات الشات بوت متاحة في باقة Business وفي التجربة المجانية لمدة 14 يوماً.",
+              "tr": "Evet. Bir chatbot akışına, örneğin “Bir kişiyle konuş” butonundan sonra, “temsilci ata” adımı ekleyin. Sohbet, tüm konuşma ve kişinin etiketleri ile alanlarıyla birlikte temsilcinin Sohbetlerim listesine düşer. Chatbot akışları Business paketinde ve 14 günlük ücretsiz denemededir."
+            }
+          },
+          {
+            "question": {
+              "en": "Can keyword auto-replies answer for us?",
+              "pt": "As respostas automáticas por palavra-chave podem responder por nós?",
+              "es": "¿Pueden responder por nosotros las respuestas automáticas por palabra clave?",
+              "id": "Bisakah balasan otomatis kata kunci menjawab untuk kami?",
+              "ar": "هل يمكن للردود التلقائية بالكلمات المفتاحية أن ترد نيابةً عنا؟",
+              "tr": "Anahtar kelime otomatik yanıtları bizim yerimize yanıt verebilir mi?"
+            },
+            "answer": {
+              "en": "Yes, on Team and Business. A rule replies with fixed text or an approved template when a message is exactly a keyword, contains it or starts with it. Keywords match whole words: “hi” matches “Hi there!”, not “this”. A rule stays quiet if anything was sent in the chat in the last 30 seconds, so it never talks over an agent.",
+              "pt": "Sim, nos planos Team e Business. Uma regra responde com um texto fixo ou um template aprovado quando a mensagem é exatamente a palavra-chave, a contém ou começa com ela. As palavras-chave casam com palavras inteiras: “oi” encontra “Oi, tudo bem?”, mas não “oitenta”. A regra fica em silêncio se algo foi enviado no chat nos últimos 30 segundos, para nunca atropelar um agente.",
+              "es": "Sí, en Team y Business. Una regla responde con un texto fijo o una plantilla aprobada cuando el mensaje es exactamente la palabra clave, la contiene o empieza con ella. Las palabras clave coinciden con palabras completas: “hola” encuentra “¡Hola, buenas!”, pero no “holanda”. La regla se queda callada si se envió algo en el chat en los últimos 30 segundos, así nunca pisa a un agente.",
+              "id": "Ya, di Team dan Business. Aturan membalas dengan teks tetap atau template yang disetujui saat pesan persis sama dengan kata kunci, mengandungnya, atau diawali dengannya. Kata kunci dicocokkan sebagai kata utuh: “hai” cocok dengan “Hai kak!”, tetapi tidak dengan “pantai”. Aturan tetap diam jika ada pesan terkirim di obrolan dalam 30 detik terakhir, sehingga tidak pernah menyela agen.",
+              "ar": "نعم، في باقتي Team وBusiness. تردّ القاعدة بنص ثابت أو بقالب معتمد عندما تكون الرسالة هي الكلمة المفتاحية تماماً، أو تحتويها، أو تبدأ بها. وتُطابَق الكلمات المفتاحية ككلمات كاملة: “hi” تطابق “Hi there!” ولا تطابق “this”. وتبقى القاعدة صامتة إذا أُرسل أي شيء في المحادثة خلال آخر 30 ثانية، فلا تقاطع الموظف أبداً.",
+              "tr": "Evet, Team ve Business paketlerinde. Bir kural, mesaj anahtar kelimenin tam kendisi olduğunda, onu içerdiğinde veya onunla başladığında sabit bir metin ya da onaylı bir şablonla yanıt verir. Anahtar kelimeler tam kelime olarak eşleşir: “selam” “Selam, nasılsınız?” ile eşleşir, “selamlar” ile eşleşmez. Sohbette son 30 saniyede bir şey gönderildiyse kural sessiz kalır; böylece asla bir temsilcinin sözünü kesmez."
+            }
+          },
+          {
+            "question": {
+              "en": "Can I assign or resolve chats from my own system?",
+              "pt": "Posso atribuir ou resolver chats pelo meu próprio sistema?",
+              "es": "¿Puedo asignar o resolver chats desde mi propio sistema?",
+              "id": "Bisakah saya menugaskan atau menyelesaikan obrolan dari sistem saya sendiri?",
+              "ar": "هل يمكنني إسناد المحادثات أو إغلاقها من نظامي الخاص؟",
+              "tr": "Sohbetleri kendi sistemimden atayabilir veya çözebilir miyim?"
+            },
+            "answer": {
+              "en": "Yes. GET /api/v1/conversations lists chats with filters for status, assignee (or unassigned), contact phone and updatedSince, and reports whether the window is open. PATCH /api/v1/conversations/{id} with an API key that has the conversations:write scope can assign, unassign, resolve or reopen a chat. Subscribe to the conversation.assigned and conversation.resolved webhooks to hear about changes made in the inbox. Reading conversations through the API works on every plan, Developer included; changing them with PATCH needs Team or Business.",
+              "pt": "Sim. GET /api/v1/conversations lista os chats com filtros por status, responsável (ou sem responsável), telefone do contato e updatedSince, e informa se a janela está aberta. PATCH /api/v1/conversations/{id}, com uma chave de API que tenha o escopo conversations:write, pode atribuir, remover a atribuição, resolver ou reabrir um chat. Assine os webhooks conversation.assigned e conversation.resolved para saber das mudanças feitas na caixa de entrada. Ler conversas pela API funciona em todos os planos, incluindo o Developer; alterá-las com PATCH exige Team ou Business.",
+              "es": "Sí. GET /api/v1/conversations lista los chats con filtros por estado, responsable (o sin asignar), teléfono del contacto y updatedSince, e indica si la ventana está abierta. PATCH /api/v1/conversations/{id}, con una clave de API que tenga el alcance conversations:write, puede asignar, desasignar, resolver o reabrir un chat. Suscríbete a los webhooks conversation.assigned y conversation.resolved para enterarte de los cambios hechos en la bandeja. Leer conversaciones por la API funciona en todos los planes, incluido Developer; cambiarlas con PATCH requiere Team o Business.",
+              "id": "Ya. GET /api/v1/conversations menampilkan daftar obrolan dengan filter status, penanggung jawab (atau belum ditugaskan), telepon kontak, dan updatedSince, serta melaporkan apakah jendela terbuka. PATCH /api/v1/conversations/{id} dengan kunci API yang memiliki cakupan conversations:write dapat menugaskan, membatalkan penugasan, menyelesaikan, atau membuka kembali obrolan. Berlangganan webhook conversation.assigned dan conversation.resolved untuk mengetahui perubahan yang dibuat di kotak masuk. Membaca percakapan lewat API berfungsi di setiap paket, termasuk Developer; mengubahnya dengan PATCH memerlukan Team atau Business.",
+              "ar": "نعم. يعرض GET /api/v1/conversations المحادثات مع فلاتر للحالة والموظف المسؤول (أو غير المُسندة) وهاتف جهة الاتصال وupdatedSince، ويبيّن ما إذا كانت النافذة مفتوحة. ويستطيع PATCH /api/v1/conversations/{id} بمفتاح API يملك النطاق conversations:write إسناد المحادثة أو إلغاء إسنادها أو إغلاقها أو إعادة فتحها. اشترك في webhooks conversation.assigned وconversation.resolved لتعرف بالتغييرات التي تتم في صندوق الوارد. قراءة المحادثات عبر الواجهة البرمجية متاحة في كل الباقات بما فيها Developer، أما تعديلها عبر PATCH فيتطلب Team أو Business.",
+              "tr": "Evet. GET /api/v1/conversations, sohbetleri durum, atanan kişi (veya atanmamış), kişi telefonu ve updatedSince filtreleriyle listeler ve pencerenin açık olup olmadığını bildirir. conversations:write kapsamına sahip bir API anahtarıyla PATCH /api/v1/conversations/{id}, bir sohbeti atayabilir, atamayı kaldırabilir, çözebilir veya yeniden açabilir. Gelen kutusunda yapılan değişikliklerden haberdar olmak için conversation.assigned ve conversation.resolved webhook’larına abone olun. Konuşmaları API ile okumak Developer dahil her pakette çalışır; PATCH ile değiştirmek Team veya Business gerektirir."
+            }
+          },
+          {
+            "question": {
+              "en": "Who pays for the messages my team sends?",
+              "pt": "Quem paga pelas mensagens que minha equipe envia?",
+              "es": "¿Quién paga los mensajes que envía mi equipo?",
+              "id": "Siapa yang membayar pesan yang dikirim tim saya?",
+              "ar": "مَن يدفع ثمن الرسائل التي يرسلها فريقي؟",
+              "tr": "Ekibimin gönderdiği mesajların ücretini kim öder?"
+            },
+            "answer": {
+              "en": "Meta bills WhatsApp message charges directly to your own WhatsApp Business Account. Meta charges every delivered template, utility templates included, even inside the 24-hour window; service replies to customers who wrote in are free up to a monthly allowance per number. In a chat that came from a Click-to-WhatsApp ad, Meta charges nothing while its 72-hour free entry point window is open. StartMessaging is a Meta Tech Provider and charges only a flat CRM subscription, with no per-message markup.",
+              "pt": "A Meta cobra as mensagens do WhatsApp diretamente na sua própria Conta do WhatsApp Business. A Meta cobra todo template entregue, inclusive os de utilidade, mesmo dentro da janela de 24 horas; as respostas de atendimento a clientes que escreveram são grátis até uma franquia mensal por número. Em um chat que veio de um anúncio Click-to-WhatsApp, a Meta não cobra nada enquanto a janela de ponto de entrada gratuito de 72 horas está aberta. A StartMessaging é Meta Tech Provider e cobra apenas uma assinatura fixa do CRM, sem acréscimo por mensagem.",
+              "es": "Meta cobra los mensajes de WhatsApp directamente a tu propia Cuenta de WhatsApp Business. Meta cobra cada plantilla entregada, incluidas las de utilidad, incluso dentro de la ventana de 24 horas; las respuestas de atención a clientes que escribieron son gratis hasta una cuota mensual por número. En un chat que llegó desde un anuncio Click-to-WhatsApp, Meta no cobra nada mientras su ventana de punto de entrada gratuito de 72 horas está abierta. StartMessaging es Meta Tech Provider y solo cobra una suscripción fija al CRM, sin recargo por mensaje.",
+              "id": "Meta menagih biaya pesan WhatsApp langsung ke Akun WhatsApp Business milik Anda sendiri. Meta menagih setiap template yang terkirim, termasuk template utilitas, bahkan di dalam jendela 24 jam; balasan layanan kepada pelanggan yang menghubungi Anda gratis hingga kuota bulanan per nomor. Di obrolan yang berasal dari iklan Click-to-WhatsApp, Meta tidak menagih apa pun selama jendela titik masuk gratis 72 jam terbuka. StartMessaging adalah Meta Tech Provider dan hanya menagih langganan CRM tetap, tanpa markup per pesan.",
+              "ar": "تحتسب Meta رسوم رسائل واتساب مباشرة على حساب واتساب للأعمال الخاص بك. تحتسب Meta كل قالب يتم تسليمه، بما في ذلك قوالب الخدمات حتى داخل نافذة الـ24 ساعة، أما ردود خدمة العملاء على من راسلوك فمجانية حتى حد شهري لكل رقم. وفي المحادثة القادمة من إعلان Click-to-WhatsApp لا تحتسب Meta أي رسوم ما دامت نافذة نقطة الدخول المجانية ومدتها 72 ساعة مفتوحة. StartMessaging مزوّد تقني لدى Meta (Meta Tech Provider) ولا يتقاضى إلا اشتراكاً ثابتاً في نظام CRM، دون أي هامش على الرسائل.",
+              "tr": "Meta, WhatsApp mesaj ücretlerini doğrudan kendi WhatsApp Business Hesabınıza fatura eder. Meta, 24 saatlik pencerenin içinde bile, yardımcı (utility) şablonlar dahil teslim edilen her şablonu ücretlendirir; size yazan müşterilere verilen hizmet yanıtları numara başına aylık bir kotaya kadar ücretsizdir. Click-to-WhatsApp reklamından gelen bir sohbette, Meta’nın 72 saatlik ücretsiz giriş noktası penceresi açık olduğu sürece Meta ücret almaz. StartMessaging bir Meta Tech Provider’dır ve yalnızca sabit bir CRM aboneliği alır; mesaj başına ek ücret yoktur."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "relatedPages",
+      "props": {
+        "heading": {
+          "en": "Related Pages",
+          "pt": "Páginas Relacionadas",
+          "es": "Páginas Relacionadas",
+          "id": "Halaman Terkait",
+          "ar": "الصفحات ذات الصلة",
+          "tr": "İlgili Sayfalar"
+        },
+        "links": [
+          {
+            "label": {
+              "en": "WhatsApp CRM and Pipeline",
+              "pt": "CRM e Funil do WhatsApp",
+              "es": "CRM y Embudo de WhatsApp",
+              "id": "CRM dan Pipeline WhatsApp",
+              "ar": "CRM وخط مبيعات واتساب",
+              "tr": "WhatsApp CRM ve Satış Hattı"
+            },
+            "href": "/whatsapp/crm"
+          },
+          {
+            "label": {
+              "en": "WhatsApp Chatbot Flows",
+              "pt": "Fluxos de Chatbot do WhatsApp",
+              "es": "Flujos de Chatbot de WhatsApp",
+              "id": "Alur Chatbot WhatsApp",
+              "ar": "تدفقات شات بوت واتساب",
+              "tr": "WhatsApp Chatbot Akışları"
+            },
+            "href": "/whatsapp/chatbot"
+          },
+          {
+            "label": {
+              "en": "WhatsApp CRM Overview",
+              "pt": "Visão Geral do CRM para WhatsApp",
+              "es": "Resumen del CRM para WhatsApp",
+              "id": "Ikhtisar CRM WhatsApp",
+              "ar": "نظرة عامة على CRM واتساب",
+              "tr": "WhatsApp CRM Genel Bakış"
+            },
+            "href": "/whatsapp"
+          },
+          {
+            "label": {
+              "en": "Conversations API Docs",
+              "pt": "Documentação da API de Conversas",
+              "es": "Documentación de la API de Conversaciones",
+              "id": "Dokumentasi API Percakapan",
+              "ar": "توثيق API المحادثات",
+              "tr": "Konuşma API Dokümantasyonu"
+            },
+            "href": "/docs/whatsapp/conversations"
+          }
+        ]
+      }
+    },
+    {
+      "type": "ctaBlock",
+      "props": {
+        "heading": {
+          "en": "Bring Your Team Into One WhatsApp Inbox",
+          "pt": "Traga Sua Equipe para Uma Só Caixa de Entrada do WhatsApp",
+          "es": "Reúne a Tu Equipo en Una Sola Bandeja de WhatsApp",
+          "id": "Satukan Tim Anda di Satu Kotak Masuk WhatsApp",
+          "ar": "اجمع فريقك في صندوق وارد واتساب واحد",
+          "tr": "Ekibinizi Tek Bir WhatsApp Gelen Kutusunda Toplayın"
+        },
+        "subtext": {
+          "en": "14-day free trial. Connect your own WhatsApp Business number with Facebook login and invite your team.",
+          "pt": "Teste grátis de 14 dias. Conecte seu próprio número do WhatsApp Business com o login do Facebook e convide sua equipe.",
+          "es": "Prueba gratis de 14 días. Conecta tu propio número de WhatsApp Business con el inicio de sesión de Facebook e invita a tu equipo.",
+          "id": "Uji coba gratis 14 hari. Hubungkan nomor WhatsApp Business Anda sendiri dengan login Facebook dan undang tim Anda.",
+          "ar": "تجربة مجانية لمدة 14 يوماً. اربط رقم واتساب للأعمال الخاص بك عبر تسجيل الدخول بفيسبوك وادعُ فريقك.",
+          "tr": "14 günlük ücretsiz deneme. Kendi WhatsApp Business numaranızı Facebook girişiyle bağlayın ve ekibinizi davet edin."
+        },
+        "primaryCta": {
+          "en": "Start 14-day free trial",
+          "pt": "Comece o teste grátis de 14 dias",
+          "es": "Empieza la prueba gratis de 14 días",
+          "id": "Mulai uji coba gratis 14 hari",
+          "ar": "ابدأ التجربة المجانية لمدة 14 يوماً",
+          "tr": "14 günlük ücretsiz denemeyi başlat"
+        },
+        "primaryHref": "https://waba.startmessaging.com/signup"
+      }
+    }
+  ]
+}

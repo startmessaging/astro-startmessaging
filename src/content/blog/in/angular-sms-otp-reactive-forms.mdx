@@ -2,6 +2,7 @@
 title: "How to Send SMS OTP in Angular Using Reactive Forms (2026 Guide)"
 description: "Build an Angular SMS OTP reactive forms integration step-by-step. Learn how to handle phone validation, resend cooldowns, and OTP verification in 2026."
 publishedAt: "2026-08-13"
+updatedAt: "2026-10-15"
 category: "tutorials"
 country: "in"
 author: "StartMessaging Team"
@@ -31,7 +32,7 @@ For enterprise software teams standardizing on Angular, building robust OTP veri
 
 ## Architecture of a Reactive Forms OTP Flow
 
-Before writing code, examine how data and validation states flow between your Angular component, Reactive Form controls, and the StartMessaging backend API.
+Before writing code, examine how data and validation states flow between your Angular component, Reactive Form controls, your backend, and the StartMessaging API.
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────┐
@@ -40,13 +41,13 @@ Before writing code, examine how data and validation states flow between your An
 │ [User Types Phone Number] ──> [FormControl: Validators.pattern(/^[6-9]\d{9}$/)]    │
 │                                           │ (Valid 10-Digit Indian Mobile)         │
 │                                           ▼                                       │
-│ [Click 'Send OTP'] ─────────> [OtpService: POST /otp/send]                         │
-│                                           │ (Stores requestId, starts 60s timer)  │
+│ [Click 'Send OTP'] ─────────> [OtpService: POST /api/otp/send]                     │
+│                                           │ (Stores otpRequestId, 60s timer)      │
 │                                           ▼                                       │
 │ [UI Switches to OTP State] ─> [FormControl: Validators.pattern(/^\d{6}$/)]        │
 │                                           │ (User Enters 6-Digit Code)            │
 │                                           ▼                                       │
-│ [Click 'Verify OTP'] ───────> [OtpService: POST /otp/verify]                      │
+│ [Click 'Verify OTP'] ───────> [OtpService: POST /api/otp/verify]                  │
 │                                           │                                       │
 │                     ┌─────────────────────┴─────────────────────┐                 │
 │                     ▼                                           ▼                 │
@@ -70,7 +71,8 @@ Before starting this tutorial, ensure your development environment includes:
 *   **Node.js 18+** installed on your workstation.
 *   **Angular 17+ or 19** CLI (`npm install -g @angular/cli`).
 *   **A StartMessaging Account:** [Sign up for free](https://app.startmessaging.com/register) to get API access.
-*   **A StartMessaging API Key:** Generated from the [API Keys dashboard](https://app.startmessaging.com/api-keys) (starts with `sm_live_`).
+*   **A StartMessaging API Key:** Generated from the [API Keys dashboard](https://app.startmessaging.com/api-keys) (starts with `sm_live_`). It lives on your backend only.
+*   **A small backend** (Node.js, Next.js API route, Lambda, etc.) to hold the API key and call StartMessaging.
 
 ---
 
@@ -100,44 +102,82 @@ export const appConfig: ApplicationConfig = {
 
 ---
 
-## Step 2: Build the `OtpService`
+## Step 2: Add a Backend Endpoint and Build the `OtpService`
 
-Create a dedicated Angular service to handle HTTP interactions with the StartMessaging API. This service abstracts `POST /otp/send` and `POST /otp/verify` endpoints.
+Your `sm_live_` API key must never ship in the Angular bundle. Instead, the browser talks to two small endpoints on your own backend, and the backend calls StartMessaging's `POST /otp/send` and `POST /otp/verify`. The backend also generates the OTP code itself and passes it in `variables.otp`.
+
+Here is a minimal Node.js (Express) gateway:
+
+```typescript
+// server/otp-routes.ts (Node.js 18+, Express)
+import express from 'express';
+import crypto from 'node:crypto';
+
+const router = express.Router();
+const BASE_URL = 'https://api.startmessaging.com';
+const API_KEY = process.env.STARTMESSAGING_API_KEY!; // sm_live_...
+
+router.post('/api/otp/send', async (req, res) => {
+  const { phoneNumber } = req.body; // E.164, e.g. "+919876543210"
+  const otp = crypto.randomInt(100000, 1000000).toString(); // 6-digit code
+
+  const response = await fetch(`${BASE_URL}/otp/send`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
+    body: JSON.stringify({
+      phoneNumber,
+      variables: { otp, appName: 'YourApp' },
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    return res.status(response.status).json({ message: result.message || 'Failed to send OTP' });
+  }
+
+  // 201: { data: { otpRequestId, messageId, status: "queued" } }
+  res.json({ otpRequestId: result.data.otpRequestId });
+});
+
+router.post('/api/otp/verify', async (req, res) => {
+  const { otpRequestId, otpCode } = req.body;
+
+  const response = await fetch(`${BASE_URL}/otp/verify`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
+    body: JSON.stringify({ requestId: otpRequestId, otpCode }),
+  });
+  const result = await response.json();
+  if (!response.ok || !result.data?.verified) {
+    return res.status(400).json({ message: result.message || 'Invalid or expired OTP code.' });
+  }
+
+  // Create the user session here
+  res.json({ verified: true });
+});
+
+export default router;
+```
+
+Now generate the Angular service:
 
 ```bash
 ng g service services/otp
 ```
 
-Paste the following TypeScript implementation into `src/app/services/otp.service.ts`:
+Paste the following TypeScript implementation into `src/app/services/otp.service.ts`. It only talks to your backend:
 
 ```typescript
 // src/app/services/otp.service.ts
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 
-export interface SendOtpRequest {
-  phoneNumber: string; // E.164 format, e.g. "+919876543210"
-}
-
 export interface SendOtpResponse {
-  success: boolean;
-  data: {
-    requestId: string;
-    expiresAt: string;
-    attemptsLeft: number;
-  };
-  message?: string;
-}
-
-export interface VerifyOtpRequest {
-  requestId: string;
-  code: string;
+  otpRequestId: string;
 }
 
 export interface VerifyOtpResponse {
-  success: boolean;
-  message: string;
+  verified: boolean;
 }
 
 @Injectable({
@@ -145,29 +185,19 @@ export interface VerifyOtpResponse {
 })
 export class OtpService {
   private http = inject(HttpClient);
-  private baseUrl = 'https://api.startmessaging.com';
-  
-  // Replace with your actual live API key or load from environment
-  private apiKey = 'sm_live_xxxxxxxxxxxxxxxxxxxx';
-
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-API-Key': this.apiKey,
-    });
-  }
+  // Your own backend, not api.startmessaging.com. No API key in the browser.
+  private baseUrl = '/api/otp';
 
   /**
-   * Triggers an SMS OTP delivery call to the target phone number
+   * Asks your backend to send an SMS OTP to the target phone number
    */
   sendOtp(phoneNumber: string): Observable<SendOtpResponse> {
     // Format to E.164 if missing country code
     const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber}`;
-    
+
     return this.http.post<SendOtpResponse>(
-      `${this.baseUrl}/otp/send`,
-      { phoneNumber: formattedPhone },
-      { headers: this.getHeaders() }
+      `${this.baseUrl}/send`,
+      { phoneNumber: formattedPhone }
     ).pipe(
       catchError((error) => {
         const errorMsg = error.error?.message || 'Failed to send OTP. Please try again.';
@@ -177,13 +207,12 @@ export class OtpService {
   }
 
   /**
-   * Verifies the 6-digit user code against the active requestId
+   * Verifies the 6-digit user code against the active otpRequestId
    */
-  verifyOtp(requestId: string, code: string): Observable<VerifyOtpResponse> {
+  verifyOtp(otpRequestId: string, otpCode: string): Observable<VerifyOtpResponse> {
     return this.http.post<VerifyOtpResponse>(
-      `${this.baseUrl}/otp/verify`,
-      { requestId, code },
-      { headers: this.getHeaders() }
+      `${this.baseUrl}/verify`,
+      { otpRequestId, otpCode }
     ).pipe(
       catchError((error) => {
         const errorMsg = error.error?.message || 'Invalid or expired OTP code.';
@@ -229,7 +258,7 @@ export class PhoneOtpLoginComponent implements OnInit, OnDestroy {
   errorMessage = '';
   successMessage = '';
   
-  requestId = '';
+  otpRequestId = '';
   cooldownSeconds = 0;
   private timerSub?: Subscription;
 
@@ -274,7 +303,7 @@ export class PhoneOtpLoginComponent implements OnInit, OnDestroy {
     this.otpService.sendOtp(rawPhone).subscribe({
       next: (res) => {
         this.isLoading = false;
-        this.requestId = res.data.requestId;
+        this.otpRequestId = res.otpRequestId;
         this.step = 'OTP_INPUT';
         this.successMessage = `OTP sent successfully to +91 ${rawPhone}`;
         this.startCooldownTimer(60);
@@ -290,7 +319,7 @@ export class PhoneOtpLoginComponent implements OnInit, OnDestroy {
    * Step 2: Verify OTP handler
    */
   onVerifyOtp(): void {
-    if (this.otpForm.invalid || !this.requestId) {
+    if (this.otpForm.invalid || !this.otpRequestId) {
       this.otpForm.markAllAsTouched();
       return;
     }
@@ -299,7 +328,7 @@ export class PhoneOtpLoginComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
     const code = this.codeControl?.value;
 
-    this.otpService.verifyOtp(this.requestId, code).subscribe({
+    this.otpService.verifyOtp(this.otpRequestId, code).subscribe({
       next: (res) => {
         this.isLoading = false;
         this.step = 'VERIFIED';
@@ -591,7 +620,7 @@ To test your component locally without sending real SMS traffic during automated
 2. Open `http://localhost:4200` in your browser.
 3. Enter a 10-digit Indian test number (e.g., `9876543210`).
 4. Verify that entering 9 digits keeps the submit button disabled.
-5. Upon submitting, confirm that `requestId` is logged and the form switches smoothly to the OTP entry state.
+5. Upon submitting, confirm that your backend returns an `otpRequestId` and the form switches smoothly to the OTP entry state.
 
 For staging environments, StartMessaging provides test phone numbers that return predictable mock OTP codes without deducting wallet credit.
 
@@ -617,7 +646,7 @@ A: No. StartMessaging routes verification traffic through pre-approved enterpris
 
 **Q: How do I securely store the StartMessaging API key in Angular?**
 
-A: You should never expose `sm_live_` API keys directly in client-side Angular bundle code. In production, route `sendOtp` and `verifyOtp` calls through a lightweight backend gateway (such as a Node.js Express service, Next.js API route, or AWS Lambda) that holds the API key securely in server environment variables.
+A: You should never expose `sm_live_` API keys directly in client-side Angular bundle code. As shown in Step 2, route `sendOtp` and `verifyOtp` calls through a lightweight backend gateway (such as a Node.js Express service, Next.js API route, or AWS Lambda) that holds the API key securely in server environment variables.
 
 ---
 

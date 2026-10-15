@@ -46,6 +46,24 @@ if (country !== 'in') {
 }
 
 const isWhatsapp = theme === 'whatsapp';
+
+// Trust line under the CTAs. WhatsApp has a 14-day trial, not a free plan.
+const WA_TRUST_LINE = {
+  en: '14-day free trial · Your own WhatsApp Business number · Meta bills messages directly',
+  pt: 'Teste grátis de 14 dias · Seu próprio número do WhatsApp Business · A Meta cobra as mensagens diretamente',
+  es: 'Prueba gratis de 14 días · Tu propio número de WhatsApp Business · Meta factura los mensajes directamente',
+  id: 'Uji coba gratis 14 hari · Nomor WhatsApp Business Anda sendiri · Meta menagih pesan secara langsung',
+  ar: 'تجربة مجانية لمدة 14 يوماً · رقم واتساب للأعمال الخاص بك · تُصدر Meta فواتير الرسائل مباشرةً',
+  tr: '14 günlük ücretsiz deneme · Kendi WhatsApp Business numaranız · Mesajları Meta doğrudan faturalandırır',
+};
+const SMS_TRUST_LINE = {
+  en: 'No credit card required · Free credits to start · Setup in 5 minutes',
+  pt: 'Sem cartão de crédito · Créditos grátis para começar · Configuração em 5 minutos',
+  es: 'Sin tarjeta de crédito · Créditos gratis para empezar · Configuración en 5 minutos',
+  id: 'Tanpa kartu kredit · Kredit gratis untuk memulai · Siap dalam 5 menit',
+  ar: 'لا حاجة لبطاقة ائتمان · أرصدة مجانية للبدء · الإعداد في 5 دقائق',
+  tr: 'Kredi kartı gerekmez · Başlamak için ücretsiz kredi · 5 dakikada kurulum',
+};
 const auroraTheme = isWhatsapp ? 'whatsapp' : 'sms';
 ---
 
@@ -105,7 +123,7 @@ const auroraTheme = isWhatsapp ? 'whatsapp' : 'sms';
 
       {/* Trust line */}
       <p class:list={["text-caption mt-6 animate-fade-in stagger-5", isWhatsapp ? "text-body/80" : "text-muted"]}>
-        ✦ No credit card required &middot; Free plan available &middot; Setup in 5 minutes
+        ✦ {r(isWhatsapp ? WA_TRUST_LINE : SMS_TRUST_LINE, country)}
       </p>
     </div>
   </Container>

@@ -2,7 +2,7 @@
 title: "How to Send OTP with CodeIgniter 4 (2026)"
 description: "CodeIgniter 4 OTP tutorial using StartMessaging. Uses CURLRequest, Config files for keys, and Session for the request ID. Drop-in patterns for Indian dev shops."
 publishedAt: "2026-05-10"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -69,8 +69,14 @@ class StartMessaging
     public function sendOtp(string $phone): array
     {
         $r = $this->client->post('/otp/send', [
-            'json' => ['phoneNumber' => $phone, 'idempotencyKey' => bin2hex(random_bytes(16))],
+            'json' => [
+                'phoneNumber'    => $phone,
+                // Your backend generates the code; StartMessaging delivers it
+                'variables'      => ['otp' => (string) random_int(100000, 999999)],
+                'idempotencyKey' => bin2hex(random_bytes(16)),
+            ],
         ]);
+        // data: { otpRequestId, messageId, status: "queued" }
         return json_decode((string) $r->getBody(), true)['data'];
     }
 
@@ -101,8 +107,8 @@ class Auth extends BaseController
     {
         $sm = new StartMessaging();
         $data = $sm->sendOtp($this->request->getJsonVar('phoneNumber'));
-        session()->set('otp_req', $data['requestId']);
-        return $this->response->setJSON(['expiresAt' => $data['expiresAt']]);
+        session()->set('otp_req', $data['otpRequestId']);
+        return $this->response->setJSON(['status' => $data['status']]);
     }
 
     public function verifyOtp()

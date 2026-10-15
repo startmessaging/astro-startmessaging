@@ -2,7 +2,7 @@
 title: "How to Send OTP with Hono (2026)"
 description: "Hono OTP tutorial using StartMessaging. Targets Cloudflare Workers, Bun and Node. Uses zValidator, JSON schema, signed-cookie session and middleware-based rate limiting."
 publishedAt: "2026-05-08"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -56,19 +56,30 @@ const app = new Hono<Env>();
 const PhoneSchema = z.object({ phoneNumber: z.string().regex(/^\\+91\\d{10}$/) });
 const CodeSchema  = z.object({ otpCode: z.string().regex(/^\\d{4,8}$/) });
 
+// Unbiased 6-digit code via Web Crypto (works on Workers, Bun, Node, Deno)
+function generateOtp(): string {
+  const buf = new Uint32Array(1);
+  do crypto.getRandomValues(buf); while (buf[0] >= 4294000000);
+  return String(buf[0] % 1000000).padStart(6, '0');
+}
+
 app.post('/auth/send-otp', zValidator('json', PhoneSchema), async (c) => {
   const { phoneNumber } = c.req.valid('json');
   const res = await fetch('https://api.startmessaging.com/otp/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-API-Key': c.env.SM_API_KEY },
-    body: JSON.stringify({ phoneNumber, idempotencyKey: crypto.randomUUID() }),
+    body: JSON.stringify({
+      phoneNumber,
+      variables: { otp: generateOtp() }, // your server generates the code
+      idempotencyKey: crypto.randomUUID(),
+    }),
   });
   if (!res.ok) return c.json({ error: 'send failed' }, 502);
-  const { data } = await res.json<any>();
-  await setSignedCookie(c, 'otp_req', data.requestId, c.env.SESSION_SECRET, {
+  const { data } = await res.json<any>(); // { otpRequestId, messageId, status }
+  await setSignedCookie(c, 'otp_req', data.otpRequestId, c.env.SESSION_SECRET, {
     httpOnly: true, secure: true, sameSite: 'Lax', maxAge: 900,
   });
-  return c.json({ expiresAt: data.expiresAt });
+  return c.json({ status: data.status });
 });
 
 app.post('/auth/verify-otp', zValidator('json', CodeSchema), async (c) => {

@@ -2,7 +2,7 @@
 title: "Solutions Infini vs StartMessaging for India OTP"
 description: "Solutions Infini (Kaleyra Now) vs StartMessaging compared for Indian OTP workloads: pricing, DLT, integration, monthly minimums and developer experience."
 publishedAt: "2026-05-03"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: comparisons
 country: "in"
 author: "StartMessaging Team"
@@ -54,7 +54,7 @@ Here is how Solutions Infini (Kaleyra) and StartMessaging compare across core me
 | **Security Features** | Raw delivery (No database hashing) | bcrypt-hashed storage on HSM nodes |
 | **Attempt Tracking** | Developer must implement manually | Built-in limits (invalidates after 3 fails) |
 | **Verification Logic** | None (Developer must write verification) | Built-in send and verify API endpoints |
-| **Fallback Channels** | Manual configuration | Automated voice and WhatsApp fallback |
+| **Fallback Channels** | Manual configuration | WhatsApp OTP through a separate WhatsApp API your backend calls (no voice OTP) |
 | **Developer Tools** | Standard REST APIs | OpenAPI specification & SDK support |
 
 ## Cost Analysis and Procurement Barriers
@@ -153,7 +153,7 @@ A: StartMessaging is integrated with telecom operator networks and routes OTPs t
 
 **Q: Do these platforms support voice-fallback options?**
 
-A: Yes. Both platforms support fallback routing. Legacy systems require you to construct a custom fallback flow using separate SMS and voice APIs. StartMessaging handles this automatically, shifting the verification attempt to a Voice OTP call or WhatsApp message if the SMS is not delivered within 30 seconds.
+A: Solutions Infini (now part of Kaleyra) offers voice, but you construct the fallback flow yourself using separate SMS and voice APIs. StartMessaging does not offer voice OTP or automatic voice fallback; if you need a voice call, use a separate voice provider and trigger it from your backend. WhatsApp OTP is a separate StartMessaging API: there is no automatic switch to WhatsApp, so your backend sends it when it decides to.
 
 **Q: Is it safe to store plain OTP codes in a database?**
 

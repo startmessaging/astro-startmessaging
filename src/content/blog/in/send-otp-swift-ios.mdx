@@ -2,7 +2,7 @@
 title: "Send Phone OTP in Swift / iOS — 2026 Tutorial"
 description: "Verify phone numbers in iOS apps with Swift, calling your backend that proxies the StartMessaging OTP API. Includes URLSession, async/await, and SwiftUI form examples."
 publishedAt: "2026-04-22"
-updatedAt: "2026-06-19"
+updatedAt: "2026-10-15"
 category: tutorials
 country: "in"
 author: "StartMessaging Team"
@@ -49,9 +49,12 @@ iOS app  ──POST /auth/verify-otp─▶ Your backend ──▶ StartMessaging
 ```typescript
 import Foundation
 
+// Your backend generates the code, calls StartMessaging POST /otp/send,
+// and returns { "requestId": data.otpRequestId } to the app.
+// StartMessaging enforces expiry and attempt limits on /otp/verify;
+// the resend timer below is just a UI choice in the app.
 struct SendOtpRes: Decodable {
     let requestId: String
-    let expiresAt: String
 }
 
 struct VerifyOtpRes: Decodable { let verified: Bool }
