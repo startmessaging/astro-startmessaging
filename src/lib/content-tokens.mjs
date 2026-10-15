@@ -6,13 +6,13 @@
 
 /**
  * Launch switch for the WhatsApp CRM app. While false, every link to
- * whatsapp.startmessaging.com (page JSON, docs, navbar) is rewritten at build
+ * waba.startmessaging.com (page JSON, docs, navbar) is rewritten at build
  * time to the existing app at app.startmessaging.com. Set to true on launch day.
  */
-export const WA_APP_LIVE = false;
+export const WA_APP_LIVE = true;
 
 /** WhatsApp CRM app (whatsapp-client) once live. Content may hard-code this. */
-const WA_APP_LIVE_URL = 'https://whatsapp.startmessaging.com';
+const WA_APP_LIVE_URL = 'https://waba.startmessaging.com';
 
 /** Existing SMS console; its login page is the root. */
 export const SMS_APP_URL = 'https://app.startmessaging.com';
@@ -25,7 +25,7 @@ export const WA_LOGIN_URL = WA_APP_LIVE ? `${WA_APP_LIVE_URL}/login` : SMS_APP_U
  * WhatsApp public API host (whatsapp-server `PUBLIC_API_BASE_URL`), without
  * the `/api/v1` prefix — content appends it.
  */
-export const WA_API_BASE = 'https://whatsapp-api.startmessaging.com';
+export const WA_API_BASE = 'https://waba-api.startmessaging.com';
 
 /** Tokens content may contain, replaced at build time. */
 export const CONTENT_TOKENS = {
