@@ -231,3 +231,30 @@ export function buildContactPage(options: {
     },
   };
 }
+
+/**
+ * Read the FAQ out of a docs page's Markdown so the FAQPage schema always
+ * matches the visible text. Expects the docs convention: a `## FAQ` heading,
+ * then `**Question?**` on its own line followed by the answer, until the next
+ * question or heading.
+ */
+export function faqFromMarkdown(body: string | undefined): { question: string; answer: string }[] {
+  if (!body) return [];
+  const section = body.split(/^##\s+(?:FAQ|Frequently Asked Questions)\s*$/m)[1];
+  if (!section) return [];
+  const faq = section.split(/^##\s/m)[0];
+  const plain = (s: string) => s
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*_`]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const items: { question: string; answer: string }[] = [];
+  const re = /^\*\*(.+?)\*\*\s*$([\s\S]*?)(?=^\*\*.+?\*\*\s*$|(?![\s\S]))/gm;
+  for (const m of faq.matchAll(re)) {
+    const question = plain(m[1]);
+    const answer = plain(m[2]);
+    if (question && answer) items.push({ question, answer });
+  }
+  return items;
+}

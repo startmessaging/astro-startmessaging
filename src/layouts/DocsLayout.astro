@@ -4,7 +4,9 @@
  * Per ASTRO_COUNTRY_PLAN.md §9.
  */
 import MarketingLayout from './MarketingLayout.astro';
-import { COUNTRY_CONFIG, ALL_COUNTRIES, urlPrefix, type Country } from '@/config/countries';
+import { COUNTRY_CONFIG, urlPrefix, type Country } from '@/config/countries';
+import { buildFaqPage, faqFromMarkdown } from '@/lib/jsonld';
+import { replaceContentTokens } from '@/lib/constants';
 
 interface NavItem {
   slug: string;
@@ -23,9 +25,11 @@ interface Props {
     items: NavItem[];
   };
   headings?: { depth: number; slug: string; text: string }[];
+  /** Raw Markdown of the page, used to build FAQPage schema from its ## FAQ section. */
+  body?: string;
 }
 
-const { title, description, product, country, slug, nav, headings = [] } = Astro.props;
+const { title, description, product, country, slug, nav, headings = [], body } = Astro.props;
 const c = country as Country;
 const prefix = urlPrefix(c);
 const lang = COUNTRY_CONFIG[c]?.lang ?? 'en';
@@ -81,22 +85,23 @@ const nextHref = nextItem ? `${prefix}/docs/${product}/${nextItem.slug}` : '';
 
 const tocItems = headings.filter((h) => h.depth <= 3);
 
-// Step 4 (seo_geo_analysis_report.md): Fix hreflang isolation on docs pages.
-// WhatsApp docs are global (all 7 countries share the same content).
+// Docs are written once, in English. WhatsApp docs are also served under every
+// country prefix so navigation stays in-country, but those copies are duplicates:
+// they point their canonical at the India URL (/docs/whatsapp/*), carry no
+// country hreflang, and are left out of the sitemap (astro.config.mjs).
 // SMS and Auth API docs are India-only products.
-// Using the correct pageCountries ensures cross-country alternate links are emitted
-// so e.g. /docs/whatsapp/getting-started → /br/docs/whatsapp/getting-started.
-const pageCountries = product === 'whatsapp'
-  ? (ALL_COUNTRIES as string[])
-  : ['in'];
+const pageCountries = ['in'];
+const canonicalPath = `/docs/${product}/${slug}`;
+
+const faqItems = faqFromMarkdown(body).map((q) => ({ question: replaceContentTokens(q.question), answer: replaceContentTokens(q.answer) }));
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `https://startmessaging.com${prefix || '/'}` },
-    { '@type': 'ListItem', position: 2, name: `${docsLabel} Docs`, item: `https://startmessaging.com${prefix}/docs/${product}/getting-started` },
-    { '@type': 'ListItem', position: 3, name: title, item: `https://startmessaging.com${prefix}/docs/${product}/${slug}` },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://startmessaging.com/' },
+    { '@type': 'ListItem', position: 2, name: `${docsLabel} Docs`, item: `https://startmessaging.com/docs/${product}/getting-started` },
+    { '@type': 'ListItem', position: 3, name: title, item: `https://startmessaging.com${canonicalPath}` },
   ],
 };
 ---
@@ -106,7 +111,8 @@ const breadcrumbSchema = {
     title: `${title} — ${docsLabel} Docs — StartMessaging`,
     description,
     ogImage: "/og/docs.jpg",
-    jsonLd: [breadcrumbSchema],
+    canonical: canonicalPath,
+    jsonLd: faqItems.length > 0 ? [breadcrumbSchema, buildFaqPage(faqItems)] : [breadcrumbSchema],
   }}
   country={country}
   pageCountries={pageCountries}

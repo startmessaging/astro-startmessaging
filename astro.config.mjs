@@ -134,6 +134,9 @@ export default defineConfig({
 
   integrations: [
     sitemap({
+      // Country copies of the WhatsApp docs are English duplicates that point
+      // their canonical at /docs/whatsapp/*, so only the canonical URL is listed.
+      filter: (page) => !/\/(br|mx|id|ae|tr|ng)\/docs\/whatsapp\//.test(page),
       i18n: {
         defaultLocale: 'in',
         locales: {
