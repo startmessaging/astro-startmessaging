@@ -12,6 +12,7 @@ import CtaBlock             from './sections/CtaBlock.astro';
 import ComingSoon           from './sections/ComingSoon.astro';
 import HowItWorks           from './sections/HowItWorks.astro';
 import ServiceCards          from './sections/ServiceCards.astro';
+import FeatureMap            from './sections/FeatureMap.astro';
 import TestimonialsSection   from './sections/TestimonialsSection.astro';
 import FaqSection            from './sections/FaqSection.astro';
 import TrustBadges           from './sections/TrustBadges.astro';
@@ -38,6 +39,7 @@ export const componentMap: Record<string, any> = {
   comingSoon:      ComingSoon,
   howItWorks:      HowItWorks,
   serviceCards:    ServiceCards,
+  featureMap:      FeatureMap,
   testimonials:    TestimonialsSection,
   faqSection:      FaqSection,
   trustBadges:     TrustBadges,

@@ -12,21 +12,21 @@
   "updatedAt": "2026-10-12",
   "seo": {
     "title": {
-      "en": "WhatsApp CRM & Business API India — Meta Tech Provider — StartMessaging",
-      "pt": "CRM e API do WhatsApp Business Brasil — Meta Tech Provider — StartMessaging",
-      "es": "CRM y API de WhatsApp Business México — Meta Tech Provider — StartMessaging",
-      "id": "CRM & API WhatsApp Business Indonesia — Meta Tech Provider — StartMessaging",
-      "ar": "CRM وواجهة واتساب للأعمال الإمارات — Meta Tech Provider — StartMessaging",
-      "tr": "WhatsApp CRM ve Business API Türkiye — Meta Tech Provider — StartMessaging",
-      "ng": "WhatsApp CRM & Business API Nigeria — Meta Tech Provider — StartMessaging"
+      "en": "WhatsApp CRM & Business API India | StartMessaging",
+      "pt": "CRM e API do WhatsApp Business no Brasil | StartMessaging",
+      "es": "CRM y API de WhatsApp Business en México | StartMessaging",
+      "id": "CRM & API WhatsApp Business Indonesia | StartMessaging",
+      "ar": "CRM وواجهة واتساب للأعمال في الإمارات | StartMessaging",
+      "tr": "WhatsApp CRM ve Business API Türkiye | StartMessaging",
+      "ng": "WhatsApp CRM & Business API Nigeria | StartMessaging"
     },
     "description": {
-      "en": "WhatsApp CRM on the official WhatsApp Business Platform. Connect your own number, run campaigns, share a team inbox, automate with no-code flows and integrate via a REST API. Meta bills messages to you directly.",
-      "pt": "CRM de WhatsApp na plataforma oficial do WhatsApp Business. Conecte seu próprio número, execute campanhas, compartilhe uma caixa de entrada da equipe, automatize com fluxos sem código e integre via API REST. A Meta cobra as mensagens diretamente de você.",
-      "es": "CRM de WhatsApp en la plataforma oficial de WhatsApp Business. Conecte su propio número, ejecute campañas, comparta una bandeja de entrada del equipo, automatice con flujos sin código e integre mediante una API REST. Meta le factura los mensajes directamente.",
-      "id": "CRM WhatsApp di WhatsApp Business Platform resmi. Hubungkan nomor Anda sendiri, jalankan kampanye, gunakan kotak masuk tim bersama, otomatiskan dengan alur tanpa kode, dan integrasikan lewat REST API. Meta menagih pesan langsung kepada Anda.",
-      "ar": "نظام CRM لواتساب على منصة واتساب للأعمال الرسمية. اربط رقمك الخاص، وشغّل الحملات، وشارك صندوق وارد مع فريقك، وأتمت العمل بتدفقات بلا برمجة، وتكامل عبر REST API. تحاسبك Meta على الرسائل مباشرة.",
-      "tr": "Resmi WhatsApp Business Platformu üzerinde WhatsApp CRM. Kendi numaranızı bağlayın, kampanyalar yürütün, ortak ekip gelen kutusunu kullanın, kodsuz akışlarla otomatikleştirin ve REST API ile entegre edin. Meta mesajları doğrudan size faturalandırır."
+      "en": "WhatsApp CRM on the official Business Platform: own number, campaigns, a shared team inbox, no-code flows and a REST API. Meta bills you directly.",
+      "pt": "CRM de WhatsApp na plataforma oficial: seu próprio número, campanhas, caixa de entrada da equipe, fluxos sem código e API REST. A Meta cobra você direto.",
+      "es": "CRM de WhatsApp en la plataforma oficial: su propio número, campañas, bandeja de equipo, flujos sin código y API REST. Meta le factura directamente.",
+      "id": "CRM WhatsApp di platform resmi: nomor Anda sendiri, kampanye, kotak masuk tim bersama, alur tanpa kode, dan REST API. Meta menagih pesan langsung kepada Anda.",
+      "ar": "نظام CRM لواتساب على المنصة الرسمية: رقمك الخاص، وحملات، وصندوق وارد مشترك للفريق، وتدفقات بلا برمجة، وREST API. تحاسبك Meta على الرسائل مباشرة.",
+      "tr": "Resmi platformda WhatsApp CRM: kendi numaranız, kampanyalar, ortak ekip gelen kutusu, kodsuz akışlar ve REST API. Meta mesajları doğrudan size faturalandırır."
     },
     "ogImage": "/og/whatsapp-api.jpg"
   },
@@ -80,7 +80,7 @@
       }
     },
     {
-      "type": "serviceCards",
+      "type": "featureMap",
       "props": {
         "badge": {
           "en": "WhatsApp CRM",
@@ -106,39 +106,18 @@
           "ar": "تعمل الحملات وصندوق الوارد ونظام CRM والأتمتة وواجهة API جميعها على جهات الاتصال والقوالب وحالات إلغاء الاشتراك نفسها.",
           "tr": "Kampanyalar, gelen kutusu, CRM, otomasyonlar ve API aynı kişiler, şablonlar ve abonelikten çıkmalar üzerinde çalışır."
         },
-        "cards": [
+        "items": [
           {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
-            "title": {
-              "en": "Campaigns & Broadcasts",
-              "pt": "Campanhas e Transmissões",
-              "es": "Campañas y Difusiones",
-              "id": "Kampanye & Siaran",
-              "ar": "الحملات والبث",
-              "tr": "Kampanyalar ve Yayınlar"
+            "image": "/images/customer-support-dashboard.webp",
+            "imageAlt": {
+              "en": "Support dashboard with live WhatsApp conversations and agent handoff",
+              "pt": "Painel de atendimento com conversas de WhatsApp ao vivo e transferência para atendentes",
+              "es": "Panel de soporte con conversaciones de WhatsApp en vivo y traspaso a agentes",
+              "id": "Dasbor dukungan dengan percakapan WhatsApp langsung dan pengalihan ke agen",
+              "ar": "لوحة الدعم مع محادثات واتساب مباشرة وتحويلها إلى الموظفين",
+              "tr": "Canlı WhatsApp sohbetleri ve temsilciye devir gösteren destek paneli"
             },
-            "description": {
-              "en": "Send an approved template to picked contacts, tag filters or a CSV in a 3-step wizard. Send now or schedule it around quiet hours, see Meta's estimated charge before launch, and follow every reply. A/B tests, follow-ups and repeating campaigns on the Business plan.",
-              "pt": "Envie um template aprovado para contatos escolhidos, filtros de tags ou um CSV em um assistente de 3 etapas. Envie agora ou agende respeitando o horário de silêncio, veja a estimativa de cobrança da Meta antes do lançamento e acompanhe cada resposta. Testes A/B, follow-ups e campanhas recorrentes no plano Business.",
-              "es": "Envíe una plantilla aprobada a contactos elegidos, filtros de etiquetas o un CSV en un asistente de 3 pasos. Envíe ahora o programe respetando las horas de silencio, vea el cargo estimado de Meta antes del lanzamiento y siga cada respuesta. Pruebas A/B, seguimientos y campañas recurrentes en el plan Business.",
-              "id": "Kirim template yang disetujui ke kontak pilihan, filter tag, atau CSV lewat wizard 3 langkah. Kirim sekarang atau jadwalkan di luar jam tenang, lihat perkiraan biaya Meta sebelum peluncuran, dan ikuti setiap balasan. Uji A/B, tindak lanjut, dan kampanye berulang di paket Business.",
-              "ar": "أرسل قالباً معتمداً إلى جهات اتصال مختارة أو فلاتر وسوم أو ملف CSV عبر معالج من 3 خطوات. أرسل الآن أو جدول الإرسال مع مراعاة ساعات الهدوء، واطّلع على رسوم Meta التقديرية قبل الإطلاق، وتابع كل رد. اختبارات A/B والمتابعات والحملات المتكررة ضمن خطة Business.",
-              "tr": "Onaylı bir şablonu 3 adımlı bir sihirbazla seçilen kişilere, etiket filtrelerine veya bir CSV'ye gönderin. Hemen gönderin veya sessiz saatlere göre zamanlayın, lansmandan önce Meta'nın tahmini ücretini görün ve her yanıtı takip edin. A/B testleri, takip mesajları ve tekrarlanan kampanyalar Business planında."
-            },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/broadcast"
-          },
-          {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
+            "imageFocus": "100% 30%",
             "title": {
               "en": "Shared Team Inbox",
               "pt": "Caixa de Entrada Compartilhada",
@@ -147,56 +126,58 @@
               "ar": "صندوق وارد مشترك للفريق",
               "tr": "Ortak Ekip Gelen Kutusu"
             },
-            "description": {
-              "en": "Work every chat as a team: claim, assign and resolve conversations, round-robin assignment, quick replies and a 24-hour window timer on each chat.",
-              "pt": "Atenda cada conversa em equipe: assuma, atribua e resolva conversas, com distribuição round-robin, respostas rápidas e cronômetro da janela de 24 horas em cada chat.",
-              "es": "Atienda cada chat en equipo: tome, asigne y resuelva conversaciones, con asignación round-robin, respuestas rápidas y temporizador de la ventana de 24 horas en cada chat.",
-              "id": "Tangani setiap chat bersama tim: ambil, tugaskan, dan selesaikan percakapan, dengan penugasan round-robin, balasan cepat, dan penghitung jendela 24 jam di setiap chat.",
-              "ar": "تعامل مع كل محادثة كفريق: استلم المحادثات وأسندها وأغلقها، مع توزيع دوري (round-robin) وردود سريعة ومؤقت لنافذة الـ24 ساعة في كل محادثة.",
-              "tr": "Her sohbeti ekip olarak yönetin: konuşmaları üstlenin, atayın ve çözün; round-robin atama, hızlı yanıtlar ve her sohbette 24 saatlik pencere sayacı."
+            "summary": {
+              "en": "Assign, reply to and resolve every chat as a team.",
+              "pt": "Atribua, responda e resolva cada conversa em equipe.",
+              "es": "Asigne, responda y resuelva cada chat en equipo.",
+              "id": "Tugaskan, balas, dan selesaikan setiap chat bersama tim.",
+              "ar": "وزّع كل محادثة ورد عليها وأغلقها مع فريقك.",
+              "tr": "Her sohbeti ekip olarak atayın, yanıtlayın ve kapatın."
             },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/shared-inbox"
+            "href": "/whatsapp/shared-inbox",
+            "imageZoom": 1.9
           },
           {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
+            "image": "/images/broadcast-dashboard.webp",
+            "imageAlt": {
+              "en": "WhatsApp broadcast report with delivered and read counts",
+              "pt": "Relatório de transmissão no WhatsApp com mensagens entregues e lidas",
+              "es": "Informe de difusión de WhatsApp con mensajes entregados y leídos",
+              "id": "Laporan siaran WhatsApp dengan jumlah terkirim dan dibaca",
+              "ar": "تقرير بث واتساب مع أعداد الرسائل المسلّمة والمقروءة",
+              "tr": "Teslim edilen ve okunan mesajları gösteren WhatsApp yayın raporu"
+            },
+            "imageFocus": "45% 40%",
             "title": {
-              "en": "CRM & Pipeline",
-              "pt": "CRM e Pipeline",
-              "es": "CRM y Pipeline",
-              "id": "CRM & Pipeline",
-              "ar": "CRM ومسار المبيعات",
-              "tr": "CRM ve Satış Hattı"
+              "en": "Campaigns & Broadcasts",
+              "pt": "Campanhas e Transmissões",
+              "es": "Campañas y Difusiones",
+              "id": "Kampanye & Siaran",
+              "ar": "الحملات والبث",
+              "tr": "Kampanyalar ve Yayınlar"
             },
-            "description": {
-              "en": "Contacts with tags, custom attributes, notes and follow-up dates, a drag-and-drop pipeline, CSV import and export, and opt-out tracking.",
-              "pt": "Contatos com tags, atributos personalizados, notas e datas de acompanhamento, pipeline com arrastar e soltar, importação e exportação em CSV e controle de opt-out.",
-              "es": "Contactos con etiquetas, atributos personalizados, notas y fechas de seguimiento, pipeline de arrastrar y soltar, importación y exportación CSV y control de bajas.",
-              "id": "Kontak dengan tag, atribut khusus, catatan, dan tanggal tindak lanjut, pipeline seret dan lepas, impor dan ekspor CSV, serta pelacakan opt-out.",
-              "ar": "جهات اتصال مع وسوم وسمات مخصصة وملاحظات ومواعيد متابعة، ومسار مبيعات بالسحب والإفلات، واستيراد وتصدير CSV، وتتبع إلغاء الاشتراك.",
-              "tr": "Etiketler, özel alanlar, notlar ve takip tarihleriyle kişiler, sürükle-bırak satış hattı, CSV içe ve dışa aktarma ve abonelikten çıkma takibi."
+            "summary": {
+              "en": "Send an approved template to a list, a tag or a CSV, now or later.",
+              "pt": "Envie um template aprovado para uma lista, tag ou CSV, agora ou depois.",
+              "es": "Envíe una plantilla aprobada a una lista, etiqueta o CSV, ahora o más tarde.",
+              "id": "Kirim template yang disetujui ke daftar, tag, atau CSV, sekarang atau nanti.",
+              "ar": "أرسل قالباً معتمداً إلى قائمة أو وسم أو ملف CSV، الآن أو لاحقاً.",
+              "tr": "Onaylı bir şablonu listeye, etikete veya CSV’ye şimdi ya da sonra gönderin."
             },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/crm"
+            "href": "/whatsapp/broadcast",
+            "imageZoom": 1.7
           },
           {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
+            "image": "/images/chatbot-flow.webp",
+            "imageAlt": {
+              "en": "Chatbot builder canvas with message, button and agent handoff nodes",
+              "pt": "Editor de chatbot com nós de mensagem, botões e transferência para atendente",
+              "es": "Editor de chatbot con nodos de mensaje, botones y traspaso a agente",
+              "id": "Kanvas pembuat chatbot dengan node pesan, tombol, dan pengalihan ke agen",
+              "ar": "لوحة بناء روبوت المحادثة مع عقد الرسائل والأزرار والتحويل إلى موظف",
+              "tr": "Mesaj, buton ve temsilciye devir düğümleri olan chatbot oluşturucu"
+            },
+            "imageFocus": "60% 45%",
             "title": {
               "en": "Chatbot Flows",
               "pt": "Fluxos de Chatbot",
@@ -205,27 +186,58 @@
               "ar": "تدفقات الشات بوت",
               "tr": "Chatbot Akışları"
             },
-            "description": {
-              "en": "Build no-code flows on a visual canvas: reply buttons and lists, conditions, tags, pipeline stages and handoff to an agent. Start from 4 industry templates.",
-              "pt": "Crie fluxos sem código em um canvas visual: botões de resposta e listas, condições, tags, etapas do pipeline e transferência para um atendente. Comece com 4 modelos por setor.",
-              "es": "Cree flujos sin código en un lienzo visual: botones de respuesta y listas, condiciones, etiquetas, etapas del pipeline y traspaso a un agente. Empiece con 4 plantillas por sector.",
-              "id": "Buat alur tanpa kode di kanvas visual: tombol balasan dan daftar, kondisi, tag, tahap pipeline, dan pengalihan ke agen. Mulai dari 4 template industri.",
-              "ar": "أنشئ تدفقات بلا برمجة على لوحة مرئية: أزرار ردود وقوائم وشروط ووسوم ومراحل المسار وتحويل إلى موظف. ابدأ من 4 قوالب جاهزة حسب القطاع.",
-              "tr": "Görsel bir tuvalde kodsuz akışlar kurun: yanıt düğmeleri ve listeler, koşullar, etiketler, satış hattı aşamaları ve temsilciye devir. 4 sektör şablonuyla başlayın."
+            "summary": {
+              "en": "Answer common questions with no-code flows, then hand off to an agent.",
+              "pt": "Responda dúvidas comuns com fluxos sem código e passe para um atendente.",
+              "es": "Responda preguntas frecuentes con flujos sin código y pase a un agente.",
+              "id": "Jawab pertanyaan umum dengan alur tanpa kode, lalu alihkan ke agen.",
+              "ar": "أجب عن الأسئلة الشائعة بتدفقات بدون كود ثم حوّل المحادثة إلى موظف.",
+              "tr": "Sık soruları kodsuz akışlarla yanıtlayın, sonra bir temsilciye devredin."
             },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/chatbot"
+            "href": "/whatsapp/chatbot",
+            "imageZoom": 1.5
           },
           {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
+            "image": "/images/marketing-analytics.webp",
+            "imageAlt": {
+              "en": "Dashboard tracking conversions from WhatsApp campaigns",
+              "pt": "Painel que acompanha conversões das campanhas de WhatsApp",
+              "es": "Panel que sigue las conversiones de las campañas de WhatsApp",
+              "id": "Dasbor yang melacak konversi dari kampanye WhatsApp",
+              "ar": "لوحة تتابع التحويلات من حملات واتساب",
+              "tr": "WhatsApp kampanyalarından gelen dönüşümleri izleyen panel"
+            },
+            "imageFocus": "40% 35%",
+            "title": {
+              "en": "CRM & Pipeline",
+              "pt": "CRM e Pipeline",
+              "es": "CRM y Pipeline",
+              "id": "CRM & Pipeline",
+              "ar": "CRM ومسار المبيعات",
+              "tr": "CRM ve Satış Hattı"
+            },
+            "summary": {
+              "en": "Tags, notes, follow-up dates and a drag-and-drop sales pipeline.",
+              "pt": "Tags, notas, datas de retorno e um funil de vendas de arrastar e soltar.",
+              "es": "Etiquetas, notas, fechas de seguimiento y un embudo de ventas de arrastrar y soltar.",
+              "id": "Tag, catatan, tanggal tindak lanjut, dan pipeline penjualan seret-lepas.",
+              "ar": "وسوم وملاحظات ومواعيد متابعة ومسار مبيعات بالسحب والإفلات.",
+              "tr": "Etiketler, notlar, takip tarihleri ve sürükle-bırak satış hattı."
+            },
+            "href": "/whatsapp/crm",
+            "imageZoom": 1.6
+          },
+          {
+            "image": "/images/utility-preview.webp",
+            "imageAlt": {
+              "en": "Order update template with Track Order and Contact Support buttons on a phone",
+              "pt": "Template de atualização de pedido com botões Rastrear e Suporte no celular",
+              "es": "Plantilla de actualización de pedido con botones de seguimiento y soporte en un teléfono",
+              "id": "Template pembaruan pesanan dengan tombol Lacak dan Dukungan di ponsel",
+              "ar": "قالب تحديث الطلب مع زري تتبع الطلب والتواصل مع الدعم على الهاتف",
+              "tr": "Telefonda Sipariş Takibi ve Destek butonlu sipariş güncelleme şablonu"
+            },
+            "imageFocus": "center",
             "title": {
               "en": "Template Builder",
               "pt": "Criador de Templates",
@@ -234,27 +246,27 @@
               "ar": "منشئ القوالب",
               "tr": "Şablon Oluşturucu"
             },
-            "description": {
-              "en": "Create Marketing, Utility and Authentication templates with media headers, variables and up to 10 buttons, preview them on a phone and submit them to Meta for review.",
-              "pt": "Crie templates de Marketing, Utilidade e Autenticação com cabeçalhos de mídia, variáveis e até 10 botões, visualize em um celular e envie à Meta para revisão.",
-              "es": "Cree plantillas de Marketing, Utilidad y Autenticación con encabezados multimedia, variables y hasta 10 botones, previsualícelas en un teléfono y envíelas a Meta para su revisión.",
-              "id": "Buat template Marketing, Utility, dan Authentication dengan header media, variabel, dan hingga 10 tombol, pratinjau di tampilan ponsel, lalu kirim ke Meta untuk ditinjau.",
-              "ar": "أنشئ قوالب التسويق والخدمات والمصادقة مع ترويسات وسائط ومتغيرات وحتى 10 أزرار، واعرضها على شاشة هاتف ثم أرسلها إلى Meta للمراجعة.",
-              "tr": "Medya başlıkları, değişkenler ve en fazla 10 düğmeyle Pazarlama, Yardımcı ve Kimlik Doğrulama şablonları oluşturun, telefonda önizleyin ve incelenmek üzere Meta'ya gönderin."
+            "summary": {
+              "en": "Build marketing, utility and OTP templates and submit them to Meta.",
+              "pt": "Crie templates de marketing, utilidade e OTP e envie para a Meta.",
+              "es": "Cree plantillas de marketing, utilidad y OTP y envíelas a Meta.",
+              "id": "Buat template marketing, utility, dan OTP lalu ajukan ke Meta.",
+              "ar": "أنشئ قوالب تسويق وخدمات ورموز OTP وأرسلها إلى Meta للمراجعة.",
+              "tr": "Pazarlama, hizmet ve OTP şablonları oluşturup Meta’ya gönderin."
             },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/templates"
+            "href": "/whatsapp/templates"
           },
           {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
+            "image": "/images/ecommerce-cart-recovery.webp",
+            "imageAlt": {
+              "en": "Interactive WhatsApp message with buttons inside the chat",
+              "pt": "Mensagem interativa de WhatsApp com botões dentro da conversa",
+              "es": "Mensaje interactivo de WhatsApp con botones dentro del chat",
+              "id": "Pesan WhatsApp interaktif dengan tombol di dalam chat",
+              "ar": "رسالة واتساب تفاعلية مع أزرار داخل المحادثة",
+              "tr": "Sohbet içinde butonlu etkileşimli WhatsApp mesajı"
+            },
+            "imageFocus": "top",
             "title": {
               "en": "WhatsApp Forms",
               "pt": "Formulários do WhatsApp",
@@ -263,27 +275,27 @@
               "ar": "نماذج واتساب",
               "tr": "WhatsApp Formları"
             },
-            "description": {
-              "en": "Attach Meta's WhatsApp Forms (Flows) to template buttons for lead capture and bookings. Answers arrive as structured fields in the inbox, the API and webhooks.",
-              "pt": "Anexe os Formulários do WhatsApp da Meta (Flows) a botões de templates para captar leads e agendamentos. As respostas chegam como campos estruturados na caixa de entrada, na API e nos webhooks.",
-              "es": "Adjunte los Formularios de WhatsApp de Meta (Flows) a botones de plantillas para captar leads y reservas. Las respuestas llegan como campos estructurados en la bandeja de entrada, la API y los webhooks.",
-              "id": "Pasang Formulir WhatsApp (Flows) dari Meta ke tombol template untuk menjaring prospek dan pemesanan. Jawaban masuk sebagai kolom terstruktur di kotak masuk, API, dan webhook.",
-              "ar": "أرفق نماذج واتساب من Meta (Flows) بأزرار القوالب لجمع العملاء المحتملين والحجوزات. تصل الإجابات كحقول منظمة في صندوق الوارد وواجهة API والـWebhooks.",
-              "tr": "Potansiyel müşteri toplama ve rezervasyonlar için Meta'nın WhatsApp Formlarını (Flows) şablon düğmelerine ekleyin. Yanıtlar gelen kutusuna, API'ye ve webhook'lara yapılandırılmış alanlar olarak gelir."
+            "summary": {
+              "en": "Collect leads and bookings inside the chat with WhatsApp Forms.",
+              "pt": "Capte leads e agendamentos dentro da conversa com o WhatsApp Forms.",
+              "es": "Capte leads y reservas dentro del chat con WhatsApp Forms.",
+              "id": "Kumpulkan prospek dan pemesanan di dalam chat dengan WhatsApp Forms.",
+              "ar": "اجمع العملاء المحتملين والحجوزات داخل المحادثة عبر WhatsApp Forms.",
+              "tr": "WhatsApp Forms ile sohbetin içinde potansiyel müşteri ve rezervasyon toplayın."
             },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/whatsapp-forms"
+            "href": "/whatsapp/whatsapp-forms"
           },
           {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
+            "image": "/images/campaign-flow.webp",
+            "imageAlt": {
+              "en": "Campaign workflow from audience to conversion tracking",
+              "pt": "Fluxo de campanha do público até o acompanhamento de conversões",
+              "es": "Flujo de campaña desde la audiencia hasta el seguimiento de conversiones",
+              "id": "Alur kampanye dari audiens hingga pelacakan konversi",
+              "ar": "مسار الحملة من الجمهور حتى تتبع التحويلات",
+              "tr": "Hedef kitleden dönüşüm takibine kampanya akışı"
+            },
+            "imageFocus": "40% 45%",
             "title": {
               "en": "Click-to-WhatsApp Ads",
               "pt": "Anúncios de Clique para WhatsApp",
@@ -292,56 +304,28 @@
               "ar": "إعلانات النقر للمراسلة عبر واتساب",
               "tr": "WhatsApp'a Tıklama Reklamları"
             },
-            "description": {
-              "en": "See which Facebook or Instagram ad started each chat. Contacts from Click-to-WhatsApp ads are saved with the ad source and its referral details.",
-              "pt": "Veja qual anúncio do Facebook ou Instagram iniciou cada conversa. Contatos vindos de anúncios de Clique para WhatsApp são salvos com a origem do anúncio e os detalhes de referência.",
-              "es": "Vea qué anuncio de Facebook o Instagram inició cada chat. Los contactos de anuncios de Clic a WhatsApp se guardan con el origen del anuncio y sus datos de referencia.",
-              "id": "Lihat iklan Facebook atau Instagram mana yang memulai setiap chat. Kontak dari iklan Klik ke WhatsApp disimpan beserta sumber iklan dan detail rujukannya.",
-              "ar": "اعرف أي إعلان على فيسبوك أو إنستغرام بدأ كل محادثة. تُحفظ جهات الاتصال القادمة من إعلانات النقر للمراسلة عبر واتساب مع مصدر الإعلان وتفاصيل الإحالة.",
-              "tr": "Her sohbeti hangi Facebook veya Instagram reklamının başlattığını görün. WhatsApp'a Tıklama reklamlarından gelen kişiler reklam kaynağı ve yönlendirme bilgileriyle kaydedilir."
+            "summary": {
+              "en": "See which Facebook or Instagram ad started each chat.",
+              "pt": "Veja qual anúncio do Facebook ou Instagram iniciou cada conversa.",
+              "es": "Vea qué anuncio de Facebook o Instagram inició cada chat.",
+              "id": "Lihat iklan Facebook atau Instagram mana yang memulai setiap chat.",
+              "ar": "اعرف أي إعلان على فيسبوك أو إنستغرام بدأ كل محادثة.",
+              "tr": "Her sohbeti hangi Facebook veya Instagram reklamının başlattığını görün."
             },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/click-to-whatsapp-ads"
+            "href": "/whatsapp/click-to-whatsapp-ads",
+            "imageZoom": 1.35
           },
           {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
-            "title": {
-              "en": "Developer API",
-              "pt": "API para Desenvolvedores",
-              "es": "API para Desarrolladores",
-              "id": "API untuk Developer",
-              "ar": "واجهة API للمطورين",
-              "tr": "Geliştirici API'si"
+            "image": "/images/trigger-engine.webp",
+            "imageAlt": {
+              "en": "An order event on your site triggering a WhatsApp confirmation",
+              "pt": "Um evento de pedido no seu site disparando uma confirmação no WhatsApp",
+              "es": "Un evento de pedido en su sitio que dispara una confirmación por WhatsApp",
+              "id": "Peristiwa pesanan di situs Anda yang memicu konfirmasi WhatsApp",
+              "ar": "حدث طلب على موقعك يطلق تأكيداً عبر واتساب",
+              "tr": "Sitenizdeki bir sipariş olayının WhatsApp onayını tetiklemesi"
             },
-            "description": {
-              "en": "Send messages, manage contacts, and read templates and campaigns over a REST API with scoped keys, signed webhooks, request logs and an OpenAPI reference.",
-              "pt": "Envie mensagens, gerencie contatos e consulte templates e campanhas por uma API REST com chaves com escopos, webhooks assinados, logs de requisições e referência OpenAPI.",
-              "es": "Envíe mensajes, gestione contactos y consulte plantillas y campañas mediante una API REST con claves con permisos, webhooks firmados, registros de solicitudes y referencia OpenAPI.",
-              "id": "Kirim pesan, kelola kontak, serta baca template dan kampanye lewat REST API dengan kunci ber-scope, webhook bertanda tangan, log permintaan, dan referensi OpenAPI.",
-              "ar": "أرسل الرسائل وأدر جهات الاتصال واقرأ القوالب والحملات عبر REST API بمفاتيح ذات صلاحيات محددة وWebhooks موقّعة وسجلات للطلبات ومرجع OpenAPI.",
-              "tr": "Kapsamlı anahtarlar, imzalı webhook'lar, istek kayıtları ve OpenAPI referansıyla bir REST API üzerinden mesaj gönderin, kişileri yönetin, şablonları ve kampanyaları okuyun."
-            },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
-            },
-            "ctaHref": "/whatsapp/api"
-          },
-          {
-            "theme": "whatsapp",
-            "icon": "whatsapp",
+            "imageFocus": "center",
             "title": {
               "en": "Automations & Integrations",
               "pt": "Automações e Integrações",
@@ -350,23 +334,46 @@
               "ar": "الأتمتة والتكاملات",
               "tr": "Otomasyonlar ve Entegrasyonlar"
             },
-            "description": {
-              "en": "Keyword auto-replies, chatbot triggers, and messages sent from your own systems through the API, webhooks, Zapier, Make or Pabbly.",
-              "pt": "Respostas automáticas por palavra-chave, gatilhos de chatbot e mensagens enviadas pelos seus próprios sistemas via API, webhooks, Zapier, Make ou Pabbly.",
-              "es": "Respuestas automáticas por palabra clave, disparadores de chatbot y mensajes enviados desde sus propios sistemas mediante la API, webhooks, Zapier, Make o Pabbly.",
-              "id": "Balasan otomatis berdasarkan kata kunci, pemicu chatbot, dan pesan yang dikirim dari sistem Anda sendiri lewat API, webhook, Zapier, Make, atau Pabbly.",
-              "ar": "ردود تلقائية بالكلمات المفتاحية، ومشغّلات للشات بوت، ورسائل تُرسل من أنظمتك عبر API وWebhooks وZapier وMake وPabbly.",
-              "tr": "Anahtar kelimeyle otomatik yanıtlar, chatbot tetikleyicileri ve kendi sistemlerinizden API, webhook'lar, Zapier, Make veya Pabbly ile gönderilen mesajlar."
+            "summary": {
+              "en": "Keyword auto-replies, plus Zapier, Make and Pabbly connections.",
+              "pt": "Respostas automáticas por palavra-chave, além de Zapier, Make e Pabbly.",
+              "es": "Respuestas automáticas por palabra clave, además de Zapier, Make y Pabbly.",
+              "id": "Balasan otomatis berdasarkan kata kunci, plus koneksi Zapier, Make, dan Pabbly.",
+              "ar": "ردود تلقائية بالكلمات المفتاحية، مع ربط Zapier وMake وPabbly.",
+              "tr": "Anahtar kelimeyle otomatik yanıtlar; ayrıca Zapier, Make ve Pabbly bağlantıları."
             },
-            "ctaLabel": {
-              "en": "Learn More",
-              "pt": "Saiba Mais",
-              "es": "Saber Más",
-              "id": "Pelajari Selengkapnya",
-              "ar": "تعرف على المزيد",
-              "tr": "Daha Fazla Bilgi"
+            "href": "/whatsapp/auto-trigger",
+            "imageZoom": 1.15
+          },
+          {
+            "image": "/images/notifications-alerts.webp",
+            "imageAlt": {
+              "en": "Order events from your database sent as WhatsApp messages and webhooks",
+              "pt": "Eventos de pedidos do seu banco de dados enviados como mensagens de WhatsApp e webhooks",
+              "es": "Eventos de pedidos de su base de datos enviados como mensajes de WhatsApp y webhooks",
+              "id": "Peristiwa pesanan dari database Anda dikirim sebagai pesan WhatsApp dan webhook",
+              "ar": "أحداث الطلبات من قاعدة بياناتك تُرسل كرسائل واتساب وWebhooks",
+              "tr": "Veritabanınızdaki sipariş olaylarının WhatsApp mesajı ve webhook olarak gönderilmesi"
             },
-            "ctaHref": "/whatsapp/auto-trigger"
+            "imageFocus": "50% 35%",
+            "title": {
+              "en": "Developer API",
+              "pt": "API para Desenvolvedores",
+              "es": "API para Desarrolladores",
+              "id": "API untuk Developer",
+              "ar": "واجهة API للمطورين",
+              "tr": "Geliştirici API'si"
+            },
+            "summary": {
+              "en": "Send messages and sync contacts over REST, with signed webhooks.",
+              "pt": "Envie mensagens e sincronize contatos via REST, com webhooks assinados.",
+              "es": "Envíe mensajes y sincronice contactos por REST, con webhooks firmados.",
+              "id": "Kirim pesan dan sinkronkan kontak lewat REST, dengan webhook bertanda tangan.",
+              "ar": "أرسل الرسائل وزامن جهات الاتصال عبر REST مع Webhooks موقّعة.",
+              "tr": "REST üzerinden mesaj gönderin ve kişileri eşitleyin; imzalı webhook’larla."
+            },
+            "href": "/whatsapp/api",
+            "imageZoom": 1.4
           }
         ]
       }
@@ -883,6 +890,17 @@
               "tr": "Pazarlama Kampanyaları"
             },
             "href": "/whatsapp/campaigns"
+          },
+          {
+            "label": {
+              "en": "WhatsApp API Developer Plan",
+              "pt": "Plano Developer da API do WhatsApp",
+              "es": "Plan Developer de la API de WhatsApp",
+              "id": "Paket Developer API WhatsApp",
+              "ar": "باقة Developer لواجهة واتساب البرمجية",
+              "tr": "WhatsApp API Developer Paketi"
+            },
+            "href": "/whatsapp/developer"
           }
         ]
       }

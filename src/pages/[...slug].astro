@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import MarketingLayout from '@/layouts/MarketingLayout.astro';
 import ComponentRenderer from '@/components/ComponentRenderer.astro';
 import { ALL_COUNTRIES, DEFAULT_COUNTRY } from '@/config/countries';
-import { buildService, buildContactPage } from '@/lib/jsonld';
+import { buildService, buildContactPage, buildBreadcrumbs } from '@/lib/jsonld';
 import { r } from '@/i18n/r';
 
 export async function getStaticPaths() {
@@ -59,6 +59,17 @@ if (isServicePage) {
 // FAQPage blocks on every page carrying an FAQ, and this copy could not see
 // the section-level gate, so an India-only FAQ leaked its questions into the
 // structured data of all six other countries.
+
+// 2b. BreadcrumbList for WhatsApp pages: Home > WhatsApp > page
+if (slug === 'whatsapp' || slug.startsWith('whatsapp/')) {
+  const home = 'https://startmessaging.com/';
+  const crumbs = [{ name: 'StartMessaging', url: home }, { name: 'WhatsApp', url: `${home}whatsapp` }];
+  if (slug !== 'whatsapp') {
+    const name = String(r(page.data.seo.title, country)).replace(/\s*[|—–-]\s*StartMessaging\s*$/, '');
+    crumbs.push({ name, url: `${home}${slug}` });
+  }
+  schemas.push(buildBreadcrumbs(crumbs));
+}
 
 // 3. ContactPage schema for contact page
 if (slug === 'contact') {

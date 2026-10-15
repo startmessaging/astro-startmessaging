@@ -1,0 +1,94 @@
+---
+/**
+ * FeatureMap — grid of product modules. Each tile is one link: a product
+ * image, the module's name and one short line. Longer copy lives on each
+ * module's own page.
+ *
+ * Example JSON:
+ * {
+ *   "type": "featureMap",
+ *   "props": {
+ *     "badge":      { "en": "WhatsApp CRM" },
+ *     "heading":    { "en": "Everything your team needs" },
+ *     "subheading": { "en": "..." },
+ *     "items": [
+ *       {
+ *         "image":      "/images/customer-support-dashboard.webp",  // from src/assets/images
+ *         "imageAlt":   { "en": "Shared inbox with live conversations" },
+ *         "imageFocus": "top",            // object-position and zoom origin, default "top"
+ *         "imageZoom":  1.6,              // optional, crops into a busy screenshot
+ *         "title":      { "en": "Shared Team Inbox" },
+ *         "summary":    { "en": "Assign, reply to and resolve every chat as a team." },
+ *         "href":       "/whatsapp/shared-inbox"
+ *       }
+ *     ]
+ *   }
+ * }
+ */
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Heading from '@/components/ui/Heading.astro';
+import Text from '@/components/ui/Text.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { r } from '@/i18n/r';
+
+const { badge, heading, subheading, items = [], country, theme = 'whatsapp' } = Astro.props;
+
+// Same lookup as FeatureSplit: "/images/x.webp" → src/assets/images/x.webp
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/**/*.{jpeg,jpg,png,webp}');
+const tiles = await Promise.all(
+  items.map(async (item: any) => {
+    const resolver = item.image ? images[item.image.replace(/^\/images\//, '/src/assets/images/')] : undefined;
+    return { ...item, asset: resolver ? (await resolver()).default : null };
+  }),
+);
+---
+
+<Section variant="soft" theme={theme}>
+  <Container>
+    {(badge || heading || subheading) && (
+      <div class="mb-12 grid gap-4 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-16">
+        <div class="flex flex-col items-start gap-4">
+          {badge && <Badge tone="muted">{r(badge, country)}</Badge>}
+          {heading && <Heading as="h2" class="text-balance">{r(heading, country)}</Heading>}
+        </div>
+        {subheading && <Text tone="muted" class="max-w-xl lg:pb-1.5">{r(subheading, country)}</Text>}
+      </div>
+    )}
+
+    <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {tiles.map((item: any) => (
+        <li>
+          <a
+            href={item.href}
+            class="group/tile flex h-full flex-col overflow-hidden rounded-2xl bg-surface-card ring-1 ring-accent-wa/10 transition duration-200 hover:-translate-y-0.5 hover:ring-accent-wa/30 hover:shadow-[0_12px_32px_-16px_rgba(0,70,67,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-wa motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+          >
+            {item.asset && (
+              <div class="relative aspect-[16/10] overflow-hidden border-b border-accent-wa/10 bg-white">
+                <Image
+                  src={item.asset}
+                  alt={item.imageAlt ? r(item.imageAlt, country) : ''}
+                  widths={[640, 960, 1280]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                  class="size-full object-cover transition-transform duration-500 [transform:scale(var(--z))] group-hover/tile:[transform:scale(calc(var(--z)*1.04))] motion-reduce:transition-none"
+                  style={`object-position: ${item.imageFocus || 'top'}; transform-origin: ${item.imageFocus || 'top'}; --z: ${item.imageZoom || 1}`}
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            <div class="flex flex-1 flex-col gap-1.5 p-5">
+              <h3 class="flex items-center gap-1.5 text-title-sm font-bold text-ink">
+                {r(item.title, country)}
+                <span class="text-accent-wa transition-transform duration-200 group-hover/tile:translate-x-1 rtl:-scale-x-100 rtl:group-hover/tile:-translate-x-1 motion-reduce:transition-none" aria-hidden="true">→</span>
+              </h3>
+              <p class="text-body-sm text-muted">{r(item.summary, country)}</p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>

@@ -86,6 +86,9 @@ const description = r(seo.description, c);
 // OG Image: use explicit ogImage, fall back to default branded image
 const resolvedOgImage = seo.ogImage ?? '/og/default.png';
 const ogImage = new URL(resolvedOgImage, Astro.site).href;
+// og:image:type follows the file's extension (WhatsApp OG images are .jpg).
+const ogImagePath = new URL(ogImage).pathname;
+const ogImageType = /\.jpe?g$/i.test(ogImagePath) ? 'image/jpeg' : /\.webp$/i.test(ogImagePath) ? 'image/webp' : 'image/png';
 
 // OG type: configurable — 'article' for blog posts, 'website' for everything else
 const ogType = seo.ogType ?? 'website';
@@ -218,7 +221,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('sm-theme');if(t
     <meta property="og:image"        content={ogImage} />
     <meta property="og:image:width"  content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:type"   content="image/png" />
+    <meta property="og:image:type"   content={ogImageType} />
 
     <!-- Twitter / X card -->
     <meta name="twitter:card"        content="summary_large_image" />

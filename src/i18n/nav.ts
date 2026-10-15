@@ -89,6 +89,7 @@ export function getFooterColumns(country: Country): FooterColumn[] {
     { label: t('footer.whatsappForms', country), href: `${prefix}/whatsapp/whatsapp-forms` },
     { label: t('footer.ctwaAds', country), href: `${prefix}/whatsapp/click-to-whatsapp-ads` },
     { label: t('footer.waApi', country), href: `${prefix}/whatsapp/api` },
+    { label: t('footer.waDeveloper', country), href: `${prefix}/whatsapp/developer` },
   ];
   cols.push({ heading: t('footer.whatsappApis', country), links: waLinks });
 

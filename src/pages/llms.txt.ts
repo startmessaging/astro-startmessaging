@@ -91,6 +91,7 @@ StartMessaging offers a WhatsApp CRM built on the official WhatsApp Business Pla
 - [WhatsApp Forms](${siteUrl}whatsapp/whatsapp-forms)
 - [Click-to-WhatsApp Ads](${siteUrl}whatsapp/click-to-whatsapp-ads)
 - [WhatsApp Developer API](${siteUrl}whatsapp/api)
+- [WhatsApp API Developer Plan (API-only, free to start)](${siteUrl}whatsapp/developer)
 - [SMS](${siteUrl}sms)
 - [Blog](${siteUrl}blog)
 - [Contact](${siteUrl}contact)

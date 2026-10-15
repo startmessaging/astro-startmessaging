@@ -12,20 +12,20 @@
   "updatedAt": "2026-10-12",
   "seo": {
     "title": {
-      "en": "WhatsApp API for Developers — REST & Signed Webhooks — StartMessaging",
-      "pt": "API do WhatsApp para Desenvolvedores — REST e Webhooks Assinados — StartMessaging",
-      "es": "API de WhatsApp para Desarrolladores — REST y Webhooks Firmados — StartMessaging",
-      "id": "API WhatsApp untuk Developer — REST & Webhook Bertanda Tangan — StartMessaging",
-      "ar": "واجهة برمجة واتساب للمطورين — REST وWebhooks موقَّعة — StartMessaging",
-      "tr": "Geliştiriciler için WhatsApp API — REST ve İmzalı Webhook'lar — StartMessaging"
+      "en": "WhatsApp REST API & Signed Webhooks | StartMessaging",
+      "pt": "API REST do WhatsApp e Webhooks Assinados | StartMessaging",
+      "es": "API REST de WhatsApp y Webhooks Firmados | StartMessaging",
+      "id": "API WhatsApp REST & Webhook untuk Developer | StartMessaging",
+      "ar": "واجهة برمجة واتساب للمطورين: REST وWebhooks | StartMessaging",
+      "tr": "WhatsApp REST API ve İmzalı Webhook'lar | StartMessaging"
     },
     "description": {
-      "en": "Send WhatsApp templates and messages, sync contacts and conversations, report conversions and receive signed webhooks with the StartMessaging REST API, on every plan from Developer Free. Scoped API keys, idempotency keys, cursor pagination and an OpenAPI reference.",
-      "pt": "Envie templates e mensagens do WhatsApp, sincronize contatos e conversas, informe conversões e receba webhooks assinados com a API REST da StartMessaging, em todos os planos a partir do Developer Free. Chaves de API com escopos, chaves de idempotência, paginação por cursor e uma referência OpenAPI.",
-      "es": "Envíe plantillas y mensajes de WhatsApp, sincronice contactos y conversaciones, informe conversiones y reciba webhooks firmados con la API REST de StartMessaging, en todos los planes desde Developer Free. Claves de API con alcances, claves de idempotencia, paginación por cursor y una referencia OpenAPI.",
-      "id": "Kirim template dan pesan WhatsApp, sinkronkan kontak dan percakapan, laporkan konversi, dan terima webhook bertanda tangan dengan REST API StartMessaging, di setiap paket mulai dari Developer Free. Kunci API ber-scope, kunci idempotensi, paginasi kursor, dan referensi OpenAPI.",
-      "ar": "أرسل قوالب ورسائل واتساب، وزامن جهات الاتصال والمحادثات، وأبلغ عن التحويلات، واستقبل webhooks موقّعة عبر واجهة StartMessaging البرمجية REST، في كل الباقات بدءاً من Developer Free. مفاتيح API محددة الصلاحيات، ومفاتيح عدم التكرار، وترقيم بالمؤشر، ومرجع OpenAPI.",
-      "tr": "StartMessaging REST API ile WhatsApp şablonları ve mesajları gönderin, kişileri ve sohbetleri senkronize edin, dönüşümleri bildirin ve imzalı webhook’lar alın; Developer Free’den başlayarak her pakette. Kapsamlı API anahtarları, idempotency anahtarları, imleçli sayfalama ve bir OpenAPI referansı."
+      "en": "Send WhatsApp templates and messages, sync contacts and conversations, and get signed webhooks with the StartMessaging REST API, on every plan.",
+      "pt": "Envie templates e mensagens do WhatsApp, sincronize contatos e conversas e receba webhooks assinados com a API REST da StartMessaging, em todos os planos.",
+      "es": "Envíe plantillas y mensajes de WhatsApp, sincronice contactos y conversaciones y reciba webhooks firmados con la API REST de StartMessaging en todos los planes.",
+      "id": "Kirim template dan pesan WhatsApp, sinkronkan kontak dan percakapan, dan terima webhook bertanda tangan dengan REST API StartMessaging di setiap paket.",
+      "ar": "أرسل قوالب ورسائل واتساب، وزامن جهات الاتصال والمحادثات، واستقبل webhooks موقّعة عبر واجهة StartMessaging البرمجية REST، في كل الباقات بدءاً من Developer Free.",
+      "tr": "StartMessaging REST API ile WhatsApp şablonu ve mesajı gönderin, kişileri ve sohbetleri senkronize edin, imzalı webhook'lar alın; her pakette."
     },
     "ogImage": "/og/whatsapp-api.jpg"
   },
@@ -1346,6 +1346,17 @@
               "tr": "WhatsApp Şablonları"
             },
             "href": "/whatsapp/templates"
+          },
+          {
+            "label": {
+              "en": "Developer Plan: Free to Start",
+              "pt": "Plano Developer: Comece Grátis",
+              "es": "Plan Developer: Empiece Gratis",
+              "id": "Paket Developer: Mulai Gratis",
+              "ar": "باقة Developer: ابدأ مجانًا",
+              "tr": "Developer Paketi: Ücretsiz Başlayın"
+            },
+            "href": "/whatsapp/developer"
           }
         ]
       }
