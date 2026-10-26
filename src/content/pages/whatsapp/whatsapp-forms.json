@@ -258,12 +258,12 @@
               "tr": "3. Bir şablona ekleyin"
             },
             "description": {
-              "en": "In the template builder, add a Flow (WhatsApp Form) button, pick the form and submit the template. Meta reviews it like any other template.",
-              "pt": "No editor de templates, adicione um botão Flow (Formulário do WhatsApp), escolha o formulário e envie o template. A Meta o revisa como qualquer outro template.",
-              "es": "En el editor de plantillas, añada un botón Flow (Formulario de WhatsApp), elija el formulario y envíe la plantilla. Meta la revisa como cualquier otra plantilla.",
-              "id": "Di pembuat template, tambahkan tombol Flow (Formulir WhatsApp), pilih formulirnya, lalu ajukan template. Meta meninjaunya seperti template lainnya.",
-              "ar": "في منشئ القوالب، أضف زر Flow (نموذج واتساب)، واختر النموذج، ثم أرسل القالب للمراجعة. تراجعه Meta مثل أي قالب آخر.",
-              "tr": "Şablon oluşturucuda bir Flow (WhatsApp Form) düğmesi ekleyin, formu seçin ve şablonu gönderin. Meta onu diğer şablonlar gibi inceler."
+              "en": "In the template builder, add a “Complete flow” button and pick the form under WhatsApp Flow (only Published forms can be attached), then submit the template. Meta reviews it like any other template.",
+              "pt": "No editor de templates, adicione um botão “Complete flow” e escolha o formulário em WhatsApp Flow (só formulários publicados podem ser anexados); depois envie o template. A Meta o revisa como qualquer outro template.",
+              "es": "En el editor de plantillas, añada un botón “Complete flow” y elija el formulario en WhatsApp Flow (solo se pueden adjuntar formularios publicados); luego envíe la plantilla. Meta la revisa como cualquier otra plantilla.",
+              "id": "Di pembuat template, tambahkan tombol “Complete flow” dan pilih formulirnya di WhatsApp Flow (hanya formulir berstatus Published yang bisa dilampirkan), lalu ajukan template. Meta meninjaunya seperti template lainnya.",
+              "ar": "في منشئ القوالب، أضف زر “Complete flow” واختر النموذج من WhatsApp Flow (يمكن إرفاق النماذج المنشورة فقط)، ثم أرسل القالب للمراجعة. تراجعه Meta مثل أي قالب آخر.",
+              "tr": "Şablon oluşturucuda bir “Complete flow” düğmesi ekleyin ve formu WhatsApp Flow altında seçin (yalnızca yayımlanmış formlar eklenebilir), ardından şablonu gönderin. Meta onu diğer şablonlar gibi inceler."
             }
           },
           {
@@ -664,12 +664,12 @@
               "tr": "Bir müşteriye WhatsApp Formu nasıl gönderirim?"
             },
             "answer": {
-              "en": "Attach the form to a Flow button on a template and submit the template to Meta. Once Meta approves it, send it like any other template. Through the API, use POST /api/v1/messages with buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<your flow token>\" }].",
-              "pt": "Anexe o formulário a um botão Flow de um template e envie o template à Meta. Depois que a Meta aprovar, envie-o como qualquer outro template. Pela API, use POST /api/v1/messages com buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<seu flow token>\" }].",
-              "es": "Adjunte el formulario a un botón Flow de una plantilla y envíe la plantilla a Meta. Cuando Meta la apruebe, envíela como cualquier otra plantilla. Mediante la API, use POST /api/v1/messages con buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<su flow token>\" }].",
-              "id": "Lampirkan formulir ke tombol Flow pada template dan ajukan template ke Meta. Setelah Meta menyetujuinya, kirim seperti template lainnya. Melalui API, gunakan POST /api/v1/messages dengan buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<flow token Anda>\" }].",
-              "ar": "اربط النموذج بزر Flow في قالب وأرسل القالب إلى Meta للمراجعة. بعد موافقة Meta، أرسله مثل أي قالب آخر. وعبر API، استخدم POST /api/v1/messages مع buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<الـflow token الخاص بك>\" }].",
-              "tr": "Formu bir şablondaki Flow düğmesine ekleyin ve şablonu Meta'ya gönderin. Meta onayladıktan sonra diğer şablonlar gibi gönderin. API üzerinden POST /api/v1/messages ile buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<flow token'ınız>\" }] kullanın."
+              "en": "Add a “Complete flow” button to a template, pick the form under WhatsApp Flow (only Published forms can be attached) and submit the template to Meta. Once Meta approves it, send it like any other template. Through the API, use POST /api/v1/messages with buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<your flow token>\" }].",
+              "pt": "Adicione um botão “Complete flow” a um template, escolha o formulário em WhatsApp Flow (só formulários publicados podem ser anexados) e envie o template à Meta. Depois que a Meta aprovar, envie-o como qualquer outro template. Pela API, use POST /api/v1/messages com buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<seu flow token>\" }].",
+              "es": "Añada un botón “Complete flow” a una plantilla, elija el formulario en WhatsApp Flow (solo se pueden adjuntar formularios publicados) y envíe la plantilla a Meta. Cuando Meta la apruebe, envíela como cualquier otra plantilla. Mediante la API, use POST /api/v1/messages con buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<su flow token>\" }].",
+              "id": "Tambahkan tombol “Complete flow” ke template, pilih formulirnya di WhatsApp Flow (hanya formulir berstatus Published yang bisa dilampirkan), dan ajukan template ke Meta. Setelah Meta menyetujuinya, kirim seperti template lainnya. Melalui API, gunakan POST /api/v1/messages dengan buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<flow token Anda>\" }].",
+              "ar": "أضف زر “Complete flow” إلى قالب، واختر النموذج من WhatsApp Flow (يمكن إرفاق النماذج المنشورة فقط)، وأرسل القالب إلى Meta للمراجعة. بعد موافقة Meta، أرسله مثل أي قالب آخر. وعبر API، استخدم POST /api/v1/messages مع buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<الـflow token الخاص بك>\" }].",
+              "tr": "Bir şablona “Complete flow” düğmesi ekleyin, formu WhatsApp Flow altında seçin (yalnızca yayımlanmış formlar eklenebilir) ve şablonu Meta'ya gönderin. Meta onayladıktan sonra diğer şablonlar gibi gönderin. API üzerinden POST /api/v1/messages ile buttonParameters [{ \"index\": 0, \"subType\": \"flow\", \"text\": \"<flow token'ınız>\" }] kullanın."
             }
           },
           {
@@ -754,12 +754,12 @@
               "tr": "WhatsApp Forms hangi pakette var?"
             },
             "answer": {
-              "en": "The Business plan, and the 14-day free trial, together with chatbot flows. Syncing forms from Meta and adding a Flow (WhatsApp Form) button to a template need Business. Team covers the shared inbox, contacts, campaigns and keyword auto-replies, but not forms.",
-              "pt": "O plano Business e o teste grátis de 14 dias, junto com os fluxos de chatbot. Sincronizar formulários da Meta e adicionar um botão Flow (WhatsApp Form) a um template exigem o Business. O Team cobre a caixa de entrada compartilhada, os contatos, as campanhas e as respostas automáticas por palavra-chave, mas não os formulários.",
-              "es": "El plan Business y la prueba gratis de 14 días, junto con los flujos de chatbot. Sincronizar formularios desde Meta y añadir un botón Flow (WhatsApp Form) a una plantilla requieren Business. Team cubre la bandeja de entrada compartida, los contactos, las campañas y las respuestas automáticas por palabra clave, pero no los formularios.",
-              "id": "Paket Business, dan uji coba gratis 14 hari, bersama alur chatbot. Menyinkronkan formulir dari Meta dan menambahkan tombol Flow (WhatsApp Form) ke template memerlukan Business. Team mencakup kotak masuk bersama, kontak, kampanye, dan balasan otomatis kata kunci, tetapi tidak formulir.",
-              "ar": "باقة Business، والتجربة المجانية لمدة 14 يوماً، مع تدفقات الشات بوت. تتطلب مزامنة النماذج من Meta وإضافة زر Flow (نموذج واتساب) إلى قالب باقة Business. أما باقة Team فتشمل صندوق الوارد المشترك وجهات الاتصال والحملات والردود التلقائية بالكلمات المفتاحية، لكنها لا تشمل النماذج.",
-              "tr": "Business paketi ve 14 günlük ücretsiz deneme, chatbot akışlarıyla birlikte. Formları Meta’dan senkronize etmek ve bir şablona Flow (WhatsApp Form) butonu eklemek Business gerektirir. Team; ortak gelen kutusunu, kişileri, kampanyaları ve anahtar kelime otomatik yanıtlarını kapsar, ancak formları kapsamaz."
+              "en": "The Business plan, and the 14-day free trial, together with chatbot flows. Syncing forms from Meta and adding a “Complete flow” button to a template need Business. Team covers the shared inbox, contacts, campaigns and keyword auto-replies, but not forms.",
+              "pt": "O plano Business e o teste grátis de 14 dias, junto com os fluxos de chatbot. Sincronizar formulários da Meta e adicionar um botão “Complete flow” a um template exigem o Business. O Team cobre a caixa de entrada compartilhada, os contatos, as campanhas e as respostas automáticas por palavra-chave, mas não os formulários.",
+              "es": "El plan Business y la prueba gratis de 14 días, junto con los flujos de chatbot. Sincronizar formularios desde Meta y añadir un botón “Complete flow” a una plantilla requieren Business. Team cubre la bandeja de entrada compartida, los contactos, las campañas y las respuestas automáticas por palabra clave, pero no los formularios.",
+              "id": "Paket Business, dan uji coba gratis 14 hari, bersama alur chatbot. Menyinkronkan formulir dari Meta dan menambahkan tombol “Complete flow” ke template memerlukan Business. Team mencakup kotak masuk bersama, kontak, kampanye, dan balasan otomatis kata kunci, tetapi tidak formulir.",
+              "ar": "باقة Business، والتجربة المجانية لمدة 14 يوماً، مع تدفقات الشات بوت. تتطلب مزامنة النماذج من Meta وإضافة زر “Complete flow” إلى قالب باقة Business. أما باقة Team فتشمل صندوق الوارد المشترك وجهات الاتصال والحملات والردود التلقائية بالكلمات المفتاحية، لكنها لا تشمل النماذج.",
+              "tr": "Business paketi ve 14 günlük ücretsiz deneme, chatbot akışlarıyla birlikte. Formları Meta’dan senkronize etmek ve bir şablona “Complete flow” butonu eklemek Business gerektirir. Team; ortak gelen kutusunu, kişileri, kampanyaları ve anahtar kelime otomatik yanıtlarını kapsar, ancak formları kapsamaz."
             }
           },
           {

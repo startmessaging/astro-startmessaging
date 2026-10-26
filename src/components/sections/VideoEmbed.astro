@@ -38,21 +38,38 @@ const cardBgClass = isWhatsapp ? 'bg-white/60 border border-accent-wa/10 shadow-
 
     <div class:list={[
       'grid gap-8',
-      videos.length === 1 ? 'grid-cols-1 max-w-3xl mx-auto' : 'grid-cols-1 md:grid-cols-2',
+      videos.length === 1 ? 'grid-cols-1 max-w-3xl mx-auto'
+        : videos.length > 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+        : 'grid-cols-1 md:grid-cols-2',
     ]}>
       {videos.map((video: any) => (
         <div class:list={["rounded-lg overflow-hidden hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300", cardBgClass]}>
-          <div class="relative aspect-video bg-[#000]">
-            {/* TODO: Replace placeholder videoIds with actual YouTube video IDs */}
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}
-              title={r(video.title, country)}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+          {/* Facade: thumbnail link swapped for the iframe on click, so a page of many videos loads no YouTube JS up front */}
+          <a
+            href={`https://www.youtube.com/watch?v=${video.videoId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-yt-facade={video.videoId}
+            data-yt-title={r(video.title, country)}
+            aria-label={`Play video: ${r(video.title, country)}`}
+            class="group relative block aspect-video bg-[#000]"
+          >
+            <img
+              src={`https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`}
+              alt=""
+              width="480"
+              height="360"
               loading="lazy"
-              class="absolute inset-0 w-full h-full"
-            ></iframe>
-          </div>
+              decoding="async"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <span class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/25 transition-colors">
+              <svg viewBox="0 0 68 48" class="w-16 h-12 drop-shadow-lg" aria-hidden="true">
+                <path d="M66.5 7.7c-.8-2.9-3-5.2-5.9-6C55.3.3 34 .3 34 .3s-21.3 0-26.6 1.4c-2.9.8-5.1 3.1-5.9 6C.1 13 .1 24 .1 24s0 11 1.4 16.3c.8 2.9 3 5.2 5.9 6C12.7 47.7 34 47.7 34 47.7s21.3 0 26.6-1.4c2.9-.8 5.1-3.1 5.9-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#f00" />
+                <path d="M45 24 27 14v20z" fill="#fff" />
+              </svg>
+            </span>
+          </a>
           {(video.title || video.description) && (
             <div class="p-5">
               {video.title && (
@@ -72,3 +89,21 @@ const cardBgClass = isWhatsapp ? 'bg-white/60 border border-accent-wa/10 shadow-
     </div>
   </Container>
 </Section>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const link = (e.target as Element).closest<HTMLAnchorElement>('a[data-yt-facade]');
+    if (!link || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${link.dataset.ytFacade}?autoplay=1`;
+    iframe.title = link.dataset.ytTitle ?? '';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.className = 'absolute inset-0 w-full h-full';
+    const frame = document.createElement('div');
+    frame.className = 'relative aspect-video bg-[#000]';
+    frame.appendChild(iframe);
+    link.replaceWith(frame);
+  });
+</script>

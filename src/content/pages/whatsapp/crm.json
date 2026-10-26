@@ -351,12 +351,12 @@
               "tr": "CSV İçe ve Dışa Aktarma"
             },
             "description": {
-              "en": "Import a CSV and map its columns to phone, name, email, tags and custom fields. Export the contacts on the current page, with your filters, as a CSV.",
-              "pt": "Importe um CSV e mapeie as colunas para telefone, nome, e-mail, tags e campos personalizados. Exporte os contatos da página atual, com seus filtros, como CSV.",
-              "es": "Importa un CSV y asigna sus columnas a teléfono, nombre, correo, etiquetas y campos personalizados. Exporta los contactos de la página actual, con tus filtros, como CSV.",
-              "id": "Impor CSV dan petakan kolomnya ke telepon, nama, email, tag, dan kolom khusus. Ekspor kontak di halaman saat ini, dengan filter Anda, sebagai CSV.",
-              "ar": "استورد ملف CSV واربط أعمدته بالهاتف والاسم والبريد الإلكتروني والوسوم والحقول المخصصة. وصدّر جهات الاتصال في الصفحة الحالية، مع الفلاتر المطبقة، كملف CSV.",
-              "tr": "Bir CSV içe aktarın ve sütunlarını telefon, ad, e-posta, etiketler ve özel alanlarla eşleştirin. Geçerli sayfadaki kişileri filtrelerinizle birlikte CSV olarak dışa aktarın."
+              "en": "Import a CSV and map its columns to phone, name, email, tags and custom fields. Imported contacts are tagged with the file name. Export the contacts on the current page, with your filters, as a CSV.",
+              "pt": "Importe um CSV e mapeie as colunas para telefone, nome, e-mail, tags e campos personalizados. Os contatos importados recebem uma tag com o nome do arquivo. Exporte os contatos da página atual, com seus filtros, como CSV.",
+              "es": "Importa un CSV y asigna sus columnas a teléfono, nombre, correo, etiquetas y campos personalizados. Los contactos importados se etiquetan con el nombre del archivo. Exporta los contactos de la página actual, con tus filtros, como CSV.",
+              "id": "Impor CSV dan petakan kolomnya ke telepon, nama, email, tag, dan kolom khusus. Kontak yang diimpor diberi tag dengan nama file. Ekspor kontak di halaman saat ini, dengan filter Anda, sebagai CSV.",
+              "ar": "استورد ملف CSV واربط أعمدته بالهاتف والاسم والبريد الإلكتروني والوسوم والحقول المخصصة. وتُوسَم جهات الاتصال المستوردة باسم الملف. وصدّر جهات الاتصال في الصفحة الحالية، مع الفلاتر المطبقة، كملف CSV.",
+              "tr": "Bir CSV içe aktarın ve sütunlarını telefon, ad, e-posta, etiketler ve özel alanlarla eşleştirin. İçe aktarılan kişiler dosya adıyla etiketlenir. Geçerli sayfadaki kişileri filtrelerinizle birlikte CSV olarak dışa aktarın."
             }
           },
           {
@@ -866,12 +866,12 @@
               "tr": "Kişileri gruplar halinde düzenleyebilir miyim?"
             },
             "answer": {
-              "en": "Instead of groups, you use tags and pipeline stages. A contact can carry many tags, and campaigns target an audience by tag, by opt-in or from a CSV upload, and on the Business plan by engagement, a date field or pipeline stage too. Pipeline stages show where each contact stands in your sales process.",
-              "pt": "Em vez de grupos, você usa tags e etapas do funil. Um contato pode ter várias tags, e as campanhas segmentam o público por tag, por opt-in ou a partir de um CSV e, no plano Business, também por engajamento, campo de data ou etapa do funil. As etapas do funil mostram em que ponto do processo de vendas cada contato está.",
-              "es": "En lugar de grupos, usas etiquetas y etapas del embudo. Un contacto puede tener muchas etiquetas, y las campañas segmentan la audiencia por etiqueta, por suscripción o desde un CSV y, en el plan Business, también por interacción, un campo de fecha o la etapa del embudo. Las etapas del embudo muestran en qué punto del proceso de ventas está cada contacto.",
-              "id": "Alih-alih grup, Anda menggunakan tag dan tahap pipeline. Satu kontak dapat memiliki banyak tag, dan kampanye menargetkan audiens berdasarkan tag, opt-in, atau unggahan CSV, dan di paket Business juga berdasarkan keterlibatan, kolom tanggal, atau tahap pipeline. Tahap pipeline menunjukkan posisi setiap kontak dalam proses penjualan Anda.",
-              "ar": "بدلاً من المجموعات، تستخدم الوسوم ومراحل خط المبيعات. يمكن لجهة الاتصال أن تحمل وسوماً متعددة، وتستهدف الحملات الجمهور حسب الوسم أو الاشتراك أو من ملف CSV مرفوع، وفي باقة Business أيضاً حسب التفاعل أو حقل تاريخ أو مرحلة خط المبيعات. وتُظهر مراحل خط المبيعات أين تقف كل جهة اتصال في عملية البيع.",
-              "tr": "Gruplar yerine etiketleri ve satış hattı aşamalarını kullanırsınız. Bir kişi birçok etiket taşıyabilir; kampanyalar hedef kitleyi etikete, aboneliğe göre veya bir CSV yüklemesinden seçer; Business paketinde ise etkileşime, bir tarih alanına veya satış hattı aşamasına göre de. Satış hattı aşamaları her kişinin satış sürecinizde nerede olduğunu gösterir."
+              "en": "Instead of groups, you use tags and pipeline stages. A contact can carry many tags, and campaigns target picked contacts, a tag or assignee segment, or a CSV upload, and on the Business plan an engagement, date-field or pipeline-stage segment, or a retarget audience. Pipeline stages show where each contact stands in your sales process.",
+              "pt": "Em vez de grupos, você usa tags e etapas do funil. Um contato pode ter várias tags, e as campanhas segmentam contatos escolhidos, um segmento por tag ou responsável, ou um CSV enviado e, no plano Business, também um segmento por engajamento, campo de data ou etapa do funil, ou um público de retargeting. As etapas do funil mostram em que ponto do processo de vendas cada contato está.",
+              "es": "En lugar de grupos, usas etiquetas y etapas del embudo. Un contacto puede tener muchas etiquetas, y las campañas se dirigen a contactos elegidos, a un segmento por etiqueta o responsable, o a un CSV subido y, en el plan Business, también a un segmento por interacción, campo de fecha o etapa del embudo, o a una audiencia de retargeting. Las etapas del embudo muestran en qué punto del proceso de ventas está cada contacto.",
+              "id": "Alih-alih grup, Anda menggunakan tag dan tahap pipeline. Satu kontak dapat memiliki banyak tag, dan kampanye menargetkan kontak pilihan, segmen tag atau penanggung jawab, atau unggahan CSV, dan di paket Business juga segmen keterlibatan, kolom tanggal, atau tahap pipeline, maupun audiens retargeting. Tahap pipeline menunjukkan posisi setiap kontak dalam proses penjualan Anda.",
+              "ar": "بدلاً من المجموعات، تستخدم الوسوم ومراحل خط المبيعات. يمكن لجهة الاتصال أن تحمل وسوماً متعددة، وتستهدف الحملات جهات اتصال تختارها، أو شريحة حسب الوسم أو الموظف المسؤول، أو ملف CSV مرفوعاً، وفي باقة Business أيضاً شريحة حسب التفاعل أو حقل تاريخ أو مرحلة خط المبيعات، أو جمهور إعادة استهداف. وتُظهر مراحل خط المبيعات أين تقف كل جهة اتصال في عملية البيع.",
+              "tr": "Gruplar yerine etiketleri ve satış hattı aşamalarını kullanırsınız. Bir kişi birçok etiket taşıyabilir; kampanyalar seçtiğiniz kişileri, bir etiket veya atanan kişi segmentini ya da bir CSV yüklemesini hedefler; Business paketinde ise bir etkileşim, tarih alanı veya satış hattı aşaması segmentini ya da bir yeniden hedefleme kitlesini de. Satış hattı aşamaları her kişinin satış sürecinizde nerede olduğunu gösterir."
             }
           },
           {

@@ -52,12 +52,12 @@
           "tr": "WhatsApp ile OTP Doğrulama"
         },
         "subtitle": {
-          "en": "Generate a one-time code in your app, send it with a WhatsApp authentication template — with a copy-code or one-tap autofill button — through POST /api/v1/messages, and verify it yourself. Messages are end-to-end encrypted.",
-          "pt": "Gere um código de uso único no seu app, envie-o com um template de autenticação do WhatsApp — com botão de copiar código ou de preenchimento automático com um toque — via POST /api/v1/messages, e valide-o você mesmo. As mensagens têm criptografia de ponta a ponta.",
-          "es": "Genere un código de un solo uso en su app, envíelo con una plantilla de autenticación de WhatsApp — con botón de copiar código o de autocompletado con un toque — mediante POST /api/v1/messages, y verifíquelo usted mismo. Los mensajes tienen cifrado de extremo a extremo.",
-          "id": "Buat kode sekali pakai di aplikasi Anda, kirim dengan template autentikasi WhatsApp — dengan tombol salin kode atau isi otomatis satu ketukan — melalui POST /api/v1/messages, lalu verifikasi sendiri. Pesan dienkripsi end-to-end.",
-          "ar": "أنشئ رمزاً لمرة واحدة في تطبيقك، وأرسله بقالب مصادقة واتساب — مع زر نسخ الرمز أو الملء التلقائي بلمسة واحدة — عبر POST /api/v1/messages، ثم تحقق منه بنفسك. الرسائل مشفرة من طرف إلى طرف.",
-          "tr": "Uygulamanızda tek kullanımlık bir kod üretin, onu WhatsApp kimlik doğrulama şablonuyla — kodu kopyala veya tek dokunuşla otomatik doldurma butonuyla — POST /api/v1/messages üzerinden gönderin ve kendiniz doğrulayın. Mesajlar uçtan uca şifrelidir."
+          "en": "Generate a one-time code in your app, send it with a WhatsApp authentication template — with a copy-code or one-tap autofill button — through POST /api/v1/messages, and verify it yourself. Messages are encrypted by WhatsApp.",
+          "pt": "Gere um código de uso único no seu app, envie-o com um template de autenticação do WhatsApp — com botão de copiar código ou de preenchimento automático com um toque — via POST /api/v1/messages, e valide-o você mesmo. As mensagens são criptografadas pelo WhatsApp.",
+          "es": "Genere un código de un solo uso en su app, envíelo con una plantilla de autenticación de WhatsApp — con botón de copiar código o de autocompletado con un toque — mediante POST /api/v1/messages, y verifíquelo usted mismo. Los mensajes están cifrados por WhatsApp.",
+          "id": "Buat kode sekali pakai di aplikasi Anda, kirim dengan template autentikasi WhatsApp — dengan tombol salin kode atau isi otomatis satu ketukan — melalui POST /api/v1/messages, lalu verifikasi sendiri. Pesan dienkripsi oleh WhatsApp.",
+          "ar": "أنشئ رمزاً لمرة واحدة في تطبيقك، وأرسله بقالب مصادقة واتساب — مع زر نسخ الرمز أو الملء التلقائي بلمسة واحدة — عبر POST /api/v1/messages، ثم تحقق منه بنفسك. الرسائل مشفرة بواسطة واتساب.",
+          "tr": "Uygulamanızda tek kullanımlık bir kod üretin, onu WhatsApp kimlik doğrulama şablonuyla — kodu kopyala veya tek dokunuşla otomatik doldurma butonuyla — POST /api/v1/messages üzerinden gönderin ve kendiniz doğrulayın. Mesajlar WhatsApp tarafından şifrelenir."
         },
         "primaryCta": {
           "en": "Start Sending OTPs",
@@ -82,12 +82,12 @@
           "tr": "Neden SMS Yerine WhatsApp OTP?"
         },
         "body": {
-          "en": "WhatsApp OTPs reach users in an app they already have open, with end-to-end encryption, a copy-code button so nobody retypes the code, and one-tap autofill on supported Android apps. They also help in markets where SMS filtering delays or blocks one-time codes.",
-          "pt": "OTPs via WhatsApp chegam aos usuários em um app que eles já usam, com criptografia de ponta a ponta, um botão de copiar código para ninguém precisar digitá-lo e preenchimento automático com um toque em apps Android compatíveis. Também ajudam em mercados onde filtros de SMS atrasam ou bloqueiam códigos.",
-          "es": "Los OTP de WhatsApp llegan a los usuarios en una app que ya usan, con cifrado de extremo a extremo, un botón de copiar código para que nadie lo vuelva a escribir y autocompletado con un toque en apps Android compatibles. También ayudan en mercados donde el filtrado de SMS retrasa o bloquea los códigos.",
-          "id": "OTP WhatsApp sampai ke pengguna di aplikasi yang sudah mereka gunakan, dengan enkripsi end-to-end, tombol salin kode agar tidak perlu mengetik ulang, dan isi otomatis satu ketukan di aplikasi Android yang didukung. OTP WhatsApp juga membantu di pasar tempat penyaringan SMS menunda atau memblokir kode.",
-          "ar": "تصل رموز OTP عبر واتساب إلى المستخدمين في تطبيق يستخدمونه بالفعل، مع تشفير من طرف إلى طرف، وزر نسخ الرمز حتى لا يعيد أحد كتابته، وملء تلقائي بلمسة واحدة في تطبيقات Android المدعومة. كما تساعد في الأسواق التي تؤخر فيها فلاتر SMS الرموز أو تحجبها.",
-          "tr": "WhatsApp OTP'leri kullanıcılara zaten kullandıkları bir uygulamada ulaşır; uçtan uca şifreleme, kodu yeniden yazmaya gerek bırakmayan kodu kopyala butonu ve desteklenen Android uygulamalarında tek dokunuşla otomatik doldurma sunar. SMS filtrelemesinin kodları geciktirdiği veya engellediği pazarlarda da işe yarar."
+          "en": "WhatsApp OTPs reach users in an app they already have open, with encryption by WhatsApp, a copy-code button so nobody retypes the code, and one-tap autofill on supported Android apps. They also help in markets where SMS filtering delays or blocks one-time codes.",
+          "pt": "OTPs via WhatsApp chegam aos usuários em um app que eles já usam, com criptografia feita pelo WhatsApp, um botão de copiar código para ninguém precisar digitá-lo e preenchimento automático com um toque em apps Android compatíveis. Também ajudam em mercados onde filtros de SMS atrasam ou bloqueiam códigos.",
+          "es": "Los OTP de WhatsApp llegan a los usuarios en una app que ya usan, con cifrado de WhatsApp, un botón de copiar código para que nadie lo vuelva a escribir y autocompletado con un toque en apps Android compatibles. También ayudan en mercados donde el filtrado de SMS retrasa o bloquea los códigos.",
+          "id": "OTP WhatsApp sampai ke pengguna di aplikasi yang sudah mereka gunakan, dengan enkripsi oleh WhatsApp, tombol salin kode agar tidak perlu mengetik ulang, dan isi otomatis satu ketukan di aplikasi Android yang didukung. OTP WhatsApp juga membantu di pasar tempat penyaringan SMS menunda atau memblokir kode.",
+          "ar": "تصل رموز OTP عبر واتساب إلى المستخدمين في تطبيق يستخدمونه بالفعل، مع تشفير بواسطة واتساب، وزر نسخ الرمز حتى لا يعيد أحد كتابته، وملء تلقائي بلمسة واحدة في تطبيقات Android المدعومة. كما تساعد في الأسواق التي تؤخر فيها فلاتر SMS الرموز أو تحجبها.",
+          "tr": "WhatsApp OTP'leri kullanıcılara zaten kullandıkları bir uygulamada ulaşır; WhatsApp tarafından sağlanan şifreleme, kodu yeniden yazmaya gerek bırakmayan kodu kopyala butonu ve desteklenen Android uygulamalarında tek dokunuşla otomatik doldurma sunar. SMS filtrelemesinin kodları geciktirdiği veya engellediği pazarlarda da işe yarar."
         },
         "bullets": [
           {
@@ -99,12 +99,12 @@
             "tr": "Kodu kopyala butonu — kullanıcı kodu yeniden yazmaz"
           },
           {
-            "en": "End-to-end encryption by default",
-            "pt": "Criptografia de ponta a ponta por padrão",
-            "es": "Cifrado de extremo a extremo por defecto",
-            "id": "Enkripsi end-to-end secara default",
-            "ar": "تشفير من طرف إلى طرف افتراضياً",
-            "tr": "Varsayılan olarak uçtan uca şifreleme"
+            "en": "Encrypted by WhatsApp",
+            "pt": "Criptografado pelo WhatsApp",
+            "es": "Cifrado por WhatsApp",
+            "id": "Dienkripsi oleh WhatsApp",
+            "ar": "مشفرة بواسطة واتساب",
+            "tr": "WhatsApp tarafından şifrelenir"
           },
           {
             "en": "One-tap auto-fill on Android",
@@ -204,12 +204,12 @@
               "tr": "Şifreleme"
             },
             {
-              "en": "✓ (End-to-end)",
-              "pt": "✓ (Ponta a ponta)",
-              "es": "✓ (Extremo a extremo)",
-              "id": "✓ (End-to-end)",
-              "ar": "✓ (من طرف إلى طرف)",
-              "tr": "✓ (Uçtan uca)"
+              "en": "✓ (By WhatsApp)",
+              "pt": "✓ (Pelo WhatsApp)",
+              "es": "✓ (Por WhatsApp)",
+              "id": "✓ (Oleh WhatsApp)",
+              "ar": "✓ (بواسطة واتساب)",
+              "tr": "✓ (WhatsApp tarafından)"
             },
             {
               "en": "✗ (Plain text)",
@@ -405,13 +405,13 @@
               "ng": "What's the difference between WhatsApp OTP and SMS OTP?"
             },
             "answer": {
-              "en": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp messages are end-to-end encrypted (SMS is not), authentication templates add a copy-code or one-tap autofill button, and delivery does not depend on carrier SMS filtering. SMS OTPs still reach users who do not have WhatsApp or are offline, so many apps offer both. With StartMessaging you send the WhatsApp code yourself via POST /api/v1/messages; any SMS option runs separately.",
-              "pt": "OTPs via WhatsApp são entregues pelo aplicativo WhatsApp em vez de SMS. Diferenças principais: as mensagens do WhatsApp têm criptografia de ponta a ponta (o SMS não), os templates de autenticação incluem botão de copiar código ou de preenchimento automático, e a entrega não depende dos filtros de SMS das operadoras. OTPs por SMS ainda alcançam quem não tem WhatsApp ou está sem internet, por isso muitos apps oferecem os dois. Com a StartMessaging você envia o código no WhatsApp via POST /api/v1/messages; qualquer opção por SMS funciona separadamente.",
-              "es": "Los OTP de WhatsApp se entregan a través de la app de WhatsApp en lugar de SMS. Diferencias clave: los mensajes de WhatsApp tienen cifrado de extremo a extremo (el SMS no), las plantillas de autenticación añaden un botón de copiar código o de autocompletado, y la entrega no depende del filtrado de SMS de los operadores. Los OTP por SMS siguen llegando a quien no tiene WhatsApp o está sin conexión, por lo que muchas apps ofrecen ambos. Con StartMessaging usted envía el código de WhatsApp mediante POST /api/v1/messages; cualquier opción por SMS funciona por separado.",
-              "id": "OTP WhatsApp dikirim melalui aplikasi WhatsApp, bukan SMS. Perbedaan utama: pesan WhatsApp dienkripsi end-to-end (SMS tidak), template autentikasi menambahkan tombol salin kode atau isi otomatis, dan pengiriman tidak bergantung pada penyaringan SMS operator. OTP SMS tetap menjangkau pengguna tanpa WhatsApp atau yang sedang offline, sehingga banyak aplikasi menawarkan keduanya. Dengan StartMessaging Anda mengirim kode WhatsApp sendiri melalui POST /api/v1/messages; opsi SMS apa pun berjalan terpisah.",
-              "ar": "تُسلَّم رموز OTP عبر تطبيق واتساب بدلاً من SMS. الفروق الرئيسية: رسائل واتساب مشفرة من طرف إلى طرف (وSMS ليست كذلك)، وتضيف قوالب المصادقة زر نسخ الرمز أو الملء التلقائي، ولا يعتمد التسليم على فلاتر SMS لدى المشغلين. لا تزال رموز SMS تصل إلى من لا يملكون واتساب أو غير المتصلين بالإنترنت، لذا تقدم تطبيقات كثيرة الخيارين. مع StartMessaging ترسل رمز واتساب بنفسك عبر POST /api/v1/messages، وأي خيار SMS يعمل بشكل منفصل.",
-              "tr": "WhatsApp OTP'leri SMS yerine WhatsApp uygulaması üzerinden iletilir. Temel farklar: WhatsApp mesajları uçtan uca şifrelidir (SMS değildir), kimlik doğrulama şablonları kodu kopyala veya otomatik doldurma butonu ekler ve teslimat operatör SMS filtrelerine bağlı değildir. SMS OTP'leri WhatsApp'ı olmayan veya çevrimdışı kullanıcılara yine ulaşır; bu yüzden birçok uygulama ikisini de sunar. StartMessaging ile WhatsApp kodunu POST /api/v1/messages üzerinden kendiniz gönderirsiniz; SMS seçeneği ayrı çalışır.",
-              "ng": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp messages are end-to-end encrypted (SMS is not), authentication templates add a copy-code or one-tap autofill button, and delivery does not depend on carrier SMS filtering. SMS OTPs still reach users who do not have WhatsApp or are offline, so many apps offer both. With StartMessaging you send the WhatsApp code yourself via POST /api/v1/messages; any SMS option runs separately."
+              "en": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp messages are encrypted by WhatsApp (SMS is not), authentication templates add a copy-code or one-tap autofill button, and delivery does not depend on carrier SMS filtering. SMS OTPs still reach users who do not have WhatsApp or are offline, so many apps offer both. With StartMessaging you send the WhatsApp code yourself via POST /api/v1/messages; any SMS option runs separately.",
+              "pt": "OTPs via WhatsApp são entregues pelo aplicativo WhatsApp em vez de SMS. Diferenças principais: as mensagens do WhatsApp são criptografadas pelo próprio WhatsApp (o SMS não), os templates de autenticação incluem botão de copiar código ou de preenchimento automático, e a entrega não depende dos filtros de SMS das operadoras. OTPs por SMS ainda alcançam quem não tem WhatsApp ou está sem internet, por isso muitos apps oferecem os dois. Com a StartMessaging você envia o código no WhatsApp via POST /api/v1/messages; qualquer opção por SMS funciona separadamente.",
+              "es": "Los OTP de WhatsApp se entregan a través de la app de WhatsApp en lugar de SMS. Diferencias clave: los mensajes de WhatsApp están cifrados por el propio WhatsApp (el SMS no), las plantillas de autenticación añaden un botón de copiar código o de autocompletado, y la entrega no depende del filtrado de SMS de los operadores. Los OTP por SMS siguen llegando a quien no tiene WhatsApp o está sin conexión, por lo que muchas apps ofrecen ambos. Con StartMessaging usted envía el código de WhatsApp mediante POST /api/v1/messages; cualquier opción por SMS funciona por separado.",
+              "id": "OTP WhatsApp dikirim melalui aplikasi WhatsApp, bukan SMS. Perbedaan utama: pesan WhatsApp dienkripsi oleh WhatsApp (SMS tidak), template autentikasi menambahkan tombol salin kode atau isi otomatis, dan pengiriman tidak bergantung pada penyaringan SMS operator. OTP SMS tetap menjangkau pengguna tanpa WhatsApp atau yang sedang offline, sehingga banyak aplikasi menawarkan keduanya. Dengan StartMessaging Anda mengirim kode WhatsApp sendiri melalui POST /api/v1/messages; opsi SMS apa pun berjalan terpisah.",
+              "ar": "تُسلَّم رموز OTP عبر تطبيق واتساب بدلاً من SMS. الفروق الرئيسية: رسائل واتساب مشفرة بواسطة واتساب (وSMS ليست كذلك)، وتضيف قوالب المصادقة زر نسخ الرمز أو الملء التلقائي، ولا يعتمد التسليم على فلاتر SMS لدى المشغلين. لا تزال رموز SMS تصل إلى من لا يملكون واتساب أو غير المتصلين بالإنترنت، لذا تقدم تطبيقات كثيرة الخيارين. مع StartMessaging ترسل رمز واتساب بنفسك عبر POST /api/v1/messages، وأي خيار SMS يعمل بشكل منفصل.",
+              "tr": "WhatsApp OTP'leri SMS yerine WhatsApp uygulaması üzerinden iletilir. Temel farklar: WhatsApp mesajları WhatsApp tarafından şifrelenir (SMS şifrelenmez), kimlik doğrulama şablonları kodu kopyala veya otomatik doldurma butonu ekler ve teslimat operatör SMS filtrelerine bağlı değildir. SMS OTP'leri WhatsApp'ı olmayan veya çevrimdışı kullanıcılara yine ulaşır; bu yüzden birçok uygulama ikisini de sunar. StartMessaging ile WhatsApp kodunu POST /api/v1/messages üzerinden kendiniz gönderirsiniz; SMS seçeneği ayrı çalışır.",
+              "ng": "WhatsApp OTPs are delivered through the WhatsApp app instead of SMS. Key differences: WhatsApp messages are encrypted by WhatsApp (SMS is not), authentication templates add a copy-code or one-tap autofill button, and delivery does not depend on carrier SMS filtering. SMS OTPs still reach users who do not have WhatsApp or are offline, so many apps offer both. With StartMessaging you send the WhatsApp code yourself via POST /api/v1/messages; any SMS option runs separately."
             }
           },
           {

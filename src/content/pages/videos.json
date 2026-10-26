@@ -9,7 +9,7 @@
     "ng"
   ],
   "theme": "sms",
-  "updatedAt": "2026-10-07",
+  "updatedAt": "2026-10-26",
   "seo": {
     "title": {
       "en": "Videos & Tutorials — StartMessaging",
@@ -20,12 +20,12 @@
       "tr": "Videolar ve Eğitimler — StartMessaging"
     },
     "description": {
-      "en": "Watch step-by-step video tutorials on SMS API integration, DLT-free OTP setup and the StartMessaging console. WhatsApp CRM tutorials are built into the WhatsApp app.",
-      "pt": "Assista a tutoriais em vídeo passo a passo sobre integração da API de SMS, configuração de OTP sem DLT e o console StartMessaging. Os tutoriais do CRM para WhatsApp ficam dentro do app do WhatsApp.",
-      "es": "Vea tutoriales en video paso a paso sobre la integración de la API de SMS, la configuración de OTP sin DLT y la consola de StartMessaging. Los tutoriales del CRM para WhatsApp están dentro de la app de WhatsApp.",
-      "id": "Tonton tutorial video langkah demi langkah tentang integrasi API SMS, penyiapan OTP bebas DLT, dan konsol StartMessaging. Tutorial CRM WhatsApp tersedia langsung di dalam aplikasi WhatsApp.",
-      "ar": "شاهد دروس فيديو خطوة بخطوة حول تكامل واجهة SMS وإعداد OTP بدون DLT وكونسول StartMessaging. دروس CRM واتساب متاحة داخل تطبيق واتساب.",
-      "tr": "SMS API entegrasyonu, DLT'siz OTP kurulumu ve StartMessaging konsolu hakkında adım adım video eğitimler izleyin. WhatsApp CRM eğitimleri WhatsApp uygulamasının içinde yer alır."
+      "en": "Watch step-by-step video tutorials on SMS API integration, DLT-free OTP setup, the StartMessaging console and the WhatsApp CRM: inbox, templates, campaigns, automations and the WhatsApp API.",
+      "pt": "Assista a tutoriais em vídeo passo a passo sobre integração da API de SMS, OTP sem DLT, o console StartMessaging e o CRM para WhatsApp: caixa de entrada, modelos, campanhas, automações e a API do WhatsApp.",
+      "es": "Vea tutoriales en video paso a paso sobre la integración de la API de SMS, OTP sin DLT, la consola de StartMessaging y el CRM para WhatsApp: bandeja de entrada, plantillas, campañas, automatizaciones y la API de WhatsApp.",
+      "id": "Tonton tutorial video langkah demi langkah tentang integrasi API SMS, OTP bebas DLT, konsol StartMessaging, dan CRM WhatsApp: kotak masuk, template, kampanye, otomatisasi, dan API WhatsApp.",
+      "ar": "شاهد دروس فيديو خطوة بخطوة حول تكامل واجهة SMS وOTP بدون DLT وكونسول StartMessaging وCRM واتساب: صندوق الوارد والقوالب والحملات والأتمتة وواجهة واتساب.",
+      "tr": "SMS API entegrasyonu, DLT'siz OTP, StartMessaging konsolu ve WhatsApp CRM hakkında adım adım video eğitimler izleyin: gelen kutusu, şablonlar, kampanyalar, otomasyonlar ve WhatsApp API."
     },
     "ogImage": "/og/videos.jpg"
   },
@@ -50,18 +50,26 @@
           "tr": "İzleyerek Öğrenin"
         },
         "subtitle": {
-          "en": "Step-by-step video tutorials covering SMS API integration, DLT-free OTP setup and the dashboard. WhatsApp CRM users get 17 tutorial videos and in-app help on every page of the WhatsApp app.",
-          "pt": "Tutoriais em vídeo passo a passo sobre integração da API de SMS, configuração de OTP sem DLT e o painel. Usuários do CRM para WhatsApp têm 17 vídeos tutoriais e ajuda em cada página do app do WhatsApp.",
-          "es": "Tutoriales en video paso a paso sobre la integración de la API de SMS, la configuración de OTP sin DLT y el panel. Los usuarios del CRM para WhatsApp tienen 17 videos tutoriales y ayuda en cada página de la app de WhatsApp.",
-          "id": "Tutorial video langkah demi langkah tentang integrasi API SMS, penyiapan OTP bebas DLT, dan dasbor. Pengguna CRM WhatsApp mendapatkan 17 video tutorial dan bantuan di setiap halaman aplikasi WhatsApp.",
-          "ar": "دروس فيديو خطوة بخطوة تغطي تكامل واجهة SMS وإعداد OTP بدون DLT ولوحة التحكم. يحصل مستخدمو CRM واتساب على 17 فيديو تعليمياً ومساعدة داخل كل صفحة من تطبيق واتساب.",
-          "tr": "SMS API entegrasyonu, DLT'siz OTP kurulumu ve kontrol panelini kapsayan adım adım video eğitimler. WhatsApp CRM kullanıcıları WhatsApp uygulamasının her sayfasında 17 eğitim videosu ve uygulama içi yardım alır."
+          "en": "Step-by-step video tutorials covering SMS API integration, DLT-free OTP setup and the dashboard, plus 25 WhatsApp CRM tutorials from first sign-up to automations and the API.",
+          "pt": "Tutoriais em vídeo passo a passo sobre integração da API de SMS, OTP sem DLT e o painel, além de 25 tutoriais do CRM para WhatsApp, do cadastro às automações e à API.",
+          "es": "Tutoriales en video paso a paso sobre la integración de la API de SMS, OTP sin DLT y el panel, además de 25 tutoriales del CRM para WhatsApp, desde el registro hasta las automatizaciones y la API.",
+          "id": "Tutorial video langkah demi langkah tentang integrasi API SMS, OTP bebas DLT, dan dasbor, ditambah 25 tutorial CRM WhatsApp dari pendaftaran hingga otomatisasi dan API.",
+          "ar": "دروس فيديو خطوة بخطوة تغطي تكامل واجهة SMS وإعداد OTP بدون DLT ولوحة التحكم، بالإضافة إلى 25 درساً عن CRM واتساب من التسجيل حتى الأتمتة والواجهة البرمجية.",
+          "tr": "SMS API entegrasyonu, DLT'siz OTP kurulumu ve kontrol panelini kapsayan adım adım video eğitimler; ayrıca kayıttan otomasyonlara ve API'ye kadar 25 WhatsApp CRM eğitimi."
         }
       }
     },
     {
       "type": "videoEmbed",
       "props": {
+        "badge": {
+          "en": "SMS & OTP",
+          "pt": "SMS e OTP",
+          "es": "SMS y OTP",
+          "id": "SMS & OTP",
+          "ar": "SMS و OTP",
+          "tr": "SMS ve OTP"
+        },
         "heading": {
           "en": "Video Guides & Walkthroughs",
           "pt": "Guias de Vídeo e Tutoriais",
@@ -126,6 +134,268 @@
               "id": "Navigasikan proyek, kredensial API, manajemen template, log pengiriman, detail penagihan, dan saldo dompet langsung di dalam konsol StartMessaging.",
               "ar": "قم بالتنقل بين المشاريع، واعتمادات API، وإدارة القوالب، وسجلات التسليم، وتفاصيل الفوترة، ورصيد المحفظة مباشرة داخل كونسول StartMessaging.",
               "tr": "Projeler, API kimlik bilgileri, şablon yönetimi, teslimat günlükleri, faturalandırma ayrıntıları ve cüzdan bakiyesi arasında doğrudan StartMessaging konsolunda gezinin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "videoEmbed",
+      "theme": "whatsapp",
+      "props": {
+        "badge": {
+          "en": "WhatsApp CRM",
+          "pt": "CRM para WhatsApp",
+          "es": "CRM para WhatsApp",
+          "id": "CRM WhatsApp",
+          "ar": "CRM واتساب",
+          "tr": "WhatsApp CRM"
+        },
+        "heading": {
+          "en": "WhatsApp CRM: Getting Started",
+          "pt": "CRM para WhatsApp: Primeiros Passos",
+          "es": "CRM para WhatsApp: Primeros Pasos",
+          "id": "CRM WhatsApp: Memulai",
+          "ar": "CRM واتساب: البداية",
+          "tr": "WhatsApp CRM: Başlangıç"
+        },
+        "subheading": {
+          "en": "Create your workspace, connect your WhatsApp Business number and bring your team in.",
+          "pt": "Crie seu espaço de trabalho, conecte seu número do WhatsApp Business e convide sua equipe.",
+          "es": "Cree su espacio de trabajo, conecte su número de WhatsApp Business e invite a su equipo.",
+          "id": "Buat ruang kerja, hubungkan nomor WhatsApp Business Anda, dan undang tim Anda.",
+          "ar": "أنشئ مساحة العمل واربط رقم واتساب للأعمال وادعُ فريقك.",
+          "tr": "Çalışma alanınızı oluşturun, WhatsApp Business numaranızı bağlayın ve ekibinizi davet edin."
+        },
+        "videos": [
+          {
+            "videoId": "bQdn5heXAMk",
+            "title": {
+              "en": "Sign Up and Create Your First Workspace"
+            }
+          },
+          {
+            "videoId": "sgbF0RkDN2U",
+            "title": {
+              "en": "Connect Your WhatsApp Business Number"
+            }
+          },
+          {
+            "videoId": "5ymHbtcrDxs",
+            "title": {
+              "en": "Dashboard Tour: Chats, Agents & Number Quality"
+            }
+          },
+          {
+            "videoId": "GNn6zpQcW-E",
+            "title": {
+              "en": "Invite Your Team and Set Roles"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "videoEmbed",
+      "theme": "whatsapp",
+      "props": {
+        "heading": {
+          "en": "Inbox, Contacts & Pipeline",
+          "pt": "Caixa de Entrada, Contatos e Pipeline",
+          "es": "Bandeja de Entrada, Contactos y Pipeline",
+          "id": "Kotak Masuk, Kontak & Pipeline",
+          "ar": "صندوق الوارد وجهات الاتصال ومسار المبيعات",
+          "tr": "Gelen Kutusu, Kişiler ve Satış Hattı"
+        },
+        "videos": [
+          {
+            "videoId": "iLx6KrZRaUs",
+            "title": {
+              "en": "Inbox: Reply and 24-Hour Window"
+            }
+          },
+          {
+            "videoId": "5RY46BMaK3U",
+            "title": {
+              "en": "Inbox: Assign, Tag and Resolve WhatsApp Chats"
+            }
+          },
+          {
+            "videoId": "8_NsiptBtco",
+            "title": {
+              "en": "WhatsApp Quick Replies: Save Time on Common Answers"
+            }
+          },
+          {
+            "videoId": "NBSEv6rYHLo",
+            "title": {
+              "en": "Contacts: Import CSV, Filter and Manage Opt-outs"
+            }
+          },
+          {
+            "videoId": "EfqnsMuRHXQ",
+            "title": {
+              "en": "WhatsApp Sales Pipeline: Stages and Lead Board"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "videoEmbed",
+      "theme": "whatsapp",
+      "props": {
+        "heading": {
+          "en": "Templates & Campaigns",
+          "pt": "Modelos e Campanhas",
+          "es": "Plantillas y Campañas",
+          "id": "Template & Kampanye",
+          "ar": "القوالب والحملات",
+          "tr": "Şablonlar ve Kampanyalar"
+        },
+        "videos": [
+          {
+            "videoId": "GY_4VXEACqY",
+            "title": {
+              "en": "Create a WhatsApp Message Template, Field by Field"
+            }
+          },
+          {
+            "videoId": "SGNMR2vKtnM",
+            "title": {
+              "en": "WhatsApp Templates: Offer, OTP and Carousel"
+            }
+          },
+          {
+            "videoId": "rvws90rrIQM",
+            "title": {
+              "en": "Manage WhatsApp Templates: Rename, Duplicate, Edit"
+            }
+          },
+          {
+            "videoId": "mekWjrs-3ik",
+            "title": {
+              "en": "Create and Launch a WhatsApp Campaign"
+            }
+          },
+          {
+            "videoId": "0zHXo18NAvM",
+            "title": {
+              "en": "WhatsApp Campaign Results: Rates, Funnel, Recipients"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "videoEmbed",
+      "theme": "whatsapp",
+      "props": {
+        "heading": {
+          "en": "Automations & Flows",
+          "pt": "Automações e Fluxos",
+          "es": "Automatizaciones y Flujos",
+          "id": "Otomatisasi & Alur",
+          "ar": "الأتمتة والتدفقات",
+          "tr": "Otomasyonlar ve Akışlar"
+        },
+        "videos": [
+          {
+            "videoId": "RwT2zfFwb2U",
+            "title": {
+              "en": "WhatsApp Automations: Flows, Examples and Triggers"
+            }
+          },
+          {
+            "videoId": "lRA-ELzW1oI",
+            "title": {
+              "en": "WhatsApp Flow Builder 1: Triggers, Messages, Waits"
+            }
+          },
+          {
+            "videoId": "FO9vGlKqFCg",
+            "title": {
+              "en": "WhatsApp Flow Builder 2: Buttons, Actions, Go Live"
+            }
+          },
+          {
+            "videoId": "QIUY9syL8M8",
+            "title": {
+              "en": "WhatsApp Auto-Replies: Keyword Rules Explained"
+            }
+          },
+          {
+            "videoId": "GLA_hcTL4Aw",
+            "title": {
+              "en": "WhatsApp Forms: Collect Bookings in Chat"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "videoEmbed",
+      "theme": "whatsapp",
+      "props": {
+        "heading": {
+          "en": "Analytics, Billing & Settings",
+          "pt": "Análises, Faturamento e Configurações",
+          "es": "Analítica, Facturación y Configuración",
+          "id": "Analitik, Penagihan & Pengaturan",
+          "ar": "التحليلات والفوترة والإعدادات",
+          "tr": "Analitik, Faturalandırma ve Ayarlar"
+        },
+        "videos": [
+          {
+            "videoId": "_Rnj-rCKW28",
+            "title": {
+              "en": "Team Analytics and Message Errors Explained"
+            }
+          },
+          {
+            "videoId": "DQc2iBL2Ne4",
+            "title": {
+              "en": "Billing: Free Trial, Plans and GST Invoices"
+            }
+          },
+          {
+            "videoId": "nVfEaw4pHQc",
+            "title": {
+              "en": "Settings - Inbox and Campaign: Round-Robin, Quiet Hours"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "videoEmbed",
+      "theme": "whatsapp",
+      "props": {
+        "heading": {
+          "en": "WhatsApp API for Developers",
+          "pt": "API do WhatsApp para Desenvolvedores",
+          "es": "API de WhatsApp para Desarrolladores",
+          "id": "API WhatsApp untuk Developer",
+          "ar": "واجهة واتساب للمطورين",
+          "tr": "Geliştiriciler için WhatsApp API"
+        },
+        "videos": [
+          {
+            "videoId": "ba19spqF9vs",
+            "title": {
+              "en": "WhatsApp API Quickstart: API Key and First Message"
+            }
+          },
+          {
+            "videoId": "t3i65nCSJAM",
+            "title": {
+              "en": "WhatsApp Webhooks: Events and Signature Checks"
+            }
+          },
+          {
+            "videoId": "ax8XQ7GmZw0",
+            "title": {
+              "en": "API Logs and API Reference"
             }
           }
         ]
