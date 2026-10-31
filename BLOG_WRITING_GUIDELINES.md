@@ -2,7 +2,7 @@
 
 > **This is the master reference for every blog post published on StartMessaging.**  
 > Every human writer and every AI agent generating blog content MUST read and follow this document before writing a single word.  
-> Last updated: 2026-06-12
+> Last updated: 2026-10-31
 
 ---
 
@@ -368,7 +368,7 @@ A: Your answer here.
 A: Second answer.
 ```
 
-Do not change this format. Bold `**Q:**` and plain `A:` are the signals the parser uses.
+Do not change this format. Bold `**Q:**` and plain `A:` are the signals the parser uses (`faqFromMarkdown` in `src/lib/jsonld.ts`, called from `BlogLayout.astro`). Keep each answer to one `A:` paragraph: only that paragraph goes into the schema. Put a `---` rule between the FAQ and the closing CTA paragraph.
 
 ### Canonical & Duplicate Content
 
@@ -904,8 +904,13 @@ After reviewing the existing blog corpus, these patterns were identified as prob
 
 ### 🚫 Issue 9: Incorrect API Endpoints and Authentication Headers in Code Snippets
 * **Status:** **FIXED**
-* **Details:** Corrected across all updated posts to use the valid `https://api.startmessaging.com/otp/send` and `/otp/verify` endpoints, `X-API-Key` headers, and `variables` payload parameters.
-* **Fix:** Code snippets must use the correct endpoints, authenticate using `X-API-Key`, and nest the OTP payload inside the `variables` property.
+* **Details:** Corrected across all updated posts. SMS OTP snippets use `https://api.startmessaging.com/otp/send` and `/otp/verify`, `X-API-Key` headers, and the `variables` payload. WhatsApp snippets use `https://waba-api.startmessaging.com/api/v1/messages` with `Authorization: Bearer`.
+* **Fix:** Follow the API facts table in §14. SMS OTP: `X-API-Key` and the OTP inside `variables`. WhatsApp: Bearer token and `POST /api/v1/messages`.
+
+### 🚫 Issue 10: Escaped Backticks Inside Code Fences
+* **Status:** **PENDING**
+* **Details:** Some legacy posts migrated from JSX contain `` \` `` and `\${` inside fenced code blocks, which render as literal backslashes.
+* **Fix:** Remove the escapes when editing these posts. See "Code Fences in MDX" in §14.
 
 ---
 
@@ -913,13 +918,34 @@ After reviewing the existing blog corpus, these patterns were identified as prob
 
 > This section is specifically for AI models (Claude, Gemini, GPT-4, etc.) generating blog content for this project. Follow these instructions exactly.
 
-### WhatsApp API Development Status (Global/Nigeria)
+### API Facts: Two Separate Products
 
-- **Status:** The WhatsApp Business API is currently in active development.
-- **API Endpoints:** Because exact production endpoints are not finalised, use `/v1/messages` (e.g. `https://api.startmessaging.com/v1/messages`) in code examples and text.
-- **In-Development Mention:** In the prose, add a brief mention that the WhatsApp API endpoints are currently in active development and will be available soon.
-- **TODO Comments:** You MUST include clear `TODO` comments in all code snippets (e.g. `// TODO: Update to the final production endpoint and process once the WhatsApp API is officially released`) to ensure they are updated later.
-- **Authentication:** WhatsApp authentication uses the same header as the India SMS API: `X-API-Key: <your_key>`, **NOT** Bearer tokens (which may be referenced in older internal docs). Ensure all headers in code snippets use `X-API-Key`.
+StartMessaging has two APIs with different hosts, auth headers and keys. Never mix them in one snippet, and never copy one product's header onto the other. The docs under `src/content/docs/` are the source of truth; if a post and the docs disagree, the docs win.
+
+| | SMS OTP API (India only) | WhatsApp API (all countries) |
+|---|---|---|
+| Docs | `src/content/docs/sms/` | `src/content/docs/whatsapp/` |
+| Base URL | `https://api.startmessaging.com` | `https://waba-api.startmessaging.com/api/v1` |
+| Auth header | `X-API-Key: sm_live_...` | `Authorization: Bearer sm_live_...` |
+| Send | `POST /otp/send` with `phoneNumber` and `variables.otp` (your backend generates the code) | `POST /messages` with `to`, `type` and the matching object (e.g. `template`) |
+| Verify | `POST /otp/verify` with `requestId` (the `otpRequestId`) and `otpCode` | No verify endpoint. For WhatsApp OTP your backend generates, stores and checks the code. |
+| Status | `GET /messages/:id` | `message.*` webhooks, or `GET /messages/{id}` |
+| Duplicate protection | `idempotencyKey` in the request body | `Idempotency-Key` request header |
+| Pricing | ₹0.25 per SMS | StartMessaging plan; Meta bills each message to the customer's own WhatsApp Business Account |
+| Dashboard | `https://app.startmessaging.com` | `https://waba.startmessaging.com` |
+
+### WhatsApp API Status (All Countries)
+
+- **Status:** The WhatsApp API is live on `waba.startmessaging.com`. Do not describe it as "in development" or "coming soon", and do not add `TODO` comments about final endpoints.
+- **Endpoints and auth:** Use the values in the table above, for example `POST https://waba-api.startmessaging.com/api/v1/messages` with `Authorization: Bearer sm_live_...`. Never use `X-API-Key` or `api.startmessaging.com` for WhatsApp.
+- **Templates:** Templates are created in the dashboard and reviewed by Meta, not created through the API. Business-initiated messages outside the 24-hour customer service window must be approved templates.
+- **Webhooks:** Events are signed with HMAC-SHA256 over `X-SM-Timestamp`, a dot and the raw body, compared with the `v1=` values in `X-SM-Signature`. See `src/content/docs/whatsapp/webhooks.mdx`.
+- **Billing:** Customers connect their own WhatsApp Business Account through Meta's Embedded Signup. Meta bills message charges to that account; StartMessaging adds no per-message fee. Link to [Meta's pricing page](https://developers.facebook.com/docs/whatsapp/pricing) rather than quoting Meta rates as fixed numbers.
+- **Signup CTAs outside India:** Self-serve WhatsApp signup is currently India only (`WA_SIGNUP_COUNTRIES` in `src/lib/content-tokens.mjs`). For `br`, `mx`, `id`, `ae`, `tr` and `ng` posts, the closing CTA points to the country's contact page (e.g. `/br/contact`) or product page, not a signup link.
+
+### Code Fences in MDX
+
+Write code inside fenced blocks exactly as it should appear. Do not escape backticks or `${` inside a fence: `` `${BASE_URL}/otp/send` `` is correct, `` \`\${BASE_URL}/otp/send\` `` renders the backslashes literally and breaks the example.
 
 ### Before You Write Anything
 
@@ -928,7 +954,7 @@ After reviewing the existing blog corpus, these patterns were identified as prob
 3. **Confirm the category** — which of the six categories applies? Apply all category-specific rules.
 4. **Count your keywords** — decide on 1 primary keyword and 5–9 secondary keywords before writing.
 5. **Count the post length target** — what is the target word count for this category? Write to meet it.
-6. **Verify API Endpoints and Headers** — Always check and confirm the exact documentation (under `src/content/docs/`) before including any API endpoints, request bodies, or integration code snippets in blog posts. Never assume endpoints, and remember that WhatsApp API uses `X-API-Key` authentication.
+6. **Verify API Endpoints and Headers** — Always check and confirm the exact documentation (under `src/content/docs/`) before including any API endpoints, request bodies, or integration code snippets in blog posts. Never assume endpoints. The SMS OTP API uses `X-API-Key`; the WhatsApp API uses `Authorization: Bearer` (see the API facts table below).
 
 ### Mandatory Writing Constraints
 

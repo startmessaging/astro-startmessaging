@@ -236,13 +236,15 @@ export function buildContactPage(options: {
  * Read the FAQ out of a docs page's Markdown so the FAQPage schema always
  * matches the visible text. Expects the docs convention: a `## FAQ` heading,
  * then `**Question?**` on its own line followed by the answer, until the next
- * question or heading.
+ * question or heading. Also reads the blog convention: `**Q: Question?**` then
+ * `A: answer`, with the section ending at a heading or a `---` rule (the
+ * closing CTA after the rule is not part of the last answer).
  */
 export function faqFromMarkdown(body: string | undefined): { question: string; answer: string }[] {
   if (!body) return [];
-  const section = body.split(/^##\s+(?:FAQ|Frequently Asked Questions)\s*$/m)[1];
+  const section = body.replace(/\r/g, '').split(/^##\s+(?:FAQ|Frequently Asked Questions)\b.*$/m)[1];
   if (!section) return [];
-  const faq = section.split(/^##\s/m)[0];
+  const faq = section.split(/^(?:##\s|---\s*$)/m)[0];
   const plain = (s: string) => s
     .replace(/```[\s\S]*?```/g, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
@@ -252,8 +254,11 @@ export function faqFromMarkdown(body: string | undefined): { question: string; a
   const items: { question: string; answer: string }[] = [];
   const re = /^\*\*(.+?)\*\*\s*$([\s\S]*?)(?=^\*\*.+?\*\*\s*$|(?![\s\S]))/gm;
   for (const m of faq.matchAll(re)) {
-    const question = plain(m[1]);
-    const answer = plain(m[2]);
+    const question = plain(m[1]).replace(/^Q:\s*/, '');
+    // A blog `A:` answer is its own paragraph; anything after the blank line
+    // (often the closing CTA) is not part of it.
+    const raw = m[2].trim();
+    const answer = plain(/^A:/.test(raw) ? raw.split(/\n\s*\n/)[0] : raw).replace(/^A:\s*/, '');
     if (question && answer) items.push({ question, answer });
   }
   return items;

@@ -11,6 +11,7 @@ import RelatedPosts from '@/components/blog/RelatedPosts.astro';
 import Breadcrumbs from '@/components/blog/Breadcrumbs.astro';
 import TableOfContents from '@/components/blog/TableOfContents.astro';
 import { urlPrefix, type Country } from '@/config/countries';
+import { buildFaqPage, faqFromMarkdown } from '@/lib/jsonld';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
@@ -52,9 +53,12 @@ interface Props {
   /** countries that have a version of this post (for hreflang) */
   pageCountries: string[];
   headings?: TocEntry[];
+  /** Raw MDX body — read for the `## Frequently Asked Questions` block to build FAQPage schema. */
+  body?: string;
 }
 
-const { frontmatter, country, slug, pageCountries, headings = [] } = Astro.props;
+const { frontmatter, country, slug, pageCountries, headings = [], body } = Astro.props;
+const faqItems = faqFromMarkdown(body);
 const c = country as Country;
 const prefix = urlPrefix(c);
 const blogHref = prefix ? `${prefix}/blog` : '/blog';
@@ -143,7 +147,7 @@ const breadcrumbSchema = {
     description: frontmatter.description,
     ogImage: computedOgImage,
     ogType: 'article',
-    jsonLd: [articleSchema, breadcrumbSchema],
+    jsonLd: faqItems.length > 0 ? [articleSchema, breadcrumbSchema, buildFaqPage(faqItems)] : [articleSchema, breadcrumbSchema],
     canonical: canonicalOverride,
     keywords: frontmatter.keywords,
   }}

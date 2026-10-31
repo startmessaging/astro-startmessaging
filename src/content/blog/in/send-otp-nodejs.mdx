@@ -1,9 +1,9 @@
-﻿---
-title: "How to Send OTP in Node.js (2026 Guide)"
-description: "Step-by-step Node.js tutorial to send and verify OTP via SMS using the StartMessaging API. Includes fetch examples, error handling, and verification flow."
+---
+title: "How to Send and Verify OTP in Node.js: India Guide (2026)"
+description: "Send and verify SMS OTP in Node.js with the StartMessaging API: native fetch, Express routes, retries with idempotency keys, rate limits and no DLT at ₹0.25."
 publishedAt: "2026-01-15"
-updatedAt: "2026-10-15"
-category: tutorials
+updatedAt: "2026-10-31"
+category: "tutorials"
 country: "in"
 author: "StartMessaging Team"
 keywords:
@@ -11,458 +11,307 @@ keywords:
   - "otp sms node.js"
   - "node.js otp api"
   - "otp verification node"
-  - "startmessaging otp"
   - "sms otp india nodejs"
+  - "express otp login india"
   - "otp api integration node"
+  - "startmessaging otp"
 relatedSlugs:
   - "otp-verification-flow"
   - "idempotency-keys-otp"
+  - "otp-resend-cooldown-implementation"
+  - "otp-rate-limiting-guide"
 featured: false
 ---
 
+Arjun had two days to ship phone login for a Pune-based grocery delivery app. The Node.js backend was ready, the React Native screens were ready, and the only missing piece was the part everyone assumes is easy: sending an OTP over SMS and checking it. His first attempt took twenty minutes and worked on his own phone. His second attempt, under a load test, sent three different codes to the same number and charged the wallet for all of them. That gap between "works on my phone" and "works for 50,000 users on Jio and Airtel" is what this tutorial covers.
 
-One-time passwords (OTPs) are the most common way to verify phone
-        numbers in India. Whether you are building a login flow, a payment
-        confirmation, or an account-recovery screen, you need a reliable way to
-        send and verify OTPs via SMS.
+You will build a small Node.js service that sends an SMS OTP through the [StartMessaging OTP API](/otp-api), verifies the code the user types, and survives the failures that show up in production: network timeouts, double taps on "Resend", bots hammering your endpoint and an empty wallet. Everything uses the `fetch` built into Node 18+, so there is nothing to install except Express. Because StartMessaging sends through its own pre-registered DLT route, you also skip DLT entity registration, header approval and template approval entirely.
 
+## How SMS OTP Works with the StartMessaging API
 
-In this guide you will learn how to integrate OTP sending and
-        verification into a Node.js application using the 
-        [StartMessaging API](/features). We will use the
-        built-in `fetch` API (available in Node 18+), so there are no
-        extra dependencies to install.
+Before writing code, it helps to know which side owns which job. Arjun's first version tried to store codes in his own database and compare them himself, then also called the verify endpoint. Doing both doubled the work and introduced a race between the two checks.
 
+The StartMessaging SMS OTP API splits the work like this. Your backend generates the code (a 4–6 digit string) and asks StartMessaging to deliver it with `POST /otp/send`. StartMessaging sends the SMS over its DLT-registered route, stores the code against an `otpRequestId`, and returns that ID to you. When the user types the code, your backend calls `POST /otp/verify` with the `otpRequestId` and the code, and StartMessaging handles the comparison, expiry and attempt limits. You never need to keep the code itself after the send call returns.
 
-## Prerequisites
+### The three endpoints you need
 
+| Endpoint | Purpose | Key fields |
+|---|---|---|
+| `POST /otp/send` | Deliver an OTP by SMS | `phoneNumber` (E.164), `variables.otp`, optional `idempotencyKey` |
+| `POST /otp/verify` | Check the code the user entered | `requestId` (the `otpRequestId`), `otpCode` |
+| `GET /messages/:id` | Check delivery status | the `messageId` from the send response |
 
-- **Node.js 18 or later** — we use the native  `fetch` function. If you are on Node 16, swap  `fetch` for `node-fetch` or `axios`.
-- **A StartMessaging account** —  [sign up for free](https://app.startmessaging.com/register)  and add credit to your wallet.
-- **An API key** — generated from the  [API Keys page](https://app.startmessaging.com/api-keys)  in the dashboard.
+All three live under `https://api.startmessaging.com` and authenticate with an `X-API-Key` header. The full request and response schemas are in the [SMS & OTP API reference](/docs/sms/send-sms).
 
+### Limits to design around
 
+Two limits shape the code below. Each account can make up to 20 requests per second, which is plenty for most apps but matters if you run a bulk verification job. Each phone number can receive at most 3 OTPs every 5 minutes, which protects your users from SMS bombing but means your "Resend" button must not fire freely. A `429` response tells you that one of these limits was hit.
 
-## Get Your API Key
+## Setting Up the Node.js Project
 
-After registering, navigate to **API Keys** in the
-        StartMessaging dashboard. Click **Create API Key**, give it
-        a name (e.g. "Node Backend"), and copy the key. It starts with 
-        `sm_live_`. You will only see the full key once, so paste it
-        into your `.env` file immediately:
+Arjun's team keeps every third-party API behind a small client module, so a provider change never touches route handlers. We will do the same.
 
-      
+### Prerequisites
+
+- Node.js 18 or later (for native `fetch` and `AbortSignal.timeout`)
+- A StartMessaging account: [register here](https://app.startmessaging.com/register) and complete the one-time KYC step in onboarding
+- Wallet credit, added through Razorpay (UPI, cards or netbanking) at ₹0.25 per OTP
+- An API key from the **API Keys** page in the dashboard; it starts with `sm_live_` and is shown only once
+
+Create the project and install Express:
+
+```bash
+mkdir otp-service && cd otp-service
+npm init -y
+npm pkg set type=module
+npm install express
+```
+
+Put the API key in an environment variable rather than in code. Node 20.6+ can load a `.env` file with `node --env-file=.env`, so you do not need `dotenv` either:
+
 ```bash
 # .env
 STARTMESSAGING_API_KEY=sm_live_xxxxxxxxxxxxxxxxxxxx
 ```
 
+Never ship this key to a browser or a mobile app. Anyone holding it can spend your wallet balance, so every call goes through your server.
 
-Load the key in your application using `process.env` or a
-        library like `dotenv`:
+## Sending an OTP from Node.js
 
-      
-```typescript
-import 'dotenv/config';
+Here is the client module. It does four things that Arjun's first version did not: it generates the code with a cryptographically secure function, it times out instead of hanging, it sends an idempotency key, and it reuses the same key and code when it retries.
 
-const API_KEY = process.env.STARTMESSAGING_API_KEY;
+```javascript
+// startmessaging.js
+import { randomInt, randomUUID } from 'node:crypto';
+
 const BASE_URL = 'https://api.startmessaging.com';
-```
+const API_KEY = process.env.STARTMESSAGING_API_KEY;
 
-
-## Send an OTP
-
-To send an OTP, make a `POST` request to 
-        `/otp/send`. Two fields are required: the recipient's
-        phone number in E.164 format (e.g. `+919876543210`) and a 
-        `variables` object containing `otp`, the 4–6 digit code
-        your backend generates. StartMessaging delivers it via SMS and returns
-        an `otpRequestId` you will use later to verify.
-
-      
-```typescript
-import { randomInt } from 'crypto';
-
-// Cryptographically secure 6-digit code, generated on your server
-function generateOtp() {
-  return String(randomInt(100000, 1000000));
+export class StartMessagingError extends Error {
+  constructor(status, body) {
+    super(body?.message ?? `StartMessaging request failed with ${status}`);
+    this.status = status;
+    this.body = body;
+  }
 }
 
-async function sendOtp(phoneNumber) {
-  const response = await fetch(\`\${BASE_URL}/otp/send\`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-Key': API_KEY,
-    },
-    body: JSON.stringify({
-      phoneNumber,
-      variables: { otp: generateOtp() },
-    }),
+// A 6-digit code from a CSPRNG. Math.random() is predictable; never use it for OTPs.
+export function generateOtp() {
+  return String(randomInt(0, 1_000_000)).padStart(6, '0');
+}
+
+async function call(path, { method = 'POST', body } = {}) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
+    body: body ? JSON.stringify(body) : undefined,
+    // Without a timeout a stuck connection holds your request handler open.
+    signal: AbortSignal.timeout(10_000),
   });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to send OTP');
-  }
-
-  const { data } = await response.json();
-  // data contains: { otpRequestId, messageId, status }
-  return data;
+  const json = await res.json().catch(() => null);
+  if (!res.ok) throw new StartMessagingError(res.status, json);
+  return json.data;
 }
 
-// Usage
-const result = await sendOtp('+919876543210');
-console.log('OTP sent. OTP request ID:', result.otpRequestId);
-console.log('Message ID:', result.messageId);
-```
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+export async function sendOtp(phoneNumber, { retries = 2 } = {}) {
+  const otp = generateOtp();
+  // One key per logical send. Retries reuse it, so a retry after a timeout
+  // can never deliver a second, different code.
+  const idempotencyKey = randomUUID();
 
-The API responds with a `201` JSON envelope (`success`, 
-        `statusCode`, a top-level `requestId` trace ID, 
-        `timestamp`, and `data`). The `data` object
-        contains:
-
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Field</th>
-              <th>Type</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                `otpRequestId`
-              </td>
-              <td>string</td>
-              <td>Unique ID for this OTP request. Store this for verification.</td>
-            </tr>
-            <tr>
-              <td>
-                `messageId`
-              </td>
-              <td>string</td>
-              <td>ID of the SMS. Use it with `GET /messages/:id` to check delivery status.</td>
-            </tr>
-            <tr>
-              <td>
-                `status`
-              </td>
-              <td>string</td>
-              <td>
-                Initial message status, usually `queued`.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-Note that the top-level `requestId` in the envelope is a request
-        trace ID, not the OTP ID. Always use `data.otpRequestId` for
-        verification.
-
-## Verify the OTP
-
-Once the user receives the SMS and enters the code in your app, send it
-        to `/otp/verify` as `otpCode`, with the 
-        `otpRequestId` passed as `requestId`:
-
-      
-```typescript
-async function verifyOtp(requestId, otpCode) {
-  const response = await fetch(\`\${BASE_URL}/otp/verify\`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-Key': API_KEY,
-    },
-    body: JSON.stringify({ requestId, otpCode }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Verification failed');
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await call('/otp/send', {
+        body: { phoneNumber, variables: { otp }, idempotencyKey },
+      });
+    } catch (err) {
+      const status = err instanceof StartMessagingError ? err.status : 0;
+      // 4xx errors (bad number, no balance, rate limit) won't fix themselves.
+      const retryable = status === 0 || status >= 500;
+      if (!retryable || attempt >= retries) throw err;
+      await sleep(500 * 2 ** attempt); // 500 ms, then 1 s
+    }
   }
-
-  const { data } = await response.json();
-  // data contains: { verified: true }
-  return data;
 }
 
-// Usage
-try {
-  const result = await verifyOtp(otpRequestId, '482910');
-  if (result.verified) {
-    console.log('Phone number verified successfully!');
-  }
-} catch (err) {
-  console.error('Verification failed:', err.message);
+export function verifyOtp(otpRequestId, otpCode) {
+  return call('/otp/verify', { body: { requestId: otpRequestId, otpCode } });
+}
+
+export function getMessageStatus(messageId) {
+  return call(`/messages/${encodeURIComponent(messageId)}`, { method: 'GET' });
 }
 ```
 
+The retry loop is the part worth reading twice. Arjun's duplicate-code bug came from a helper that called `generateOtp()` inside the loop. When the first request timed out after StartMessaging had already accepted it, the retry sent a second SMS with a new code. The user typed the first code, which no longer matched what the app expected. Generating the code and the [idempotency key](/blog/idempotency-keys-otp) once, outside the loop, closes that hole.
 
-If the code is correct, `verified` will be `true`.
-        If the code is wrong or expired, the API returns an error response with a
-        descriptive message.
+A successful send returns the `data` object from a `201` response:
 
+```json
+{
+  "otpRequestId": "uuid-of-otp-request",
+  "messageId": "uuid-of-message",
+  "status": "queued"
+}
+```
 
-## Full Express.js Example
+Keep `otpRequestId` for verification and `messageId` for delivery checks. The envelope also carries a top-level `requestId`, but that is a trace ID for support tickets, not the OTP ID.
 
-Here is a complete Express application with two endpoints: one to
-        request an OTP and one to verify it. This is a minimal but
-        production-representative pattern.
+## Building the Express Login Routes
 
-      
-```typescript
-import 'dotenv/config';
+Now wire the client into two routes. The client app calls `/auth/otp/send` with a phone number and gets back an opaque ID; later it calls `/auth/otp/verify` with that ID and the code.
+
+```javascript
+// server.js
 import express from 'express';
-import { randomInt } from 'crypto';
+import { sendOtp, verifyOtp, StartMessagingError } from './startmessaging.js';
 
 const app = express();
 app.use(express.json());
 
-const API_KEY = process.env.STARTMESSAGING_API_KEY;
-const BASE_URL = 'https://api.startmessaging.com';
+// Indian mobile numbers: +91 followed by 10 digits starting with 6-9.
+const INDIAN_MOBILE = /^\+91[6-9]\d{9}$/;
 
-// POST /auth/send-otp
-app.post('/auth/send-otp', async (req, res) => {
-  const { phoneNumber } = req.body;
+// In-memory cooldown store. Use Redis when you run more than one instance.
+const lastSentAt = new Map();
+const COOLDOWN_MS = 60_000;
 
-  if (!phoneNumber) {
-    return res.status(400).json({ error: 'phoneNumber is required' });
+app.post('/auth/otp/send', async (req, res) => {
+  const phoneNumber = String(req.body.phoneNumber ?? '').replace(/[\s-]/g, '');
+  if (!INDIAN_MOBILE.test(phoneNumber)) {
+    return res.status(400).json({ error: 'INVALID_PHONE' });
+  }
+
+  const last = lastSentAt.get(phoneNumber) ?? 0;
+  const wait = COOLDOWN_MS - (Date.now() - last);
+  if (wait > 0) {
+    return res.status(429).json({ error: 'COOLDOWN', retryAfterSeconds: Math.ceil(wait / 1000) });
   }
 
   try {
-    const response = await fetch(\`\${BASE_URL}/otp/send\`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': API_KEY,
-      },
-      body: JSON.stringify({
-        phoneNumber,
-        variables: { otp: String(randomInt(100000, 1000000)) },
-      }),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      return res.status(response.status).json({
-        error: result.message || 'Failed to send OTP',
-      });
-    }
-
-    // Return the otpRequestId to the client; they will send it back to verify
-    return res.json({
-      requestId: result.data.otpRequestId,
-    });
+    const { otpRequestId } = await sendOtp(phoneNumber);
+    lastSentAt.set(phoneNumber, Date.now());
+    return res.json({ otpRequestId });
   } catch (err) {
-    console.error('OTP send error:', err);
-    return res.status(500).json({ error: 'Internal server error' });
+    if (err instanceof StartMessagingError && err.status === 429) {
+      return res.status(429).json({ error: 'TOO_MANY_REQUESTS' });
+    }
+    if (err instanceof StartMessagingError && err.status === 402) {
+      // Wallet is empty: page whoever owns billing, don't blame the user.
+      console.error('StartMessaging wallet balance too low');
+      return res.status(503).json({ error: 'OTP_UNAVAILABLE' });
+    }
+    console.error('OTP send failed', err.status ?? err.name);
+    return res.status(502).json({ error: 'OTP_SEND_FAILED' });
   }
 });
 
-// POST /auth/verify-otp
-app.post('/auth/verify-otp', async (req, res) => {
-  const { requestId, otpCode } = req.body;
-
-  if (!requestId || !otpCode) {
-    return res
-      .status(400)
-      .json({ error: 'requestId and otpCode are required' });
+app.post('/auth/otp/verify', async (req, res) => {
+  const { otpRequestId, otpCode } = req.body;
+  if (!otpRequestId || !/^\d{4,6}$/.test(String(otpCode ?? ''))) {
+    return res.status(400).json({ error: 'INVALID_INPUT' });
   }
 
   try {
-    const response = await fetch(\`\${BASE_URL}/otp/verify\`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': API_KEY,
-      },
-      body: JSON.stringify({ requestId, otpCode }),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      return res.status(response.status).json({
-        error: result.message || 'Verification failed',
-      });
-    }
-
-    // OTP verified — issue a session token, mark phone verified, etc.
+    const { verified } = await verifyOtp(otpRequestId, String(otpCode));
+    if (!verified) return res.status(401).json({ error: 'WRONG_CODE' });
+    // Phone proven. Create the session or mark the number verified here.
     return res.json({ verified: true });
   } catch (err) {
-    console.error('OTP verify error:', err);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.listen(3001, () => {
-  console.log('Server running on http://localhost:3001');
-});
-```
-
-
-## Error Handling
-
-The StartMessaging API uses standard HTTP status codes. Here are the most
-        common errors you will encounter and how to handle them:
-
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Meaning</th>
-              <th>How to Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>400</td>
-              <td>Bad request (invalid phone number, missing fields)</td>
-              <td>Show validation error to the user. Do not retry.</td>
-            </tr>
-            <tr>
-              <td>401</td>
-              <td>Invalid or missing API key</td>
-              <td>
-                Check your `X-API-Key` header. Ensure the key is
-                active.
-              </td>
-            </tr>
-            <tr>
-              <td>402</td>
-              <td>Insufficient wallet balance</td>
-              <td>
-                Top up your 
-                [wallet](https://app.startmessaging.com/wallet).
-                Alert your ops team.
-              </td>
-            </tr>
-            <tr>
-              <td>409</td>
-              <td>Duplicate idempotency key</td>
-              <td>
-                The same request was already processed. Use the original response.
-              </td>
-            </tr>
-            <tr>
-              <td>429</td>
-              <td>Rate limited</td>
-              <td>Back off and retry after the time indicated in the response.</td>
-            </tr>
-            <tr>
-              <td>500+</td>
-              <td>Server error</td>
-              <td>Retry with exponential backoff (max 3 retries).</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-A robust helper function that handles retries for transient errors:
-
-      
-```typescript
-async function sendOtpWithRetry(phoneNumber, maxRetries = 3) {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      const response = await fetch(\`\${BASE_URL}/otp/send\`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': API_KEY,
-        },
-        body: JSON.stringify({ phoneNumber, variables: { otp: generateOtp() } }),
-      });
-
-      // Do not retry client errors (4xx) — they won't succeed on retry
-      if (response.status >= 400 && response.status < 500) {
-        const error = await response.json();
-        throw new Error(error.message || \`Client error: \${response.status}\`);
-      }
-
-      if (!response.ok) {
-        throw new Error(\`Server error: \${response.status}\`);
-      }
-
-      const { data } = await response.json();
-      return data;
-    } catch (err) {
-      if (attempt === maxRetries) throw err;
-
-      // Exponential backoff: 1s, 2s, 4s
-      const delay = Math.pow(2, attempt - 1) * 1000;
-      console.warn(\`Attempt \${attempt} failed, retrying in \${delay}ms...\`);
-      await new Promise((r) => setTimeout(r, delay));
+    if (err instanceof StartMessagingError && err.status < 500) {
+      // Wrong, expired or over-attempted codes come back as 4xx.
+      return res.status(401).json({ error: 'WRONG_OR_EXPIRED_CODE' });
     }
+    return res.status(502).json({ error: 'OTP_VERIFY_FAILED' });
   }
-}
+});
+
+app.listen(3000, () => console.log('OTP service on http://localhost:3000'));
 ```
 
+Start it with `node --env-file=.env server.js`. Notice what the routes never do: they never log the OTP, never return it to the client, and never store it. Logs end up in third-party tools, and an OTP sitting in a log line is a working credential for the next few minutes.
 
-## Using Idempotency Keys
+### Why a cooldown on your side as well
 
-Network failures can cause your send request to be delivered twice. To
-        prevent the user from receiving duplicate OTPs, include an 
-        `idempotencyKey` in your request body. If StartMessaging
-        receives the same key again, it returns the original response instead of
-        sending a new SMS.
+StartMessaging already caps each number at 3 OTPs per 5 minutes. Your own 60-second cooldown exists for a different reason: it gives the user a clear "Resend in 42s" message instead of a generic error after their third tap, and it stops one impatient user from burning through the per-number allowance. Our guide to [OTP resend cooldowns](/blog/otp-resend-cooldown-implementation) covers the Redis version for multi-instance deployments.
 
-      
-```typescript
-import { randomUUID } from 'crypto';
+## Error Handling and Production Hardening
 
-async function sendOtpIdempotent(phoneNumber) {
-  const idempotencyKey = randomUUID();
+Arjun's load test exposed every failure mode in one afternoon. Here is how each HTTP status maps to an action:
 
-  const response = await fetch(\`\${BASE_URL}/otp/send\`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-Key': API_KEY,
-    },
-    body: JSON.stringify({
-      phoneNumber,
-      variables: { otp: generateOtp() },
-      idempotencyKey,
-    }),
-  });
+| Status | Meaning | What your code should do |
+|---|---|---|
+| `400` | Invalid phone number or missing fields | Show a validation error. Do not retry. |
+| `401` | Missing or invalid API key | Check `X-API-Key` and that the key is active. Alert on-call. |
+| `402` | Insufficient wallet balance | Top up the wallet and alert whoever owns billing. |
+| `409` | Idempotency key conflict | The request was already processed. Do not send another code. |
+| `429` | Rate limit (account or per number) | Back off; show the user a wait message. |
+| `5xx` / timeout | Server or network failure | Retry with the same idempotency key and code. |
 
-  const { data } = await response.json();
-  return data; // { otpRequestId, messageId, status }
-}
+### Protecting the endpoint from bots
+
+The per-number cooldown does nothing against a bot that rotates through thousands of numbers. That pattern, known as SMS pumping, turns your OTP endpoint into a way to drain your wallet. Add an IP-based limit with a package such as `express-rate-limit`, put a CAPTCHA or Cloudflare Turnstile check in front of the send route for anonymous users, and alert when OTP volume per hour jumps well above normal. The [OTP rate limiting guide](/blog/otp-rate-limiting-guide) has concrete thresholds.
+
+### Checking delivery when a user says "I never got it"
+
+Support tickets that say "no OTP" are common in India: a phone in a basement, a full inbox on an older handset, a DND confusion. Before you guess, look up the message:
+
+```javascript
+import { getMessageStatus } from './startmessaging.js';
+
+const status = await getMessageStatus(messageId);
+// status.status is one of: initiated, queued, sent, delivered, failed
+console.log(status.status, status.deliveredAt, status.error);
 ```
 
+`delivered` means the handset received it, so the problem is on the user's side. `failed` with an error tells you to fix the number or try again later. Store the `messageId` next to the login attempt so support can run this check without asking engineering.
 
-Read our detailed guide on 
-        [idempotency keys in OTP APIs](/blog/idempotency-keys-otp) 
-        to understand all the edge cases.
+### Data protection
 
+Phone numbers are personal data under the Digital Personal Data Protection Act, 2023. Tell users why you are collecting the number, keep it out of debug logs, and delete login attempts you no longer need. The OTP code itself never needs to be stored on your side at all, which is one of the advantages of letting the API handle verification.
 
-## Best Practices
+## Testing the Integration
 
+Test the happy path with your own phone first, using `curl` against the local server:
 
-- **Never log OTP codes.** StartMessaging hashes OTPs with bcrypt on our side. Do not log them on yours either.
-- **Store the `otpRequestId`, not the code.** Your database should only hold the OTP request ID. Verification happens server-side via the API.
-- **Validate phone numbers before calling the API.** Use a library like `libphonenumber-js` to ensure the number is a valid Indian mobile number before spending wallet credit.
-- **Set appropriate timeouts.** Use  `AbortController` to set a 10-second timeout on fetch calls so your server does not hang.
-- **Use idempotency keys.** Always include an idempotency key for send requests to protect against network retries and duplicate charges.
-- **Monitor your wallet balance.** Set up an alert when your balance drops below a threshold so you never fail to deliver OTPs in production.
-- **Keep your API key secret.** Never expose it in frontend code or commit it to version control. Use environment variables.
+```bash
+curl -X POST http://localhost:3000/auth/otp/send \
+  -H "Content-Type: application/json" \
+  -d '{"phoneNumber": "+919876543210"}'
 
+curl -X POST http://localhost:3000/auth/otp/verify \
+  -H "Content-Type: application/json" \
+  -d '{"otpRequestId": "uuid-from-previous-call", "otpCode": "123456"}'
+```
 
+Then test the failures on purpose: send to a malformed number, verify with a wrong code, call send twice within a minute, and temporarily set a wrong API key to confirm your `401` alert fires. For automated tests, mock `fetch` so CI never sends real SMS; the guide on [testing OTP locally without SMS cost](/blog/test-otp-locally-without-sms-cost) shows how.
 
-## FAQ
+At ₹0.25 per OTP with no monthly fee, a startup sending 1 lakh OTPs a month spends ₹25,000. The real cost risk is not the price per SMS but uncontrolled sends, which is why the cooldown, the idempotency key and the bot checks above matter more than any discount.
 
+## Frequently Asked Questions
 
-Ready to start? [Check our pricing](/pricing) at Rs
-        0.25 per OTP with no monthly fees, or jump straight to the 
-        [OTP API documentation](/otp-api).
+**Q: Do I need DLT registration to send OTP from Node.js in India?**
 
+A: Not with StartMessaging. OTPs go out over StartMessaging's own DLT-registered route, so you skip entity registration, sender ID approval and template approval. If you already have your own DLT setup, you can pass a `templateId` to use the DLT route instead; see [DLT-free OTP](/dlt-free-otp) for the difference.
+
+**Q: Which Node.js version do I need for this OTP code?**
+
+A: Node 18 or later, for the built-in `fetch` and `AbortSignal.timeout`. Loading the `.env` file with `--env-file` needs Node 20.6 or later; on older versions, use the `dotenv` package.
+
+**Q: Should I store the OTP in my database or Redis?**
+
+A: No. Your backend generates the code and passes it to `POST /otp/send`, and StartMessaging verifies it when you call `POST /otp/verify`. Store only the `otpRequestId` and `messageId`. If you build your own verification instead, store a hash, never the plain code.
+
+**Q: Why does my user receive two different OTPs?**
+
+A: Almost always a retry that generated a new code. Generate the code and the `idempotencyKey` once, then reuse both on every retry of the same send, as the `sendOtp` function above does.
+
+**Q: How many OTPs can I send to one number?**
+
+A: StartMessaging allows 3 OTPs per number every 5 minutes, and 20 requests per second per account. Hitting either limit returns `429`.
+
+---
+
+Arjun's login shipped on the second day, after he moved code generation outside the retry loop and added the cooldown. The next load test sent one code per tap, no duplicates, and his wallet balance matched the number of real users who signed up. If you are building the same flow, [create a StartMessaging account](https://app.startmessaging.com/register), check [OTP pricing](/pricing), and you can send your first OTP from Node.js in a few minutes.
