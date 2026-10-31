@@ -1,0 +1,176 @@
+---
+title: "WhatsApp Blast Resmi vs Tidak Resmi: Broadcast Tanpa Diblokir"
+description: "Perbedaan WhatsApp blast resmi lewat API dan aplikasi blast tidak resmi: risiko blokir, batas pengiriman, template, biaya dan cara broadcast massal yang aman."
+publishedAt: "2026-10-31"
+category: "guides"
+country: "id"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp blast resmi"
+  - "whatsapp blast api"
+  - "whatsapp blast adalah"
+  - "broadcast whatsapp massal"
+  - "api whatsapp gateway"
+  - "nomor whatsapp diblokir karena blast"
+  - "batas broadcast whatsapp business"
+relatedSlugs:
+  - "harga-whatsapp-business-api-resmi-2026"
+  - "cara-mengatur-whatsapp-business-api-indonesia"
+  - "uu-pdp-whatsapp-business-api-kepatuhan-indonesia"
+  - "whatsapp-ecommerce-indonesia-pesanan-pengiriman"
+featured: false
+image: "/blog/images/whatsapp-business-api-messaging-limits-india.webp"
+---
+
+Rina menjalankan bimbingan belajar online di Surabaya dengan 12.000 nomor orang tua siswa di database. Untuk promo pendaftaran semester baru, timnya membeli aplikasi "WhatsApp blast unlimited" seharga Rp300 ribu per bulan, lengkap dengan fitur ganti nomor otomatis. Hari pertama, 4.000 pesan terkirim. Hari kedua, nomor utama bimbel diblokir. Nomor itu juga dipakai admin untuk menjawab pertanyaan orang tua, jadi seluruh riwayat chat ikut hilang tepat di minggu pendaftaran paling sibuk.
+
+Kisah seperti ini sangat umum di Indonesia, karena "WhatsApp blast" adalah salah satu kata kunci bisnis paling banyak dicari, dan hasil pencariannya didominasi aplikasi tidak resmi. Panduan ini menjelaskan perbedaan blast resmi lewat WhatsApp Business API dan blast tidak resmi, kenapa nomor diblokir, berapa batas pengiriman resmi, dan bagaimana mengirim broadcast massal ke ribuan pelanggan tanpa kehilangan nomor.
+
+## Apa Itu WhatsApp Blast
+
+"WhatsApp blast" adalah istilah sehari-hari untuk mengirim pesan yang sama ke banyak orang sekaligus. Ada tiga cara melakukannya, dan hanya dua yang resmi:
+
+| Cara | Resmi? | Cocok untuk |
+|---|---|---|
+| Daftar siaran (broadcast list) di aplikasi WhatsApp Business | Ya | Usaha kecil dengan pelanggan yang sudah menyimpan nomor |
+| WhatsApp Business API lewat penyedia resmi | Ya | Bisnis yang mengirim ke ribuan pelanggan secara rutin |
+| Aplikasi blast, ekstensi browser atau "gateway" yang mengotomatiskan WhatsApp biasa | Tidak | Tidak disarankan untuk bisnis apa pun |
+
+### Daftar siaran di aplikasi WhatsApp Business
+
+Aplikasi WhatsApp Business gratis dan punya fitur daftar siaran. Batasnya ketat: maksimal **256 kontak per daftar**, dan pesan hanya sampai ke orang yang **sudah menyimpan nomor Anda**. Yang belum menyimpan tidak menerima apa pun, dan Anda tidak mendapat pemberitahuan. Untuk 12.000 orang tua seperti database Rina, itu berarti puluhan daftar yang dikirim manual satu per satu, dan sebagian besar pesan tidak akan sampai.
+
+## Kenapa Aplikasi Blast Tidak Resmi Membuat Nomor Diblokir
+
+Aplikasi blast tidak resmi bekerja dengan mengendalikan aplikasi WhatsApp atau WhatsApp Web secara otomatis, seolah-olah ada orang yang mengetik sangat cepat. Ketentuan Layanan WhatsApp melarang pengiriman otomatis dan massal lewat aplikasi biasa, dan sistem WhatsApp mendeteksi pola seperti ini.
+
+Tanda-tandanya mudah dikenali: ratusan pesan identik dalam waktu singkat, ke nomor yang tidak pernah chat dengan Anda, dan banyak penerima yang melaporkan atau memblokir. Hasilnya bisa pemblokiran sementara, lalu permanen. Fitur "rotasi nomor" yang ditawarkan aplikasi blast sebenarnya pengakuan bahwa nomor-nomor itu memang akan diblokir.
+
+### Biaya sebenarnya dari blast tidak resmi
+
+Harga langganan aplikasi blast terlihat murah karena tidak membayar Meta sama sekali. Biaya sebenarnya muncul belakangan:
+
+- **Nomor hilang** beserta seluruh riwayat chat pelanggan.
+- **Kepercayaan pelanggan turun**, karena nomor bisnis berganti-ganti dan pesan terlihat seperti spam.
+- **Risiko hukum**, karena UU PDP mewajibkan dasar yang sah, seperti persetujuan, untuk memproses data pribadi termasuk nomor telepon untuk pemasaran.
+- **Tidak ada data**: Anda tidak tahu siapa yang menerima, membaca atau mengklik.
+
+Rina menghitung ulang setelah kejadian itu. Langganan Rp300 ribu ditambah satu nomor utama yang hilang di minggu pendaftaran ternyata jauh lebih mahal daripada tarif resmi Meta.
+
+## Cara Kerja WhatsApp Blast Resmi Lewat API
+
+WhatsApp Business API, yang oleh Meta disebut WhatsApp Business Platform, adalah jalur resmi untuk mengirim pesan massal. Aturannya berbeda dari aplikasi biasa, dan aturan itulah yang membuat nomor Anda aman.
+
+### Template yang disetujui Meta
+
+Pesan pertama ke pelanggan, atau pesan ke pelanggan yang belum chat dalam 24 jam terakhir, harus memakai **template** yang sudah disetujui Meta. Template bisa berisi variabel, seperti nama siswa atau tanggal jadwal, sehingga setiap pesan terasa personal. Meta meninjau setiap template dan menetapkan kategorinya: marketing, utility atau authentication.
+
+### Persetujuan (opt-in)
+
+Penerima harus sudah setuju menerima pesan dari bisnis Anda di WhatsApp. Persetujuan bisa dikumpulkan lewat formulir pendaftaran, checkout, atau chat pertama pelanggan. Pelanggan juga bisa berhenti kapan saja; pesan marketing ke nomor yang sudah menolak tidak akan terkirim.
+
+### Batas pengiriman resmi (messaging limit)
+
+API tidak membatasi jumlah pesan, tetapi membatasi jumlah **pelanggan unik** yang bisa Anda hubungi duluan dalam **24 jam bergulir**. Batas ini berlaku untuk seluruh portofolio bisnis, dan dipakai bersama oleh semua nomor di dalamnya:
+
+| Tingkat | Pelanggan unik per 24 jam |
+|---|---|
+| Awal | 250 |
+| Tingkat 1 | 2.000 |
+| Tingkat 2 | 10.000 |
+| Tingkat 3 | 100.000 |
+| Tanpa batas | Tidak terbatas |
+
+Untuk naik dari 250 ke 2.000, cara tercepat adalah menyelesaikan Verifikasi Bisnis di Meta Business Manager, misalnya dengan dokumen NIB atau akta pendirian. Setelah itu, Meta menaikkan batas secara otomatis selama kualitas pesan Anda baik dan Anda memakai setidaknya separuh batas dalam 7 hari terakhir. Aturan lengkapnya ada di [dokumentasi messaging limits Meta](https://developers.facebook.com/documentation/business-messaging/whatsapp/messaging-limits).
+
+### Rating kualitas
+
+Meta menilai reaksi pelanggan terhadap pesan Anda: tinggi, sedang atau rendah. Blokir dan laporan dari penerima menurunkan rating. Nomor dengan rating rendah tidak bisa naik tingkat, dan Meta bisa menjeda template yang kualitasnya buruk. Inilah yang membuat blast resmi aman: sistemnya memberi peringatan dan menahan laju sebelum nomor bermasalah, alih-alih langsung memblokir seperti pada aplikasi tidak resmi.
+
+## Perbandingan: Blast Resmi vs Tidak Resmi
+
+| | Blast resmi (API) | Blast tidak resmi |
+|---|---|---|
+| Status | Disetujui Meta | Melanggar ketentuan WhatsApp |
+| Risiko nomor diblokir | Rendah jika ada opt-in dan kualitas baik | Tinggi, sering permanen |
+| Batas | Pelanggan unik per 24 jam, naik bertahap sampai tanpa batas | "Unlimited" sampai nomor diblokir |
+| Penerima harus simpan nomor | Tidak | Tergantung metode |
+| Laporan terkirim dan dibaca | Per penerima | Tidak ada atau tidak akurat |
+| Biaya | Tarif Meta per pesan plus paket penyedia | Langganan murah plus risiko kehilangan nomor |
+| Lencana terverifikasi | Bisa diajukan | Tidak mungkin |
+
+Rincian tarif resmi Meta ada di panduan [harga WhatsApp Business API resmi](/id/blog/harga-whatsapp-business-api-resmi-2026).
+
+### Hati-hati dengan istilah "WhatsApp gateway"
+
+Banyak penjual di Indonesia memakai istilah "API WhatsApp gateway" untuk produk yang sebenarnya tidak resmi. Mereka menyediakan endpoint API, tetapi di baliknya tetap ada aplikasi WhatsApp biasa yang dikendalikan lewat pemindaian kode QR di WhatsApp Web. Dari sisi teknis terlihat seperti API, dari sisi aturan tetap pelanggaran, dan nomor Anda menanggung risikonya.
+
+Ada tiga cara sederhana untuk membedakannya. Pertama, penyedia resmi menghubungkan nomor Anda lewat proses pendaftaran Meta (Embedded Signup) dengan akun Facebook dan portofolio bisnis, bukan dengan memindai kode QR. Kedua, pesan pertama ke pelanggan selalu memakai template yang disetujui Meta; jika Anda bisa mengirim teks bebas ke ribuan nomor baru, itu bukan jalur resmi. Ketiga, tagihan pesan datang dari Meta ke Akun WhatsApp Business milik Anda, atau setidaknya penyedia bisa menunjukkan tarif Meta secara terpisah. Jika ketiganya tidak terpenuhi, anggap saja itu blast tidak resmi dengan nama yang berbeda.
+
+### Memindahkan nomor yang sudah ada ke API
+
+Nomor bisnis yang selama ini dipakai di aplikasi WhatsApp Business bisa dipindahkan ke API, sehingga pelanggan tetap menghubungi nomor yang sama. Sebelum pindah, cadangkan chat penting, karena nomor yang terdaftar di API pada umumnya tidak lagi dipakai di aplikasi. Tanyakan juga ke penyedia apakah mereka mendukung opsi coexistence dari Meta, yang memungkinkan sebagian bisnis tetap memakai aplikasi dan API di nomor yang sama.
+
+## Cara Mengirim Broadcast Massal yang Aman
+
+Berikut urutan yang akhirnya dipakai tim Rina untuk semester berikutnya.
+
+1. **Bersihkan database.** Kirim hanya ke orang tua yang pernah mendaftar atau memberi persetujuan. Hapus nomor dari daftar beli atau hasil scraping.
+2. **Verifikasi bisnis.** Selesaikan Verifikasi Bisnis sebelum kampanye besar, supaya batas naik dari 250 ke 2.000.
+3. **Buat template yang relevan.** Sebut nama siswa dan program yang diikuti; pesan generik lebih sering diblokir.
+4. **Kirim bertahap.** Mulai dari pelanggan paling aktif, lalu perluas. Pemakaian rutin membantu batas naik.
+5. **Beri jalan keluar.** Sertakan cara berhenti berlangganan, seperti tombol "Berhenti promo".
+6. **Pantau rating kualitas** dan hentikan kampanye jika rating turun.
+
+Di StartMessaging, [kampanye WhatsApp](/id/whatsapp/campaigns) menjalankan pemeriksaan sebelum peluncuran yang menunjukkan berapa pelanggan bisa menerima kampanye hari ini sesuai batas Anda, mencoba ulang penerima yang diminta Meta untuk ditunda, dan mematuhi jam tenang supaya promo tidak sampai tengah malam. Untuk mengirim dari sistem Anda sendiri, API menerima satu pesan per penerima:
+
+```javascript
+// Kirim satu template ke satu orang tua yang sudah opt-in.
+const res = await fetch('https://waba-api.startmessaging.com/api/v1/messages', {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${process.env.SM_API_KEY}`,
+    'Content-Type': 'application/json',
+    // Kunci yang sama saat retry memastikan pesan tidak terkirim dua kali.
+    'Idempotency-Key': `promo-semester-${parent.id}`,
+  },
+  body: JSON.stringify({
+    to: parent.phone, // format E.164, contoh +6281234567890
+    type: 'template',
+    template: {
+      name: 'promo_semester_baru',
+      language: 'id',
+      parameters: [{ text: parent.studentName }],
+    },
+  }),
+});
+// 429 PHONE_DAILY_LIMIT_REACHED berarti batas harian WhatsApp tercapai: lanjutkan besok.
+```
+
+Daftar kode error dan cara menanganinya ada di [Errors & Limits](/id/docs/whatsapp/errors-and-limits).
+
+## Pertanyaan yang Sering Diajukan
+
+**Q: Apa itu WhatsApp blast resmi?**
+
+A: WhatsApp blast resmi adalah pengiriman pesan massal lewat WhatsApp Business API, memakai template yang disetujui Meta dan hanya ke pelanggan yang sudah memberi persetujuan. Jalur ini sesuai ketentuan WhatsApp, sehingga nomor tidak berisiko diblokir karena metode pengirimannya.
+
+**Q: Kenapa nomor WhatsApp diblokir setelah blast?**
+
+A: Aplikasi blast tidak resmi mengotomatiskan WhatsApp biasa, yang dilarang oleh ketentuan WhatsApp. Pola ratusan pesan identik ke nomor yang tidak pernah chat dengan Anda, ditambah laporan dari penerima, membuat nomor diblokir, sering secara permanen.
+
+**Q: Berapa batas broadcast WhatsApp Business API per hari?**
+
+A: Bisnis baru mulai dari 250 pelanggan unik per 24 jam bergulir, lalu naik ke 2.000, 10.000, 100.000 dan tanpa batas. Verifikasi Bisnis mempercepat kenaikan pertama, dan kualitas pesan menentukan kenaikan berikutnya.
+
+**Q: Apakah WhatsApp blast resmi berbayar?**
+
+A: Ya. Meta menagih setiap template yang terkirim sesuai kategorinya, biasanya marketing untuk promo. Penyedia juga menagih paket perangkat lunak; di StartMessaging hanya langganan, tanpa biaya per pesan.
+
+**Q: Apakah penerima harus menyimpan nomor bisnis saya?**
+
+A: Tidak, untuk blast lewat API. Penerima hanya perlu sudah memberi persetujuan. Syarat menyimpan nomor hanya berlaku untuk daftar siaran di aplikasi WhatsApp Business.
+
+---
+
+Semester berikutnya, Rina mengirim promo pendaftaran ke 9.000 orang tua yang memang pernah mendaftar, bertahap selama lima hari setelah verifikasi bisnisnya selesai. Tidak ada nomor yang diblokir, admin tetap menjawab pertanyaan dari nomor yang sama, dan untuk pertama kalinya ia tahu persis berapa orang tua yang membaca dan mengklik. Jika bisnis Anda siap beralih ke blast resmi, lihat [paket StartMessaging](/id/pricing), baca panduan [memulai](/id/docs/whatsapp/getting-started) atau [hubungi tim penjualan kami](/id/contact).

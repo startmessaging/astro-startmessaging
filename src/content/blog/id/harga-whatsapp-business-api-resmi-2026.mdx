@@ -1,0 +1,149 @@
+---
+title: "Harga WhatsApp Business API Resmi 2026: Biaya per Pesan"
+description: "Harga WhatsApp Business API resmi di Indonesia 2026: tarif per pesan Meta, kategori, biaya balasan sejak Oktober, tagihan Rupiah dan cara menghemat biaya."
+publishedAt: "2026-10-31"
+category: "business"
+country: "id"
+author: "StartMessaging Team"
+keywords:
+  - "harga whatsapp business api"
+  - "harga whatsapp business api resmi"
+  - "biaya whatsapp business api"
+  - "api whatsapp murah"
+  - "broadcast whatsapp business berbayar"
+  - "tarif pesan whatsapp marketing indonesia"
+  - "harga whatsapp business api meta"
+relatedSlugs:
+  - "whatsapp-blast-resmi-vs-tidak-resmi"
+  - "cara-mengatur-whatsapp-business-api-indonesia"
+  - "whatsapp-ecommerce-indonesia-pesanan-pengiriman"
+  - "uu-pdp-whatsapp-business-api-kepatuhan-indonesia"
+featured: false
+image: "/blog/images/whatsapp-business-api-pricing-india-2026.webp"
+---
+
+Dimas mengelola toko fesyen muslim di Bandung yang berjualan lewat Tokopedia, Shopee dan WhatsApp. Selama ini ia mengirim promo lewat aplikasi "WhatsApp blast" murah berbayar bulanan, sampai dua nomor tokonya diblokir dalam satu bulan menjelang Ramadan. Ia memutuskan pindah ke API resmi dan meminta penawaran dari tiga vendor. Hasilnya membingungkan: satu menawarkan "Rp350 per pesan", satu lagi paket bulanan "pesan tanpa batas", dan yang ketiga biaya setup Rp5 juta ditambah deposit kredit. Tidak ada yang menjelaskan berapa yang dibayar ke Meta dan berapa yang masuk ke kantong vendor.
+
+Artikel ini menjawab pertanyaan Dimas: berapa sebenarnya harga WhatsApp Business API resmi di Indonesia pada 2026. Jawabannya selalu terdiri dari dua bagian yang harus dipisahkan: tarif Meta per pesan, dan biaya perangkat lunak dari penyedia. Kami juga membahas perubahan Oktober 2026, tagihan dalam Rupiah dan cara memperkirakan biaya bulanan sebelum tagihan datang.
+
+## Apakah WhatsApp Business API Berbayar?
+
+Ya. Aplikasi WhatsApp Business gratis, tetapi API resmi, yang oleh Meta disebut WhatsApp Business Platform, berbayar. Meta tidak memungut biaya langganan; Meta menagih **per pesan yang terkirim (delivered)**, berdasarkan **kategori** pesan dan **negara penerima**.
+
+Sejak Juli 2025, Meta tidak lagi menagih per "percakapan 24 jam". Banyak artikel dan penawaran di Indonesia masih memakai istilah "biaya per conversation"; itu model lama dan tidak bisa dipakai untuk menghitung anggaran sekarang.
+
+### Empat kategori pesan
+
+| Kategori | Kegunaan | Contoh |
+|---|---|---|
+| Marketing | Promo, penawaran, produk baru, pengingat keranjang | "Diskon Ramadan 30% untuk gamis favorit Anda" |
+| Utility | Pembaruan atas sesuatu yang sudah dipesan pelanggan | "Pesanan #1042 sudah dikirim via J&T Express" |
+| Authentication | Kode verifikasi sekali pakai | "123456 adalah kode verifikasi Anda" |
+| Service | Balasan bebas dalam jendela 24 jam yang dibuka pelanggan | Menjawab pertanyaan soal ukuran |
+
+Kategori ditentukan oleh isi template, dan Meta meninjaunya saat persetujuan. "Pengingat" yang berisi kode voucher tetap dihitung marketing, walaupun Anda membuatnya sebagai utility.
+
+## Berapa Tarif Meta per Pesan di Indonesia
+
+Meta menerbitkan tabel harga per negara dan per mata uang di [halaman harga resmi WhatsApp](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing), dan hanya mengubah tarif pada hari pertama setiap kuartal. Rupiah (IDR) sudah tersedia sebagai mata uang tagihan.
+
+Sebagai gambaran, tabel yang dipublikasikan beberapa penyedia pada 2026 menunjukkan tarif kira-kira berikut untuk penerima di Indonesia, belum termasuk PPN 11%:
+
+| Kategori | Perkiraan per pesan terkirim |
+|---|---|
+| Marketing | sekitar Rp586 |
+| Utility | sekitar Rp357 |
+| Authentication | sekitar Rp357 |
+
+Angka-angka ini berasal dari penyedia, bukan langsung dari Meta, dan tanggal berlakunya berbeda antar sumber. Gunakan tabel resmi Meta untuk anggaran. Yang tetap sama: pesan marketing selalu lebih mahal daripada utility.
+
+### Yang berubah pada 1 Oktober 2026
+
+Sejak 1 Oktober 2026, Meta kembali menagih per pesan untuk dua jenis pesan yang sebelumnya gratis:
+
+- **Pesan service**, yaitu balasan bebas dalam jendela 24 jam, yang gratis sejak November 2024.
+- **Template utility yang dikirim di dalam jendela layanan yang sedang terbuka.**
+
+Setiap nomor bisnis mendapat **kuota gratis 1.000 pesan service terkirim per bulan**. Sisa kuota tidak terbawa ke bulan berikutnya, dan pesan service tidak mendapat diskon volume. Untuk toko seperti milik Dimas yang menjawab ratusan pertanyaan per hari, ini berarti layanan pelanggan lewat WhatsApp tidak lagi sepenuhnya gratis.
+
+### Diskon volume
+
+Meta memberi diskon bertingkat berdasarkan volume bulanan hanya untuk pesan **utility dan authentication**. Marketing tidak mendapat diskon volume. Karena itu, kirim sebagai utility semua yang memang utility: konfirmasi pesanan, pembayaran QRIS atau virtual account diterima, nomor resi dan status pengiriman.
+
+## Biaya dari Penyedia: Yang Sering Disembunyikan
+
+Tarif Meta sama untuk semua orang. Yang berbeda antar penyedia adalah biaya yang mereka tambahkan:
+
+| Model biaya | Cara kerja | Yang perlu diperiksa |
+|---|---|---|
+| Markup per pesan | Penyedia menjual ulang pesan Meta dengan harga lebih tinggi | Mahal di volume besar dan menyembunyikan tarif asli Meta |
+| Deposit kredit | Anda membeli saldo di muka | Apakah saldo bisa hangus dan bagaimana konversinya |
+| Biaya setup | Bayar sekali untuk "mengaktifkan" API | Pendaftaran ke Meta gratis dan cepat lewat Embedded Signup |
+| Langganan tetap | Bayar perangkat lunak; Meta menagih akun Anda langsung | Fitur yang termasuk: inbox bersama, chatbot, kampanye |
+
+StartMessaging memakai model terakhir. Anda menghubungkan Akun WhatsApp Business **milik Anda sendiri** lewat Embedded Signup Meta, Meta menagih pesan langsung ke metode pembayaran akun tersebut, dan StartMessaging hanya menagih langganan paket, tanpa biaya per pesan. Paket ada di [halaman harga](/id/pricing).
+
+Pertanyaan yang membuka mata Dimas sederhana: "Tolong pisahkan tarif Meta dan biaya Anda." Hanya satu dari tiga vendor yang bisa menjawab dalam satu baris.
+
+### Kenapa "WhatsApp blast" murah bukan perbandingan yang adil
+
+Aplikasi blast tidak resmi terlihat jauh lebih murah karena tidak membayar Meta sama sekali. Mereka mengotomatiskan aplikasi WhatsApp biasa, yang melanggar ketentuan WhatsApp, dan nomor yang dipakai berisiko diblokir permanen. Biaya sebenarnya adalah nomor yang hilang beserta semua riwayat chat pelanggan. Panduan [WhatsApp blast resmi vs tidak resmi](/id/blog/whatsapp-blast-resmi-vs-tidak-resmi) membahas perbedaannya secara lengkap.
+
+## Cara Memperkirakan Tagihan Bulanan
+
+Kalikan volume setiap kategori dengan tarif Meta, lalu tambahkan paket perangkat lunak. Contoh dengan volume toko Dimas:
+
+| Pesan | Volume per bulan | Kategori |
+|---|---|---|
+| Konfirmasi pesanan dan pembayaran diterima | 3.000 | Utility |
+| Nomor resi dan status pengiriman | 3.000 | Utility |
+| Pengingat keranjang dengan voucher | 1.000 | Marketing |
+| Promo dua mingguan untuk pelanggan aktif | 4.000 | Marketing |
+| Balasan layanan pelanggan | 6.000 | Service (1.000 gratis) |
+
+Dengan tarif perkiraan di atas:
+
+```
+Utility:   6.000 × Rp357 ≈ Rp2.142.000
+Marketing: 5.000 × Rp586 ≈ Rp2.930.000
+Service:   5.000 × tarif service Meta (6.000 dikurangi 1.000 gratis)
++ PPN 11% atas tagihan Meta, + paket perangkat lunak
+```
+
+Marketing yang volumenya lebih kecil daripada utility justru menyumbang porsi terbesar. Dua cara paling efektif untuk menekan biaya: kirim marketing hanya ke pelanggan yang berpeluang membeli, dan jaga template utility tetap murni informasi.
+
+### Lima cara menghemat
+
+1. **Segmentasikan marketing.** Kirim promo ke pembeli atau pengklik dalam 90 hari terakhir, bukan ke seluruh database.
+2. **Pisahkan utility dan marketing.** Notifikasi resi tidak perlu berisi voucher.
+3. **Selesaikan dalam satu balasan.** Setiap pesan service setelah 1.000 gratis dikenai biaya; tombol dan menu mengurangi bolak-balik chat.
+4. **Gunakan iklan klik ke WhatsApp.** Percakapan dari [iklan yang membuka chat WhatsApp](/id/whatsapp/click-to-whatsapp-ads) membuka jendela masuk gratis.
+5. **Audit kategori yang ditagih.** Setiap pesan yang dikirim lewat API mencatat kategori yang dipakai Meta untuk menagih.
+
+Pengiriman ke daftar tanpa persetujuan juga mahal dengan cara lain: blokir dari pelanggan menurunkan kualitas nomor dan batas pengiriman. UU PDP juga mewajibkan dasar pemrosesan yang sah, termasuk persetujuan, untuk pesan pemasaran; panduan [UU PDP dan WhatsApp Business API](/id/blog/uu-pdp-whatsapp-business-api-kepatuhan-indonesia) membahasnya.
+
+## Pertanyaan yang Sering Diajukan
+
+**Q: Berapa harga WhatsApp Business API resmi di Indonesia?**
+
+A: Meta menagih per pesan terkirim sesuai kategori. Tabel penyedia pada 2026 menunjukkan kira-kira Rp586 untuk marketing dan sekitar Rp357 untuk utility atau authentication, belum termasuk PPN 11%; pastikan di tabel resmi Meta. Ditambah biaya paket perangkat lunak yang Anda gunakan.
+
+**Q: Apakah broadcast WhatsApp Business lewat API berbayar?**
+
+A: Ya. Setiap template broadcast yang terkirim ditagih Meta sesuai kategorinya, biasanya marketing. Broadcast lewat aplikasi WhatsApp Business gratis, tetapi terbatas 256 kontak per daftar dan hanya sampai ke orang yang menyimpan nomor Anda.
+
+**Q: Apakah Meta mulai menagih balasan ke pelanggan?**
+
+A: Ya. Sejak 1 Oktober 2026 Meta kembali menagih pesan service dan template utility di dalam jendela layanan yang terbuka. Setiap nomor tetap mendapat 1.000 pesan service gratis per bulan.
+
+**Q: Bisakah tagihan WhatsApp API dibayar dalam Rupiah?**
+
+A: Ya. Rupiah termasuk mata uang yang tersedia untuk tagihan WhatsApp Business Platform. Mata uang sebuah akun tidak bisa diganti setelah dipilih, jadi periksa pengaturan tagihan di WhatsApp Manager sebelum mulai.
+
+**Q: Apakah masih ada biaya per percakapan 24 jam?**
+
+A: Tidak. Sejak Juli 2025 Meta menagih per pesan terkirim. Penawaran yang masih menyebut harga per conversation memakai model lama dan sebaiknya diminta diperbarui.
+
+---
+
+Dimas akhirnya memilih vendor yang memisahkan kedua harga dan memindahkan promo hanya ke pelanggan 90 hari terakhir. Nomor tokonya tidak pernah diblokir lagi, dan tagihan Meta bulan pertama lebih rendah daripada biaya langganan aplikasi blast lamanya ditambah dua nomor yang hilang. Jika bisnis Anda ingin tagihan yang sama jelasnya, lihat [paket StartMessaging](/id/pricing), baca panduan [memulai](/id/docs/whatsapp/getting-started) atau [hubungi tim penjualan kami](/id/contact).

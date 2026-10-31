@@ -242,7 +242,8 @@ export function buildContactPage(options: {
  */
 export function faqFromMarkdown(body: string | undefined): { question: string; answer: string }[] {
   if (!body) return [];
-  const section = body.replace(/\r/g, '').split(/^##\s+(?:FAQ|Frequently Asked Questions)\b.*$/m)[1];
+  // English plus the localized headings used by the country blogs (pt, es, id, tr, ar).
+  const section = body.replace(/\r/g, '').split(/^##\s+(?:FAQ|Frequently Asked Questions|Perguntas Frequentes|Preguntas Frecuentes|Pertanyaan yang Sering Diajukan|Sıkça Sorulan Sorular|الأسئلة الشائعة)(?:\s.*)?$/m)[1];
   if (!section) return [];
   const faq = section.split(/^(?:##\s|---\s*$)/m)[0];
   const plain = (s: string) => s

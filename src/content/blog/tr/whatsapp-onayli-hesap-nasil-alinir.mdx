@@ -1,0 +1,153 @@
+---
+title: "WhatsApp Onaylı Hesap Nasıl Alınır? İşletmeler İçin Mavi Tik"
+description: "WhatsApp onaylı hesap nasıl alınır: Meta Verified ile Resmi İşletme Hesabı farkı, şartlar, ücret, doğrulama belgeleri ve başvuru reddedilirse yapılacaklar."
+publishedAt: "2026-10-31"
+category: "guides"
+country: "tr"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp onaylı hesap alma"
+  - "whatsapp onaylı hesap"
+  - "whatsapp business onaylı hesap"
+  - "whatsapp mavi tik nasıl alınır"
+  - "whatsapp resmi işletme hesabı"
+  - "meta verified whatsapp"
+  - "meta işletme doğrulaması vergi levhası"
+relatedSlugs:
+  - "whatsapp-business-api-ucretli-mi-fiyatlandirma-2026"
+  - "whatsapp-business-api-turkiye-kurulum-rehberi"
+  - "kvkk-whatsapp-business-api-uyum-turkiye"
+  - "whatsapp-musteri-destegi-chatbot-turkiye"
+featured: false
+image: "/blog/images/whatsapp-blue-tick-verification-business.webp"
+---
+
+Selin, Ankara merkezli bir elektronik perakendecisinin dijital pazarlama müdürü. Kasım indirimleri başladığında çağrı merkezi aynı şikâyeti almaya başladı: Müşteriler, markanın adını ve logosunu kullanan bir WhatsApp numarasından "stok sonu fırsatı" mesajı almış, ürün bedelini havale ile göndermiş ve ürün hiç gelmemişti. Sohbet listesinde sahte numara ile gerçek numara birbirinin aynısıydı. Selin o akşam "WhatsApp onaylı hesap nasıl alınır" diye arattı ve mavi tiki 24 saatte, ücret karşılığında almayı vaat eden onlarca ilanla karşılaştı.
+
+Bu ilanların hiçbiri vaat ettiğini yapamaz. WhatsApp'taki onay rozetini yalnızca Meta verir ve farklı kuralları, maliyetleri olan iki resmi yol vardır. Bu rehber, WhatsApp Business uygulaması kullanan işletmeler için hangi yolun, resmi API kullanan işletmeler için hangi yolun geçerli olduğunu, Türkiye'deki bir şirketin hangi belgelere ihtiyaç duyduğunu ve Meta başvuruyu reddederse ne yapılacağını anlatıyor.
+
+## WhatsApp Onay Rozeti Nedir?
+
+Onay rozeti, sohbetlerde, işletme profilinde ve WhatsApp aramasında işletme adının yanında görünen mavi işarettir. 2024'ten önce bu rozet yeşildi; o tarihten bu yana WhatsApp, Facebook ve Instagram'daki gibi mavi işaret kullanıyor. "Yeşil tik" ile "mavi tik" aynı doğrulamayı ifade eder.
+
+Müşteri açısından rozet tek bir soruyu yanıtlar: Bu numara gerçekten iddia ettiği markaya mı ait? Selin'in müşterilerinin yanıtlayamadığı soru tam olarak buydu.
+
+### Rozet neyi değiştirmez?
+
+Rozet bir güven işaretidir. Gönderim limitinizi artırmaz, mesaj başı ücreti düşürmez ve şablon onaylarını hızlandırmaz. Gönderim limiti işletme doğrulamasına ve mesaj kalitesine, maliyet ise mesaj kategorisine bağlıdır; ayrıntılar [WhatsApp Business API fiyatlandırma rehberinde](/tr/blog/whatsapp-business-api-ucretli-mi-fiyatlandirma-2026). "Mavi tik artı sınırsız toplu mesaj" satan ajanslar birbiriyle ilgisi olmayan iki şeyi tek paket gibi sunuyor.
+
+## İki Yol: Meta Verified ve Resmi İşletme Hesabı
+
+| | İşletmeler için Meta Verified | Resmi İşletme Hesabı |
+|---|---|---|
+| WhatsApp'ı nerede kullanırsınız | Telefondaki WhatsApp Business uygulaması | Bir sağlayıcı üzerinden resmi API (WhatsApp Business Platform) |
+| Nasıl alınır | Uygulama içinden ücretli aylık abonelik | Meta'nın incelediği ücretsiz başvuru |
+| Meta neyi kontrol eder | İşletmenin ve hesabın kimliği | İşletme doğrulaması, platformdaki süre ve markanın bilinirliği |
+| Ücret | Uygulamada gösterilen tutar, hizmet varsa | Ücretsiz |
+| Türkiye'de kullanılabilirlik | Ülkeye ve hesaba göre değişir | API'deki numaralar için mevcut |
+
+### Meta Verified: uygulama yolu
+
+Meta Verified, WhatsApp Business uygulamasını kullanan işletmeler için bir aboneliktir. Meta bu hizmeti WhatsApp için önce Brezilya, Hindistan, Endonezya ve Kolombiya gibi pazarlarda başlattı; kullanılabilirlik, fiyat ve avantajlar ülkeye ve hesaba göre değişiyor. Türkiye'de hesabınız için açık olup olmadığını görmek için WhatsApp Business uygulamasında **Ayarlar** bölümünde **Meta Verified** seçeneğini arayın. Seçenek görünmüyorsa henüz sizin hesabınız için sunulmuyor demektir.
+
+Bu yol, tek bir telefondan tek kişinin yönettiği, e-ticaret sitesi veya sipariş sistemiyle entegrasyonu olmayan işletmeler için uygundur.
+
+### Resmi İşletme Hesabı: API yolu
+
+Resmi API'ye bağlı bir numara, yani StartMessaging gibi bir sağlayıcı üzerinden kullandığınız numara, rozeti **Resmi İşletme Hesabı** (Official Business Account, OBA) olarak alır. Abonelik yoktur: Başvuru gönderirsiniz, Meta onaylar veya reddeder.
+
+Meta'nın [resmi belgeleri](https://developers.facebook.com/documentation/business-messaging/whatsapp/official-business-accounts) şartları şöyle sıralıyor:
+
+- İşletme, WhatsApp Business Mesajlaşma Politikası'na uyuyor.
+- İşletme en az **30 gündür** WhatsApp Business Platform'da kayıtlı.
+- Numaranın bağlı olduğu işletme portföyü **İşletme Doğrulaması**'ndan geçmiş.
+- Numarada **iki adımlı doğrulama** açık.
+- Numaranın **görünen adı** onaylanmış.
+
+Çalışan hesapları, test numaraları ve WhatsApp Business uygulaması numaraları Resmi İşletme Hesabı olamaz. Meta ayrıca, bu statüye sahip olmayan numaraların, numarayı kaydetmemiş kullanıcılar için WhatsApp arama sonuçlarında görünmediğini belirtiyor.
+
+## Resmi İşletme Hesabını Kimler Alabiliyor?
+
+Beş şart asgari koşuldur, garanti değildir. Meta ayrıca markanın **bilinir** olup olmadığına bakar: İnsanların bu markayı arayıp aramadığına ve dolandırıcıların taklit etmeye çalışacağı türden bir marka olup olmadığına. Sağlayıcıların aktardığına göre Meta uygulamada markanın bağımsız haber kaynaklarında yer alıp almadığına bakıyor; ücretli içerikler, advertoryaller ve şirketin kendi yayınladığı içerikler sayılmıyor.
+
+Selin'in ilk başvurusu bu noktada reddedildi. Şirketin 25 mağazası ve yüksek takipçi sayıları vardı, ancak bağımsız basında neredeyse hiç haberi yoktu. Meta takipçi sayısını ya da ciroyu ölçmüyor.
+
+### Türkiye'de işletme doğrulaması
+
+İşletme Doğrulaması WhatsApp'ta değil, Meta İşletme Yöneticisi'nde (Güvenlik Merkezi) yapılır. Meta, portföyün gerçek ve kayıtlı bir işletmeye ait olduğunu kontrol eder. Türkiye'deki şirketler için sağlayıcıların sık bildirdiği belgeler şunlar:
+
+- Vergi levhası
+- Ticaret sicil gazetesi veya faaliyet belgesi
+- Şirket adına düzenlenmiş bir fatura (elektrik, telefon), adres belgesi olarak
+
+Retlerin çoğu küçük ayrıntılardan kaynaklanır: İşletme Yöneticisi'ndeki ticari unvan vergi levhasıyla birebir eşleşmez, adres farklı biçimde yazılmıştır ya da verilen telefon numarası hiçbir belgede geçmez. Meta, işletmenin kontrolünü bir iş telefonuna veya e-postasına gönderilen kodla ya da web sitesi alan adını doğrulayarak onaylamanıza izin verir. Kabul edilen belge listesi değişebilir; başvurduğunuz gün İşletme Yöneticisi'nin gösterdiği listeyi esas alın.
+
+İşletme doğrulaması aynı zamanda gönderim limitini günde 250 müşteriden 2.000 müşteriye çıkarmanın yollarından biridir. Rozet şu an önceliğiniz olmasa bile doğrulamayı tamamlamak faydalıdır.
+
+## API Üzerinden Mavi Tik Başvurusu
+
+Şartlar sağlandıysa başvuru birkaç dakika sürer.
+
+1. **WhatsApp Yöneticisi**'ni açın ve **Hesap araçları → Telefon numaraları** bölümüne gidin.
+2. Numarayı seçin. İki adımlı doğrulama kapalıysa açın. StartMessaging'de [numarayı bağlarken](/tr/docs/whatsapp/getting-started) belirlediğiniz 6 haneli PIN, bu iki adımlı doğrulama PIN'idir.
+3. Numaranın **Profil** sekmesinde **Resmi işletme hesabı** bölümünü bulun.
+4. **Talep gönder**'e tıklayın ve markanın bilinirliğini gösteren bağlantılar ekleyin: Kendi siteniz veya sosyal medya hesaplarınız değil, şirket hakkında bağımsız haberler.
+5. Gönderin ve bekleyin. Meta her başvuruyu ayrı inceler ve süreci hızlandırmanın bir yolu yoktur.
+
+Başvuru durumu Graph API'de numaranın `official_business_account` alanından da sorgulanabilir. Şartları karşıladığınız halde seçenek görünmüyorsa sağlayıcınızın destek ekibine veya Meta Destek'e başvurun.
+
+### Göndermeden önce kontrol listesi
+
+- İşletme Doğrulaması, İşletme Yöneticisi'nde **Doğrulandı** olarak görünüyor.
+- Numara en az 30 gündür platformda.
+- Görünen ad onaylı ve müşterilerin bildiği marka adıyla aynı.
+- İşletme profili eksiksiz: logo, açıklama, e-posta, web sitesi ve adres.
+- Marka hakkında 2 ila 5 bağımsız habere bağlantınız var.
+
+StartMessaging'deki **Connect** sayfası, işletme doğrulaması, kalite puanı ve gönderim limitini doğrudan Meta'dan gösterir; ilk maddeyi İşletme Yöneticisi'ni açmadan kontrol edebilirsiniz.
+
+## Başvuru Reddedilirse Ne Yapmalı?
+
+Retler yaygındır ve kalıcı değildir. Meta, ret tarihinden **30 gün** sonra yeni başvuruya izin verir. Bu süreyi gerçek nedeni düzeltmek için kullanın:
+
+1. **Bilinirlik:** En yaygın neden budur. Yerel gazeteler, iş dünyası haber siteleri ve sektör yayınları gibi bağımsız kaynaklarda yer almaya çalışın. Ücretli bülten dağıtım siteleri işe yaramaz.
+2. **Uyuşmayan bilgiler:** Ticari unvan, görünen ad ve web sitesini, incelemeyi yapan kişinin aynı şirket olduğunu anlayacağı şekilde hizalayın.
+3. **Kalite:** Numaranın kalite puanı düşükse veya şablonları duraklatıldıysa önce bunu düzeltin. Müşterilerin engellediği bir numara onaylanmaz.
+
+Ret başka hiçbir şeyi kısıtlamaz. İşletme profilini doldurmaya devam edebilirsiniz ve numaranızı kaydeden müşteriler görünen adınızı görür. Resmi numaranızı web sitenizde, Trendyol mağaza sayfanızda ve sosyal medyada yayınlayın ki müşteri ödeme yapmadan önce kontrol edebilsin.
+
+### Rozet beklerken sahte numaralara karşı ne yapılabilir?
+
+Rozet süreci haftalar sürebilir, ama taklitçiler beklemez. Selin'in ekibi ilk başvurunun sonucunu beklerken dört adım attı. Önce sahte numarayı WhatsApp içinden **Bildir** seçeneğiyle raporladı ve müşterilerden de aynısını yapmalarını istedi; aynı numara için gelen çok sayıda bildirim, WhatsApp'ın numarayı incelemesini hızlandırır. Ardından web sitesinin ana sayfasına, Trendyol ve Hepsiburada mağaza açıklamalarına "Resmi WhatsApp numaramız yalnızca budur" notunu ekledi. Üçüncü olarak, sipariş onayı ve kargo bildirimlerini resmi numaradan, müşterinin adını ve sipariş numarasını içeren onaylı şablonlarla göndermeye başladı; kişiselleştirilmiş, tutarlı mesajlar sahte numaradan gelenleri ayırt etmeyi kolaylaştırdı. Son olarak çağrı merkezine, müşteriler ödeme yapmadan önce numarayı doğrulayabilecekleri kısa bir yanıt metni verdi.
+
+Bu adımlar rozetin yerini tutmaz, ancak dolandırıcılığın etkisini rozet gelene kadar sınırlar. Mağdur olan müşterilerin bankalarına ve gerekirse savcılığa başvurması gerektiğini de açıkça belirtin.
+
+### Rozeti "garanti eden" ajanslara dikkat
+
+Bir ajans belgeleri ve başvuruyu hazırlamanıza yardım edebilir; bu meşru bir iştir. Ancak kararı yalnızca Meta verir. İşletme Yöneticisi yönetici erişiminizi, iki adımlı doğrulama PIN'inizi veya WhatsApp kayıt kodlarınızı kimseyle paylaşmayın: Bir taklitçinin ihtiyaç duyduğu erişim tam olarak budur. WhatsApp üzerinden müşteri verisi topluyorsanız KVKK bu verilere kimin eriştiğini kontrol etmenizi de gerektirir; ayrıntılar [KVKK ve WhatsApp Business API rehberinde](/tr/blog/kvkk-whatsapp-business-api-uyum-turkiye).
+
+## Sıkça Sorulan Sorular
+
+**Q: WhatsApp onaylı hesap ücretli mi?**
+
+A: API üzerinden Resmi İşletme Hesabı rozeti ücretsizdir; Meta başvuruyu inceler ve ücret almaz. Uygulama tarafında rozet Meta Verified aboneliğiyle gelir ve ücreti, hizmet hesabınız için açıksa uygulamada gösterilir.
+
+**Q: WhatsApp mavi tik ücretsiz nasıl alınır?**
+
+A: Numaranız resmi API'deyse Resmi İşletme Hesabı başvurusuyla. Doğrulanmış işletme, platformda 30 gün, iki adımlı doğrulama, onaylı görünen ad ve markanın bilinirliğini gösteren bağımsız basın haberleri gerekir.
+
+**Q: Meta Verified WhatsApp için Türkiye'de var mı?**
+
+A: Hesabınıza bağlı. Meta, WhatsApp için Meta Verified'ı önce başka pazarlarda başlattı ve ülkeleri kademeli olarak ekliyor. WhatsApp Business uygulamasında Ayarlar'a bakın; seçenek yoksa henüz sizin için sunulmuyor.
+
+**Q: Vergi levhasıyla işletme doğrulaması yapmak mavi tik verir mi?**
+
+A: Hayır. İşletme Doğrulaması şartlardan biridir, ancak Meta Resmi İşletme Hesabını onaylamadan önce markanın bilinirliğine de bakar. Doğrulama, gönderim limitini günde 250'den 2.000 müşteriye çıkarmaya da yardımcı olur.
+
+**Q: Başvurum reddedilirse ne zaman tekrar başvurabilirim?**
+
+A: Meta, ret tarihinden 30 gün sonra yeni başvuruya izin verir. Bu süreyi, çoğu zaman bağımsız basında yer almamak olan ret nedenini düzeltmek için kullanın.
+
+---
+
+Selin'in ikinci başvurusu ilkinden 45 gün sonra, iki iş dünyası haber sitesindeki haberlerin bağlantıları ve ticari unvanla birebir aynı görünen adla gönderildi ve onaylandı. Sahte numara hâlâ duruyor, ama artık markanın her faturasında ve paylaşımında aynı cümle var: Mavi tik yoksa biz değiliz. Ekibinizin tamamı aynı resmi numaradan müşteriye yanıt verecekse [StartMessaging paketlerine](/tr/pricing) göz atın, [ortak gelen kutusunu](/tr/whatsapp/shared-inbox) inceleyin veya [satış ekibimizle iletişime geçin](/tr/contact).

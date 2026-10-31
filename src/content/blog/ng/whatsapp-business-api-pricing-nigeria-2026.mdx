@@ -1,0 +1,147 @@
+---
+title: "WhatsApp Business API Pricing in Nigeria 2026: Cost per Message"
+description: "WhatsApp Business API pricing in Nigeria for 2026: cost per message by category, the new charge on customer replies, naira estimates and how to cut the bill."
+publishedAt: "2026-10-31"
+category: "business"
+country: "ng"
+author: "StartMessaging Team"
+keywords:
+  - "whatsapp business api pricing nigeria"
+  - "whatsapp business api cost per message"
+  - "whatsapp business api new pricing"
+  - "whatsapp api pricing nigeria naira"
+  - "is whatsapp business api free"
+  - "whatsapp charges for customer replies nigeria"
+  - "whatsapp marketing message cost nigeria"
+relatedSlugs:
+  - "whatsapp-business-verification-nigeria-blue-badge"
+  - "whatsapp-social-commerce-nigeria"
+  - "whatsapp-fintech-nigeria-onboarding-alerts"
+  - "ndpa-whatsapp-business-api-compliance-nigeria"
+featured: false
+image: "/blog/images/whatsapp-business-api-pricing-india-2026.webp"
+---
+
+Tolu runs customer experience for a Lagos fashion brand that sells on Instagram, Jumia and, increasingly, WhatsApp. In October her finance lead forwarded a news headline, "WhatsApp to charge businesses for customer replies", with one question underneath: "How much is this going to cost us?" Tolu didn't know. Their provider had sent three different quotes over the past year, one per conversation, one per message in dollars and one as a naira bundle, and none of them separated what Meta charges from what the provider adds.
+
+This guide answers the finance lead's question for Nigerian businesses in 2026. The bill always has two parts that are worth keeping apart: Meta's charge for each delivered message, and the cost of the software you use the API through. Once you separate them, you can estimate the monthly bill before it arrives and decide where to cut.
+
+## Is the WhatsApp Business API Free?
+
+No. The WhatsApp Business app is free, but the official API, which Meta calls the WhatsApp Business Platform, is paid. Meta doesn't charge a subscription. It charges for **each delivered message**, based on the message's **category** and the **recipient's country**.
+
+Since July 2025, Meta no longer charges per 24-hour "conversation". Many quotes in Nigeria still talk about conversation pricing; that is the old model and won't give you an accurate budget.
+
+### The four message categories
+
+| Category | Used for | Example |
+|---|---|---|
+| Marketing | Promotions, new arrivals, abandoned-basket reminders | "Our Detty December collection drops Friday — 20% off for early birds" |
+| Utility | Updates about something the customer already did | "Order #1042 has been dispatched with GIG Logistics" |
+| Authentication | One-time verification codes | "123456 is your verification code" |
+| Service | Free-form replies within the 24-hour window the customer opens | Answering a question about sizes |
+
+Meta sets the category from the template's content and reviews every template on approval. A "reminder" that includes a discount code is marketing, and is charged as marketing, even if you created it as utility.
+
+## What Meta Charges per Message in Nigeria
+
+Meta publishes rate cards by country and currency on its [official WhatsApp pricing page](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing), and only changes rates on the first day of a quarter. Nigeria is a standalone market on the rate card, and Meta's documentation lists no Nigeria rate change for October 2026. The naira isn't one of Meta's billing currencies, so Nigerian businesses are usually billed in US dollars.
+
+Rate tables published by providers in 2026 put Nigeria at roughly these figures:
+
+| Category | Approximate per delivered message |
+|---|---|
+| Marketing | about US$0.05 |
+| Utility | about US$0.007 to US$0.010, depending on the source |
+| Authentication | about US$0.007 |
+
+Sources disagree on the utility figure, so take the current numbers from Meta's page before you budget. What doesn't change is the ratio: a marketing message costs several times more than a utility message.
+
+### In naira
+
+Because Meta bills in dollars, your naira cost moves with the exchange rate. At an illustrative ₦1,500 to US$1, a marketing message is roughly ₦75 and a utility message roughly ₦10 to ₦15. Recalculate at the rate on your card statement; foreign-currency card charges can add your bank's fees on top.
+
+### What changed on 1 October 2026
+
+This is the change behind the headline Tolu's finance lead sent. From 1 October 2026, Meta resumed charging per message for two kinds of message that had been free:
+
+- **Service messages**, your free-form replies inside the 24-hour window, which had been free since November 2024.
+- **Utility templates sent inside an open customer service window.**
+
+Each business phone number gets a **free tier of 1,000 delivered service messages a month**. Unused messages don't roll over, and service messages get no volume discount. For a brand answering hundreds of WhatsApp enquiries a day, customer service on WhatsApp is no longer entirely free.
+
+### Volume discounts
+
+Meta applies monthly volume tiers to **utility and authentication** messages only. Marketing gets no volume discount. So send everything that genuinely is utility as utility: order confirmations, Paystack or Flutterwave payment receipts, bank-transfer confirmations, dispatch and delivery updates.
+
+## What the Provider Charges
+
+Meta's rates are the same for everyone. Providers differ in what they add:
+
+| Pricing model | How it works | What to check |
+|---|---|---|
+| Per-message markup | The provider resells Meta's message at a higher price | Expensive at volume and hides Meta's real price |
+| Naira bundles or credits | You prepay for a bundle | Whether credits expire and how they convert to messages |
+| Set-up fee | A one-off payment to "activate" the API | Signing up with Meta through Embedded Signup is free and quick |
+| Flat subscription | You pay for the software; Meta bills your account directly | What each plan includes: shared inbox, chatbot, campaigns |
+
+StartMessaging uses the last model. You connect **your own** WhatsApp Business Account through Meta's Embedded Signup, Meta charges messages directly to that account's payment method, and StartMessaging charges only the plan subscription, with no per-message fee. Plans are on the [pricing page](/ng/pricing).
+
+The question that settled it for Tolu was simple: "Can you show Meta's price and your price on separate lines?" Only one of three providers could.
+
+## How to Estimate Your Monthly Bill
+
+Multiply each category's volume by Meta's rate and add the software plan. An example close to Tolu's brand, using the approximate rates above:
+
+| Message | Monthly volume | Category |
+|---|---|---|
+| Order and payment confirmations | 3,000 | Utility |
+| Dispatch and delivery updates | 3,000 | Utility |
+| Abandoned-basket reminder with code | 1,000 | Marketing |
+| Fortnightly campaign to active customers | 4,000 | Marketing |
+| Customer service replies | 6,000 | Service (1,000 free) |
+
+```
+Utility:   6,000 × ~US$0.008 ≈ US$48
+Marketing: 5,000 × ~US$0.05  ≈ US$250
+Service:   5,000 × Meta's service rate   (6,000 minus 1,000 free)
++ bank FX fees, VAT where it applies, and the software plan
+```
+
+Marketing is the smaller volume and still the biggest line by far. The two moves that cut the bill most are sending marketing only to people likely to buy, and keeping utility templates purely informational.
+
+### Five ways to pay less
+
+1. **Target marketing.** Send campaigns to customers who bought or clicked in the last 90 days, not the whole database.
+2. **Keep utility clean.** A delivery update shouldn't carry a promo code.
+3. **Resolve in one reply.** Every service message after the free 1,000 is charged; buttons and menus cut the back-and-forth.
+4. **Use click-to-WhatsApp ads.** Conversations that start from [ads that open a WhatsApp chat](/ng/whatsapp/click-to-whatsapp-ads) open a free entry point window.
+5. **Audit the billed category.** Every message sent through the API records the category Meta charged it under.
+
+Messaging people who never opted in costs you in another way: blocks and reports lower your number's quality rating and messaging limit. The Nigeria Data Protection Act also requires a lawful basis, such as consent, for marketing messages; our [NDPA and WhatsApp Business API guide](/ng/blog/ndpa-whatsapp-business-api-compliance-nigeria) covers the details.
+
+## Frequently Asked Questions
+
+**Q: How much does the WhatsApp Business API cost per message in Nigeria?**
+
+A: Meta charges per delivered message by category. Provider rate tables in 2026 put Nigeria at roughly US$0.05 for marketing and around US$0.007 to US$0.010 for utility, with authentication at about US$0.007; confirm on Meta's official rate card. The software plan you use is extra.
+
+**Q: Is the WhatsApp Business API free in Nigeria?**
+
+A: No. The WhatsApp Business app is free, but the API is charged per delivered message. Since October 2026, each number gets 1,000 free service messages a month, and other messages are charged.
+
+**Q: Is WhatsApp charging businesses for customer replies?**
+
+A: Yes. From 1 October 2026, Meta charges per message for service replies and for utility templates sent inside an open window. Each business number keeps 1,000 free service messages a month.
+
+**Q: Can I pay for the WhatsApp Business API in naira?**
+
+A: Not directly to Meta at present: the naira isn't one of Meta's WhatsApp billing currencies, so Nigerian accounts are usually billed in US dollars. Some providers sell naira bundles, but ask them to show Meta's dollar rate separately.
+
+**Q: Is WhatsApp still charging per conversation?**
+
+A: No. Since July 2025, Meta charges per delivered message. A quote based on conversation pricing uses the old model and should be updated.
+
+---
+
+Tolu sent her finance lead a table like the one above with three changes: campaigns only to customers from the last 90 days, delivery updates without promo codes, and button menus in customer service. November's Meta bill came in below September's, despite the new charges. If you'd like a bill you can predict as easily, see [StartMessaging plans](/ng/pricing), read the [getting started guide](/ng/docs/whatsapp/getting-started) or [talk to our sales team](/ng/contact).
